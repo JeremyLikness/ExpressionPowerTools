@@ -18,7 +18,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// </summary>
         /// <example>
         /// For example:
-        /// <code>
+        /// <code lang="csharp">
         /// Expression{Func{string}} expr = () => foo;
         /// expr.MemberName(); // "foo"
         /// </code>
@@ -35,7 +35,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// </summary>
         /// <example>
         /// For example:
-        /// <code>
+        /// <code lang="csharp">
         /// var expr = Expression.Constant(this);
         /// var target = expr.AsEnumerable();
         /// </code>
@@ -55,7 +55,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// </summary>
         /// <example>
         /// For example:
-        /// <code>
+        /// <code lang="csharp">
         /// var target = this.AsConstantExpression();
         /// </code>
         /// </example>
@@ -75,7 +75,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// </summary>
         /// <example>
         /// For example:
-        /// <code>
+        /// <code lang="csharp">
         /// var target = this.AsParameterExpression();
         /// // target.Type == this.GetType()
         /// </code>
@@ -96,7 +96,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// </summary>
         /// <example>
         /// For example:
-        /// <code>
+        /// <code lang="csharp">
         /// var target = GetType().AsParameterExpression();
         /// // target.Type == GetType()
         /// </code>
@@ -116,7 +116,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// </summary>
         /// <example>
         /// For example:
-        /// <code>
+        /// <code lang="csharp">
         /// var result = ExpressionExtensions
         ///     .CreateParameterExpression{Foo, string}(
         ///        foo => foo.Bar);

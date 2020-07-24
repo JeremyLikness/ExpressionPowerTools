@@ -19,7 +19,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// <param name="query">The query to enumerate.</param>
         /// <example>
         /// For example:
-        /// <code>
+        /// <code lang="csharp">
         /// var query = new List{IQueryableExtensionsTests}()
         ///        .AsQueryable()
         ///        .Where(t => t.GetHashCode() == int.MaxValue);

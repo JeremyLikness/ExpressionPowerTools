@@ -4,11 +4,17 @@
     <Description>Core functionality for working with expression trees.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <VsxmdAutoDeleteXml>true</VsxmdAutoDeleteXml>
+    <DocumentationFile>../docs/ExpressionPowerTools.Core.xml</DocumentationFile>
     <PackageTags>$(PackageTags);Core</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Vsxmd" Version="1.4.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
