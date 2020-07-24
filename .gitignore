@@ -1,0 +1,16 @@
+# Ignore these files
+
+# Visual Studio options folder
+.vs/
+
+# Build objects
+obj/
+
+# Build assets
+bin/
+
+# Test results
+TestResults/
+
+# Docs log
+log.txt
