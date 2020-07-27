@@ -11,7 +11,19 @@ namespace ExpressionPowerTools.Core.Tests
         public string Id { get; set; }
 
         [Fact]
-        public void GivenExpressionWhenMemberNameExtensionCalledThenSholdReturnName()
+        public void GivenExpressionsAreEquivalentWhenIsEquivalentToCalledThenShouldReturnTrue()
+        {
+            Assert.True(1.AsConstantExpression().IsEquivalentTo(1.AsConstantExpression()));
+        }
+
+        [Fact]
+        public void GivenExpressionsAreNotEquivalentWhenIsEquivalentToCalledThenShouldReturnFalse()
+        {
+            Assert.False(1.AsConstantExpression().IsEquivalentTo(0.AsConstantExpression()));
+        }
+
+        [Fact]
+        public void GivenExpressionWhenMemberNameExtensionCalledThenShouldReturnName()
         {
             var foo = string.Empty;
             Expression<Func<string>> expr = () => foo;
@@ -65,7 +77,27 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var target = this.AsParameterExpression();
             Assert.NotNull(target);
-            Assert.Same(GetType(), target.Type);
+            Assert.Equal(GetType(), target.Type);
+            Assert.False(target.IsByRef);
+        }
+
+        [Fact]
+        public void AsParameterExpressionForObjectWithNameShouldReturnParameterExpressionOfObjectTypeWithName()
+        {
+            ParameterExpression target = this.AsParameterExpression(nameof(target));
+            Assert.NotNull(target);
+            Assert.Equal(GetType(), target.Type);
+            Assert.Equal(nameof(target), target.Name);
+            Assert.False(target.IsByRef);
+        }
+
+        [Fact]
+        public void AsParameterExpressionForObjectByRefShouldReturnParameterExpressionOfObjectTypeByRef()
+        {
+            ParameterExpression target = this.AsParameterExpression(byRef: true);
+            Assert.NotNull(target);
+            Assert.Equal(GetType(), target.Type);
+            Assert.True(target.IsByRef);
         }
 
         [Fact]
@@ -81,6 +113,24 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var target = GetType().AsParameterExpression();
             Assert.Equal(GetType(), target.Type);
+            Assert.False(target.IsByRef);
+        }
+
+        [Fact]
+        public void AsParameterExpressionForTypeWithNameShouldReturnParameterExpressionForTypeWithName()
+        {
+            ParameterExpression target = GetType().AsParameterExpression(nameof(target));
+            Assert.Equal(GetType(), target.Type);
+            Assert.Equal(nameof(target), target.Name);
+            Assert.False(target.IsByRef);
+        }
+
+        [Fact]
+        public void AsParameterExpressionForTypeByRefShouldReturnParameterExpressionForTypeByRef()
+        {
+            var target = GetType().AsParameterExpression(byRef: true);
+            Assert.Equal(GetType(), target.Type);
+            Assert.True(target.IsByRef);
         }
 
         [Fact]

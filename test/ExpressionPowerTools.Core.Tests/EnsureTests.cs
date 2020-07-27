@@ -45,11 +45,11 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void GivenExpressionThatResolvesToNullWhenPropertyNotNullCalledThenShouldThrowNullReference()
+        public void GivenExpressionThatResolvesToNullWhenVariableNotNullCalledThenShouldThrowNullReference()
         {
             string foo = null;
             Assert.Throws<NullReferenceException>(
-                () => Ensure.PropertyNotNull(() => foo));
+                () => Ensure.VariableNotNull(() => foo));
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ExpressionPowerTools.Core.Tests
             string foo = null;
             try
             {
-                Ensure.PropertyNotNull(() => foo);
+                Ensure.VariableNotNull(() => foo);
             }
             catch (NullReferenceException ex)
             {
@@ -71,7 +71,7 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void GivenExpressionThatDoesNotResolveToNullWhenPropertyNotNullCalledThenShouldReturn()
+        public void GivenExpressionThatDoesNotResolveToNullWhenVariableNotNullCalledThenShouldReturn()
         {
             var foo = string.Empty;
             Ensure.NotNull(() => foo);

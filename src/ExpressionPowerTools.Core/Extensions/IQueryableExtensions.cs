@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Signatures;
 
@@ -34,6 +35,31 @@ namespace ExpressionPowerTools.Core.Extensions
             Ensure.NotNull(() => query);
             return new ExpressionEnumerator(query.Expression);
         }
+
+        /// <summary>
+        /// Determines whether the expression tree of the query is equivalent to the other query.
+        /// </summary>
+        /// <param name="source">The source <see cref="IQueryable"/>.</param>
+        /// <param name="target">The target <see cref="IQueryable"/>.</param>
+        /// <returns>A flag indicating whether the queries are equivalent.</returns>
+        public static bool IsEquivalentTo(
+            this IQueryable source,
+            IQueryable target) =>
+            ExpressionEquivalency.AreEquivalent(
+                source.Expression, target?.Expression);
+
+        /// <summary>
+        /// Determines whether the expression tree of the query is equivalent to the other query.
+        /// </summary>
+        /// <typeparam name="T">The entity being queried.</typeparam>
+        /// <param name="source">The source <see cref="IQueryable{T}"/>.</param>
+        /// <param name="target">The target <see cref="IQueryable{T}"/>.</param>
+        /// <returns>A flag indicating whether the queries are equivalent.</returns>
+        public static bool IsEquivalentTo<T>(
+            this IQueryable<T> source,
+            IQueryable<T> target) =>
+                IsEquivalentTo(
+                    (IQueryable)source, target);
 
         /// <summary>
         /// Generic extension.

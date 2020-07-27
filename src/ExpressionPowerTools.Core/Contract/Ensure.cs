@@ -17,6 +17,11 @@ namespace ExpressionPowerTools.Core.Contract
         /// Ensures that the result of an argument expression is
         /// not null.
         /// </summary>
+        /// <example>
+        /// <code lang="csharp">
+        /// Ensure.NotNull(() => parameter);
+        /// </code>
+        /// </example>
         /// <typeparam name="T">The type of the value to test.</typeparam>
         /// <param name="value">An expression that resolves to the value.</param>
         public static void NotNull<T>(Expression<Func<T>> value)
@@ -31,9 +36,15 @@ namespace ExpressionPowerTools.Core.Contract
         /// <summary>
         /// Ensures that the result of an expression is not null.
         /// </summary>
+        /// <example>
+        /// For example:
+        /// <code lang="csharp">
+        /// Ensure.VariableNotNull(() => localVariable);
+        /// </code>
+        /// </example>
         /// <typeparam name="T">The type of the value to test.</typeparam>
         /// <param name="value">An expression that resolves to the value.</param>
-        public static void PropertyNotNull<T>(Expression<Func<T>> value)
+        public static void VariableNotNull<T>(Expression<Func<T>> value)
         {
             var fn = value.Compile();
             if (fn() == null)
@@ -45,8 +56,14 @@ namespace ExpressionPowerTools.Core.Contract
         }
 
         /// <summary>
-        /// Ensure the property is not null or whitespace.
+        /// Ensure the value is not null or whitespace.
         /// </summary>
+        /// <example>
+        /// For example:
+        /// <code lang="csharp">
+        /// Ensure.NotNullOrWhiteSpace(() => value);
+        /// </code>
+        /// </example>
         /// <param name="value">An expression that resolves to the value.</param>
         public static void NotNullOrWhitespace(
             Expression<Func<string>> value)

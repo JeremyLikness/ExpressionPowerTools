@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection.Metadata;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
@@ -80,7 +79,7 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void MethodCall()
+        public void GivenMethodCallWhenEnumeratorCalledThenShouldReturnExpressions()
         {
             var method = Expression.Call(
                 typeof(DateTime),
@@ -94,7 +93,7 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void Unary()
+        public void GivenUnaryWhenEnumeratorCalledThenShouldReturnExpressions()
         {
             var unary = Expression.Convert(Expression.Constant(this),
                 typeof(object));
@@ -106,7 +105,7 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void Default()
+        public void GivenDefaultWhenEnumeratorCalledThenShouldReturnExpressions()
         {
             var invocation = Expression.Invoke(
                 Lambda, Expression.Constant(this));

@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Signatures;
 
@@ -19,7 +20,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// <example>
         /// For example:
         /// <code lang="csharp">
-        /// Expression{Func{string}} expr = () => foo;
+        /// Expression&lt;Func&lt;string>> expr = () => foo;
         /// expr.MemberName(); // "foo"
         /// </code>
         /// </example>
@@ -76,18 +77,21 @@ namespace ExpressionPowerTools.Core.Extensions
         /// <example>
         /// For example:
         /// <code lang="csharp">
-        /// var target = this.AsParameterExpression();
-        /// // target.Type == this.GetType()
+        /// var target = this.AsParameterExpression(nameof(parameter));
+        /// // target.Type == this.GetType(), target.Name == "parameter"
         /// </code>
         /// </example>
         /// <param name="obj">The object to inspect.</param>
+        /// <param name="name">Optional name for the parameter.</param>
+        /// <param name="byRef">Set to <c>true</c> when parameter is by reference.</param>
         /// <exception cref="ArgumentNullException">Thrown when object is null.</exception>
         /// <returns>The <see cref="ParameterExpression"/>.</returns>
         public static ParameterExpression AsParameterExpression(
-            this object obj)
+            this object obj, string name = null, bool byRef = false)
         {
             Ensure.NotNull(() => obj);
-            return Expression.Parameter(obj.GetType());
+            var type = obj.GetType();
+            return type.AsParameterExpression(name, byRef);
         }
 
         /// <summary>
@@ -102,13 +106,17 @@ namespace ExpressionPowerTools.Core.Extensions
         /// </code>
         /// </example>
         /// <param name="type">The <see cref="Type"/> to use.</param>
+        /// <param name="name">Optional name for the parameter.</param>
+        /// <param name="byRef">Set to <c>true</c> when parameter is by reference.</param>
         /// <exception cref="ArgumentNullException">Thrown when type is null.</exception>
         /// <returns>The <see cref="ParameterExpression"/>.</returns>
         public static ParameterExpression AsParameterExpression(
-            this Type type)
+            this Type type, string name = null, bool byRef = false)
         {
             Ensure.NotNull(() => type);
-            return Expression.Parameter(type);
+            var typeToUse = byRef ? type.MakeByRefType() : type;
+            return name == null ? Expression.Parameter(typeToUse) :
+                Expression.Parameter(typeToUse, name);
         }
 
         /// <summary>
@@ -139,5 +147,16 @@ namespace ExpressionPowerTools.Core.Extensions
                 body.Type,
                 body.Member.Name);
         }
+
+        /// <summary>
+        /// Uses <see cref="ExpressionEquivalency"/> to determine equivalency.
+        /// </summary>
+        /// <param name="source">The source <see cref="Expression"/>.</param>
+        /// <param name="target">The target <see cref="Expression"/>.</param>
+        /// <returns>A flag indicating whether the expressions are equivalent.</returns>
+        public static bool IsEquivalentTo(
+            this Expression source,
+            Expression target) =>
+                ExpressionEquivalency.AreEquivalent(source, target);
     }
 }
