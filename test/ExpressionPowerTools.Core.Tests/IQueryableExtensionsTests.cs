@@ -90,6 +90,122 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.False(source.IsEquivalentTo(target));
         }
 
+        [Fact]
+        public void GivenSimilarQueriesIsSimilarToShouldReturnTrue()
+        {
+            var list = new List<IdType>();
+            IQueryable source = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "3");
+            IQueryable target = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "3");
+            Assert.True(source.IsSimilarTo(target));
+        }
 
+        [Fact]
+        public void GivenNotSimilarQueriesIsSimilarToShouldReturnFalse()
+        {
+            var list = new List<IdType>();
+            IQueryable source = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "3");
+            IQueryable target = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "4");
+            Assert.False(source.IsSimilarTo(target));
+        }
+
+        [Fact]
+        public void GivenNullIsSimilarToShouldReturnFalse()
+        {
+            var list = new List<IdType>();
+            IQueryable source = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "3");
+            Assert.False(source.IsSimilarTo(null));
+        }
+
+        [Fact]
+        public void GivenSimilarTypedQueriesIsSimilarToShouldReturnTrue()
+        {
+            var list = new List<IdType>();
+            IQueryable<IdType> source = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "3");
+            IQueryable<IdType> target = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "3");
+            Assert.True(source.IsSimilarTo(target));
+        }
+
+        [Fact]
+        public void GivenNotSimilarTypedQueriesIsSimilarToShouldReturnFalse()
+        {
+            var list = new List<IdType>();
+            IQueryable<IdType> source = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "3");
+            IQueryable<IdType> target = list
+                .AsQueryable()
+                .Where(t => t.Id == "1" && t.Echo("1", "2") == "4");
+            Assert.False(source.IsSimilarTo(target));
+        }
+
+        [Fact]
+        public void CreateQueryTemplateUsesEmptyList()
+        {
+            var target = IQueryableExtensions.CreateQueryTemplate<IdType>();
+            Assert.False(target.Any());
+        }
+
+        [Fact]
+        public void CreateQueryTemplateFromQueryUsesEmptyList()
+        {
+            var source = QueryHelper.QuerySkip2Take3;
+            var target = source.CreateQueryTemplate();
+            Assert.False(target.Any());
+        }
+
+        private IQueryable<QueryHelper> TestQuery() =>
+            IQueryableExtensions.CreateQueryTemplate<QueryHelper>()
+                .Where(q => q.Id == nameof(QueryHelper) &&
+                    q.Created > DateTime.Now.AddDays(-1))
+                .Skip(2)
+                .Take(3)
+                .OrderBy(q => q.Created);
+        
+        [Fact]
+        public void GivenFragmentIsNotInQueryWhenHasFragmentCalledThenShouldReturnFalse()
+        {
+            var target = TestQuery();
+            Assert.False(target.HasFragment(
+                q => q.Where(qh => qh.Id == nameof(Queryable))));
+            Assert.False(target.HasFragment(
+                q => q.Where(qh => qh.Created > DateTime.Now.AddDays(1))));
+            Assert.False(target.HasFragment(q => q.Skip(3)));
+            Assert.False(target.HasFragment(q => q.Take(2)));
+            Assert.False(target.HasFragment(q => q.OrderBy(q => q.Id)));
+        }
+
+        [Fact]
+        public void GivenFragmentIsInQueryWhenHasFragmentCalledThenShouldReturnTrue()
+        {
+            var target = TestQuery();
+            Assert.True(target.HasFragment(
+                q => q.Where(qh => qh.Id == nameof(QueryHelper))));
+            Assert.True(target.HasFragment(
+                q => q.Where(qh => qh.Created > DateTime.Now.AddDays(-1))));
+            Assert.True(target.HasFragment(q => q.Skip(2)));
+            Assert.True(target.HasFragment(q => q.Take(3)));
+            Assert.True(target.HasFragment(q => q.OrderBy(q => q.Created)));
+        }
     }
 }
+
+
+
+
+
+
+

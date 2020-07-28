@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
@@ -62,6 +63,31 @@ namespace ExpressionPowerTools.Core.Extensions
                     (IQueryable)source, target);
 
         /// <summary>
+        /// Determines whether the expression tree of the query is similar to the other query.
+        /// </summary>
+        /// <param name="source">The source <see cref="IQueryable"/>.</param>
+        /// <param name="target">The target <see cref="IQueryable"/>.</param>
+        /// <returns>A flag indicating whether the queries are similar.</returns>
+        public static bool IsSimilarTo(
+            this IQueryable source,
+            IQueryable target) =>
+            ExpressionSimilarity.AreSimilar(
+                source.Expression, target?.Expression);
+
+        /// <summary>
+        /// Determines whether the expression tree of the query is similar to the other query.
+        /// </summary>
+        /// <typeparam name="T">The entity being queried.</typeparam>
+        /// <param name="source">The source <see cref="IQueryable{T}"/>.</param>
+        /// <param name="target">The target <see cref="IQueryable{T}"/>.</param>
+        /// <returns>A flag indicating whether the queries are similar.</returns>
+        public static bool IsSimilarTo<T>(
+            this IQueryable<T> source,
+            IQueryable<T> target) =>
+                IsSimilarTo(
+                    (IQueryable)source, target);
+
+        /// <summary>
         /// Generic extension.
         /// </summary>
         /// <typeparam name="T">The query type.</typeparam>
@@ -70,5 +96,48 @@ namespace ExpressionPowerTools.Core.Extensions
         public static IExpressionEnumerator AsEnumerableExpression<T>(
             this IQueryable<T> query)
             => AsEnumerableExpression((IQueryable)query);
+
+        /// <summary>
+        /// Creates a queryable from an empty list used for templates to compare.
+        /// </summary>
+        /// <typeparam name="T">The type of entity.</typeparam>
+        /// <returns>The <see cref="IQueryable{T}"/> to build on.</returns>
+        public static IQueryable<T> CreateQueryTemplate<T>() =>
+            new List<T>().AsQueryable();
+
+        /// <summary>
+        /// Creates a new queryable to build a template from.
+        /// </summary>
+        /// <typeparam name="T">The type of entity.</typeparam>
+        /// <param name="noop">The source <see cref="IQueryable{T}"/>.</param>
+        /// <returns>The <see cref="IQueryable{T}"/> to build on.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Style",
+            "IDE0060:Remove unused parameter",
+            Justification = "Needed for template")]
+        public static IQueryable<T> CreateQueryTemplate<T>(
+            this IQueryable<T> noop) =>
+            CreateQueryTemplate<T>();
+
+        /// <summary>
+        /// Determine whether a fragment of queryable exists in the
+        /// target query.
+        /// </summary>
+        /// <remarks>
+        /// This will return true if all parts of the fragment's expression tree
+        /// are similar to all parts of a similar expression in the source.
+        /// </remarks>
+        /// <typeparam name="T">The type of entity.</typeparam>
+        /// <param name="source">The <see cref="IQueryable{T}"/> to check.</param>
+        /// <param name="fragment">The fragment to test.</param>
+        /// <returns>A flag indicating whether the fragment is part of the parent query.</returns>
+        public static bool HasFragment<T>(
+            this IQueryable<T> source,
+            Func<IQueryable<T>, IQueryable<T>> fragment)
+        {
+            var target = fragment(source.CreateQueryTemplate());
+            return target.Expression.IsPartOf(source.Expression);
+        }
+
     }
 }

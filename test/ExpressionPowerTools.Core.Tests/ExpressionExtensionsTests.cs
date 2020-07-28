@@ -23,6 +23,18 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
+        public void GivenExpressionsAreSimilarWhenIsSimilarToCalledThenShouldReturnTrue()
+        {
+            Assert.True(1.AsConstantExpression().IsSimilarTo(1.AsConstantExpression()));
+        }
+
+        [Fact]
+        public void GivenExpressionsAreNotSimilarWhenIsSimilarToCalledThenShouldReturnFalse()
+        {
+            Assert.False(1.AsConstantExpression().IsSimilarTo(0.AsConstantExpression()));
+        }
+
+        [Fact]
         public void GivenExpressionWhenMemberNameExtensionCalledThenShouldReturnName()
         {
             var foo = string.Empty;
@@ -159,6 +171,22 @@ namespace ExpressionPowerTools.Core.Tests
                 (test => test.Id);
             Assert.NotNull(target);
             Assert.Equal(nameof(Id), target.Name);
+        }
+
+        [Fact]
+        public void GivenExpressionNotPartOfTargetWhenIsPartOfCalledThenShouldReturnFalse()
+        {
+            var target = Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());
+            var source = 3.AsConstantExpression();
+            Assert.False(source.IsPartOf(target));
+        }
+
+        [Fact]
+        public void GivenExpressionPartOfTargetWhenIsPartOfCalledThenShouldReturnTrue()
+        {
+            var target = Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());
+            var source = 2.AsConstantExpression();
+            Assert.True(source.IsPartOf(target));
         }
     }
 }

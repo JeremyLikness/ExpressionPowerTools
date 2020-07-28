@@ -1,15 +1,15 @@
-﻿using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Core.Tests.TestHelpers;
+﻿using ExpressionPowerTools.Core.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Extensions;
+using eq = ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity;
 using Xunit;
-using eq = ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency;
 
 namespace ExpressionPowerTools.Core.Tests
 {
-    public class ExpressionEquivalencyTests
+    public class ExpressionSimilarityTests
     {
         private static ConstantExpression Five =>
             Expression.Constant(5);
@@ -46,7 +46,7 @@ namespace ExpressionPowerTools.Core.Tests
         public static IEnumerable<object[]> GetBinaryExpressionMatrix()
         {
 
-            // left equivalent, right not equivalent (false)
+            // left Similar, right not Similar (false)
             yield return new object[]
             {
                 Expression.Add(Five, Six),
@@ -54,7 +54,7 @@ namespace ExpressionPowerTools.Core.Tests
                 false
             };
 
-            // left not equivalent, right equivalent (false)
+            // left not Similar, right Similar (false)
             yield return new object[]
             {
                 Expression.Add(Five, Six),
@@ -62,7 +62,7 @@ namespace ExpressionPowerTools.Core.Tests
                 false
             };
 
-            // left equivalent, right equivalent (true)
+            // left Similar, right Similar (true)
             yield return new object[]
             {
                 Expression.Add(Five, Six),
@@ -175,279 +175,246 @@ namespace ExpressionPowerTools.Core.Tests
 
         [Theory]
         [MemberData(nameof(GetNullMatrix))]
-        public void GivenEitherExpressionNullThenAreEquivalentShouldReturnFalse(
+        public void GivenEitherExpressionNullThenAreSimilarShouldReturnFalse(
             Expression left,
             Expression right)
         {
-            Assert.False(eq.AreEquivalent(left, right));
+            Assert.False(eq.AreSimilar(left, right));
         }
 
         [Fact]
-        public void GivenConstantsWithDifferentTypeThenAreEquivalentShouldReturnFalse()
+        public void GivenConstantsWithDifferentTypeThenAreSimilarShouldReturnFalse()
         {
-            Assert.False(eq.AreEquivalent(Five, StrFive));
+            Assert.False(eq.AreSimilar(Five, StrFive));
         }
 
         [Fact]
-        public void GivenConstantsWithDifferentValuesThenAreEquivalentShouldReturnFalse()
+        public void GivenConstantsWithDifferentValuesThenAreSimilarShouldReturnFalse()
         {
-            Assert.False(eq.AreEquivalent(Five, Six));
+            Assert.False(eq.AreSimilar(Five, Six));
         }
 
         [Theory]
         [MemberData(nameof(GetConstantExpressionMatrix))]
-        public void GivenConstantWithExpressionThenAreEquivalentShouldRecursivelyCompare(
+        public void GivenConstantWithExpressionThenAreSimilarShouldRecursivelyCompare(
             Expression left,
             Expression right,
-            bool equivalent)
+            bool Similar)
         {
-            if (equivalent)
+            if (Similar)
             {
-                Assert.True(eq.AreEquivalent(left, right));
+                Assert.True(eq.AreSimilar(left, right));
             }
             else
             {
-                Assert.False(eq.AreEquivalent(left, right));
+                Assert.False(eq.AreSimilar(left, right));
             }
         }
 
         [Fact]
-        public void GivenConstantsOfSameTypeBothNullThenAreEquivalentShouldReturnTrue()
+        public void GivenConstantsOfSameTypeBothNullThenAreSimilarShouldReturnTrue()
         {
-            Assert.True(eq.AreEquivalent(StrNull, StrNull));
+            Assert.True(eq.AreSimilar(StrNull, StrNull));
         }
 
         [Fact]
-        public void GivenConstantsOfSameTypeWithOneNullThenAreEquivalentShouldReturnFalse()
+        public void GivenConstantsOfSameTypeWithOneNullThenAreSimilarShouldReturnFalse()
         {
-            Assert.False(eq.AreEquivalent(StrNull, StrFive));
+            Assert.False(eq.AreSimilar(StrNull, StrFive));
         }
 
         [Fact]
-        public void GivenConstantWithSameReferenceThenAreEquivalentShouldReturnTrue()
+        public void GivenConstantWithSameReferenceThenAreSimilarShouldReturnTrue()
         {
-            Assert.True(eq.AreEquivalent(
+            Assert.True(eq.AreSimilar(
                 Expression.Constant(this),
                 Expression.Constant(this)));
         }
 
         [Fact]
-        public void GivenConstantWithDifferentReferenceThenAreEquivalentShouldReturnFalse()
+        public void GivenConstantWithDifferentReferenceThenAreSimilarShouldReturnFalse()
         {
             var other = new ExpressionEquivalencyTests();
-            Assert.False(eq.AreEquivalent(
+            Assert.False(eq.AreSimilar(
                 Expression.Constant(this),
                 Expression.Constant(other)));
         }
 
         [Fact]
-        public void GivenEnumerableConstantWithSameMembersThenAreEquivalentShouldReturnTrue()
+        public void GivenEnumerableConstantWithSameTypeThenAreSimilarShouldReturnTrue()
         {
-            var source = new int?[] { 1, null, 3 }.AsConstantExpression();
-            var target = new int?[] { 1, null, 3 }.AsConstantExpression();
-            Assert.True(eq.AreEquivalent(source, target));
+            var source = new List<int?> { 1, null, 3 }.AsConstantExpression();
+            var target = new List<int?> { 1, null, 3 }.AsConstantExpression();
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenEnumerableConstantWithDifferentMembersThenAreEquivalentShouldReturnFalse()
+        public void GivenEnumerableConstantWithDifferentTypeThenAreSimilarShouldReturnFalse()
         {
-            var source = new[] { 1, 2, 3 }.AsConstantExpression();
-            var target = new[] { 1, 2, 4 }.AsConstantExpression();
-            Assert.False(eq.AreEquivalent(source, target));
+            var source = new List<int?> { 1, 2, 3 }.AsConstantExpression();
+            var target = new List<int> { 1, 2, 4 }.AsConstantExpression();
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenEnumerableConstantWithSourceNullThenAreEquivalentShouldReturnFalse()
-        {
-            var source = new int?[] { 1, null, 3 }.AsConstantExpression();
-            var target = new int?[] { 1, 2, 3 }.AsConstantExpression();
-            Assert.False(eq.AreEquivalent(source, target));
-        }
-
-        [Fact]
-        public void GivenEnumerableConstantWithTargetNullThenAreEquivalentShouldReturnFalse()
-        {
-            var source = new int?[] { 1, 2, 3 }.AsConstantExpression();
-            var target = new int?[] { 1, null, 3 }.AsConstantExpression();
-            Assert.False(eq.AreEquivalent(source, target));
-        }
-
-        [Fact]
-        public void GivenEnumerableOfShorterLengthThenAreEquivalentShouldReturnFalse()
+        public void GivenEnumerableOfShorterLengthThenAreSimilarShouldReturnTrue()
         {
             var source = new[] { 1, 2, 3 }.AsConstantExpression();
             var target = new[] { 1, 2 }.AsConstantExpression();
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenEnumerableOfLongerLengthThenAreEquivalentShouldReturnFalse()
+        public void GivenEnumerableOfLongerLengthThenAreSimilarShouldReturnTrue()
         {
             var source = new[] { 1, 2, 3 }.AsConstantExpression();
             var target = new[] { 1, 2, 3, 4 }.AsConstantExpression();
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenEnumerableWithItemsInDifferentOrderThenAreEquivalentShouldReturnFalse()
+        public void GivenEnumerableWithComplexTypesInDifferentOrderThenAreSimilarShouldReturnTrue()
         {
             var source = new[] { Five, Six };
             var target = new[] { Six, Five };
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenEnumerableTargetHasFewerExpressionsThenAreEquivalentShouldReturnFalse()
+        public void GivenEnumerableTargetWithComplexTypesHasFewerExpressionsThenAreSimilarShouldReturnTrue()
         {
             var source = new[] { Five, Six };
             var target = new[] { Five };
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenEnumerableTargetHasMoreExpressionsThenAreEquivalentShouldReturnFalse()
+        public void GivenEnumerableTargetWithComplexTypesHasMoreExpressionsThenAreSimilarShouldReturnTrue()
         {
             var source = new[] { Five };
             var target = new[] { Five, Six };
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenEnumerableWithDifferentValuesThenAreEquivalentShouldReturnFalse()
+        public void GivenParameterWithDifferentTypeThenAreSimilarShouldReturnFalse()
         {
-            var source = new[] { Five, Five };
-            var target = new[] { Six, Six };
-            Assert.False(eq.AreEquivalent(source, target));
-        }
-
-        [Fact]
-        public void GivenEnumerableWithSameValuesInSameOrderThenAreEquivalentShouldReturnTrue()
-        {
-            var source = new[] { Five, Six, OfFive, OfOfFive };
-            var target = new[] { Five, Six, OfFive, OfOfFive };
-            Assert.True(eq.AreEquivalent(source, target));
-        }
-
-        [Fact]
-        public void GivenParameterWithDifferentTypeThenAreEquivalentShouldReturnFalse()
-        {
-            Assert.False(eq.AreEquivalent(
+            Assert.False(eq.AreSimilar(
                 IntParameter, StringParameter));
         }
 
         [Fact]
-        public void GivenParameterWithDifferentNameThenAreEquivalentShouldReturnFalse()
+        public void GivenParameterWithDerivedTypeThenAreSimilarShouldReturnTrue()
         {
-            Assert.False(eq.AreEquivalent(
+            var source = typeof(StringWrapper).AsParameterExpression();
+            var target = typeof(DerivedStringWrapper).AsParameterExpression();
+            Assert.True(eq.AreSimilar(source, target));
+            Assert.True(eq.AreSimilar(target, source));
+        }
+
+        [Fact]
+        public void GivenParameterWithDifferentNameThenAreSimilarShouldReturnTrue()
+        {
+            Assert.True(eq.AreSimilar(
                 IntParameter, IntNamedParameter));
         }
 
         [Fact]
-        public void GivenParameterWithDifferentByRefThenAreEquivalentShouldReturnFalse()
+        public void GivenParameterWithDifferentByRefThenAreSimilarShouldReturnTrue()
         {
-            Assert.False(eq.AreEquivalent(
+            Assert.True(eq.AreSimilar(
                 IntParameter, IntByRefParameter));
         }
 
         [Fact]
-        public void GivenParameterWithSameTypeAndNameThenAreEquivalentShouldReturnTrue()
+        public void GivenParameterWithSameTypeAndNameThenAreSimilarShouldReturnTrue()
         {
-            Assert.True(eq.AreEquivalent(
+            Assert.True(eq.AreSimilar(
                 IntParameter, IntParameter));
         }
 
         [Fact]
-        public void GivenExpressionNotSupportedThenAreEquivalentShouldReturnFalse()
+        public void GivenExpressionNotSupportedThenAreSimilarShouldReturnFalse()
         {
             var source = Expression.Goto(Expression.Label());
-            Assert.False(eq.AreEquivalent(source, source));
+            Assert.False(eq.AreSimilar(source, source));
         }
 
         [Fact]
-        public void GivenBinaryExpressionsWhenNodeTypesAreDifferentThenAreEquivalentShouldReturnFalse()
+        public void GivenBinaryExpressionsWhenNodeTypesAreDifferentThenAreSimilarShouldReturnFalse()
         {
             var source = Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());
             var target = Expression.Subtract(1.AsConstantExpression(), 2.AsConstantExpression());
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Theory]
         [MemberData(nameof(GetBinaryExpressionMatrix))]
-        public void GivenBinaryExpressionsWithSameNodeTypeWhenAreEquivalentCalledThenShouldEvaluateLeftAndRightOnEquivalency(
-            BinaryExpression source, BinaryExpression target, bool areEquivalent)
+        public void GivenBinaryExpressionsWithSameNodeTypeWhenAreSimilarCalledThenShouldEvaluateLeftAndRightOnEquivalency(
+            BinaryExpression source, BinaryExpression target, bool areSimilar)
         {
-            if (areEquivalent)
+            if (areSimilar)
             {
-                Assert.True(eq.AreEquivalent(source, target));
+                Assert.True(eq.AreSimilar(source, target));
             }
             else
             {
-                Assert.False(eq.AreEquivalent(source, target));
+                Assert.False(eq.AreSimilar(source, target));
             }
         }
 
         [Fact]
-        public void GivenUnaryExpressionsWithSameNodeTypeMethodAndOperandsThenAreEquivalentShouldReturnTrue()
+        public void GivenUnaryExpressionsWithSameNodeTypeMethodAndOperandsThenAreSimilarShouldReturnTrue()
         {
             var source = Expression.IsTrue(true.AsConstantExpression());
             var target = Expression.IsTrue(true.AsConstantExpression());
-            Assert.True(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenUnaryExpressionWhenNodeTypesAreDifferentThenAreEquivalentShouldReturnFalse()
+        public void GivenUnaryExpressionWhenNodeTypesAreDifferentThenAreSimilarShouldReturnFalse()
         {
             var source = Expression.IsTrue(true.AsConstantExpression());
             var target = Expression.IsFalse(true.AsConstantExpression());
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenUnaryExpressionWhenOperandsAreDifferentThenAreEquivalentShouldReturnFalse()
+        public void GivenUnaryExpressionWhenOperandsAreDifferentThenAreSimilarShouldReturnFalse()
         {
             var source = Expression.IsTrue(true.AsConstantExpression());
             var target = Expression.IsTrue(false.AsConstantExpression());
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Theory]
         [MemberData(nameof(GetUnaryExpressionMatrix))]
-        public void GivenUnaryExpressionWhenTypesAndOperandsAreSameThenAreEquivalentShouldEvaluateBasedOnMethods(
-            Expression source, Expression target, bool areEquivalent)
+        public void GivenUnaryExpressionWhenTypesAndOperandsAreSameThenAreSimilarShouldEvaluateBasedOnMethods(
+            Expression source, Expression target, bool areSimilar)
         {
-            if (areEquivalent)
+            if (areSimilar)
             {
-                Assert.True(eq.AreEquivalent(source, target));
+                Assert.True(eq.AreSimilar(source, target));
             }
             else
             {
-                Assert.False(eq.AreEquivalent(source, target));
+                Assert.False(eq.AreSimilar(source, target));
             }
         }
 
-        public void GivenUnaryExpressionWhenOneIsLiftedAndOneIsNotLiftedThenAreEquivalentShouldReturnFalse()
-        {
-            // any example?
-        }
-
-        public void GivenUnaryExpressionWhenOneIsLiftedToNullAndOneIsNotLiftedToNullThenAreEquivalentShouldReturnFalse()
-        {
-            // need some help
-        }
-
         [Fact]
-        public void GivenMemberExpressionWhenTypesDifferThenAreEquivalentShouldReturnFalse()
+        public void GivenMemberExpressionWhenTypesDifferThenAreSimilarShouldReturnFalse()
         {
             var type = typeof(StringWrapper).AsParameterExpression();
             var sourceProperty = typeof(StringWrapper).GetProperty(nameof(StringWrapper.Id));
             var targetProperty = typeof(StringWrapper).GetProperty(nameof(StringWrapper.IdVal));
             var source = Expression.Property(type, sourceProperty);
             var target = Expression.Property(type, targetProperty);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMemberExpressionWhenDeclaringTypesDifferThenAreEquivalentShouldReturnFalse()
+        public void GivenMemberExpressionWhenDeclaringTypesDifferThenAreSimilarShouldReturnFalse()
         {
             var sourceType = typeof(StringWrapper).AsParameterExpression();
             var targetType = typeof(IdType).AsParameterExpression();
@@ -455,54 +422,54 @@ namespace ExpressionPowerTools.Core.Tests
             var targetProperty = typeof(IdType).GetProperty(nameof(IdType.Id));
             var source = Expression.Property(sourceType, sourceProperty);
             var target = Expression.Property(targetType, targetProperty);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMemberExpressionWhenMemberNamesDifferThenAreEquivalentShouldReturnFalse()
+        public void GivenMemberExpressionWhenMemberNamesDifferThenAreSimilarShouldReturnFalse()
         {
             var type = typeof(StringWrapper).AsParameterExpression();
             var sourceProperty = typeof(StringWrapper).GetProperty(nameof(StringWrapper.Id));
             var targetProperty = typeof(StringWrapper).GetProperty(nameof(StringWrapper.OtherId));
             var source = Expression.Property(type, sourceProperty);
             var target = Expression.Property(type, targetProperty);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMemberExpressionWhenExpressionsDifferThenAreEquivalentShouldReturnFalse()
+        public void GivenMemberExpressionWhenExpressionsDifferThenAreSimilarShouldReturnTrue()
         {
             var sourceType = typeof(StringWrapper).AsParameterExpression();
             var targetType = typeof(DerivedStringWrapper).AsParameterExpression();
             var property = typeof(StringWrapper).GetProperty(nameof(StringWrapper.Id));
             var source = Expression.Property(sourceType, property);
             var target = Expression.Property(targetType, property);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMemberExpressionWhenTypeDeclaringTypeMemberNameAndExpressionsMatchThenAreEquivalentShouldReturnTrue()
+        public void GivenMemberExpressionWhenTypeDeclaringTypeMemberNameAndExpressionsMatchThenAreSimilarShouldReturnTrue()
         {
             var type = typeof(StringWrapper).AsParameterExpression();
             var property = typeof(StringWrapper).GetProperty(nameof(StringWrapper.Id));
             var source = Expression.Property(type, property);
             var target = Expression.Property(type, property);
-            Assert.True(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMethodCallExpressionWithDifferentReturnTypeWhenAreEquivalentCalledThenShouldReturnFalse()
+        public void GivenMethodCallExpressionWithDifferentReturnTypeWhenAreSimilarCalledThenShouldReturnFalse()
         {
             var sourceMethod = typeof(IdType).MethodWithName(nameof(IdType.GetId));
             var targetMethod = typeof(IdType).MethodWithName(nameof(IdType.GetIdVal));
             var expr = new IdType().AsParameterExpression();
             var source = Expression.Call(expr, sourceMethod);
             var target = Expression.Call(expr, targetMethod);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMethodCallExpressionWithDifferentDeclaringTypesWhenAreEquivalentCalledThenShouldReturnFalse()
+        public void GivenMethodCallExpressionWithDifferentDeclaringTypesWhenAreSimilarCalledThenShouldReturnFalse()
         {
             var sourceMethod = typeof(IdType).MethodWithName(nameof(IdType.GetId));
             var targetMethod = typeof(DerivedStringWrapper).MethodWithName(nameof(DerivedStringWrapper.GetId));
@@ -510,11 +477,11 @@ namespace ExpressionPowerTools.Core.Tests
             var targetExpr = new DerivedStringWrapper().AsParameterExpression();
             var source = Expression.Call(sourceExpr, sourceMethod);
             var target = Expression.Call(targetExpr, targetMethod);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMethodCallExpressionWithDifferentNamesWhenAreEquivalentCalledThenShouldReturnFalse()
+        public void GivenMethodCallExpressionWithDifferentNamesWhenAreSimilarCalledThenShouldReturnFalse()
         {
             var sourceMethod = typeof(IdType).MethodWithNameAndParameterCount(
                 nameof(IdType.Echo), 1);
@@ -522,23 +489,23 @@ namespace ExpressionPowerTools.Core.Tests
             var expr = new IdType().AsParameterExpression();
             var source = Expression.Call(expr, sourceMethod, "1".AsConstantExpression());
             var target = Expression.Call(expr, targetMethod, "1".AsConstantExpression());
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
 
         [Fact]
-        public void GivenMethodCallExpressionWithDifferentExpressionWhenAreEquivalentCalledThenShouldReturnFalse()
+        public void GivenMethodCallExpressionWithDifferentExpressionWhenAreSimilarCalledThenShouldReturnFalse()
         {
             var method = typeof(IdType).MethodWithName(nameof(IdType.GetId));
             var sourceExpr = new IdType().AsParameterExpression();
             var targetExpr = new IdType().AsConstantExpression();
             var source = Expression.Call(sourceExpr, method);
             var target = Expression.Call(targetExpr, method);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMethodCallExpressionWithStaticMethodWhenAreEquivalentCalledThenShouldReturnTrue()
+        public void GivenMethodCallExpressionWithStaticMethodWhenAreSimilarCalledThenShouldReturnTrue()
         {
             var method = typeof(Enumerable).MethodWithName(nameof(Enumerable.Take), isStatic: true);
             var methodWithType = method.MakeGenericMethod(typeof(IdType));
@@ -546,11 +513,11 @@ namespace ExpressionPowerTools.Core.Tests
             var takeParameter = 5.AsConstantExpression();
             var source = Expression.Call(methodWithType, extensionParameter, takeParameter);
             var target = Expression.Call(methodWithType, extensionParameter, takeParameter);
-            Assert.True(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMethodCallExpressionWithDifferentArgumentCountWhenAreEquivalentCalledThenShouldReturnFalse()
+        public void GivenMethodCallExpressionWithDifferentArgumentCountWhenAreSimilarCalledThenShouldReturnFalse()
         {
             var sourceMethod = typeof(IdType).MethodWithNameAndParameterCount(nameof(IdType.LongParameterList), 8);
             var targetMethod = typeof(IdType).MethodWithNameAndParameterCount(nameof(IdType.LongParameterList), 9);
@@ -563,11 +530,11 @@ namespace ExpressionPowerTools.Core.Tests
                 expr, sourceMethod, paramList8);
             var target = Expression.Call(
                 expr, targetMethod, paramList9);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMethodCallExpressionWithDifferentArgumentsWhenAreEquivalentCalledThenShouldReturnFalse()
+        public void GivenMethodCallExpressionWithDifferentArgumentsWhenAreSimilarCalledThenShouldReturnFalse()
         {
             var sourceMethod = typeof(IdType).MethodWithNameAndParameterCount(
                 nameof(IdType.Echo), 1);
@@ -576,11 +543,11 @@ namespace ExpressionPowerTools.Core.Tests
                 expr, sourceMethod, "1".AsConstantExpression());
             var target = Expression.Call(
                 expr, sourceMethod, "2".AsConstantExpression());
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenMethodCallExpressionWithMatchingExpressionAndArgumentsWhenAreEquivalentCalledThenShouldReturnTrue()
+        public void GivenMethodCallExpressionWithMatchingExpressionAndArgumentsWhenAreSimilarCalledThenShouldReturnTrue()
         {
             var sourceMethod = typeof(IdType).MethodWithNameAndParameterCount(
                 nameof(IdType.Echo), 1);
@@ -589,86 +556,129 @@ namespace ExpressionPowerTools.Core.Tests
                 expr, sourceMethod, "1".AsConstantExpression());
             var target = Expression.Call(
                 expr, sourceMethod, "1".AsConstantExpression());
-            Assert.True(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenLambdaExpressionWhenTypeIsDifferentThenAreEquivalentShouldReturnFalse()
+        public void GivenLambdaExpressionWhenTypeIsDifferentThenAreSimilarShouldReturnFalse()
         {
             Expression<Func<object>> intExpr = () => 1;
             Expression<Func<object>> strExpr = () => "1";
             var source = Expression.Lambda(intExpr);
             var target = Expression.Lambda(strExpr);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenLambdaExpressionWhenNameIsDifferentThenAreEquivalentShouldReturnFalse()
+        public void GivenLambdaExpressionWhenNameIsDifferentThenAreSimilarShouldReturnFalse()
         {
             Expression<Func<object>> intExpr = () => 1;
             var source = Expression.Lambda(intExpr, "test", new ParameterExpression[0]);
             var target = Expression.Lambda(intExpr, nameof(intExpr), new ParameterExpression[0]);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
-        
+
         [Fact]
-        public void GivenLambdaExpressionWhenTailCallIsDifferentThenAreEquivalentShouldReturnFalse()
+        public void GivenLambdaExpressionWhenTailCallIsDifferentThenAreSimilarShouldReturnTrue()
         {
             Expression<Func<object>> intExpr = () => 1;
             var source = Expression.Lambda(intExpr, nameof(intExpr), false, new ParameterExpression[0]);
             var target = Expression.Lambda(intExpr, nameof(intExpr), true, new ParameterExpression[0]);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenLambdaExpressionWhenParameterCountDiffersThenAreEquivalentShouldReturnFalse()
+        public void GivenLambdaExpressionWhenParameterCountDiffersThenAreSimilarShouldReturnFalse()
         {
             Expression<Func<object>> intExpr = () => 1;
             Expression<Func<int, object>> intParamExpr = val => 1;
             var source = Expression.Lambda(intExpr);
             var target = Expression.Lambda(intParamExpr);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenLambdaExpressionWhenParametersAreNotEquivalentThenAreEquivalentShouldReturnFalse()
+        public void GivenLambdaExpressionWhenSingaturesMatchThenAreSimilarShouldReturnTrue()
+        {
+            Expression<Func<long, object>> longParamExpr = val => 1;
+            Expression<Func<long, object>> longParamExpr1 = val1 => 1;
+            var source = Expression.Lambda(longParamExpr);
+            var target = Expression.Lambda(longParamExpr1);
+            Assert.True(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenLambdaExpressionWhenParametersAreDifferentTypesThenAreSimilarShouldReturnFalse()
         {
             Expression<Func<long, object>> longParamExpr = val => 1;
             Expression<Func<int, object>> intParamExpr = val => 1;
             var source = Expression.Lambda(longParamExpr);
             var target = Expression.Lambda(intParamExpr);
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenLambdaExpressionWhenBodiesAreNotEquivalentAreEquivalentThenShouldReturnFalse()
+        public void GivenLambdaExpressionWhenBodiesAreNotSimilarAreSimilarThenShouldReturnFalse()
         {
             var source = Expression.Lambda(Expression.Equal(0.AsConstantExpression(), 1.AsConstantExpression()));
             var target = Expression.Lambda(Expression.Equal(1.AsConstantExpression(), 2.AsConstantExpression()));
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenLambdaExpressionWhenEquivalentThenAreEquivalentShouldReturnTrue()
+        public void GivenLambdaExpressionWhenSimilarThenAreSimilarShouldReturnTrue()
         {
             var source = Expression.Lambda(Expression.Equal(0.AsConstantExpression(), 1.AsConstantExpression()));
             var target = Expression.Lambda(Expression.Equal(0.AsConstantExpression(), 1.AsConstantExpression()));
-            Assert.True(eq.AreEquivalent(source, target));
+            Assert.True(eq.AreSimilar(source, target));
         }
 
         [Fact]
-        public void GivenTwoQueriesWhenEquivalentThenAreEquivalentShouldReturnTrue()
+        public void GivenTwoQueriesWhenSimilarThenAreSimilarShouldReturnTrue()
         {
             var source = QueryHelper.QuerySkip2Take3.Expression;
-            Assert.True(eq.AreEquivalent(source, source));
+            Assert.True(eq.AreSimilar(source, source));
         }
 
         [Fact]
-        public void GivenTwoQueriesWhenNotEquivalentThenAreEquivalentShouldReturnFalse()
+        public void GivenTwoQueriesWhenNotSimilarThenAreSimilarShouldReturnFalse()
         {
             var source = QueryHelper.QuerySkip2Take3.Expression;
             var target = QueryHelper.QuerySkip2Take4.Expression;
-            Assert.False(eq.AreEquivalent(source, target));
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenTargetNullWhenIsPartOfCalledThenShouldReturnFalse()
+        {
+            var source = IQueryableExtensions.CreateQueryTemplate<IdType>()
+                .Take(5);
+            Assert.False(eq.IsPartOf(source.Expression, null));
+        }
+
+        [Fact]
+        public void GivenTargetWithoutQueryPartsWhenIsPartOfCalledThenShouldReturnFalse()
+        {
+            var source = IQueryableExtensions.CreateQueryTemplate<IdType>()
+                .Take(5);
+            var target = IQueryableExtensions.CreateQueryTemplate<IdType>();
+            Assert.False(eq.IsPartOf(source.Expression, target.Expression));
+        }
+
+        [Fact]
+        public void GivenTargetWithQueryPartsNotSimiliarWhenIsPartOfCalledThenShouldReturnFalse()
+        {
+            var target = QueryHelper.QuerySkip2Take3;
+            var source = target.CreateQueryTemplate().Take(4);
+            Assert.False(eq.IsPartOf(source.Expression, target.Expression));
+        }
+
+        [Fact]
+        public void GivenTargetWithSimilarQueryPartsWhenIsPartOfCalledThenShouldReturnTrue()
+        {
+            var target = QueryHelper.QuerySkip2Take3;
+            var source = target.CreateQueryTemplate().Take(3);
+            Assert.True(eq.IsPartOf(source.Expression, target.Expression));
         }
     }
 }

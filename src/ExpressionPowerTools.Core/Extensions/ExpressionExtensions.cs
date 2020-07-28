@@ -158,5 +158,28 @@ namespace ExpressionPowerTools.Core.Extensions
             this Expression source,
             Expression target) =>
                 ExpressionEquivalency.AreEquivalent(source, target);
+
+        /// <summary>
+        /// Uses <see cref="ExpressionSimilarity"/> to determine similarity.
+        /// </summary>
+        /// <param name="source">The source <see cref="Expression"/>.</param>
+        /// <param name="target">The target <see cref="Expression"/>.</param>
+        /// <returns>A flag indicating whether the expressions are similar.</returns>
+        public static bool IsSimilarTo(
+            this Expression source,
+            Expression target) =>
+                ExpressionSimilarity.AreSimilar(source, target);
+
+        /// <summary>
+        /// Uses <see cref="ExpressionSimilarity"/> to determine if an <see cref="Expression"/>
+        /// is part of another.
+        /// </summary>
+        /// <param name="source">The source <see cref="Expression"/>.</param>
+        /// <param name="target">The target <see cref="Expression"/> to parse.</param>
+        /// <returns>A flag indicating whether the source is part of the target.</returns>
+        public static bool IsPartOf(
+            this Expression source,
+            Expression target) =>
+                ExpressionSimilarity.IsPartOf(source, target);
     }
 }

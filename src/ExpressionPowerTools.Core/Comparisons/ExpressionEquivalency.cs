@@ -183,7 +183,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Determine whether two members are equivalent.
         /// </summary>
         /// <remarks>
-        /// Two instances of <see cref="MemberInitExpression"/> are equivalent
+        /// Two instances of <see cref="MemberExpression"/> are equivalent
         /// when they share the same type (this will match the member type), the same
         /// declaring type, the same name, and if there is an expression, the
         /// expressions are equivalent.

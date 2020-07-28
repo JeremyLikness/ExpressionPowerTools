@@ -54,7 +54,21 @@
   - [AsParameterExpression(type,name,byRef)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-AsParameterExpression-System-Type,System-String,System-Boolean- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsParameterExpression(System.Type,System.String,System.Boolean)')
   - [CreateParameterExpression\`\`2(value)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-CreateParameterExpression``2-System-Linq-Expressions-Expression{System-Func{``0,``1}}- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})')
   - [IsEquivalentTo(source,target)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-IsEquivalentTo-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsEquivalentTo(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [IsPartOf(source,target)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [IsSimilarTo(source,target)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-IsSimilarTo-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsSimilarTo(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
   - [MemberName\`\`1(expr)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-MemberName``1-System-Linq-Expressions-Expression{System-Func{``0}}- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.MemberName``1(System.Linq.Expressions.Expression{System.Func{``0}})')
+- [ExpressionSimilarity](#T-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity')
+  - [AreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-AreSimilar-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [AreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-AreSimilar-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.AreSimilar(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})')
+  - [BinariesAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-BinariesAreSimilar-System-Linq-Expressions-BinaryExpression,System-Linq-Expressions-BinaryExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.BinariesAreSimilar(System.Linq.Expressions.BinaryExpression,System.Linq.Expressions.BinaryExpression)')
+  - [ConstantsAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-ConstantsAreSimilar-System-Linq-Expressions-ConstantExpression,System-Linq-Expressions-ConstantExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.ConstantsAreSimilar(System.Linq.Expressions.ConstantExpression,System.Linq.Expressions.ConstantExpression)')
+  - [IsPartOf(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [LambdasAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-LambdasAreSimilar-System-Linq-Expressions-LambdaExpression,System-Linq-Expressions-LambdaExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.LambdasAreSimilar(System.Linq.Expressions.LambdaExpression,System.Linq.Expressions.LambdaExpression)')
+  - [MembersAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-MembersAreSimilar-System-Linq-Expressions-MemberExpression,System-Linq-Expressions-MemberExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.MembersAreSimilar(System.Linq.Expressions.MemberExpression,System.Linq.Expressions.MemberExpression)')
+  - [MethodsAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-MethodsAreSimilar-System-Linq-Expressions-MethodCallExpression,System-Linq-Expressions-MethodCallExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.MethodsAreSimilar(System.Linq.Expressions.MethodCallExpression,System.Linq.Expressions.MethodCallExpression)')
+  - [TypeCheckAndCompare\`\`1(source,target,compare)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypeCheckAndCompare``1-``0,System-Linq-Expressions-Expression,System-Func{``0,``0,System-Boolean}- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypeCheckAndCompare``1(``0,System.Linq.Expressions.Expression,System.Func{``0,``0,System.Boolean})')
+  - [TypesAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypesAreSimilar-System-Type,System-Type- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypesAreSimilar(System.Type,System.Type)')
+  - [UnariesAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-UnariesAreSimilar-System-Linq-Expressions-UnaryExpression,System-Linq-Expressions-UnaryExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.UnariesAreSimilar(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)')
 - [IExpressionEnumerator](#T-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator 'ExpressionPowerTools.Core.Signatures.IExpressionEnumerator')
 - [IExpressionEnumeratorExtensions](#T-ExpressionPowerTools-Core-Extensions-IExpressionEnumeratorExtensions 'ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions')
   - [ConstantsOfType\`\`1(expressionEnumerator)](#M-ExpressionPowerTools-Core-Extensions-IExpressionEnumeratorExtensions-ConstantsOfType``1-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator- 'ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.ConstantsOfType``1(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator)')
@@ -66,8 +80,13 @@
 - [IQueryableExtensions](#T-ExpressionPowerTools-Core-Extensions-IQueryableExtensions 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions')
   - [AsEnumerableExpression(query)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-AsEnumerableExpression-System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression(System.Linq.IQueryable)')
   - [AsEnumerableExpression\`\`1(query)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-AsEnumerableExpression``1-System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression``1(System.Linq.IQueryable{``0})')
+  - [CreateQueryTemplate\`\`1()](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1')
+  - [CreateQueryTemplate\`\`1(noop)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1-System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1(System.Linq.IQueryable{``0})')
+  - [HasFragment\`\`1(source,fragment)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-HasFragment``1-System-Linq-IQueryable{``0},System-Func{System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.HasFragment``1(System.Linq.IQueryable{``0},System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}})')
   - [IsEquivalentTo(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsEquivalentTo-System-Linq-IQueryable,System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsEquivalentTo(System.Linq.IQueryable,System.Linq.IQueryable)')
   - [IsEquivalentTo\`\`1(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsEquivalentTo``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsEquivalentTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+  - [IsSimilarTo(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo-System-Linq-IQueryable,System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo(System.Linq.IQueryable,System.Linq.IQueryable)')
+  - [IsSimilarTo\`\`1(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
 
 <a name='T-ExpressionPowerTools-Core-Contract-Ensure'></a>
 ## Ensure `type`
@@ -607,7 +626,7 @@ A flag indicating whether the two expressions are equivalent.
 
 ##### Remarks
 
-Two instances of [MemberInitExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MemberInitExpression 'System.Linq.Expressions.MemberInitExpression') are equivalent
+Two instances of [MemberExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MemberExpression 'System.Linq.Expressions.MemberExpression') are equivalent
 when they share the same type (this will match the member type), the same
 declaring type, the same name, and if there is an expression, the
 expressions are equivalent.
@@ -899,6 +918,43 @@ A flag indicating whether the expressions are equivalent.
 | source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
 | target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
 
+<a name='M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### IsPartOf(source,target) `method`
+
+##### Summary
+
+Uses [ExpressionSimilarity](#T-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity') to determine if an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression')
+is part of another.
+
+##### Returns
+
+A flag indicating whether the source is part of the target.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to parse. |
+
+<a name='M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-IsSimilarTo-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### IsSimilarTo(source,target) `method`
+
+##### Summary
+
+Uses [ExpressionSimilarity](#T-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity') to determine similarity.
+
+##### Returns
+
+A flag indicating whether the expressions are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
 <a name='M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-MemberName``1-System-Linq-Expressions-Expression{System-Func{``0}}-'></a>
 ### MemberName\`\`1(expr) `method`
 
@@ -930,6 +986,277 @@ For example:
 Expression&lt;Func&lt;string&gt;&gt; expr = () =&gt; foo;
 expr.MemberName(); // "foo"
 ```
+
+<a name='T-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity'></a>
+## ExpressionSimilarity `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Comparisons
+
+##### Summary
+
+Expression similarity methods.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-AreSimilar-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### AreSimilar(source,target) `method`
+
+##### Summary
+
+Entry for similarity comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to compare to. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-AreSimilar-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}-'></a>
+### AreSimilar(source,target) `method`
+
+##### Summary
+
+Comparison of multiple expressions. Similar
+only when all elements match, in order, and
+pass the similarity test. It's fine if the
+source does not have the same number of entities
+as the target.
+
+##### Returns
+
+A flag indicating whether the two sets of
+expressions are Similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The source expressions. |
+| target | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The target expressions. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-BinariesAreSimilar-System-Linq-Expressions-BinaryExpression,System-Linq-Expressions-BinaryExpression-'></a>
+### BinariesAreSimilar(source,target) `method`
+
+##### Summary
+
+Determines whether two binaries are similar.
+
+##### Returns
+
+A flag that indicates whether the two expressions are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.BinaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.BinaryExpression 'System.Linq.Expressions.BinaryExpression') | The source [BinaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.BinaryExpression 'System.Linq.Expressions.BinaryExpression'). |
+| target | [System.Linq.Expressions.BinaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.BinaryExpression 'System.Linq.Expressions.BinaryExpression') | The target [BinaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.BinaryExpression 'System.Linq.Expressions.BinaryExpression'). |
+
+##### Remarks
+
+Two instances of [BinaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.BinaryExpression 'System.Linq.Expressions.BinaryExpression') are similar when they share the same
+[ExpressionType](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ExpressionType 'System.Linq.Expressions.ExpressionType') and the recursive determination of the left expressoin and
+the right expressions is similar.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-ConstantsAreSimilar-System-Linq-Expressions-ConstantExpression,System-Linq-Expressions-ConstantExpression-'></a>
+### ConstantsAreSimilar(source,target) `method`
+
+##### Summary
+
+Method to compare two 
+instances.
+
+##### Returns
+
+A flag indicating whether the two are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.ConstantExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ConstantExpression 'System.Linq.Expressions.ConstantExpression') | The source [ConstantExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ConstantExpression 'System.Linq.Expressions.ConstantExpression'). |
+| target | [System.Linq.Expressions.ConstantExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ConstantExpression 'System.Linq.Expressions.ConstantExpression') | The target [ConstantExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ConstantExpression 'System.Linq.Expressions.ConstantExpression'). |
+
+##### Remarks
+
+If the constant is an expression, similarity is recursed. If it is a value type,
+the source and target must be equal. Otherwise, similar is based on types.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### IsPartOf(source,target) `method`
+
+##### Summary
+
+Determines whether an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') is part of another expression.
+
+##### Returns
+
+A flag indicating whether the source is part of the target.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to parse. |
+
+##### Remarks
+
+A source is part of a target if an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') exists in the
+target's tree that is similar to the source.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-LambdasAreSimilar-System-Linq-Expressions-LambdaExpression,System-Linq-Expressions-LambdaExpression-'></a>
+### LambdasAreSimilar(source,target) `method`
+
+##### Summary
+
+Determine whether two lambdas are similar.
+
+##### Returns
+
+A flag indicating whether the two expressions are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.LambdaExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.LambdaExpression 'System.Linq.Expressions.LambdaExpression') | The source [LambdaExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.LambdaExpression 'System.Linq.Expressions.LambdaExpression'). |
+| target | [System.Linq.Expressions.LambdaExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.LambdaExpression 'System.Linq.Expressions.LambdaExpression') | The target [LambdaExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.LambdaExpression 'System.Linq.Expressions.LambdaExpression'). |
+
+##### Remarks
+
+Two lambda expressions are similar when they share the same name,
+similar parameters, and when both body and parameters are similar.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-MembersAreSimilar-System-Linq-Expressions-MemberExpression,System-Linq-Expressions-MemberExpression-'></a>
+### MembersAreSimilar(source,target) `method`
+
+##### Summary
+
+Determine whether two members are similar.
+
+##### Returns
+
+A flag indicating whether the two expressions are Similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.MemberExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MemberExpression 'System.Linq.Expressions.MemberExpression') | The source [MemberExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MemberExpression 'System.Linq.Expressions.MemberExpression'). |
+| target | [System.Linq.Expressions.MemberExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MemberExpression 'System.Linq.Expressions.MemberExpression') | The target [MemberExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MemberExpression 'System.Linq.Expressions.MemberExpression'). |
+
+##### Remarks
+
+Two instances of [MemberExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MemberExpression 'System.Linq.Expressions.MemberExpression') are similar
+when they share the same type (this will match the member type), the same
+declaring type, the same name, and if there is an expression, the
+expressions are similar.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-MethodsAreSimilar-System-Linq-Expressions-MethodCallExpression,System-Linq-Expressions-MethodCallExpression-'></a>
+### MethodsAreSimilar(source,target) `method`
+
+##### Summary
+
+Determine whether two methods are similar.
+
+##### Returns
+
+A flag indicating whether the two expressions are Similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.MethodCallExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MethodCallExpression 'System.Linq.Expressions.MethodCallExpression') | The source [MethodCallExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MethodCallExpression 'System.Linq.Expressions.MethodCallExpression'). |
+| target | [System.Linq.Expressions.MethodCallExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MethodCallExpression 'System.Linq.Expressions.MethodCallExpression') | The target [MethodCallExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MethodCallExpression 'System.Linq.Expressions.MethodCallExpression'). |
+
+##### Remarks
+
+Two metods are similar when they share the same return type, declaring type,
+the same name, are either both instance or static fields, and all
+arguments pass similarity. Arguments of same expression type are tested
+for similarity. Arguments of different expression types are tested for the
+same return type.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypeCheckAndCompare``1-``0,System-Linq-Expressions-Expression,System-Func{``0,``0,System-Boolean}-'></a>
+### TypeCheckAndCompare\`\`1(source,target,compare) `method`
+
+##### Summary
+
+Checks for a match of the target type and calls the comparison
+if there is a match.
+
+##### Returns
+
+A flag indicating whether the expressions are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [\`\`0](#T-``0 '``0') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| compare | [System.Func{\`\`0,\`\`0,System.Boolean}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Func 'System.Func{``0,``0,System.Boolean}') | The method to compare. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') type to evaluate. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypesAreSimilar-System-Type,System-Type-'></a>
+### TypesAreSimilar(source,target) `method`
+
+##### Summary
+
+Determines whether types are similar.
+
+##### Returns
+
+A flag indicating whether the types are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') | The source [Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') to check. |
+| target | [System.Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') | The target [Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') to check. |
+
+##### Remarks
+
+Object must match object. Value types must match exactly.
+Other types can be derived from each other.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-UnariesAreSimilar-System-Linq-Expressions-UnaryExpression,System-Linq-Expressions-UnaryExpression-'></a>
+### UnariesAreSimilar(source,target) `method`
+
+##### Summary
+
+Determines whether two unaries are similar.
+
+##### Returns
+
+A flag that indicates whether the two expressions are Similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.UnaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.UnaryExpression 'System.Linq.Expressions.UnaryExpression') | The source [UnaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.UnaryExpression 'System.Linq.Expressions.UnaryExpression'). |
+| target | [System.Linq.Expressions.UnaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.UnaryExpression 'System.Linq.Expressions.UnaryExpression') | The target [UnaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.UnaryExpression 'System.Linq.Expressions.UnaryExpression'). |
+
+##### Remarks
+
+Two instances of [UnaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.UnaryExpression 'System.Linq.Expressions.UnaryExpression') are similar when they share the same
+[ExpressionType](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ExpressionType 'System.Linq.Expressions.ExpressionType'), method information, and when their operands pass
+equivalency.
 
 <a name='T-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator'></a>
 ## IExpressionEnumerator `type`
@@ -1161,6 +1488,80 @@ The [IExpressionEnumerator](#T-ExpressionPowerTools-Core-Signatures-IExpressionE
 | ---- | ----------- |
 | T | The query type. |
 
+<a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1'></a>
+### CreateQueryTemplate\`\`1() `method`
+
+##### Summary
+
+Creates a queryable from an empty list used for templates to compare.
+
+##### Returns
+
+The [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to build on.
+
+##### Parameters
+
+This method has no parameters.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+<a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1-System-Linq-IQueryable{``0}-'></a>
+### CreateQueryTemplate\`\`1(noop) `method`
+
+##### Summary
+
+Creates a new queryable to build a template from.
+
+##### Returns
+
+The [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to build on.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| noop | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+<a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-HasFragment``1-System-Linq-IQueryable{``0},System-Func{System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}}-'></a>
+### HasFragment\`\`1(source,fragment) `method`
+
+##### Summary
+
+Determine whether a fragment of queryable exists in the
+target query.
+
+##### Returns
+
+A flag indicating whether the fragment is part of the parent query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to check. |
+| fragment | [System.Func{System.Linq.IQueryable{\`\`0},System.Linq.IQueryable{\`\`0}}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Func 'System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}}') | The fragment to test. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+##### Remarks
+
+This will return true if all parts of the fragment's expression tree
+are similar to all parts of a similar expression in the source.
+
 <a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsEquivalentTo-System-Linq-IQueryable,System-Linq-IQueryable-'></a>
 ### IsEquivalentTo(source,target) `method`
 
@@ -1189,6 +1590,48 @@ Determines whether the expression tree of the query is equivalent to the other q
 ##### Returns
 
 A flag indicating whether the queries are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+| target | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The target [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The entity being queried. |
+
+<a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo-System-Linq-IQueryable,System-Linq-IQueryable-'></a>
+### IsSimilarTo(source,target) `method`
+
+##### Summary
+
+Determines whether the expression tree of the query is similar to the other query.
+
+##### Returns
+
+A flag indicating whether the queries are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The source [IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable'). |
+| target | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The target [IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable'). |
+
+<a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}-'></a>
+### IsSimilarTo\`\`1(source,target) `method`
+
+##### Summary
+
+Determines whether the expression tree of the query is similar to the other query.
+
+##### Returns
+
+A flag indicating whether the queries are similar.
 
 ##### Parameters
 
