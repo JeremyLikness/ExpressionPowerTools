@@ -80,29 +80,6 @@ namespace ExpressionPowerTools.Core.Comparisons
         }
 
         /// <summary>
-        /// Determines whether an <see cref="Expression"/> is part of another expression.
-        /// </summary>
-        /// <remarks>
-        /// A source is part of a target if an <see cref="Expression"/> exists in the
-        /// target's tree that is similar to the source.
-        /// </remarks>
-        /// <param name="source">The source <see cref="Expression"/>.</param>
-        /// <param name="target">The target <see cref="Expression"/> to parse.</param>
-        /// <returns>A flag indicating whether the source is part of the target.</returns>
-        public static bool IsPartOf(
-            Expression source,
-            Expression target)
-        {
-            if (target == null)
-            {
-                return false;
-            }
-
-            var targetTree = new ExpressionEnumerator(target);
-            return targetTree.Any(t => AreSimilar(source, t));
-        }
-
-        /// <summary>
         /// Comparison of multiple expressions. Similar
         /// only when all elements match, in order, and
         /// pass the similarity test. It's fine if the
@@ -135,6 +112,29 @@ namespace ExpressionPowerTools.Core.Comparisons
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Determines whether an <see cref="Expression"/> is part of another expression.
+        /// </summary>
+        /// <remarks>
+        /// A source is part of a target if an <see cref="Expression"/> exists in the
+        /// target's tree that is similar to the source.
+        /// </remarks>
+        /// <param name="source">The source <see cref="Expression"/>.</param>
+        /// <param name="target">The target <see cref="Expression"/> to parse.</param>
+        /// <returns>A flag indicating whether the source is part of the target.</returns>
+        public static bool IsPartOf(
+            Expression source,
+            Expression target)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+
+            var targetTree = new ExpressionEnumerator(target);
+            return targetTree.Any(t => AreSimilar(source, t));
         }
 
         /// <summary>

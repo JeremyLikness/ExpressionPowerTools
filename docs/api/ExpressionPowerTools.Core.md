@@ -47,6 +47,15 @@
   - [NullAndTypeCheck(source,other)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NullAndTypeCheck-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.NullAndTypeCheck(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
   - [ParametersAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-ParametersAreEquivalent-System-Linq-Expressions-ParameterExpression,System-Linq-Expressions-ParameterExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ParametersAreEquivalent(System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression)')
   - [UnariesAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-UnariesAreEquivalent-System-Linq-Expressions-UnaryExpression,System-Linq-Expressions-UnaryExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.UnariesAreEquivalent(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)')
+- [ExpressionEvaluator](#T-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator')
+  - [AreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [AreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})')
+  - [AreEquivalent\`\`1(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+  - [AreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreSimilar-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [AreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreSimilar-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreSimilar(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})')
+  - [AreSimilar\`\`1(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreSimilar``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreSimilar``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+  - [IsPartOf(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [IsPartOf\`\`1(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-IsPartOf``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.IsPartOf``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
 - [ExpressionExtensions](#T-ExpressionPowerTools-Core-Extensions-ExpressionExtensions 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions')
   - [AsConstantExpression(obj)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-AsConstantExpression-System-Object- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsConstantExpression(System.Object)')
   - [AsEnumerable(expression)](#M-ExpressionPowerTools-Core-Extensions-ExpressionExtensions-AsEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsEnumerable(System.Linq.Expressions.Expression)')
@@ -77,16 +86,54 @@
   - [MethodsWithNameForType(expressionEnumerator,type,name)](#M-ExpressionPowerTools-Core-Extensions-IExpressionEnumeratorExtensions-MethodsWithNameForType-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator,System-Type,System-String- 'ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithNameForType(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.Type,System.String)')
   - [MethodsWithNameForType\`\`1(expressionEnumerator,name)](#M-ExpressionPowerTools-Core-Extensions-IExpressionEnumeratorExtensions-MethodsWithNameForType``1-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator,System-String- 'ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithNameForType``1(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.String)')
   - [OfExpressionType(expressionEnumerator,type)](#M-ExpressionPowerTools-Core-Extensions-IExpressionEnumeratorExtensions-OfExpressionType-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator,System-Linq-Expressions-ExpressionType- 'ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.OfExpressionType(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.Linq.Expressions.ExpressionType)')
+- [IExpressionEvaluator](#T-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator')
+  - [AreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreEquivalent-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreEquivalent(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [AreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreEquivalent-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreEquivalent(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})')
+  - [AreEquivalent\`\`1(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreEquivalent``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreEquivalent``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+  - [AreSimilar(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreSimilar-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [AreSimilar(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreSimilar-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})')
+  - [AreSimilar\`\`1(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreSimilar``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+  - [IsPartOf(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
+  - [IsPartOf\`\`1(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-IsPartOf``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.IsPartOf``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+- [IQuerySnapshotHost\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1')
+  - [SnapshotProvider](#P-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-SnapshotProvider 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.SnapshotProvider')
+  - [RegisterSnap(callback)](#M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.RegisterSnap(System.Action{System.Linq.Expressions.Expression})')
+- [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1')
+  - [ExecuteEnumerable(expression)](#M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)')
 - [IQueryableExtensions](#T-ExpressionPowerTools-Core-Extensions-IQueryableExtensions 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions')
   - [AsEnumerableExpression(query)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-AsEnumerableExpression-System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression(System.Linq.IQueryable)')
   - [AsEnumerableExpression\`\`1(query)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-AsEnumerableExpression``1-System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression``1(System.Linq.IQueryable{``0})')
   - [CreateQueryTemplate\`\`1()](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1')
   - [CreateQueryTemplate\`\`1(noop)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1-System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1(System.Linq.IQueryable{``0})')
+  - [CreateSnapshotQueryable\`\`1(source,callback)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateSnapshotQueryable``1-System-Linq-IQueryable{``0},System-Action{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateSnapshotQueryable``1(System.Linq.IQueryable{``0},System.Action{System.Linq.Expressions.Expression})')
   - [HasFragment\`\`1(source,fragment)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-HasFragment``1-System-Linq-IQueryable{``0},System-Func{System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.HasFragment``1(System.Linq.IQueryable{``0},System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}})')
   - [IsEquivalentTo(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsEquivalentTo-System-Linq-IQueryable,System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsEquivalentTo(System.Linq.IQueryable,System.Linq.IQueryable)')
   - [IsEquivalentTo\`\`1(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsEquivalentTo``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsEquivalentTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
   - [IsSimilarTo(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo-System-Linq-IQueryable,System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo(System.Linq.IQueryable,System.Linq.IQueryable)')
   - [IsSimilarTo\`\`1(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+- [QuerySnapshotEventArgs](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs')
+  - [#ctor(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-#ctor-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.#ctor(System.Linq.Expressions.Expression)')
+  - [Expression](#P-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-Expression 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression')
+- [QuerySnapshotHost\`1](#T-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1')
+  - [#ctor(source)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-IQueryable{`0}- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.IQueryable{`0})')
+  - [#ctor(source,expression)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-IQueryable,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.IQueryable,System.Linq.Expressions.Expression)')
+  - [#ctor(expression,provider)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-Expressions-Expression,ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider{`0}- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.Expressions.Expression,ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{`0})')
+  - [ElementType](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-ElementType 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ElementType')
+  - [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression')
+  - [Provider](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Provider 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Provider')
+  - [SnapshotProvider](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.SnapshotProvider')
+  - [GetEnumerator()](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-GetEnumerator 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.GetEnumerator')
+  - [RegisterSnap(callback)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.RegisterSnap(System.Action{System.Linq.Expressions.Expression})')
+  - [SnapshotProvider_QueryExecuted(sender,e)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider_QueryExecuted-System-Object,ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.SnapshotProvider_QueryExecuted(System.Object,ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs)')
+  - [System#Collections#IEnumerable#GetEnumerator()](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-System#Collections#IEnumerable#GetEnumerator 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.System#Collections#IEnumerable#GetEnumerator')
+- [QuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1')
+  - [#ctor(sourceQuery)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-#ctor-System-Linq-IQueryable- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.#ctor(System.Linq.IQueryable)')
+  - [sourceQuery](#F-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-sourceQuery 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.sourceQuery')
+  - [CreateQuery(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.CreateQuery(System.Linq.Expressions.Expression)')
+  - [CreateQuery\`\`1(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery``1-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)')
+  - [Execute(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.Execute(System.Linq.Expressions.Expression)')
+  - [ExecuteEnumerable(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)')
+  - [Execute\`\`1(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute``1-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.Execute``1(System.Linq.Expressions.Expression)')
 
 <a name='T-ExpressionPowerTools-Core-Contract-Ensure'></a>
 ## Ensure `type`
@@ -719,6 +766,202 @@ A flag that indicates whether the two expressions are equivalent.
 Two instances of [UnaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.UnaryExpression 'System.Linq.Expressions.UnaryExpression') are equivalent when they share the same
 [ExpressionType](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ExpressionType 'System.Linq.Expressions.ExpressionType'), method information, and when their operands pass
 equivalency.
+
+<a name='T-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator'></a>
+## ExpressionEvaluator `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Comparisons
+
+##### Summary
+
+Implementation of [IExpressionEvaluator](#T-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator') for advanced
+expression comparisons.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### AreEquivalent(source,target) `method`
+
+##### Summary
+
+Entry for equivalency comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to compare to. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}-'></a>
+### AreEquivalent(source,target) `method`
+
+##### Summary
+
+Comparison of multiple expressions. Equivalent
+only when all elements match, in order, and
+pass the equivalent test.
+
+##### Returns
+
+A flag indicating whether the two sets of
+expressions are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The source expressions. |
+| target | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The target expressions. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}-'></a>
+### AreEquivalent\`\`1(source,target) `method`
+
+##### Summary
+
+Entry for equivalency comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+| target | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The target [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to compare to. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The [Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') of the entity. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreSimilar-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### AreSimilar(source,target) `method`
+
+##### Summary
+
+Entry for similarity comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to compare to. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreSimilar-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}-'></a>
+### AreSimilar(source,target) `method`
+
+##### Summary
+
+Comparison of multiple expressions. Similar
+only when all elements match, in order, and
+pass the similarity test. It's fine if the
+source does not have the same number of entities
+as the target.
+
+##### Returns
+
+A flag indicating whether the two sets of
+expressions are Similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The source expressions. |
+| target | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The target expressions. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreSimilar``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}-'></a>
+### AreSimilar\`\`1(source,target) `method`
+
+##### Summary
+
+Entry for similarity comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+| target | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The target [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to compare to. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The [Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') of entity. |
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### IsPartOf(source,target) `method`
+
+##### Summary
+
+Determines whether an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') is part of another expression.
+
+##### Returns
+
+A flag indicating whether the source is part of the target.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to parse. |
+
+##### Remarks
+
+A source is part of a target if an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') exists in the
+target's tree that is similar to the source.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-IsPartOf``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}-'></a>
+### IsPartOf\`\`1(source,target) `method`
+
+##### Summary
+
+Determines whether an [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') is part of another query.
+
+##### Returns
+
+A flag indicating whether the source is part of the target.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+| target | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The target [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to parse. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The [Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') of the entity. |
+
+##### Remarks
+
+A source is part of a target if an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') exists in the
+target's tree that is similar to the source.
 
 <a name='T-ExpressionPowerTools-Core-Extensions-ExpressionExtensions'></a>
 ## ExpressionExtensions `type`
@@ -1420,6 +1663,273 @@ The filtered result of [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.qu
 | expressionEnumerator | [ExpressionPowerTools.Core.Signatures.IExpressionEnumerator](#T-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator 'ExpressionPowerTools.Core.Signatures.IExpressionEnumerator') | The [IExpressionEnumerator](#T-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator 'ExpressionPowerTools.Core.Signatures.IExpressionEnumerator') to query. |
 | type | [System.Linq.Expressions.ExpressionType](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ExpressionType 'System.Linq.Expressions.ExpressionType') | The [ExpressionType](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ExpressionType 'System.Linq.Expressions.ExpressionType') to extract. |
 
+<a name='T-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator'></a>
+## IExpressionEvaluator `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Evaluator as facade to equivalency and similarity.
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreEquivalent-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### AreEquivalent(source,target) `method`
+
+##### Summary
+
+Entry for equivalency comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to compare to. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreEquivalent-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}-'></a>
+### AreEquivalent(source,target) `method`
+
+##### Summary
+
+Comparison of multiple expressions. Equivalent
+only when all elements match, in order, and
+pass the equivalent test.
+
+##### Returns
+
+A flag indicating whether the two sets of
+expressions are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The source expressions. |
+| target | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The target expressions. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreEquivalent``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}-'></a>
+### AreEquivalent\`\`1(source,target) `method`
+
+##### Summary
+
+Entry for equivalency comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+| target | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The target [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to compare to. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreSimilar-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### AreSimilar(source,target) `method`
+
+##### Summary
+
+Entry for similarity comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to compare to. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreSimilar-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}-'></a>
+### AreSimilar(source,target) `method`
+
+##### Summary
+
+Comparison of multiple expressions. Similar
+only when all elements match, in order, and
+pass the similarity test. It's fine if the
+source does not have the same number of entities
+as the target.
+
+##### Returns
+
+A flag indicating whether the two sets of
+expressions are Similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The source expressions. |
+| target | [System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}') | The target expressions. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreSimilar``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}-'></a>
+### AreSimilar\`\`1(source,target) `method`
+
+##### Summary
+
+Entry for similarity comparisons. Will cast to
+known types and compare.
+
+##### Returns
+
+A flag indicating whether the source and target are similar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+| target | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The target [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to compare to. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
+### IsPartOf(source,target) `method`
+
+##### Summary
+
+Determines whether an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') is part of another expression.
+
+##### Returns
+
+A flag indicating whether the source is part of the target.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+| target | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The target [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to parse. |
+
+##### Remarks
+
+A source is part of a target if an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') exists in the
+target's tree that is similar to the source.
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-IsPartOf``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}-'></a>
+### IsPartOf\`\`1(source,target) `method`
+
+##### Summary
+
+Determines whether an [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') is part of another query.
+
+##### Returns
+
+A flag indicating whether the source is part of the target.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1'). |
+| target | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The target [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to parse. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+##### Remarks
+
+A source is part of a target if an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') exists in the
+target's tree that is similar to the source.
+
+<a name='T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1'></a>
+## IQuerySnapshotHost\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Host to snapshot a query. Will raise an event when it is executed
+to allow inspecting the expression.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+<a name='P-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-SnapshotProvider'></a>
+### SnapshotProvider `property`
+
+##### Summary
+
+Gets the [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1') that handles the snapshot.
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}-'></a>
+### RegisterSnap(callback) `method`
+
+##### Summary
+
+Register a callback to receive the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') when snapped.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| callback | [System.Action{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Action 'System.Action{System.Linq.Expressions.Expression}') | The callback to use. |
+
+<a name='T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1'></a>
+## IQuerySnapshotProvider\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Provider to intercept query execution for inspection.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of snapshot to provide for. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression-'></a>
+### ExecuteEnumerable(expression) `method`
+
+##### Summary
+
+Execute enumeration from the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression').
+
+##### Returns
+
+An instance of [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable`1 'System.Collections.Generic.IEnumerable`1').
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to enumerate. |
+
 <a name='T-ExpressionPowerTools-Core-Extensions-IQueryableExtensions'></a>
 ## IQueryableExtensions `type`
 
@@ -1531,6 +2041,31 @@ The [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1
 | Name | Description |
 | ---- | ----------- |
 | T | The type of entity. |
+
+<a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateSnapshotQueryable``1-System-Linq-IQueryable{``0},System-Action{System-Linq-Expressions-Expression}-'></a>
+### CreateSnapshotQueryable\`\`1(source,callback) `method`
+
+##### Summary
+
+Creates a snapshot that allows a registered callback to
+inspect the expression when the query is executed.
+
+##### Returns
+
+The query with snapshot applied.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source query. |
+| callback | [System.Action{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Action 'System.Action{System.Linq.Expressions.Expression}') | The callback. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type. |
 
 <a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-HasFragment``1-System-Linq-IQueryable{``0},System-Func{System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}}-'></a>
 ### HasFragment\`\`1(source,fragment) `method`
@@ -1645,3 +2180,311 @@ A flag indicating whether the queries are similar.
 | Name | Description |
 | ---- | ----------- |
 | T | The entity being queried. |
+
+<a name='T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs'></a>
+## QuerySnapshotEventArgs `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Providers
+
+##### Summary
+
+Encapsulates an [Expression](#P-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-Expression 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression').
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-#ctor-System-Linq-Expressions-Expression-'></a>
+### #ctor(expression) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [QuerySnapshotEventArgs](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](#P-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-Expression 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression') to host. |
+
+<a name='P-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-Expression'></a>
+### Expression `property`
+
+##### Summary
+
+Gets the [Expression](#P-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-Expression 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression').
+
+<a name='T-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1'></a>
+## QuerySnapshotHost\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Hosts
+
+##### Summary
+
+A host to snapshot the query on execution.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of the query. |
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-IQueryable{`0}-'></a>
+### #ctor(source) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [QuerySnapshotHost\`1](#T-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{`0}') | The [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1') to snapshot. |
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-IQueryable,System-Linq-Expressions-Expression-'></a>
+### #ctor(source,expression) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [QuerySnapshotHost\`1](#T-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The query source. |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression') to use. |
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-Expressions-Expression,ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider{`0}-'></a>
+### #ctor(expression,provider) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [QuerySnapshotHost\`1](#T-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression'). |
+| provider | [ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{\`0}](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider{`0} 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{`0}') | The [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1'). |
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-ElementType'></a>
+### ElementType `property`
+
+##### Summary
+
+Gets the type of element.
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression'></a>
+### Expression `property`
+
+##### Summary
+
+Gets the [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression') for the query.
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Provider'></a>
+### Provider `property`
+
+##### Summary
+
+Gets the instance of the [IQueryProvider](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryProvider 'System.Linq.IQueryProvider').
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider'></a>
+### SnapshotProvider `property`
+
+##### Summary
+
+Gets the instance of the [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1').
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-GetEnumerator'></a>
+### GetEnumerator() `method`
+
+##### Summary
+
+Gets an [IEnumerator\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerator`1 'System.Collections.Generic.IEnumerator`1') for the query results.
+
+##### Returns
+
+The [IEnumerator\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerator`1 'System.Collections.Generic.IEnumerator`1').
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}-'></a>
+### RegisterSnap(callback) `method`
+
+##### Summary
+
+Register for a callback when the [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression') is executed.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| callback | [System.Action{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Action 'System.Action{System.Linq.Expressions.Expression}') | The callback to pass the expression to. |
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider_QueryExecuted-System-Object,ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-'></a>
+### SnapshotProvider_QueryExecuted(sender,e) `method`
+
+##### Summary
+
+Handle snap.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sender | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | The sender. |
+| e | [ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs') | The [QuerySnapshotEventArgs](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs'). |
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-System#Collections#IEnumerable#GetEnumerator'></a>
+### System#Collections#IEnumerable#GetEnumerator() `method`
+
+##### Summary
+
+Gets the non-typed [IEnumerator](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.IEnumerator 'System.Collections.IEnumerator').
+
+##### Returns
+
+The [IEnumerator](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.IEnumerator 'System.Collections.IEnumerator').
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='T-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1'></a>
+## QuerySnapshotProvider\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Providers
+
+##### Summary
+
+Provider that raises an event just before the query is executed.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-#ctor-System-Linq-IQueryable-'></a>
+### #ctor(sourceQuery) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [QuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sourceQuery | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The query to snapshot. |
+
+<a name='F-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-sourceQuery'></a>
+### sourceQuery `constants`
+
+##### Summary
+
+Pass through to the original provider.
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery-System-Linq-Expressions-Expression-'></a>
+### CreateQuery(expression) `method`
+
+##### Summary
+
+Creates the query.
+
+##### Returns
+
+The query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery``1-System-Linq-Expressions-Expression-'></a>
+### CreateQuery\`\`1(expression) `method`
+
+##### Summary
+
+Creates the query.
+
+##### Returns
+
+The query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TElement | The entity type. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute-System-Linq-Expressions-Expression-'></a>
+### Execute(expression) `method`
+
+##### Summary
+
+Runs the query and returns the result.
+
+##### Returns
+
+The query result.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to use. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression-'></a>
+### ExecuteEnumerable(expression) `method`
+
+##### Summary
+
+Return the enumerable result.
+
+##### Returns
+
+The [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable`1 'System.Collections.Generic.IEnumerable`1').
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to parse. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute``1-System-Linq-Expressions-Expression-'></a>
+### Execute\`\`1(expression) `method`
+
+##### Summary
+
+Runs the query and returns the typed result.
+
+##### Returns
+
+The query result.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TResult | The type of the result. |

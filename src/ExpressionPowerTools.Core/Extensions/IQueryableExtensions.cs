@@ -4,8 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Extensions
@@ -139,5 +142,21 @@ namespace ExpressionPowerTools.Core.Extensions
             return target.Expression.IsPartOf(source.Expression);
         }
 
+        /// <summary>
+        /// Creates a snapshot that allows a registered callback to
+        /// inspect the expression when the query is executed.
+        /// </summary>
+        /// <typeparam name="T">The type.</typeparam>
+        /// <param name="source">The source query.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>The query with snapshot applied.</returns>
+        public static IQuerySnapshotHost<T> CreateSnapshotQueryable<T>(
+            this IQueryable<T> source,
+            Action<Expression> callback)
+        {
+            var snapshot = new QuerySnapshotHost<T>(source);
+            snapshot.RegisterSnap(callback);
+            return snapshot;
+        }
     }
 }

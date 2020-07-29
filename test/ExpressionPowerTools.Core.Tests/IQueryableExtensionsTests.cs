@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
 using Xunit;
 
@@ -200,6 +202,30 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.True(target.HasFragment(q => q.Take(3)));
             Assert.True(target.HasFragment(q => q.OrderBy(q => q.Created)));
         }
+
+        [Fact]
+        public void GivenQueryableWhenCreateSnapshotHostCalledThenShouldReturnSnapshotHost()
+        {
+            var target = TestQuery();
+            var snapshot = target.CreateSnapshotQueryable(expression => { });
+            Assert.NotNull(snapshot);
+            Assert.IsType<QuerySnapshotHost<QueryHelper>>(snapshot);
+        }
+
+        [Fact]
+        public void GivenQueryableWhenCreateSnapshotHostCalledThenShouldReturnSnapshotRegisteredForCallback()
+        {
+            var target = TestQuery();
+            Expression expression = null;
+            var snapshot = target.CreateSnapshotQueryable(e => expression = e);
+            var _ = snapshot.Take(5).ToList();
+            Assert.NotNull(expression);
+            Assert.True(expression.AsEnumerable()
+                .MethodsWithNameForType(
+                    typeof(Queryable),
+                    nameof(Queryable.Take)).Any());
+        }
+
     }
 }
 
