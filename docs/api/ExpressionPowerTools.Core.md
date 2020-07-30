@@ -3,6 +3,14 @@
 
 ## Contents
 
+- [CustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1')
+  - [#ctor(sourceQuery)](#M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-#ctor-System-Linq-IQueryable- 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.#ctor(System.Linq.IQueryable)')
+  - [Source](#P-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-Source 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.Source')
+  - [CreateQuery(expression)](#M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-CreateQuery-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.CreateQuery(System.Linq.Expressions.Expression)')
+  - [CreateQuery\`\`1(expression)](#M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-CreateQuery``1-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)')
+  - [Execute(expression)](#M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-Execute-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.Execute(System.Linq.Expressions.Expression)')
+  - [ExecuteEnumerable(expression)](#M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)')
+  - [Execute\`\`1(expression)](#M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-Execute``1-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.Execute``1(System.Linq.Expressions.Expression)')
 - [Ensure](#T-ExpressionPowerTools-Core-Contract-Ensure 'ExpressionPowerTools.Core.Contract.Ensure')
   - [NotNullOrWhitespace(value)](#M-ExpressionPowerTools-Core-Contract-Ensure-NotNullOrWhitespace-System-Linq-Expressions-Expression{System-Func{System-String}}- 'ExpressionPowerTools.Core.Contract.Ensure.NotNullOrWhitespace(System.Linq.Expressions.Expression{System.Func{System.String}})')
   - [NotNull\`\`1(value)](#M-ExpressionPowerTools-Core-Contract-Ensure-NotNull``1-System-Linq-Expressions-Expression{System-Func{``0}}- 'ExpressionPowerTools.Core.Contract.Ensure.NotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})')
@@ -78,6 +86,9 @@
   - [TypeCheckAndCompare\`\`1(source,target,compare)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypeCheckAndCompare``1-``0,System-Linq-Expressions-Expression,System-Func{``0,``0,System-Boolean}- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypeCheckAndCompare``1(``0,System.Linq.Expressions.Expression,System.Func{``0,``0,System.Boolean})')
   - [TypesAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypesAreSimilar-System-Type,System-Type- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypesAreSimilar(System.Type,System.Type)')
   - [UnariesAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-UnariesAreSimilar-System-Linq-Expressions-UnaryExpression,System-Linq-Expressions-UnaryExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.UnariesAreSimilar(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)')
+- [ExpressionTransformer](#T-ExpressionPowerTools-Core-ExpressionTransformer 'ExpressionPowerTools.Core.ExpressionTransformer')
+- [ICustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1 'ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1')
+  - [ExecuteEnumerable(expression)](#M-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)')
 - [IExpressionEnumerator](#T-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator 'ExpressionPowerTools.Core.Signatures.IExpressionEnumerator')
 - [IExpressionEnumeratorExtensions](#T-ExpressionPowerTools-Core-Extensions-IExpressionEnumeratorExtensions 'ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions')
   - [ConstantsOfType\`\`1(expressionEnumerator)](#M-ExpressionPowerTools-Core-Extensions-IExpressionEnumeratorExtensions-ConstantsOfType``1-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator- 'ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.ConstantsOfType``1(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator)')
@@ -95,14 +106,22 @@
   - [AreSimilar\`\`1(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-AreSimilar``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
   - [IsPartOf(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-IsPartOf-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
   - [IsPartOf\`\`1(source,target)](#M-ExpressionPowerTools-Core-Signatures-IExpressionEvaluator-IsPartOf``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.IsPartOf``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+- [IQueryHost\`2](#T-ExpressionPowerTools-Core-Signatures-IQueryHost`2 'ExpressionPowerTools.Core.Signatures.IQueryHost`2')
+  - [CustomProvider](#P-ExpressionPowerTools-Core-Signatures-IQueryHost`2-CustomProvider 'ExpressionPowerTools.Core.Signatures.IQueryHost`2.CustomProvider')
+- [IQueryInterceptingProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQueryInterceptingProvider`1 'ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider`1')
+- [IQueryInterceptor](#T-ExpressionPowerTools-Core-Signatures-IQueryInterceptor 'ExpressionPowerTools.Core.Signatures.IQueryInterceptor')
+  - [RegisterInterceptor(transformation)](#M-ExpressionPowerTools-Core-Signatures-IQueryInterceptor-RegisterInterceptor-ExpressionPowerTools-Core-ExpressionTransformer- 'ExpressionPowerTools.Core.Signatures.IQueryInterceptor.RegisterInterceptor(ExpressionPowerTools.Core.ExpressionTransformer)')
+- [IQuerySnapshot](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshot 'ExpressionPowerTools.Core.Signatures.IQuerySnapshot')
+  - [Parent](#P-ExpressionPowerTools-Core-Signatures-IQuerySnapshot-Parent 'ExpressionPowerTools.Core.Signatures.IQuerySnapshot.Parent')
+  - [OnExecuteEnumerableCalled(expression)](#M-ExpressionPowerTools-Core-Signatures-IQuerySnapshot-OnExecuteEnumerableCalled-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.IQuerySnapshot.OnExecuteEnumerableCalled(System.Linq.Expressions.Expression)')
 - [IQuerySnapshotHost\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1')
-  - [SnapshotProvider](#P-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-SnapshotProvider 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.SnapshotProvider')
   - [RegisterSnap(callback)](#M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.RegisterSnap(System.Action{System.Linq.Expressions.Expression})')
+  - [UnregisterSnap(id)](#M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-UnregisterSnap-System-String- 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.UnregisterSnap(System.String)')
 - [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1')
-  - [ExecuteEnumerable(expression)](#M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)')
 - [IQueryableExtensions](#T-ExpressionPowerTools-Core-Extensions-IQueryableExtensions 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions')
   - [AsEnumerableExpression(query)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-AsEnumerableExpression-System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression(System.Linq.IQueryable)')
   - [AsEnumerableExpression\`\`1(query)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-AsEnumerableExpression``1-System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression``1(System.Linq.IQueryable{``0})')
+  - [CreateInterceptedQueryable\`\`1(source,transformation)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateInterceptedQueryable``1-System-Linq-IQueryable{``0},ExpressionPowerTools-Core-ExpressionTransformer- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateInterceptedQueryable``1(System.Linq.IQueryable{``0},ExpressionPowerTools.Core.ExpressionTransformer)')
   - [CreateQueryTemplate\`\`1()](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1')
   - [CreateQueryTemplate\`\`1(noop)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1-System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1(System.Linq.IQueryable{``0})')
   - [CreateSnapshotQueryable\`\`1(source,callback)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateSnapshotQueryable``1-System-Linq-IQueryable{``0},System-Action{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateSnapshotQueryable``1(System.Linq.IQueryable{``0},System.Action{System.Linq.Expressions.Expression})')
@@ -111,6 +130,23 @@
   - [IsEquivalentTo\`\`1(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsEquivalentTo``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsEquivalentTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
   - [IsSimilarTo(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo-System-Linq-IQueryable,System-Linq-IQueryable- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo(System.Linq.IQueryable,System.Linq.IQueryable)')
   - [IsSimilarTo\`\`1(source,target)](#M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-IsSimilarTo``1-System-Linq-IQueryable{``0},System-Linq-IQueryable{``0}- 'ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})')
+- [QueryHost\`2](#T-ExpressionPowerTools-Core-Hosts-QueryHost`2 'ExpressionPowerTools.Core.Hosts.QueryHost`2')
+  - [#ctor(expression,provider)](#M-ExpressionPowerTools-Core-Hosts-QueryHost`2-#ctor-System-Linq-Expressions-Expression,`1- 'ExpressionPowerTools.Core.Hosts.QueryHost`2.#ctor(System.Linq.Expressions.Expression,`1)')
+  - [CustomProvider](#P-ExpressionPowerTools-Core-Hosts-QueryHost`2-CustomProvider 'ExpressionPowerTools.Core.Hosts.QueryHost`2.CustomProvider')
+  - [ElementType](#P-ExpressionPowerTools-Core-Hosts-QueryHost`2-ElementType 'ExpressionPowerTools.Core.Hosts.QueryHost`2.ElementType')
+  - [Expression](#P-ExpressionPowerTools-Core-Hosts-QueryHost`2-Expression 'ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression')
+  - [Provider](#P-ExpressionPowerTools-Core-Hosts-QueryHost`2-Provider 'ExpressionPowerTools.Core.Hosts.QueryHost`2.Provider')
+  - [GetEnumerator()](#M-ExpressionPowerTools-Core-Hosts-QueryHost`2-GetEnumerator 'ExpressionPowerTools.Core.Hosts.QueryHost`2.GetEnumerator')
+  - [System#Collections#IEnumerable#GetEnumerator()](#M-ExpressionPowerTools-Core-Hosts-QueryHost`2-System#Collections#IEnumerable#GetEnumerator 'ExpressionPowerTools.Core.Hosts.QueryHost`2.System#Collections#IEnumerable#GetEnumerator')
+- [QueryInterceptingProvider\`1](#T-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1')
+  - [#ctor(sourceQuery)](#M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-#ctor-System-Linq-IQueryable- 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.#ctor(System.Linq.IQueryable)')
+  - [transformation](#F-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-transformation 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.transformation')
+  - [CreateQuery(expression)](#M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-CreateQuery-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.CreateQuery(System.Linq.Expressions.Expression)')
+  - [CreateQuery\`\`1(expression)](#M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-CreateQuery``1-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)')
+  - [Execute(expression)](#M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-Execute-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.Execute(System.Linq.Expressions.Expression)')
+  - [ExecuteEnumerable(expression)](#M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)')
+  - [RegisterInterceptor(transformation)](#M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-RegisterInterceptor-ExpressionPowerTools-Core-ExpressionTransformer- 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.RegisterInterceptor(ExpressionPowerTools.Core.ExpressionTransformer)')
+  - [TransformExpression(source)](#M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-TransformExpression-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.TransformExpression(System.Linq.Expressions.Expression)')
 - [QuerySnapshotEventArgs](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs')
   - [#ctor(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-#ctor-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.#ctor(System.Linq.Expressions.Expression)')
   - [Expression](#P-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-Expression 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression')
@@ -118,22 +154,174 @@
   - [#ctor(source)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-IQueryable{`0}- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.IQueryable{`0})')
   - [#ctor(source,expression)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-IQueryable,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.IQueryable,System.Linq.Expressions.Expression)')
   - [#ctor(expression,provider)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-Expressions-Expression,ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider{`0}- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.Expressions.Expression,ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{`0})')
-  - [ElementType](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-ElementType 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ElementType')
-  - [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression')
-  - [Provider](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Provider 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Provider')
-  - [SnapshotProvider](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.SnapshotProvider')
-  - [GetEnumerator()](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-GetEnumerator 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.GetEnumerator')
   - [RegisterSnap(callback)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.RegisterSnap(System.Action{System.Linq.Expressions.Expression})')
   - [SnapshotProvider_QueryExecuted(sender,e)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider_QueryExecuted-System-Object,ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.SnapshotProvider_QueryExecuted(System.Object,ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs)')
-  - [System#Collections#IEnumerable#GetEnumerator()](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-System#Collections#IEnumerable#GetEnumerator 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.System#Collections#IEnumerable#GetEnumerator')
+  - [UnregisterSnap(id)](#M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-UnregisterSnap-System-String- 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.UnregisterSnap(System.String)')
 - [QuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1')
   - [#ctor(sourceQuery)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-#ctor-System-Linq-IQueryable- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.#ctor(System.Linq.IQueryable)')
-  - [sourceQuery](#F-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-sourceQuery 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.sourceQuery')
+  - [Parent](#P-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Parent 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.Parent')
   - [CreateQuery(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.CreateQuery(System.Linq.Expressions.Expression)')
   - [CreateQuery\`\`1(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery``1-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)')
-  - [Execute(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.Execute(System.Linq.Expressions.Expression)')
   - [ExecuteEnumerable(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)')
-  - [Execute\`\`1(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute``1-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.Execute``1(System.Linq.Expressions.Expression)')
+  - [OnExecuteEnumerableCalled(expression)](#M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-OnExecuteEnumerableCalled-System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.OnExecuteEnumerableCalled(System.Linq.Expressions.Expression)')
+
+<a name='T-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1'></a>
+## CustomQueryProvider\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Providers
+
+##### Summary
+
+Base query provider class.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The entity type. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-#ctor-System-Linq-IQueryable-'></a>
+### #ctor(sourceQuery) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [CustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1 'ExpressionPowerTools.Core.Providers.CustomQueryProvider`1') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sourceQuery | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The query to snapshot. |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Throw when query is null. |
+
+<a name='P-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-Source'></a>
+### Source `property`
+
+##### Summary
+
+Gets the source [IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable').
+
+<a name='M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-CreateQuery-System-Linq-Expressions-Expression-'></a>
+### CreateQuery(expression) `method`
+
+##### Summary
+
+Creates the query.
+
+##### Returns
+
+The query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+<a name='M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-CreateQuery``1-System-Linq-Expressions-Expression-'></a>
+### CreateQuery\`\`1(expression) `method`
+
+##### Summary
+
+Creates the query.
+
+##### Returns
+
+The query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TElement | The entity type. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-Execute-System-Linq-Expressions-Expression-'></a>
+### Execute(expression) `method`
+
+##### Summary
+
+Runs the query and returns the result.
+
+##### Returns
+
+The query result.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to use. |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Throw when expression is null. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression-'></a>
+### ExecuteEnumerable(expression) `method`
+
+##### Summary
+
+Return the enumerable result.
+
+##### Returns
+
+The [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable`1 'System.Collections.Generic.IEnumerable`1').
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to parse. |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Throw when expression is null. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-CustomQueryProvider`1-Execute``1-System-Linq-Expressions-Expression-'></a>
+### Execute\`\`1(expression) `method`
+
+##### Summary
+
+Runs the query and returns the typed result.
+
+##### Returns
+
+The query result.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TResult | The type of the result. |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Throw when expression is null. |
 
 <a name='T-ExpressionPowerTools-Core-Contract-Ensure'></a>
 ## Ensure `type`
@@ -1501,6 +1689,61 @@ Two instances of [UnaryExpression](http://msdn.microsoft.com/query/dev14.query?a
 [ExpressionType](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ExpressionType 'System.Linq.Expressions.ExpressionType'), method information, and when their operands pass
 equivalency.
 
+<a name='T-ExpressionPowerTools-Core-ExpressionTransformer'></a>
+## ExpressionTransformer `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core
+
+##### Summary
+
+Transform one expression to another.
+
+##### Returns
+
+The transformed expression.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [T:ExpressionPowerTools.Core.ExpressionTransformer](#T-T-ExpressionPowerTools-Core-ExpressionTransformer 'T:ExpressionPowerTools.Core.ExpressionTransformer') | The source [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+<a name='T-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1'></a>
+## ICustomQueryProvider\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Interface for a custom implementation of [IQueryProvider](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryProvider 'System.Linq.IQueryProvider').
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The entity type. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression-'></a>
+### ExecuteEnumerable(expression) `method`
+
+##### Summary
+
+Execute enumeration from the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression').
+
+##### Returns
+
+An instance of [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable`1 'System.Collections.Generic.IEnumerable`1').
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to enumerate. |
+
 <a name='T-ExpressionPowerTools-Core-Signatures-IExpressionEnumerator'></a>
 ## IExpressionEnumerator `type`
 
@@ -1858,6 +2101,103 @@ A flag indicating whether the source is part of the target.
 A source is part of a target if an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') exists in the
 target's tree that is similar to the source.
 
+<a name='T-ExpressionPowerTools-Core-Signatures-IQueryHost`2'></a>
+## IQueryHost\`2 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Interface for custom query host.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type of entity. |
+| TProvider | The [ICustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1 'ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1') to handle logic. |
+
+<a name='P-ExpressionPowerTools-Core-Signatures-IQueryHost`2-CustomProvider'></a>
+### CustomProvider `property`
+
+##### Summary
+
+Gets the [ICustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1 'ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1') that handles the custom logic.
+
+<a name='T-ExpressionPowerTools-Core-Signatures-IQueryInterceptingProvider`1'></a>
+## IQueryInterceptingProvider\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Interface for provider that intercepts the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') when run.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type. |
+
+<a name='T-ExpressionPowerTools-Core-Signatures-IQueryInterceptor'></a>
+## IQueryInterceptor `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Exposes a method to register a transformation.
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IQueryInterceptor-RegisterInterceptor-ExpressionPowerTools-Core-ExpressionTransformer-'></a>
+### RegisterInterceptor(transformation) `method`
+
+##### Summary
+
+Register the transformation to intercept.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| transformation | [ExpressionPowerTools.Core.ExpressionTransformer](#T-ExpressionPowerTools-Core-ExpressionTransformer 'ExpressionPowerTools.Core.ExpressionTransformer') | The method to inspect and/or transform. |
+
+<a name='T-ExpressionPowerTools-Core-Signatures-IQuerySnapshot'></a>
+## IQuerySnapshot `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Signatures
+
+##### Summary
+
+Non-generic interface for snapshot host.
+
+<a name='P-ExpressionPowerTools-Core-Signatures-IQuerySnapshot-Parent'></a>
+### Parent `property`
+
+##### Summary
+
+Gets the parent provider for bubbling events.
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IQuerySnapshot-OnExecuteEnumerableCalled-System-Linq-Expressions-Expression-'></a>
+### OnExecuteEnumerableCalled(expression) `method`
+
+##### Summary
+
+Method to raise call.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to snapshot. |
+
 <a name='T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1'></a>
 ## IQuerySnapshotHost\`1 `type`
 
@@ -1876,13 +2216,6 @@ to allow inspecting the expression.
 | ---- | ----------- |
 | T | The type of entity. |
 
-<a name='P-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-SnapshotProvider'></a>
-### SnapshotProvider `property`
-
-##### Summary
-
-Gets the [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1') that handles the snapshot.
-
 <a name='M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}-'></a>
 ### RegisterSnap(callback) `method`
 
@@ -1890,11 +2223,28 @@ Gets the [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQu
 
 Register a callback to receive the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') when snapped.
 
+##### Returns
+
+A unique identifier used to unregister.
+
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | callback | [System.Action{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Action 'System.Action{System.Linq.Expressions.Expression}') | The callback to use. |
+
+<a name='M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotHost`1-UnregisterSnap-System-String-'></a>
+### UnregisterSnap(id) `method`
+
+##### Summary
+
+Unregister for callbacks.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| id | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The unique identifier of the registration. |
 
 <a name='T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1'></a>
 ## IQuerySnapshotProvider\`1 `type`
@@ -1912,23 +2262,6 @@ Provider to intercept query execution for inspection.
 | Name | Description |
 | ---- | ----------- |
 | T | The type of snapshot to provide for. |
-
-<a name='M-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression-'></a>
-### ExecuteEnumerable(expression) `method`
-
-##### Summary
-
-Execute enumeration from the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression').
-
-##### Returns
-
-An instance of [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable`1 'System.Collections.Generic.IEnumerable`1').
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to enumerate. |
 
 <a name='T-ExpressionPowerTools-Core-Extensions-IQueryableExtensions'></a>
 ## IQueryableExtensions `type`
@@ -1997,6 +2330,31 @@ The [IExpressionEnumerator](#T-ExpressionPowerTools-Core-Signatures-IExpressionE
 | Name | Description |
 | ---- | ----------- |
 | T | The query type. |
+
+<a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateInterceptedQueryable``1-System-Linq-IQueryable{``0},ExpressionPowerTools-Core-ExpressionTransformer-'></a>
+### CreateInterceptedQueryable\`\`1(source,transformation) `method`
+
+##### Summary
+
+Creates a query that can transformation the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression')
+wen run.
+
+##### Returns
+
+The new intercepting query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.IQueryable{\`\`0}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable{``0}') | The source query. |
+| transformation | [ExpressionPowerTools.Core.ExpressionTransformer](#T-ExpressionPowerTools-Core-ExpressionTransformer 'ExpressionPowerTools.Core.ExpressionTransformer') | The transformation to apply. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The entity type. |
 
 <a name='M-ExpressionPowerTools-Core-Extensions-IQueryableExtensions-CreateQueryTemplate``1'></a>
 ### CreateQueryTemplate\`\`1() `method`
@@ -2181,6 +2539,268 @@ A flag indicating whether the queries are similar.
 | ---- | ----------- |
 | T | The entity being queried. |
 
+<a name='T-ExpressionPowerTools-Core-Hosts-QueryHost`2'></a>
+## QueryHost\`2 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Hosts
+
+##### Summary
+
+Base class for custom query host.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The entity type. |
+| TProvider | The [ICustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1 'ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1') to use. |
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QueryHost`2-#ctor-System-Linq-Expressions-Expression,`1-'></a>
+### #ctor(expression,provider) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [QueryHost\`2](#T-ExpressionPowerTools-Core-Hosts-QueryHost`2 'ExpressionPowerTools.Core.Hosts.QueryHost`2') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](#P-ExpressionPowerTools-Core-Hosts-QueryHost`2-Expression 'ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression'). |
+| provider | [\`1](#T-`1 '`1') | The [ICustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1 'ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1'). |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Thrown when expression or provider are null. |
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QueryHost`2-CustomProvider'></a>
+### CustomProvider `property`
+
+##### Summary
+
+Gets or sets the instance of the [ICustomQueryProvider\`1](#T-ExpressionPowerTools-Core-Signatures-ICustomQueryProvider`1 'ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1').
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QueryHost`2-ElementType'></a>
+### ElementType `property`
+
+##### Summary
+
+Gets the type of element.
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QueryHost`2-Expression'></a>
+### Expression `property`
+
+##### Summary
+
+Gets the [Expression](#P-ExpressionPowerTools-Core-Hosts-QueryHost`2-Expression 'ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression') for the query.
+
+<a name='P-ExpressionPowerTools-Core-Hosts-QueryHost`2-Provider'></a>
+### Provider `property`
+
+##### Summary
+
+Gets the instance of the [IQueryProvider](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryProvider 'System.Linq.IQueryProvider').
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QueryHost`2-GetEnumerator'></a>
+### GetEnumerator() `method`
+
+##### Summary
+
+Gets an [IEnumerator\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerator`1 'System.Collections.Generic.IEnumerator`1') for the query results.
+
+##### Returns
+
+The [IEnumerator\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerator`1 'System.Collections.Generic.IEnumerator`1').
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-ExpressionPowerTools-Core-Hosts-QueryHost`2-System#Collections#IEnumerable#GetEnumerator'></a>
+### System#Collections#IEnumerable#GetEnumerator() `method`
+
+##### Summary
+
+Gets the non-typed [IEnumerator](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.IEnumerator 'System.Collections.IEnumerator').
+
+##### Returns
+
+The [IEnumerator](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.IEnumerator 'System.Collections.IEnumerator').
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='T-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1'></a>
+## QueryInterceptingProvider\`1 `type`
+
+##### Namespace
+
+ExpressionPowerTools.Core.Providers
+
+##### Summary
+
+Provider that intercepts the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') when run.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The entity type. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-#ctor-System-Linq-IQueryable-'></a>
+### #ctor(sourceQuery) `constructor`
+
+##### Summary
+
+Initializes a new instance of the [QueryInterceptingProvider\`1](#T-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1 'ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1') class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sourceQuery | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The query to snapshot. |
+
+<a name='F-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-transformation'></a>
+### transformation `constants`
+
+##### Summary
+
+The transformatoin to apply.
+
+<a name='M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-CreateQuery-System-Linq-Expressions-Expression-'></a>
+### CreateQuery(expression) `method`
+
+##### Summary
+
+Creates a query host with this provider.
+
+##### Returns
+
+The [IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable').
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to use. |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Throw when expression is null. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-CreateQuery``1-System-Linq-Expressions-Expression-'></a>
+### CreateQuery\`\`1(expression) `method`
+
+##### Summary
+
+Creates a query host with a different type.
+
+##### Returns
+
+The [IQueryable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable`1 'System.Linq.IQueryable`1').
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to use. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TElement | The entity type. |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Throw when expression is null. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-Execute-System-Linq-Expressions-Expression-'></a>
+### Execute(expression) `method`
+
+##### Summary
+
+Execute with transformation.
+
+##### Returns
+
+Result of executing the transformed expression.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The base [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Thrown when expression is null. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression-'></a>
+### ExecuteEnumerable(expression) `method`
+
+##### Summary
+
+Execute the enumerable.
+
+##### Returns
+
+The result of the transformed expression.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to execute. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-RegisterInterceptor-ExpressionPowerTools-Core-ExpressionTransformer-'></a>
+### RegisterInterceptor(transformation) `method`
+
+##### Summary
+
+Registers the transformation to apply.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| transformation | [ExpressionPowerTools.Core.ExpressionTransformer](#T-ExpressionPowerTools-Core-ExpressionTransformer 'ExpressionPowerTools.Core.ExpressionTransformer') | A method that transforms an [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Thrown when transformation is null. |
+| [System.InvalidOperationException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.InvalidOperationException 'System.InvalidOperationException') | Thrown when interceptor already registered. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QueryInterceptingProvider`1-TransformExpression-System-Linq-Expressions-Expression-'></a>
+### TransformExpression(source) `method`
+
+##### Summary
+
+Perform the transformation.
+
+##### Returns
+
+The transformed [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression').
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The original [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
 <a name='T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs'></a>
 ## QuerySnapshotEventArgs `type`
 
@@ -2254,7 +2874,7 @@ Initializes a new instance of the [QuerySnapshotHost\`1](#T-ExpressionPowerTools
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | source | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The query source. |
-| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression') to use. |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to use. |
 
 <a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-#ctor-System-Linq-Expressions-Expression,ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider{`0}-'></a>
 ### #ctor(expression,provider) `constructor`
@@ -2267,64 +2887,31 @@ Initializes a new instance of the [QuerySnapshotHost\`1](#T-ExpressionPowerTools
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression'). |
-| provider | [ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{\`0}](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider{`0} 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{`0}') | The [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1'). |
-
-<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-ElementType'></a>
-### ElementType `property`
-
-##### Summary
-
-Gets the type of element.
-
-<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression'></a>
-### Expression `property`
-
-##### Summary
-
-Gets the [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression') for the query.
-
-<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Provider'></a>
-### Provider `property`
-
-##### Summary
-
-Gets the instance of the [IQueryProvider](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryProvider 'System.Linq.IQueryProvider').
-
-<a name='P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider'></a>
-### SnapshotProvider `property`
-
-##### Summary
-
-Gets the instance of the [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1').
-
-<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-GetEnumerator'></a>
-### GetEnumerator() `method`
-
-##### Summary
-
-Gets an [IEnumerator\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerator`1 'System.Collections.Generic.IEnumerator`1') for the query results.
-
-##### Returns
-
-The [IEnumerator\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerator`1 'System.Collections.Generic.IEnumerator`1').
-
-##### Parameters
-
-This method has no parameters.
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to use. |
+| provider | [ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{\`0}](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider{`0} 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{`0}') | The [IQuerySnapshotProvider\`1](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshotProvider`1 'ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1') instance. |
 
 <a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-RegisterSnap-System-Action{System-Linq-Expressions-Expression}-'></a>
 ### RegisterSnap(callback) `method`
 
 ##### Summary
 
-Register for a callback when the [Expression](#P-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-Expression 'ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.Expression') is executed.
+Register for a callback when the [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') is executed.
+
+##### Returns
+
+A unique identifier for the registration.
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | callback | [System.Action{System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Action 'System.Action{System.Linq.Expressions.Expression}') | The callback to pass the expression to. |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Thrown when callback is null. |
 
 <a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-SnapshotProvider_QueryExecuted-System-Object,ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs-'></a>
 ### SnapshotProvider_QueryExecuted(sender,e) `method`
@@ -2340,20 +2927,18 @@ Handle snap.
 | sender | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | The sender. |
 | e | [ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs') | The [QuerySnapshotEventArgs](#T-ExpressionPowerTools-Core-Providers-QuerySnapshotEventArgs 'ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs'). |
 
-<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-System#Collections#IEnumerable#GetEnumerator'></a>
-### System#Collections#IEnumerable#GetEnumerator() `method`
+<a name='M-ExpressionPowerTools-Core-Hosts-QuerySnapshotHost`1-UnregisterSnap-System-String-'></a>
+### UnregisterSnap(id) `method`
 
 ##### Summary
 
-Gets the non-typed [IEnumerator](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.IEnumerator 'System.Collections.IEnumerator').
-
-##### Returns
-
-The [IEnumerator](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.IEnumerator 'System.Collections.IEnumerator').
+Stop listenining.
 
 ##### Parameters
 
-This method has no parameters.
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| id | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The unique identifier. |
 
 <a name='T-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1'></a>
 ## QuerySnapshotProvider\`1 `type`
@@ -2385,12 +2970,12 @@ Initializes a new instance of the [QuerySnapshotProvider\`1](#T-ExpressionPowerT
 | ---- | ---- | ----------- |
 | sourceQuery | [System.Linq.IQueryable](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IQueryable 'System.Linq.IQueryable') | The query to snapshot. |
 
-<a name='F-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-sourceQuery'></a>
-### sourceQuery `constants`
+<a name='P-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Parent'></a>
+### Parent `property`
 
 ##### Summary
 
-Pass through to the original provider.
+Gets or sets the [IQuerySnapshot](#T-ExpressionPowerTools-Core-Signatures-IQuerySnapshot 'ExpressionPowerTools.Core.Signatures.IQuerySnapshot') parent.
 
 <a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery-System-Linq-Expressions-Expression-'></a>
 ### CreateQuery(expression) `method`
@@ -2408,6 +2993,12 @@ The query.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Thrown when expression is null. |
 
 <a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-CreateQuery``1-System-Linq-Expressions-Expression-'></a>
 ### CreateQuery\`\`1(expression) `method`
@@ -2432,22 +3023,11 @@ The query.
 | ---- | ----------- |
 | TElement | The entity type. |
 
-<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute-System-Linq-Expressions-Expression-'></a>
-### Execute(expression) `method`
+##### Exceptions
 
-##### Summary
-
-Runs the query and returns the result.
-
-##### Returns
-
-The query result.
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to use. |
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Thrown when expression is null. |
 
 <a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-ExecuteEnumerable-System-Linq-Expressions-Expression-'></a>
 ### ExecuteEnumerable(expression) `method`
@@ -2466,25 +3046,21 @@ The [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF
 | ---- | ---- | ----------- |
 | expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') to parse. |
 
-<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-Execute``1-System-Linq-Expressions-Expression-'></a>
-### Execute\`\`1(expression) `method`
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.ArgumentNullException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.ArgumentNullException 'System.ArgumentNullException') | Thrown when expression is null. |
+
+<a name='M-ExpressionPowerTools-Core-Providers-QuerySnapshotProvider`1-OnExecuteEnumerableCalled-System-Linq-Expressions-Expression-'></a>
+### OnExecuteEnumerableCalled(expression) `method`
 
 ##### Summary
 
-Runs the query and returns the typed result.
-
-##### Returns
-
-The query result.
+Raise the event.
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The query [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression'). |
-
-##### Generic Types
-
-| Name | Description |
-| ---- | ----------- |
-| TResult | The type of the result. |
+| expression | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The [Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') used. |

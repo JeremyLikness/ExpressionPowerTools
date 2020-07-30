@@ -73,11 +73,11 @@ namespace ExpressionPowerTools.Core.Tests
 
         public static IEnumerable<object[]> GetNullMatrix()
         {
-            yield return new object[] { null, null };
             yield return new object[]
             {
                 Expression.Constant(5), null
             };
+            
             yield return new object[]
             {
                 null, Expression.Constant(5)
@@ -357,10 +357,18 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void GivenExpressionNotSupportedThenAreEquivalentShouldReturnFalse()
+        public void GivenSameExpressionThenAreEquivalentShouldReturnTrue()
         {
             var source = Expression.Goto(Expression.Label());
-            Assert.False(eq.AreEquivalent(source, source));
+            Assert.True(eq.AreEquivalent(source, source));
+        }
+
+        [Fact]
+        public void GivenExpressionNotSupportedThenAreEquivalentShouldReturnFalse()
+        {
+            var source = Expression.Goto(Expression.Label("1"));
+            var target = Expression.Goto(Expression.Label("1"));
+            Assert.False(eq.AreEquivalent(source, target));
         }
 
         [Fact]

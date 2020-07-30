@@ -1,7 +1,22 @@
-﻿namespace ExpressionPowerTools.Core.Tests.TestHelpers
+﻿using System;
+
+namespace ExpressionPowerTools.Core.Tests.TestHelpers
 {
     public class IdType
     {
+        public IdType()
+        {
+            Id = Guid.NewGuid().ToString();
+            IdVal = new Random().Next(int.MinValue, int.MaxValue);
+        }
+
+        public string Message { get; private set; }
+
+        public void Callback(string message)
+        {
+            Message = message;
+        }
+
         public string Id { get; set; }
         public int IdVal { get; set; }
 

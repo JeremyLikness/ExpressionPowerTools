@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Hosts;
+using ExpressionPowerTools.Core.Providers;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Extensions
@@ -157,6 +158,25 @@ namespace ExpressionPowerTools.Core.Extensions
             var snapshot = new QuerySnapshotHost<T>(source);
             snapshot.RegisterSnap(callback);
             return snapshot;
+        }
+
+        /// <summary>
+        /// Creates a query that can transformation the <see cref="Expression"/>
+        /// wen run.
+        /// </summary>
+        /// <typeparam name="T">The entity type.</typeparam>
+        /// <param name="source">The source query.</param>
+        /// <param name="transformation">The transformation to apply.</param>
+        /// <returns>The new intercepting query.</returns>
+        public static IQueryable<T> CreateInterceptedQueryable<T>(
+            this IQueryable<T> source,
+            ExpressionTransformer transformation)
+        {
+            var provider = new QueryInterceptingProvider<T>(source);
+            var interceptingHost = new QueryHost<T, QueryInterceptingProvider<T>>(
+                source.Expression, provider);
+            provider.RegisterInterceptor(transformation);
+            return interceptingHost;
         }
     }
 }

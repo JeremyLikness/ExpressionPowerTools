@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Providers;
 using ExpressionPowerTools.Core.Signatures;
 
@@ -15,10 +15,11 @@ namespace ExpressionPowerTools.Core.Hosts
     /// A host to snapshot the query on execution.
     /// </summary>
     /// <typeparam name="T">The type of the query.</typeparam>
-    public class QuerySnapshotHost<T> : IQuerySnapshotHost<T>
+    public class QuerySnapshotHost<T> :
+        QueryHost<T, IQuerySnapshotProvider<T>>, IQuerySnapshotHost<T>
     {
-        private readonly Stack<Action<Expression>> callbacks =
-            new Stack<Action<Expression>>();
+        private readonly Dictionary<string, Action<Expression>> callbacks =
+            new Dictionary<string, Action<Expression>>();
 
         private bool registered = false;
 
@@ -37,69 +38,56 @@ namespace ExpressionPowerTools.Core.Hosts
         /// <param name="source">The query source.</param>
         /// <param name="expression">The <see cref="Expression"/> to use.</param>
         public QuerySnapshotHost(IQueryable source, Expression expression)
-            : this(expression, new QuerySnapshotProvider<T>(source))
+            : base(expression, new QuerySnapshotProvider<T>(source))
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuerySnapshotHost{T}"/> class.
         /// </summary>
-        /// <param name="expression">The <see cref="Expression"/>.</param>
-        /// <param name="provider">The <see cref="IQuerySnapshotProvider{T}"/>.</param>
-        public QuerySnapshotHost(
-            Expression expression,
-            IQuerySnapshotProvider<T> provider)
+        /// <param name="expression">The <see cref="Expression"/> to use.</param>
+        /// <param name="provider">The <see cref="IQuerySnapshotProvider{T}"/> instance.</param>
+        public QuerySnapshotHost(Expression expression, IQuerySnapshotProvider<T> provider)
+            : base(expression, provider)
         {
-            Expression = expression;
-            SnapshotProvider = provider;
         }
-
-        /// <summary>
-        /// Gets the type of element.
-        /// </summary>
-        public Type ElementType => typeof(T);
-
-        /// <summary>
-        /// Gets the <see cref="Expression"/> for the query.
-        /// </summary>
-        public Expression Expression { get; }
-
-        /// <summary>
-        /// Gets the instance of the <see cref="IQueryProvider"/>.
-        /// </summary>
-        public IQueryProvider Provider => SnapshotProvider;
-
-        /// <summary>
-        /// Gets the instance of the <see cref="IQuerySnapshotProvider{T}"/>.
-        /// </summary>
-        public IQuerySnapshotProvider<T> SnapshotProvider { get; private set; }
-
-        /// <summary>
-        /// Gets an <see cref="IEnumerator{T}"/> for the query results.
-        /// </summary>
-        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
-        public IEnumerator<T> GetEnumerator() =>
-            SnapshotProvider.ExecuteEnumerable(Expression).GetEnumerator();
 
         /// <summary>
         /// Register for a callback when the <see cref="Expression"/> is executed.
         /// </summary>
         /// <param name="callback">The callback to pass the expression to.</param>
-        public void RegisterSnap(Action<Expression> callback)
+        /// <returns>A unique identifier for the registration.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when callback is null.</exception>
+        public string RegisterSnap(Action<Expression> callback)
         {
-            callbacks.Push(callback);
+            Ensure.NotNull(() => callback);
+            var id = Guid.NewGuid().ToString();
+            callbacks.Add(id, callback);
             if (!registered)
             {
-                SnapshotProvider.QueryExecuted += SnapshotProvider_QueryExecuted;
+                CustomProvider.QueryExecuted += SnapshotProvider_QueryExecuted;
                 registered = true;
             }
+
+            return id;
         }
 
         /// <summary>
-        /// Gets the non-typed <see cref="IEnumerator"/>.
+        /// Stop listenining.
         /// </summary>
-        /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        /// <param name="id">The unique identifier.</param>
+        public void UnregisterSnap(string id)
+        {
+            if (callbacks.ContainsKey(id))
+            {
+                callbacks.Remove(id);
+                if (callbacks.Count < 1)
+                {
+                    CustomProvider.QueryExecuted -= SnapshotProvider_QueryExecuted;
+                    registered = false;
+                }
+            }
+        }
 
         /// <summary>
         /// Handle snap.
@@ -108,14 +96,10 @@ namespace ExpressionPowerTools.Core.Hosts
         /// <param name="e">The <see cref="QuerySnapshotEventArgs"/>.</param>
         private void SnapshotProvider_QueryExecuted(object sender, QuerySnapshotEventArgs e)
         {
-            while (callbacks.Count > 0)
+            foreach (var callback in callbacks.Values)
             {
-                var callback = callbacks.Pop();
                 callback(e.Expression);
             }
-
-            registered = false;
-            SnapshotProvider.QueryExecuted -= SnapshotProvider_QueryExecuted;
         }
     }
 }

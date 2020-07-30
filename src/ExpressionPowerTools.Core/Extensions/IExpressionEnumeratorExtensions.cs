@@ -135,6 +135,6 @@ namespace ExpressionPowerTools.Core.Extensions
             Ensure.NotNull(() => expressionEnumerator);
             return expressionEnumerator
                 .Where(e => e.NodeType == type);
-        }        
+        }
     }
 }

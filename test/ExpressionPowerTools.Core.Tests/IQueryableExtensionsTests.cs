@@ -226,6 +226,47 @@ namespace ExpressionPowerTools.Core.Tests
                     nameof(Queryable.Take)).Any());
         }
 
+        private List<IdType> TestDb => new List<IdType>
+        {
+            new IdType(),
+            new IdType(),
+            new IdType(),
+            new IdType(),
+            new IdType()
+        };
+
+        [Fact]
+        public void GivenQueryableWhenCreateInterceptedQueryCalledThenShouldReturnQueryHost()
+        {
+            var list = TestDb;
+            bool transformationCalled = false;
+            var query = list.AsQueryable().Skip(1).Take(2);
+            var intercepted = query.CreateInterceptedQueryable(e => 
+            {
+                transformationCalled = true;
+                return e;
+            });
+            var result = intercepted.ToList();
+            Assert.True(transformationCalled);
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count);
+            Assert.Equal(result[0].Id, list[1].Id);
+            Assert.Equal(result[1].Id, list[2].Id);
+        }
+
+        [Fact]
+        public void GivenQueryableWhenCreateInterceptedQueryCalledThenShouldRegisterTransformation()
+        {
+            var list = TestDb;
+            var query = list.AsQueryable().Skip(1).Take(2);
+            var altQuery = list.AsQueryable().Skip(2).Take(1);
+            var intercepted = query.CreateInterceptedQueryable(e => altQuery.Expression);
+            var result = intercepted.ToList();
+            Assert.NotNull(result);
+            Assert.Single(result);
+            Assert.Equal(result[0].Id, list[2].Id);
+        }
+
     }
 }
 

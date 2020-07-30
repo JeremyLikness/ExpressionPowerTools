@@ -5,6 +5,7 @@ using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
@@ -27,11 +28,25 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
+        public void GivenNullExpressionWhenCreateQueryCalledThenShouldThrowArgumentNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => Provider.CreateQuery(null));
+        }
+
+        [Fact]
         public void CreateQueryTypedProvidesSameQueryAsUnderlyingProvider()
         {
             var source = Provider.CreateQuery<IdType>(Queryable.Expression);
             var target = Queryable.Provider.CreateQuery<IdType>(Queryable.Expression);
             Assert.True(source.IsEquivalentTo(target));
+        }
+
+        [Fact]
+        public void GivenNullExpressionWhenCreateQueryTypedCalledThenShouldThrowArgumentNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => Provider.CreateQuery<IdType>(null));
         }
 
         [Fact]
@@ -41,7 +56,7 @@ namespace ExpressionPowerTools.Core.Tests
             var source = provider.CreateQuery(Queryable.Expression);
             Assert.IsType<QuerySnapshotHost<IdType>>(source);
             Assert.Same(provider,
-                ((QuerySnapshotHost<IdType>)source).SnapshotProvider);
+                ((QuerySnapshotHost<IdType>)source).CustomProvider);
         }
 
         [Fact]
@@ -50,7 +65,32 @@ namespace ExpressionPowerTools.Core.Tests
             var provider = Provider;
             var source = provider.CreateQuery<string>(Queryable.Expression);
             var sourceHost = source as QuerySnapshotHost<string>;
-            Assert.IsType<QuerySnapshotProvider<string>>(sourceHost.SnapshotProvider);
+            Assert.IsType<QuerySnapshotProvider<string>>(sourceHost.CustomProvider);
+        }
+
+        [Fact]
+        public void CreateQueryForTypeWithSameTypeUsesSameProvider()
+        {
+            var provider = Provider;
+            var source = provider.CreateQuery<IdType>(Queryable.Expression);
+            var sourceHost = source as QuerySnapshotHost<IdType>;
+            Assert.Same(provider, sourceHost.CustomProvider);
+        }
+
+        [Fact]
+        public void QueryWithProjectionTriggersSnapshot()
+        {
+            var triggered = false;
+            var provider = Provider;
+            var source = provider.CreateQuery<IdType>(Queryable.Expression);
+            void handler(object o, QuerySnapshotEventArgs e) => 
+                triggered = true;
+            provider.QueryExecuted += handler;
+            var _ = source.Select(i => new { Key = i.Id, Value = i.IdVal });
+            var temp = _.AsEnumerableExpression();
+            _.ToList();
+            provider.QueryExecuted -= handler;
+            Assert.True(triggered);
         }
 
         [Fact]
@@ -66,6 +106,13 @@ namespace ExpressionPowerTools.Core.Tests
             var _ = ((QuerySnapshotHost<string>)source).GetEnumerator();
             provider.QueryExecuted -= handler;
             Assert.NotNull(expression);
+        }
+
+        [Fact]
+        public void GivenNullExpressionWhenExecuteEnumerableCalledThenShouldThrowArgumentNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => Provider.ExecuteEnumerable(null));
         }
 
         [Fact]

@@ -25,6 +25,12 @@ namespace ExpressionPowerTools.Core.Comparisons
         {
             var equivalent = false;
 
+            // easy way
+            if (ReferenceEquals(source, target))
+            {
+                return true;
+            }
+
             if (NullAndTypeCheck(source, target))
             {
                 switch (source)
