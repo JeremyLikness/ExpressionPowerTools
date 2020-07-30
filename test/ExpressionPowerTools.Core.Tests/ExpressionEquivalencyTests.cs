@@ -218,6 +218,45 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
+        public void GivenIEquatableImplementedAndFalseThenAreEquivalentShouldReturnFalse()
+        {
+            var source = new IdType().AsConstantExpression();
+            var target = new IdType().AsConstantExpression();
+            Assert.False(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenIEquatableImplementedAndTrueThenAreEquivalentShouldReturnTrue()
+        {
+            var source = new IdType().AsConstantExpression();
+            var target = new IdType { 
+                Id = ((IdType)source.Value).Id,
+                IdVal = ((IdType)source.Value).IdVal
+            }.AsConstantExpression();
+            Assert.True(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenIComparableImplementedAndNotZeroThenAreEquivalentShouldReturnFalse()
+        {
+            var source = new StringWrapper(true).AsConstantExpression();
+            var target = new StringWrapper(true).AsConstantExpression();
+            Assert.False(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenIComparableImplementedAndZeroThenAreEquivalentShouldReturnTrue()
+        {
+            var source = new StringWrapper(true).AsConstantExpression();
+            var target = new StringWrapper
+            {
+                Id = ((StringWrapper)source.Value).Id,
+                IdVal = ((StringWrapper)source.Value).IdVal
+            }.AsConstantExpression();
+            Assert.True(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
         public void GivenConstantsOfSameTypeWithOneNullThenAreEquivalentShouldReturnFalse()
         {
             Assert.False(eq.AreEquivalent(StrNull, StrFive));
@@ -354,6 +393,22 @@ namespace ExpressionPowerTools.Core.Tests
         {
             Assert.True(eq.AreEquivalent(
                 IntParameter, IntParameter));
+        }
+
+        [Fact]
+        public void GivenAnonymousParameterWithSameSigantureThenAreEquivalentShouldReturnTrue()
+        {
+            var source = new { Id = 1, Name = nameof(IdType) }.GetType().AsParameterExpression();
+            var target = new { Id = 1, Name = nameof(IdType) }.GetType().AsParameterExpression();
+            Assert.True(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenAnonymousParameterWithDifferentSignatureThenAreEquivalentShouldReturnFalse()
+        {
+            var source = new { Id = 1, Name = nameof(IdType) }.GetType().AsParameterExpression();
+            var target = new { Id = (long)1, Name = nameof(IdType) }.GetType().AsParameterExpression();
+            Assert.False(eq.AreEquivalent(source, target));
         }
 
         [Fact]

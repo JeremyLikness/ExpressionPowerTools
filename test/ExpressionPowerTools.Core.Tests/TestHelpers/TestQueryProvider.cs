@@ -26,7 +26,7 @@ namespace ExpressionPowerTools.Core.Tests.TestHelpers
         public object Execute(Expression expression)
         {
             ExecuteCalled = true;
-            return null;
+            return expression;
         }
 
         public TResult Execute<TResult>(Expression expression)

@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Xml.Serialization;
 
 namespace ExpressionPowerTools.Core.Comparisons
 {
@@ -113,6 +115,35 @@ namespace ExpressionPowerTools.Core.Comparisons
             }
 
             return !tgt.MoveNext();
+        }
+
+        /// <summary>
+        /// Attempts to compare values in various ways.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> of the values.</param>
+        /// <param name="source">The source value.</param>
+        /// <param name="target">The target value.</param>
+        /// <returns>A flag indicating equivalency.</returns>
+        public static bool ValuesAreEquivalent(
+            Type type,
+            object source,
+            object target)
+        {
+            var equatableType = typeof(IEquatable<>)
+                    .MakeGenericType(type);
+
+            if (equatableType.IsAssignableFrom(type))
+            {
+                var equatable = equatableType.GetMethod(nameof(IEquatable<object>.Equals));
+                return (bool)equatable.Invoke(source, new object[] { target });
+            }
+
+            if (typeof(IComparable).IsAssignableFrom(type))
+            {
+                return ((IComparable)source).CompareTo(target) == 0;
+            }
+
+            return source.Equals(target);
         }
 
         /// <summary>
@@ -334,7 +365,10 @@ namespace ExpressionPowerTools.Core.Comparisons
                         return false;
                     }
 
-                    if (!src.Current.Equals(tgt.Current))
+                    if (!ValuesAreEquivalent(
+                        src.Current.GetType(),
+                        src.Current,
+                        tgt.Current))
                     {
                         return false;
                     }
@@ -343,7 +377,7 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return !tgt.MoveNext();
             }
 
-            return source.Value.Equals(target.Value);
+            return ValuesAreEquivalent(source.Type, source.Value, target.Value);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Extensions;
 using eq = ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity;
 using Xunit;
+using System.Reflection.Metadata;
 
 namespace ExpressionPowerTools.Core.Tests
 {
@@ -241,6 +242,22 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
+        public void GivenConstantWithObjectTypeThenAreSimilarShouldReturnFalse()
+        {
+            Assert.False(eq.AreSimilar(
+                new object().AsConstantExpression(),
+                new object().AsConstantExpression()));
+        }
+
+        [Fact]
+        public void GivenConstantWithObjectTypeAndOtherTypeThenAreSimilarShouldReturnFalse()
+        {
+            Assert.False(eq.AreSimilar(
+                new object().AsConstantExpression(),
+                new IdType().AsConstantExpression()));
+        }
+
+        [Fact]
         public void GivenEnumerableConstantWithSameTypeThenAreSimilarShouldReturnTrue()
         {
             var source = new List<int?> { 1, null, 3 }.AsConstantExpression();
@@ -293,6 +310,22 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var source = new[] { Five };
             var target = new[] { Five, Six };
+            Assert.True(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenListOfDifferentTypeThenAreSimilarShouldReturnFalse()
+        {
+            var source = new List<int> { 1, 2 }.AsConstantExpression();
+            var target = new List<long> { 1, 2 }.AsConstantExpression();
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenListOfSameTypeThenAreSimilarShouldReturnTrue()
+        {
+            var source = new List<int> { 1, 2 }.AsConstantExpression();
+            var target = new List<int> { 3, 4 }.AsConstantExpression();
             Assert.True(eq.AreSimilar(source, target));
         }
 

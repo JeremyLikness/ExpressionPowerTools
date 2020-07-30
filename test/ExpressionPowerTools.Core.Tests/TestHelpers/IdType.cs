@@ -2,7 +2,7 @@
 
 namespace ExpressionPowerTools.Core.Tests.TestHelpers
 {
-    public class IdType
+    public class IdType : IEquatable<IdType>
     {
         public IdType()
         {
@@ -30,5 +30,10 @@ namespace ExpressionPowerTools.Core.Tests.TestHelpers
         public string LongParameterList(string one, string two, string three, string four, string fix, string six, string seven, string eight, string nine) => "9";
 
         public string Echo(string echo, string more) => $"{echo} => {more}";
+
+        public bool Equals(IdType other)
+        {
+            return other?.Id == Id && other?.IdVal == IdVal;
+        }
     }
 }

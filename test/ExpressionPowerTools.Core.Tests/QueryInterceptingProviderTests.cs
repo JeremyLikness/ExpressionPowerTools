@@ -4,6 +4,7 @@ using ExpressionPowerTools.Core.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
@@ -71,6 +72,76 @@ namespace ExpressionPowerTools.Core.Tests
             var provider = Provider();
             var target = provider.CreateQuery<string>(Query.Expression);
             Assert.NotSame(provider, target.Provider);
+        }
+
+        [Fact]
+        public void GivenNullExpressionWhenExecuteCalledThenShouldThrowArgumentNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => Provider().Execute(null));
+        }
+
+        [Fact]
+        public void GivenExpressionWhenExecuteCalledThenShouldTransformExpressionAndCallSourceProvider()
+        {
+            var query = new TestQueryableWrapper();
+            var provider = new QueryInterceptingProvider<IdType>(query);
+            provider.RegisterInterceptor(e => Expression.Constant(1));
+            var target = provider.Execute(Expression.Constant(2));
+            Assert.IsType<ConstantExpression>(target);
+            Assert.Equal(1, (target as ConstantExpression).Value);
+        }
+
+        [Fact]
+        public void GivenNoRegistrationThenTheTransformationShouldReturnOriginalExpression()
+        {
+            var query = new TestQueryableWrapper();
+            var provider = new QueryInterceptingProvider<IdType>(query);
+            var target = provider.Execute(Expression.Constant(2));
+            Assert.IsType<ConstantExpression>(target);
+            Assert.Equal(2, (target as ConstantExpression).Value);
+        }
+
+        [Fact]
+        public void GivenRegistrationWhenRegistrationCalledAgainThenShouldThrowInvalidOperation()
+        {
+            var provider = Provider();
+            provider.RegisterInterceptor(e => e);
+            Assert.Throws<InvalidOperationException>(
+                () => provider.RegisterInterceptor(e => e));
+        }
+
+        [Fact]
+        public void GivenRegistrationWhenChildProviderCreatedThenRegistrationShouldBePassedToChild()
+        {
+            var list = new List<IdType> { new IdType(), new IdType(), new IdType() };
+            var query = list.AsQueryable().Take(1);
+            var swapQuery = list.AsQueryable().Skip(1).Take(1).Select(i => Tuple.Create(i.Id, i.IdVal));
+            var provider = new QueryInterceptingProvider<IdType>(query);
+            var host = new QueryHost<IdType, QueryInterceptingProvider<IdType>>(query.Expression, provider);
+            // register now
+            provider.RegisterInterceptor(e => swapQuery.Expression);
+            // force resolution of a different type, generates new provider, should be intercepted
+            var intercepted = host.Select(i => Tuple.Create(i.Id, i.IdVal)).ToList();
+            Assert.Single(intercepted);
+            Assert.Equal(list[1].Id, intercepted[0].Item1);
+        }
+
+        [Fact]
+        public void GivenRegistrationWhenChildProvidersExistThenRegistrationShouldBePassedToChildren()
+        {
+            var list = new List<IdType> { new IdType(), new IdType(), new IdType() };
+            var query = list.AsQueryable().Take(1);
+            var swapQuery = list.AsQueryable().Skip(1).Take(1).Select(i => Tuple.Create(i.Id, i.IdVal));
+            var provider = new QueryInterceptingProvider<IdType>(query);
+            var host = new QueryHost<IdType, QueryInterceptingProvider<IdType>>(query.Expression, provider);
+            // force resolution of a different type
+            var notIntercepted = host.Select(i => Tuple.Create(i.Id, i.IdVal)).ToList();
+            // now register
+            provider.RegisterInterceptor(e => swapQuery.Expression);
+            var intercepted = host.Select(i => Tuple.Create(i.Id, i.IdVal)).ToList();
+            Assert.Single(intercepted);
+            Assert.Equal(list[1].Id, intercepted[0].Item1);
         }
 
     }

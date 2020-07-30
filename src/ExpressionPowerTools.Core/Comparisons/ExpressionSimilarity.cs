@@ -404,24 +404,32 @@ namespace ExpressionPowerTools.Core.Comparisons
                     target.Value as Expression);
             }
 
-            // enumerable must have same type
-            if (source.Type.GenericTypeArguments.Length > 0)
+            // lists
+            if (typeof(Array).IsAssignableFrom(source.Type) ||
+                typeof(System.Collections.ICollection).IsAssignableFrom(source.Type))
             {
-                var enumerableType = typeof(IEnumerable<>)
-                    .MakeGenericType(source.Type.GenericTypeArguments);
-                if (enumerableType.IsAssignableFrom(source.Type))
-                {
-                    return true;
-                }
+                return true;
             }
 
+            // string
             if (source.Type == typeof(string))
             {
                 return source.Value == target.Value;
             }
 
-            return typeof(System.Collections.IEnumerable).IsAssignableFrom(source.Type)
-                || source.Value.Equals(target.Value);
+            // typed collections
+            if (source.Type.GetInterfaces()
+                .Any(i => i.IsGenericType &&
+                i.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+            {
+                return true;
+            }
+
+            // "primitives"
+            return ExpressionEquivalency.ValuesAreEquivalent(
+                    source.Type,
+                    source.Value,
+                    target.Value);
         }
     }
 }

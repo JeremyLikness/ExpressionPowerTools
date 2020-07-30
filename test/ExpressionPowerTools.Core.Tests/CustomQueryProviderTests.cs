@@ -55,7 +55,7 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var wrapper = TestWrapper;
             var target = new TestDerivedCustomProvider(wrapper);
-            target.Execute<IdType>(NewExpression);
+            target.Execute<Expression>(NewExpression);
             Assert.True(wrapper.TestProvider.ExecuteCalled);
         }
 

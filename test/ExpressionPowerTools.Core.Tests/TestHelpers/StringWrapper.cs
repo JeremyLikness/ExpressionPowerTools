@@ -1,7 +1,23 @@
-﻿namespace ExpressionPowerTools.Core.Tests.TestHelpers
+﻿using System;
+
+namespace ExpressionPowerTools.Core.Tests.TestHelpers
 {
-    public class StringWrapper
+    public class StringWrapper : IComparable
     {
+        public StringWrapper()
+        {
+
+        }
+
+        public StringWrapper(bool initialize)
+        {
+            if (initialize)
+            {
+                Id = Guid.NewGuid().ToString();
+                IdVal = new Random().Next(int.MinValue, int.MaxValue);
+            }
+        }
+
         public string Id { get; set; }
 
         public string _Id;
@@ -15,5 +31,15 @@
 
         public static bool IsNullOrWhitespace(string value) =>
             string.IsNullOrWhiteSpace(value);
+
+        public int CompareTo(object obj)
+        {
+            if (obj is StringWrapper str)
+            {
+                var id = Id.CompareTo(str.Id);
+                return id == 0 ? IdVal.CompareTo(str.IdVal) : id;
+            }
+            return 1;
+        }
     }
 }

@@ -55,6 +55,7 @@
   - [NullAndTypeCheck(source,other)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NullAndTypeCheck-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.NullAndTypeCheck(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
   - [ParametersAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-ParametersAreEquivalent-System-Linq-Expressions-ParameterExpression,System-Linq-Expressions-ParameterExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ParametersAreEquivalent(System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression)')
   - [UnariesAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-UnariesAreEquivalent-System-Linq-Expressions-UnaryExpression,System-Linq-Expressions-UnaryExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.UnariesAreEquivalent(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)')
+  - [ValuesAreEquivalent(type,source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-ValuesAreEquivalent-System-Type,System-Object,System-Object- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ValuesAreEquivalent(System.Type,System.Object,System.Object)')
 - [ExpressionEvaluator](#T-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator')
   - [AreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
   - [AreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator-AreEquivalent-System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression},System-Collections-Generic-IEnumerable{System-Linq-Expressions-Expression}- 'ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})')
@@ -954,6 +955,25 @@ A flag that indicates whether the two expressions are equivalent.
 Two instances of [UnaryExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.UnaryExpression 'System.Linq.Expressions.UnaryExpression') are equivalent when they share the same
 [ExpressionType](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.ExpressionType 'System.Linq.Expressions.ExpressionType'), method information, and when their operands pass
 equivalency.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-ValuesAreEquivalent-System-Type,System-Object,System-Object-'></a>
+### ValuesAreEquivalent(type,source,target) `method`
+
+##### Summary
+
+Attempts to compare values in various ways.
+
+##### Returns
+
+A flag indicating equivalency.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| type | [System.Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') | The [Type](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Type 'System.Type') of the values. |
+| source | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | The source value. |
+| target | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | The target value. |
 
 <a name='T-ExpressionPowerTools-Core-Comparisons-ExpressionEvaluator'></a>
 ## ExpressionEvaluator `type`

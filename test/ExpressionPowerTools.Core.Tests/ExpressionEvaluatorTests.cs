@@ -2,18 +2,21 @@
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
 {
     public class ExpressionEvaluatorTests
     {
+        public static IEnumerable<object[]> GetNullQueryMatrix()
+        {
+            yield return new object[] { null, QueryHelper.QuerySkip2Take3 };
+            yield return new object[] { QueryHelper.QuerySkip2Take3, null };
+        }
+
         private IExpressionEvaluator evaluator = new ExpressionEvaluator();
 
         private Expression Add1And2 => 
@@ -55,6 +58,14 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var source = Add1And2Enumerable;
             var target = Add2And1Enumerable;
+            Assert.False(evaluator.AreEquivalent(source, target));
+        }
+
+        [Theory]
+        [MemberData(nameof(GetNullQueryMatrix))]
+        public void GivenNullAndNotNullQueryWhenAreEquivalentCalledThenShouldReturnFalse(
+            IQueryable<QueryHelper> source, IQueryable<QueryHelper> target)
+        {
             Assert.False(evaluator.AreEquivalent(source, target));
         }
 
@@ -106,6 +117,15 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.False(evaluator.AreSimilar(source, target));
         }
 
+        [Theory]
+        [MemberData(nameof(GetNullQueryMatrix))]
+        public void GivenNullAndNotNullQueryWhenAreSimilarCalledThenShouldReturnFalse(
+            IQueryable<QueryHelper> source, IQueryable<QueryHelper> target)
+        {
+            Assert.False(evaluator.AreSimilar(source, target));
+        }
+
+
         [Fact]
         public void GivenSimilarQueryableWhenAreSimilarCalledThenShouldReturnTrue()
         {
@@ -137,6 +157,15 @@ namespace ExpressionPowerTools.Core.Tests
             var target = Add1And2;
             Assert.False(evaluator.IsPartOf(source, target));
         }
+
+        [Theory]
+        [MemberData(nameof(GetNullQueryMatrix))]
+        public void GivenNullAndNotNullQueryWhenIsPartOfCalledThenShouldReturnFalse(
+            IQueryable<QueryHelper> source, IQueryable<QueryHelper> target)
+        {
+            Assert.False(evaluator.IsPartOf(source, target));
+        }
+
 
         [Fact]
         public void GivenQueryThatIsPartOfOtherQueryWhenIsPartOfCalledThenShouldReturnTrue()
