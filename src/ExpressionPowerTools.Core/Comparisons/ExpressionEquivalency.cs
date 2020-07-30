@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Xml.Serialization;
 
 namespace ExpressionPowerTools.Core.Comparisons
 {
@@ -77,6 +77,18 @@ namespace ExpressionPowerTools.Core.Comparisons
                         equivalent = LambdasAreEquivalent(
                             lambda,
                             (LambdaExpression)target);
+                        break;
+
+                    case NewArrayExpression newArray:
+                        equivalent = NewArraysAreEquivalent(
+                            newArray,
+                            (NewArrayExpression)target);
+                        break;
+
+                    case NewExpression newObject:
+                        equivalent = NewAreEquivalent(
+                            newObject,
+                            (NewExpression)target);
                         break;
                 }
             }
@@ -157,7 +169,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="LambdaExpression"/>.</param>
         /// <param name="target">The target <see cref="LambdaExpression"/>.</param>
         /// <returns>A flag indicating whether the two expressions are equivalent.</returns>
-        private static bool LambdasAreEquivalent(
+        public static bool LambdasAreEquivalent(
             LambdaExpression source,
             LambdaExpression target)
         {
@@ -186,7 +198,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="MethodCallExpression"/>.</param>
         /// <param name="target">The target <see cref="MethodCallExpression"/>.</param>
         /// <returns>A flag indicating whether the two expressions are equivalent.</returns>
-        private static bool MethodsAreEquivalent(
+        public static bool MethodsAreEquivalent(
             MethodCallExpression source,
             MethodCallExpression target)
         {
@@ -228,7 +240,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="MemberExpression"/>.</param>
         /// <param name="target">The target <see cref="MemberExpression"/>.</param>
         /// <returns>A flag indicating whether the two expressions are equivalent.</returns>
-        private static bool MembersAreEquivalent(
+        public static bool MembersAreEquivalent(
             MemberExpression source,
             MemberExpression target)
         {
@@ -254,7 +266,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="UnaryExpression"/>.</param>
         /// <param name="target">The target <see cref="UnaryExpression"/>.</param>
         /// <returns>A flag that indicates whether the two expressions are equivalent.</returns>
-        private static bool UnariesAreEquivalent(
+        public static bool UnariesAreEquivalent(
             UnaryExpression source,
             UnaryExpression target)
         {
@@ -298,7 +310,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="BinaryExpression"/>.</param>
         /// <param name="target">The target <see cref="BinaryExpression"/>.</param>
         /// <returns>A flag that indicates whether the two expressions are equivalent.</returns>
-        private static bool BinariesAreEquivalent(
+        public static bool BinariesAreEquivalent(
             BinaryExpression source,
             BinaryExpression target)
         {
@@ -322,7 +334,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="ConstantExpression"/>.</param>
         /// <param name="target">The target <see cref="ConstantExpression"/>.</param>
         /// <returns>A flag indicating whether the two are equivalent.</returns>
-        private static bool ConstantsAreEquivalent(
+        public static bool ConstantsAreEquivalent(
             ConstantExpression source,
             ConstantExpression target)
         {
@@ -389,12 +401,75 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="ParameterExpression"/>.</param>
         /// <param name="target">The target <see cref="ParameterExpression"/>.</param>
         /// <returns>A flag indicating whether the two are equivalent.</returns>
-        private static bool ParametersAreEquivalent(
+        public static bool ParametersAreEquivalent(
             ParameterExpression source,
             ParameterExpression target) =>
             source.Type == target.Type &&
             source.Name == target.Name &&
             source.IsByRef == target.IsByRef;
+
+        /// <summary>
+        /// Check for equivalent array initializers.
+        /// </summary>
+        /// <remarks>
+        /// To be true, type and expressions must be equivalent.
+        /// </remarks>
+        /// <param name="source">The source <see cref="NewArrayExpression"/>.</param>
+        /// <param name="target">The target <see cref="NewArrayExpression"/>.</param>
+        /// <returns>A flag indicating whether the array initializers are equivalent.</returns>
+        public static bool NewArraysAreEquivalent(
+            NewArrayExpression source,
+            NewArrayExpression target)
+        {
+            if (source.Type != target.Type)
+            {
+                return false;
+            }
+
+            return AreEquivalent(source.Expressions, target.Expressions);
+        }
+
+        /// <summary>
+        /// Check for equivalent object initializer.
+        /// </summary>
+        /// <remarks>
+        /// To be true, type, constructor, methods and arguments must be equivalent.
+        /// </remarks>
+        /// <param name="source">The source <see cref="NewExpression"/>.</param>
+        /// <param name="target">The target <see cref="NewExpression"/>.</param>
+        /// <returns>A flag indicating whether the object initializers are equivalent.</returns>
+        public static bool NewAreEquivalent(
+            NewExpression source,
+            NewExpression target)
+        {
+            if (source.Type != target.Type)
+            {
+                return false;
+            }
+
+            if (!source.Constructor.Equals(target.Constructor))
+            {
+                return false;
+            }
+
+            if (source.Members?.Count != target.Members?.Count)
+            {
+                return false;
+            }
+
+            if (source.Members != null)
+            {
+                for (var idx = 0; idx < source.Members.Count; idx++)
+                {
+                    if (!source.Members[idx].Equals(target.Members[idx]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return AreEquivalent(source.Arguments, target.Arguments);
+        }
 
         /// <summary>
         /// Comparison matrix for types and nulls.
@@ -403,7 +478,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="other">The target to compare to.</param>
         /// <returns>A flag indicating whether the types are
         /// equal and the values are both not null.</returns>
-        private static bool NullAndTypeCheck(
+        public static bool NullAndTypeCheck(
             Expression source,
             Expression other)
         {

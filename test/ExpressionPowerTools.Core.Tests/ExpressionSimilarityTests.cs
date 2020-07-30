@@ -713,5 +713,66 @@ namespace ExpressionPowerTools.Core.Tests
             var source = target.CreateQueryTemplate().Take(3);
             Assert.True(eq.IsPartOf(source.Expression, target.Expression));
         }
+
+        [Fact]
+        public void GivenTwoArrayInitializationsWithDifferentTypesThenAreSimilarShouldReturnFalse()
+        {
+            var source = Expression.NewArrayInit(typeof(int), Expression.Constant(1));
+            var target = Expression.NewArrayInit(typeof(long), Expression.Constant((long)1));
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenTwoArrayInitializationsWithSameTypeAndDifferentContentsThenAreSimilarShouldReturnFalse()
+        {
+            var source = Expression.NewArrayInit(typeof(int), Expression.Constant(1));
+            var target = Expression.NewArrayInit(typeof(int), Expression.Constant(2));
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenTwoArrayInitializationsWithSameTypeAndContentsThenAreSimilarShouldReturnTrue()
+        {
+            var source = Expression.NewArrayInit(typeof(int), Expression.Constant(1));
+            var target = Expression.NewArrayInit(typeof(int), Expression.Constant(1));
+            Assert.True(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenTwoInitsWhenTypesAreDifferentThenAreSimilarShouldReturnFalse()
+        {
+            var source = Expression.New(typeof(IdType));
+            var target = Expression.New(typeof(StringWrapper));
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenTwoInitsWhenConstructorsAreDifferentThenAreSimilarShouldReturnFalse()
+        {
+            var constructors = typeof(StringWrapper).GetConstructors();
+            var source = Expression.New(constructors.Single(c => c.GetParameters().Length == 0));
+            var target = Expression.New(constructors.Single(c => c.GetParameters().Length == 1),
+                true.AsConstantExpression());
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenTwoInitsWhenArgumentsAreDifferentThenAreSimilarShouldReturnFalse()
+        {
+            var constructor = typeof(StringWrapper)
+                .GetConstructor(new[] { typeof(bool) });
+            var source = Expression.New(constructor, true.AsConstantExpression());
+            var target = Expression.New(constructor, false.AsConstantExpression());
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenTwoInitsWhenArgumentsAreSameThenAreSimilarShouldReturnTrue()
+        {
+            var source = Expression.New(typeof(IdType));
+            var target = Expression.New(typeof(IdType));
+            Assert.True(eq.AreSimilar(source, target));
+        }
+
     }
 }

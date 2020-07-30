@@ -131,5 +131,28 @@ namespace ExpressionPowerTools.Core.Tests
                 t is MethodCallExpression mc
                 && mc.Method.Name == nameof(Enumerable.Take));
         }
+
+        [Fact]
+        public void WhenGetEnumeratorCalledWithNewArrayExpressionThenShouldReturnSubExpressions()
+        {
+            var numbers = new[]
+            {
+                Expression.Constant(1),
+                Expression.Constant(2)
+            };
+            var source = Expression.NewArrayInit(typeof(int), numbers);
+            var target = new ExpressionEnumerator(source).ToList();
+            Assert.Single(target.OfType<NewArrayExpression>());
+            Assert.Equal(2, target.OfType<ConstantExpression>().Count());
+        }
+
+        [Fact]
+        public void WhenGetEnumeratorCalledWithNewExpressionThenShouldReturnSubExpressions()
+        {
+            Expression<Func<object>> expr = () => new { id = 1, name = nameof(expr) };
+            var target = new ExpressionEnumerator(expr).ToList();
+            Assert.Single(target.OfType<NewExpression>());
+            Assert.Equal(2, target.OfType<ConstantExpression>().Count());
+        }
     }
 }

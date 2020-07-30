@@ -76,6 +76,20 @@ namespace ExpressionPowerTools.Core.Comparisons
                             target,
                             (s, t) => LambdasAreSimilar(s, t));
                         break;
+
+                    case NewArrayExpression newArray:
+                        similar = TypeCheckAndCompare(
+                            newArray,
+                            target,
+                            (s, t) => NewArraysAreSimilar(s, t));
+                        break;
+
+                    case NewExpression newObject:
+                        similar = TypeCheckAndCompare(
+                            newObject,
+                            target,
+                            (s, t) => NewAreSimilar(s, t));
+                        break;
                 }
             }
 
@@ -150,7 +164,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="Type"/> to check.</param>
         /// <param name="target">The target <see cref="Type"/> to check.</param>
         /// <returns>A flag indicating whether the types are similar.</returns>
-        private static bool TypesAreSimilar(
+        public static bool TypesAreSimilar(
             Type source,
             Type target)
         {
@@ -169,29 +183,6 @@ namespace ExpressionPowerTools.Core.Comparisons
         }
 
         /// <summary>
-        /// Checks for a match of the target type and calls the comparison
-        /// if there is a match.
-        /// </summary>
-        /// <typeparam name="T">The <see cref="Expression"/> type to evaluate.</typeparam>
-        /// <param name="source">The source <see cref="Expression"/>.</param>
-        /// <param name="target">The target <see cref="Expression"/>.</param>
-        /// <param name="compare">The method to compare.</param>
-        /// <returns>A flag indicating whether the expressions are similar.</returns>
-        private static bool TypeCheckAndCompare<T>(
-            T source,
-            Expression target,
-            Func<T, T, bool> compare)
-            where T : Expression
-        {
-            if (target is T targetExpression)
-            {
-                return compare(source, targetExpression);
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Determine whether two lambdas are similar.
         /// </summary>
         /// <remarks>
@@ -201,7 +192,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="LambdaExpression"/>.</param>
         /// <param name="target">The target <see cref="LambdaExpression"/>.</param>
         /// <returns>A flag indicating whether the two expressions are similar.</returns>
-        private static bool LambdasAreSimilar(
+        public static bool LambdasAreSimilar(
             LambdaExpression source,
             LambdaExpression target)
         {
@@ -236,7 +227,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="MethodCallExpression"/>.</param>
         /// <param name="target">The target <see cref="MethodCallExpression"/>.</param>
         /// <returns>A flag indicating whether the two expressions are Similar.</returns>
-        private static bool MethodsAreSimilar(
+        public static bool MethodsAreSimilar(
             MethodCallExpression source,
             MethodCallExpression target)
         {
@@ -294,7 +285,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="MemberExpression"/>.</param>
         /// <param name="target">The target <see cref="MemberExpression"/>.</param>
         /// <returns>A flag indicating whether the two expressions are Similar.</returns>
-        private static bool MembersAreSimilar(
+        public static bool MembersAreSimilar(
             MemberExpression source,
             MemberExpression target)
         {
@@ -320,7 +311,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="UnaryExpression"/>.</param>
         /// <param name="target">The target <see cref="UnaryExpression"/>.</param>
         /// <returns>A flag that indicates whether the two expressions are Similar.</returns>
-        private static bool UnariesAreSimilar(
+        public static bool UnariesAreSimilar(
             UnaryExpression source,
             UnaryExpression target)
         {
@@ -358,7 +349,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="BinaryExpression"/>.</param>
         /// <param name="target">The target <see cref="BinaryExpression"/>.</param>
         /// <returns>A flag that indicates whether the two expressions are similar.</returns>
-        private static bool BinariesAreSimilar(
+        public static bool BinariesAreSimilar(
             BinaryExpression source,
             BinaryExpression target)
         {
@@ -382,7 +373,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source <see cref="ConstantExpression"/>.</param>
         /// <param name="target">The target <see cref="ConstantExpression"/>.</param>
         /// <returns>A flag indicating whether the two are similar.</returns>
-        private static bool ConstantsAreSimilar(
+        public static bool ConstantsAreSimilar(
             ConstantExpression source,
             ConstantExpression target)
         {
@@ -430,6 +421,93 @@ namespace ExpressionPowerTools.Core.Comparisons
                     source.Type,
                     source.Value,
                     target.Value);
+        }
+
+        /// <summary>
+        /// Check for equivalent array initializers.
+        /// </summary>
+        /// <remarks>
+        /// To be true, type must be equivalent and expressions must be similar.
+        /// </remarks>
+        /// <param name="source">The source <see cref="NewArrayExpression"/>.</param>
+        /// <param name="target">The target <see cref="NewArrayExpression"/>.</param>
+        /// <returns>A flag indicating whether the array initializers are equivalent.</returns>
+        public static bool NewArraysAreSimilar(
+            NewArrayExpression source,
+            NewArrayExpression target)
+        {
+            if (source.Type != target.Type)
+            {
+                return false;
+            }
+
+            return AreSimilar(source.Expressions, target.Expressions);
+        }
+
+        /// <summary>
+        /// Check for equivalent object initializer.
+        /// </summary>
+        /// <remarks>
+        /// To be true, type, constructor, methods must be equivalent
+        /// and arguments must be similar.
+        /// </remarks>
+        /// <param name="source">The source <see cref="NewExpression"/>.</param>
+        /// <param name="target">The target <see cref="NewExpression"/>.</param>
+        /// <returns>A flag indicating whether the object initializers are equivalent.</returns>
+        public static bool NewAreSimilar(
+            NewExpression source,
+            NewExpression target)
+        {
+            if (source.Type != target.Type)
+            {
+                return false;
+            }
+
+            if (!source.Constructor.Equals(target.Constructor))
+            {
+                return false;
+            }
+
+            if (source.Members?.Count != target.Members?.Count)
+            {
+                return false;
+            }
+
+            if (source.Members != null)
+            {
+                for (var idx = 0; idx < source.Members.Count; idx++)
+                {
+                    if (!source.Members[idx].Equals(target.Members[idx]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return AreSimilar(source.Arguments, target.Arguments);
+        }
+
+        /// <summary>
+        /// Checks for a match of the target type and calls the comparison
+        /// if there is a match.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="Expression"/> type to evaluate.</typeparam>
+        /// <param name="source">The source <see cref="Expression"/>.</param>
+        /// <param name="target">The target <see cref="Expression"/>.</param>
+        /// <param name="compare">The method to compare.</param>
+        /// <returns>A flag indicating whether the expressions are similar.</returns>
+        private static bool TypeCheckAndCompare<T>(
+            T source,
+            Expression target,
+            Func<T, T, bool> compare)
+            where T : Expression
+        {
+            if (target is T targetExpression)
+            {
+                return compare(source, targetExpression);
+            }
+
+            return false;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -91,9 +92,41 @@ namespace ExpressionPowerTools.Core
                 case UnaryExpression unary:
                     RecurseUnaryExpression(unary);
                     break;
+                case NewExpression newExpr:
+                    RecurseNewExpression(newExpr);
+                    break;
+                case NewArrayExpression newArrayExpr:
+                    RecurseNewArrayExpression(newArrayExpr);
+                    break;
                 default:
                     queue.Enqueue(expression);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Recurse a new array.
+        /// </summary>
+        /// <param name="newArrayExpr">The <see cref="NewArrayExpression"/>.</param>
+        private void RecurseNewArrayExpression(NewArrayExpression newArrayExpr)
+        {
+            queue.Enqueue(newArrayExpr);
+            foreach (var expr in newArrayExpr.Expressions)
+            {
+                RecurseExpression(expr);
+            }
+        }
+
+        /// <summary>
+        /// Recurse any expression in the new.
+        /// </summary>
+        /// <param name="newExpr">The <see cref="NewExpression"/>.</param>
+        private void RecurseNewExpression(NewExpression newExpr)
+        {
+            queue.Enqueue(newExpr);
+            foreach (var expr in newExpr.Arguments)
+            {
+                RecurseExpression(expr);
             }
         }
 

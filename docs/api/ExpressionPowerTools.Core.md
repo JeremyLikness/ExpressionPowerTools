@@ -42,6 +42,8 @@
   - [RecurseLambdaExpression(lambda)](#M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseLambdaExpression-System-Linq-Expressions-LambdaExpression- 'ExpressionPowerTools.Core.ExpressionEnumerator.RecurseLambdaExpression(System.Linq.Expressions.LambdaExpression)')
   - [RecurseMemberExpression(member)](#M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseMemberExpression-System-Linq-Expressions-MemberExpression- 'ExpressionPowerTools.Core.ExpressionEnumerator.RecurseMemberExpression(System.Linq.Expressions.MemberExpression)')
   - [RecurseMethodCallExpression(method)](#M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseMethodCallExpression-System-Linq-Expressions-MethodCallExpression- 'ExpressionPowerTools.Core.ExpressionEnumerator.RecurseMethodCallExpression(System.Linq.Expressions.MethodCallExpression)')
+  - [RecurseNewArrayExpression(newArrayExpr)](#M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseNewArrayExpression-System-Linq-Expressions-NewArrayExpression- 'ExpressionPowerTools.Core.ExpressionEnumerator.RecurseNewArrayExpression(System.Linq.Expressions.NewArrayExpression)')
+  - [RecurseNewExpression(newExpr)](#M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseNewExpression-System-Linq-Expressions-NewExpression- 'ExpressionPowerTools.Core.ExpressionEnumerator.RecurseNewExpression(System.Linq.Expressions.NewExpression)')
   - [RecurseUnaryExpression(unary)](#M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseUnaryExpression-System-Linq-Expressions-UnaryExpression- 'ExpressionPowerTools.Core.ExpressionEnumerator.RecurseUnaryExpression(System.Linq.Expressions.UnaryExpression)')
   - [System#Collections#IEnumerable#GetEnumerator()](#M-ExpressionPowerTools-Core-ExpressionEnumerator-System#Collections#IEnumerable#GetEnumerator 'ExpressionPowerTools.Core.ExpressionEnumerator.System#Collections#IEnumerable#GetEnumerator')
 - [ExpressionEquivalency](#T-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency')
@@ -52,6 +54,8 @@
   - [LambdasAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-LambdasAreEquivalent-System-Linq-Expressions-LambdaExpression,System-Linq-Expressions-LambdaExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.LambdasAreEquivalent(System.Linq.Expressions.LambdaExpression,System.Linq.Expressions.LambdaExpression)')
   - [MembersAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-MembersAreEquivalent-System-Linq-Expressions-MemberExpression,System-Linq-Expressions-MemberExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.MembersAreEquivalent(System.Linq.Expressions.MemberExpression,System.Linq.Expressions.MemberExpression)')
   - [MethodsAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-MethodsAreEquivalent-System-Linq-Expressions-MethodCallExpression,System-Linq-Expressions-MethodCallExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.MethodsAreEquivalent(System.Linq.Expressions.MethodCallExpression,System.Linq.Expressions.MethodCallExpression)')
+  - [NewAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NewAreEquivalent-System-Linq-Expressions-NewExpression,System-Linq-Expressions-NewExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.NewAreEquivalent(System.Linq.Expressions.NewExpression,System.Linq.Expressions.NewExpression)')
+  - [NewArraysAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NewArraysAreEquivalent-System-Linq-Expressions-NewArrayExpression,System-Linq-Expressions-NewArrayExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.NewArraysAreEquivalent(System.Linq.Expressions.NewArrayExpression,System.Linq.Expressions.NewArrayExpression)')
   - [NullAndTypeCheck(source,other)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NullAndTypeCheck-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.NullAndTypeCheck(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)')
   - [ParametersAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-ParametersAreEquivalent-System-Linq-Expressions-ParameterExpression,System-Linq-Expressions-ParameterExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ParametersAreEquivalent(System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression)')
   - [UnariesAreEquivalent(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-UnariesAreEquivalent-System-Linq-Expressions-UnaryExpression,System-Linq-Expressions-UnaryExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.UnariesAreEquivalent(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)')
@@ -84,6 +88,8 @@
   - [LambdasAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-LambdasAreSimilar-System-Linq-Expressions-LambdaExpression,System-Linq-Expressions-LambdaExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.LambdasAreSimilar(System.Linq.Expressions.LambdaExpression,System.Linq.Expressions.LambdaExpression)')
   - [MembersAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-MembersAreSimilar-System-Linq-Expressions-MemberExpression,System-Linq-Expressions-MemberExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.MembersAreSimilar(System.Linq.Expressions.MemberExpression,System.Linq.Expressions.MemberExpression)')
   - [MethodsAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-MethodsAreSimilar-System-Linq-Expressions-MethodCallExpression,System-Linq-Expressions-MethodCallExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.MethodsAreSimilar(System.Linq.Expressions.MethodCallExpression,System.Linq.Expressions.MethodCallExpression)')
+  - [NewAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-NewAreSimilar-System-Linq-Expressions-NewExpression,System-Linq-Expressions-NewExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.NewAreSimilar(System.Linq.Expressions.NewExpression,System.Linq.Expressions.NewExpression)')
+  - [NewArraysAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-NewArraysAreSimilar-System-Linq-Expressions-NewArrayExpression,System-Linq-Expressions-NewArrayExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.NewArraysAreSimilar(System.Linq.Expressions.NewArrayExpression,System.Linq.Expressions.NewArrayExpression)')
   - [TypeCheckAndCompare\`\`1(source,target,compare)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypeCheckAndCompare``1-``0,System-Linq-Expressions-Expression,System-Func{``0,``0,System-Boolean}- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypeCheckAndCompare``1(``0,System.Linq.Expressions.Expression,System.Func{``0,``0,System.Boolean})')
   - [TypesAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypesAreSimilar-System-Type,System-Type- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypesAreSimilar(System.Type,System.Type)')
   - [UnariesAreSimilar(source,target)](#M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-UnariesAreSimilar-System-Linq-Expressions-UnaryExpression,System-Linq-Expressions-UnaryExpression- 'ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.UnariesAreSimilar(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)')
@@ -691,6 +697,32 @@ Recurse a method call expression.
 | ---- | ---- | ----------- |
 | method | [System.Linq.Expressions.MethodCallExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MethodCallExpression 'System.Linq.Expressions.MethodCallExpression') | The [MethodCallExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.MethodCallExpression 'System.Linq.Expressions.MethodCallExpression') to recurse. |
 
+<a name='M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseNewArrayExpression-System-Linq-Expressions-NewArrayExpression-'></a>
+### RecurseNewArrayExpression(newArrayExpr) `method`
+
+##### Summary
+
+Recurse a new array.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| newArrayExpr | [System.Linq.Expressions.NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression') | The [NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression'). |
+
+<a name='M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseNewExpression-System-Linq-Expressions-NewExpression-'></a>
+### RecurseNewExpression(newExpr) `method`
+
+##### Summary
+
+Recurse any expression in the new.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| newExpr | [System.Linq.Expressions.NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression') | The [NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression'). |
+
 <a name='M-ExpressionPowerTools-Core-ExpressionEnumerator-RecurseUnaryExpression-System-Linq-Expressions-UnaryExpression-'></a>
 ### RecurseUnaryExpression(unary) `method`
 
@@ -890,6 +922,50 @@ A flag indicating whether the two expressions are equivalent.
 Two metods are equivalent when they share the same return type,
 the same declaring type, the same name, are either both instance
 or static fields, and all arguments pass equivalency.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NewAreEquivalent-System-Linq-Expressions-NewExpression,System-Linq-Expressions-NewExpression-'></a>
+### NewAreEquivalent(source,target) `method`
+
+##### Summary
+
+Check for equivalent object initializer.
+
+##### Returns
+
+A flag indicating whether the object initializers are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression') | The source [NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression'). |
+| target | [System.Linq.Expressions.NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression') | The target [NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression'). |
+
+##### Remarks
+
+To be true, type, constructor, methods and arguments must be equivalent.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NewArraysAreEquivalent-System-Linq-Expressions-NewArrayExpression,System-Linq-Expressions-NewArrayExpression-'></a>
+### NewArraysAreEquivalent(source,target) `method`
+
+##### Summary
+
+Check for equivalent array initializers.
+
+##### Returns
+
+A flag indicating whether the array initializers are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression') | The source [NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression'). |
+| target | [System.Linq.Expressions.NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression') | The target [NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression'). |
+
+##### Remarks
+
+To be true, type and expressions must be equivalent.
 
 <a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionEquivalency-NullAndTypeCheck-System-Linq-Expressions-Expression,System-Linq-Expressions-Expression-'></a>
 ### NullAndTypeCheck(source,other) `method`
@@ -1635,6 +1711,51 @@ the same name, are either both instance or static fields, and all
 arguments pass similarity. Arguments of same expression type are tested
 for similarity. Arguments of different expression types are tested for the
 same return type.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-NewAreSimilar-System-Linq-Expressions-NewExpression,System-Linq-Expressions-NewExpression-'></a>
+### NewAreSimilar(source,target) `method`
+
+##### Summary
+
+Check for equivalent object initializer.
+
+##### Returns
+
+A flag indicating whether the object initializers are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression') | The source [NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression'). |
+| target | [System.Linq.Expressions.NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression') | The target [NewExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewExpression 'System.Linq.Expressions.NewExpression'). |
+
+##### Remarks
+
+To be true, type, constructor, methods must be equivalent
+and arguments must be similar.
+
+<a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-NewArraysAreSimilar-System-Linq-Expressions-NewArrayExpression,System-Linq-Expressions-NewArrayExpression-'></a>
+### NewArraysAreSimilar(source,target) `method`
+
+##### Summary
+
+Check for equivalent array initializers.
+
+##### Returns
+
+A flag indicating whether the array initializers are equivalent.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| source | [System.Linq.Expressions.NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression') | The source [NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression'). |
+| target | [System.Linq.Expressions.NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression') | The target [NewArrayExpression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.NewArrayExpression 'System.Linq.Expressions.NewArrayExpression'). |
+
+##### Remarks
+
+To be true, type must be equivalent and expressions must be similar.
 
 <a name='M-ExpressionPowerTools-Core-Comparisons-ExpressionSimilarity-TypeCheckAndCompare``1-``0,System-Linq-Expressions-Expression,System-Func{``0,``0,System-Boolean}-'></a>
 ### TypeCheckAndCompare\`\`1(source,target,compare) `method`
