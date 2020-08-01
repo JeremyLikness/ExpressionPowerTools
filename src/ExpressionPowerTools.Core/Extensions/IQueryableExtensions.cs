@@ -26,7 +26,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// <example>
         /// For example:
         /// <code lang="csharp">
-        /// var query = new List{IQueryableExtensionsTests}()
+        /// var query = new List&lt;IQueryableExtensionsTests>()
         ///        .AsQueryable()
         ///        .Where(t => t.GetHashCode() == int.MaxValue);
         /// var target = query.AsEnumerableExpression();

@@ -4,8 +4,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Comparisons
 {
@@ -14,6 +17,12 @@ namespace ExpressionPowerTools.Core.Comparisons
     /// </summary>
     public static class ExpressionEquivalency
     {
+        /// <summary>
+        /// Default rule set.
+        /// </summary>
+        private static readonly IExpressionComparisonRuleProvider Rules =
+            new DefaultComparisonRules();
+
         /// <summary>
         /// Entry for equivalency comparisons. Will cast to
         /// known types and compare.
@@ -38,45 +47,45 @@ namespace ExpressionPowerTools.Core.Comparisons
                 switch (source)
                 {
                     case ConstantExpression constant:
-                        equivalent = ConstantsAreEquivalent(
+                        equivalent = Rules.CheckEquivalency(
                             constant,
-                            (ConstantExpression)target);
+                            target);
                         break;
 
                     case ParameterExpression parameter:
-                        equivalent = ParametersAreEquivalent(
+                        equivalent = Rules.CheckEquivalency(
                             parameter,
-                            (ParameterExpression)target);
+                            target);
                         break;
 
                     case BinaryExpression binary:
-                        equivalent = BinariesAreEquivalent(
+                        equivalent = Rules.CheckEquivalency(
                             binary,
-                            (BinaryExpression)target);
+                            target);
                         break;
 
                     case UnaryExpression unary:
-                        equivalent = UnariesAreEquivalent(
+                        equivalent = Rules.CheckEquivalency(
                             unary,
-                            (UnaryExpression)target);
+                            target);
                         break;
 
                     case MemberExpression member:
-                        equivalent = MembersAreEquivalent(
+                        equivalent = Rules.CheckEquivalency(
                             member,
-                            (MemberExpression)target);
+                            target);
                         break;
 
                     case MethodCallExpression method:
-                        equivalent = MethodsAreEquivalent(
+                        equivalent = Rules.CheckEquivalency(
                             method,
-                            (MethodCallExpression)target);
+                            target);
                         break;
 
                     case LambdaExpression lambda:
-                        equivalent = LambdasAreEquivalent(
+                        equivalent = Rules.CheckEquivalency(
                             lambda,
-                            (LambdaExpression)target);
+                            target);
                         break;
 
                     case NewArrayExpression newArray:
@@ -109,6 +118,12 @@ namespace ExpressionPowerTools.Core.Comparisons
             IEnumerable<Expression> source,
             IEnumerable<Expression> target)
         {
+            Ensure.NotNull(() => source);
+            if (target == null)
+            {
+                return false;
+            }
+
             var src = source.GetEnumerator();
             var tgt = target.GetEnumerator();
             while (src.MoveNext())
@@ -132,15 +147,20 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Attempts to compare values in various ways.
         /// </summary>
-        /// <param name="type">The <see cref="Type"/> of the values.</param>
         /// <param name="source">The source value.</param>
         /// <param name="target">The target value.</param>
         /// <returns>A flag indicating equivalency.</returns>
         public static bool ValuesAreEquivalent(
-            Type type,
             object source,
             object target)
         {
+            if (source == null)
+            {
+                return target == null;
+            }
+
+            var type = source.GetType();
+
             var equatableType = typeof(IEquatable<>)
                     .MakeGenericType(type);
 
@@ -159,254 +179,51 @@ namespace ExpressionPowerTools.Core.Comparisons
         }
 
         /// <summary>
-        /// Determine whether two lambdas are equivalent.
+        /// Ensures two enumerables are same length an each value is equivalent.
         /// </summary>
-        /// <remarks>
-        /// Two lambda expressions are equivalent when they share the same type,
-        /// name, tail call optimization, parameter count, and when both body
-        /// and parameters are equivalent.
-        /// </remarks>
-        /// <param name="source">The source <see cref="LambdaExpression"/>.</param>
-        /// <param name="target">The target <see cref="LambdaExpression"/>.</param>
-        /// <returns>A flag indicating whether the two expressions are equivalent.</returns>
-        public static bool LambdasAreEquivalent(
-            LambdaExpression source,
-            LambdaExpression target)
+        /// <param name="srcEnumerable">The source <see cref="IEnumerable"/>.</param>
+        /// <param name="tgtEnumerable">The target <see cref="IEnumerable"/>.</param>
+        /// <returns>A flag indicating whether the two are equivalent.</returns>
+        public static bool NonGenericEnumerablesAreEquivalent(
+            IEnumerable srcEnumerable,
+            IEnumerable tgtEnumerable)
         {
-            // the type check is handled already because the lambda's type
-            // is the same
-
-            // the parameter check is handled by the type check because it
-            // shapes the type
-            if (source.Name != target.Name ||
-                source.TailCall != target.TailCall)
+            Ensure.NotNull(() => srcEnumerable);
+            if (tgtEnumerable == null)
             {
                 return false;
             }
 
-            return AreEquivalent(source.Body, target.Body);
-        }
+            var src = srcEnumerable.GetEnumerator();
+            var tgt = tgtEnumerable.GetEnumerator();
 
-        /// <summary>
-        /// Determine whether two methods are equivalent.
-        /// </summary>
-        /// <remarks>
-        /// Two metods are equivalent when they share the same return type,
-        /// the same declaring type, the same name, are either both instance
-        /// or static fields, and all arguments pass equivalency.
-        /// </remarks>
-        /// <param name="source">The source <see cref="MethodCallExpression"/>.</param>
-        /// <param name="target">The target <see cref="MethodCallExpression"/>.</param>
-        /// <returns>A flag indicating whether the two expressions are equivalent.</returns>
-        public static bool MethodsAreEquivalent(
-            MethodCallExpression source,
-            MethodCallExpression target)
-        {
-            if (source.Type != target.Type ||
-                source.Method.DeclaringType != target.Method.DeclaringType ||
-                source.Method.Name != target.Method.Name)
+            while (src.MoveNext())
             {
-                return false;
-            }
+                if (!tgt.MoveNext())
+                {
+                    return false;
+                }
 
-            if (source.Arguments.Count != target.Arguments.Count)
-            {
-                return false;
-            }
+                if (src.Current == null && tgt.Current == null)
+                {
+                    continue;
+                }
 
-            // always null when static
-            if (source.Object != null)
-            {
-                if (!AreEquivalent(source.Object, target.Object))
+                if (src.Current == null || tgt.Current == null)
+                {
+                    return false;
+                }
+
+                if (!ValuesAreEquivalent(
+                    src.Current,
+                    tgt.Current))
                 {
                     return false;
                 }
             }
 
-            return AreEquivalent(
-                source.Arguments.AsEnumerable(),
-                target.Arguments.AsEnumerable());
+            return !tgt.MoveNext();
         }
-
-        /// <summary>
-        /// Determine whether two members are equivalent.
-        /// </summary>
-        /// <remarks>
-        /// Two instances of <see cref="MemberExpression"/> are equivalent
-        /// when they share the same type (this will match the member type), the same
-        /// declaring type, the same name, and if there is an expression, the
-        /// expressions are equivalent.
-        /// </remarks>
-        /// <param name="source">The source <see cref="MemberExpression"/>.</param>
-        /// <param name="target">The target <see cref="MemberExpression"/>.</param>
-        /// <returns>A flag indicating whether the two expressions are equivalent.</returns>
-        public static bool MembersAreEquivalent(
-            MemberExpression source,
-            MemberExpression target)
-        {
-            if (source.Type != target.Type ||
-                source.Member.DeclaringType != target.Member.DeclaringType ||
-                source.Member.Name != target.Member.Name)
-            {
-                return false;
-            }
-
-            return source.Expression == null ||
-                AreEquivalent(source.Expression, target.Expression);
-        }
-
-        /// <summary>
-        /// Determines whether two unaries are equivalent.
-        /// </summary>
-        /// <remarks>
-        /// Two instances of <see cref="UnaryExpression"/> are equivalent when they share the same
-        /// <see cref="ExpressionType"/>, method information, and when their operands pass
-        /// equivalency.
-        /// </remarks>
-        /// <param name="source">The source <see cref="UnaryExpression"/>.</param>
-        /// <param name="target">The target <see cref="UnaryExpression"/>.</param>
-        /// <returns>A flag that indicates whether the two expressions are equivalent.</returns>
-        public static bool UnariesAreEquivalent(
-            UnaryExpression source,
-            UnaryExpression target)
-        {
-            if (source.NodeType != target.NodeType)
-            {
-                return false;
-            }
-
-            if (source.IsLifted != target.IsLifted ||
-                source.IsLiftedToNull != target.IsLiftedToNull)
-            {
-                return false;
-            }
-
-            if ((source.Method != null && target.Method == null) ||
-                (source.Method == null && target.Method != null))
-            {
-                return false;
-            }
-
-            if (source.Method != null)
-            {
-                if (source.Method.DeclaringType != target.Method.DeclaringType ||
-                    source.Method.Name != target.Method.Name)
-                {
-                    return false;
-                }
-            }
-
-            return AreEquivalent(source.Operand, target.Operand);
-        }
-
-        /// <summary>
-        /// Determines whether two binaries are equivalent.
-        /// </summary>
-        /// <remarks>
-        /// Two instances of <see cref="BinaryExpression"/> are equivalent when they share the same
-        /// <see cref="ExpressionType"/> and the recursive determination of the left expressoin and
-        /// the right expressions is equivalent.
-        /// </remarks>
-        /// <param name="source">The source <see cref="BinaryExpression"/>.</param>
-        /// <param name="target">The target <see cref="BinaryExpression"/>.</param>
-        /// <returns>A flag that indicates whether the two expressions are equivalent.</returns>
-        public static bool BinariesAreEquivalent(
-            BinaryExpression source,
-            BinaryExpression target)
-        {
-            if (source.NodeType != target.NodeType)
-            {
-                return false;
-            }
-
-            return AreEquivalent(source.Left, target.Left) &&
-                AreEquivalent(source.Right, target.Right);
-        }
-
-        /// <summary>
-        /// Method to compare two <seealso cref="ConstantExpression"/>
-        /// instances.
-        /// </summary>
-        /// <remarks>
-        /// To be true, both must have the same type and value. If the
-        /// value is an expression tree, it is recursed.
-        /// </remarks>
-        /// <param name="source">The source <see cref="ConstantExpression"/>.</param>
-        /// <param name="target">The target <see cref="ConstantExpression"/>.</param>
-        /// <returns>A flag indicating whether the two are equivalent.</returns>
-        public static bool ConstantsAreEquivalent(
-            ConstantExpression source,
-            ConstantExpression target)
-        {
-            if (source.Type != target.Type)
-            {
-                return false;
-            }
-
-            if (source.Value == null)
-            {
-                return target.Value == null;
-            }
-
-            if (source.Value is Expression expression)
-            {
-                return AreEquivalent(
-                    expression,
-                    target.Value as Expression);
-            }
-
-            if (source.Value is System.Collections.IEnumerable enumerable)
-            {
-                var targetEnumerable = target.Value as System.Collections.IEnumerable;
-                var src = enumerable.GetEnumerator();
-                var tgt = targetEnumerable.GetEnumerator();
-                while (src.MoveNext())
-                {
-                    if (!tgt.MoveNext())
-                    {
-                        return false;
-                    }
-
-                    if (src.Current == null && tgt.Current == null)
-                    {
-                        continue;
-                    }
-
-                    if (src.Current == null || tgt.Current == null)
-                    {
-                        return false;
-                    }
-
-                    if (!ValuesAreEquivalent(
-                        src.Current.GetType(),
-                        src.Current,
-                        tgt.Current))
-                    {
-                        return false;
-                    }
-                }
-
-                return !tgt.MoveNext();
-            }
-
-            return ValuesAreEquivalent(source.Type, source.Value, target.Value);
-        }
-
-        /// <summary>
-        /// Check for equivalent parameters.
-        /// </summary>
-        /// <remarks>
-        /// To be true, type, value, and reference must be the same.
-        /// </remarks>
-        /// <param name="source">The source <see cref="ParameterExpression"/>.</param>
-        /// <param name="target">The target <see cref="ParameterExpression"/>.</param>
-        /// <returns>A flag indicating whether the two are equivalent.</returns>
-        public static bool ParametersAreEquivalent(
-            ParameterExpression source,
-            ParameterExpression target) =>
-            source.Type == target.Type &&
-            source.Name == target.Name &&
-            source.IsByRef == target.IsByRef;
 
         /// <summary>
         /// Check for equivalent array initializers.

@@ -126,7 +126,7 @@ namespace ExpressionPowerTools.Core.Extensions
         /// For example:
         /// <code lang="csharp">
         /// var result = ExpressionExtensions
-        ///     .CreateParameterExpression{Foo, string}(
+        ///     .CreateParameterExpression&lt;Foo, string>(
         ///        foo => foo.Bar);
         /// // result.Type == typeof(string)
         /// // result.Name == "Bar";

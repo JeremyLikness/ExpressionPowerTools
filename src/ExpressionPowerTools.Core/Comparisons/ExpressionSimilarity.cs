@@ -418,7 +418,6 @@ namespace ExpressionPowerTools.Core.Comparisons
 
             // "primitives"
             return ExpressionEquivalency.ValuesAreEquivalent(
-                    source.Type,
                     source.Value,
                     target.Value);
         }

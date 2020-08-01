@@ -116,11 +116,15 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var list = new List<IdType> { new IdType(), new IdType(), new IdType() };
             var query = list.AsQueryable().Take(1);
-            var swapQuery = list.AsQueryable().Skip(1).Take(1).Select(i => Tuple.Create(i.Id, i.IdVal));
+            var swapQuery = list.AsQueryable().Skip(1).Take(1)
+                .Select(i => Tuple.Create(i.Id, i.IdVal));
             var provider = new QueryInterceptingProvider<IdType>(query);
-            var host = new QueryHost<IdType, QueryInterceptingProvider<IdType>>(query.Expression, provider);
+            var host = new QueryHost<IdType, QueryInterceptingProvider<IdType>>(
+                query.Expression, provider);
+            
             // register now
             provider.RegisterInterceptor(e => swapQuery.Expression);
+            
             // force resolution of a different type, generates new provider, should be intercepted
             var intercepted = host.Select(i => Tuple.Create(i.Id, i.IdVal)).ToList();
             Assert.Single(intercepted);
