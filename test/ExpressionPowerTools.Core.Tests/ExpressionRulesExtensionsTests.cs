@@ -82,7 +82,7 @@ namespace ExpressionPowerTools.Core.Tests
                 (s, t) => left);
             var rightCondition = rules.Rule<ConstantExpression>(
                 (s, t) => right);
-            var rule = rules.StartWithAnd(
+            var rule = rules.And(
                 leftCondition, 
                 rightCondition).Compile();
             Assert.Equal(left && right, rule(Two, Three));
@@ -114,7 +114,7 @@ namespace ExpressionPowerTools.Core.Tests
                 (s, t) => left);
             var rightCondition = rules.Rule<ConstantExpression>(
                 (s, t) => right);
-            var rule = rules.StartWithOr(
+            var rule = rules.Or(
                 leftCondition,
                 rightCondition).Compile();
             Assert.Equal(left || right, rule(Two, Three));
