@@ -75,6 +75,12 @@ namespace ExpressionPowerTools.Core.Dependencies
         private static IServices Services { get; set; }
 
         /// <summary>
+        /// Gets the shipped default.
+        /// </summary>
+        private static IExpressionComparisonRuleProvider DefaultRules { get; }
+            = new DefaultComparisonRules();
+
+        /// <summary>
         /// Reset to new services instance.
         /// </summary>
         public static void Reset()
@@ -133,16 +139,15 @@ namespace ExpressionPowerTools.Core.Dependencies
         /// </summary>
         private static void RegisterDefaults(IServiceRegistration register)
         {
-            register.RegisterSingleton(Services);
-            var rules = new DefaultHighPerformanceRules();
-            register.RegisterSingleton<IExpressionComparisonRuleProvider>(rules);
             var evaluator = new ExpressionEvaluator();
-            register.RegisterSingleton<IExpressionEvaluator>(evaluator);
-            register.Register<IExpressionEnumerator, ExpressionEnumerator>();
-            register.RegisterGeneric(typeof(IQuerySnapshotHost<>), typeof(QuerySnapshotHost<>));
-            register.RegisterGeneric(typeof(IQueryHost<,>), typeof(QueryHost<,>));
-            register.RegisterGeneric(typeof(IQueryInterceptingProvider<>), typeof(QueryInterceptingProvider<>));
-            register.RegisterGeneric(typeof(IQuerySnapshotProvider<>), typeof(QuerySnapshotProvider<>));
+            register.RegisterSingleton(Services)
+                .RegisterSingleton(DefaultRules)
+                .RegisterSingleton<IExpressionEvaluator>(evaluator)
+                .Register<IExpressionEnumerator, ExpressionEnumerator>()
+                .RegisterGeneric(typeof(IQuerySnapshotHost<>), typeof(QuerySnapshotHost<>))
+                .RegisterGeneric(typeof(IQueryHost<,>), typeof(QueryHost<,>))
+                .RegisterGeneric(typeof(IQueryInterceptingProvider<>), typeof(QueryInterceptingProvider<>))
+                .RegisterGeneric(typeof(IQuerySnapshotProvider<>), typeof(QuerySnapshotProvider<>));
         }
     }
 }

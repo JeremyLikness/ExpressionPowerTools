@@ -234,8 +234,9 @@
         </member>
         <member name="T:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules">
             <summary>
-            Version with high performance for use in higher workload scenarios. Uses
-            compiled code over compiled rules.
+            This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
+            Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
+            you should find the rules-based works fine for most scenarios and performs close to par wiht the programmed verssion.
             </summary>
         </member>
         <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.equivalencyRules">
@@ -844,6 +845,11 @@
             Gets or sets the global instance of <see cref="T:ExpressionPowerTools.Core.Signatures.IServices"/>.
             </summary>
         </member>
+        <member name="P:ExpressionPowerTools.Core.Dependencies.ServiceHost.DefaultRules">
+            <summary>
+            Gets the shipped default.
+            </summary>
+        </member>
         <member name="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.Reset">
             <summary>
             Reset to new services instance.
@@ -1223,23 +1229,6 @@
             <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
             <param name="rule">The rule to make.</param>
             <returns>The rule as an expression.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.NonGenericEnumerablesMustMatch``1(System.Func{``0,System.Collections.IEnumerable})">
-            <summary>
-            A rule that checks for equality of enumerable lists.
-            </summary>
-            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
-            <param name="enumAccess">The access to the <see cref="T:System.Collections.IEnumerable"/>.</param>
-            <returns>A flag indicating whether the enumerables match.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndNonGenericEnumerablesMustMatch``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Collections.IEnumerable})">
-            <summary>
-            A rule that checks for equality of enumerable lists AND another rule..
-            </summary>
-            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
-            <param name="rule">The rule that must also pass.</param>
-            <param name="enumAccess">The access to the <see cref="T:System.Collections.IEnumerable"/>.</param>
-            <returns>A flag indicating whether the enumerables match.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.EnumerableExpressionsMustBeEquivalent``1(System.Func{``0,System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}})">
             <summary>

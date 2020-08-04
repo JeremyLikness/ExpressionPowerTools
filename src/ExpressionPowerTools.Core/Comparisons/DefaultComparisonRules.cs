@@ -63,14 +63,17 @@ namespace ExpressionPowerTools.Core.Comparisons
             cache.Add(
                 typeof(NewExpression),
                 CreateComparer(DefaultNewRules, DefaultNewSimilarities));
+
+            // show case of default false
+            cache.Add(
+                typeof(GotoExpression), CreateComparer<GotoExpression>(null, null));
         }
 
         /// <summary>
         /// Gets the rules for equivalency of <see cref="ConstantExpression"/>.
         /// </summary>
         public static Expression<Func<ConstantExpression, ConstantExpression, bool>>
-            DefaultConstantRules
-        { get; private set; } =
+            DefaultConstantRules { get; } =
                 rules.TypesMustMatch<ConstantExpression>()
                 .And(
                     rules.If(
@@ -95,8 +98,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rule for similarities between constants.
         /// </summary>
         public static Expression<Func<ConstantExpression, ConstantExpression, bool>>
-            DefaultConstantSimilarities
-        { get; private set; } =
+            DefaultConstantSimilarities { get; } =
             rules.If(
                 condition: rules.SourceTypeMustBeSimilarToExpression<ConstantExpression>()
                            .Or(rules.TypesMustBeSimilar<ConstantExpression>()),
@@ -122,8 +124,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the rules for lambda.
         /// </summary>
         public static Expression<Func<LambdaExpression, LambdaExpression, bool>>
-            DefaultLambdaRules
-        { get; private set; } =
+            DefaultLambdaRules { get; } =
             rules.MembersMustMatch<LambdaExpression>(e => e.Name)
             .AndMembersMustMatch(e => e.TailCall)
             .AndExpressionsMustBeEquivalent(e => e.Body);
@@ -132,8 +133,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the similarities for lambda.
         /// </summary>
         public static Expression<Func<LambdaExpression, LambdaExpression, bool>>
-            DefaultLambdaSimilarities
-        { get; private set; } =
+            DefaultLambdaSimilarities { get; } =
             rules.MembersMustMatch<LambdaExpression>(e => e.Name)
             .AndMembersMustMatch(e => e.Parameters.Count)
             .AndEnumerableExpressionsMustBeSimilar(e => e.Parameters)
@@ -144,7 +144,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// </summary>
         public static Expression<Func<MethodCallExpression, MethodCallExpression, bool>>
             DefaultMethodRules
-        { get; private set; } =
+        { get; } =
             rules.TypesMustMatch<MethodCallExpression>()
             .AndMembersMustMatch(e => e.Method.Name)
             .AndMembersMustMatch(e => e.Method.DeclaringType)
@@ -160,7 +160,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// </summary>
         public static Expression<Func<MethodCallExpression, MethodCallExpression, bool>>
             DefaultMethodSimilarities
-        { get; private set; } =
+        { get; } =
             rules.TypesMustBeSimilar<MethodCallExpression>()
             .AndTypesMustBeSimilar(e => e.Method.DeclaringType)
             .AndMembersMustMatch(e => e.Method.Name)
@@ -177,8 +177,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for member equivalency.
         /// </summary>
         public static Expression<Func<MemberExpression, MemberExpression, bool>>
-            DefaultMemberRules
-        { get; private set; } =
+            DefaultMemberRules { get; } =
             rules.TypesMustMatch<MemberExpression>()
             .AndMembersMustMatch(e => e.Member.Name)
             .AndMembersMustMatch(e => e.Member.DeclaringType)
@@ -190,8 +189,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for member similarity.
         /// </summary>
         public static Expression<Func<MemberExpression, MemberExpression, bool>>
-            DefaultMemberSimilarities
-        { get; private set; } =
+            DefaultMemberSimilarities { get; } =
             rules.TypesMustMatch<MemberExpression>()
             .AndMembersMustMatch(e => e.Member.Name)
             .AndMembersMustMatch(e => e.Member.DeclaringType)
@@ -203,8 +201,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for unaries.
         /// </summary>
         public static Expression<Func<UnaryExpression, UnaryExpression, bool>>
-            DefaultUnaryRules
-        { get; private set; } =
+            DefaultUnaryRules { get; } =
             rules.TypesMustMatch<UnaryExpression>()
             .AndNodeTypesMustMatch()
             .AndMembersMustMatch(m => m.IsLifted)
@@ -220,8 +217,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for unary similarities.
         /// </summary>
         public static Expression<Func<UnaryExpression, UnaryExpression, bool>>
-            DefaultUnarySimilarities
-        { get; private set; } =
+            DefaultUnarySimilarities { get; } =
             rules.NodeTypesMustMatch<UnaryExpression>()
             .AndMembersMustMatchNullOrNotNull(m => m.Method)
             .AndIf(
@@ -234,8 +230,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for binaries.
         /// </summary>
         public static Expression<Func<BinaryExpression, BinaryExpression, bool>>
-            DefaultBinaryRules
-        { get; private set; } =
+            DefaultBinaryRules { get; } =
             rules.NodeTypesMustMatch<BinaryExpression>()
             .AndExpressionsMustBeEquivalent(e => e.Left)
             .AndExpressionsMustBeEquivalent(e => e.Right);
@@ -244,8 +239,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for binary similarities.
         /// </summary>
         public static Expression<Func<BinaryExpression, BinaryExpression, bool>>
-            DefaultBinarySimilarities
-        { get; private set; } =
+            DefaultBinarySimilarities { get; } =
             rules.NodeTypesMustMatch<BinaryExpression>()
             .AndExpressionsMustBeSimilar(e => e.Left)
             .AndExpressionsMustBeSimilar(e => e.Right);
@@ -254,8 +248,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for parameters.
         /// </summary>
         public static Expression<Func<ParameterExpression, ParameterExpression, bool>>
-            DefaultParameterRules
-        { get; private set; } =
+            DefaultParameterRules { get; } =
             rules.TypesMustMatch<ParameterExpression>()
             .AndMembersMustMatch(e => e.Name)
             .AndMembersMustMatch(e => e.IsByRef);
@@ -264,16 +257,14 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for parameter similarities.
         /// </summary>
         public static Expression<Func<ParameterExpression, ParameterExpression, bool>>
-            DefaultParameterSimilarities
-        { get; private set; } =
+            DefaultParameterSimilarities { get; } =
             rules.TypesMustBeSimilar<ParameterExpression>();
 
         /// <summary>
         /// Gets the default rules for new arrays.
         /// </summary>
         public static Expression<Func<NewArrayExpression, NewArrayExpression, bool>>
-            DefaultNewArrayRules
-        { get; private set; } =
+            DefaultNewArrayRules { get; } =
             rules.TypesMustMatch<NewArrayExpression>()
             .AndEnumerableExpressionsMustBeEquivalent(e => e.Expressions);
 
@@ -281,8 +272,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for new array similarities.
         /// </summary>
         public static Expression<Func<NewArrayExpression, NewArrayExpression, bool>>
-            DefaultNewArraySimilarities
-        { get; private set; } =
+            DefaultNewArraySimilarities { get; } =
             rules.TypesMustMatch<NewArrayExpression>()
             .AndEnumerableExpressionsMustBeSimilar(e => e.Expressions);
 
@@ -290,30 +280,18 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for object initializers.
         /// </summary>
         public static Expression<Func<NewExpression, NewExpression, bool>>
-            DefaultNewRules
-        { get; private set; } =
+            DefaultNewRules { get; } =
             rules.TypesMustMatch<NewExpression>()
             .AndMembersMustMatch(e => e.Constructor)
-            .AndIf(
-                condition: (s, t) => s.Members != null,
-                ifTrue: rules.Rule<NewExpression>((s, t) => s.Members.Count == t.Members.Count)
-                    .AndNonGenericEnumerablesMustMatch(e => e.Members),
-                ifFalse: rules.True<NewExpression>())
             .AndEnumerableExpressionsMustBeEquivalent(e => e.Arguments);
 
         /// <summary>
         /// Gets the default rules for object initializer similarities.
         /// </summary>
         public static Expression<Func<NewExpression, NewExpression, bool>>
-            DefaultNewSimilarities
-        { get; private set; } =
+            DefaultNewSimilarities { get; } =
             rules.TypesMustBeSimilar<NewExpression>()
             .AndMembersMustMatch(e => e.Constructor)
-            .AndIf(
-                condition: (s, t) => s.Members != null,
-                ifTrue: rules.Rule<NewExpression>((s, t) => s.Members.Count == t.Members.Count)
-                    .AndNonGenericEnumerablesMustMatch(e => e.Members),
-                ifFalse: rules.True<NewExpression>())
             .AndEnumerableExpressionsMustBeSimilar(e => e.Arguments);
 
         /// <summary>
@@ -466,8 +444,6 @@ namespace ExpressionPowerTools.Core.Comparisons
                             : comparer.Equivalency.NonGeneric;
                         return comparerFn(source, target);
                     }
-
-                    return false;
                 }
             }
 

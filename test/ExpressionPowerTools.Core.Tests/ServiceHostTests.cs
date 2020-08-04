@@ -48,10 +48,10 @@ namespace ExpressionPowerTools.Core.Tests
         {
             ServiceHost.Reset();
             ServiceHost.Initialize(register =>
-                register.Register<IExpressionComparisonRuleProvider, DefaultComparisonRules>());
-            Assert.IsType<DefaultComparisonRules>(ServiceHost.GetService<IExpressionComparisonRuleProvider>());
-            ServiceHost.Reset();
+                register.Register<IExpressionComparisonRuleProvider, DefaultHighPerformanceRules>());
             Assert.IsType<DefaultHighPerformanceRules>(ServiceHost.GetService<IExpressionComparisonRuleProvider>());
+            ServiceHost.Reset();
+            Assert.IsType<DefaultComparisonRules>(ServiceHost.GetService<IExpressionComparisonRuleProvider>());
             ServiceHost.Reset();
         }
 
@@ -65,10 +65,10 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void DefaultRulesProviderIsSingletonOfDefaultHighPerformanceRules()
+        public void DefaultRulesProviderIsSingletonOfDefaultComparisonRules()
         {
             ServiceHost.Reset();
-            Assert.IsType<DefaultHighPerformanceRules>(
+            Assert.IsType<DefaultComparisonRules>(
                 ServiceHost.GetService<IExpressionComparisonRuleProvider>());
             Assert.Same(
                 ServiceHost.GetService<IExpressionComparisonRuleProvider>(),

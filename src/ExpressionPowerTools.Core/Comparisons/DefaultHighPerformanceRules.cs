@@ -12,8 +12,9 @@ using eq = ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency;
 namespace ExpressionPowerTools.Core.Comparisons
 {
     /// <summary>
-    /// Version with high performance for use in higher workload scenarios. Uses
-    /// compiled code over compiled rules.
+    /// This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
+    /// Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
+    /// you should find the rules-based works fine for most scenarios and performs close to par wiht the programmed verssion.
     /// </summary>
     public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
     {
@@ -496,22 +497,6 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return false;
             }
 
-            if (source.Members?.Count != target.Members?.Count)
-            {
-                return false;
-            }
-
-            if (source.Members != null)
-            {
-                for (var idx = 0; idx < source.Members.Count; idx++)
-                {
-                    if (!source.Members[idx].Equals(target.Members[idx]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
             return eq.AreEquivalent(source.Arguments, target.Arguments);
         }
 
@@ -798,22 +783,6 @@ namespace ExpressionPowerTools.Core.Comparisons
             if (!source.Constructor.Equals(target.Constructor))
             {
                 return false;
-            }
-
-            if (source.Members?.Count != target.Members?.Count)
-            {
-                return false;
-            }
-
-            if (source.Members != null)
-            {
-                for (var idx = 0; idx < source.Members.Count; idx++)
-                {
-                    if (!source.Members[idx].Equals(target.Members[idx]))
-                    {
-                        return false;
-                    }
-                }
             }
 
             return ExpressionSimilarity.AreSimilar(source.Arguments, target.Arguments);

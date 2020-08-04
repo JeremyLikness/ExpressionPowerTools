@@ -1,9 +1,9 @@
 ﻿using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
-using System;
+using NuGet.Frameworks;
+using System.Collections;
 using System.Linq.Expressions;
-using System.Reflection.Metadata;
 using Xunit;
 using rules = ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions;
 
@@ -85,7 +85,7 @@ namespace ExpressionPowerTools.Core.Tests
             var rightCondition = rules.Rule<ConstantExpression>(
                 (s, t) => right);
             var rule = rules.And(
-                leftCondition, 
+                leftCondition,
                 rightCondition).Compile();
             Assert.Equal(left && right, rule(Two, Three));
         }
@@ -163,6 +163,15 @@ namespace ExpressionPowerTools.Core.Tests
             var rule = rules.If(
                 ifRule, thenRule, elseRule).Compile();
             Assert.Equal(expected, rule(Two, Three));
+        }
+
+        [Fact]
+        public void IfThenElseDefaultsToTrueWhenConditionNotMet()
+        {
+            var ifRule = rules.If(
+                condition: rules.False<ConstantExpression>(),
+                ifTrue: rules.True<ConstantExpression>());
+            Assert.True(ifRule.Compile()(Two, Three));
         }
 
         [Theory]

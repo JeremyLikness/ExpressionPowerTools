@@ -220,9 +220,9 @@ namespace ExpressionPowerTools.Core.Dependencies
         /// </summary>
         private void Configured()
         {
+            Monitor.Enter(mutex);
             try
             {
-                Monitor.Enter(mutex);
                 ConfigureCheck();
                 configured = true;
             }

@@ -5,23 +5,9 @@ using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
 {
-    public class DefaultHighPerformanceRulesTests
+    public class DefaultHighPerformanceRulesTests : DefaultComparisonRulesTests
     {
-        private IExpressionComparisonRuleProvider source =
-         new DefaultHighPerformanceRules();
-
-        [Fact]
-        public void GivenRulesForTypeExistWhenGetRuleForEquivalencyCalledThenShouldReturnRuleset()
-        {
-            var target = source.GetRuleForEquivalency<ConstantExpression>();
-            Assert.NotNull(target);
-        }
-
-        [Fact]
-        public void GivenRulesForTypeDoNotExistWhenGetRuleForEquivalencyCalledThenShouldReturnNull()
-        {
-            var target = source.GetRuleForEquivalency<GotoExpression>();
-            Assert.Null(target);
-        }
+        protected override IExpressionComparisonRuleProvider Source { get; }
+            = new DefaultHighPerformanceRules();
     }
 }

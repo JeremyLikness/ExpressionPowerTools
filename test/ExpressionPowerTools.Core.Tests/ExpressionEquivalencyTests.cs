@@ -1,6 +1,7 @@
 ﻿using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -488,15 +489,7 @@ namespace ExpressionPowerTools.Core.Tests
             }
         }
 
-        public void GivenUnaryExpressionWhenOneIsLiftedAndOneIsNotLiftedThenAreEquivalentShouldReturnFalse()
-        {
-            // any example?
-        }
-
-        public void GivenUnaryExpressionWhenOneIsLiftedToNullAndOneIsNotLiftedToNullThenAreEquivalentShouldReturnFalse()
-        {
-            // need some help
-        }
+        // TODO: IsLifted and IsLiftedToNull
 
         [Fact]
         public void GivenMemberExpressionWhenTypesDifferThenAreEquivalentShouldReturnFalse()
@@ -792,6 +785,19 @@ namespace ExpressionPowerTools.Core.Tests
             var source = Expression.New(typeof(IdType));
             var target = Expression.New(typeof(IdType));
             Assert.True(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void AreEquivalentWithNullTargetShouldReturnFalse()
+        {
+            Assert.False(eq.AreEquivalent(Expression.Constant(null, typeof(IdType)), null));
+        }
+
+        [Fact]
+        public void AreEquivalentNonGenericeNumerableWithNullTargetShouldReturnFalse()
+        {
+            IEnumerable nonGenericEnumerable = new int[] { 1, 2 };
+            Assert.False(eq.NonGenericEnumerablesAreEquivalent(nonGenericEnumerable, null));
         }
     }
 }
