@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Providers;
 using ExpressionPowerTools.Core.Signatures;
@@ -38,7 +39,7 @@ namespace ExpressionPowerTools.Core.Extensions
              this IQueryable query)
         {
             Ensure.NotNull(() => query);
-            return new ExpressionEnumerator(query.Expression);
+            return ServiceHost.GetService<IExpressionEnumerator>(query.Expression);
         }
 
         /// <summary>
@@ -155,7 +156,7 @@ namespace ExpressionPowerTools.Core.Extensions
             this IQueryable<T> source,
             Action<Expression> callback)
         {
-            var snapshot = new QuerySnapshotHost<T>(source);
+            var snapshot = ServiceHost.GetService<IQuerySnapshotHost<T>>(source);
             snapshot.RegisterSnap(callback);
             return snapshot;
         }
@@ -172,8 +173,8 @@ namespace ExpressionPowerTools.Core.Extensions
             this IQueryable<T> source,
             ExpressionTransformer transformation)
         {
-            var provider = new QueryInterceptingProvider<T>(source);
-            var interceptingHost = new QueryHost<T, QueryInterceptingProvider<T>>(
+            var provider = ServiceHost.GetService<IQueryInterceptingProvider<T>>(source);
+            var interceptingHost = ServiceHost.GetService<IQueryHost<T, IQueryInterceptingProvider<T>>>(
                 source.Expression, provider);
             provider.RegisterInterceptor(transformation);
             return interceptingHost;

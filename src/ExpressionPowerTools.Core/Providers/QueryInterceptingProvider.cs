@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Signatures;
 
@@ -44,7 +45,7 @@ namespace ExpressionPowerTools.Core.Providers
         public override IQueryable CreateQuery(Expression expression)
         {
             Ensure.NotNull(() => expression);
-            return new QueryHost<T, QueryInterceptingProvider<T>>(expression, this);
+            return ServiceHost.GetService<IQueryHost<T, IQueryInterceptingProvider<T>>>(expression, this);
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace ExpressionPowerTools.Core.Providers
                 return CreateQuery(expression) as IQueryable<TElement>;
             }
 
-            var childProvider = new QueryInterceptingProvider<TElement>(Source);
+            var childProvider = ServiceHost.GetService<IQueryInterceptingProvider<TElement>>(Source);
             if (transformation != null)
             {
                 childProvider.RegisterInterceptor(transformation);
@@ -72,7 +73,7 @@ namespace ExpressionPowerTools.Core.Providers
                 interceptors.Push(childProvider);
             }
 
-            return new QueryHost<TElement, QueryInterceptingProvider<TElement>>(
+            return ServiceHost.GetService<IQueryHost<TElement, IQueryInterceptingProvider<TElement>>>(
                 expression, childProvider);
         }
 

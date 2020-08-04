@@ -18,6 +18,19 @@ namespace ExpressionPowerTools.Core.Tests.TestHelpers
             }
         }
 
+        public StringWrapper(IdType id)
+        {
+            if (id == null)
+            {
+                NullIdTypeInjected = true;
+            }
+
+            Id = id?.Id;
+            IdVal = id == null ? int.MaxValue : id.IdVal;
+        }
+
+        public bool NullIdTypeInjected = false;
+
         public string Id { get; set; }
 
         public string _Id;

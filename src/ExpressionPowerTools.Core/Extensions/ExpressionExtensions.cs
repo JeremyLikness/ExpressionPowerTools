@@ -5,6 +5,7 @@ using System;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Extensions
@@ -48,7 +49,7 @@ namespace ExpressionPowerTools.Core.Extensions
             this Expression expression)
         {
             Ensure.NotNull(() => expression);
-            return new ExpressionEnumerator(expression);
+            return ServiceHost.GetService<IExpressionEnumerator>(expression);
         }
 
         /// <summary>

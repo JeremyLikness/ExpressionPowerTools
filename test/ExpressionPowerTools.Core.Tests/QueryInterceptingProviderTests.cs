@@ -1,5 +1,6 @@
 ﻿using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Providers;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,8 @@ namespace ExpressionPowerTools.Core.Tests
         public void GivenExpressionWhenCreateQueryCalledThenShouldReturnNewQuerySnapshotHost()
         {
             var target = Provider().CreateQuery(Query.Expression);
-            Assert.IsType<QueryHost<IdType, 
-                QueryInterceptingProvider<IdType>>>(target);
+            Assert.IsAssignableFrom<IQueryHost<IdType, 
+                IQueryInterceptingProvider<IdType>>>(target);
         }
 
         [Fact]
@@ -38,8 +39,8 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var provider = Provider();
             var target = provider.CreateQuery(Query.Expression)
-                as QueryHost<IdType,
-                QueryInterceptingProvider<IdType>>;
+                as IQueryHost<IdType,
+                IQueryInterceptingProvider<IdType>>;
             Assert.Same(provider, target.CustomProvider);
         }
 
@@ -51,11 +52,11 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void GivenExpressionWhenCreateQueryTypedCalledThenShouldReturnNewQuerySnapshotHost()
+        public void GivenExpressionWhenCreateQueryTypedCalledThenShouldReturnNewQueryHost()
         {
             var target = Provider().CreateQuery<string>(Query.Expression);
-            Assert.IsType<QueryHost<string,
-                QueryInterceptingProvider<string>>>(target);
+            Assert.IsAssignableFrom<IQueryHost<string,
+                IQueryInterceptingProvider<string>>>(target);
         }
 
         [Fact]

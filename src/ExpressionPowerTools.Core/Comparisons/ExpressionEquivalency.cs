@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Comparisons
@@ -16,10 +17,10 @@ namespace ExpressionPowerTools.Core.Comparisons
     public static class ExpressionEquivalency
     {
         /// <summary>
-        /// Default rule set.
+        /// Gets the configured rule set.
         /// </summary>
-        private static readonly IExpressionComparisonRuleProvider Rules =
-            new DefaultComparisonRules();
+        private static IExpressionComparisonRuleProvider Rules =>
+            ServiceHost.GetService<IExpressionComparisonRuleProvider>();
 
         /// <summary>
         /// Entry for equivalency comparisons. Will cast to

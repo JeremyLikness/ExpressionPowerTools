@@ -1,8 +1,14 @@
-﻿using System;
+﻿// Copyright (c) Jeremy Likness. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the repository root for license information.
+
+using System;
 using System.Linq.Expressions;
 
 namespace ExpressionPowerTools.Core.Extensions
 {
+    /// <summary>
+    /// Extensions that are rules for logical comparisons.
+    /// </summary>
     public static partial class ExpressionRulesExtensions
     {
         /// <summary>

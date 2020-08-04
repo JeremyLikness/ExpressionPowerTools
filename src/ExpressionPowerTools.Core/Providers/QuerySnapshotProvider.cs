@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Signatures;
 
@@ -27,6 +28,17 @@ namespace ExpressionPowerTools.Core.Providers
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="QuerySnapshotProvider{T}"/> class.
+        /// </summary>
+        /// <param name="sourceQuery">The query to snapshot.</param>
+        /// <param name="parent">The parent that created this.</param>
+        public QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)
+            : base(sourceQuery)
+        {
+            Parent = parent;
+        }
+
+        /// <summary>
         /// Event raised when the query executes.
         /// </summary>
         public event EventHandler<QuerySnapshotEventArgs> QueryExecuted;
@@ -45,7 +57,7 @@ namespace ExpressionPowerTools.Core.Providers
         public override IQueryable CreateQuery(Expression expression)
         {
             Ensure.NotNull(() => expression);
-            return new QuerySnapshotHost<T>(expression, this);
+            return ServiceHost.GetService<IQuerySnapshotHost<T>>(expression, this);
         }
 
         /// <summary>
@@ -63,12 +75,9 @@ namespace ExpressionPowerTools.Core.Providers
                 return CreateQuery(expression) as IQueryable<TElement>;
             }
 
-            var provider = new QuerySnapshotProvider<TElement>(Source)
-            {
-                Parent = this,
-            };
+            var provider = ServiceHost.GetService<IQuerySnapshotProvider<TElement>>(Source, this);
 
-            return new QuerySnapshotHost<TElement>(expression, provider);
+            return ServiceHost.GetService<IQuerySnapshotHost<TElement>>(expression, provider);
         }
 
         /// <summary>

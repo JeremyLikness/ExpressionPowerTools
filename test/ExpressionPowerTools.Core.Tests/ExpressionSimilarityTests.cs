@@ -370,7 +370,8 @@ namespace ExpressionPowerTools.Core.Tests
         public void GivenExpressionNotSupportedThenAreSimilarShouldReturnFalse()
         {
             var source = Expression.Goto(Expression.Label());
-            Assert.False(eq.AreSimilar(source, source));
+            var target = Expression.Goto(Expression.Label());
+            Assert.False(eq.AreSimilar(source, target));
         }
 
         [Fact]
@@ -750,8 +751,9 @@ namespace ExpressionPowerTools.Core.Tests
         public void GivenTwoInitsWhenConstructorsAreDifferentThenAreSimilarShouldReturnFalse()
         {
             var constructors = typeof(StringWrapper).GetConstructors();
-            var source = Expression.New(constructors.Single(c => c.GetParameters().Length == 0));
-            var target = Expression.New(constructors.Single(c => c.GetParameters().Length == 1),
+            var source = Expression.New(constructors.Where(c => c.GetParameters().Length == 1).Skip(1).First(),
+                new IdType().AsConstantExpression());
+            var target = Expression.New(constructors.First(c => c.GetParameters().Length == 1),
                 true.AsConstantExpression());
             Assert.False(eq.AreSimilar(source, target));
         }

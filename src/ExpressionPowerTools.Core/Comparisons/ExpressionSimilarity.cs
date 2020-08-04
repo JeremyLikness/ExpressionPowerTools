@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Comparisons
@@ -15,10 +16,10 @@ namespace ExpressionPowerTools.Core.Comparisons
     public static class ExpressionSimilarity
     {
         /// <summary>
-        /// Default rule set.
+        /// Gets the configured rule set.
         /// </summary>
-        private static readonly IExpressionComparisonRuleProvider Rules =
-            new DefaultComparisonRules();
+        private static IExpressionComparisonRuleProvider Rules =>
+            ServiceHost.GetService<IExpressionComparisonRuleProvider>();
 
         /// <summary>
         /// Entry for similarity comparisons. Will cast to
@@ -88,7 +89,7 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return false;
             }
 
-            var targetTree = new ExpressionEnumerator(target);
+            var targetTree = ServiceHost.GetService<IExpressionEnumerator>(target);
             return targetTree.Any(t => AreSimilar(source, t));
         }
 

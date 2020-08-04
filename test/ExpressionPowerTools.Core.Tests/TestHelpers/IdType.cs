@@ -10,6 +10,12 @@ namespace ExpressionPowerTools.Core.Tests.TestHelpers
             IdVal = new Random().Next(int.MinValue, int.MaxValue);
         }
 
+        public IdType(string id, int idVal)
+        {
+            Id = id;
+            IdVal = idVal;
+        }
+
         public string Message { get; private set; }
 
         public void Callback(string message)

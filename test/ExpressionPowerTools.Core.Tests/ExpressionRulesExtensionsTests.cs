@@ -1,7 +1,9 @@
 ﻿using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Core.Tests.TestHelpers;
 using System;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 using Xunit;
 using rules = ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions;
 
@@ -186,6 +188,23 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.Equal(expected, rule(source, target));
         }
 
+        [Fact]
+        public void GivenConditionFailsThenShouldCallIfFalse()
+        {
+            var source = Expression.Equal(
+                Expression.Constant(1),
+                Expression.Constant(2));
+            var target = Expression.Equal(
+                Expression.Constant(1),
+                Expression.Constant(3));
+            var rule = rules.IfWithCast<BinaryExpression, ConstantExpression>(
+                condition: (s, t) => s.Left is ParameterExpression,
+                conversion: e => e.Left as ConstantExpression,
+                ifTrue: (s, t) => ExpressionEquivalency.AreEquivalent(s, t),
+                ifFalse: rules.False<ConstantExpression>()).Compile();
+            Assert.False(rule(source, target));
+        }
+
         [Theory]
         [InlineData(1, true)]
         [InlineData(2, false)]
@@ -211,6 +230,80 @@ namespace ExpressionPowerTools.Core.Tests
                 ifFalse: rules.False<BinaryExpression>());
             var global = globalRule.Compile();
             Assert.Equal(expected, global(source, target));
+        }
+
+        [Fact]
+        public void GivenExpressionWhenNotAppliedThenShouldReturnLogicalNot()
+        {
+            var source = Expression.Constant(true);
+            var target = Expression.Constant(true);
+            var rule = rules.Not<ConstantExpression>((s, t) => (bool)s.Value);
+            Assert.False(rule.Compile()(source, target));
+        }
+
+        [Fact]
+        public void GivenExpressionWithSimilarTypesThenTypesMustBeSimilarShouldReturnTrue()
+        {
+            var source = Expression.Parameter(typeof(StringWrapper));
+            var target = Expression.Parameter(typeof(DerivedStringWrapper));
+            var rule = rules.TypesMustBeSimilar<ParameterExpression>();
+            Assert.True(rule.Compile()(source, target));
+        }
+
+        [Fact]
+        public void GivenExpressionNonSimilarTypesThenTypesMustBeSimilarShouldReturnFalse()
+        {
+            var source = Expression.Parameter(typeof(StringWrapper));
+            var target = Expression.Parameter(typeof(IdType));
+            var rule = rules.TypesMustBeSimilar<ParameterExpression>();
+            Assert.False(rule.Compile()(source, target));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GivenRuleThatIsTrueThenAndTypesMustBeSimilarShouldReturnTrue(bool typesShouldBeSimilar)
+        {
+            var source = Expression.Parameter(typeof(StringWrapper));
+            var target = Expression.Parameter(
+                typesShouldBeSimilar ? typeof(DerivedStringWrapper) :
+                typeof(IdType));
+            var rule = rules.Rule<ParameterExpression>((s, t) => true)
+                .AndTypesMustBeSimilar();
+            Assert.Equal(typesShouldBeSimilar, rule.Compile()(source, target));
+        }
+
+        [Fact]
+        public void GivenExpressionsWithDifferentNodeTypesThenNodeTypesMustMatchShouldReturnFalse()
+        {
+            var source = Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());
+            var target = Expression.Subtract(1.AsConstantExpression(), 2.AsConstantExpression());
+            var rule = rules.NodeTypesMustMatch<BinaryExpression>();
+            Assert.False(rule.Compile()(source, target));
+        }
+
+        [Fact]
+        public void GivenExpressionsWithSameNodeTypesThenNodeTypesMustMatchShouldReturnTrue()
+        {
+            var source = Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());
+            var target = Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());
+            var rule = rules.NodeTypesMustMatch<BinaryExpression>();
+            Assert.True(rule.Compile()(source, target));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GivenFalseRuleOrExpressionWithSameNodeTypesThenOrMustMatchShouldEvaluateNodeTypes(
+            bool nodeTypesShouldMatch)
+        {
+            var source = Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());
+            var target = nodeTypesShouldMatch ?
+                Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression()) :
+                Expression.Subtract(1.AsConstantExpression(), 2.AsConstantExpression());
+            var rule = rules.Rule(rules.False<BinaryExpression>())
+                .OrNodeTypesMustMatch();
+            Assert.Equal(nodeTypesShouldMatch, rule.Compile()(source, target));
         }
     }
 }

@@ -771,7 +771,7 @@ namespace ExpressionPowerTools.Core.Tests
         {
             var constructors = typeof(StringWrapper).GetConstructors();
             var source = Expression.New(constructors.Single(c => c.GetParameters().Length == 0));
-            var target = Expression.New(constructors.Single(c => c.GetParameters().Length == 1),
+            var target = Expression.New(constructors.First(c => c.GetParameters().Length == 1),
                 true.AsConstantExpression());
             Assert.False(eq.AreEquivalent(source, target));
         }
