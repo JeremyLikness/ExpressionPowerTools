@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Resources;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Dependencies
@@ -128,7 +129,9 @@ namespace ExpressionPowerTools.Core.Dependencies
             // test that open generic is assignable from other open generic
             if (!IsAssignableToGenericType(implementation, signature))
             {
-                throw new InvalidOperationException();
+                throw ExceptionHelper.InvalidGenericRegistration.AsInvalidOperationException(
+                    implementation.FullName,
+                    signature.FullName);
             }
 
             Monitor.Enter(mutex);
@@ -178,7 +181,7 @@ namespace ExpressionPowerTools.Core.Dependencies
                 }
             }
 
-            throw new InvalidOperationException();
+            throw ExceptionHelper.InvalidService.AsInvalidOperationException(type.FullName);
         }
 
         /// <summary>
@@ -240,8 +243,8 @@ namespace ExpressionPowerTools.Core.Dependencies
         {
             if (expected != configured)
             {
-                // TODO: clear description in resources
-                throw new InvalidOperationException();
+                throw ExceptionHelper.InvalidConfiguration.AsInvalidOperationException(
+                    expected.ToString(), configured.ToString());
             }
         }
     }

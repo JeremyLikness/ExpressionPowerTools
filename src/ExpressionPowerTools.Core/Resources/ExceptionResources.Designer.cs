@@ -61,6 +61,51 @@ namespace ExpressionPowerTools.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The host has already been initialized. Use reset before attempting to initialize again..
+        /// </summary>
+        internal static string AlreadyInitialized {
+            get {
+                return ResourceManager.GetString("AlreadyInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An interceptor has already been registered. Only one registration is allowed..
+        /// </summary>
+        internal static string InterceptorAlreadyRegistered {
+            get {
+                return ResourceManager.GetString("InterceptorAlreadyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration is in wrong state: expected configured {0} but was {1}..
+        /// </summary>
+        internal static string InvalidConfiguration {
+            get {
+                return ResourceManager.GetString("InvalidConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implementation type [{0}] is not assignable to signature type [{1}]..
+        /// </summary>
+        internal static string InvalidGenericRegistration {
+            get {
+                return ResourceManager.GetString("InvalidGenericRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no registered service for type [{0}]..
+        /// </summary>
+        internal static string InvalidService {
+            get {
+                return ResourceManager.GetString("InvalidService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The parameter must be an expression that resolves to a method on the declared type..
         /// </summary>
         internal static string MethodAccessRequired {

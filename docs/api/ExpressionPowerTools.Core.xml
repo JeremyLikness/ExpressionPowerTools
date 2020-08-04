@@ -2049,6 +2049,31 @@
             Helper for localized exceptions.
             </summary>
         </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.AlreadyInitialized">
+            <summary>
+            Service host already initialized.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InvalidGenericRegistration">
+            <summary>
+            Can't assign invalid implementation.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InvalidService">
+            <summary>
+            The service is not registered.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InterceptorAlreadyRegistered">
+            <summary>
+            The interceptor was already registered.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InvalidConfiguration">
+            <summary>
+            Service configuration in wrong state.
+            </summary>
+        </member>
         <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.ExceptionResources">
             <summary>
             Name of resource file.
@@ -2100,6 +2125,14 @@
             <param name="memberName">The member that is null.</param>
             <returns>A <see cref="T:System.NullReferenceException"/>.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Core.Resources.ExceptionHelper.AsInvalidOperationException(System.String,System.String[])">
+            <summary>
+            Invalid operation messages.
+            </summary>
+            <param name="message">The message key.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>The invalid operation.</returns>
+        </member>
         <member name="T:ExpressionPowerTools.Core.Resources.ExceptionResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -2114,6 +2147,31 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.AlreadyInitialized">
+            <summary>
+              Looks up a localized string similar to The host has already been initialized. Use reset before attempting to initialize again..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InterceptorAlreadyRegistered">
+            <summary>
+              Looks up a localized string similar to An interceptor has already been registered. Only one registration is allowed..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InvalidConfiguration">
+            <summary>
+              Looks up a localized string similar to Configuration is in wrong state: expected configured {0} but was {1}..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InvalidGenericRegistration">
+            <summary>
+              Looks up a localized string similar to Implementation type [{0}] is not assignable to signature type [{1}]..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InvalidService">
+            <summary>
+              Looks up a localized string similar to There is no registered service for type [{0}]..
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.MethodAccessRequired">

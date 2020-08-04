@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Hosts;
+using ExpressionPowerTools.Core.Resources;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Providers
@@ -88,7 +89,7 @@ namespace ExpressionPowerTools.Core.Providers
             Ensure.NotNull(() => transformation);
             if (this.transformation != null)
             {
-                throw new InvalidOperationException();
+                throw ExceptionHelper.InterceptorAlreadyRegistered.AsInvalidOperationException();
             }
 
             while (interceptors.Count > 0)

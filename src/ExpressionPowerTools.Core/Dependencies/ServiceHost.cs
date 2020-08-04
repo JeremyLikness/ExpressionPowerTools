@@ -6,6 +6,7 @@ using System.Threading;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Providers;
+using ExpressionPowerTools.Core.Resources;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Dependencies
@@ -110,7 +111,7 @@ namespace ExpressionPowerTools.Core.Dependencies
         {
             if (configured)
             {
-                throw new InvalidOperationException();
+                throw ExceptionHelper.AlreadyInitialized.AsInvalidOperationException();
             }
 
             Monitor.Enter(MutexLock);

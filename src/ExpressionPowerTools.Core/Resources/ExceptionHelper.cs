@@ -12,6 +12,36 @@ namespace ExpressionPowerTools.Core.Resources
     public static class ExceptionHelper
     {
         /// <summary>
+        /// Service host already initialized.
+        /// </summary>
+        public static readonly string
+            AlreadyInitialized = nameof(AlreadyInitialized);
+
+        /// <summary>
+        /// Can't assign invalid implementation.
+        /// </summary>
+        public static readonly string
+            InvalidGenericRegistration = nameof(InvalidGenericRegistration);
+
+        /// <summary>
+        /// The service is not registered.
+        /// </summary>
+        public static readonly string
+            InvalidService = nameof(InvalidService);
+
+        /// <summary>
+        /// The interceptor was already registered.
+        /// </summary>
+        public static readonly string
+            InterceptorAlreadyRegistered = nameof(InterceptorAlreadyRegistered);
+
+        /// <summary>
+        /// Service configuration in wrong state.
+        /// </summary>
+        public static readonly string
+            InvalidConfiguration = nameof(InvalidConfiguration);
+
+        /// <summary>
         /// Name of resource file.
         /// </summary>
         private static readonly string
@@ -83,5 +113,17 @@ namespace ExpressionPowerTools.Core.Resources
                 string.Format(
                     ResourceManager.GetString(NullReference),
                     memberName));
+
+        /// <summary>
+        /// Invalid operation messages.
+        /// </summary>
+        /// <param name="message">The message key.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The invalid operation.</returns>
+        public static InvalidOperationException AsInvalidOperationException(
+            this string message,
+            params string[] parameters)
+            => parameters.Length < 1 ? new InvalidOperationException(ResourceManager.GetString(message))
+                : new InvalidOperationException(string.Format(ResourceManager.GetString(message), parameters));
     }
 }

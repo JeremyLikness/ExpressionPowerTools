@@ -51,5 +51,26 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.Equal(nameof(target), target.ParamName);
         }
 
+        [Fact]
+        public void InvalidOperationExtensionReturnsInvalidOperationWithMessage()
+        {
+            var culture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = EnglishUs;
+            var target = ExceptionHelper.AlreadyInitialized.AsInvalidOperationException();
+            CultureInfo.CurrentCulture = culture;
+            Assert.Contains("reset", target.Message);
+        }
+
+        [Fact]
+        public void InvalidOperationExtensionWithParametersReturnsInvalidOperationWithMessage()
+        {
+            var culture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = EnglishUs;
+            var target = ExceptionHelper.InvalidGenericRegistration.AsInvalidOperationException(
+                typeof(string).Name, typeof(int).Name);
+            CultureInfo.CurrentCulture = culture;
+            Assert.Contains(typeof(int).Name, target.Message);
+        }
+
     }
 }
