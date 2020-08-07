@@ -1,28 +1,60 @@
-﻿using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
-using ExpressionPowerTools.Utilities.DocumentGenerator.Markdown;
+﻿// Copyright (c) Jeremy Likness. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the repository root for license information.
+
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
+using ExpressionPowerTools.Utilities.DocumentGenerator.Markdown;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 {
+    /// <summary>
+    /// Global parsing utilities.
+    /// </summary>
     public static class ParserUtils
-    { 
-        public const string BclRef = "https://docs.microsoft.com/dotnet/api/";
+    {
+        /// <summary>
+        /// Base API URL for Microsoft documentation.
+        /// </summary>
+        public const string MsftApiBaseRef = "https://docs.microsoft.com/dotnet/api/";
 
-        public static string see = nameof(see);
+        /// <summary>
+        /// The "see" element.
+        /// </summary>
+        public static readonly string See = nameof(See).ToLowerInvariant();
 
-        public static string para = nameof(para);
+        /// <summary>
+        /// Paragraph element.
+        /// </summary>
+        public static readonly string Para = nameof(Para).ToLowerInvariant();
 
-        public static string summary = nameof(summary);
+        /// <summary>
+        /// The summary element.
+        /// </summary>
+        public static readonly string Summary = nameof(Summary).ToLowerInvariant();
 
-        public static string remarks = nameof(remarks);
+        /// <summary>
+        /// The remarks element.
+        /// </summary>
+        public static readonly string Remarks = nameof(Remarks).ToLowerInvariant();
 
+        /// <summary>
+        /// Extension method to extra a type from an assembly.
+        /// </summary>
+        /// <param name="assembly">The <see cref="DocAssembly"/> to parse.</param>
+        /// <param name="typeName">The name of the type.</param>
+        /// <returns>The <see cref="DocExportedType"/> if found, else <c>null</c>.</returns>
         public static DocExportedType GetType(this DocAssembly assembly, string typeName) =>
             assembly.Namespaces.SelectMany(ns => ns.Types).FirstOrDefault(t => t.Name == typeName);
 
+        /// <summary>
+        /// Extracts a link by cross-referencing the type.
+        /// </summary>
+        /// <param name="see">The <see cref="XmlElement"/> with the reference.</param>
+        /// <param name="assembly">The <see cref="DocAssembly"/> to search.</param>
+        /// <returns>The extracted link.</returns>
         public static string ExtractLink(this XmlElement see, DocAssembly assembly)
         {
             string cref = see.GetAttribute(nameof(cref));
@@ -36,15 +68,23 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     result = ExtractLinkForType(assembly, text);
                 }
             }
+
             return result;
         }
 
-        public static string ParseInheritance(IList<(string name, string displayName)> implementedInterfaces,
+        /// <summary>
+        /// Parses the inheritance chain into text.
+        /// </summary>
+        /// <param name="inheritance">The inheritance chain.</param>
+        /// <param name="assembly">The <see cref="DocAssembly"/> to reference.</param>
+        /// <returns>The parsed inheritance.</returns>
+        public static string ParseInheritance(
+            IList<(string name, string displayName)> inheritance,
             DocAssembly assembly)
         {
             var first = true;
             var sb = new StringBuilder("Inheritance");
-            foreach ((string name, string displayName) i in implementedInterfaces)
+            foreach ((string name, string displayName) i in inheritance)
             {
                 if (first)
                 {
@@ -54,12 +94,14 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 {
                     sb.Append("→");
                 }
+
                 var text = MarkdownWriter.Normalize(i.displayName);
-                if (i == implementedInterfaces[^1])
+                if (i == inheritance[^1])
                 {
                     sb.Append($" **{text}**");
                     continue;
                 }
+
                 var type = i.name;
                 sb.Append(ExtractLinkForType(assembly, type));
             }
@@ -67,6 +109,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Parses the list of implemented interfaces to a text list.
+        /// </summary>
+        /// <param name="implementedInterfaces">The implemented interfaces.</param>
+        /// <param name="assembly">The <seealso cref="DocAssembly"/> to search.</param>
+        /// <returns>The string representation of the list.</returns>
         public static string ParseImplementedInterfaces(
             IList<(string name, string displayName)> implementedInterfaces,
             DocAssembly assembly)
@@ -83,37 +131,20 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 {
                     sb.Append(", ");
                 }
+
                 var text = MarkdownWriter.Normalize(displayName);
                 var type = name;
-                sb.Append(ExtractLinkForType(assembly, name, text));                
+                sb.Append(ExtractLinkForType(assembly, name, text));
             }
+
             return sb.ToString();
         }
 
-        private static Stack<(string text, string link)> Traverse(object doc, Stack<(string text, string link)> stack)
-        {
-            if (doc is DocAssembly assembly)
-            {
-                stack.Push((assembly.Name, assembly.FileName));
-                return stack;
-            }
-
-            if (doc is DocNamespace ns)
-            {
-                stack.Push((ns.Name, ns.FileName));
-                Traverse(ns.Assembly, stack);
-                return stack;
-            }
-
-            if (doc is DocExportedType type)
-            {
-                stack.Push((type.TypeName.NameOnly(), type.FileName));
-                Traverse(type.Namespace, stack);
-                return stack;
-            }
-            return stack;
-        }
-
+        /// <summary>
+        /// Process the breadcrumb for a document.
+        /// </summary>
+        /// <param name="doc">The document that is being considered.</param>
+        /// <returns>A breadcrumb menu.</returns>
         public static string ProcessBreadcrumb(object doc)
         {
             var sb = new StringBuilder();
@@ -135,9 +166,17 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     sb.Append($" > [{text}]({link})");
                 }
             }
+
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Creates the appropriate link for a type.
+        /// </summary>
+        /// <param name="assembly">The <see cref="DocAssembly"/> to search.</param>
+        /// <param name="type">The name of the type.</param>
+        /// <param name="display">The optional display name of the type.</param>
+        /// <returns>The markdown link.</returns>
         public static string ExtractLinkForType(DocAssembly assembly, string type, string display = null)
         {
             display ??= type;
@@ -150,12 +189,18 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             }
             else
             {
-                link = $"{BclRef}{type.ToLowerInvariant().Replace('`', '-')}";
+                link = $"{MsftApiBaseRef}{type.ToLowerInvariant().Replace('`', '-')}";
             }
 
-            return $" [{display.NameOnly()}]({link}) "; ;
+            return $" [{display.NameOnly()}]({link}) ";
         }
 
+        /// <summary>
+        /// Parses the child nodes of XML documentation to resolve links and code blocks.
+        /// </summary>
+        /// <param name="childNodes">The child nodes.</param>
+        /// <param name="sb">The <see cref="StringBuilder"/> to write to.</param>
+        /// <param name="assembly">The <see cref="DocAssembly"/> for reference.</param>
         public static void ParseChildNodes(this XmlNodeList childNodes, StringBuilder sb, DocAssembly assembly)
         {
             var first = true;
@@ -165,13 +210,15 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 {
                     sb.Append(text.Value.Trim());
                 }
+
                 if (innerElement is XmlElement elem)
                 {
-                    if (elem.Name == see)
+                    if (elem.Name == See)
                     {
                         sb.Append(elem.ExtractLink(assembly));
                     }
-                    if (elem.Name == para)
+
+                    if (elem.Name == Para)
                     {
                         if (first)
                         {
@@ -181,12 +228,24 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         {
                             sb.Append("\r\n\r\n");
                         }
+
                         elem.ChildNodes.ParseChildNodes(sb, assembly);
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Strips the namespace qualification and normalizes the name.
+        /// </summary>
+        /// <example>
+        /// For example, the name <c>Sytem.Foo.IBar`2</c> would get transformed to:
+        /// <code lang="csharp"><![CDATA[
+        /// IBar<>
+        /// ]]></code>
+        /// </example>
+        /// <param name="fullName">The source name.</param>
+        /// <returns>The name by itself.</returns>
         public static string NameOnly(this string fullName)
         {
             var parts = fullName.Split(".");
@@ -196,8 +255,39 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var generic = stub.Split('`');
                 stub = $"{generic[0]}&lt;>";
             }
+
             return stub.Replace("<", "&lt;");
         }
 
+        /// <summary>
+        /// Traverses the hierarchy from the root to produce a breadcrumb list.
+        /// </summary>
+        /// <param name="doc">The document to start at.</param>
+        /// <param name="stack">A stack of traversed items.</param>
+        /// <returns>The recursed stack of items.</returns>
+        private static Stack<(string text, string link)> Traverse(object doc, Stack<(string text, string link)> stack)
+        {
+            if (doc is DocAssembly assembly)
+            {
+                stack.Push((assembly.Name, assembly.FileName));
+                return stack;
+            }
+
+            if (doc is DocNamespace ns)
+            {
+                stack.Push((ns.Name, ns.FileName));
+                Traverse(ns.Assembly, stack);
+                return stack;
+            }
+
+            if (doc is DocExportedType type)
+            {
+                stack.Push((type.TypeName.NameOnly(), type.FileName));
+                Traverse(type.Namespace, stack);
+                return stack;
+            }
+
+            return stack;
+        }
     }
 }
