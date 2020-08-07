@@ -14,7 +14,7 @@ namespace ExpressionPowerTools.Core.Comparisons
     /// <summary>
     /// This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
     /// Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
-    /// you should find the rules-based works fine for most scenarios and performs close to par wiht the programmed verssion.
+    /// you should find the rules-based works fine for most scenarios and performs close to par with the programmed verssion.
     /// </summary>
     public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
     {
