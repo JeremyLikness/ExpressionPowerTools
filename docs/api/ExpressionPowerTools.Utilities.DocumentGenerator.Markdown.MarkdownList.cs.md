@@ -12,3 +12,21 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 ## Examples
 
+For example:
+
+```csharp
+
+var list = new MarkdownList();
+foreach(var item in items)
+{
+    list.AddItem(item);
+}
+ICollection<string> result = list.CloseList();
+            
+```
+
+# Constructors
+
+| Ctor | Description |
+| :-- | :-- |
+| [MarkdownList(Boolean isOrdered)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.ctor.md#ctor-0) | Initializes a new instance of the [MarkdownList](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.cs.md) class. |

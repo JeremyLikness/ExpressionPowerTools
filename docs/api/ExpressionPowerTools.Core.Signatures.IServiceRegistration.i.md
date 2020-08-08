@@ -8,5 +8,5 @@ Interface for service registration.
 public interface IServiceRegistration
 ```
 
-## Examples
+Derived  [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md) 
 

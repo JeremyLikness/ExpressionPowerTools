@@ -10,5 +10,8 @@ public class DocsToMarkdownParser
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocsToMarkdownParser**
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [DocsToMarkdownParser()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ctor.md#ctor-0) |  |

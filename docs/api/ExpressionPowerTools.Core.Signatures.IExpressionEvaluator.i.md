@@ -8,5 +8,5 @@ Evaluator as facade to equivalency and similarity.
 public interface IExpressionEvaluator
 ```
 
-## Examples
+Derived  [ExpressionEvaluator](ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.cs.md) 
 

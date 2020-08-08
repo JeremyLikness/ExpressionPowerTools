@@ -10,5 +10,3 @@ public static class ExpressionExtensions
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionExtensions**
 
-## Examples
-

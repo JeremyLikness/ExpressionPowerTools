@@ -10,5 +10,3 @@ public static class Ensure
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **Ensure**
 
-## Examples
-

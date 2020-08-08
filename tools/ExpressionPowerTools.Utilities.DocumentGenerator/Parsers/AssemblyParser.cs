@@ -80,26 +80,157 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             foreach (var type in Types.Where(t => t.Namespace == docNamespace.Name))
             {
                 Console.WriteLine($"Parsing type \"{type.FullName}\"...");
-                var typeName = ProcessTypeName(type);
                 var exportedType = new DocExportedType
                 {
                     Namespace = docNamespace,
-                    Name = type.FullName,
-                    TypeName = typeName,
-                    IsInterface = type.IsInterface,
-                    IsEnum = type.IsEnum,
-                    Code = GenerateCodeSnippet(type, typeName),
-                    ImplementedInterfaces = ProcessImplementedInterfaces(type),
-                    TypeParameters = ProcessTypeParameters(type),
                 };
+
+                ProcessType(type, exportedType);
 
                 if (!exportedType.IsInterface)
                 {
                     exportedType.Inheritance = ProcessInheritance(type);
                 }
 
+                ProcessConstructors(exportedType);
+
                 docNamespace.Types.Add(exportedType);
             }
+        }
+
+        /// <summary>
+        /// Process type information.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> to process.</param>
+        /// <param name="target">The <see cref="DocBaseType"/> to process to.</param>
+        private void ProcessType(Type type, DocBaseType target)
+        {
+            target.Name = type.FullName ?? $"{type.Namespace}.{type.Name}";
+            target.Type = type;
+            target.TypeName = ProcessTypeName(type);
+            target.IsInterface = type.IsInterface;
+            target.IsEnum = type.IsEnum;
+            target.Code = GenerateCodeSnippet(type, target.TypeName);
+            target.ImplementedInterfaces = ProcessImplementedInterfaces(type);
+            target.TypeParameters = ProcessTypeParameters(type);
+            target.DerivedTypes = ProcessDerivedTypes(type);
+            target.XPath = ParserUtils.GetSelector(type);
+        }
+
+        /// <summary>
+        /// Processes the public constructor overloads.
+        /// </summary>
+        /// <param name="exportedType">The <see cref="DocExportedType"/>.</param>
+        private void ProcessConstructors(DocExportedType exportedType)
+        {
+            if (!exportedType.IsClass)
+            {
+                return;
+            }
+
+            exportedType.Constructor = new DocConstructor(exportedType)
+            {
+                Name = exportedType.Name,
+            };
+
+            var ctors = exportedType.Type.GetConstructors();
+            foreach (var ctor in ctors)
+            {
+                var overload = new DocOverload(ctor, exportedType.Constructor)
+                {
+                    Name = GenerateCtorSignature(ctor, exportedType.TypeName),
+                    XPath = ParserUtils.GetSelector(ctor),
+                };
+
+                var staticText = ctor.IsStatic ? " static " : " ";
+
+                overload.Code = $"public{staticText}{overload.Name}";
+
+                foreach (var parameter in ctor.GetParameters())
+                {
+                    var param = new DocParameter(overload)
+                    {
+                        Name = parameter.Name,
+                        ParameterType = new DocBaseType(),
+                    };
+                    ProcessType(parameter.ParameterType, param.ParameterType);
+                    overload.Parameters.Add(param);
+                }
+
+                exportedType.Constructor.Overloads.Add(overload);
+            }
+        }
+
+        private string GenerateCtorSignature(ConstructorInfo ctor, string typeName)
+        {
+            var sb = new StringBuilder($"{typeName.Split(".")[^1]}(");
+            var first = true;
+            foreach (var parameter in ctor.GetParameters())
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    sb.Append(", ");
+                }
+
+                var type = ProcessTypeName(parameter.ParameterType);
+                var name = parameter.Name;
+                sb.Append($"{type} {name}");
+            }
+
+            sb.Append(")");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Process the derived types for a given type.
+        /// </summary>
+        /// <param name="type">The type to consider.</param>
+        /// <returns>The list of derived typse.</returns>
+        private IList<(string name, string displayName)> ProcessDerivedTypes(
+            Type type)
+        {
+            var result = new List<(string name, string displayName)>();
+            var types = new List<Type>();
+            var generic = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
+            if (type.IsInterface)
+            {
+                if (type.IsGenericType)
+                {
+                    types.AddRange(type.Assembly.GetExportedTypes()
+                        .Where(t => t.GetInterfaces()
+                            .Any(
+                                i => i.IsGenericType &&
+                                i.GetGenericTypeDefinition().Equals(generic))));
+                }
+
+                types.AddRange(type.Assembly.GetExportedTypes()
+                    .Where(t => t.GetInterfaces()
+                        .Any(i => i == type)));
+            }
+            else
+            {
+                if (type.IsGenericType)
+                {
+                    types.AddRange(type.Assembly.GetExportedTypes()
+                        .Where(t => t.BaseType != null &&
+                            t.BaseType.IsGenericType &&
+                            t.BaseType.GetGenericTypeDefinition().Equals(generic)));
+                }
+
+                types.AddRange(type.Assembly.GetExportedTypes()
+                    .Where(t => t.BaseType != null && t.BaseType.Equals(type)));
+            }
+
+            foreach (var item in types.Where(t => t != type).Distinct())
+            {
+                result.Add((item.FullName, ProcessTypeName(item)));
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -144,7 +275,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 type = type.BaseType;
             }
 
-            return stack.ToList();
+            return stack.Select(i => (i.name, i.displayName.NameOnly())).ToList();
         }
 
         /// <summary>
@@ -198,7 +329,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 sb.Append("class ");
             }
 
-            sb.Append(typeName);
+            sb.Append(typeName.Split(".")[^1]);
 
             if (type.IsEnum)
             {
@@ -231,7 +362,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 foreach (var constraint in tParam.GetGenericParameterConstraints())
                 {
-                    sb.Append($"\r\n   where {tParam.Name} : {ProcessTypeName(constraint)}");
+                    sb.Append($"{ParserUtils.NewLine}   where {tParam.Name} : {ProcessTypeName(constraint)}");
                 }
             }
 
@@ -258,7 +389,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             var sb = new StringBuilder();
             if (type.IsGenericType || type.IsGenericTypeDefinition)
             {
-                sb.Append(type.Name.Substring(0, type.Name.IndexOf('`')));
+                var name = type.FullName ?? type.Name;
+                sb.Append(name.Substring(0, name.IndexOf('`')));
                 sb.Append("<");
                 var parameters = type.GetGenericArguments();
                 var first = true;

@@ -8,5 +8,5 @@ Exposes a method to register a transformation.
 public interface IQueryInterceptor
 ```
 
-## Examples
+Derived  [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) ,  [IQueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider`1.i.md) 
 

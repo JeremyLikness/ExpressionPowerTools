@@ -22,7 +22,7 @@ namespace ExpressionPowerTools.Core.Hosts
         /// <summary>
         /// Initializes a new instance of the <see cref="QueryHost{T, TProvider}"/> class.
         /// </summary>
-        /// <param name="expression">The <see cref="Expression"/>.</param>
+        /// <param name="expression">The <see cref="System.Linq.Expressions.Expression"/>.</param>
         /// <param name="provider">The <see cref="ICustomQueryProvider{T}"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when expression or provider are null.</exception>
         public QueryHost(

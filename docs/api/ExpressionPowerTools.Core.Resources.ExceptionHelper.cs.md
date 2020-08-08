@@ -10,5 +10,3 @@ public static class ExceptionHelper
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExceptionHelper**
 
-## Examples
-

@@ -5,10 +5,15 @@
 Base document for types.
 
 ```csharp
-public abstract class DocBaseType : DocBase
+public class DocBaseType : DocBase
 ```
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocBaseType**
 
-## Examples
+Derived  [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) 
 
+# Constructors
+
+| Ctor | Description |
+| :-- | :-- |
+| [DocBaseType()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.ctor.md#ctor-0) |  |

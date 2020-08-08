@@ -8,5 +8,5 @@ Non-generic interface for snapshot host.
 public interface IQuerySnapshot
 ```
 
-## Examples
+Derived  [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) ,  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) 
 

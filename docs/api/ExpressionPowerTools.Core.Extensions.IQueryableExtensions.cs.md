@@ -10,5 +10,3 @@ public static class IQueryableExtensions
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **IQueryableExtensions**
 
-## Examples
-

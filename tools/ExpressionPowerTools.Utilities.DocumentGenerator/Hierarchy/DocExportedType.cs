@@ -14,6 +14,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         public DocNamespace Namespace { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="DocConstructor"/>.
+        /// </summary>
+        public DocConstructor Constructor { get; set; }
+
+        /// <summary>
         /// Gets the extension for a unique filename.
         /// </summary>
         public override string Extension => IsInterface ? "i" : "cs";

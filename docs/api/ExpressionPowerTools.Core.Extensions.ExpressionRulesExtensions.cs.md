@@ -16,5 +16,3 @@ The purpose of these extensions are to provide fluent building blocks for rules.
             can be chained to test any aspect of comparison. See [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) for
             example implementations.
 
-## Examples
-

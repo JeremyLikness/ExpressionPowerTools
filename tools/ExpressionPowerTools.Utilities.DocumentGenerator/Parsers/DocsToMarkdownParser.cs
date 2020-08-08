@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
@@ -58,7 +59,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var table = new MarkdownTable("Class", "Description");
                 foreach (var c in ns.Types.Where(t => t.IsClass).OrderBy(t => t.TypeName))
                 {
-                    table.AddRow(writer.WriteLink(c.TypeName, c.FileName), c.Description);
+                    table.AddRow(writer.WriteLink(c.TypeName.NameOnly(), c.FileName), c.Description);
                     result.Files.Add(ProcessType(c));
                 }
 
@@ -72,7 +73,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var table = new MarkdownTable("Interface", "Description");
                 foreach (var i in ns.Types.Where(t => t.IsInterface).OrderBy(t => t.TypeName))
                 {
-                    table.AddRow(writer.WriteLink(i.TypeName, i.FileName), i.Description);
+                    table.AddRow(writer.WriteLink(i.TypeName.NameOnly(), i.FileName), i.Description);
                     result.Files.Add(ProcessType(i));
                 }
 
@@ -86,7 +87,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var table = new MarkdownTable("Enumeration", "Description");
                 foreach (var i in ns.Types.Where(t => t.IsEnum).OrderBy(t => t.TypeName))
                 {
-                    table.AddRow(writer.WriteLink(i.TypeName, i.FileName), i.Description);
+                    table.AddRow(writer.WriteLink(i.TypeName.NameOnly(), i.FileName), i.Description);
                     result.Files.Add(ProcessType(i));
                 }
 
@@ -125,11 +126,128 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     .ParseImplementedInterfaces(t.ImplementedInterfaces, t.Namespace.Assembly));
             }
 
+            if (t.DerivedTypes.Any())
+            {
+                result.AddThenBlankLine(ParserUtils
+                    .ParseDerivedTypes(t.DerivedTypes, t.Namespace.Assembly));
+            }
+
+            ExtractExamples(t.Example, result);
+
             ExtractRemarks(t.Remarks, result);
 
-            result.AddThenBlankLine(writer.WriteHeading2("Examples"));
+            ExtractCtors(t.Constructor, result);
 
             return result;
+        }
+
+        /// <summary>
+        /// Extracts the constructors into a table and files.
+        /// </summary>
+        /// <param name="constructor">The <see cref="DocConstructor"/>.</param>
+        /// <param name="result">The <see cref="DocFile"/> to parse to.</param>
+        private void ExtractCtors(DocConstructor constructor, DocFile result)
+        {
+            if (constructor == null || !constructor.Overloads.Any())
+            {
+                return;
+            }
+
+            var ctorFile = new DocFile(constructor.FileName);
+
+            result.Files.Add(ctorFile);
+            result.AddThenBlankLine(writer.WriteHeading1($"Constructors"));
+
+            ctorFile.AddThenBlankLine(writer.WriteHeading1(
+                $"{MarkdownWriter.Normalize(constructor.ConstructorType.TypeName.NameOnly())} Constructors"));
+            ctorFile.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(constructor));
+            ctorFile.AddThenBlankLine(constructor.Overloads[0].Description);
+            ctorFile.AddThenBlankLine(writer.WriteHeading2("Overloads"));
+
+            var table = new MarkdownTable("Ctor", "Description");
+            var tableCtor = new MarkdownTable("Ctor", "Description");
+
+            var idx = 0;
+            foreach (var overload in constructor.Overloads)
+            {
+                var name = MarkdownWriter.Normalize(overload.Name.Split(".")[^1]);
+
+                table.AddRow(
+                    writer.WriteLink(
+                    name,
+                    $"{constructor.FileName}#ctor-{idx}"),
+                    overload.Description);
+
+                tableCtor.AddRow(
+                    writer.WriteLink(
+                        name,
+                        $"#ctor-{idx}"));
+                idx += 1;
+            }
+
+            writer.AddRange(result.Markdown, table.CloseTable());
+            writer.AddRange(ctorFile.Markdown, tableCtor.CloseTable());
+
+            idx = 0;
+            foreach (var overload in constructor.Overloads)
+            {
+                ctorFile.AddBlankLine();
+                ctorFile.Add($"<a name=\"#ctor-{idx}\"></a>");
+                ctorFile.AddThenBlankLine(writer.WriteHeading2(overload.Name));
+                ctorFile.AddThenBlankLine(overload.Description);
+                ExtractCode(overload.Code, ctorFile);
+                ExtractParameters(overload.Parameters, ctorFile, overload.Constructor.ConstructorType.Namespace.Assembly);
+                ExtractExceptions(overload.Exceptions, ctorFile);
+                ExtractExamples(overload.Example, ctorFile);
+                ExtractRemarks(overload.Remarks, ctorFile);
+            }
+        }
+
+        /// <summary>
+        /// Extracts the table of exceptions.
+        /// </summary>
+        /// <param name="exceptions">The list of exceptions.</param>
+        /// <param name="docFile">The file to write to.</param>
+        private void ExtractExceptions(IList<(string exception, string description)> exceptions, DocFile docFile)
+        {
+            if (exceptions.Any())
+            {
+                docFile.AddThenBlankLine(writer.WriteHeading3("Exceptions"));
+                var table = new MarkdownTable("Exception", "Description");
+                foreach (var exception in exceptions)
+                {
+                    table.AddRow(exception.exception, exception.description);
+                }
+
+                writer.AddRange(docFile.Markdown, table.CloseTable());
+            }
+
+            docFile.AddBlankLine();
+        }
+
+        /// <summary>
+        /// Extra the parameters from the constructor.
+        /// </summary>
+        /// <param name="parameters">The list of <see cref="DocParameter"/>.</param>
+        /// <param name="docFile">The <see cref="DocFile"/> target.</param>
+        /// <param name="assembly">The assembly.</param>
+        private void ExtractParameters(IList<DocParameter> parameters, DocFile docFile, DocAssembly assembly)
+        {
+            if (parameters.Any())
+            {
+                docFile.AddThenBlankLine(writer.WriteHeading3("Parameters"));
+                var table = new MarkdownTable("Parameter", "Type", "Description");
+                foreach (var parameter in parameters)
+                {
+                    table.AddRow(
+                        $"`{parameter.Name}`",
+                        ParserUtils.ExtractLinkForType(assembly, parameter.ParameterType.Name),
+                        parameter.Description);
+                }
+
+                writer.AddRange(docFile.Markdown, table.CloseTable());
+                docFile.AddBlankLine();
+            }
         }
 
         /// <summary>
@@ -142,13 +260,28 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             if (typeParameters.Any())
             {
                 result.AddThenBlankLine(writer.WriteHeading3("Type Parameters"));
+                var table = new MarkdownTable("Parameter Name", "Description");
                 foreach (var tParam in typeParameters)
                 {
-                    result.Add($"**`{tParam.Name}`**");
-                    result.AddThenBlankLine(tParam.Description);
+                    table.AddRow($"`{tParam.Name}`", tParam.Description);
                 }
 
-                result.AddDivider();
+                writer.AddRange(result.Markdown, table.CloseTable());
+                result.AddBlankLine();
+            }
+        }
+
+        /// <summary>
+        /// Extracts examples.
+        /// </summary>
+        /// <param name="example">The example to parse.</param>
+        /// <param name="result">The <see cref="DocFile"/> to parse to.</param>
+        private void ExtractExamples(string example, DocFile result)
+        {
+            if (!string.IsNullOrWhiteSpace(example))
+            {
+                result.AddThenBlankLine(writer.WriteHeading2("Examples"));
+                result.AddThenBlankLine(example);
             }
         }
 

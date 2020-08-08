@@ -10,12 +10,15 @@ public class Services : IServices, IServiceRegistration
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **Services**
 
-Implements  [IServices](ExpressionPowerTools.Core.Signatures.IServices.i.md) ,  [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) 
+Implements  [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) ,  [IServices](ExpressionPowerTools.Core.Signatures.IServices.i.md) 
 
 ## Remarks
 
 Use the register overloads to register services. Callwhen done setting up and
             before attempting to retrieve other instances.
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [Services()](ExpressionPowerTools.Core.Dependencies.Services.ctor.md#ctor-0) |  |

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
@@ -8,7 +9,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
     /// <summary>
     /// Base document for types.
     /// </summary>
-    public abstract class DocBaseType : DocBase
+    public class DocBaseType : DocBase
     {
         /// <summary>
         /// Gets or sets a value indicating whether the type is an interface.
@@ -49,8 +50,13 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         public string TypeName { get; set; }
 
         /// <summary>
-        /// Gets or sets the code snippet that defines the type.
+        /// Gets or sets the associated type.
         /// </summary>
-        public string Code { get; set; }
+        public Type Type { get; set; }
+
+        /// <summary>
+        /// Gets the extension.
+        /// </summary>
+        public override string Extension => "t";
     }
 }

@@ -12,3 +12,21 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 ## Examples
 
+For example:
+
+```csharp
+
+var table = new MarkdownTable("Class", "Description");
+foreach (var item in items)
+{
+    table.AddRow(item.ClassName, item.Description);
+}
+IList<string> markdown = table.CloseTable();
+            
+```
+
+# Constructors
+
+| Ctor | Description |
+| :-- | :-- |
+| [MarkdownTable(String[] headings)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.ctor.md#ctor-0) |  |

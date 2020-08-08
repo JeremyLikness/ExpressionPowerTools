@@ -5,10 +5,10 @@
 Enables recursing over an expression tree.
 
 ```csharp
-public interface IExpressionEnumerator : IEnumerable<Expression>
+public interface IExpressionEnumerator : System.Collections.Generic.IEnumerable<Expression>
 ```
 
-Implements  [IEnumerable&lt;T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) ,  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collections.ienumerable) 
+Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collections.ienumerable) ,  [IEnumerable&lt;T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) 
 
-## Examples
+Derived  [ExpressionEnumerator](ExpressionPowerTools.Core.ExpressionEnumerator.cs.md) 
 

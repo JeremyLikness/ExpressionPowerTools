@@ -16,14 +16,21 @@
             <param name="assemblyName">The name of the assembly to reference.</param>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.Namespaces">
-            <summary>
-            List of <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace"/> instances.
-            </summary>
+             <summary>
+            
+             Gets or sets the list of <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace"/> instances.
+             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.Extension">
             <summary>
             Gets the file extension.
             </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.ToString">
+            <summary>
+            String representation.
+            </summary>
+            <returns>The filename.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase">
             <summary>
@@ -33,6 +40,11 @@
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Name">
             <summary>
             Gets or sets name of the item.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Code">
+            <summary>
+            Gets or sets the code snippet that defines the type.
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Description">
@@ -57,7 +69,7 @@
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Exceptions">
             <summary>
-            Gets or sets the list of exceptions thta may be thrown.
+            Gets or sets the list of exceptions that may be thrown.
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.TypeParameters">
@@ -74,6 +86,17 @@
             <summary>
             Gets the filename constructed from type and extension.
             </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.XPath">
+            <summary>
+            Gets or sets the XPath to the element in documentation.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.ToString">
+            <summary>
+            String display.
+            </summary>
+            <returns>The type and the name.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType">
             <summary>
@@ -115,9 +138,41 @@
             Gets or sets the user-friendly name for the type.
             </summary>
         </member>
-        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.Code">
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.Type">
             <summary>
-            Gets or sets the code snippet that defines the type.
+            Gets or sets the associated type.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.Extension">
+            <summary>
+            Gets the extension.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor">
+            <summary>
+            Document representing public constructors for a type.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.#ctor(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor"/> class with
+            the specified <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType"/>.
+            </summary>
+            <param name="type">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType"/> the constructor is for.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.Overloads">
+            <summary>
+            Gets the constructor overloads.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.ConstructorType">
+            <summary>
+            Gets the type the constructors belong to.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.Extension">
+            <summary>
+            Gets the file extension.
             </summary>
         </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType">
@@ -128,6 +183,11 @@
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Namespace">
             <summary>
             Gets or sets the namespace the type belongs to.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Constructor">
+            <summary>
+            Gets or sets the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor"/>.
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Extension">
@@ -159,6 +219,66 @@
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.Extension">
             <summary>
             Gets the unique file extension.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload">
+            <summary>
+            A given constructor overload.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.#ctor(System.Reflection.ConstructorInfo,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload"/> class for
+            the given <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor"/>.
+            </summary>
+            <param name="info">The <see cref="T:System.Reflection.ConstructorInfo"/>.</param>
+            <param name="ctor">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor"/>.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Constructor">
+            <summary>
+            Gets the constructor the overload belongs to.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Ctor">
+            <summary>
+            Gets the constructor info.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Parameters">
+            <summary>
+            Gets the constructor parameters.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Extension">
+            <summary>
+            Gets the extension (not implemented).
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter">
+            <summary>
+            Represents a parameter.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.#ctor(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter"/> class with the
+            specified parent.
+            </summary>
+            <param name="parent">The parent <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase"/>.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.ParameterType">
+            <summary>
+            Gets or sets the type of the parameter.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.Parent">
+            <summary>
+            Gets the owning type.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.Extension">
+            <summary>
+            Gets the extension.
             </summary>
         </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter">
@@ -413,7 +533,7 @@
             Normalize the text.
             </summary>
             <remarks>
-            Strips newlines and converts opening tags to the HTML code for "less than."
+            Strips newlines and converts opening tags to the HTML code for "less than".
             </remarks>
             <param name="source">The source text to normalize.</param>
             <returns>The normalized text.</returns>
@@ -519,6 +639,26 @@
             </summary>
             <param name="docNamespace">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace"/> to parse into.</param>
         </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.ProcessType(System.Type,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType)">
+            <summary>
+            Process type information.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to process.</param>
+            <param name="target">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType"/> to process to.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.ProcessConstructors(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType)">
+            <summary>
+            Processes the public constructor overloads.
+            </summary>
+            <param name="exportedType">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType"/>.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.ProcessDerivedTypes(System.Type)">
+            <summary>
+            Process the derived types for a given type.
+            </summary>
+            <param name="type">The type to consider.</param>
+            <returns>The list of derived typse.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.ProcessTypeParameters(System.Type)">
             <summary>
             Process the type parameters for a given type.
@@ -596,12 +736,41 @@
             <param name="t">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType"/> to parse.</param>
             <returns>The transformed <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/>.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractCtors(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor,ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile)">
+            <summary>
+            Extracts the constructors into a table and files.
+            </summary>
+            <param name="constructor">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor"/>.</param>
+            <param name="result">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/> to parse to.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractExceptions(System.Collections.Generic.IList{System.ValueTuple{System.String,System.String}},ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile)">
+            <summary>
+            Extracts the table of exceptions.
+            </summary>
+            <param name="exceptions">The list of exceptions.</param>
+            <param name="docFile">The file to write to.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractParameters(System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter},ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
+            <summary>
+            Extra the parameters from the constructor.
+            </summary>
+            <param name="parameters">The list of <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter"/>.</param>
+            <param name="docFile">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/> target.</param>
+            <param name="assembly">The assembly.</param>
+        </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractTypeParameters(System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter},ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile)">
             <summary>
             Extracts type parameters into a <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/>.
             </summary>
             <param name="typeParameters">The type parameters to parse.</param>
             <param name="result">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/> to write to.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractExamples(System.String,ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile)">
+            <summary>
+            Extracts examples.
+            </summary>
+            <param name="example">The example to parse.</param>
+            <param name="result">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/> to parse to.</param>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractRemarks(System.String,ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile)">
             <summary>
@@ -627,6 +796,16 @@
             Base API URL for Microsoft documentation.
             </summary>
         </member>
+        <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.NewLine">
+            <summary>
+            New line.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.BlankLine">
+            <summary>
+            Blank line.
+            </summary>
+        </member>
         <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.See">
             <summary>
             The "see" element.
@@ -647,6 +826,16 @@
             The remarks element.
             </summary>
         </member>
+        <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.Example">
+            <summary>
+            The example element.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.Code">
+            <summary>
+            The code element.
+            </summary>
+        </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.GetType(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly,System.String)">
             <summary>
             Extension method to extra a type from an assembly.
@@ -654,6 +843,13 @@
             <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> to parse.</param>
             <param name="typeName">The name of the type.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType"/> if found, else <c>null</c>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.GetTypeQuery(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
+            <summary>
+            Gets a queryable to examine types.
+            </summary>
+            <param name="assembly">The host <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/>.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.ExtractLink(System.Xml.XmlElement,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
             <summary>
@@ -670,6 +866,14 @@
             <param name="inheritance">The inheritance chain.</param>
             <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> to reference.</param>
             <returns>The parsed inheritance.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.ParseDerivedTypes(System.Collections.Generic.IList{System.ValueTuple{System.String,System.String}},ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
+            <summary>
+            Parse the derived types.
+            </summary>
+            <param name="derivedTypes">The list of derived types.</param>
+            <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> to reference.</param>
+            <returns>The parsed list.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.ParseImplementedInterfaces(System.Collections.Generic.IList{System.ValueTuple{System.String,System.String}},ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
             <summary>
@@ -703,6 +907,13 @@
             <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to write to.</param>
             <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> for reference.</param>
         </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.NormalizeIndents(System.String)">
+            <summary>
+            Normalize the indents for a text block.
+            </summary>
+            <param name="source">The source block.</param>
+            <returns>The normalize source.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.NameOnly(System.String)">
             <summary>
             Strips the namespace qualification and normalizes the name.
@@ -715,6 +926,13 @@
             </example>
             <param name="fullName">The source name.</param>
             <returns>The name by itself.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.GetSelector(System.Reflection.MemberInfo)">
+            <summary>
+            Gets the selector in XML docs for the provided member.
+            </summary>
+            <param name="member">The <see cref="T:System.Reflection.MemberInfo"/>.</param>
+            <returns>The selector.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.Traverse(System.Object,System.Collections.Generic.Stack{System.ValueTuple{System.String,System.String}})">
             <summary>
@@ -747,20 +965,20 @@
             <param name="path">The path that contains the XML comments.</param>
             <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> to annotate.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.GetType(System.Xml.XmlDocument,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType)">
-            <summary>
-            Gets the XML comments for a type.
-            </summary>
-            <param name="doc">The <see cref="T:System.Xml.XmlDocument"/> with XML documentation.</param>
-            <param name="type">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType"/> to annotate.</param>
-            <returns>The <see cref="T:System.Xml.XmlElement"/> if found, <c>null</c> if not.</returns>
-        </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ParseXml(System.Xml.XmlDocument,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
             <summary>
             Parses the XML comments.
             </summary>
             <param name="doc">The <see cref="T:System.Xml.XmlDocument"/> for XML comments.</param>
             <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> to annotate.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.GetExceptions(System.Xml.XmlElement,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
+            <summary>
+            Gets the exception list, if available.
+            </summary>
+            <param name="ctorNode">The node that contains exceptions.</param>
+            <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> for cross-referencce.</param>
+            <returns>The list of exceptions and related descriptions.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ProcessTypeParamDescriptions(System.Xml.XmlElement,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly,System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter})">
             <summary>
@@ -776,7 +994,7 @@
             </summary>
             <param name="typeNode">The <see cref="T:System.Xml.XmlElement"/> that contains the text block.</param>
             <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> for reference.</param>
-            <param name="name">The <see cref="!:name"/> of the text block to parse.</param>
+            <param name="name">The name of the text block to parse.</param>
             <returns>The parsed text with markdown enhancements.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Program">

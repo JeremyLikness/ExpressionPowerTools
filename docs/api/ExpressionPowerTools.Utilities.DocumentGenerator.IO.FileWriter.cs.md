@@ -10,5 +10,8 @@ public class FileWriter
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileWriter**
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [FileWriter(String rootDir)](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.ctor.md#ctor-0) | Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class. |

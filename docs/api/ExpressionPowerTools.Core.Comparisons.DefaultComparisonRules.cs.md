@@ -12,5 +12,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) 
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [DefaultComparisonRules()](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.ctor.md#ctor-0) | Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) class. |

@@ -1,4 +1,4 @@
-﻿# IQueryInterceptingProvider&lt;T> Interface
+﻿# ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider&lt;T> Interface
 
 [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > **IQueryInterceptingProvider&lt;T>**
 
@@ -8,14 +8,13 @@ Interface for provider that intercepts the [Expression](https://docs.microsoft.c
 public interface IQueryInterceptingProvider<T> : IQueryInterceptor, ICustomQueryProvider<T>
 ```
 
-## Type Parameters
+### Type Parameters
 
-**`T`**
-The type.
+| Parameter Name | Description |
+| :-- | :-- |
+| `T` | The type. |
 
----
+Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) ,  [IQueryInterceptor](ExpressionPowerTools.Core.Signatures.IQueryInterceptor.i.md) ,  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) 
 
-Implements  [IQueryInterceptor](ExpressionPowerTools.Core.Signatures.IQueryInterceptor.i.md) ,  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) ,  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) 
-
-## Examples
+Derived  [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) 
 

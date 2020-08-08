@@ -10,7 +10,10 @@ public class ExpressionEnumerator : IExpressionEnumerator
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionEnumerator**
 
-Implements  [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) ,  [IEnumerable&lt;T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) ,  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collections.ienumerable) 
+Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collections.ienumerable) ,  [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) ,  [IEnumerable&lt;T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) 
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [ExpressionEnumerator(Expression expr)](ExpressionPowerTools.Core.ExpressionEnumerator.ctor.md#ctor-0) | Initializes a new instance of the [ExpressionEnumerator](ExpressionPowerTools.Core.ExpressionEnumerator.cs.md) class. |

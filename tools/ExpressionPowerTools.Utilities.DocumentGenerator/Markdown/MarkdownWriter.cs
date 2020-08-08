@@ -14,7 +14,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
         /// Normalize the text.
         /// </summary>
         /// <remarks>
-        /// Strips newlines and converts opening tags to the HTML code for "less than."
+        /// Strips newlines and converts opening tags to the HTML code for "less than".
         /// </remarks>
         /// <param name="source">The source text to normalize.</param>
         /// <returns>The normalized text.</returns>
@@ -42,7 +42,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
         /// </summary>
         /// <param name="heading">The heading text.</param>
         /// <returns>The nested sub-heading markdown.</returns>
-        public string WriteHeading3(string heading) => $"## {Normalize(heading)}";
+        public string WriteHeading3(string heading) => $"### {Normalize(heading)}";
 
         /// <summary>
         /// Write an inline code block.

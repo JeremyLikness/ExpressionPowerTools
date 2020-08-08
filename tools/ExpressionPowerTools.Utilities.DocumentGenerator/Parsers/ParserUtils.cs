@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
@@ -19,6 +21,16 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// Base API URL for Microsoft documentation.
         /// </summary>
         public const string MsftApiBaseRef = "https://docs.microsoft.com/dotnet/api/";
+
+        /// <summary>
+        /// New line.
+        /// </summary>
+        public const string NewLine = "\r\n";
+
+        /// <summary>
+        /// Blank line.
+        /// </summary>
+        public const string BlankLine = NewLine + NewLine;
 
         /// <summary>
         /// The "see" element.
@@ -41,6 +53,16 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         public static readonly string Remarks = nameof(Remarks).ToLowerInvariant();
 
         /// <summary>
+        /// The example element.
+        /// </summary>
+        public static readonly string Example = nameof(Example).ToLowerInvariant();
+
+        /// <summary>
+        /// The code element.
+        /// </summary>
+        public static readonly string Code = nameof(Code).ToLowerInvariant();
+
+        /// <summary>
         /// Extension method to extra a type from an assembly.
         /// </summary>
         /// <param name="assembly">The <see cref="DocAssembly"/> to parse.</param>
@@ -48,6 +70,14 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// <returns>The <see cref="DocExportedType"/> if found, else <c>null</c>.</returns>
         public static DocExportedType GetType(this DocAssembly assembly, string typeName) =>
             assembly.Namespaces.SelectMany(ns => ns.Types).FirstOrDefault(t => t.Name == typeName);
+
+        /// <summary>
+        /// Gets a queryable to examine types.
+        /// </summary>
+        /// <param name="assembly">The host <see cref="DocAssembly"/>.</param>
+        /// <returns>The <see cref="IQueryable"/>.</returns>
+        public static IQueryable<DocExportedType> GetTypeQuery(this DocAssembly assembly) =>
+            assembly.Namespaces.SelectMany(ns => ns.Types).AsQueryable();
 
         /// <summary>
         /// Extracts a link by cross-referencing the type.
@@ -110,6 +140,37 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         }
 
         /// <summary>
+        /// Parse the derived types.
+        /// </summary>
+        /// <param name="derivedTypes">The list of derived types.</param>
+        /// <param name="assembly">The <see cref="DocAssembly"/> to reference.</param>
+        /// <returns>The parsed list.</returns>
+        public static string ParseDerivedTypes(
+            IList<(string name, string displayName)> derivedTypes,
+            DocAssembly assembly)
+        {
+            var first = true;
+            var sb = new StringBuilder("Derived ");
+            foreach ((string name, string displayName) in derivedTypes.OrderBy(t => t.displayName))
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    sb.Append(", ");
+                }
+
+                var text = MarkdownWriter.Normalize(displayName);
+                var type = name;
+                sb.Append(ExtractLinkForType(assembly, name, text));
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// Parses the list of implemented interfaces to a text list.
         /// </summary>
         /// <param name="implementedInterfaces">The implemented interfaces.</param>
@@ -121,7 +182,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         {
             var first = true;
             var sb = new StringBuilder("Implements ");
-            foreach ((string name, string displayName) in implementedInterfaces)
+            foreach ((string name, string displayName) in
+                implementedInterfaces.OrderBy(i => i.displayName))
             {
                 if (first)
                 {
@@ -218,6 +280,28 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         sb.Append(elem.ExtractLink(assembly));
                     }
 
+                    if (elem.Name == "c")
+                    {
+                        sb.Append($" `{elem.InnerText}` ");
+                    }
+
+                    if (elem.Name == Code)
+                    {
+                        string code = string.Empty;
+                        var child = elem.ChildNodes[0];
+                        if (child is XmlText txt)
+                        {
+                            code = NormalizeIndents(txt.Data);
+                        }
+
+                        if (child is XmlCDataSection cdata)
+                        {
+                            code = NormalizeIndents(cdata.Data);
+                        }
+
+                        sb.Append($"{BlankLine}```csharp{NewLine}{code}{NewLine}```{BlankLine}");
+                    }
+
                     if (elem.Name == Para)
                     {
                         if (first)
@@ -226,13 +310,37 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         }
                         else
                         {
-                            sb.Append("\r\n\r\n");
+                            sb.Append(BlankLine);
                         }
 
                         elem.ChildNodes.ParseChildNodes(sb, assembly);
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Normalize the indents for a text block.
+        /// </summary>
+        /// <param name="source">The source block.</param>
+        /// <returns>The normalize source.</returns>
+        public static string NormalizeIndents(string source)
+        {
+            var lines = source.Split(NewLine);
+
+            var min = lines.Where(line => !string.IsNullOrWhiteSpace(line))
+                .Select(line => line.TakeWhile(c => char.IsWhiteSpace(c)).Count())
+                .Min();
+
+            if (min == 0)
+            {
+                return source;
+            }
+
+            var trimmed = lines.Select(line => string.IsNullOrWhiteSpace(line) ? line :
+                line.Substring(min)).ToArray();
+
+            return string.Join(NewLine, trimmed);
         }
 
         /// <summary>
@@ -260,6 +368,161 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         }
 
         /// <summary>
+        /// Gets the selector in XML docs for the provided member.
+        /// </summary>
+        /// <param name="member">The <see cref="MemberInfo"/>.</param>
+        /// <returns>The selector.</returns>
+        public static string GetSelector(MemberInfo member)
+        {
+            var typeGenericMap = new Dictionary<string, int>();
+            var methodGenericMap = new Dictionary<string, int>();
+            var parameters = new List<string>();
+
+            char prefixCode;
+
+            string memberName = (member is Type mbr)
+                ? mbr.FullName
+                : (member.DeclaringType.FullName + "." + member.Name);
+
+            if (member.DeclaringType != null && member.DeclaringType.IsGenericType)
+            {
+                var tempTypeGeneric = 0;
+                foreach (var genericArg in member.DeclaringType.GetGenericArguments())
+                {
+                    typeGenericMap[genericArg.Name] = tempTypeGeneric++;
+                }
+            }
+
+            Type[] genericArguments = null;
+            var parameterInfos = new ParameterInfo[0];
+
+            if (member is MethodInfo method)
+            {
+                if (method.IsGenericMethod)
+                {
+                    genericArguments = method.GetGenericArguments();
+                }
+
+                parameterInfos = method.GetParameters();
+            }
+            else if (member is ConstructorInfo ctor)
+            {
+                if (ctor.IsGenericMethod)
+                {
+                    genericArguments = ctor.GetGenericArguments();
+                }
+
+                parameterInfos = ctor.GetParameters();
+            }
+
+            if (genericArguments != null)
+            {
+                var tempMethodGeneric = 0;
+                foreach (var methodGenericArg in genericArguments)
+                {
+                    methodGenericMap[methodGenericArg.Name] = tempMethodGeneric++;
+                }
+            }
+
+            // fix up parameters
+            foreach (var parameter in parameterInfos)
+            {
+                var paramType = parameter.ParameterType;
+                var param = string.Empty;
+                if (paramType.HasElementType)
+                {
+                    if (paramType.IsArray)
+                    {
+                        param = $"{paramType.FullName}[]";
+                    }
+                    else if (paramType.IsPointer)
+                    {
+                        param = $"{paramType.FullName}*";
+                    }
+                    else if (paramType.IsByRef)
+                    {
+                        param = $"{paramType.FullName}@";
+                    }
+                }
+                else if (paramType.IsGenericParameter)
+                {
+                    if (paramType.FullName == null && typeGenericMap.ContainsKey(paramType.Name))
+                    {
+                        param = $"`{typeGenericMap[paramType.Name]}";
+                    }
+                }
+                else if (paramType.ContainsGenericParameters)
+                {
+                    var fullname = paramType.FullName ?? $"{paramType.Namespace}.{paramType.Name}";
+                    fullname = fullname.Substring(0, fullname.IndexOf('`')) + "{";
+                    var first = true;
+                    foreach (var typeArg in paramType.GenericTypeArguments)
+                    {
+                        if (typeGenericMap.ContainsKey(typeArg.Name))
+                        {
+                            if (first)
+                            {
+                                first = false;
+                            }
+                            else
+                            {
+                                fullname += ",";
+                            }
+
+                            fullname += $"`{typeGenericMap[typeArg.Name]}";
+                        }
+                    }
+
+                    param = $"{fullname}}}";
+                }
+                else
+                {
+                    param = paramType.FullName ?? paramType.Name;
+                }
+
+                parameters.Add(param);
+            }
+
+            switch (member.MemberType)
+            {
+                case MemberTypes.Constructor:
+                    memberName = memberName.Replace(".ctor", "#ctor");
+                    goto case MemberTypes.Method;
+
+                case MemberTypes.Method:
+                    prefixCode = 'M';
+                    string paramTypesList = string.Join(
+                        ",",
+                        parameters.ToArray());
+                    if (!string.IsNullOrEmpty(paramTypesList))
+                    {
+                        memberName += "(" + paramTypesList + ")";
+                    }
+
+                    break;
+
+                case MemberTypes.Event: prefixCode = 'E'; break;
+
+                case MemberTypes.Field: prefixCode = 'F'; break;
+
+                case MemberTypes.NestedType:
+                    memberName = memberName.Replace('+', '.');
+                    goto case MemberTypes.TypeInfo;
+
+                case MemberTypes.TypeInfo:
+                    prefixCode = 'T';
+                    break;
+
+                case MemberTypes.Property: prefixCode = 'P'; break;
+
+                default:
+                    throw new ArgumentException("Unknown member type", "member");
+            }
+
+            return string.Format("/doc/members/member[@name='{0}:{1}']", prefixCode, memberName);
+        }
+
+        /// <summary>
         /// Traverses the hierarchy from the root to produce a breadcrumb list.
         /// </summary>
         /// <param name="doc">The document to start at.</param>
@@ -284,6 +547,13 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 stack.Push((type.TypeName.NameOnly(), type.FileName));
                 Traverse(type.Namespace, stack);
+                return stack;
+            }
+
+            if (doc is DocConstructor ctor)
+            {
+                stack.Push((ctor.Overloads[0].Name.NameOnly(), ctor.FileName));
+                Traverse(ctor.ConstructorType, stack);
                 return stack;
             }
 

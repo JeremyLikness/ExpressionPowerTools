@@ -1763,7 +1763,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Hosts.QueryHost`2"/> class.
             </summary>
-            <param name="expression">The <see cref="P:ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression"/>.</param>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/>.</param>
             <param name="provider">The <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/>.</param>
             <exception cref="T:System.ArgumentNullException">Thrown when expression or provider are null.</exception>
         </member>

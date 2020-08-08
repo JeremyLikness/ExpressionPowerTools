@@ -10,5 +10,8 @@ public class AssemblyParser
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **AssemblyParser**
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [AssemblyParser(Assembly assembly)](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.ctor.md#ctor-0) | Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class. |

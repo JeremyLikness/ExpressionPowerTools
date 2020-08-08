@@ -12,5 +12,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 Implements  [ICloneable](https://docs.microsoft.com/dotnet/api/system.icloneable) ,  [ISerializable](https://docs.microsoft.com/dotnet/api/system.runtime.serialization.iserializable) 
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [ExpressionTransformer(Object object, IntPtr method)](ExpressionPowerTools.Core.ExpressionTransformer.ctor.md#ctor-0) |  |

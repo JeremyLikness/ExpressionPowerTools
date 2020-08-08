@@ -8,5 +8,5 @@ Service registration and resolution.
 public interface IServices
 ```
 
-## Examples
+Derived  [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md) 
 

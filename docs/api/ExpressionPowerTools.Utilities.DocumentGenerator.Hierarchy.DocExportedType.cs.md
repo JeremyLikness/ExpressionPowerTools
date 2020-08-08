@@ -10,5 +10,8 @@ public class DocExportedType : DocBaseType
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) → **DocExportedType**
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [DocExportedType()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.ctor.md#ctor-0) |  |

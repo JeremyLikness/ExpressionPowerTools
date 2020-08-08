@@ -8,5 +8,5 @@ Interface for a class that provides rules for comparisons.
 public interface IExpressionComparisonRuleProvider
 ```
 
-## Examples
+Derived  [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) ,  [DefaultHighPerformanceRules](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.cs.md) 
 

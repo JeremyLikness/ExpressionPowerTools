@@ -20,7 +20,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         }
 
         /// <summary>
-        /// List of <see cref="DocNamespace"/> instances.
+        ///
+        /// Gets or sets the list of <see cref="DocNamespace"/> instances.
         /// </summary>
         public ICollection<DocNamespace> Namespaces { get; set; } =
             new List<DocNamespace>();
@@ -29,5 +30,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// Gets the file extension.
         /// </summary>
         public override string Extension => "a";
+
+        /// <summary>
+        /// String representation.
+        /// </summary>
+        /// <returns>The filename.</returns>
+        public override string ToString() => FileName;
     }
 }

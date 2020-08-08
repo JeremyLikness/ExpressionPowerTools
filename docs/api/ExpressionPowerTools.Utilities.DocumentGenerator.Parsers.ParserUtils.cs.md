@@ -10,5 +10,3 @@ public static class ParserUtils
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ParserUtils**
 
-## Examples
-

@@ -10,5 +10,8 @@ public class MarkdownWriter
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownWriter**
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [MarkdownWriter()](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.ctor.md#ctor-0) |  |

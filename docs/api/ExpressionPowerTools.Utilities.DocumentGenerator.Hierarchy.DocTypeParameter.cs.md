@@ -10,5 +10,8 @@ public class DocTypeParameter : DocBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocTypeParameter**
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [DocTypeParameter()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter.ctor.md#ctor-0) |  |

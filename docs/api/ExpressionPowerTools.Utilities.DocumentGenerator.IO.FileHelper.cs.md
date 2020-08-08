@@ -10,5 +10,8 @@ public class FileHelper
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileHelper**
 
-## Examples
+# Constructors
 
+| Ctor | Description |
+| :-- | :-- |
+| [FileHelper(String location)](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper.ctor.md#ctor-0) | Initializes a new instance of the [FileHelper](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper.cs.md) class. |

@@ -54,7 +54,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
                 var assembly = fullname.Split(",")[0];
                 Console.WriteLine($"Checking {assembly}...");
                 var docName = $"{assembly}.xml";
-                Console.Write("Documentation file: {docName} exists? ");
+                Console.Write($"Documentation file: {docName} exists? ");
                 var hasDocs = fileChecker.FileExists(docName);
                 Console.WriteLine(hasDocs);
                 var parser = new AssemblyParser(type.Assembly);
