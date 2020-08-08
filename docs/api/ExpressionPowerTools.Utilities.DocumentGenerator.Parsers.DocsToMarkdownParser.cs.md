@@ -8,10 +8,10 @@ Class to transform documentation objects into markdown.
 public class DocsToMarkdownParser
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocsToMarkdownParser**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocsToMarkdownParser**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocsToMarkdownParser()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ctor.md#ctor-0) |  |
+| [DocsToMarkdownParser()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ctor.md#ctor-0) | Initializes a new instance of the  [DocsToMarkdownParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.cs.md)  class. |

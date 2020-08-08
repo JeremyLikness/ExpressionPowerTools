@@ -8,5 +8,5 @@ Global parsing utilities.
 public static class ParserUtils
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ParserUtils**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ParserUtils**
 

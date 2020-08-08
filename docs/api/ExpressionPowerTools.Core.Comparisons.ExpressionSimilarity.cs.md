@@ -8,5 +8,5 @@ Expression similarity methods.
 public static class ExpressionSimilarity
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionSimilarity**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionSimilarity**
 

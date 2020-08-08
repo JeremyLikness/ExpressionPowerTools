@@ -8,7 +8,7 @@ Initializes a new instance of the [FileHelper](ExpressionPowerTools.Utilities.Do
 
 | Ctor | Description |
 | :-- | :-- |
-| [FileHelper(String location)](#ctor-0) |
+| [FileHelper(String location)](#ctor-0) | Initializes a new instance of the [FileHelper](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## FileHelper(String location)
@@ -23,6 +23,6 @@ public FileHelper(String location)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `location` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The base location. |
+| `location` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The base location. |
 
 

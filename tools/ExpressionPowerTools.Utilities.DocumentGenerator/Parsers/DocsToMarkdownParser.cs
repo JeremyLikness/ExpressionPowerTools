@@ -59,7 +59,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var table = new MarkdownTable("Class", "Description");
                 foreach (var c in ns.Types.Where(t => t.IsClass).OrderBy(t => t.TypeName))
                 {
-                    table.AddRow(writer.WriteLink(c.TypeName.NameOnly(), c.FileName), c.Description);
+                    table.AddRow(writer.WriteLink(c.TypeName, c.FileName), c.Description);
                     result.Files.Add(ProcessType(c));
                 }
 
@@ -73,7 +73,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var table = new MarkdownTable("Interface", "Description");
                 foreach (var i in ns.Types.Where(t => t.IsInterface).OrderBy(t => t.TypeName))
                 {
-                    table.AddRow(writer.WriteLink(i.TypeName.NameOnly(), i.FileName), i.Description);
+                    table.AddRow(writer.WriteLink(i.TypeName, i.FileName), i.Description);
                     result.Files.Add(ProcessType(i));
                 }
 
@@ -138,6 +138,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
             ExtractCtors(t.Constructor, result);
 
+            ExtractProperties(t.Properties, result);
+
             return result;
         }
 
@@ -181,7 +183,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 tableCtor.AddRow(
                     writer.WriteLink(
                         name,
-                        $"#ctor-{idx}"));
+                        $"#ctor-{idx}"),
+                    overload.Description);
                 idx += 1;
             }
 
@@ -243,6 +246,62 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         $"`{parameter.Name}`",
                         ParserUtils.ExtractLinkForType(assembly, parameter.ParameterType.Name),
                         parameter.Description);
+                }
+
+                writer.AddRange(docFile.Markdown, table.CloseTable());
+                docFile.AddBlankLine();
+            }
+        }
+
+        /// <summary>
+        /// Extract the properties from parent type.
+        /// </summary>
+        /// <param name="properties">The list of <see cref="DocProperty"/>.</param>
+        /// <param name="docFile">The <see cref="DocFile"/> target.</param>
+        private void ExtractProperties(IList<DocProperty> properties, DocFile docFile)
+        {
+            if (properties.Any())
+            {
+                docFile.AddThenBlankLine(writer.WriteHeading3("Properties"));
+                var table = new MarkdownTable("Property", "Type", "Description");
+                foreach (var property in properties)
+                {
+                    var assembly = property.ParentType.Namespace.Assembly;
+                    string typeLink;
+                    if (property.Type.FullName == null)
+                    {
+                        // type param
+                        typeLink = $"`{property.Type.Name}`";
+                    }
+                    else
+                    {
+                        typeLink = ParserUtils.ExtractLinkForType(
+                            assembly,
+                            property.Type.FullName ?? $"{property.Type.Namespace}.{property.Type.Name}",
+                            property.TypeName);
+                    }
+
+                    table.AddRow(
+                        writer.WriteLink(
+                            $"`{property.Name.NameOnly()}`",
+                            property.FileName),
+                        typeLink,
+                        property.Description);
+
+                    var propertyDoc = new DocFile(property.FileName);
+                    propertyDoc.AddThenBlankLine(writer.WriteHeading1(property.Name));
+                    propertyDoc.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(property));
+                    if (!string.IsNullOrWhiteSpace(property.Description))
+                    {
+                        propertyDoc.AddThenBlankLine(property.Description);
+                    }
+
+                    ExtractCode(property.Code, propertyDoc);
+                    ExtractExamples(property.Example, propertyDoc);
+                    ExtractRemarks(property.Remarks, propertyDoc);
+                    propertyDoc.AddThenBlankLine(writer.WriteHeading3("Property Value"));
+                    propertyDoc.AddThenBlankLine(typeLink);
+                    docFile.Files.Add(propertyDoc);
                 }
 
                 writer.AddRange(docFile.Markdown, table.CloseTable());

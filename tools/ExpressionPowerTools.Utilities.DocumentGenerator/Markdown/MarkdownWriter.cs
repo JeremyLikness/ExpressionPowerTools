@@ -18,7 +18,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
         /// </remarks>
         /// <param name="source">The source text to normalize.</param>
         /// <returns>The normalized text.</returns>
-        public static string Normalize(string source) => source.Replace("<", "&lt;")
+        public static string Normalize(string source) =>
+             source.Replace("<", "&lt;")
             .Replace("\r", string.Empty)
             .Replace("\n", string.Empty)
             .Trim();
@@ -65,8 +66,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
         /// <param name="text">The link text.</param>
         /// <param name="link">The link target.</param>
         /// <returns>The markdown link.</returns>
-        public string WriteLink(string text, string link) =>
-            $" [{text}]({link}) ";
+        public string WriteLink(string text, string link) => $" [{Normalize(text)}]({link}) ";
 
         /// <summary>
         /// Write a code block.

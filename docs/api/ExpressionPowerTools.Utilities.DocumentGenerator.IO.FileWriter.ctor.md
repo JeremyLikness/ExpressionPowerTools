@@ -8,7 +8,7 @@ Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.Do
 
 | Ctor | Description |
 | :-- | :-- |
-| [FileWriter(String rootDir)](#ctor-0) |
+| [FileWriter(String rootDir)](#ctor-0) | Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## FileWriter(String rootDir)
@@ -23,6 +23,6 @@ public FileWriter(String rootDir)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `rootDir` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The target root directory. |
+| `rootDir` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The target root directory. |
 
 

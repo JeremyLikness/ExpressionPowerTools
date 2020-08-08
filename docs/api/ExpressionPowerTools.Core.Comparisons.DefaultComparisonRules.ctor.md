@@ -8,7 +8,7 @@ Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.
 
 | Ctor | Description |
 | :-- | :-- |
-| [DefaultComparisonRules()](#ctor-0) |
+| [DefaultComparisonRules()](#ctor-0) | Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## DefaultComparisonRules()

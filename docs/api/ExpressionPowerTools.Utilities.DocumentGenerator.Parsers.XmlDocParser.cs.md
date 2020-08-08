@@ -8,7 +8,7 @@ Parses XML comments to enhance the reflected documentation.
 public class XmlDocParser
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **XmlDocParser**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **XmlDocParser**
 
 # Constructors
 

@@ -8,7 +8,7 @@ Class to abstract file I/O.
 public class FileHelper
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileHelper**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileHelper**
 
 # Constructors
 

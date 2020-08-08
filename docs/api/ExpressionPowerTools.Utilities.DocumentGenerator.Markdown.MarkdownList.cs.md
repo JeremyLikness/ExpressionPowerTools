@@ -8,7 +8,7 @@ Utility to make a markdown list.
 public class MarkdownList
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownList**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownList**
 
 ## Examples
 

@@ -8,5 +8,5 @@ Extension methods for fluent API over expressions.
 public static class ExpressionExtensions
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionExtensions**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionExtensions**
 

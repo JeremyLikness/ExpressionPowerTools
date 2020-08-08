@@ -93,9 +93,83 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 }
 
                 ProcessConstructors(exportedType);
+                ProcessProperties(exportedType);
 
                 docNamespace.Types.Add(exportedType);
             }
+        }
+
+        /// <summary>
+        /// Process property information.
+        /// </summary>
+        /// <param name="exportedType">The <see cref="DocExportedType"/> to parse.</param>
+        private void ProcessProperties(DocExportedType exportedType)
+        {
+            foreach (var prop in exportedType.Type.GetProperties(
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static))
+            {
+                if (prop.DeclaringType != exportedType.Type)
+                {
+                    continue;
+                }
+
+                var property = new DocProperty(exportedType)
+                {
+                    Name = $"{exportedType.Name}.{prop.Name}",
+                    XPath = ParserUtils.GetSelector(prop),
+                    Type = prop.PropertyType,
+                    TypeName = ProcessTypeName(prop.PropertyType),
+                    Code = GeneratePropertySignature(prop),
+                };
+                exportedType.Properties.Add(property);
+            }
+        }
+
+        private string GeneratePropertySignature(PropertyInfo prop)
+        {
+            var sb = new StringBuilder();
+            var methodInfo = prop.CanRead ? prop.GetMethod : prop.SetMethod;
+            if (methodInfo.IsPublic)
+            {
+                sb.Append("public ");
+            }
+            else if (methodInfo.IsFamily)
+            {
+                sb.Append("protected ");
+            }
+            else if (methodInfo.IsPrivate)
+            {
+                sb.Append("private ");
+            }
+
+            if (methodInfo.IsStatic)
+            {
+                sb.Append("static ");
+            }
+            else if (methodInfo.IsVirtual)
+            {
+                sb.Append("virtual ");
+            }
+
+            sb.Append(ProcessTypeName(prop.PropertyType));
+            sb.Append($" {prop.Name} {{ ");
+            if (prop.CanRead)
+            {
+                sb.Append("get; ");
+            }
+
+            if (prop.CanWrite)
+            {
+                if (methodInfo.IsPublic && prop.SetMethod.IsPrivate)
+                {
+                    sb.Append("private ");
+                }
+
+                sb.Append("set; ");
+            }
+
+            sb.Append("}}");
+            return sb.ToString();
         }
 
         /// <summary>
@@ -146,24 +220,44 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
                 overload.Code = $"public{staticText}{overload.Name}";
 
-                foreach (var parameter in ctor.GetParameters())
-                {
-                    var param = new DocParameter(overload)
-                    {
-                        Name = parameter.Name,
-                        ParameterType = new DocBaseType(),
-                    };
-                    ProcessType(parameter.ParameterType, param.ParameterType);
-                    overload.Parameters.Add(param);
-                }
+                ProcessParameters(ctor.GetParameters(), overload, overload.Parameters);
 
                 exportedType.Constructor.Overloads.Add(overload);
             }
         }
 
+        /// <summary>
+        /// Process the parameter list.
+        /// </summary>
+        /// <param name="parameterInfos">The parameter information.</param>
+        /// <param name="doc">The parent <see cref="DocBase"/>.</param>
+        /// <param name="target">The target list to process to.</param>
+        private void ProcessParameters(
+            ParameterInfo[] parameterInfos,
+            DocBase doc,
+            IList<DocParameter> target)
+        {
+            foreach (var parameter in parameterInfos)
+            {
+                var param = new DocParameter(doc)
+                {
+                    Name = parameter.Name,
+                    ParameterType = new DocBaseType(),
+                };
+                ProcessType(parameter.ParameterType, param.ParameterType);
+                target.Add(param);
+            }
+        }
+
+        /// <summary>
+        /// Generate the code for the constructor.
+        /// </summary>
+        /// <param name="ctor">The <see cref="ConstructorInfo"/>.</param>
+        /// <param name="typeName">The type name.</param>
+        /// <returns>The constructor code.</returns>
         private string GenerateCtorSignature(ConstructorInfo ctor, string typeName)
         {
-            var sb = new StringBuilder($"{typeName.Split(".")[^1]}(");
+            var sb = new StringBuilder($"{typeName}(");
             var first = true;
             foreach (var parameter in ctor.GetParameters())
             {
@@ -275,7 +369,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 type = type.BaseType;
             }
 
-            return stack.Select(i => (i.name, i.displayName.NameOnly())).ToList();
+            return stack.Select(i => (i.name, i.displayName)).ToList();
         }
 
         /// <summary>
@@ -329,7 +423,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 sb.Append("class ");
             }
 
-            sb.Append(typeName.Split(".")[^1]);
+            sb.Append(typeName);
 
             if (type.IsEnum)
             {
@@ -390,7 +484,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             if (type.IsGenericType || type.IsGenericTypeDefinition)
             {
                 var name = type.FullName ?? type.Name;
-                sb.Append(name.Substring(0, name.IndexOf('`')));
+                var withoutGeneric = name.Split('`')[0];
+                var rootName = withoutGeneric.Split('.')[^1];
+                sb.Append(rootName);
                 sb.Append("<");
                 var parameters = type.GetGenericArguments();
                 var first = true;

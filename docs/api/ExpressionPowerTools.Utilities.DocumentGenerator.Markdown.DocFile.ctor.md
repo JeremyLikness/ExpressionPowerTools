@@ -8,7 +8,7 @@ Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.Docum
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocFile(String name)](#ctor-0) |
+| [DocFile(String name)](#ctor-0) | Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## DocFile(String name)
@@ -23,6 +23,6 @@ public DocFile(String name)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the file. |
+| `name` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the file. |
 
 

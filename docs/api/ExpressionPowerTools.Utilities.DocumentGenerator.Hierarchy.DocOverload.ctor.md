@@ -9,7 +9,7 @@ Initializes a new instance of the [DocOverload](ExpressionPowerTools.Utilities.D
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocOverload(ConstructorInfo info, DocConstructor ctor)](#ctor-0) |
+| [DocOverload(ConstructorInfo info, DocConstructor ctor)](#ctor-0) | Initializes a new instance of the [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) class for            the given [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) . |
 
 <a name="#ctor-0"></a>
 ## DocOverload(ConstructorInfo info, DocConstructor ctor)
@@ -25,7 +25,7 @@ public DocOverload(ConstructorInfo info, DocConstructor ctor)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `info` | [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) | The [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
+| `info` | [System.Reflection.ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) | The [System.Reflection.ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
 | `ctor` | [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) | The [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) . |
 
 

@@ -8,7 +8,7 @@ Initializes a new instance of the [DefaultHighPerformanceRules](ExpressionPowerT
 
 | Ctor | Description |
 | :-- | :-- |
-| [DefaultHighPerformanceRules()](#ctor-0) |
+| [DefaultHighPerformanceRules()](#ctor-0) | Initializes a new instance of the [DefaultHighPerformanceRules](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## DefaultHighPerformanceRules()

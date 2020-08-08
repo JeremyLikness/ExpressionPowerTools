@@ -9,7 +9,7 @@ Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilitie
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocConstructor(DocExportedType type)](#ctor-0) |
+| [DocConstructor(DocExportedType type)](#ctor-0) | Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
 
 <a name="#ctor-0"></a>
 ## DocConstructor(DocExportedType type)

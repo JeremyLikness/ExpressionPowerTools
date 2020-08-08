@@ -8,7 +8,7 @@ Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.
 
 | Ctor | Description |
 | :-- | :-- |
-| [XmlDocParser(FileHelper helper)](#ctor-0) |
+| [XmlDocParser(FileHelper helper)](#ctor-0) | Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## XmlDocParser(FileHelper helper)

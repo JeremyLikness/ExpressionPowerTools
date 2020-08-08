@@ -8,7 +8,7 @@ Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.D
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocAssembly(String assemblyName)](#ctor-0) |
+| [DocAssembly(String assemblyName)](#ctor-0) | Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## DocAssembly(String assemblyName)
@@ -23,6 +23,6 @@ public DocAssembly(String assemblyName)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `assemblyName` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the assembly to reference. |
+| `assemblyName` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the assembly to reference. |
 
 

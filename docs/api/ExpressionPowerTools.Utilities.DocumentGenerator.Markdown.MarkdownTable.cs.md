@@ -8,7 +8,7 @@ Utility to produce a table in markdown.
 public class MarkdownTable
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownTable**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownTable**
 
 ## Examples
 
@@ -29,4 +29,4 @@ IList<string> markdown = table.CloseTable();
 
 | Ctor | Description |
 | :-- | :-- |
-| [MarkdownTable(String[] headings)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.ctor.md#ctor-0) |  |
+| [MarkdownTable(String[] headings)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.ctor.md#ctor-0) | Initializes a new instance of the  [MarkdownTable](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.cs.md)  class. |

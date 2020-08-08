@@ -8,5 +8,5 @@ Helper methods for validation.
 public static class Ensure
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **Ensure**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **Ensure**
 

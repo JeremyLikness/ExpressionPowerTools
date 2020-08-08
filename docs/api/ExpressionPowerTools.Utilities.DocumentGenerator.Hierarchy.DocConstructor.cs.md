@@ -8,10 +8,18 @@ Document representing public constructors for a type.
 public class DocConstructor : DocBase
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocConstructor**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocConstructor**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocConstructor(DocExportedType type)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.ctor.md#ctor-0) | Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
+### Properties
+
+| Property | Type | Description |
+| :-- | :-- | :-- |
+| [`Overloads`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.Overloads.prop.md) | [IList&lt;DocOverload>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the constructor overloads. |
+| [`ConstructorType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.ConstructorType.prop.md) | [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) | Gets the type the constructors belong to. |
+| [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the file extension. |
+

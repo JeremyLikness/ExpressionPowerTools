@@ -8,7 +8,7 @@ Building blocks for expression rules.
 public static class ExpressionRulesExtensions
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionRulesExtensions**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionRulesExtensions**
 
 ## Remarks
 

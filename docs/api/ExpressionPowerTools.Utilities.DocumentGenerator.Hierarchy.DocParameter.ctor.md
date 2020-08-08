@@ -9,7 +9,7 @@ Initializes a new instance of the [DocParameter](ExpressionPowerTools.Utilities.
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocParameter(DocBase parent)](#ctor-0) |
+| [DocParameter(DocBase parent)](#ctor-0) | Initializes a new instance of the [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) class with the            specified parent. |
 
 <a name="#ctor-0"></a>
 ## DocParameter(DocBase parent)

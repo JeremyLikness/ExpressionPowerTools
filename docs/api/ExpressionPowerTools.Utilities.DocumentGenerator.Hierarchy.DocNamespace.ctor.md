@@ -8,7 +8,7 @@ Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocNamespace(String nspace)](#ctor-0) |
+| [DocNamespace(String nspace)](#ctor-0) | Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## DocNamespace(String nspace)
@@ -23,6 +23,6 @@ public DocNamespace(String nspace)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `nspace` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The namespace. |
+| `nspace` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The namespace. |
 
 

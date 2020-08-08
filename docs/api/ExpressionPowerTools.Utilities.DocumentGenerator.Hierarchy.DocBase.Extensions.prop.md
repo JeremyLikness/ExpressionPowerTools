@@ -1,0 +1,14 @@
+﻿# ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Extensions
+
+[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) > **Extensions**
+
+Gets or sets the list of extensions that reference the type.
+
+```csharp
+public IList<ValueTuple<String, String>> Extensions { get; set; }}
+```
+
+### Property Value
+
+ [IList&lt;ValueTuple&lt;String, String>>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) 
+

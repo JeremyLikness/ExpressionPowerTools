@@ -10,7 +10,7 @@ This version is named "tongue-in-cheek" due to the assumption that code will out
 public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DefaultHighPerformanceRules**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **DefaultHighPerformanceRules**
 
 Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) 
 

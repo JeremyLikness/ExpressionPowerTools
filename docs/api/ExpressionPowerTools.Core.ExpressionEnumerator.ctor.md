@@ -8,7 +8,7 @@ Initializes a new instance of the [ExpressionEnumerator](ExpressionPowerTools.Co
 
 | Ctor | Description |
 | :-- | :-- |
-| [ExpressionEnumerator(Expression expr)](#ctor-0) |
+| [ExpressionEnumerator(Expression expr)](#ctor-0) | Initializes a new instance of the [ExpressionEnumerator](ExpressionPowerTools.Core.ExpressionEnumerator.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## ExpressionEnumerator(Expression expr)
@@ -23,6 +23,6 @@ public ExpressionEnumerator(Expression expr)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expr` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to enumerate. |
+| `expr` | [System.Linq.Expressions.Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [System.Linq.Expressions.Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to enumerate. |
 
 

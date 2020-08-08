@@ -8,5 +8,5 @@ Host for comparisons.
 public static class ExpressionEquivalency
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionEquivalency**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionEquivalency**
 

@@ -9,7 +9,7 @@ Implementation of [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IE
 public class ExpressionEvaluator : IExpressionEvaluator
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionEvaluator**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionEvaluator**
 
 Implements  [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.i.md) 
 
@@ -17,4 +17,4 @@ Implements  [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpress
 
 | Ctor | Description |
 | :-- | :-- |
-| [ExpressionEvaluator()](ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.ctor.md#ctor-0) |  |
+| [ExpressionEvaluator()](ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.ctor.md#ctor-0) | Initializes a new instance of the  [ExpressionEvaluator](ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.cs.md)  class. |

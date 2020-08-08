@@ -8,7 +8,7 @@ Parses an assembly into a set of document entities to enhance with documentation
 public class AssemblyParser
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **AssemblyParser**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **AssemblyParser**
 
 # Constructors
 

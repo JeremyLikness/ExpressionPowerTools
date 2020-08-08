@@ -86,7 +86,38 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                                 }
                             }
                         }
+
+                        if (string.IsNullOrWhiteSpace(overload.Description))
+                        {
+                            overload.Description =
+                                $"Initializes a new instance of the {ParserUtils.ExtractLinkForType(assembly, overload.Constructor.ConstructorType.Name)} class.";
+                        }
                     }
+                }
+
+                if (type.Properties.Any())
+                {
+                    ProcessProperties(doc, type.Properties);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Parse property comments.
+        /// </summary>
+        /// <param name="doc">The comments document.</param>
+        /// <param name="properties">The property list.</param>
+        private void ProcessProperties(XmlDocument doc, IList<DocProperty> properties)
+        {
+            foreach (var property in properties)
+            {
+                var assembly = property.ParentType.Namespace.Assembly;
+                var docNode = doc.SelectSingleNode(property.XPath);
+                if (docNode is XmlElement ctorNode)
+                {
+                    property.Description = GetTextBlock(ctorNode, assembly, ParserUtils.Summary);
+                    property.Remarks = GetTextBlock(ctorNode, assembly, ParserUtils.Remarks);
+                    property.Example = GetTextBlock(ctorNode, assembly, ParserUtils.Example);
                 }
             }
         }
@@ -113,6 +144,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         sb.ToString()));
                 }
             }
+
             return result;
         }
 

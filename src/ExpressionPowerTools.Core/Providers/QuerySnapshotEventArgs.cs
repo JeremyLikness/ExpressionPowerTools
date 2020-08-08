@@ -7,14 +7,14 @@ using System.Linq.Expressions;
 namespace ExpressionPowerTools.Core.Providers
 {
     /// <summary>
-    /// Encapsulates an <see cref="Expression"/>.
+    /// Encapsulates an <see cref="System.Linq.Expressions.Expression"/>.
     /// </summary>
     public class QuerySnapshotEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="QuerySnapshotEventArgs"/> class.
         /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to host.</param>
+        /// <param name="expression">The <see cref="System.Linq.Expressions.Expression"/> to host.</param>
         public QuerySnapshotEventArgs(Expression expression)
         {
             Expression = expression;

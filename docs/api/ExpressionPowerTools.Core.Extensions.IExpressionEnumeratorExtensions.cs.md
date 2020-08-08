@@ -8,5 +8,5 @@ Extensions for filtering [IExpressionEnumerator](ExpressionPowerTools.Core.Signa
 public static class IExpressionEnumeratorExtensions
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **IExpressionEnumeratorExtensions**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **IExpressionEnumeratorExtensions**
 

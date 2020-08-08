@@ -8,5 +8,11 @@ Non-generic interface for snapshot host.
 public interface IQuerySnapshot
 ```
 
-Derived  [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) ,  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) 
+Derived  [IQuerySnapshotProvider<T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) ,  [QuerySnapshotProvider<T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) 
+
+### Properties
+
+| Property | Type | Description |
+| :-- | :-- | :-- |
+| [`Parent`](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.Parent.prop.md) | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) | Gets the parent provider for bubbling events. |
 

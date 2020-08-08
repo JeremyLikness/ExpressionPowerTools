@@ -241,7 +241,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// <returns>The markdown link.</returns>
         public static string ExtractLinkForType(DocAssembly assembly, string type, string display = null)
         {
-            display ??= type;
             string link;
             var localType = assembly.GetType(type);
             if (localType != null)
@@ -251,11 +250,43 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             }
             else
             {
-                link = $"{MsftApiBaseRef}{type.ToLowerInvariant().Replace('`', '-')}";
+                display = display != null ? MarkdownWriter.Normalize(display) : FriendlyDisplayType(type);
+                var linkType = type.Split("[")[0];
+                link = $"{MsftApiBaseRef}{linkType.ToLowerInvariant().Replace('`', '-')}";
             }
 
-            return $" [{display.NameOnly()}]({link}) ";
+            return $" [{display}]({link}) ";
         }
+
+        /// <summary>
+        /// Convert a type to a display value.
+        /// </summary>
+        /// <param name="typeName">The name of the type.</param>
+        /// <returns>The displayable value.</returns>
+        public static string FriendlyDisplayType(string typeName)
+        {
+            var result = typeName;
+            if (result.IndexOf('`') > 0)
+            {
+                var parts = result.Split('`');
+                var count = int.Parse(parts[1]);
+                result = $"{parts[0]}&lt;";
+                for (var idx = 0; idx < count; idx += 1)
+                {
+                    if (idx > 0)
+                    {
+                        result += ",";
+                    }
+
+                    result += $"T{idx + 1}";
+                }
+
+                result += ">";
+            }
+
+            return result;
+        }
+
 
         /// <summary>
         /// Parses the child nodes of XML documentation to resolve links and code blocks.
@@ -545,7 +576,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
             if (doc is DocExportedType type)
             {
-                stack.Push((type.TypeName.NameOnly(), type.FileName));
+                stack.Push((type.TypeName, type.FileName));
                 Traverse(type.Namespace, stack);
                 return stack;
             }
@@ -554,6 +585,13 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 stack.Push((ctor.Overloads[0].Name.NameOnly(), ctor.FileName));
                 Traverse(ctor.ConstructorType, stack);
+                return stack;
+            }
+
+            if (doc is DocProperty prop)
+            {
+                stack.Push((prop.Name.NameOnly(), prop.FileName));
+                Traverse(prop.ParentType, stack);
                 return stack;
             }
 

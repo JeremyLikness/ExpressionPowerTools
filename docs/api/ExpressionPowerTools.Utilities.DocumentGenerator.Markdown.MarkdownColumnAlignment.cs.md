@@ -8,7 +8,7 @@ Determines alignment for markdown tables.
 public enum MarkdownColumnAlignment
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [ValueType](https://docs.microsoft.com/dotnet/api/system.valuetype) → [Enum](https://docs.microsoft.com/dotnet/api/system.enum) → **MarkdownColumnAlignment**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → [System.ValueType](https://docs.microsoft.com/dotnet/api/system.valuetype) → [System.Enum](https://docs.microsoft.com/dotnet/api/system.enum) → **MarkdownColumnAlignment**
 
 Implements  [IComparable](https://docs.microsoft.com/dotnet/api/system.icomparable) ,  [IConvertible](https://docs.microsoft.com/dotnet/api/system.iconvertible) ,  [IFormattable](https://docs.microsoft.com/dotnet/api/system.iformattable) 
 

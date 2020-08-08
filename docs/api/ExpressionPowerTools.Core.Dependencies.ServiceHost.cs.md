@@ -8,7 +8,7 @@ Host to obtain services.
 public static class ServiceHost
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ServiceHost**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ServiceHost**
 
 ## Examples
 

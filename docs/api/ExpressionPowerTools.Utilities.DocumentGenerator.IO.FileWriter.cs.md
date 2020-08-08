@@ -8,7 +8,7 @@ Performs the actual writing of documentation to disk.
 public class FileWriter
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileWriter**
+Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileWriter**
 
 # Constructors
 

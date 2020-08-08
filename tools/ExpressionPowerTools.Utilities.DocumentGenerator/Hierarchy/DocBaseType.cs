@@ -45,6 +45,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         { get; set; } = new List<(string name, string displayName)>();
 
         /// <summary>
+        /// Gets or sets the list of properties.
+        /// </summary>
+        public IList<DocProperty> Properties { get; set; } =
+            new List<DocProperty>();
+
+        /// <summary>
         /// Gets or sets the user-friendly name for the type.
         /// </summary>
         public string TypeName { get; set; }

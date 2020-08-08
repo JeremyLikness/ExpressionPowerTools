@@ -1970,14 +1970,14 @@
         </member>
         <member name="T:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs">
             <summary>
-            Encapsulates an <see cref="P:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression"/>.
+            Encapsulates an <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
         </member>
         <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.#ctor(System.Linq.Expressions.Expression)">
             <summary>
             Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs"/> class.
             </summary>
-            <param name="expression">The <see cref="P:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression"/> to host.</param>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to host.</param>
         </member>
         <member name="P:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression">
             <summary>

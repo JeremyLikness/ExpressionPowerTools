@@ -8,7 +8,7 @@ Initializes a new instance of the [MarkdownList](ExpressionPowerTools.Utilities.
 
 | Ctor | Description |
 | :-- | :-- |
-| [MarkdownList(Boolean isOrdered)](#ctor-0) |
+| [MarkdownList(Boolean isOrdered)](#ctor-0) | Initializes a new instance of the [MarkdownList](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.cs.md) class. |
 
 <a name="#ctor-0"></a>
 ## MarkdownList(Boolean isOrdered)
@@ -23,6 +23,6 @@ public MarkdownList(Boolean isOrdered)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `isOrdered` | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | A value indicating whether the list should be ordered. |
+| `isOrdered` | [System.Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | A value indicating whether the list should be ordered. |
 
 

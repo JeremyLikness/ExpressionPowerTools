@@ -14,5 +14,6 @@
 | [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) | Represents a namespace. |
 | [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) | A given constructor overload. |
 | [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) | Represents a parameter. |
+| [DocProperty](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.cs.md) | Represents a property. |
 | [DocTypeParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter.cs.md) | A type parameter. |
 
