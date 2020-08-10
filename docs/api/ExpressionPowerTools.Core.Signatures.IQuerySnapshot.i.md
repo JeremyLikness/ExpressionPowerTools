@@ -10,7 +10,7 @@ public interface IQuerySnapshot
 
 Derived  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) ,  [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) 
 
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

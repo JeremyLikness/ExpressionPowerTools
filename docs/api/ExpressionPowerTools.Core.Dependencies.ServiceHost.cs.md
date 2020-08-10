@@ -62,3 +62,8 @@ This is a very simple dependency injection container. It allows registration
 
 The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) provided by initialization is chainable (each call returns itself).
 
+## Constructors
+
+| Ctor | Description |
+| :-- | :-- |
+| [static ServiceHost()](ExpressionPowerTools.Core.Dependencies.ServiceHost.ctor.md#static-servicehost) | Initializes static members of the [ServiceHost](ExpressionPowerTools.Core.Dependencies.ServiceHost.cs.md) class. |

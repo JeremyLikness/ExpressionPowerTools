@@ -10,12 +10,12 @@ public class DocParameter : DocBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocParameter**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocParameter(DocBase parent)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.ctor.md#docparameterdocbase-parent) | Initializes a new instance of the [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) class with the            specified parent. |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

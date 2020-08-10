@@ -47,6 +47,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             Type[] genericArguments = null;
             var parameterInfos = new ParameterInfo[0];
             var isMethod = member is MethodInfo;
+            var isStatic = false;
 
             if (member.DeclaringType != null && member.DeclaringType.IsGenericType)
             {
@@ -59,6 +60,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
             if (member is MethodInfo method)
             {
+                isStatic = method.IsStatic;
                 if (method.IsGenericMethod)
                 {
                     genericArguments = method.GetGenericArguments();
@@ -68,6 +70,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             }
             else if (member is ConstructorInfo ctor)
             {
+                isStatic = ctor.IsStatic;
                 if (ctor.IsGenericMethod)
                 {
                     genericArguments = ctor.GetGenericArguments();
@@ -90,7 +93,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             switch (member.MemberType)
             {
                 case MemberTypes.Constructor:
-                    memberName = memberName.Replace(".ctor", "#ctor");
+                    memberName = isStatic ?
+                        memberName.Replace(".cctor", "#cctor") :
+                        memberName.Replace(".ctor", "#ctor");
                     goto case MemberTypes.Method;
 
                 case MemberTypes.Method:

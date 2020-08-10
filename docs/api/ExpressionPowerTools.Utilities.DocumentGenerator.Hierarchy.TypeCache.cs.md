@@ -10,12 +10,13 @@ public class TypeCache
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **TypeCache**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [TypeCache()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.ctor.md#typecache) | Initializes a new instance of the [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) class. |
-### Properties
+| [static TypeCache()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.ctor.md#static-typecache) | Initializes a new instance of the [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) class. |
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

@@ -10,7 +10,7 @@ public class FileWriter
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileWriter**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

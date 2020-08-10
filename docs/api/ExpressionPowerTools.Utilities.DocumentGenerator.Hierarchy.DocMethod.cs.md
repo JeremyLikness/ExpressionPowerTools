@@ -10,12 +10,12 @@ public class DocMethod : DocBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocMethod**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocMethod(DocExportedType type)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.ctor.md#docmethoddocexportedtype-type) | Initializes a new instance of the [DocMethod](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.cs.md) class with            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

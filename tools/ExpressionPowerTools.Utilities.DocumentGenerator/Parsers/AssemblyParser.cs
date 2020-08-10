@@ -199,7 +199,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 Name = exportedType.Name,
             };
 
-            var ctors = exportedType.Type.GetConstructors();
+            var ctors = exportedType.Type.GetConstructors().Concat(
+                exportedType.Type.GetConstructors(BindingFlags.Static | BindingFlags.NonPublic)).Distinct()
+                .OrderBy(c => c.IsStatic ? 1 : 0).ThenBy(c => c.GetParameters().Length);
             foreach (var ctor in ctors)
             {
                 var overload = new DocOverload(ctor, exportedType.Constructor)

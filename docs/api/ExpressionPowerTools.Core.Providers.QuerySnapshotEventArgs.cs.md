@@ -10,12 +10,12 @@ public class QuerySnapshotEventArgs : EventArgs
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [EventArgs](https://docs.microsoft.com/dotnet/api/system.eventargs) → **QuerySnapshotEventArgs**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [QuerySnapshotEventArgs(Expression expression)](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.ctor.md#querysnapshoteventargsexpression-expression) | Initializes a new instance of the [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) class. |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

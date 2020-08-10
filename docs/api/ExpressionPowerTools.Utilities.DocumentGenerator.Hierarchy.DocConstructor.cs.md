@@ -10,12 +10,12 @@ public class DocConstructor : DocBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocConstructor**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocConstructor(DocExportedType type)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.ctor.md#docconstructordocexportedtype-type) | Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

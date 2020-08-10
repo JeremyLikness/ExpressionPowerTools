@@ -10,12 +10,12 @@ public class DocProperty : DocBaseType
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) → **DocProperty**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocProperty(DocExportedType parent)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.ctor.md#docpropertydocexportedtype-parent) | Initializes a new instance of the [DocProperty](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.cs.md) class with a [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

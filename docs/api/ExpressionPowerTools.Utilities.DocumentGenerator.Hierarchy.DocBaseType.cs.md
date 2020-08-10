@@ -12,12 +12,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 Derived  [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) ,  [DocProperty](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.cs.md) 
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocBaseType()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.ctor.md#docbasetype) | Initializes a new instance of the [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) class. |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

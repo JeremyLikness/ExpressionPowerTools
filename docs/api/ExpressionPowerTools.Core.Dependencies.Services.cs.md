@@ -17,7 +17,7 @@ Implements  [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IService
 Use the register overloads to register services. Callwhen done setting up and
             before attempting to retrieve other instances.
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

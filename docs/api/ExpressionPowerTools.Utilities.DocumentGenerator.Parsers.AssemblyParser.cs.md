@@ -10,7 +10,7 @@ public class AssemblyParser
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **AssemblyParser**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

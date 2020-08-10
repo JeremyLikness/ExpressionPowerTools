@@ -20,7 +20,7 @@ Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collectio
 
 Derived  [IQuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.i.md) ,  [QueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) ,  [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) 
 
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

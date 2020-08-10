@@ -10,12 +10,12 @@ public class TypeRef
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **TypeRef**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [TypeRef()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.ctor.md#typeref) | Initializes a new instance of the [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) class. |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

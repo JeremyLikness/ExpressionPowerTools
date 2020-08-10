@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Markdown;
 
@@ -158,7 +159,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             var ctorFile = new DocFile(constructor.FileName);
 
             result.Files.Add(ctorFile);
-            result.AddThenBlankLine(writer.WriteHeading1($"Constructors"));
+            result.AddThenBlankLine(writer.WriteHeading2($"Constructors"));
 
             ctorFile.AddThenBlankLine(writer.WriteHeading1(
                 $"{MarkdownWriter.Normalize(constructor.ConstructorType.TypeRef.FriendlyName.NameOnly())} Constructors"));
@@ -170,9 +171,22 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             var tableCtor = new MarkdownTable("Ctor", "Description");
 
             var idx = 0;
-            foreach (var overload in constructor.Overloads)
+
+            static string GetName(DocOverload overload)
             {
                 var name = overload.Name.Split(".")[^1];
+
+                if (overload.IsStatic)
+                {
+                    name = $"static {name}";
+                }
+
+                return name;
+            }
+
+            foreach (var overload in constructor.Overloads)
+            {
+                var name = GetName(overload);
 
                 table.AddRow(
                     writer.WriteRelativeLink(name, constructor.FileName),
@@ -190,8 +204,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
             foreach (var overload in constructor.Overloads)
             {
+                var name = GetName(overload);
                 ctorFile.AddBlankLine();
-                ctorFile.AddThenBlankLine(writer.WriteHeading2(overload.Name));
+                ctorFile.AddThenBlankLine(writer.WriteHeading2(name));
                 ctorFile.AddThenBlankLine(overload.Description);
                 ExtractCode(overload.Code, ctorFile);
                 ExtractParameters(overload.Parameters, ctorFile);
@@ -256,7 +271,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         {
             if (properties.Any())
             {
-                docFile.AddThenBlankLine(writer.WriteHeading3("Properties"));
+                docFile.AddThenBlankLine(writer.WriteHeading2("Properties"));
                 var table = new MarkdownTable("Property", "Type", "Description");
                 foreach (var property in properties)
                 {
@@ -320,7 +335,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     {
                         constraints =
                             string.Join(
-                                "<br>",
+                                " ",
                                 tParam.TypeConstraints.Select(c => writer.WriteLink(c)).ToArray());
                     }
 

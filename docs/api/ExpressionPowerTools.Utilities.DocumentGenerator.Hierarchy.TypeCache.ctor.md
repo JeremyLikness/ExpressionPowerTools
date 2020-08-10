@@ -9,6 +9,7 @@ Initializes a new instance of the [TypeCache](ExpressionPowerTools.Utilities.Doc
 | Ctor | Description |
 | :-- | :-- |
 | [TypeCache()](#typecache) | Initializes a new instance of the [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) class. |
+| [static TypeCache()](#static-typecache) | Initializes a new instance of the [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) class. |
 
 ## TypeCache()
 
@@ -16,6 +17,16 @@ Initializes a new instance of the [TypeCache](ExpressionPowerTools.Utilities.Doc
 
 ```csharp
 public TypeCache()
+```
+
+
+
+## static TypeCache()
+
+Initializes a new instance of the [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) class.
+
+```csharp
+public static TypeCache()
 ```
 
 

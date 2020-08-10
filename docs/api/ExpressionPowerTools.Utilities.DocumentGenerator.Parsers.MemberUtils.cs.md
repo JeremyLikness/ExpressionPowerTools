@@ -10,3 +10,8 @@ public static class MemberUtils
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MemberUtils**
 
+## Constructors
+
+| Ctor | Description |
+| :-- | :-- |
+| [static MemberUtils()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.ctor.md#static-memberutils) | Initializes a new instance of the [MemberUtils](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.cs.md) class. |

@@ -10,7 +10,7 @@ public class DocsToMarkdownParser
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocsToMarkdownParser**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

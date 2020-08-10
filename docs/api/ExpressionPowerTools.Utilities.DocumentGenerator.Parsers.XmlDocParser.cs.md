@@ -10,7 +10,7 @@ public class XmlDocParser
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **XmlDocParser**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

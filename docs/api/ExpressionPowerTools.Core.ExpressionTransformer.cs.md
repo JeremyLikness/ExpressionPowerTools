@@ -12,7 +12,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 Implements  [ICloneable](https://docs.microsoft.com/dotnet/api/system.icloneable) ,  [ISerializable](https://docs.microsoft.com/dotnet/api/system.runtime.serialization.iserializable) 
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

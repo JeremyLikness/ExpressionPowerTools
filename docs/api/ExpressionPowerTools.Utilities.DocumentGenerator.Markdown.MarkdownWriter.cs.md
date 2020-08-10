@@ -10,7 +10,7 @@ public class MarkdownWriter
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownWriter**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

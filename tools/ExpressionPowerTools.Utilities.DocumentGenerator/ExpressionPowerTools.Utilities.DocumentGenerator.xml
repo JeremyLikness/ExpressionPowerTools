@@ -319,6 +319,11 @@
             Gets the constructor info.
             </summary>
         </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.IsStatic">
+            <summary>
+            Gets a value indicating whether it is static.
+            </summary>
+        </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Parameters">
             <summary>
             Gets the constructor parameters.
@@ -1366,6 +1371,169 @@
             <summary>
             Parse the files.
             </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3">
+            <summary>
+            Sample interface for testing.
+            </summary>
+            <typeparam name="T1">The main type.</typeparam>
+            <typeparam name="T2">The enumerator.</typeparam>
+            <typeparam name="T3">The comparable.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.DoStuff">
+            <summary>
+            Do stuff.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.GetEnumerableFor(`0)">
+            <summary>
+            Gets an enumerable for the entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.ProcessComparable``1(``0)">
+            <summary>
+            Process a comparable item.
+            </summary>
+            <typeparam name="T4">The type of the value to process.</typeparam>
+            <param name="parameter">The value to process.</param>
+            <returns>A comparable.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.IsReady``1(``0)">
+            <summary>
+            Is it ready?
+            </summary>
+            <typeparam name="T5">The <see cref="T:System.Collections.Generic.IList`1"/> type.</typeparam>
+            <param name="test">The list to test.</param>
+            <returns>A flag indicating whether or not it is ready.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2">
+            <summary>
+            A sample base class.
+            </summary>
+            <typeparam name="T1">The first type.</typeparam>
+            <typeparam name="T2">The second type.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.#ctor(`0,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2"/> class.
+            Saves an entity and identifier.
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="id">The identifier.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.Instance">
+            <summary>
+            Gets a static instance.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.Entity">
+            <summary>
+            Gets the entity.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.Id">
+            <summary>
+            Gets the identity.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.SetInstance(ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass{`0,`1})">
+            <summary>
+            Set the instance.
+            </summary>
+            <param name="instance">The instance to set.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.DoStuff">
+            <summary>
+            Does stuff.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.GetEnumerableFor(`0)">
+            <summary>
+            The abstract enumerator.
+            </summary>
+            <param name="entity">The entity to enumerate.</param>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerator`1"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.IsReady``1(``0)">
+            <summary>
+            Test for readiness.
+            </summary>
+            <typeparam name="T5">The type to test.</typeparam>
+            <param name="test">The list to test.</param>
+            <returns>A flag indicating whether it is ready.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.ProcessComparable``1(``0)">
+            <summary>
+            Test for comparability.
+            </summary>
+            <typeparam name="T4">The value type.</typeparam>
+            <param name="parameter">The value.</param>
+            <returns>An instance of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.ConvertLongToInt(System.Int64)">
+            <summary>
+            Just another method.
+            </summary>
+            <param name="x">The <see cref="T:System.Int64"/> to convert.</param>
+            <returns>An <see cref="T:System.Int32"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1">
+            <summary>
+            An implementation of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2"/>.
+            </summary>
+            <typeparam name="T">The type to implement.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1"/> class.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.TypedInstance">
+            <summary>
+            Gets the typed instance.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.CrossAssemblyReference">
+            <summary>
+            Gets a cross-assembly reference.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.CompareTo(ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass{`0})">
+            <summary>
+            Compare to.
+            </summary>
+            <param name="other">The other to compare to.</param>
+            <returns>A value for the comparison.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.GetEnumerableFor(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef)">
+            <summary>
+            Get the enumerator.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The enumerator.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.IsReady``1(``0)">
+            <summary>
+            Is it ready test.
+            </summary>
+            <typeparam name="T5">The type of the test.</typeparam>
+            <param name="test">The value to test.</param>
+            <returns>A value that indicates whether it is ready.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.ProcessComparable``1(``0)">
+            <summary>
+            Processes a comparable.
+            </summary>
+            <typeparam name="T4">The type of the parameter.</typeparam>
+            <param name="parameter">The parameter.</param>
+            <returns>The instance.</returns>
         </member>
     </members>
 </doc>

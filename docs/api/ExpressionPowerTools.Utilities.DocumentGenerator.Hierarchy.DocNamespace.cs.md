@@ -10,12 +10,12 @@ public class DocNamespace : DocBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocNamespace**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocNamespace(String nspace)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.ctor.md#docnamespacestring-nspace) | Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) class. |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

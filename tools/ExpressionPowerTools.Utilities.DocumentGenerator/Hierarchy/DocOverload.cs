@@ -37,6 +37,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         public ConstructorInfo Ctor { get; private set; }
 
         /// <summary>
+        /// Gets a value indicating whether it is static.
+        /// </summary>
+        public bool IsStatic => Ctor.IsStatic;
+
+        /// <summary>
         /// Gets the constructor parameters.
         /// </summary>
         public IList<DocParameter> Parameters { get; private set; }

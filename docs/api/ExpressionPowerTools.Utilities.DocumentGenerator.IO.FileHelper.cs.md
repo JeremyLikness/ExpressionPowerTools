@@ -10,7 +10,7 @@ public class FileHelper
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **FileHelper**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

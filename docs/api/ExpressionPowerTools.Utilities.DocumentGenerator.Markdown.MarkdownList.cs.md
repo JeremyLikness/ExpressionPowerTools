@@ -25,7 +25,7 @@ ICollection<string> result = list.CloseList();
             
 ```
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

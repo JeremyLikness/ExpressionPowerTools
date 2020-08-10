@@ -25,7 +25,7 @@ IList<string> markdown = table.CloseTable();
             
 ```
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

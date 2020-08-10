@@ -18,7 +18,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [C
 
 Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) ,  [IQueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider`1.i.md) ,  [IQueryInterceptor](ExpressionPowerTools.Core.Signatures.IQueryInterceptor.i.md) ,  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) 
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |

@@ -10,12 +10,12 @@ public class DocAssembly : DocBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocAssembly**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocAssembly(String assemblyName)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.ctor.md#docassemblystring-assemblyname) | Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class. |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |

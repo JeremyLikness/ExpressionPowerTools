@@ -9,6 +9,7 @@ Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.
 | Ctor | Description |
 | :-- | :-- |
 | [DefaultComparisonRules()](#defaultcomparisonrules) | Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) class. |
+| [static DefaultComparisonRules()](#static-defaultcomparisonrules) | Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) class. |
 
 ## DefaultComparisonRules()
 
@@ -16,6 +17,16 @@ Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.
 
 ```csharp
 public DefaultComparisonRules()
+```
+
+
+
+## static DefaultComparisonRules()
+
+Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) class.
+
+```csharp
+public static DefaultComparisonRules()
 ```
 
 

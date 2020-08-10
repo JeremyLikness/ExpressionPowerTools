@@ -10,12 +10,12 @@ public class DocFile
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocFile**
 
-# Constructors
+## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [DocFile(String name)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.ctor.md#docfilestring-name) | Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class. |
-### Properties
+## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
