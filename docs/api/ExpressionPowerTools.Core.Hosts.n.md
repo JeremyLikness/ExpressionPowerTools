@@ -1,6 +1,6 @@
 ﻿# ExpressionPowerTools.Core.Hosts Namespace
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Hosts**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Hosts**
 
 ## Classes
 

@@ -1,6 +1,6 @@
 ﻿# MarkdownList Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > **MarkdownList**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > **MarkdownList**
 
 Utility to make a markdown list.
 
@@ -8,7 +8,7 @@ Utility to make a markdown list.
 public class MarkdownList
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownList**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownList**
 
 ## Examples
 
@@ -29,4 +29,4 @@ ICollection<string> result = list.CloseList();
 
 | Ctor | Description |
 | :-- | :-- |
-| [MarkdownList(Boolean isOrdered)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.ctor.md#ctor-0) | Initializes a new instance of the [MarkdownList](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.cs.md) class. |
+| [MarkdownList(Boolean isOrdered)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.ctor.md#markdownlistboolean-isordered) | Initializes a new instance of the [MarkdownList](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.cs.md) class. |

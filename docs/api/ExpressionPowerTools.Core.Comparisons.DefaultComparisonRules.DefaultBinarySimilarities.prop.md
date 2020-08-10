@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultBinarySimilarities
+﻿# DefaultComparisonRules.DefaultBinarySimilarities
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultBinarySimilarities**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultBinarySimilarities**
 
 Gets the default rules for binary similarities.
 
 ```csharp
-public static Expression<Func<BinaryExpression, BinaryExpression, Boolean>> DefaultBinarySimilarities { get; }}
+public static Expression<Func<BinaryExpression, BinaryExpression, Boolean>> DefaultBinarySimilarities { get; }
 ```
 
 ### Property Value

@@ -1,6 +1,6 @@
 ﻿# ParserUtils Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > **ParserUtils**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > **ParserUtils**
 
 Global parsing utilities.
 
@@ -8,5 +8,5 @@ Global parsing utilities.
 public static class ParserUtils
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ParserUtils**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ParserUtils**
 

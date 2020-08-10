@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.ParentType
+﻿# DocProperty.ParentType
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocProperty](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.cs.md) > **ParentType**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocProperty](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.cs.md) > **ParentType**
 
 Gets the parent the property belongs to.
 
 ```csharp
-public DocExportedType ParentType { get; private set; }}
+public DocExportedType ParentType { get; private set; }
 ```
 
 ### Property Value

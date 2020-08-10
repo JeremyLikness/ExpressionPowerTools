@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultUnaryRules
+﻿# DefaultComparisonRules.DefaultUnaryRules
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultUnaryRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultUnaryRules**
 
 Gets the default rules for unaries.
 
 ```csharp
-public static Expression<Func<UnaryExpression, UnaryExpression, Boolean>> DefaultUnaryRules { get; }}
+public static Expression<Func<UnaryExpression, UnaryExpression, Boolean>> DefaultUnaryRules { get; }
 ```
 
 ### Property Value

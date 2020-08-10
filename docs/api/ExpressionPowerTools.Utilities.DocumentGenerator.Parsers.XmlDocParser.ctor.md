@@ -1,6 +1,6 @@
 ﻿# XmlDocParser Constructors
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) > **XmlDocParser(FileHelper helper)**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) > **XmlDocParser(FileHelper helper)**
 
 Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) class.
 
@@ -8,9 +8,8 @@ Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.
 
 | Ctor | Description |
 | :-- | :-- |
-| [XmlDocParser(FileHelper helper)](#ctor-0) | Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) class. |
+| [XmlDocParser(FileHelper helper)](#xmldocparserfilehelper-helper) | Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) class. |
 
-<a name="#ctor-0"></a>
 ## XmlDocParser(FileHelper helper)
 
 Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) class.

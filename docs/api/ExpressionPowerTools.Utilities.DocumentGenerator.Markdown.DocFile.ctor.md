@@ -1,6 +1,6 @@
 ﻿# DocFile Constructors
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) > **DocFile(String name)**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) > **DocFile(String name)**
 
 Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class.
 
@@ -8,9 +8,8 @@ Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.Docum
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocFile(String name)](#ctor-0) | Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class. |
+| [DocFile(String name)](#docfilestring-name) | Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class. |
 
-<a name="#ctor-0"></a>
 ## DocFile(String name)
 
 Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class.
@@ -23,6 +22,6 @@ public DocFile(String name)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `name` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the file. |
+| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the file. |
 
 

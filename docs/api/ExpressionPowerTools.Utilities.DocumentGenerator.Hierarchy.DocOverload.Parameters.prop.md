@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Parameters
+﻿# DocOverload.Parameters
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) > **Parameters**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) > **Parameters**
 
 Gets the constructor parameters.
 
 ```csharp
-public IList<DocParameter> Parameters { get; private set; }}
+public IList<DocParameter> Parameters { get; private set; }
 ```
 
 ### Property Value

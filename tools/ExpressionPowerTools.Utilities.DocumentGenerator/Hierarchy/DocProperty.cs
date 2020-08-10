@@ -19,6 +19,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         }
 
         /// <summary>
+        /// Gets or sets the associated type parameter.
+        /// </summary>
+        public DocTypeParameter TypeParameter { get; set; }
+
+        /// <summary>
         /// Gets the parent the property belongs to.
         /// </summary>
         public DocExportedType ParentType { get; private set; }

@@ -1,6 +1,6 @@
 ﻿# DocsToMarkdownParser Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > **DocsToMarkdownParser**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > **DocsToMarkdownParser**
 
 Class to transform documentation objects into markdown.
 
@@ -8,10 +8,10 @@ Class to transform documentation objects into markdown.
 public class DocsToMarkdownParser
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocsToMarkdownParser**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocsToMarkdownParser**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocsToMarkdownParser()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ctor.md#ctor-0) | Initializes a new instance of the  [DocsToMarkdownParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.cs.md)  class. |
+| [DocsToMarkdownParser()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ctor.md#docstomarkdownparser) | Initializes a new instance of the [DocsToMarkdownParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.cs.md) class. |

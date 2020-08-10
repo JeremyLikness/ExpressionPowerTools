@@ -1,6 +1,6 @@
 ﻿# ServiceHost Class
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Dependencies](ExpressionPowerTools.Core.Dependencies.n.md) > **ServiceHost**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Dependencies](ExpressionPowerTools.Core.Dependencies.n.md) > **ServiceHost**
 
 Host to obtain services.
 
@@ -8,7 +8,7 @@ Host to obtain services.
 public static class ServiceHost
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ServiceHost**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ServiceHost**
 
 ## Examples
 

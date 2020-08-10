@@ -43,11 +43,24 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// <summary>
         /// Parses the assembly.
         /// </summary>
+        /// <remarks>
+        /// First pass creates the assembly and parses it. Second pass takes the
+        /// assembly and processes for addition info that requires cross-referencing.
+        /// </remarks>
+        /// <param name="doc">The <see cref="DocAssembly"/> ref for pass 2.</param>
         /// <returns>The parsed <see cref="DocAssembly"/>.</returns>
-        public DocAssembly Parse()
+        public DocAssembly Parse(DocAssembly doc = null)
         {
-            var doc = new DocAssembly(AssemblyName);
-            IterateNamespaces(doc);
+            if (doc == null)
+            {
+                doc = new DocAssembly(AssemblyName);
+                IterateNamespaces(doc);
+            }
+            else
+            {
+                IterateNamespacesPass2(doc);
+            }
+
             return doc;
         }
 
@@ -72,6 +85,30 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         }
 
         /// <summary>
+        /// Second pass to handle relationships.
+        /// </summary>
+        /// <param name="doc">The <see cref="DocAssembly"/> to iterate.</param>
+        private void IterateNamespacesPass2(DocAssembly doc)
+        {
+            // now go back and handle relationships
+            foreach (var nsp in doc.Namespaces)
+            {
+                foreach (var type in nsp.Types)
+                {
+                    ProcessTypePass2(type);
+                    if (!type.IsInterface)
+                    {
+                        type.Inheritance = ProcessInheritance(type.Type);
+                    }
+
+                    ProcessConstructors(type);
+                    ProcessProperties(type);
+                    ProcessMethods(type);
+                }
+            }
+        }
+
+        /// <summary>
         /// Iterate the types for the namespace.
         /// </summary>
         /// <param name="docNamespace">The <see cref="DocNamespace"/> to parse into.</param>
@@ -86,14 +123,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 };
 
                 ProcessType(type, exportedType);
-
-                if (!exportedType.IsInterface)
-                {
-                    exportedType.Inheritance = ProcessInheritance(type);
-                }
-
-                ProcessConstructors(exportedType);
-                ProcessProperties(exportedType);
 
                 docNamespace.Types.Add(exportedType);
             }
@@ -116,60 +145,16 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var property = new DocProperty(exportedType)
                 {
                     Name = $"{exportedType.Name}.{prop.Name}",
-                    XPath = ParserUtils.GetSelector(prop),
+                    XPath = MemberUtils.GetSelector(prop),
                     Type = prop.PropertyType,
-                    TypeName = ProcessTypeName(prop.PropertyType),
-                    Code = GeneratePropertySignature(prop),
+                    Code = MemberUtils.GenerateCodeFor(prop),
                 };
+
+                property.TypeParameter = exportedType.TypeParameters.FirstOrDefault(
+                    t => t.Name == property.Type.Name);
+
                 exportedType.Properties.Add(property);
             }
-        }
-
-        private string GeneratePropertySignature(PropertyInfo prop)
-        {
-            var sb = new StringBuilder();
-            var methodInfo = prop.CanRead ? prop.GetMethod : prop.SetMethod;
-            if (methodInfo.IsPublic)
-            {
-                sb.Append("public ");
-            }
-            else if (methodInfo.IsFamily)
-            {
-                sb.Append("protected ");
-            }
-            else if (methodInfo.IsPrivate)
-            {
-                sb.Append("private ");
-            }
-
-            if (methodInfo.IsStatic)
-            {
-                sb.Append("static ");
-            }
-            else if (methodInfo.IsVirtual)
-            {
-                sb.Append("virtual ");
-            }
-
-            sb.Append(ProcessTypeName(prop.PropertyType));
-            sb.Append($" {prop.Name} {{ ");
-            if (prop.CanRead)
-            {
-                sb.Append("get; ");
-            }
-
-            if (prop.CanWrite)
-            {
-                if (methodInfo.IsPublic && prop.SetMethod.IsPrivate)
-                {
-                    sb.Append("private ");
-                }
-
-                sb.Append("set; ");
-            }
-
-            sb.Append("}}");
-            return sb.ToString();
         }
 
         /// <summary>
@@ -181,14 +166,21 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         {
             target.Name = type.FullName ?? $"{type.Namespace}.{type.Name}";
             target.Type = type;
-            target.TypeName = ProcessTypeName(type);
             target.IsInterface = type.IsInterface;
             target.IsEnum = type.IsEnum;
-            target.Code = GenerateCodeSnippet(type, target.TypeName);
-            target.ImplementedInterfaces = ProcessImplementedInterfaces(type);
-            target.TypeParameters = ProcessTypeParameters(type);
-            target.DerivedTypes = ProcessDerivedTypes(type);
-            target.XPath = ParserUtils.GetSelector(type);
+            target.XPath = MemberUtils.GetSelector(type);
+        }
+
+        /// <summary>
+        /// Second pass that deals with relationships.
+        /// </summary>
+        /// <param name="type">The <see cref="DocExportedType"/> to process.</param>
+        private void ProcessTypePass2(DocBaseType type)
+        {
+            type.Code = MemberUtils.GenerateCodeFor(type.Type);
+            type.ImplementedInterfaces = ProcessImplementedInterfaces(type.Type);
+            type.TypeParameters = ProcessTypeParameters(type.Type);
+            type.DerivedTypes = ProcessDerivedTypes(type.Type);
         }
 
         /// <summary>
@@ -212,8 +204,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 var overload = new DocOverload(ctor, exportedType.Constructor)
                 {
-                    Name = GenerateCtorSignature(ctor, exportedType.TypeName),
-                    XPath = ParserUtils.GetSelector(ctor),
+                    Name = MemberUtils.GenerateCodeFor(ctor),
+                    XPath = MemberUtils.GetSelector(ctor),
                 };
 
                 var staticText = ctor.IsStatic ? " static " : " ";
@@ -223,6 +215,52 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 ProcessParameters(ctor.GetParameters(), overload, overload.Parameters);
 
                 exportedType.Constructor.Overloads.Add(overload);
+            }
+        }
+
+        /// <summary>
+        /// Processes the public method overloads.
+        /// </summary>
+        /// <param name="exportedType">The <see cref="DocExportedType"/>.</param>
+        private void ProcessMethods(DocExportedType exportedType)
+        {
+            var typePropertyMethods = exportedType.Type.GetProperties()
+                .Select(p => new[] { p.GetMethod, p.SetMethod })
+                .SelectMany(p => p)
+                .Where(p => p != null)
+                .Distinct();
+
+            var typeMethods = exportedType.Type.GetMethods(
+                BindingFlags.Public |
+                BindingFlags.Static |
+                BindingFlags.Instance).Where(m => m.DeclaringType == exportedType.Type)
+                .Except(typePropertyMethods);
+
+            foreach (var methodInfo in typeMethods)
+            {
+                var method = exportedType.Methods.FirstOrDefault(m => m.Name == methodInfo.Name);
+
+                if (method == null)
+                {
+                    method = new DocMethod(exportedType)
+                    {
+                        Name = methodInfo.Name,
+                        MethodReturnType = TypeCache.Cache[methodInfo.ReturnType],
+                    };
+                    exportedType.Methods.Add(method);
+                }
+
+                var methodOverload = new DocMethodOverload(methodInfo, method)
+                {
+                    Name = MemberUtils.GenerateCodeFor(methodInfo),
+                    XPath = MemberUtils.GetSelector(methodInfo),
+                };
+
+                methodOverload.Code = methodOverload.Name;
+
+                ProcessParameters(methodInfo.GetParameters(), methodOverload, methodOverload.Parameters);
+
+                method.MethodOverloads.Add(methodOverload);
             }
         }
 
@@ -245,38 +283,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     ParameterType = new DocBaseType(),
                 };
                 ProcessType(parameter.ParameterType, param.ParameterType);
+                ProcessTypePass2(param.ParameterType);
                 target.Add(param);
             }
-        }
-
-        /// <summary>
-        /// Generate the code for the constructor.
-        /// </summary>
-        /// <param name="ctor">The <see cref="ConstructorInfo"/>.</param>
-        /// <param name="typeName">The type name.</param>
-        /// <returns>The constructor code.</returns>
-        private string GenerateCtorSignature(ConstructorInfo ctor, string typeName)
-        {
-            var sb = new StringBuilder($"{typeName}(");
-            var first = true;
-            foreach (var parameter in ctor.GetParameters())
-            {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    sb.Append(", ");
-                }
-
-                var type = ProcessTypeName(parameter.ParameterType);
-                var name = parameter.Name;
-                sb.Append($"{type} {name}");
-            }
-
-            sb.Append(")");
-            return sb.ToString();
         }
 
         /// <summary>
@@ -284,10 +293,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// </summary>
         /// <param name="type">The type to consider.</param>
         /// <returns>The list of derived typse.</returns>
-        private IList<(string name, string displayName)> ProcessDerivedTypes(
+        private IList<TypeRef> ProcessDerivedTypes(
             Type type)
         {
-            var result = new List<(string name, string displayName)>();
             var types = new List<Type>();
             var generic = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
             if (type.IsInterface)
@@ -319,12 +327,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     .Where(t => t.BaseType != null && t.BaseType.Equals(type)));
             }
 
-            foreach (var item in types.Where(t => t != type).Distinct())
-            {
-                result.Add((item.FullName, ProcessTypeName(item)));
-            }
-
-            return result;
+            return types.Where(t => t != type).Distinct().Select(t => TypeCache.Cache[t]).ToList();
         }
 
         /// <summary>
@@ -339,7 +342,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 foreach (var tParam in type.GetGenericArguments().Where(t => t.IsGenericParameter))
                 {
-                    result.Add(new DocTypeParameter { Name = tParam.Name });
+                    var docParameter = new DocTypeParameter { Name = tParam.Name };
+                    MemberUtils.ParseGenericTypeConstraints(tParam, docParameter);
+                    result.Add(docParameter);
                 }
             }
 
@@ -351,25 +356,25 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// </summary>
         /// <param name="type">The <see cref="Type"/> to process.</param>
         /// <returns>The inheritance chain from base to current type.</returns>
-        private IList<(string name, string displayName)> ProcessInheritance(Type type)
+        private IList<TypeRef> ProcessInheritance(Type type)
         {
-            var stack = new Stack<(string name, string displayName)>();
+            var stack = new Stack<Type>();
             while (type != null)
             {
                 if (type.IsGenericType)
                 {
                     var def = type.GetGenericTypeDefinition();
-                    stack.Push(($"{def.Namespace}.{def.Name}", ProcessTypeName(def)));
+                    stack.Push(def);
                 }
                 else
                 {
-                    stack.Push(($"{type.Namespace}.{type.Name}", ProcessTypeName(type)));
+                    stack.Push(type);
                 }
 
                 type = type.BaseType;
             }
 
-            return stack.Select(i => (i.name, i.displayName)).ToList();
+            return stack.Select(t => TypeCache.Cache[t]).ToList();
         }
 
         /// <summary>
@@ -377,148 +382,23 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// </summary>
         /// <param name="type">The <see cref="Type"/> to process.</param>
         /// <returns>The list of implemented interfaces.</returns>
-        private IList<(string name, string displayName)> ProcessImplementedInterfaces(Type type)
+        private IList<TypeRef> ProcessImplementedInterfaces(Type type)
         {
-            var result = new List<(string name, string displayName)>();
+            var result = new List<Type>();
             foreach (var i in type.GetInterfaces())
             {
                 if (i.IsGenericType)
                 {
                     var def = i.GetGenericTypeDefinition();
-                    result.Add(($"{def.Namespace}.{def.Name}", ProcessTypeName(def)));
+                    result.Add(def);
                 }
                 else
                 {
-                    result.Add(($"{i.Namespace}.{i.Name}", ProcessTypeName(i)));
+                    result.Add(i);
                 }
             }
 
-            return result;
-        }
-
-        /// <summary>
-        /// Generate the code snippet that defines the type.
-        /// </summary>
-        /// <param name="type">The <see cref="Type"/> to generate the code snippet for.</param>
-        /// <param name="typeName">The code-friendly type name.</param>
-        /// <returns>The generated code snippet.</returns>
-        private string GenerateCodeSnippet(Type type, string typeName)
-        {
-            var sb = new StringBuilder("public ");
-            if (type.IsInterface)
-            {
-                sb.Append("interface ");
-            }
-            else if (type.IsEnum)
-            {
-                sb.Append("enum ");
-            }
-            else
-            {
-                if (type.IsAbstract)
-                {
-                    sb.Append(type.IsSealed ? "static " : "abstract ");
-                }
-
-                sb.Append("class ");
-            }
-
-            sb.Append(typeName);
-
-            if (type.IsEnum)
-            {
-                return sb.ToString();
-            }
-
-            var first = true;
-            var allInterfaces = type.GetInterfaces();
-            var directInterfaces = allInterfaces
-                .Where(i => !allInterfaces.Any(t => t.GetInterfaces().Contains(i)));
-            var implemented = type.BaseType == typeof(object) ?
-                directInterfaces : new[] { type.BaseType }.Union(directInterfaces);
-            foreach (var i in implemented.Where(i => i != null))
-            {
-                if (first)
-                {
-                    sb.Append(" : ");
-                    first = false;
-                }
-                else
-                {
-                    sb.Append(", ");
-                }
-
-                sb.Append(ProcessTypeName(i));
-            }
-
-            // check constraints
-            foreach (var tParam in type.GetGenericArguments().Where(t => t.IsGenericParameter))
-            {
-                foreach (var constraint in tParam.GetGenericParameterConstraints())
-                {
-                    sb.Append($"{ParserUtils.NewLine}   where {tParam.Name} : {ProcessTypeName(constraint)}");
-                }
-            }
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Process a type name to something user-friend like.
-        /// </summary>
-        /// <example>
-        /// For example, a type name might look like:
-        /// <code><![CDATA[
-        /// IQueryHost`2
-        /// ]]></code>
-        /// The call to this method will produce:
-        /// <code><![CDATA[
-        /// IQueryHost<T, ICustomQueryProvider<T>>
-        /// ]]></code>
-        /// </example>
-        /// <param name="type">The type to process.</param>
-        /// <returns>The user and code-friendly type name.</returns>
-        private string ProcessTypeName(Type type)
-        {
-            var sb = new StringBuilder();
-            if (type.IsGenericType || type.IsGenericTypeDefinition)
-            {
-                var name = type.FullName ?? type.Name;
-                var withoutGeneric = name.Split('`')[0];
-                var rootName = withoutGeneric.Split('.')[^1];
-                sb.Append(rootName);
-                sb.Append("<");
-                var parameters = type.GetGenericArguments();
-                var first = true;
-                foreach (Type paramType in parameters)
-                {
-                    if (first)
-                    {
-                        first = false;
-                    }
-                    else
-                    {
-                        sb.Append(", ");
-                    }
-
-                    if (paramType.IsGenericParameter)
-                    {
-                        sb.Append(paramType.Name);
-                    }
-                    else
-                    {
-                        sb.Append(ProcessTypeName(paramType));
-                    }
-                }
-
-                sb.Append(">");
-            }
-            else
-            {
-                sb.Append(type.Name);
-            }
-
-            return sb.ToString();
+            return result.Select(t => TypeCache.Cache[t]).ToList();
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodSimilarities
+﻿# DefaultComparisonRules.DefaultMethodSimilarities
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMethodSimilarities**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMethodSimilarities**
 
 Gets the rules for method call similarities.
 
 ```csharp
-public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolean>> DefaultMethodSimilarities { get; }}
+public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolean>> DefaultMethodSimilarities { get; }
 ```
 
 ### Property Value

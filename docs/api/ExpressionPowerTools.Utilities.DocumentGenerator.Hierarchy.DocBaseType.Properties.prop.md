@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.Properties
+﻿# DocBaseType.Properties
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) > **Properties**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) > **Properties**
 
 Gets or sets the list of properties.
 
 ```csharp
-public IList<DocProperty> Properties { get; set; }}
+public IList<DocProperty> Properties { get; set; }
 ```
 
 ### Property Value

@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewArraySimilarities
+﻿# DefaultComparisonRules.DefaultNewArraySimilarities
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultNewArraySimilarities**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultNewArraySimilarities**
 
 Gets the default rules for new array similarities.
 
 ```csharp
-public static Expression<Func<NewArrayExpression, NewArrayExpression, Boolean>> DefaultNewArraySimilarities { get; }}
+public static Expression<Func<NewArrayExpression, NewArrayExpression, Boolean>> DefaultNewArraySimilarities { get; }
 ```
 
 ### Property Value

@@ -1,6 +1,6 @@
 ﻿# ExpressionPowerTools.Core.Contract Namespace
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Contract**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Contract**
 
 ## Classes
 

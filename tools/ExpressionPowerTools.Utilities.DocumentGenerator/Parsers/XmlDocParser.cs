@@ -9,6 +9,7 @@ using System.Text;
 using System.Xml;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 using ExpressionPowerTools.Utilities.DocumentGenerator.IO;
+using ExpressionPowerTools.Utilities.DocumentGenerator.Markdown;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 {
@@ -21,6 +22,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// File helper instance.
         /// </summary>
         private readonly FileHelper fileHelper;
+
+        /// <summary>
+        /// The <see cref="MarkdownWriter"/> for links.
+        /// </summary>
+        private readonly MarkdownWriter markdownWriter = new MarkdownWriter();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocParser"/> class.
@@ -89,8 +95,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
                         if (string.IsNullOrWhiteSpace(overload.Description))
                         {
+                            var ctorType = overload.Constructor.ConstructorType.Type;
                             overload.Description =
-                                $"Initializes a new instance of the {ParserUtils.ExtractLinkForType(assembly, overload.Constructor.ConstructorType.Name)} class.";
+                                $"Initializes a new instance of the [{MarkdownWriter.Normalize(TypeCache.Cache[ctorType].FriendlyName)}]({TypeCache.Cache[ctorType].Link}) class.";
                         }
                     }
                 }
@@ -137,10 +144,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 if (node is XmlElement exceptionNode)
                 {
                     var exceptionName = exceptionNode.GetAttribute("cref").Split(":")[^1];
+                    var exceptionType = TypeCache.Cache.GetTypeFromName(exceptionName);
                     var sb = new StringBuilder();
                     exceptionNode.ChildNodes.ParseChildNodes(sb, assembly);
+
                     result.Add((
-                        ParserUtils.ExtractLinkForType(assembly, exceptionName),
+                        markdownWriter.WriteLink(TypeCache.Cache[exceptionType]),
                         sb.ToString()));
                 }
             }

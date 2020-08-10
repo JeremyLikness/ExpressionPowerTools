@@ -17,6 +17,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         public DocAssembly(string assemblyName)
         {
             Name = assemblyName;
+            TypeCache.Cache.RegisterAssembly(this);
         }
 
         /// <summary>

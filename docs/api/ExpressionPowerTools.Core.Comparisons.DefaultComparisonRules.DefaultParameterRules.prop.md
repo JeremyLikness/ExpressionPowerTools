@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultParameterRules
+﻿# DefaultComparisonRules.DefaultParameterRules
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultParameterRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultParameterRules**
 
 Gets the default rules for parameters.
 
 ```csharp
-public static Expression<Func<ParameterExpression, ParameterExpression, Boolean>> DefaultParameterRules { get; }}
+public static Expression<Func<ParameterExpression, ParameterExpression, Boolean>> DefaultParameterRules { get; }
 ```
 
 ### Property Value

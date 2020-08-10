@@ -1,6 +1,6 @@
 ﻿# AssemblyParser Constructors
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) > **AssemblyParser(Assembly assembly)**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) > **AssemblyParser(Assembly assembly)**
 
 Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class.
 
@@ -8,9 +8,8 @@ Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilitie
 
 | Ctor | Description |
 | :-- | :-- |
-| [AssemblyParser(Assembly assembly)](#ctor-0) | Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class. |
+| [AssemblyParser(Assembly assembly)](#assemblyparserassembly-assembly) | Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class. |
 
-<a name="#ctor-0"></a>
 ## AssemblyParser(Assembly assembly)
 
 Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class.
@@ -23,6 +22,6 @@ public AssemblyParser(Assembly assembly)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `assembly` | [System.Reflection.Assembly](https://docs.microsoft.com/dotnet/api/system.reflection.assembly) | The assembly to parse. |
+| `assembly` | [Assembly](https://docs.microsoft.com/dotnet/api/system.reflection.assembly) | The assembly to parse. |
 
 

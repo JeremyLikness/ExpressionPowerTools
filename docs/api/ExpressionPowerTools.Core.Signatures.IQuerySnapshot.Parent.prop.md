@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Signatures.IQuerySnapshot.Parent
+﻿# IQuerySnapshot.Parent
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) > **Parent**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) > **Parent**
 
 Gets the parent provider for bubbling events.
 
 ```csharp
-public virtual IQuerySnapshot Parent { get; }}
+public virtual IQuerySnapshot Parent { get; }
 ```
 
 ### Property Value

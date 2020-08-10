@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.IsInterface
+﻿# DocBaseType.IsInterface
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) > **IsInterface**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) > **IsInterface**
 
 Gets or sets a value indicating whether the type is an interface.
 
 ```csharp
-public Boolean IsInterface { get; set; }}
+public Boolean IsInterface { get; set; }
 ```
 
 ### Property Value

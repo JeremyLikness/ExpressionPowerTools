@@ -1,6 +1,6 @@
 ﻿# MarkdownTable Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > **MarkdownTable**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > **MarkdownTable**
 
 Utility to produce a table in markdown.
 
@@ -8,7 +8,7 @@ Utility to produce a table in markdown.
 public class MarkdownTable
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownTable**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownTable**
 
 ## Examples
 
@@ -29,4 +29,4 @@ IList<string> markdown = table.CloseTable();
 
 | Ctor | Description |
 | :-- | :-- |
-| [MarkdownTable(String[] headings)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.ctor.md#ctor-0) | Initializes a new instance of the  [MarkdownTable](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.cs.md)  class. |
+| [MarkdownTable(String[] headings)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.ctor.md#markdowntablestring[]-headings) | Initializes a new instance of the [MarkdownTable](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.cs.md) class. |

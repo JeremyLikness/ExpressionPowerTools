@@ -1,6 +1,6 @@
 ﻿# DocConstructor Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocConstructor**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocConstructor**
 
 Document representing public constructors for a type.
 
@@ -8,13 +8,13 @@ Document representing public constructors for a type.
 public class DocConstructor : DocBase
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocConstructor**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocConstructor**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocConstructor(DocExportedType type)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.ctor.md#ctor-0) | Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
+| [DocConstructor(DocExportedType type)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.ctor.md#docconstructordocexportedtype-type) | Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
 ### Properties
 
 | Property | Type | Description |

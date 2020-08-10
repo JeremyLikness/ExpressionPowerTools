@@ -1,6 +1,6 @@
 ﻿# FileWriter Constructors
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.IO](ExpressionPowerTools.Utilities.DocumentGenerator.IO.n.md) > [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) > **FileWriter(String rootDir)**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.IO](ExpressionPowerTools.Utilities.DocumentGenerator.IO.n.md) > [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) > **FileWriter(String rootDir)**
 
 Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class.
 
@@ -8,9 +8,8 @@ Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.Do
 
 | Ctor | Description |
 | :-- | :-- |
-| [FileWriter(String rootDir)](#ctor-0) | Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class. |
+| [FileWriter(String rootDir)](#filewriterstring-rootdir) | Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class. |
 
-<a name="#ctor-0"></a>
 ## FileWriter(String rootDir)
 
 Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class.
@@ -23,6 +22,6 @@ public FileWriter(String rootDir)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `rootDir` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The target root directory. |
+| `rootDir` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The target root directory. |
 
 

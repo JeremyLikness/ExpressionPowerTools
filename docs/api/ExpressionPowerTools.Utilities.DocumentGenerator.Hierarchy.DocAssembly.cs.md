@@ -1,6 +1,6 @@
 ﻿# DocAssembly Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocAssembly**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocAssembly**
 
 Represents an assembly to document.
 
@@ -8,13 +8,13 @@ Represents an assembly to document.
 public class DocAssembly : DocBase
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocAssembly**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocAssembly**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocAssembly(String assemblyName)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.ctor.md#ctor-0) | Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class. |
+| [DocAssembly(String assemblyName)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.ctor.md#docassemblystring-assemblyname) | Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class. |
 ### Properties
 
 | Property | Type | Description |

@@ -38,7 +38,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// <summary>
         /// Gets or sets the list of extensions that reference the type.
         /// </summary>
-        public IList<(string name, string displayName)> Extensions { get; set; } = new List<(string name, string displayName)>();
+        public IList<TypeRef> Extensions { get; set; } = new List<TypeRef>();
 
         /// <summary>
         /// Gets or sets the list of exceptions that may be thrown.

@@ -1,6 +1,6 @@
 ﻿# DocParameter Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocParameter**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocParameter**
 
 Represents a parameter.
 
@@ -8,13 +8,13 @@ Represents a parameter.
 public class DocParameter : DocBase
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocParameter**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocParameter**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocParameter(DocBase parent)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.ctor.md#ctor-0) | Initializes a new instance of the [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) class with the            specified parent. |
+| [DocParameter(DocBase parent)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.ctor.md#docparameterdocbase-parent) | Initializes a new instance of the [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) class with the            specified parent. |
 ### Properties
 
 | Property | Type | Description |

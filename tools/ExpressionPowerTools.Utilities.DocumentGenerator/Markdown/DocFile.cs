@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
 {
@@ -23,6 +24,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
         /// Gets the name of the file.
         /// </summary>
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets count of files.
+        /// </summary>
+        public int FileCount => Files.Sum(f => f.FileCount) + 1;
 
         /// <summary>
         /// Gets the list of child documents.

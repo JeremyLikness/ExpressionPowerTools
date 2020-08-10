@@ -29,20 +29,20 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// <summary>
         /// Gets or sets the list of implemented interfaces.
         /// </summary>
-        public IList<(string name, string displayName)> ImplementedInterfaces
-        { get; set; } = new List<(string name, string displayName)>();
+        public IList<TypeRef> ImplementedInterfaces
+        { get; set; } = new List<TypeRef>();
 
         /// <summary>
         /// Gets or sets the inheritance chcain.
         /// </summary>
-        public IList<(string name, string displayName)> Inheritance
-        { get; set; } = new List<(string name, string displayName)>();
+        public IList<TypeRef> Inheritance
+        { get; set; } = new List<TypeRef>();
 
         /// <summary>
         /// Gets or sets the list of derived types.
         /// </summary>
-        public IList<(string name, string displayName)> DerivedTypes
-        { get; set; } = new List<(string name, string displayName)>();
+        public IList<TypeRef> DerivedTypes
+        { get; set; } = new List<TypeRef>();
 
         /// <summary>
         /// Gets or sets the list of properties.
@@ -51,14 +51,20 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
             new List<DocProperty>();
 
         /// <summary>
-        /// Gets or sets the user-friendly name for the type.
+        /// Gets or sets the list of methods.
         /// </summary>
-        public string TypeName { get; set; }
+        public IList<DocMethod> Methods { get; set; } =
+            new List<DocMethod>();
 
         /// <summary>
         /// Gets or sets the associated type.
         /// </summary>
         public Type Type { get; set; }
+
+        /// <summary>
+        /// Gets the associated type reference.
+        /// </summary>
+        public TypeRef TypeRef => TypeCache.Cache[Type];
 
         /// <summary>
         /// Gets the extension.

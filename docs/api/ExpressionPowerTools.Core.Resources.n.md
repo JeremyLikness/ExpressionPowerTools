@@ -1,6 +1,6 @@
 ﻿# ExpressionPowerTools.Core.Resources Namespace
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Resources**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Resources**
 
 ## Classes
 

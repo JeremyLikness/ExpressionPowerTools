@@ -1,4 +1,7 @@
-﻿namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
+﻿// Copyright (c) Jeremy Likness. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the repository root for license information.
+
+namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
 {
     /// <summary>
     /// Represents a parameter.

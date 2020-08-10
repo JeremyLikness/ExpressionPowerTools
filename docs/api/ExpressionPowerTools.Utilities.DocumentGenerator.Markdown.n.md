@@ -1,6 +1,6 @@
 ﻿# ExpressionPowerTools.Utilities.DocumentGenerator.Markdown Namespace
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > **ExpressionPowerTools.Utilities.DocumentGenerator.Markdown**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > **ExpressionPowerTools.Utilities.DocumentGenerator.Markdown**
 
 ## Classes
 

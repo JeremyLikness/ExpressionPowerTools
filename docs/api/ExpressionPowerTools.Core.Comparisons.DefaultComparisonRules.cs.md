@@ -1,6 +1,6 @@
 ﻿# DefaultComparisonRules Class
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > **DefaultComparisonRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > **DefaultComparisonRules**
 
 Default set of rules to use.
 
@@ -8,7 +8,7 @@ Default set of rules to use.
 public class DefaultComparisonRules : IExpressionComparisonRuleProvider
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **DefaultComparisonRules**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DefaultComparisonRules**
 
 Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) 
 
@@ -16,12 +16,12 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 
 | Ctor | Description |
 | :-- | :-- |
-| [DefaultComparisonRules()](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.ctor.md#ctor-0) | Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) class. |
+| [DefaultComparisonRules()](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.ctor.md#defaultcomparisonrules) | Initializes a new instance of the [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) class. |
 ### Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`DefaultConstantRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantRules.prop.md) | [Expression&lt;Func&lt;ConstantExpression, ConstantExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for equivalency of [System.Linq.Expressions.ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
+| [`DefaultConstantRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantRules.prop.md) | [Expression&lt;Func&lt;ConstantExpression, ConstantExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for equivalency of [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
 | [`DefaultConstantSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantSimilarities.prop.md) | [Expression&lt;Func&lt;ConstantExpression, ConstantExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rule for similarities between constants. |
 | [`DefaultLambdaRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaRules.prop.md) | [Expression&lt;Func&lt;LambdaExpression, LambdaExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for lambda. |
 | [`DefaultLambdaSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaSimilarities.prop.md) | [Expression&lt;Func&lt;LambdaExpression, LambdaExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the similarities for lambda. |

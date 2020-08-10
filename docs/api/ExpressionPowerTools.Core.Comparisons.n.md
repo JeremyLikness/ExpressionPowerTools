@@ -1,6 +1,6 @@
 ﻿# ExpressionPowerTools.Core.Comparisons Namespace
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Comparisons**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > **ExpressionPowerTools.Core.Comparisons**
 
 ## Classes
 

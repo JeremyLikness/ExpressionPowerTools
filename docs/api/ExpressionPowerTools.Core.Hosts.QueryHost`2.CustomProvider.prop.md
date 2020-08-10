@@ -1,14 +1,18 @@
-﻿# ExpressionPowerTools.Core.Hosts.QueryHost`2.CustomProvider
+﻿# QueryHost&lt;>.CustomProvider
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **CustomProvider**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **CustomProvider**
 
-Gets or sets the instance of the [ICustomQueryProvider<T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) .
+Gets or sets the instance of the [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) .
 
 ```csharp
-public virtual TProvider CustomProvider { get; set; }}
+public virtual TProvider CustomProvider { get; set; }
 ```
 
 ### Property Value
 
-`TProvider`
+TProvider
+
+**Type Constraints**
+
+ [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) 
 

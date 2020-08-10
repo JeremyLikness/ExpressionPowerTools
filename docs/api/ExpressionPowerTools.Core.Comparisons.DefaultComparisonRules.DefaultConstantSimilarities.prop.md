@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantSimilarities
+﻿# DefaultComparisonRules.DefaultConstantSimilarities
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultConstantSimilarities**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultConstantSimilarities**
 
 Gets the default rule for similarities between constants.
 
 ```csharp
-public static Expression<Func<ConstantExpression, ConstantExpression, Boolean>> DefaultConstantSimilarities { get; }}
+public static Expression<Func<ConstantExpression, ConstantExpression, Boolean>> DefaultConstantSimilarities { get; }
 ```
 
 ### Property Value

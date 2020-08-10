@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
+using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
 {
@@ -61,12 +63,49 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Markdown
             WriteLink(link.text, link.link);
 
         /// <summary>
+        /// Writes a relative link.
+        /// </summary>
+        /// <param name="text">The text of the link.</param>
+        /// <param name="path">The path when cross-linking.</param>
+        /// <returns>The relative link.</returns>
+        public string WriteRelativeLink(string text, string path = "")
+        {
+            var linkName = text.Replace(' ', '-')
+                .Replace(">", string.Empty)
+                .Replace("<", string.Empty)
+                .Replace("(", string.Empty)
+                .Replace(")", string.Empty)
+                .Replace(",", string.Empty)
+                .ToLowerInvariant();
+            return WriteLink(text, $"{path}#{linkName}");
+        }
+
+        /// <summary>
+        /// Writes the link for a type.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> to create a link for.</param>
+        /// <returns>The link to the documentation for the type.</returns>
+        public string WriteLink(TypeRef type)
+        {
+            return WriteLink(type.FriendlyName, type.Link);
+        }
+
+        /// <summary>
         /// Write a link.
         /// </summary>
         /// <param name="text">The link text.</param>
         /// <param name="link">The link target.</param>
         /// <returns>The markdown link.</returns>
-        public string WriteLink(string text, string link) => $" [{Normalize(text)}]({link}) ";
+        public string WriteLink(string text, string link)
+        {
+            text = Normalize(text);
+            if (string.IsNullOrWhiteSpace(link))
+            {
+                return text;
+            }
+
+            return $" [{text}]({link}) ";
+        }
 
         /// <summary>
         /// Write a code block.

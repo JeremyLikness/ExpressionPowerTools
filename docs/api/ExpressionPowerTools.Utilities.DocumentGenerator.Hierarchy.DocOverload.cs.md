@@ -1,6 +1,6 @@
 ﻿# DocOverload Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocOverload**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocOverload**
 
 A given constructor overload.
 
@@ -8,13 +8,13 @@ A given constructor overload.
 public class DocOverload : DocBase
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocOverload**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → **DocOverload**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocOverload(ConstructorInfo info, DocConstructor ctor)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.ctor.md#ctor-0) | Initializes a new instance of the [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) class for            the given [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) . |
+| [DocOverload(ConstructorInfo info, DocConstructor ctor)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.ctor.md#docoverloadconstructorinfo-info-docconstructor-ctor) | Initializes a new instance of the [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) class for            the given [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) . |
 ### Properties
 
 | Property | Type | Description |

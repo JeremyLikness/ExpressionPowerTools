@@ -1,6 +1,6 @@
 ﻿# ExpressionPowerTools.Utilities.DocumentGenerator.IO Namespace
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > **ExpressionPowerTools.Utilities.DocumentGenerator.IO**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > **ExpressionPowerTools.Utilities.DocumentGenerator.IO**
 
 ## Classes
 

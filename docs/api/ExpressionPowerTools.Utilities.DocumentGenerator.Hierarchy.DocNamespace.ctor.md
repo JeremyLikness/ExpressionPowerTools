@@ -1,6 +1,6 @@
 ﻿# DocNamespace Constructors
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) > **DocNamespace(String nspace)**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) > **DocNamespace(String nspace)**
 
 Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) class.
 
@@ -8,9 +8,8 @@ Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocNamespace(String nspace)](#ctor-0) | Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) class. |
+| [DocNamespace(String nspace)](#docnamespacestring-nspace) | Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) class. |
 
-<a name="#ctor-0"></a>
 ## DocNamespace(String nspace)
 
 Initializes a new instance of the [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) class.
@@ -23,6 +22,6 @@ public DocNamespace(String nspace)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `nspace` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The namespace. |
+| `nspace` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The namespace. |
 
 

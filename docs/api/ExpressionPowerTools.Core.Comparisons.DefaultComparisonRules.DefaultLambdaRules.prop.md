@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaRules
+﻿# DefaultComparisonRules.DefaultLambdaRules
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultLambdaRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultLambdaRules**
 
 Gets the rules for lambda.
 
 ```csharp
-public static Expression<Func<LambdaExpression, LambdaExpression, Boolean>> DefaultLambdaRules { get; }}
+public static Expression<Func<LambdaExpression, LambdaExpression, Boolean>> DefaultLambdaRules { get; }
 ```
 
 ### Property Value

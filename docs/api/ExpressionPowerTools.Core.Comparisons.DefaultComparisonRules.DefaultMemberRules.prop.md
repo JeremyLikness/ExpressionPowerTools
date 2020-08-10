@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberRules
+﻿# DefaultComparisonRules.DefaultMemberRules
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMemberRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMemberRules**
 
 Gets the default rules for member equivalency.
 
 ```csharp
-public static Expression<Func<MemberExpression, MemberExpression, Boolean>> DefaultMemberRules { get; }}
+public static Expression<Func<MemberExpression, MemberExpression, Boolean>> DefaultMemberRules { get; }
 ```
 
 ### Property Value

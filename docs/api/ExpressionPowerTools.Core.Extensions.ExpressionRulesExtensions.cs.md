@@ -1,6 +1,6 @@
 ﻿# ExpressionRulesExtensions Class
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > **ExpressionRulesExtensions**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > **ExpressionRulesExtensions**
 
 Building blocks for expression rules.
 
@@ -8,7 +8,7 @@ Building blocks for expression rules.
 public static class ExpressionRulesExtensions
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionRulesExtensions**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionRulesExtensions**
 
 ## Remarks
 

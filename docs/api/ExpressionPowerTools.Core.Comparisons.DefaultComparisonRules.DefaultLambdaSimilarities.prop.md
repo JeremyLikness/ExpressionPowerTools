@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaSimilarities
+﻿# DefaultComparisonRules.DefaultLambdaSimilarities
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultLambdaSimilarities**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultLambdaSimilarities**
 
 Gets the similarities for lambda.
 
 ```csharp
-public static Expression<Func<LambdaExpression, LambdaExpression, Boolean>> DefaultLambdaSimilarities { get; }}
+public static Expression<Func<LambdaExpression, LambdaExpression, Boolean>> DefaultLambdaSimilarities { get; }
 ```
 
 ### Property Value

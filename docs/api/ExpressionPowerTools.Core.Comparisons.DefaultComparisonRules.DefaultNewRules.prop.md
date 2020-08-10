@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewRules
+﻿# DefaultComparisonRules.DefaultNewRules
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultNewRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultNewRules**
 
 Gets the default rules for object initializers.
 
 ```csharp
-public static Expression<Func<NewExpression, NewExpression, Boolean>> DefaultNewRules { get; }}
+public static Expression<Func<NewExpression, NewExpression, Boolean>> DefaultNewRules { get; }
 ```
 
 ### Property Value

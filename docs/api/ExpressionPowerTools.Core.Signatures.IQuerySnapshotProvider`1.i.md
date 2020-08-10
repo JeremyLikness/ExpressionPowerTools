@@ -1,6 +1,6 @@
 ﻿# IQuerySnapshotProvider&lt;T> Interface
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > **IQuerySnapshotProvider<T>**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > **IQuerySnapshotProvider<T>**
 
 Provider to intercept query execution for inspection.
 
@@ -10,11 +10,11 @@ public interface IQuerySnapshotProvider<T> : ICustomQueryProvider<T>, IQuerySnap
 
 ### Type Parameters
 
-| Parameter Name | Description |
-| :-- | :-- |
-| `T` | The type of snapshot to provide for. |
+| Parameter Name | Constraints | Description |
+| :-- | :-- | :-- |
+| `T` | None. | The type of snapshot to provide for. |
 
-Implements  [ICustomQueryProvider<T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) ,  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) ,  [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) 
+Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) ,  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) ,  [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) 
 
-Derived  [QuerySnapshotProvider<T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) 
+Derived  [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) 
 

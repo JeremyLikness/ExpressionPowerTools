@@ -1,6 +1,6 @@
 ﻿# DefaultHighPerformanceRules Class
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > **DefaultHighPerformanceRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > **DefaultHighPerformanceRules**
 
 This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
             Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
@@ -10,7 +10,7 @@ This version is named "tongue-in-cheek" due to the assumption that code will out
 public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → **DefaultHighPerformanceRules**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DefaultHighPerformanceRules**
 
 Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) 
 
@@ -18,4 +18,4 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 
 | Ctor | Description |
 | :-- | :-- |
-| [DefaultHighPerformanceRules()](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ctor.md#ctor-0) | Initializes a new instance of the [DefaultHighPerformanceRules](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.cs.md) class. |
+| [DefaultHighPerformanceRules()](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ctor.md#defaulthighperformancerules) | Initializes a new instance of the [DefaultHighPerformanceRules](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.cs.md) class. |

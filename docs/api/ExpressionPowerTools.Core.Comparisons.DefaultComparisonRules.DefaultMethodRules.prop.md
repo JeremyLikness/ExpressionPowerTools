@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodRules
+﻿# DefaultComparisonRules.DefaultMethodRules
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMethodRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMethodRules**
 
 Gets the rules for method calls.
 
 ```csharp
-public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolean>> DefaultMethodRules { get; }}
+public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolean>> DefaultMethodRules { get; }
 ```
 
 ### Property Value

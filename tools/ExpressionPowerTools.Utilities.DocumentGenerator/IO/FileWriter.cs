@@ -33,6 +33,17 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.IO
         }
 
         /// <summary>
+        /// Purges the directory to write fresh documentation.
+        /// </summary>
+        public void Purge()
+        {
+            foreach (var file in Directory.GetFiles(targetDir))
+            {
+                File.Delete(file);
+            }
+        }
+
+        /// <summary>
         /// Write the document and related documents to disk.
         /// </summary>
         /// <param name="file">The <see cref="DocFile"/> to persist.</param>

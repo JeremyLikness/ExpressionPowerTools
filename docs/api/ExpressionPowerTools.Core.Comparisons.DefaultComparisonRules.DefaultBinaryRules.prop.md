@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultBinaryRules
+﻿# DefaultComparisonRules.DefaultBinaryRules
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultBinaryRules**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultBinaryRules**
 
 Gets the default rules for binaries.
 
 ```csharp
-public static Expression<Func<BinaryExpression, BinaryExpression, Boolean>> DefaultBinaryRules { get; }}
+public static Expression<Func<BinaryExpression, BinaryExpression, Boolean>> DefaultBinaryRules { get; }
 ```
 
 ### Property Value

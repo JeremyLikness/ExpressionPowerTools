@@ -1,11 +1,11 @@
-﻿# ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultUnarySimilarities
+﻿# DefaultComparisonRules.DefaultUnarySimilarities
 
-[ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultUnarySimilarities**
+[Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultUnarySimilarities**
 
 Gets the default rules for unary similarities.
 
 ```csharp
-public static Expression<Func<UnaryExpression, UnaryExpression, Boolean>> DefaultUnarySimilarities { get; }}
+public static Expression<Func<UnaryExpression, UnaryExpression, Boolean>> DefaultUnarySimilarities { get; }
 ```
 
 ### Property Value

@@ -1,6 +1,6 @@
 ﻿# DocExportedType Class
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocExportedType**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocExportedType**
 
 A class or intrface.
 
@@ -8,13 +8,13 @@ A class or intrface.
 public class DocExportedType : DocBaseType
 ```
 
-Inheritance [System.Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) → **DocExportedType**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) → [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) → **DocExportedType**
 
 # Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocExportedType()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.ctor.md#ctor-0) | Initializes a new instance of the  [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md)  class. |
+| [DocExportedType()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.ctor.md#docexportedtype) | Initializes a new instance of the [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) class. |
 ### Properties
 
 | Property | Type | Description |

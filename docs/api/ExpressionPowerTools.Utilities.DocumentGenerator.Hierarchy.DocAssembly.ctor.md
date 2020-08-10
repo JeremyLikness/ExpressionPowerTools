@@ -1,6 +1,6 @@
 ﻿# DocAssembly Constructors
 
-[ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) > **DocAssembly(String assemblyName)**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) > **DocAssembly(String assemblyName)**
 
 Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class.
 
@@ -8,9 +8,8 @@ Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.D
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocAssembly(String assemblyName)](#ctor-0) | Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class. |
+| [DocAssembly(String assemblyName)](#docassemblystring-assemblyname) | Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class. |
 
-<a name="#ctor-0"></a>
 ## DocAssembly(String assemblyName)
 
 Initializes a new instance of the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) class.
@@ -23,6 +22,6 @@ public DocAssembly(String assemblyName)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `assemblyName` | [System.String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the assembly to reference. |
+| `assemblyName` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the assembly to reference. |
 
 
