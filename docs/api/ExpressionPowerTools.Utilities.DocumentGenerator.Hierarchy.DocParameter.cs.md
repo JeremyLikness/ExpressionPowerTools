@@ -19,7 +19,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
+| [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension. |
 | [`ParameterType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.ParameterType.prop.md) | [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) | Gets or sets the type of the parameter. |
 | [`Parent`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.Parent.prop.md) | [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) | Gets the owning type. |
-| [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension. |
 

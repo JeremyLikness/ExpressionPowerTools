@@ -10,3 +10,10 @@ public interface IServiceRegistration
 
 Derived  [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md) 
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [IServiceRegistration Register&lt;T, TImpl>()](IServiceRegistration-Register.m.md) | Register a service with two parameters. |
+| [IServiceRegistration RegisterGeneric(Type signature, Type implementation)](IServiceRegistration-RegisterGeneric.m.md) | Register a generic service. |
+| [IServiceRegistration RegisterSingleton&lt;T>(T instance)](IServiceRegistration-RegisterSingleton.m.md) | Register a service with two parameters. |

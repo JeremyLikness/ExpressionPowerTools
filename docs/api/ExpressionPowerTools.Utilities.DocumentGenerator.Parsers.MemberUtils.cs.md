@@ -15,3 +15,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Ctor | Description |
 | :-- | :-- |
 | [static MemberUtils()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.ctor.md#static-memberutils) | Initializes a new instance of the [MemberUtils](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [String GenerateCodeFor(MemberInfo memberInfo)](MemberUtils-GenerateCodeFor.m.md) | Generates the code declaration for documentation. |
+| [String GetSelector(MemberInfo member)](MemberUtils-GetSelector.m.md) | Gets the selector in XML docs for the provided member. |
+| [Void ParseGenericTypeConstraints(Type type, DocTypeParameter docType)](MemberUtils-ParseGenericTypeConstraints.m.md) | Returns a list of generic type constraints. |

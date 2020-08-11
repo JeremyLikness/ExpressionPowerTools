@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
@@ -147,8 +146,15 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     Name = $"{exportedType.Name}.{prop.Name}",
                     XPath = MemberUtils.GetSelector(prop),
                     Type = prop.PropertyType,
+                    TypeParameters = ProcessTypeParameters(prop.PropertyType),
                     Code = MemberUtils.GenerateCodeFor(prop),
                 };
+
+                if (prop.GetIndexParameters().Length > 0)
+                {
+                    property.IsIndexer = true;
+                    property.IndexerType = TypeCache.Cache[prop.GetIndexParameters().First().ParameterType];
+                }
 
                 property.TypeParameter = exportedType.TypeParameters.FirstOrDefault(
                     t => t.Name == property.Type.Name);

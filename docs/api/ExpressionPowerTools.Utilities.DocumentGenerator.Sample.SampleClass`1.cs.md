@@ -29,6 +29,14 @@ Implements  [IComparable&lt;in T>](https://docs.microsoft.com/dotnet/api/system.
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`TypedInstance`](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.TypedInstance.prop.md) | [SampleBaseClass&lt;TypeRef, IComparable&lt;IEnumerator&lt;TypeRef>>>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) | Gets the typed instance. |
 | [`CrossAssemblyReference`](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.CrossAssemblyReference.prop.md) | [ExpressionEnumerator](ExpressionPowerTools.Core.ExpressionEnumerator.cs.md) | Gets a cross-assembly reference. |
+| [`TypedInstance`](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.TypedInstance.prop.md) | [SampleBaseClass&lt;TypeRef, IComparable&lt;IEnumerator&lt;TypeRef>>>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) | Gets the typed instance. |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Int32 CompareTo(SampleClass&lt;T> other)](SampleClass`1-CompareTo.m.md) | Compare to. |
+| [IEnumerator&lt;TypeRef> GetEnumerableFor(TypeRef entity)](SampleClass`1-GetEnumerableFor.m.md) | Get the enumerator. |
+| [Boolean IsReady&lt;T5>(T5 test)](SampleClass`1-IsReady.m.md) | Is it ready test. |
+| [T ProcessComparable&lt;T4>(T4 parameter)](SampleClass`1-ProcessComparable.m.md) | Processes a comparable. |

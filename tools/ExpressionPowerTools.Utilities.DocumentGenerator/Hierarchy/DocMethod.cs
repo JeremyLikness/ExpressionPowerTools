@@ -28,7 +28,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
             new List<DocMethodOverload>();
 
         /// <summary>
-        /// Gets the type the constructors belong to.
+        /// Gets the type the method belongs to.
         /// </summary>
         public DocExportedType MethodType { get; private set; }
 
@@ -41,5 +41,10 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// Gets the file extension.
         /// </summary>
         public override string Extension => "m";
+
+        /// <summary>
+        /// Gets the overridden filename to attach methods to related types.
+        /// </summary>
+        public override string FileName => $"{MethodType.Name.Split('.')[^1]}-{Name}.{Extension}.md";
     }
 }

@@ -19,8 +19,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`MethodOverloads`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodOverloads.prop.md) | [IList&lt;DocMethodOverload>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the method overloads. |
-| [`MethodType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodType.prop.md) | [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) | Gets the type the constructors belong to. |
-| [`MethodReturnType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodReturnType.prop.md) | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) | Gets or sets the return [Type](https://docs.microsoft.com/dotnet/api/system.type) of the method. |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the file extension. |
+| [`FileName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.FileName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the overridden filename to attach methods to related types. |
+| [`MethodOverloads`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodOverloads.prop.md) | [IList&lt;DocMethodOverload>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the method overloads. |
+| [`MethodReturnType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodReturnType.prop.md) | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) | Gets or sets the return [Type](https://docs.microsoft.com/dotnet/api/system.type) of the method. |
+| [`MethodType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodType.prop.md) | [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) | Gets the type the method belongs to. |
 

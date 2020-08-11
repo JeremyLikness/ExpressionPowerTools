@@ -30,6 +30,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             var result = new DocFile(assembly.FileName);
 
             result.AddThenBlankLine(writer.WriteHeading1($"{assembly.Name} API Reference"));
+            result.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(this));
+
             var list = new MarkdownList();
 
             foreach (var ns in assembly.Namespaces.OrderBy(ns => ns.Name))
@@ -141,6 +143,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
             ExtractProperties(t.Properties, result);
 
+            ExtractMethods(t, result);
+
             return result;
         }
 
@@ -170,8 +174,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             var table = new MarkdownTable("Ctor", "Description");
             var tableCtor = new MarkdownTable("Ctor", "Description");
 
-            var idx = 0;
-
             static string GetName(DocOverload overload)
             {
                 var name = overload.Name.Split(".")[^1];
@@ -196,7 +198,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     writer.WriteRelativeLink(
                         name),
                     overload.Description);
-                idx += 1;
             }
 
             writer.AddRange(result.Markdown, table.CloseTable());
@@ -208,12 +209,83 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 ctorFile.AddBlankLine();
                 ctorFile.AddThenBlankLine(writer.WriteHeading2(name));
                 ctorFile.AddThenBlankLine(overload.Description);
+                ExtractTypeParameters(overload.TypeParameters, ctorFile);
                 ExtractCode(overload.Code, ctorFile);
                 ExtractParameters(overload.Parameters, ctorFile);
                 ExtractExceptions(overload.Exceptions, ctorFile);
                 ExtractExamples(overload.Example, ctorFile);
                 ExtractRemarks(overload.Remarks, ctorFile);
             }
+        }
+
+        /// <summary>
+        /// Extracts the methods into a table and files.
+        /// </summary>
+        /// <param name="type">The <see cref="DocExportedType"/>.</param>
+        /// <param name="result">The <see cref="DocFile"/> to parse to.</param>
+        private void ExtractMethods(DocExportedType type, DocFile result)
+        {
+            if (!type.Methods.Any())
+            {
+                return;
+            }
+
+            result.AddThenBlankLine(writer.WriteHeading2($"Methods"));
+
+            var methodTable = new MarkdownTable("Method", "Description");
+
+            foreach (var method in type.Methods.OrderBy(m => m.MethodOverloads[0].TerseName))
+            {
+                var methodFile = new DocFile(method.FileName);
+
+                result.Files.Add(methodFile);
+
+                methodTable.AddRow(
+                    writer.WriteLink(
+                        $"{method.MethodReturnType.FriendlyName} {method.MethodOverloads[0].TerseName}",
+                        method.FileName),
+                    method.MethodOverloads[0].Description);
+
+                methodFile.AddThenBlankLine(writer.WriteHeading1(
+                    $"{MarkdownWriter.Normalize(method.Name)} Method"));
+                methodFile.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(method));
+                methodFile.AddThenBlankLine(method.MethodOverloads[0].Description);
+                methodFile.AddThenBlankLine(writer.WriteHeading2("Overloads"));
+
+                var overloadTable = new MarkdownTable("Overload", "Description");
+                var orderedOverloads = method.MethodOverloads.OrderBy(o => o.TerseName);
+
+                foreach (var overload in orderedOverloads)
+                {
+                    overloadTable.AddRow(
+                        writer.WriteRelativeLink(overload.TerseName),
+                        overload.Description);
+                }
+
+                writer.AddRange(methodFile.Markdown, overloadTable.CloseTable());
+
+                foreach (var overload in orderedOverloads)
+                {
+                    methodFile.AddThenBlankLine(writer.WriteHeading2(overload.TerseName));
+                    methodFile.AddThenBlankLine(overload.Description);
+                    ExtractCode(overload.Code, methodFile);
+                    ExtractTypeParameters(overload.TypeParameters, methodFile);
+                    methodFile.AddThenBlankLine(writer.WriteHeading3("Return Type"));
+                    var returns = writer.WriteLink(overload.Method.MethodReturnType);
+                    if (!string.IsNullOrWhiteSpace(overload.Returns))
+                    {
+                        returns += $" - {overload.Returns}";
+                    }
+
+                    methodFile.AddThenBlankLine(returns);
+                    ExtractParameters(overload.Parameters, methodFile);
+                    ExtractExceptions(overload.Exceptions, methodFile);
+                    ExtractExamples(overload.Example, methodFile);
+                    ExtractRemarks(overload.Remarks, methodFile);
+                }
+            }
+
+            writer.AddRange(result.Markdown, methodTable.CloseTable());
         }
 
         /// <summary>
@@ -273,22 +345,26 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 docFile.AddThenBlankLine(writer.WriteHeading2("Properties"));
                 var table = new MarkdownTable("Property", "Type", "Description");
-                foreach (var property in properties)
+                foreach (var property in properties.OrderBy(p => p.Name))
                 {
                     string typeLink;
 
                     typeLink = writer.WriteLink(property.TypeRef);
 
+                    var name = property.IsIndexer ?
+                        $"Index {property.IndexName}" :
+                        property.Name.NameOnly();
+
                     table.AddRow(
                         writer.WriteLink(
-                            $"`{property.Name.NameOnly()}`",
+                            $"`{name}`",
                             property.FileName),
                         typeLink,
                         property.Description);
 
                     var propertyDoc = new DocFile(property.FileName);
                     propertyDoc.AddThenBlankLine(writer.WriteHeading1(
-                        $"{property.ParentType.Name.NameOnly()}.{property.Name.NameOnly()}"));
+                        $"{property.ParentType.TypeRef.FriendlyName}.{name}"));
                     propertyDoc.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(property));
                     if (!string.IsNullOrWhiteSpace(property.Description))
                     {
@@ -296,6 +372,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     }
 
                     ExtractCode(property.Code, propertyDoc);
+                    ExtractTypeParameters(property.TypeParameters, propertyDoc);
                     ExtractExamples(property.Example, propertyDoc);
                     ExtractRemarks(property.Remarks, propertyDoc);
                     propertyDoc.AddThenBlankLine(writer.WriteHeading3("Property Value"));
@@ -303,10 +380,13 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     if (property.TypeParameter != null && property.TypeParameter.TypeConstraints.Any())
                     {
                         propertyDoc.AddThenBlankLine("**Type Constraints**");
+                        var list = new MarkdownList();
                         foreach (var constraint in property.TypeParameter.TypeConstraints)
                         {
-                            propertyDoc.AddThenBlankLine(writer.WriteLink(constraint));
+                            list.AddItem(writer.WriteLink(constraint));
                         }
+
+                        writer.AddRange(propertyDoc.Markdown, list.CloseList());
                     }
 
                     docFile.Files.Add(propertyDoc);

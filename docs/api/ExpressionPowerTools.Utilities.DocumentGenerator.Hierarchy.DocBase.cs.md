@@ -16,15 +16,22 @@ Derived  [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarch
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Name`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets name of the item. |
 | [`Code`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Code.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the code snippet that defines the type. |
 | [`Description`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Description.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the description. |
-| [`Remarks`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Remarks.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the remarks. |
 | [`Example`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Example.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the example text. |
-| [`Extensions`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Extensions.prop.md) | [IList&lt;TypeRef>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets or sets the list of extensions that reference the type. |
 | [`Exceptions`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Exceptions.prop.md) | [IList&lt;ValueTuple&lt;String, String>>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets or sets the list of exceptions that may be thrown. |
-| [`TypeParameters`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.TypeParameters.prop.md) | [IList&lt;DocTypeParameter>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets or sets the list of type parameters. |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the unique document extension. |
+| [`Extensions`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Extensions.prop.md) | [IList&lt;TypeRef>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets or sets the list of extensions that reference the type. |
 | [`FileName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.FileName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the filename constructed from type and extension. |
+| [`Name`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets name of the item. |
+| [`Remarks`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Remarks.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the remarks. |
+| [`TypeParameters`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.TypeParameters.prop.md) | [IList&lt;DocTypeParameter>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets or sets the list of type parameters. |
 | [`XPath`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.XPath.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the XPath to the element in documentation. |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Boolean Equals(Object obj)](DocBase-Equals.m.md) | Equality: selectors must match. |
+| [Int32 GetHashCode()](DocBase-GetHashCode.m.md) | Hash code. |
+| [String ToString()](DocBase-ToString.m.md) | String display. |

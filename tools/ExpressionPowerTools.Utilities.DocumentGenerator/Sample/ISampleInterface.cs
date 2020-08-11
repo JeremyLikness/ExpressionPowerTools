@@ -1,8 +1,8 @@
-﻿using System;
+﻿// Copyright (c) Jeremy Likness. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the repository root for license information.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Sample
 {
@@ -39,7 +39,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Sample
             where T4 : struct;
 
         /// <summary>
-        /// Is it ready?
+        /// Is it ready test.
         /// </summary>
         /// <typeparam name="T5">The <see cref="IList{T}"/> type.</typeparam>
         /// <param name="test">The list to test.</param>

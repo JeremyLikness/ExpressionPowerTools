@@ -17,3 +17,8 @@ Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collectio
 | Ctor | Description |
 | :-- | :-- |
 | [ExpressionEnumerator(Expression expr)](ExpressionPowerTools.Core.ExpressionEnumerator.ctor.md#expressionenumeratorexpression-expr) | Initializes a new instance of the [ExpressionEnumerator](ExpressionPowerTools.Core.ExpressionEnumerator.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [IEnumerator&lt;Expression> GetEnumerator()](ExpressionEnumerator-GetEnumerator.m.md) | Implements [IEnumerable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) . |

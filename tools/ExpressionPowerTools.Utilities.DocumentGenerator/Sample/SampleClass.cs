@@ -63,6 +63,18 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Sample
         }
 
         /// <summary>
+        /// Is it ready test overload.
+        /// </summary>
+        /// <typeparam name="T5">The type of the test.</typeparam>
+        /// <param name="test">The value to test.</param>
+        /// <param name="number">The number.</param>
+        /// <returns>A value that indicates whether it is ready.</returns>
+        public bool IsReady<T5>(T5 test, int number)
+        {
+            return test.GetHashCode() > number;
+        }
+
+        /// <summary>
         /// Processes a comparable.
         /// </summary>
         /// <typeparam name="T4">The type of the parameter.</typeparam>

@@ -15,3 +15,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Ctor | Description |
 | :-- | :-- |
 | [DocsToMarkdownParser()](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ctor.md#docstomarkdownparser) | Initializes a new instance of the [DocsToMarkdownParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [DocFile Parse(DocAssembly assembly)](DocsToMarkdownParser-Parse.m.md) | Parses a [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) to return a [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) . |

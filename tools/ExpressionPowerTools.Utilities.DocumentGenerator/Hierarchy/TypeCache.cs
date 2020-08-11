@@ -51,9 +51,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// Indexer to type cache.
         /// </summary>
         /// <remarks>
-        /// Contains the logic for "one-sided" assignments, i.e. add type name
-        /// without link or vice versa. On a get, will generate the needed links
-        /// when not present.
+        /// On-demand cache. Will generate needed information on a get and auto-populate the cache.
         /// </remarks>
         /// <param name="index">The <see cref="Type"/> to reference.</param>
         /// <returns>The cache entry (type name and link).</returns>

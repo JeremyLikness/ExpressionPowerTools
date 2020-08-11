@@ -15,3 +15,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Ctor | Description |
 | :-- | :-- |
 | [FileHelper(String location)](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper.ctor.md#filehelperstring-location) | Initializes a new instance of the [FileHelper](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Boolean FileExists(String path)](FileHelper-FileExists.m.md) | Determine if a file exists at the path in the location. |
+| [XmlDocument LoadXmlDocs(String path)](FileHelper-LoadXmlDocs.m.md) | Loads an XML document from the specified path. |

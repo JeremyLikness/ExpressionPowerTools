@@ -23,3 +23,11 @@ Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IC
 | Ctor | Description |
 | :-- | :-- |
 | [QueryInterceptingProvider(IQueryable sourceQuery)](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.ctor.md#queryinterceptingprovideriqueryable-sourcequery) | Initializes a new instance of the [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [IQueryable CreateQuery(Expression expression)](QueryInterceptingProvider`1-CreateQuery.m.md) | Creates a query host with this provider. |
+| [Object Execute(Expression expression)](QueryInterceptingProvider`1-Execute.m.md) | Execute with transformation. |
+| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](QueryInterceptingProvider`1-ExecuteEnumerable.m.md) | Execute the enumerable. |
+| [Void RegisterInterceptor(ExpressionTransformer transformation)](QueryInterceptingProvider`1-RegisterInterceptor.m.md) | Registers the transformation to apply. |

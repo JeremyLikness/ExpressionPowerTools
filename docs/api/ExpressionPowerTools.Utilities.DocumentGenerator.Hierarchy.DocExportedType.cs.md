@@ -19,7 +19,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Namespace`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Namespace.prop.md) | [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) | Gets or sets the namespace the type belongs to. |
 | [`Constructor`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Constructor.prop.md) | [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) | Gets or sets the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) . |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension for a unique filename. |
+| [`Namespace`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Namespace.prop.md) | [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) | Gets or sets the namespace the type belongs to. |
 

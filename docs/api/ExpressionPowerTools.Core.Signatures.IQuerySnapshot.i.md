@@ -16,3 +16,10 @@ Derived  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQu
 | :-- | :-- | :-- |
 | [`Parent`](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.Parent.prop.md) | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) | Gets the parent provider for bubbling events. |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void add_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-add_QueryExecuted.m.md) |  |
+| [Void OnExecuteEnumerableCalled(Expression expression)](IQuerySnapshot-OnExecuteEnumerableCalled.m.md) | Method to raise call. |
+| [Void remove_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-remove_QueryExecuted.m.md) |  |

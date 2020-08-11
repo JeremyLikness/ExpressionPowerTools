@@ -19,8 +19,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Name`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the name of the type. |
-| [`FullName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.FullName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full name of the type. Can be null for type parameter. |
 | [`FriendlyName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.FriendlyName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the friendly, recursed name with generic type annotations. |
+| [`FullName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.FullName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full name of the type. Can be null for type parameter. |
 | [`Link`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.Link.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the link to the type. |
+| [`Name`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the name of the type. |
 

@@ -1,4 +1,4 @@
-﻿# QueryHost&lt;>.CustomProvider
+﻿# QueryHost&lt;T, TProvider>.CustomProvider
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **CustomProvider**
 
@@ -14,5 +14,4 @@ TProvider
 
 **Type Constraints**
 
- [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) 
-
+- [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md)

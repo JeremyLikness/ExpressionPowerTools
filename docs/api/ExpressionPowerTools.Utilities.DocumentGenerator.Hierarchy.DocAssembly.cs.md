@@ -19,6 +19,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Namespaces`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.Namespaces.prop.md) | [ICollection&lt;DocNamespace>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets or sets the list of [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) instances. |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the file extension. |
+| [`Namespaces`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.Namespaces.prop.md) | [ICollection&lt;DocNamespace>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets or sets the list of [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) instances. |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [String ToString()](DocAssembly-ToString.m.md) | String representation. |

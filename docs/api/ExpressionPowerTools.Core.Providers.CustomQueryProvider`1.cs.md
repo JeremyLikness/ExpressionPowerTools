@@ -25,3 +25,10 @@ Derived  [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.Q
 | Ctor | Description |
 | :-- | :-- |
 | [CustomQueryProvider(IQueryable sourceQuery)](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.ctor.md#customqueryprovideriqueryable-sourcequery) | Initializes a new instance of the [CustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [IQueryable CreateQuery(Expression expression)](CustomQueryProvider`1-CreateQuery.m.md) | Creates the query. |
+| [Object Execute(Expression expression)](CustomQueryProvider`1-Execute.m.md) | Runs the query and returns the result. |
+| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](CustomQueryProvider`1-ExecuteEnumerable.m.md) | Return the enumerable result. |

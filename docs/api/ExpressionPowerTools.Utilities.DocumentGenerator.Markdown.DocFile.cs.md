@@ -19,8 +19,16 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Name`](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the name of the file. |
 | [`FileCount`](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.FileCount.prop.md) | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | Gets count of files. |
 | [`Files`](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.Files.prop.md) | [ICollection&lt;DocFile>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets the list of child documents. |
 | [`Markdown`](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.Markdown.prop.md) | [ICollection&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets the markdown lines for the file. |
+| [`Name`](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the name of the file. |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void Add(String line)](DocFile-Add.m.md) | Add a line to the markdown. |
+| [Void AddBlankLine()](DocFile-AddBlankLine.m.md) | Add a blank line. |
+| [Void AddDivider()](DocFile-AddDivider.m.md) | Add a divider. |
+| [Void AddThenBlankLine(String line)](DocFile-AddThenBlankLine.m.md) | Add a line, followed by a blank line. |

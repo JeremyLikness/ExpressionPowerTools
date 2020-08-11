@@ -30,3 +30,10 @@ IList<string> markdown = table.CloseTable();
 | Ctor | Description |
 | :-- | :-- |
 | [MarkdownTable(String[] headings)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.ctor.md#markdowntablestring[]-headings) | Initializes a new instance of the [MarkdownTable](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void AddRow(String[] data)](MarkdownTable-AddRow.m.md) | Add a row to the table. |
+| [IList&lt;String> CloseTable()](MarkdownTable-CloseTable.m.md) | Closes the table and generates the markdown. |
+| [Void SetAlignment(MarkdownColumnAlignment[] alignment)](MarkdownTable-SetAlignment.m.md) | Pass in the alignment settings. |

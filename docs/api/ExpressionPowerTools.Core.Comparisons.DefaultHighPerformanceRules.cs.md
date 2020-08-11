@@ -19,3 +19,11 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 | Ctor | Description |
 | :-- | :-- |
 | [DefaultHighPerformanceRules()](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ctor.md#defaulthighperformancerules) | Initializes a new instance of the [DefaultHighPerformanceRules](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckEquivalency.m.md) | Check equivalency for a given type. |
+| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckSimilarity.m.md) | Perform the check. |
+| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](DefaultHighPerformanceRules-GetRuleForEquivalency.m.md) | Get the equivalency rule. |
+| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](DefaultHighPerformanceRules-GetRuleForSimilarity.m.md) | Get the similiarity rule. |

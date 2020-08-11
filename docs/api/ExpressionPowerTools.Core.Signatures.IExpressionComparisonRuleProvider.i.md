@@ -10,3 +10,11 @@ public interface IExpressionComparisonRuleProvider
 
 Derived  [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) ,  [DefaultHighPerformanceRules](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.cs.md) 
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](IExpressionComparisonRuleProvider-CheckEquivalency.m.md) | Perform the check. |
+| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](IExpressionComparisonRuleProvider-CheckSimilarity.m.md) | Perform the check. |
+| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](IExpressionComparisonRuleProvider-GetRuleForEquivalency.m.md) | Gets a predicate to compare two expressions of a given type. |
+| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](IExpressionComparisonRuleProvider-GetRuleForSimilarity.m.md) | Gets a predicate to compare two expressions of a given type. |

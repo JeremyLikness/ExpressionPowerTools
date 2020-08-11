@@ -17,3 +17,10 @@ Implements  [ICloneable](https://docs.microsoft.com/dotnet/api/system.icloneable
 | Ctor | Description |
 | :-- | :-- |
 | [ExpressionTransformer(Object object, IntPtr method)](ExpressionPowerTools.Core.ExpressionTransformer.ctor.md#expressiontransformerobject-object-intptr-method) | Initializes a new instance of the [ExpressionTransformer](ExpressionPowerTools.Core.ExpressionTransformer.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [IAsyncResult BeginInvoke(Expression source, AsyncCallback callback, Object object)](ExpressionTransformer-BeginInvoke.m.md) |  |
+| [Expression EndInvoke(IAsyncResult result)](ExpressionTransformer-EndInvoke.m.md) |  |
+| [Expression Invoke(Expression source)](ExpressionTransformer-Invoke.m.md) |  |

@@ -19,8 +19,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Method`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Method.prop.md) | [DocMethod](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.cs.md) | Gets the constructor the overload belongs to. |
-| [`Info`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Info.prop.md) | [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) | Gets the constructor info. |
-| [`Parameters`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Parameters.prop.md) | [IList&lt;DocParameter>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the overload parameters. |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension (not implemented). |
+| [`Info`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Info.prop.md) | [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) | Gets the constructor info. |
+| [`Method`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Method.prop.md) | [DocMethod](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.cs.md) | Gets the constructor the overload belongs to. |
+| [`Parameters`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Parameters.prop.md) | [IList&lt;DocParameter>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the overload parameters. |
+| [`Returns`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Returns.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the return comments. |
+| [`TerseName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.TerseName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the terse name for display. |
 

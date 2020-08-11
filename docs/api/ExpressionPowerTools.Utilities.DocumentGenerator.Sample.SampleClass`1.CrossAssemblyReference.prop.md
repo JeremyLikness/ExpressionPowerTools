@@ -1,4 +1,4 @@
-﻿# SampleClass&lt;>.CrossAssemblyReference
+﻿# SampleClass&lt;T>.CrossAssemblyReference
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > [SampleClass<T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) > **CrossAssemblyReference**
 

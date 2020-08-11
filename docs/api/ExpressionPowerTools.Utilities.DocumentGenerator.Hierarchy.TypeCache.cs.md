@@ -21,6 +21,13 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Cache`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.Cache.prop.md) | [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) | Gets the global cache instance. |
+| [`Index [Type]`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.Item.prop.md) | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) | Indexer to type cache. |
 | [`TypeCount`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.TypeCount.prop.md) | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | Gets the count of cached types. |
-| [`Item`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.Item.prop.md) | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) |  |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [String GetFriendlyMethodName(MethodInfo method)](TypeCache-GetFriendlyMethodName.m.md) | Gets the friendly (with generic parameters) name for the method. |
+| [Type GetTypeFromName(String name)](TypeCache-GetTypeFromName.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) from the name. |
+| [Void RegisterAssembly(DocAssembly assembly)](TypeCache-RegisterAssembly.m.md) | Register the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) . |

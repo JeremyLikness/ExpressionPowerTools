@@ -53,6 +53,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         public static readonly string Example = nameof(Example).ToLowerInvariant();
 
         /// <summary>
+        /// Returns comments.
+        /// </summary>
+        public static readonly string Returns = nameof(Returns).ToLowerInvariant();
+
+        /// <summary>
         /// The code element.
         /// </summary>
         public static readonly string Code = nameof(Code).ToLowerInvariant();
@@ -245,8 +250,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// </summary>
         /// <param name="childNodes">The child nodes.</param>
         /// <param name="sb">The <see cref="StringBuilder"/> to write to.</param>
-        /// <param name="assembly">The <see cref="DocAssembly"/> for reference.</param>
-        public static void ParseChildNodes(this XmlNodeList childNodes, StringBuilder sb, DocAssembly assembly)
+        public static void ParseChildNodes(this XmlNodeList childNodes, StringBuilder sb)
         {
             var first = true;
             foreach (var innerElement in childNodes)
@@ -296,7 +300,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                             sb.Append(BlankLine);
                         }
 
-                        elem.ChildNodes.ParseChildNodes(sb, assembly);
+                        elem.ChildNodes.ParseChildNodes(sb);
                     }
                 }
             }
@@ -389,6 +393,13 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 stack.Push((prop.Name.NameOnly(), prop.FileName));
                 Traverse(prop.ParentType, stack);
+                return stack;
+            }
+
+            if (doc is DocMethod method)
+            {
+                stack.Push((method.Name.NameOnly(), method.FileName));
+                Traverse(method.MethodType, stack);
                 return stack;
             }
 

@@ -10,3 +10,8 @@ public interface IQueryInterceptor
 
 Derived  [IQueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider`1.i.md) ,  [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) 
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void RegisterInterceptor(ExpressionTransformer transformation)](IQueryInterceptor-RegisterInterceptor.m.md) | Register the transformation to intercept. |

@@ -1,4 +1,4 @@
-﻿# QuerySnapshotProvider&lt;>.Parent
+﻿# QuerySnapshotProvider&lt;T>.Parent
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QuerySnapshotProvider<T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) > **Parent**
 

@@ -22,6 +22,6 @@ public MarkdownTable(String[] headings)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `headings` | [String[]](https://docs.microsoft.com/dotnet/api/system.string[]) |  |
+| `headings` | [String[]](https://docs.microsoft.com/dotnet/api/system.string[]) | The list of headings. |
 
 

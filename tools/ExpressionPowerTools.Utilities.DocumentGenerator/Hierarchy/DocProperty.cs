@@ -29,6 +29,21 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         public DocExportedType ParentType { get; private set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the property is an indexer.
+        /// </summary>
+        public bool IsIndexer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the index.
+        /// </summary>
+        public TypeRef IndexerType { get; set; }
+
+        /// <summary>
+        /// Gets the name showing the indexer.
+        /// </summary>
+        public string IndexName => $"[{IndexerType?.FriendlyName}]";
+
+        /// <summary>
         /// Gets the extension for properties.
         /// </summary>
         public override string Extension => "prop";

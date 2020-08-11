@@ -10,3 +10,9 @@ public interface IServices
 
 Derived  [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md) 
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [T GetService&lt;T>(Object[] parameters)](IServices-GetService.m.md) | Gets a configured service. |
+| [Void RegisterServices(Action&lt;IServiceRegistration> register)](IServices-RegisterServices.m.md) | Register multiple service and set configured. |

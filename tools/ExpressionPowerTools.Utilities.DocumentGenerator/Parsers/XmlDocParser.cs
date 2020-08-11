@@ -24,7 +24,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         private readonly FileHelper fileHelper;
 
         /// <summary>
-        /// The <see cref="MarkdownWriter"/> for links.
+        /// The <see cref="MarkdownWriter"/> for formatting..
         /// </summary>
         private readonly MarkdownWriter markdownWriter = new MarkdownWriter();
 
@@ -64,10 +64,10 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 var typeNode = doc.SelectSingleNode(type.XPath);
                 if (typeNode is XmlElement node)
                 {
-                    type.Description = GetTextBlock(node, assembly, ParserUtils.Summary);
-                    type.Remarks = GetTextBlock(node, assembly, ParserUtils.Remarks);
-                    type.Example = GetTextBlock(node, assembly, ParserUtils.Example);
-                    ProcessTypeParamDescriptions(node, assembly, type.TypeParameters);
+                    type.Description = GetTextBlock(node, ParserUtils.Summary);
+                    type.Remarks = GetTextBlock(node, ParserUtils.Remarks);
+                    type.Example = GetTextBlock(node, ParserUtils.Example);
+                    ProcessTypeParamDescriptions(node, type.TypeParameters);
                 }
 
                 if (type.Constructor != null && type.Constructor.Overloads.Any())
@@ -77,20 +77,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         var docNode = doc.SelectSingleNode(overload.XPath);
                         if (docNode is XmlElement ctorNode)
                         {
-                            overload.Description = GetTextBlock(ctorNode, assembly, ParserUtils.Summary);
-                            overload.Remarks = GetTextBlock(ctorNode, assembly, ParserUtils.Remarks);
-                            overload.Example = GetTextBlock(ctorNode, assembly, ParserUtils.Example);
-                            overload.Exceptions = GetExceptions(ctorNode, assembly);
-                            foreach (var parameter in overload.Parameters)
-                            {
-                                var parameterNode = ctorNode.SelectSingleNode($"param[@name='{parameter.Name}']");
-                                if (parameterNode is XmlElement param)
-                                {
-                                    var sb = new StringBuilder();
-                                    param.ChildNodes.ParseChildNodes(sb, assembly);
-                                    parameter.Description = sb.ToString();
-                                }
-                            }
+                            overload.Description = GetTextBlock(ctorNode, ParserUtils.Summary);
+                            overload.Remarks = GetTextBlock(ctorNode, ParserUtils.Remarks);
+                            overload.Example = GetTextBlock(ctorNode, ParserUtils.Example);
+                            overload.Exceptions = GetExceptions(ctorNode);
+                            ProcessParameters(overload.Parameters, ctorNode);
+                            ProcessTypeParamDescriptions(ctorNode, overload.TypeParameters);
                         }
 
                         if (string.IsNullOrWhiteSpace(overload.Description))
@@ -102,9 +94,49 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     }
                 }
 
+                if (type.Methods.Any())
+                {
+                    foreach (var method in type.Methods)
+                    {
+                        foreach (var overload in method.MethodOverloads)
+                        {
+                            var oNode = doc.SelectSingleNode(overload.XPath);
+                            if (oNode is XmlElement methodNode)
+                            {
+                                overload.Description = GetTextBlock(methodNode, ParserUtils.Summary);
+                                overload.Remarks = GetTextBlock(methodNode, ParserUtils.Remarks);
+                                overload.Example = GetTextBlock(methodNode, ParserUtils.Example);
+                                overload.Exceptions = GetExceptions(methodNode);
+                                overload.Returns = GetTextBlock(methodNode, ParserUtils.Returns);
+                                ProcessParameters(overload.Parameters, methodNode);
+                                ProcessTypeParamDescriptions(methodNode, overload.Method.MethodType.TypeParameters);
+                            }
+                        }
+                    }
+                }
+
                 if (type.Properties.Any())
                 {
-                    ProcessProperties(doc, type.Properties);
+                    ProcessProperties(doc, type.Properties, type.TypeParameters);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Process the parameter comments.
+        /// </summary>
+        /// <param name="parameters">The list of parameters.</param>
+        /// <param name="ctorNode">The parent element to search from.</param>
+        private void ProcessParameters(IList<DocParameter> parameters, XmlElement ctorNode)
+        {
+            foreach (var parameter in parameters)
+            {
+                var parameterNode = ctorNode.SelectSingleNode($"param[@name='{parameter.Name}']");
+                if (parameterNode is XmlElement param)
+                {
+                    var sb = new StringBuilder();
+                    param.ChildNodes.ParseChildNodes(sb);
+                    parameter.Description = sb.ToString();
                 }
             }
         }
@@ -114,18 +146,32 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// </summary>
         /// <param name="doc">The comments document.</param>
         /// <param name="properties">The property list.</param>
-        private void ProcessProperties(XmlDocument doc, IList<DocProperty> properties)
+        /// <param name="parentTypeParameters">The parent type parameters to inherit descriptions.</param>
+        private void ProcessProperties(
+            XmlDocument doc,
+            IList<DocProperty> properties,
+            IList<DocTypeParameter> parentTypeParameters)
         {
             foreach (var property in properties)
             {
-                var assembly = property.ParentType.Namespace.Assembly;
                 var docNode = doc.SelectSingleNode(property.XPath);
                 if (docNode is XmlElement ctorNode)
                 {
-                    property.Description = GetTextBlock(ctorNode, assembly, ParserUtils.Summary);
-                    property.Remarks = GetTextBlock(ctorNode, assembly, ParserUtils.Remarks);
-                    property.Example = GetTextBlock(ctorNode, assembly, ParserUtils.Example);
+                    property.Description = GetTextBlock(ctorNode, ParserUtils.Summary);
+                    property.Remarks = GetTextBlock(ctorNode, ParserUtils.Remarks);
+                    property.Example = GetTextBlock(ctorNode, ParserUtils.Example);
                 }
+
+                // inherit metadata from parents
+                var typeParams = new List<DocTypeParameter>();
+                foreach (var tParam in property.TypeParameters)
+                {
+                    var candidate = parentTypeParameters.FirstOrDefault(
+                        p => p.Name == tParam.Name);
+                    typeParams.Add(candidate ?? tParam);
+                }
+
+                property.TypeParameters = typeParams;
             }
         }
 
@@ -133,9 +179,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// Gets the exception list, if available.
         /// </summary>
         /// <param name="ctorNode">The node that contains exceptions.</param>
-        /// <param name="assembly">The <see cref="DocAssembly"/> for cross-referencce.</param>
         /// <returns>The list of exceptions and related descriptions.</returns>
-        private IList<(string exception, string description)> GetExceptions(XmlElement ctorNode, DocAssembly assembly)
+        private IList<(string exception, string description)> GetExceptions(XmlElement ctorNode)
         {
             var result = new List<(string exception, string description)>();
             string exception = nameof(exception);
@@ -146,7 +191,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     var exceptionName = exceptionNode.GetAttribute("cref").Split(":")[^1];
                     var exceptionType = TypeCache.Cache.GetTypeFromName(exceptionName);
                     var sb = new StringBuilder();
-                    exceptionNode.ChildNodes.ParseChildNodes(sb, assembly);
+                    exceptionNode.ChildNodes.ParseChildNodes(sb);
 
                     result.Add((
                         markdownWriter.WriteLink(TypeCache.Cache[exceptionType]),
@@ -161,9 +206,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// Enhance type parameters with comments.
         /// </summary>
         /// <param name="parent">The <see cref="XmlElement"/> that holds the type parameters.</param>
-        /// <param name="assembly">The <see cref="DocAssembly"/> to annotate.</param>
         /// <param name="tParams">The type parameters to process.</param>
-        private void ProcessTypeParamDescriptions(XmlElement parent, DocAssembly assembly, IList<DocTypeParameter> tParams)
+        private void ProcessTypeParamDescriptions(XmlElement parent, IList<DocTypeParameter> tParams)
         {
             foreach (var tParam in tParams)
             {
@@ -171,7 +215,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 if (node != null)
                 {
                     var sb = new StringBuilder();
-                    node.ChildNodes.ParseChildNodes(sb, assembly);
+                    node.ChildNodes.ParseChildNodes(sb);
                     tParam.Description = sb.ToString();
                 }
             }
@@ -181,10 +225,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// Extracts a text block.
         /// </summary>
         /// <param name="typeNode">The <see cref="XmlElement"/> that contains the text block.</param>
-        /// <param name="assembly">The <see cref="DocAssembly"/> for reference.</param>
         /// <param name="name">The name of the text block to parse.</param>
         /// <returns>The parsed text with markdown enhancements.</returns>
-        private string GetTextBlock(XmlElement typeNode, DocAssembly assembly, string name)
+        private string GetTextBlock(XmlElement typeNode, string name)
         {
             var node = typeNode.SelectSingleNode(name);
             if (node == null)
@@ -193,7 +236,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             }
 
             var sb = new StringBuilder();
-            node.ChildNodes.ParseChildNodes(sb, assembly);
+            node.ChildNodes.ParseChildNodes(sb);
             return sb.ToString().Trim();
         }
     }

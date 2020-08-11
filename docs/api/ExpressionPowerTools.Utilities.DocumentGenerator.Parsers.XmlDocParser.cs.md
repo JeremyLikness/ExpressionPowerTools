@@ -15,3 +15,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Ctor | Description |
 | :-- | :-- |
 | [XmlDocParser(FileHelper helper)](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ctor.md#xmldocparserfilehelper-helper) | Initializes a new instance of the [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void ParseComments(String path, DocAssembly assembly)](XmlDocParser-ParseComments.m.md) | Parse the comments for an assembly. |

@@ -21,7 +21,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 | :-- | :-- | :-- |
 | [`Constructor`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Constructor.prop.md) | [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) | Gets the constructor the overload belongs to. |
 | [`Ctor`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Ctor.prop.md) | [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) | Gets the constructor info. |
+| [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension (not implemented). |
 | [`IsStatic`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.IsStatic.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets a value indicating whether it is static. |
 | [`Parameters`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Parameters.prop.md) | [IList&lt;DocParameter>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the constructor parameters. |
-| [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension (not implemented). |
 

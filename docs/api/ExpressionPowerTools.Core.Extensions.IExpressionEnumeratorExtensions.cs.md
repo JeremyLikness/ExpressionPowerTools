@@ -10,3 +10,12 @@ public static class IExpressionEnumeratorExtensions
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **IExpressionEnumeratorExtensions**
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [IEnumerable&lt;ConstantExpression> ConstantsOfType&lt;T>(IExpressionEnumerator expressionEnumerator)](IExpressionEnumeratorExtensions-ConstantsOfType.m.md) | Helper extension to extract constants from an expression tree. |
+| [IEnumerable&lt;MethodCallExpression> MethodsFromTemplate&lt;T>(IExpressionEnumerator expressionEnumerator, Expression&lt;Action&lt;T>> method)](IExpressionEnumeratorExtensions-MethodsFromTemplate.m.md) | Use a template to specify the method to search for. |
+| [IEnumerable&lt;MethodCallExpression> MethodsWithName(IExpressionEnumerator expressionEnumerator, String name)](IExpressionEnumeratorExtensions-MethodsWithName.m.md) | Helper extension to extract methods with a particular name. |
+| [IEnumerable&lt;MethodCallExpression> MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](IExpressionEnumeratorExtensions-MethodsWithNameForType.m.md) | Extracts instances of expressions that represent a method            on a type. |
+| [IEnumerable&lt;Expression> OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)](IExpressionEnumeratorExtensions-OfExpressionType.m.md) | Helper extension to extract nodes with a specific [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) value. |

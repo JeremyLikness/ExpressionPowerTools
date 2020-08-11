@@ -10,3 +10,11 @@ public static class ExpressionEquivalency
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionEquivalency**
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Boolean AreEquivalent(Expression source, Expression target)](ExpressionEquivalency-AreEquivalent.m.md) | Entry for equivalency comparisons. Will cast to            known types and compare. |
+| [Boolean NonGenericEnumerablesAreEquivalent(IEnumerable srcEnumerable, IEnumerable tgtEnumerable)](ExpressionEquivalency-NonGenericEnumerablesAreEquivalent.m.md) | Ensures two enumerables are same length an each value is equivalent. |
+| [Boolean NullAndTypeCheck(Expression source, Expression other)](ExpressionEquivalency-NullAndTypeCheck.m.md) | Comparison matrix for types and nulls. |
+| [Boolean ValuesAreEquivalent(Object source, Object target)](ExpressionEquivalency-ValuesAreEquivalent.m.md) | Attempts to compare values in various ways. |

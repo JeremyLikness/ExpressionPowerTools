@@ -1,5 +1,7 @@
 ﻿# ExpressionPowerTools.Core API Reference
 
+[Index](../index.md) > 
+
 - [ExpressionPowerTools.Core](ExpressionPowerTools.Core.n.md)
 - [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md)
 - [ExpressionPowerTools.Core.Contract](ExpressionPowerTools.Core.Contract.n.md)

@@ -20,6 +20,6 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Assembly`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.Assembly.prop.md) | [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) | Gets or sets the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) the namespace belongs to. |
-| [`Types`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.Types.prop.md) | [ICollection&lt;DocExportedType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets or sets the types that belong to the namespace. |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the unique file extension. |
+| [`Types`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.Types.prop.md) | [ICollection&lt;DocExportedType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets or sets the types that belong to the namespace. |
 

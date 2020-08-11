@@ -30,3 +30,9 @@ ICollection<string> result = list.CloseList();
 | Ctor | Description |
 | :-- | :-- |
 | [MarkdownList(Boolean isOrdered)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.ctor.md#markdownlistboolean-isordered) | Initializes a new instance of the [MarkdownList](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void AddItem(String item)](MarkdownList-AddItem.m.md) | Add an item to the list. |
+| [ICollection&lt;String> CloseList()](MarkdownList-CloseList.m.md) | Close the list and obtain the generated markdown. |

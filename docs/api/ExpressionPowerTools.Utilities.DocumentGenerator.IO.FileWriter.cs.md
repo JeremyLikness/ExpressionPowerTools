@@ -15,3 +15,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Ctor | Description |
 | :-- | :-- |
 | [FileWriter(String rootDir)](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.ctor.md#filewriterstring-rootdir) | Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void Purge()](FileWriter-Purge.m.md) | Purges the directory to write fresh documentation. |
+| [Void Write(DocFile file)](FileWriter-Write.m.md) | Write the document and related documents to disk. |

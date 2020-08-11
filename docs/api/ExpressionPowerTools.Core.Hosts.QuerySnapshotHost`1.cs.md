@@ -25,3 +25,9 @@ Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collectio
 | [QuerySnapshotHost(IQueryable&lt;T> source)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostiqueryablet-source) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
 | [QuerySnapshotHost(IQueryable source, Expression expression)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostiqueryable-source-expression-expression) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
 | [QuerySnapshotHost(Expression expression, IQuerySnapshotProvider&lt;T> provider)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostexpression-expression-iquerysnapshotprovidert-provider) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [String RegisterSnap(Action&lt;Expression> callback)](QuerySnapshotHost`1-RegisterSnap.m.md) | Register for a callback when the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is executed. |
+| [Void UnregisterSnap(String id)](QuerySnapshotHost`1-UnregisterSnap.m.md) | Stop listenining. |

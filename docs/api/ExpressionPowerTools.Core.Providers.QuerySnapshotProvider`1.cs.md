@@ -30,3 +30,12 @@ Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IC
 | :-- | :-- | :-- |
 | [`Parent`](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.Parent.prop.md) | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) | Gets or sets the [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) parent. |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void add_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](QuerySnapshotProvider`1-add_QueryExecuted.m.md) |  |
+| [IQueryable CreateQuery(Expression expression)](QuerySnapshotProvider`1-CreateQuery.m.md) | Creates the query. |
+| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](QuerySnapshotProvider`1-ExecuteEnumerable.m.md) | Return the enumerable result. |
+| [Void OnExecuteEnumerableCalled(Expression expression)](QuerySnapshotProvider`1-OnExecuteEnumerableCalled.m.md) | Raise the event. |
+| [Void remove_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](QuerySnapshotProvider`1-remove_QueryExecuted.m.md) |  |

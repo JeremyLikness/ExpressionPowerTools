@@ -5,7 +5,7 @@
 Gets the filename constructed from type and extension.
 
 ```csharp
-public String FileName { get; }
+public virtual String FileName { get; }
 ```
 
 ### Property Value

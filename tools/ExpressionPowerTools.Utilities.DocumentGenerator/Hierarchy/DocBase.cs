@@ -59,7 +59,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// <summary>
         /// Gets the filename constructed from type and extension.
         /// </summary>
-        public string FileName => $"{Name}.{Extension}.md";
+        public virtual string FileName => $"{Name}.{Extension}.md";
 
         /// <summary>
         /// Gets or sets the XPath to the element in documentation.
@@ -71,5 +71,21 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// </summary>
         /// <returns>The type and the name.</returns>
         public override string ToString() => $"{GetType()}:{Name}";
+
+        /// <summary>
+        /// Equality: selectors must match.
+        /// </summary>
+        /// <param name="obj">The target object.</param>
+        /// <returns>A value that indicates whether the objects are equal.</returns>
+        public override bool Equals(object obj)
+        {
+            return obj is DocBase db && db.XPath.Equals(XPath);
+        }
+
+        /// <summary>
+        /// Hash code.
+        /// </summary>
+        /// <returns>Hash code of the selector.</returns>
+        public override int GetHashCode() => XPath.GetHashCode();
     }
 }

@@ -18,3 +18,8 @@ Implements  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.i
 
 Derived  [CustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.cs.md) ,  [IQueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider`1.i.md) ,  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) ,  [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) ,  [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) 
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](ICustomQueryProvider`1-ExecuteEnumerable.m.md) | Execute enumeration from the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |

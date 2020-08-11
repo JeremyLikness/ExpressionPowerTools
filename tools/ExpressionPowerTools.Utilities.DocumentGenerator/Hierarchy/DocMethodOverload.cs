@@ -43,6 +43,23 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
             = new List<DocParameter>();
 
         /// <summary>
+        /// Gets or sets the return comments.
+        /// </summary>
+        public string Returns { get; set; }
+
+        /// <summary>
+        /// Gets the terse name for display.
+        /// </summary>
+        public string TerseName
+        {
+            get
+            {
+                var idx = Name.IndexOf(Info.Name);
+                return Name.Substring(idx);
+            }
+        }
+
+        /// <summary>
         /// Gets the extension (not implemented).
         /// </summary>
         public override string Extension => throw new NotImplementedException();

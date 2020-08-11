@@ -1,4 +1,4 @@
-﻿# QueryHost&lt;>.Expression
+﻿# QueryHost&lt;T, TProvider>.Expression
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **Expression**
 

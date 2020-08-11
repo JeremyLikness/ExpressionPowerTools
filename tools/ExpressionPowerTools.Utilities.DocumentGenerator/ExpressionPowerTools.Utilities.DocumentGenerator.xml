@@ -98,6 +98,19 @@
             </summary>
             <returns>The type and the name.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Equals(System.Object)">
+            <summary>
+            Equality: selectors must match.
+            </summary>
+            <param name="obj">The target object.</param>
+            <returns>A value that indicates whether the objects are equal.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.GetHashCode">
+            <summary>
+            Hash code.
+            </summary>
+            <returns>Hash code of the selector.</returns>
+        </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType">
             <summary>
             Base document for types.
@@ -224,7 +237,7 @@
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodType">
             <summary>
-            Gets the type the constructors belong to.
+            Gets the type the method belongs to.
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.MethodReturnType">
@@ -235,6 +248,11 @@
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.Extension">
             <summary>
             Gets the file extension.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.FileName">
+            <summary>
+            Gets the overridden filename to attach methods to related types.
             </summary>
         </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload">
@@ -263,6 +281,16 @@
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Parameters">
             <summary>
             Gets the overload parameters.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Returns">
+            <summary>
+            Gets or sets the return comments.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.TerseName">
+            <summary>
+            Gets the terse name for display.
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Extension">
@@ -383,6 +411,21 @@
             Gets the parent the property belongs to.
             </summary>
         </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.IsIndexer">
+            <summary>
+            Gets or sets a value indicating whether the property is an indexer.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.IndexerType">
+            <summary>
+            Gets or sets the type of the index.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.IndexName">
+            <summary>
+            Gets the name showing the indexer.
+            </summary>
+        </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.Extension">
             <summary>
             Gets the extension for properties.
@@ -464,9 +507,7 @@
             Indexer to type cache.
             </summary>
             <remarks>
-            Contains the logic for "one-sided" assignments, i.e. add type name
-            without link or vice versa. On a get, will generate the needed links
-            when not present.
+            On-demand cache. Will generate needed information on a get and auto-populate the cache.
             </remarks>
             <param name="index">The <see cref="T:System.Type"/> to reference.</param>
             <returns>The cache entry (type name and link).</returns>
@@ -1028,6 +1069,13 @@
             <param name="constructor">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor"/>.</param>
             <param name="result">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/> to parse to.</param>
         </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractMethods(ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType,ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile)">
+            <summary>
+            Extracts the methods into a table and files.
+            </summary>
+            <param name="type">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType"/>.</param>
+            <param name="result">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/> to parse to.</param>
+        </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.ExtractExceptions(System.Collections.Generic.IList{System.ValueTuple{System.String,System.String}},ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile)">
             <summary>
             Extracts the table of exceptions.
@@ -1108,13 +1156,24 @@
             <param name="type">The <see cref="T:System.Type"/> to parse.</param>
             <param name="docType">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter"/> to parse to.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.ParseParameters(System.Collections.Generic.Dictionary{System.String,System.Int32},System.Reflection.ParameterInfo[],System.Boolean)">
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.ParseParameters(System.Collections.Generic.Dictionary{System.String,System.Int32},System.Collections.Generic.Dictionary{System.String,System.Int32},System.Reflection.ParameterInfo[],System.Boolean)">
             <summary>
             Processes parameters and annotates based on the type map.
             </summary>
-            <param name="genericMap">The generic map for the type or method.</param>
+            <param name="methodGenericMap">The generic map for the method.</param>
+            <param name="typeGenericMap">The generic map for the type.</param>
             <param name="parameters">The list of <see cref="T:System.Reflection.ParameterInfo"/>.</param>
             <param name="isMethod">Set to <c>true</c> for methods and <c>false</c> for types.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.ParseTypeParameters(System.Collections.Generic.Dictionary{System.String,System.Int32},System.Collections.Generic.Dictionary{System.String,System.Int32},System.Boolean,System.Type)">
+            <summary>
+            Parse the type parameters.
+            </summary>
+            <param name="methodGenericMap">The method map of generics.</param>
+            <param name="typeGenericMap">The type map of generics.</param>
+            <param name="isMethod">A value that indicates whether the type is a method.</param>
+            <param name="paramType">The <see cref="T:System.Type"/> to parse.</param>
+            <returns>The qualified name with parameters.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.GenerateCodeForProperty(System.Reflection.PropertyInfo)">
             <summary>
@@ -1184,6 +1243,11 @@
             The example element.
             </summary>
         </member>
+        <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.Returns">
+            <summary>
+            Returns comments.
+            </summary>
+        </member>
         <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.Code">
             <summary>
             The code element.
@@ -1243,13 +1307,12 @@
             <param name="typeName">The name of the type.</param>
             <returns>The displayable value.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.ParseChildNodes(System.Xml.XmlNodeList,System.Text.StringBuilder,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.ParseChildNodes(System.Xml.XmlNodeList,System.Text.StringBuilder)">
             <summary>
             Parses the child nodes of XML documentation to resolve links and code blocks.
             </summary>
             <param name="childNodes">The child nodes.</param>
             <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to write to.</param>
-            <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> for reference.</param>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.NormalizeIndents(System.String)">
             <summary>
@@ -1291,7 +1354,7 @@
         </member>
         <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.markdownWriter">
             <summary>
-            The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter"/> for links.
+            The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter"/> for formatting..
             </summary>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.#ctor(ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper)">
@@ -1314,35 +1377,40 @@
             <param name="doc">The <see cref="T:System.Xml.XmlDocument"/> for XML comments.</param>
             <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> to annotate.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ProcessProperties(System.Xml.XmlDocument,System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty})">
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ProcessParameters(System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter},System.Xml.XmlElement)">
+            <summary>
+            Process the parameter comments.
+            </summary>
+            <param name="parameters">The list of parameters.</param>
+            <param name="ctorNode">The parent element to search from.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ProcessProperties(System.Xml.XmlDocument,System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty},System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter})">
             <summary>
             Parse property comments.
             </summary>
             <param name="doc">The comments document.</param>
             <param name="properties">The property list.</param>
+            <param name="parentTypeParameters">The parent type parameters to inherit descriptions.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.GetExceptions(System.Xml.XmlElement,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly)">
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.GetExceptions(System.Xml.XmlElement)">
             <summary>
             Gets the exception list, if available.
             </summary>
             <param name="ctorNode">The node that contains exceptions.</param>
-            <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> for cross-referencce.</param>
             <returns>The list of exceptions and related descriptions.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ProcessTypeParamDescriptions(System.Xml.XmlElement,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly,System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter})">
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.ProcessTypeParamDescriptions(System.Xml.XmlElement,System.Collections.Generic.IList{ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter})">
             <summary>
             Enhance type parameters with comments.
             </summary>
             <param name="parent">The <see cref="T:System.Xml.XmlElement"/> that holds the type parameters.</param>
-            <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> to annotate.</param>
             <param name="tParams">The type parameters to process.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.GetTextBlock(System.Xml.XmlElement,ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly,System.String)">
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.GetTextBlock(System.Xml.XmlElement,System.String)">
             <summary>
             Extracts a text block.
             </summary>
             <param name="typeNode">The <see cref="T:System.Xml.XmlElement"/> that contains the text block.</param>
-            <param name="assembly">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly"/> for reference.</param>
             <param name="name">The name of the text block to parse.</param>
             <returns>The parsed text with markdown enhancements.</returns>
         </member>
@@ -1402,7 +1470,7 @@
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.IsReady``1(``0)">
             <summary>
-            Is it ready?
+            Is it ready test.
             </summary>
             <typeparam name="T5">The <see cref="T:System.Collections.Generic.IList`1"/> type.</typeparam>
             <param name="test">The list to test.</param>
@@ -1431,7 +1499,7 @@
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.Instance">
             <summary>
             Gets a static instance.
-            </summary>
+            </summary>      
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.Entity">
             <summary>
@@ -1525,6 +1593,15 @@
             </summary>
             <typeparam name="T5">The type of the test.</typeparam>
             <param name="test">The value to test.</param>
+            <returns>A value that indicates whether it is ready.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.IsReady``1(``0,System.Int32)">
+            <summary>
+            Is it ready test overload.
+            </summary>
+            <typeparam name="T5">The type of the test.</typeparam>
+            <param name="test">The value to test.</param>
+            <param name="number">The number.</param>
             <returns>A value that indicates whether it is ready.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.ProcessComparable``1(``0)">

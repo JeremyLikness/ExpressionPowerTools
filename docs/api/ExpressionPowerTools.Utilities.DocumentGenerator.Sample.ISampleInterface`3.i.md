@@ -20,3 +20,11 @@ public interface ISampleInterface<in T1, out T2, T3>
 
 Derived  [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) ,  [SampleClass&lt;T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) 
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Void DoStuff()](ISampleInterface`3-DoStuff.m.md) | Do stuff. |
+| [T2 GetEnumerableFor(T1 entity)](ISampleInterface`3-GetEnumerableFor.m.md) | Gets an enumerable for the entity. |
+| [Boolean IsReady&lt;T5>(T5 test)](ISampleInterface`3-IsReady.m.md) | Is it ready test. |
+| [T3 ProcessComparable&lt;T4>(T4 parameter)](ISampleInterface`3-ProcessComparable.m.md) | Process a comparable item. |

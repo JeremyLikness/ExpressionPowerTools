@@ -15,3 +15,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Ctor | Description |
 | :-- | :-- |
 | [AssemblyParser(Assembly assembly)](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.ctor.md#assemblyparserassembly-assembly) | Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class. |
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [DocAssembly Parse(DocAssembly doc)](AssemblyParser-Parse.m.md) | Parses the assembly. |
