@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Fetch
+      run: git fetch -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" fetch --prune --progress origin
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
