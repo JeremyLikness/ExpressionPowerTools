@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
     - name: Fetch
-      run: git fetch -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" fetch --prune --progress origin
+      run: git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" fetch --prune --progress origin
+    - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
