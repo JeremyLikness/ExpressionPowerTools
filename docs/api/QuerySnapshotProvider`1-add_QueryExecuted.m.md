@@ -1,4 +1,4 @@
-﻿# add_QueryExecuted Method
+﻿# QuerySnapshotProvider&lt;T>.add_QueryExecuted Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QuerySnapshotProvider<T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) > **add_QueryExecuted**
 

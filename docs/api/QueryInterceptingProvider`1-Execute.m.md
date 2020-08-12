@@ -1,4 +1,4 @@
-﻿# Execute Method
+﻿# QueryInterceptingProvider&lt;T>.Execute Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QueryInterceptingProvider<T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) > **Execute**
 

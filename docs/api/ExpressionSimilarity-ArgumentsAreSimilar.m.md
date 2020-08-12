@@ -1,4 +1,4 @@
-﻿# ArgumentsAreSimilar Method
+﻿# ExpressionSimilarity.ArgumentsAreSimilar Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) > **ArgumentsAreSimilar**
 

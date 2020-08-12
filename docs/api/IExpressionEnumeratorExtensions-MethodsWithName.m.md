@@ -1,4 +1,4 @@
-﻿# MethodsWithName Method
+﻿# IExpressionEnumeratorExtensions.MethodsWithName Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [IExpressionEnumeratorExtensions](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.cs.md) > **MethodsWithName**
 

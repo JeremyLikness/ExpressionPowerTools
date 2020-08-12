@@ -1,4 +1,4 @@
-﻿# QueryHost&lt;T, TProvider>.Provider
+﻿# QueryHost&lt;T, TProvider>.Provider Property
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **Provider**
 

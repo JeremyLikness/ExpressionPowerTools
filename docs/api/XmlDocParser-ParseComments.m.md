@@ -1,4 +1,4 @@
-﻿# ParseComments Method
+﻿# XmlDocParser.ParseComments Method
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) > **ParseComments**
 

@@ -1,4 +1,4 @@
-﻿# TypeCache.TypeCount
+﻿# TypeCache.TypeCount Property
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) > **TypeCount**
 

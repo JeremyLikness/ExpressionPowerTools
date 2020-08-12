@@ -1,4 +1,4 @@
-﻿# AndEnumerableExpressionsMustBeSimilar Method
+﻿# ExpressionRulesExtensions.AndEnumerableExpressionsMustBeSimilar Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionRulesExtensions](ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.cs.md) > **AndEnumerableExpressionsMustBeSimilar**
 

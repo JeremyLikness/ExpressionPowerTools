@@ -1,4 +1,4 @@
-﻿# RegisterGeneric Method
+﻿# IServiceRegistration.RegisterGeneric Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) > **RegisterGeneric**
 

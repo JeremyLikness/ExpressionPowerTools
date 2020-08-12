@@ -1,4 +1,4 @@
-﻿# GetEnumerator Method
+﻿# ExpressionEnumerator.GetEnumerator Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.n.md) > [ExpressionEnumerator](ExpressionPowerTools.Core.ExpressionEnumerator.cs.md) > **GetEnumerator**
 

@@ -1,4 +1,4 @@
-﻿# GetEnumerableFor Method
+﻿# SampleClass&lt;T>.GetEnumerableFor Method
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > [SampleClass<T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) > **GetEnumerableFor**
 

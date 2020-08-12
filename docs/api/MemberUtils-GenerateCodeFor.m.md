@@ -1,4 +1,4 @@
-﻿# GenerateCodeFor Method
+﻿# MemberUtils.GenerateCodeFor Method
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [MemberUtils](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.cs.md) > **GenerateCodeFor**
 

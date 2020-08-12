@@ -1,4 +1,4 @@
-﻿# AreEquivalent Method
+﻿# IExpressionEvaluator.AreEquivalent Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.i.md) > **AreEquivalent**
 

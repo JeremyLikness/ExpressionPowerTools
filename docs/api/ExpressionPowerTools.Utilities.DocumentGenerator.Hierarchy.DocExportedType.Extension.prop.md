@@ -1,4 +1,4 @@
-﻿# DocExportedType.Extension
+﻿# DocExportedType.Extension Property
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) > **Extension**
 

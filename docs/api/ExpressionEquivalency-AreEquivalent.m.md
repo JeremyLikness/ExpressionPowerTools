@@ -1,4 +1,4 @@
-﻿# AreEquivalent Method
+﻿# ExpressionEquivalency.AreEquivalent Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [ExpressionEquivalency](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.cs.md) > **AreEquivalent**
 

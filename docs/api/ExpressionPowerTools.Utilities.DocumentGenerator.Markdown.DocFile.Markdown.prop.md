@@ -1,4 +1,4 @@
-﻿# DocFile.Markdown
+﻿# DocFile.Markdown Property
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) > **Markdown**
 

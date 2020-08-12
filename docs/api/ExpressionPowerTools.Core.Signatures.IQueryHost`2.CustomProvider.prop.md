@@ -1,4 +1,4 @@
-﻿# IQueryHost&lt;T, TProvider>.CustomProvider
+﻿# IQueryHost&lt;T, TProvider>.CustomProvider Property
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQueryHost<T, TProvider>](ExpressionPowerTools.Core.Signatures.IQueryHost`2.i.md) > **CustomProvider**
 

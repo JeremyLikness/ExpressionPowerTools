@@ -1,4 +1,4 @@
-﻿# RegisterInterceptor Method
+﻿# IQueryInterceptor.RegisterInterceptor Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQueryInterceptor](ExpressionPowerTools.Core.Signatures.IQueryInterceptor.i.md) > **RegisterInterceptor**
 

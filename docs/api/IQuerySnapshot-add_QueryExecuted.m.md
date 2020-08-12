@@ -1,4 +1,4 @@
-﻿# add_QueryExecuted Method
+﻿# IQuerySnapshot.add_QueryExecuted Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) > **add_QueryExecuted**
 

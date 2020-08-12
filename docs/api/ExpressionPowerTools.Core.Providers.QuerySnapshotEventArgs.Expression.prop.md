@@ -1,4 +1,4 @@
-﻿# QuerySnapshotEventArgs.Expression
+﻿# QuerySnapshotEventArgs.Expression Property
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) > **Expression**
 

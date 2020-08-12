@@ -1,4 +1,4 @@
-﻿# remove_QueryExecuted Method
+﻿# QuerySnapshotProvider&lt;T>.remove_QueryExecuted Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QuerySnapshotProvider<T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) > **remove_QueryExecuted**
 

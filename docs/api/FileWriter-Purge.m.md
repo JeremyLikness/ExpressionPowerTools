@@ -1,4 +1,4 @@
-﻿# Purge Method
+﻿# FileWriter.Purge Method
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.IO](ExpressionPowerTools.Utilities.DocumentGenerator.IO.n.md) > [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) > **Purge**
 

@@ -1,4 +1,4 @@
-﻿# BeginInvoke Method
+﻿# ExpressionTransformer.BeginInvoke Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.n.md) > [ExpressionTransformer](ExpressionPowerTools.Core.ExpressionTransformer.cs.md) > **BeginInvoke**
 

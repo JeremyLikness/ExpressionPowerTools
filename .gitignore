@@ -6,6 +6,9 @@
 # Build objects
 obj/
 
+# Packages
+packages/
+
 # Build assets
 bin/
 

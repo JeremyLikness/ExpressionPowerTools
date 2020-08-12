@@ -1,4 +1,4 @@
-﻿# DefaultComparisonRules.DefaultNewArraySimilarities
+﻿# DefaultComparisonRules.DefaultNewArraySimilarities Property
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultNewArraySimilarities**
 

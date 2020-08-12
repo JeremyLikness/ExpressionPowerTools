@@ -1,4 +1,4 @@
-﻿# RegisterSingleton Method
+﻿# IServiceRegistration.RegisterSingleton Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) > **RegisterSingleton**
 

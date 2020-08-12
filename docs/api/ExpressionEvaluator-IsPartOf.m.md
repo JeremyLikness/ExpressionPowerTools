@@ -1,4 +1,4 @@
-﻿# IsPartOf Method
+﻿# ExpressionEvaluator.IsPartOf Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [ExpressionEvaluator](ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.cs.md) > **IsPartOf**
 

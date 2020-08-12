@@ -1,4 +1,4 @@
-﻿# GetService Method
+﻿# IServices.GetService Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IServices](ExpressionPowerTools.Core.Signatures.IServices.i.md) > **GetService**
 

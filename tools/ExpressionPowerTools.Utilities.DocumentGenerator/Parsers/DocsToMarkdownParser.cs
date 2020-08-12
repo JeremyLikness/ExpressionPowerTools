@@ -246,8 +246,10 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         method.FileName),
                     method.MethodOverloads[0].Description);
 
+                var parent = MarkdownWriter.Normalize(method.MethodType.TypeRef.FriendlyName);
+
                 methodFile.AddThenBlankLine(writer.WriteHeading1(
-                    $"{MarkdownWriter.Normalize(method.Name)} Method"));
+                    $"{parent}.{MarkdownWriter.Normalize(method.Name)} Method"));
                 methodFile.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(method));
                 methodFile.AddThenBlankLine(method.MethodOverloads[0].Description);
                 methodFile.AddThenBlankLine(writer.WriteHeading2("Overloads"));
@@ -364,7 +366,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
                     var propertyDoc = new DocFile(property.FileName);
                     propertyDoc.AddThenBlankLine(writer.WriteHeading1(
-                        $"{property.ParentType.TypeRef.FriendlyName}.{name}"));
+                        $"{property.ParentType.TypeRef.FriendlyName}.{name} Property"));
                     propertyDoc.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(property));
                     if (!string.IsNullOrWhiteSpace(property.Description))
                     {

@@ -1,4 +1,4 @@
-﻿# ExecuteEnumerable Method
+﻿# ICustomQueryProvider&lt;T>.ExecuteEnumerable Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [ICustomQueryProvider<T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) > **ExecuteEnumerable**
 

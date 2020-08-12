@@ -1,4 +1,4 @@
-﻿# VariableNotNull Method
+﻿# Ensure.VariableNotNull Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Contract](ExpressionPowerTools.Core.Contract.n.md) > [Ensure](ExpressionPowerTools.Core.Contract.Ensure.cs.md) > **VariableNotNull**
 

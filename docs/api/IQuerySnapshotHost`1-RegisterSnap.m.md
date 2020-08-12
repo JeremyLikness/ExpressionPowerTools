@@ -1,4 +1,4 @@
-﻿# RegisterSnap Method
+﻿# IQuerySnapshotHost&lt;T>.RegisterSnap Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQuerySnapshotHost<T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.i.md) > **RegisterSnap**
 

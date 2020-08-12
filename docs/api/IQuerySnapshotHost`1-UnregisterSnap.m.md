@@ -1,4 +1,4 @@
-﻿# UnregisterSnap Method
+﻿# IQuerySnapshotHost&lt;T>.UnregisterSnap Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQuerySnapshotHost<T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.i.md) > **UnregisterSnap**
 

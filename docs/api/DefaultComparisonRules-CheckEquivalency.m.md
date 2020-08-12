@@ -1,4 +1,4 @@
-﻿# CheckEquivalency Method
+﻿# DefaultComparisonRules.CheckEquivalency Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **CheckEquivalency**
 

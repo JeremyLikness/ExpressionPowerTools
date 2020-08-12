@@ -1,4 +1,4 @@
-﻿# WhitespaceNotAllowedException Method
+﻿# ExceptionHelper.WhitespaceNotAllowedException Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Resources](ExpressionPowerTools.Core.Resources.n.md) > [ExceptionHelper](ExpressionPowerTools.Core.Resources.ExceptionHelper.cs.md) > **WhitespaceNotAllowedException**
 

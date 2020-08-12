@@ -1,4 +1,4 @@
-﻿# CheckSimilarity Method
+﻿# IExpressionComparisonRuleProvider.CheckSimilarity Method
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) > **CheckSimilarity**
 

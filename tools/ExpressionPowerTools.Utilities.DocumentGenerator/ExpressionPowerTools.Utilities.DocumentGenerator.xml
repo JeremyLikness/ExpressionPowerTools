@@ -1499,7 +1499,7 @@
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.Instance">
             <summary>
             Gets a static instance.
-            </summary>      
+            </summary>
         </member>
         <member name="P:ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.Entity">
             <summary>

@@ -1,4 +1,4 @@
-﻿# GetEnumerableFor Method
+﻿# ISampleInterface&lt;in T1, out T2, T3>.GetEnumerableFor Method
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > [ISampleInterface<in T1, out T2, T3>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.i.md) > **GetEnumerableFor**
 

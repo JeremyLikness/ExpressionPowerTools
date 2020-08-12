@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\jeliknes\source\repos\ExpressionPowerTools\tools\ExpressionPowerTools.Utilities.DocumentGenerator\ExpressionPowerTools.Utilities.DocumentGenerator.xml</DocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>../../docs/api/ExpressionPowerTools.Utilities.DocumentGenerator.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

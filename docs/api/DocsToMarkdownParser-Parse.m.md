@@ -1,4 +1,4 @@
-﻿# Parse Method
+﻿# DocsToMarkdownParser.Parse Method
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [DocsToMarkdownParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.DocsToMarkdownParser.cs.md) > **Parse**
 

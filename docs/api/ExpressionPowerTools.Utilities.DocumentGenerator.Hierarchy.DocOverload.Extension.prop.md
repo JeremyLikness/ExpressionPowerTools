@@ -1,4 +1,4 @@
-﻿# DocOverload.Extension
+﻿# DocOverload.Extension Property
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) > **Extension**
 
