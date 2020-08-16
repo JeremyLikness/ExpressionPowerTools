@@ -1,20 +1,24 @@
 <Project>
-    <PropertyGroup>
-        <Copyright>(c) Copyright 2020 Jeremy Likness.</Copyright>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Authors>Jeremy Likness</Authors>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DefaultNetCoreTargetFramework>netstandard2.0</DefaultNetCoreTargetFramework>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <RepositoryUrl>https://github.com/JeremyLikness/ExpressionPowerTools</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <PackageTags>Expression Power Tools;expression-power-tools;expressions;linq;iqueryable</PackageTags>
-        <Product>Expression Power Tools</Product>
-        <UseFullSemVerForNuGet>true</UseFullSemVerForNuGet>
-        <IsPackable>false</IsPackable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <Copyright>(c) Copyright 2020 Jeremy Likness.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Jeremy Likness</Authors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefaultNetCoreTargetFramework>netstandard2.0</DefaultNetCoreTargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RepositoryUrl>https://github.com/JeremyLikness/ExpressionPowerTools</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Expression Power Tools;expression-power-tools;expressions;linq;iqueryable</PackageTags>
+    <Product>Expression Power Tools</Product>
+    <UseFullSemVerForNuGet>true</UseFullSemVerForNuGet>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning">
+      <Version>3.2.31</Version>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>
