@@ -10,6 +10,7 @@
   <PropertyGroup>
     <RepositoryUrl>https://github.com/JeremyLikness/ExpressionPowerTools</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/JeremyLikness/ExpressionPowerTools/blob/master/docs/index.md</PackageProjectUrl>
     <PackageTags>Expression Power Tools;expression-power-tools;expressions;linq;iqueryable</PackageTags>
     <Product>Expression Power Tools</Product>
     <UseFullSemVerForNuGet>true</UseFullSemVerForNuGet>
