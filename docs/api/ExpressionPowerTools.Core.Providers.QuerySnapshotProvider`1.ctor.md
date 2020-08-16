@@ -43,3 +43,9 @@ public QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)
 | `parent` | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) | The parent that created this. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

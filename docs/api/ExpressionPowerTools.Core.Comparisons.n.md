@@ -12,3 +12,9 @@
 | [ExpressionEvaluator](ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.cs.md) | Implementation of [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.i.md) for advanced            expression comparisons. |
 | [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) | Expression similarity methods. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

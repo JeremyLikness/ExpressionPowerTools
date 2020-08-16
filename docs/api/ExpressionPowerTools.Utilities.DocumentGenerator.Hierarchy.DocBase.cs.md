@@ -35,3 +35,9 @@ Derived  [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarch
 | [Boolean Equals(Object obj)](DocBase-Equals.m.md) | Equality: selectors must match. |
 | [Int32 GetHashCode()](DocBase-GetHashCode.m.md) | Hash code. |
 | [String ToString()](DocBase-ToString.m.md) | String display. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

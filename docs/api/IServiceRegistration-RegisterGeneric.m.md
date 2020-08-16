@@ -46,3 +46,9 @@ var target = source.GetService<IQueryHost<IdType, ICustomQueryProvider<IdType>>>
 To register a generic type, register the open type descriptor and the open
             implementation. Request the typed implementation.
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

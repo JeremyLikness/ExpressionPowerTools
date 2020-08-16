@@ -26,3 +26,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 | [`Returns`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.Returns.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the return comments. |
 | [`TerseName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.TerseName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the terse name for display. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

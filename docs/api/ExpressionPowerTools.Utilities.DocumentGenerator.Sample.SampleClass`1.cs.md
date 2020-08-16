@@ -40,3 +40,9 @@ Implements  [IComparable&lt;in T>](https://docs.microsoft.com/dotnet/api/system.
 | [IEnumerator&lt;TypeRef> GetEnumerableFor(TypeRef entity)](SampleClass`1-GetEnumerableFor.m.md) | Get the enumerator. |
 | [Boolean IsReady&lt;T5>(T5 test)](SampleClass`1-IsReady.m.md) | Is it ready test. |
 | [T ProcessComparable&lt;T4>(T4 parameter)](SampleClass`1-ProcessComparable.m.md) | Processes a comparable. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

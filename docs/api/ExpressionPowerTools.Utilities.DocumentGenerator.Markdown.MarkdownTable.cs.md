@@ -37,3 +37,9 @@ IList<string> markdown = table.CloseTable();
 | [Void AddRow(String[] data)](MarkdownTable-AddRow.m.md) | Add a row to the table. |
 | [IList&lt;String> CloseTable()](MarkdownTable-CloseTable.m.md) | Closes the table and generates the markdown. |
 | [Void SetAlignment(MarkdownColumnAlignment[] alignment)](MarkdownTable-SetAlignment.m.md) | Pass in the alignment settings. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

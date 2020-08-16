@@ -21,3 +21,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | :-- | :-- |
 | [Boolean FileExists(String path)](FileHelper-FileExists.m.md) | Determine if a file exists at the path in the location. |
 | [XmlDocument LoadXmlDocs(String path)](FileHelper-LoadXmlDocs.m.md) | Loads an XML document from the specified path. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

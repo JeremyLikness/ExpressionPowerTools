@@ -29,3 +29,9 @@ public static IEnumerable<Expression> OfExpressionType(IExpressionEnumerator exp
 | `type` | [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) | The [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) to extract. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

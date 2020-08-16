@@ -12,3 +12,9 @@
 | [ParserUtils](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.cs.md) | Global parsing utilities. |
 | [XmlDocParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.XmlDocParser.cs.md) | Parses XML comments to enhance the reflected documentation. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

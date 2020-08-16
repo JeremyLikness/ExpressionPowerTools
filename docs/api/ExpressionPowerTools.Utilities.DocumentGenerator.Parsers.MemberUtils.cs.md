@@ -22,3 +22,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [String GenerateCodeFor(MemberInfo memberInfo)](MemberUtils-GenerateCodeFor.m.md) | Generates the code declaration for documentation. |
 | [String GetSelector(MemberInfo member)](MemberUtils-GetSelector.m.md) | Gets the selector in XML docs for the provided member. |
 | [Void ParseGenericTypeConstraints(Type type, DocTypeParameter docType)](MemberUtils-ParseGenericTypeConstraints.m.md) | Returns a list of generic type constraints. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

@@ -12,3 +12,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [V
 
 Implements  [IComparable](https://docs.microsoft.com/dotnet/api/system.icomparable) ,  [IConvertible](https://docs.microsoft.com/dotnet/api/system.iconvertible) ,  [IFormattable](https://docs.microsoft.com/dotnet/api/system.iformattable) 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

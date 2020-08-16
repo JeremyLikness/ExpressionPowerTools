@@ -27,3 +27,9 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 | [Boolean CheckSimilarity&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckSimilarity.m.md) | Perform the check. |
 | [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](DefaultHighPerformanceRules-GetRuleForEquivalency.m.md) | Get the equivalency rule. |
 | [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](DefaultHighPerformanceRules-GetRuleForSimilarity.m.md) | Get the similiarity rule. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

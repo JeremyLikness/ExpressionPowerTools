@@ -11,3 +11,9 @@
 - [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md)
 - [ExpressionPowerTools.Core.Resources](ExpressionPowerTools.Core.Resources.n.md)
 - [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md)
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

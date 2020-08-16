@@ -74,3 +74,9 @@ The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistra
 | [T GetService&lt;T>(Object[] parameters)](ServiceHost-GetService.m.md) | Get the service implementation. |
 | [Void Initialize(Action&lt;IServiceRegistration> registration)](ServiceHost-Initialize.m.md) | Initialize the container. Can only be done once unlessis called. |
 | [Void Reset()](ServiceHost-Reset.m.md) | Reset to new services instance. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

@@ -19,3 +19,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [IEnumerable&lt;MethodCallExpression> MethodsWithName(IExpressionEnumerator expressionEnumerator, String name)](IExpressionEnumeratorExtensions-MethodsWithName.m.md) | Helper extension to extract methods with a particular name. |
 | [IEnumerable&lt;MethodCallExpression> MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](IExpressionEnumeratorExtensions-MethodsWithNameForType.m.md) | Extracts instances of expressions that represent a method            on a type. |
 | [IEnumerable&lt;Expression> OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)](IExpressionEnumeratorExtensions-OfExpressionType.m.md) | Helper extension to extract nodes with a specific [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) value. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

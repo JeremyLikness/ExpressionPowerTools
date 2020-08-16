@@ -36,3 +36,9 @@ ICollection<string> result = list.CloseList();
 | :-- | :-- |
 | [Void AddItem(String item)](MarkdownList-AddItem.m.md) | Add an item to the list. |
 | [ICollection&lt;String> CloseList()](MarkdownList-CloseList.m.md) | Close the list and obtain the generated markdown. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

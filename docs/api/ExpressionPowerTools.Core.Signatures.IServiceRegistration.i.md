@@ -17,3 +17,9 @@ Derived  [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md)
 | [IServiceRegistration Register&lt;T, TImpl>()](IServiceRegistration-Register.m.md) | Register a service with two parameters. |
 | [IServiceRegistration RegisterGeneric(Type signature, Type implementation)](IServiceRegistration-RegisterGeneric.m.md) | Register a generic service. |
 | [IServiceRegistration RegisterSingleton&lt;T>(T instance)](IServiceRegistration-RegisterSingleton.m.md) | Register a service with two parameters. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

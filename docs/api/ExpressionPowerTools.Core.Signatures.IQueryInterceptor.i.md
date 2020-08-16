@@ -15,3 +15,9 @@ Derived  [IQueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Signatures
 | Method | Description |
 | :-- | :-- |
 | [Void RegisterInterceptor(ExpressionTransformer transformation)](IQueryInterceptor-RegisterInterceptor.m.md) | Register the transformation to intercept. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

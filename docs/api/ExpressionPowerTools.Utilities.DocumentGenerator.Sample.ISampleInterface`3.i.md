@@ -28,3 +28,9 @@ Derived  [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGen
 | [T2 GetEnumerableFor(T1 entity)](ISampleInterface`3-GetEnumerableFor.m.md) | Gets an enumerable for the entity. |
 | [Boolean IsReady&lt;T5>(T5 test)](ISampleInterface`3-IsReady.m.md) | Is it ready test. |
 | [T3 ProcessComparable&lt;T4>(T4 parameter)](ISampleInterface`3-ProcessComparable.m.md) | Process a comparable item. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

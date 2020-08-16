@@ -28,3 +28,9 @@ public static String ExtractLink(XmlElement see)
 | `see` | [XmlElement](https://docs.microsoft.com/dotnet/api/system.xml.xmlelement) | The [XmlElement](https://docs.microsoft.com/dotnet/api/system.xml.xmlelement) with the reference. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

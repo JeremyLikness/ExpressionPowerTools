@@ -53,3 +53,9 @@ The purpose of these extensions are to provide fluent building blocks for rules.
 | [Expression&lt;Func&lt;T, T, Boolean>> True&lt;T>()](ExpressionRulesExtensions-True.m.md) | Truth. |
 | [Expression&lt;Func&lt;T, T, Boolean>> TypesMustBeSimilar&lt;T>()](ExpressionRulesExtensions-TypesMustBeSimilar.m.md) | Types of the expressions must be similar. |
 | [Expression&lt;Func&lt;T, T, Boolean>> TypesMustMatch&lt;T>()](ExpressionRulesExtensions-TypesMustMatch.m.md) | Types of the expressions must be the same. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

@@ -31,3 +31,9 @@ Use the register overloads to register services. Callwhen done setting up and
 | [IServiceRegistration RegisterGeneric(Type signature, Type implementation)](Services-RegisterGeneric.m.md) | Register a generic service. |
 | [Void RegisterServices(Action&lt;IServiceRegistration> register)](Services-RegisterServices.m.md) | Register multiple services and call configured. |
 | [IServiceRegistration RegisterSingleton&lt;T>(T instance)](Services-RegisterSingleton.m.md) | Register a singleton to satisfy a type request. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

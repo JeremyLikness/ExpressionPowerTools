@@ -21,3 +21,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [Boolean HasFragment&lt;T>(IQueryable&lt;T> source, Func&lt;IQueryable&lt;T>, IQueryable&lt;T>> fragment)](IQueryableExtensions-HasFragment.m.md) | Determine whether a fragment of queryable exists in the            target query. |
 | [Boolean IsEquivalentTo(IQueryable source, IQueryable target)](IQueryableExtensions-IsEquivalentTo.m.md) | Determines whether the expression tree of the query is equivalent to the other query. |
 | [Boolean IsSimilarTo(IQueryable source, IQueryable target)](IQueryableExtensions-IsSimilarTo.m.md) | Determines whether the expression tree of the query is similar to the other query. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

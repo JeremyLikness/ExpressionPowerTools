@@ -65,3 +65,9 @@ Since the logic is Boolean, the statement always returns a `bool` . If the condi
             is false, it evaluates to the result of the `ifFalse` condition. The `ifFalse` condition evaluates to `true` by default so it can be part of an "AND" chain. If it
             is part of an "OR" chain, you should override `ifFalse` to return `false` .
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

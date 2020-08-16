@@ -25,3 +25,9 @@ Derived  [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshot
 | :-- | :-- |
 | [String RegisterSnap(Action&lt;Expression> callback)](IQuerySnapshotHost`1-RegisterSnap.m.md) | Register a callback to receive the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) when snapped. |
 | [Void UnregisterSnap(String id)](IQuerySnapshotHost`1-UnregisterSnap.m.md) | Unregister for callbacks. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

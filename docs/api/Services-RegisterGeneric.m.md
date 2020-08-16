@@ -29,3 +29,9 @@ public virtual IServiceRegistration RegisterGeneric(Type signature, Type impleme
 | `implementation` | [Type](https://docs.microsoft.com/dotnet/api/system.type) | The implementation type. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

@@ -32,3 +32,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [Void AddBlankLine()](DocFile-AddBlankLine.m.md) | Add a blank line. |
 | [Void AddDivider()](DocFile-AddDivider.m.md) | Add a divider. |
 | [Void AddThenBlankLine(String line)](DocFile-AddThenBlankLine.m.md) | Add a line, followed by a blank line. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

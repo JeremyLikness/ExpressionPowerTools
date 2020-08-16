@@ -39,3 +39,9 @@ Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IC
 | [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](QuerySnapshotProvider`1-ExecuteEnumerable.m.md) | Return the enumerable result. |
 | [Void OnExecuteEnumerableCalled(Expression expression)](QuerySnapshotProvider`1-OnExecuteEnumerableCalled.m.md) | Raise the event. |
 | [Void remove_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](QuerySnapshotProvider`1-remove_QueryExecuted.m.md) |  |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

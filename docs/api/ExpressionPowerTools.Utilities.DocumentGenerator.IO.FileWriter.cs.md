@@ -21,3 +21,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | :-- | :-- |
 | [Void Purge()](FileWriter-Purge.m.md) | Purges the directory to write fresh documentation. |
 | [Void Write(DocFile file)](FileWriter-Write.m.md) | Write the document and related documents to disk. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

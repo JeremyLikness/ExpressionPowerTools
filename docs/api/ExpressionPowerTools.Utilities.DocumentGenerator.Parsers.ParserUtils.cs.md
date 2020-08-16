@@ -29,3 +29,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [String ParseImplementedInterfaces(IList&lt;TypeRef> implementedInterfaces)](ParserUtils-ParseImplementedInterfaces.m.md) | Parses the list of implemented interfaces to a text list. |
 | [String ParseInheritance(IList&lt;TypeRef> inheritance)](ParserUtils-ParseInheritance.m.md) | Parses the inheritance chain into text. |
 | [String ProcessBreadcrumb(Object doc)](ParserUtils-ProcessBreadcrumb.m.md) | Process the breadcrumb for a document. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

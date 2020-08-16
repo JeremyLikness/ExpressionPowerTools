@@ -31,3 +31,9 @@ Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collectio
 | :-- | :-- |
 | [String RegisterSnap(Action&lt;Expression> callback)](QuerySnapshotHost`1-RegisterSnap.m.md) | Register for a callback when the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is executed. |
 | [Void UnregisterSnap(String id)](QuerySnapshotHost`1-UnregisterSnap.m.md) | Stop listenining. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

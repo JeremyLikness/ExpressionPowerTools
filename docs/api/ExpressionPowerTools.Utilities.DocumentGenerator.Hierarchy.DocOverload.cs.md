@@ -25,3 +25,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 | [`IsStatic`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.IsStatic.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets a value indicating whether it is static. |
 | [`Parameters`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.Parameters.prop.md) | [IList&lt;DocParameter>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the constructor parameters. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

@@ -31,3 +31,9 @@ Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IC
 | [Object Execute(Expression expression)](QueryInterceptingProvider`1-Execute.m.md) | Execute with transformation. |
 | [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](QueryInterceptingProvider`1-ExecuteEnumerable.m.md) | Execute the enumerable. |
 | [Void RegisterInterceptor(ExpressionTransformer transformation)](QueryInterceptingProvider`1-RegisterInterceptor.m.md) | Registers the transformation to apply. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

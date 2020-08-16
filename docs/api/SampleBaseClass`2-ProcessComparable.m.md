@@ -28,3 +28,9 @@ T2 - An instance of [IEnumerable&lt;out T>](https://docs.microsoft.com/dotnet/ap
 | `parameter` | T4 | The value. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

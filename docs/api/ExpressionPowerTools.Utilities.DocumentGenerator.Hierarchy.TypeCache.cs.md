@@ -31,3 +31,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [String GetFriendlyMethodName(MethodInfo method)](TypeCache-GetFriendlyMethodName.m.md) | Gets the friendly (with generic parameters) name for the method. |
 | [Type GetTypeFromName(String name)](TypeCache-GetTypeFromName.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) from the name. |
 | [Void RegisterAssembly(DocAssembly assembly)](TypeCache-RegisterAssembly.m.md) | Register the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) . |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

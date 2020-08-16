@@ -23,3 +23,9 @@ Derived  [CustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Providers.CustomQ
 | Method | Description |
 | :-- | :-- |
 | [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](ICustomQueryProvider`1-ExecuteEnumerable.m.md) | Execute enumeration from the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

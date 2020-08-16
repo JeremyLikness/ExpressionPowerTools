@@ -28,3 +28,9 @@ public virtual IServiceRegistration RegisterSingleton<T>(T instance)
 | `instance` | T | The singleton. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

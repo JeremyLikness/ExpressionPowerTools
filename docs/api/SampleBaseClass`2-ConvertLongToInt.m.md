@@ -28,3 +28,9 @@ public Int32 ConvertLongToInt(Int64 x)
 | `x` | [Int64](https://docs.microsoft.com/dotnet/api/system.int64) | The [Int64](https://docs.microsoft.com/dotnet/api/system.int64) to convert. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

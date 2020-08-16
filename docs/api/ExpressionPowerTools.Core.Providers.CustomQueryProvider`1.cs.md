@@ -32,3 +32,9 @@ Derived  [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.Q
 | [IQueryable CreateQuery(Expression expression)](CustomQueryProvider`1-CreateQuery.m.md) | Creates the query. |
 | [Object Execute(Expression expression)](CustomQueryProvider`1-Execute.m.md) | Runs the query and returns the result. |
 | [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](CustomQueryProvider`1-ExecuteEnumerable.m.md) | Return the enumerable result. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

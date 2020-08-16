@@ -28,3 +28,9 @@ public virtual IEnumerator<T1> GetEnumerableFor(T1 entity)
 | `entity` | T1 | The entity to enumerate. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

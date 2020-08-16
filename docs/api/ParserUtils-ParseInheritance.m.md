@@ -28,3 +28,9 @@ public static String ParseInheritance(IList<TypeRef> inheritance)
 | `inheritance` | [IList&lt;TypeRef>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | The inheritance chain. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

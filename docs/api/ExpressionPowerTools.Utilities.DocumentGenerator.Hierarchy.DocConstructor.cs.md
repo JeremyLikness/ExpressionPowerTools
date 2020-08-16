@@ -23,3 +23,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the file extension. |
 | [`Overloads`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.Overloads.prop.md) | [IList&lt;DocOverload>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | Gets the constructor overloads. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

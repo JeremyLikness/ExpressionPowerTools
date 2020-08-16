@@ -26,3 +26,9 @@ Derived  [IQuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Signatures.IQueryS
 | :-- | :-- | :-- |
 | [`CustomProvider`](ExpressionPowerTools.Core.Signatures.IQueryHost`2.CustomProvider.prop.md) | TProvider | Gets the [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) that handles the custom logic. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

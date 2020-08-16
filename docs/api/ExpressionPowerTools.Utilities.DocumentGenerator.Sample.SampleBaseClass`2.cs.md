@@ -46,3 +46,9 @@ Derived  [SampleClass&lt;T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sa
 | [Boolean IsReady&lt;T5>(T5 test)](SampleBaseClass`2-IsReady.m.md) | Test for readiness. |
 | [T2 ProcessComparable&lt;T4>(T4 parameter)](SampleBaseClass`2-ProcessComparable.m.md) | Test for comparability. |
 | [Void SetInstance(SampleBaseClass&lt;T1, T2> instance)](SampleBaseClass`2-SetInstance.m.md) | Set the instance. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

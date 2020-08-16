@@ -38,3 +38,9 @@ public SampleBaseClass(T1 entity, String id)
 | `id` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The identifier. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

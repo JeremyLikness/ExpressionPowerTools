@@ -52,3 +52,9 @@ This special version allows transitioning from a parent expression to a child. F
             consider a [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) with a [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) for the `Left` property. This rule enables you to test if the type matches, then run rules
             against the child [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . See thedefinition for more about how the final result is evaluated.
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

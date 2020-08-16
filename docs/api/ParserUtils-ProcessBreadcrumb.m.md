@@ -28,3 +28,9 @@ public static String ProcessBreadcrumb(Object doc)
 | `doc` | [Object](https://docs.microsoft.com/dotnet/api/system.object) | The document that is being considered. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

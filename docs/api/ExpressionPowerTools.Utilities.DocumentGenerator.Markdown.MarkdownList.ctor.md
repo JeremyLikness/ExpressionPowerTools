@@ -25,3 +25,9 @@ public MarkdownList(Boolean isOrdered)
 | `isOrdered` | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | A value indicating whether the list should be ordered. |
 
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

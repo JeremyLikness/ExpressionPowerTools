@@ -33,3 +33,9 @@ Derived  [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hier
 | [`Type`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.Type.prop.md) | [Type](https://docs.microsoft.com/dotnet/api/system.type) | Gets or sets the associated type. |
 | [`TypeRef`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.TypeRef.prop.md) | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) | Gets the associated type reference. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

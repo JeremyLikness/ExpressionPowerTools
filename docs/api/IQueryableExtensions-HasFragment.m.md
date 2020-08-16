@@ -36,3 +36,9 @@ public static Boolean HasFragment<T>(IQueryable<T> source, Func<IQueryable<T>, I
 This will return true if all parts of the fragment's expression tree
             are similar to all parts of a similar expression in the source.
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

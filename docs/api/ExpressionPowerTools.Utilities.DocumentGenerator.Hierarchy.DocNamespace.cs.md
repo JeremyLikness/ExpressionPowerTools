@@ -23,3 +23,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the unique file extension. |
 | [`Types`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.Types.prop.md) | [ICollection&lt;DocExportedType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets or sets the types that belong to the namespace. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

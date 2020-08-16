@@ -19,3 +19,9 @@
 | [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) | Interface for service registration. |
 | [IServices](ExpressionPowerTools.Core.Signatures.IServices.i.md) | Service registration and resolution. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

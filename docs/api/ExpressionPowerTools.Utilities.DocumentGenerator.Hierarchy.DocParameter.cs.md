@@ -23,3 +23,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 | [`ParameterType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.ParameterType.prop.md) | [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) | Gets or sets the type of the parameter. |
 | [`Parent`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.Parent.prop.md) | [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) | Gets the owning type. |
 
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

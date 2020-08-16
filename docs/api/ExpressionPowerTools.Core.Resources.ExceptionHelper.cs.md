@@ -23,3 +23,9 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [ArgumentException MethodCallOnTypeRequiredException(String parameterName)](ExceptionHelper-MethodCallOnTypeRequiredException.m.md) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for invalid expression. |
 | [NullReferenceException NullReferenceNotAllowedException(String memberName)](ExceptionHelper-NullReferenceNotAllowedException.m.md) | Null reference exception. |
 | [ArgumentException WhitespaceNotAllowedException(String parameterName)](ExceptionHelper-WhitespaceNotAllowedException.m.md) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for empty string. |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |

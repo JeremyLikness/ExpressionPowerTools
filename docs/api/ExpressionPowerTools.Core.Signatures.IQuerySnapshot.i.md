@@ -23,3 +23,9 @@ Derived  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQu
 | [Void add_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-add_QueryExecuted.m.md) |  |
 | [Void OnExecuteEnumerableCalled(Expression expression)](IQuerySnapshot-OnExecuteEnumerableCalled.m.md) | Method to raise call. |
 | [Void remove_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-remove_QueryExecuted.m.md) |  |
+
+---
+
+| Generated | Copyright | Version |
+| :-- | :-: | --: |
+| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |
