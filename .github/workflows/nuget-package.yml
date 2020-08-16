@@ -10,7 +10,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
    
-    build-and-package:
+  build-and-package:
 
     runs-on: ubuntu-latest
 
@@ -30,12 +30,12 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-      uses: brandedoutcast/publish-nuget@v2.5.5
+    - uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/ExpressionPowerTools.Core
         TAG_COMMIT: false
         # API key to authenticate with NuGet server
-        NUGET_KEY: {{ secrets.NUGET_EXPRESSION }}
+        NUGET_KEY: ${{ secrets.NUGET_EXPRESSION }}
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
         INCLUDE_SYMBOLS: true
