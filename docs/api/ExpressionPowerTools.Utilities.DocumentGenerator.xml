@@ -621,6 +621,11 @@
             The target directory to write to.
             </summary>
         </member>
+        <member name="F:ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.footer">
+            <summary>
+            The footer for each page.
+            </summary>
+        </member>
         <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter"/> class.
@@ -637,6 +642,11 @@
             Write the document and related documents to disk.
             </summary>
             <param name="file">The <see cref="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile"/> to persist.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.SetupFooter">
+            <summary>
+            Sets up the documentation footer.
+            </summary>
         </member>
         <member name="T:ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile">
             <summary>

@@ -24,4 +24,4 @@ public static SampleBaseClass<T1, T2> Instance { get; private set; }
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/15/2020 12:36:00 AM | (c) Copyright 2020 Jeremy Likness. | **v0.1.0.0** |
+| 8/16/2020 4:18:46 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
