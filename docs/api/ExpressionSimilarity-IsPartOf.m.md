@@ -39,4 +39,4 @@ A source is part of a target if an [Expression](https://docs.microsoft.com/dotne
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/16/2020 4:18:46 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

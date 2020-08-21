@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using ExpressionPowerTools.Core;
@@ -46,7 +47,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.IO
         /// </summary>
         public void Purge()
         {
-            foreach (var file in Directory.GetFiles(targetDir))
+            foreach (var file in Directory.GetFiles(targetDir).ToList())
             {
                 File.Delete(file);
             }

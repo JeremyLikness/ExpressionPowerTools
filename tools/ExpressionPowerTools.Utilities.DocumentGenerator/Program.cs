@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using ExpressionPowerTools.Core.Comparisons;
+using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 using ExpressionPowerTools.Utilities.DocumentGenerator.IO;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Parsers;
@@ -28,6 +29,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
         private static readonly Type[] ExampleTypes = new[]
         {
             typeof(DefaultComparisonRules),
+            typeof(BaseSerializer),
             typeof(FileHelper),
         };
 
@@ -64,6 +66,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
             Console.WriteLine($"Parsed {ExampleTypes.Length} assemblies. Starting pass 2...");
 
             int fileCount = 0;
+            long elapsed = 0;
 
             bool deleted = false;
 
@@ -89,11 +92,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
                 Console.WriteLine("Writing documentation...");
                 writer.Write(docFile);
                 stopwatch.Stop();
-                fileCount = docFile.FileCount;
+                elapsed += stopwatch.ElapsedMilliseconds;
+                fileCount += docFile.FileCount;
                 Console.WriteLine("Success.");
             }
 
-            Console.WriteLine($"Processed {TypeCache.Cache.TypeCount} types and generated {fileCount} files in {stopwatch.ElapsedMilliseconds}ms.");
+            Console.WriteLine($"Processed {TypeCache.Cache.TypeCount} types and generated {fileCount} files in {elapsed}ms.");
         }
     }
 }

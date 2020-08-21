@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Net.WebSockets;
+using System.Text;
+using System.Text.Json;
+using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
+using Xunit;
+
+namespace ExpressionPowerTools.Serialization.Tests
+{
+    public class ExpressionSerializerTests
+    {
+        private readonly ExpressionSerializer target = new ExpressionSerializer();
+
+        [Fact]
+        public void GivenExpressionHasSerializerWhenSerializeCalledThenShouldSerialize()
+        {
+            var serialized = target.Serialize(Expression.Constant(5));
+            Assert.NotNull(serialized);
+            Assert.Equal(ExpressionType.Constant.ToString(), serialized.Type);
+        }
+
+        [Fact]
+        public void GivenExpressionHasSerializerWhenDeserializeCalledThenShouldDeserialize()
+        {
+            var json = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>
+                (Expression.Constant(5));
+            var deserialized = target.Deserialize(json);
+            Assert.IsType<ConstantExpression>(deserialized);
+            Assert.Equal(5, ((ConstantExpression)deserialized).Value);
+        }
+
+        [Fact]
+        public void GivenExpressionHasNoSerializerWhenSerializeCalledThenShouldReturnSerializableExpression()
+        {
+            var serialized = target.Serialize(Expression.Goto(Expression.Label()));
+            Assert.IsType<SerializableExpression>(serialized);
+            Assert.Equal(ExpressionType.Goto.ToString(), serialized.Type);
+        }
+
+        [Fact]
+        public void GivenExpressionHasNoSerializerWhenDeserializeCalledThenShouldReturnNull()
+        {
+            var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\":\"Goto\"}");
+            var deserialized = target.Deserialize(json.RootElement);
+            Assert.Null(deserialized);
+        }
+    }
+}
