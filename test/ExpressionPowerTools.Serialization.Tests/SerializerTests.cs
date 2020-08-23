@@ -25,25 +25,27 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Serializer.Deserialize(json));
         }
 
-        [Fact]
-        public void GivenAConstantPrimitiveWhenSerializedThenShouldDeserialize()
-        {
-            var five = Expression.Constant(5);
-            var json = Serializer.Serialize(five);
-            var target = Serializer.Deserialize<ConstantExpression>(json);
-            Assert.Equal(five.Type, target.Type);
-            Assert.Equal(five.Value, target.Value);
-        }
+        public static IEnumerable<object[]> GetConstantExpressions =
+            ConstantSerializerTests.GetConstantExpressions();
 
-        [Fact]
-        public void GivenAConstantWithAnExpressionAsTheValueWhenSerializedThenShouldDeserialize()
+        [Theory]
+        [MemberData(nameof(GetConstantExpressions))]
+        public void GivenExpressionWhenSerializedThenShouldDeserialize(ConstantExpression constant)
         {
-            var five = Expression.Constant(5);
-            var expr = Expression.Constant(five);
-            var json = Serializer.Serialize(expr);
+            var json = Serializer.Serialize(constant);
             var target = Serializer.Deserialize<ConstantExpression>(json);
-            Assert.IsType<ConstantExpression>(target.Value);
-            Assert.Equal(5, (target.Value as ConstantExpression).Value);
+
+            if (constant.Type.FullName.Contains("AnonymousType"))
+            {
+                Assert.Equal(
+                    constant.Type.GetProperties().Where(p => p.CanRead).Select(p => p.Name),
+                    ((IDictionary<string, object>)target.Value).Keys);
+            }
+            else
+            {
+                Assert.Equal(constant.Type, target.Type);
+                Assert.Equal(constant.Value, target.Value);
+            }
         }
 
         [Fact]
@@ -74,6 +76,24 @@ namespace ExpressionPowerTools.Serialization.Tests
             var target = Serializer.Deserialize<ParameterExpression>(json);
             Assert.Equal(parameter.Type, target.Type);
             Assert.Equal(parameter.Name, target.Name);
+        }
+
+        public static IEnumerable<object[]> GetUnaryExpressions() =>
+            UnarySerializerTests.GetUnaryExpressions();
+
+        [Theory]
+        [MemberData(nameof(GetUnaryExpressions))]
+        public void GivenUnaryExpressionWhenSerializedThenShouldDeserialize(UnaryExpression unary)
+        {
+            var json = Serializer.Serialize(unary);
+            var target = Serializer.Deserialize<UnaryExpression>(json);
+            Assert.Equal(unary.Type, target.Type);
+            Assert.Equal(unary.Operand?.NodeType, target.Operand?.NodeType);
+
+            if (unary.Method != null)
+            {
+                Assert.Equal(unary.Method, target.Method);
+            }
         }
     }
 }

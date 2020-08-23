@@ -60,7 +60,18 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public Expression Deserialize(JsonElement json)
         {
-            var type = json.GetProperty(nameof(Type)).GetString();
+            if (json.ValueKind == JsonValueKind.Null)
+            {
+                return null;
+            }
+
+            var typeElem = json.GetProperty(nameof(Type));
+            if (typeElem.ValueKind == JsonValueKind.Null)
+            {
+                return null;
+            }
+
+            var type = typeElem.GetString();
             if (serializers.ContainsKey(type))
             {
                 return serializers[type].Deserialize(json);

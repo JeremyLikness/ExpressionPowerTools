@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -31,15 +33,32 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public ConstantExpression Deserialize(JsonElement json)
         {
-            var type = Type.GetType(json.GetProperty(nameof(Constant.ConstantType)).GetString());
+            var value = json.GetProperty(nameof(Constant.Value)).GetRawText();
+            var typeName = json.GetProperty(nameof(Constant.ConstantType)).GetString();
+            var valueTypeName = json.GetProperty(nameof(Constant.ValueType)).GetString();
+            Type type;
+
+            if (valueTypeName.Contains(AnonymousType))
+            {
+                var val = JsonSerializer.Deserialize<Dictionary<string, object>>(value);
+                return Expression.Constant(val);
+            }
+
+            type = ReflectionHelper.Instance.GetTypeFromCache(valueTypeName);
+
+            var constantType = typeName == valueTypeName ? type :
+                ReflectionHelper.Instance.GetTypeFromCache(typeName);
+
             if (typeof(SerializableExpression).IsAssignableFrom(type))
             {
                 var innerValue = Serializer.Deserialize(json.GetProperty(nameof(Constant.Value)));
                 return Expression.Constant(innerValue, innerValue.GetType());
             }
 
-            var value = json.GetProperty(nameof(Constant.Value)).GetRawText();
-            return Expression.Constant(Convert.ChangeType(value, type), type);
+            var constantVal = JsonSerializer.Deserialize(value, type);
+
+            return type == constantType ? Expression.Constant(constantVal) :
+                Expression.Constant(constantVal, constantType);
         }
 
         /// <summary>
@@ -58,7 +77,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             if (expression.Value is Expression expr)
             {
                 result.Value = Serializer.Serialize(expr);
-                result.ConstantType = result.Value.GetType().FullName;
+                result.ConstantType = result.ValueType = result.Value.GetType().FullName;
             }
 
             return result;

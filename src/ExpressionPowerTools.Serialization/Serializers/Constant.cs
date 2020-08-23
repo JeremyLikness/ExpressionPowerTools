@@ -28,6 +28,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         {
             ConstantType = expression.Type.FullName;
             Value = expression.Value;
+            ValueType = Value == null ? ConstantType : Value.GetType().FullName;
         }
 
         /// <summary>
@@ -39,5 +40,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Gets or sets the value.
         /// </summary>
         public object Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value type.
+        /// </summary>
+        public string ValueType { get; set; }
     }
 }

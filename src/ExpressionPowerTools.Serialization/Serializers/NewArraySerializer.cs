@@ -36,7 +36,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public NewArrayExpression Deserialize(JsonElement json)
         {
             var type = json.GetProperty(nameof(NewArray.ArrayType)).GetString();
-            var materializedType = Type.GetType(type);
+            var materializedType = ReflectionHelper.Instance.GetTypeFromCache(type);
             var list = json.GetProperty(nameof(NewArray.Expressions));
             var expressionList = list.EnumerateArray().Select(element => Serializer.Deserialize(element)).ToList();
             return Expression.NewArrayInit(materializedType, expressionList);

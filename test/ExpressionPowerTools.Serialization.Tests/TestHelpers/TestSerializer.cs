@@ -7,6 +7,8 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 {
     public class TestSerializer : IExpressionSerializer<Expression, SerializableExpression>
     {
+        public static ExpressionSerializer ExpressionSerializer { get; } =
+            new ExpressionSerializer();
         public bool DeserializeCalled { get; private set; }
         public bool SerializeCalled { get; private set; }
         public Expression ReturnExpression { get; set; } = Expression.Constant(42);
@@ -46,8 +48,10 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 
         public static JsonElement GetSerializedFragment<TSerializer, TExpression>(TExpression expression)
             where TExpression : Expression
-            where TSerializer : SerializableExpression =>
-            JsonDocument.Parse(
-            JsonSerializer.Serialize(GetSerializer<TSerializer, TExpression>(expression))).RootElement;
+            where TSerializer : SerializableExpression
+        {
+            var json = JsonSerializer.Serialize(ExpressionSerializer.Serialize(expression) as TSerializer);
+            return JsonDocument.Parse(json).RootElement;
+        }       
     }
 }
