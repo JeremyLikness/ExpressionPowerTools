@@ -29,8 +29,8 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Generate Docs
-      working-directory: $GITHUB_WORKSPACE/tools/ExpressionPowerTools.Utilities.DocumentGenerator
-      run: dotnet run --no-restore
+      working-directory: ./tools/ExpressionPowerTools.Utilities.DocumentGenerator
+      run: dotnet run
     - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
       with:
         add: 'docs'
