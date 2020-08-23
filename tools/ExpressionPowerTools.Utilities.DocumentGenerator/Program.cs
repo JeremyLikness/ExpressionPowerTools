@@ -19,11 +19,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
     internal class Program
     {
         /// <summary>
-        /// Root directory for documentation output.
-        /// </summary>
-        private const string RootDir = "../../../../../docs/api/";
-
-        /// <summary>
         /// Example types that map to the assemblies to document.
         /// </summary>
         private static readonly Type[] ExampleTypes = new[]
@@ -34,11 +29,21 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
         };
 
         /// <summary>
+        /// Root directory for documentation output.
+        /// </summary>
+        private static string rootDir = "../../../../../docs/api/";
+
+        /// <summary>
         /// The main entry method.
         /// </summary>
         /// <param name="args">Optional arguments (not used).</param>
         private static void Main(string[] args)
         {
+            if (args.Length == 1)
+            {
+                rootDir = args[0];
+            }
+
             Parse();
         }
 
@@ -53,7 +58,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
             var fileChecker = new FileHelper(location);
             var xmlParser = new XmlDocParser(fileChecker);
             var markdown = new DocsToMarkdownParser();
-            var writer = new FileWriter(Path.Combine(location, RootDir));
+            var writer = new FileWriter(
+                rootDir.StartsWith("..") ? Path.Combine(location, rootDir) : rootDir);
             Console.WriteLine("Parsing assemblies (pass 1)...");
             var assemblies = new List<(DocAssembly doc, AssemblyParser parser)>();
             foreach (var type in ExampleTypes)
