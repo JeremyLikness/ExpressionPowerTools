@@ -53,10 +53,22 @@
             <param name="serializer">The default serializer.</param>
             <exception cref="T:System.ArgumentNullException">Thrown when serializer is null.</exception>
         </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.BaseSerializer.AnonymousType">
+            <summary>
+            Gets the anonymous type name.
+            </summary>
+        </member>
         <member name="P:ExpressionPowerTools.Serialization.Serializers.BaseSerializer.Serializer">
             <summary>
             Gets the default <see cref="T:ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2"/>.
             </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer.GetExpressionTypeFor(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Linq.Expressions.ExpressionType"/> from the string representation.
+            </summary>
+            <param name="type">The string representation of the <see cref="T:System.Linq.Expressions.ExpressionType"/>.</param>
+            <returns>The <see cref="T:System.Linq.Expressions.ExpressionType"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.Constant">
             <summary>
@@ -82,6 +94,11 @@
         <member name="P:ExpressionPowerTools.Serialization.Serializers.Constant.Value">
             <summary>
             Gets or sets the value.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Constant.ValueType">
+            <summary>
+            Gets or sets the value type.
             </summary>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.ConstantSerializer">
@@ -175,6 +192,102 @@
             <summary>
             Gets the <see cref="T:System.Linq.Expressions.ExpressionType"/> the serializer handles.
             </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.Lambda">
+            <summary>
+            Serializable version of <see cref="T:System.Linq.Expressions.LambdaExpression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Lambda.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Lambda"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Lambda.#ctor(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Lambda"/> class with
+            the provided <see cref="T:System.Linq.Expressions.LambdaExpression"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.LambdaExpression"/> to parse.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Lambda.Body">
+            <summary>
+            Gets or sets the body of the lambda.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Lambda.Name">
+            <summary>
+            Gets or sets the name of the lambda.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Lambda.Parameters">
+            <summary>
+            Gets or sets thte list of parameters for the lambda.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Lambda.LambdaType">
+            <summary>
+            Gets or sets the type of the lambda.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Lambda.ReturnType">
+            <summary>
+            Gets or sets the return type of the lambda.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.Method">
+            <summary>
+            Represents <see cref="T:System.Reflection.MethodInfo"/> for serialization.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Serializers.Method.hashCode">
+            <summary>
+            Hash code computed from constuctor.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Method.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Method"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Method.#ctor(System.Reflection.MethodInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Method"/> class and
+            populates values based on the <see cref="T:System.Reflection.MethodInfo"/> passed in.
+            </summary>
+            <param name="info">The <see cref="T:System.Reflection.MethodInfo"/> to parse.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Method.IsStatic">
+            <summary>
+            Gets or sets a value indicating whether the method is static.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Method.DeclaringType">
+            <summary>
+            Gets or sets the full name of the declaring type.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Method.ReturnType">
+            <summary>
+            Gets or sets the full name of the return type.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Method.Name">
+            <summary>
+            Gets or sets the name of the method.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Method.Parameters">
+            <summary>
+            Gets or sets the list of parameters with parameter name mapped to the
+            full name of the type.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Method.GetHashCode">
+            <summary>
+            Generates a hash code based on the full method signature.
+            </summary>
+            <returns>The hash code based on parameters, parameter types, return type, declaring type and name.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.NewArray">
             <summary>
@@ -302,6 +415,57 @@
             <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
         </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper">
+            <summary>
+            Helper class to cache <see cref="T:System.Type"/> and <see cref="T:System.Reflection.MethodInfo"/> information.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.types">
+            <summary>
+            Type cache.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.lockObj">
+            <summary>
+            Object for locking access to dictionary.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.methods">
+            <summary>
+            Method cache.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.Instance">
+            <summary>
+            Gets the static instance.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetTypeFromCache(System.String)">
+            <summary>
+            Get a <see cref="T:System.Type"/> based on full name.
+            </summary>
+            <remarks>
+            This will check the cache first, then try to create the type, and
+            finally will scan all assemblies for the type.
+            </remarks>
+            <param name="name">The full name of the <see cref="T:System.Type"/>.</param>
+            <returns>The <see cref="T:System.Type"/> or <c>null</c>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetMethodFromCache(ExpressionPowerTools.Serialization.Serializers.Method)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.MethodInfo"/> based on the hash computed
+            by the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Method"/> signature.
+            </summary>
+            <param name="method">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Method"/> template to use.</param>
+            <returns>The <see cref="T:System.Reflection.MethodInfo"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.SafeMutate(System.Func{System.Boolean},System.Action)">
+            <summary>
+            Safely mutate the dictionary.
+            </summary>
+            <param name="test">Test that must pass.</param>
+            <param name="action">The action to take.</param>
+        </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression">
             <summary>
             Class for serialization expressions.
@@ -350,6 +514,78 @@
             <remarks>
             For deserialization, this will be a <see cref="T:System.Text.Json.JsonElement"/>.
             </remarks>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.Unary">
+            <summary>
+            Serializable version of the <see cref="T:System.Linq.Expressions.UnaryExpression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Unary.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Unary"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Unary.#ctor(System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Unary"/> class and
+            initialies with a <see cref="T:System.Linq.Expressions.UnaryExpression"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.UnaryExpression"/> to parse.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Unary.UnaryMethod">
+            <summary>
+            Gets or sets the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Method"/> this expression uses.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Unary.UnaryType">
+            <summary>
+            Gets or sets the full type of the <see cref="T:System.Linq.Expressions.UnaryExpression"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Unary.Operand">
+            <summary>
+            Gets or sets the operand or main <see cref="T:System.Linq.Expressions.Expression"/> for the operation.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.UnarySerializer">
+            <summary>
+            Serializer for <see cref="T:System.Linq.Expressions.UnaryExpression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.#ctor(ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer{System.Linq.Expressions.Expression,ExpressionPowerTools.Serialization.Serializers.SerializableExpression})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.UnarySerializer"/> class with a
+            base serializer for recurision.
+            </summary>
+            <param name="serializer">The base serializer.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.Deserialize(System.Text.Json.JsonElement)">
+            <summary>
+            Deserializes a <see cref="T:System.Linq.Expressions.UnaryExpression"/>.
+            </summary>
+            <param name="json">The serialized fragment.</param>
+            <returns>The <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.Serialize(System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Serialize a <see cref="T:System.Linq.Expressions.UnaryExpression"/> to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.Unary"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Unary"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Deserialize(System.Text.Json.JsonElement)">
+            <summary>
+            Explicit implementation of <see cref="T:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer"/>.
+            </summary>
+            <param name="json">The serialized fragment.</param>
+            <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Serialize(System.Linq.Expressions.Expression)">
+            <summary>
+            Explicit implementation of <see cref="T:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer">
             <summary>

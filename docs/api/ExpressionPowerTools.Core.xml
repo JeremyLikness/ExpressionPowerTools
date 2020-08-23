@@ -877,7 +877,7 @@
         </member>
         <member name="T:ExpressionPowerTools.Core.Dependencies.Services">
             <summary>
-            Container for services. Can be configured to use <see cref="T:System.IServiceProvider"/> for certain types.
+            Container for services.
             </summary>
             <remarks>
             Use the register overloads to register services. Call <see cref="M:ExpressionPowerTools.Core.Dependencies.Services.Configured"/> when done setting up and

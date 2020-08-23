@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Resources;
@@ -12,7 +11,7 @@ using ExpressionPowerTools.Core.Signatures;
 namespace ExpressionPowerTools.Core.Dependencies
 {
     /// <summary>
-    /// Container for services. Can be configured to use <see cref="IServiceProvider"/> for certain types.
+    /// Container for services.
     /// </summary>
     /// <remarks>
     /// Use the register overloads to register services. Call <see cref="Configured"/> when done setting up and
