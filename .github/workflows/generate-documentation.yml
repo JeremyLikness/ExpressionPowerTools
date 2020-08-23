@@ -1,0 +1,37 @@
+name: Generate Documentation
+
+on:
+  workflow_run:
+    workflows: [".NET Core Tests"]
+    branches: [ master ]
+    types: 
+      - completed
+  
+jobs:
+  docs:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Fetch
+      run: git fetch --unshallow
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: install versioning tool
+      run: dotnet tool install --tool-path . nbgv
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Generate Docs
+      working-directory: "./ExpressionPowerTools/tools/ExpressionPowerTools.Utilities.DocumentGenerator"
+      run: dotnet run --no-restore
+    - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
+      with:
+        add: 'docs'
+        message: 'Auto-generated API documentation. #skip_ci'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged  
