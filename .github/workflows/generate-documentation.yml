@@ -16,6 +16,8 @@ jobs:
     - name: Home
       run: echo $GITHUB_WORKSPACE
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
     - name: Fetch
       run: git fetch --unshallow
     - name: Setup .NET Core
@@ -31,10 +33,11 @@ jobs:
     - name: Generate Docs
       working-directory: ./tools/ExpressionPowerTools.Utilities.DocumentGenerator
       run: dotnet run $GITHUB_WORKSPACE/docs/api
-    - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
-      with:
-        add: 'docs'
-        message: 'Auto-generated API documentation. #skip_ci'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged  
-   
+    - name: Stage changes
+      run: git add -A ./docs
+    - name: Config
+      run: git config --global user.name "Autodoc Workflow" && git config --global user.email jeremy@jeremylikness.com
+    - name: Commit changes
+      run: git commit -m 'Auto-generated docs \#skip_ci'
+    - name: Push 
+      run: git push "https://JeremyLikness:${{ secrets.GITHUB_TOKEN }}@github.com/JeremyLikness/ExpressionPowerTools.git HEAD:master
