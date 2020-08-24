@@ -35,6 +35,8 @@ jobs:
       run: dotnet run $GITHUB_WORKSPACE/docs/api
     - name: Stage changes
       run: git add -A ./docs
+    - name: Config
+      run: $ git config --global user.name "Autodoc Workflow" && git config --global user.email jeremy@jeremylikness.com
     - name: Commit changes
       run: git commit -m 'Auto-generated docs \#skip_ci'
     - name: Push 
