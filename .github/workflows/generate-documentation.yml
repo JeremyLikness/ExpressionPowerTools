@@ -33,10 +33,9 @@ jobs:
     - name: Generate Docs
       working-directory: ./tools/ExpressionPowerTools.Utilities.DocumentGenerator
       run: dotnet run $GITHUB_WORKSPACE/docs/api
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Check-in auto-generated API documentation
-        file_pattern: doc/*.md
-        commit_user_name: Auto Documentation
-        commit_user_email: jeremy@jeremylikness.com
-        commit_author: Jeremy Likness <jeremy@jeremylikness.com>
+    - name: Stage changes
+      run: git add -A ./docs
+    - name: Commit changes
+      run: git commit -m "Auto-generated docs #skip_ci"
+    - name: Push 
+      run: git push "https://JeremyLikness:${{ secrets.GITHUB_TOKEN }}@github.com/JeremyLikness/ExpressionPowerTools.git HEAD:master
