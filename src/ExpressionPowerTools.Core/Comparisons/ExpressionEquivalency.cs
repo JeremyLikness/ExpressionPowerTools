@@ -78,6 +78,13 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Attempts to compare values in various ways.
         /// </summary>
+        /// <remarks>
+        /// If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
+        /// returns <c>true</c>. If the type implements <see cref="IEquatable{T}"/> then the result of <see cref="IEquatable{T}.Equals(T)"/>
+        /// is returned. If the type implements <see cref="IComparable"/> then the result is <c>true</c> if
+        /// <see cref="IComparable.CompareTo(object)"/> is <c>0</c>. Otherwise, the result of <see cref="object.Equals(object)"/> from
+        /// the source to the target is returned.
+        /// </remarks>
         /// <param name="source">The source value.</param>
         /// <param name="target">The target value.</param>
         /// <returns>A flag indicating equivalency.</returns>
@@ -88,6 +95,11 @@ namespace ExpressionPowerTools.Core.Comparisons
             if (source == null)
             {
                 return target == null;
+            }
+
+            if (ReferenceEquals(source, target))
+            {
+                return true;
             }
 
             var type = source.GetType();

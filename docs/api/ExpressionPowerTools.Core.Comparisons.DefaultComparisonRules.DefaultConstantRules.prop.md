@@ -8,6 +8,12 @@ Gets the rules for equivalency of [ConstantExpression](https://docs.microsoft.co
 public static Expression<Func<ConstantExpression, ConstantExpression, Boolean>> DefaultConstantRules { get; }
 ```
 
+## Remarks
+
+Must be of same type. Both must be null or not null. If the value is an expression, the expressions
+            must be equivalent. If the values are enumerable, the contents of the enumerable must match. The
+            values must must pass.
+
 ### Property Value
 
  [Expression&lt;Func&lt;ConstantExpression, ConstantExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
@@ -17,4 +23,4 @@ public static Expression<Func<ConstantExpression, ConstantExpression, Boolean>> 
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

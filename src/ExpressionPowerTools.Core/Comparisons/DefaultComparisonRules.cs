@@ -72,6 +72,11 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the rules for equivalency of <see cref="ConstantExpression"/>.
         /// </summary>
+        /// <remarks>
+        /// Must be of same type. Both must be null or not null. If the value is an expression, the expressions
+        /// must be equivalent. If the values are enumerable, the contents of the enumerable must match. The
+        /// values must must pass <see cref="eq.ValuesAreEquivalent(object, object)"/>.
+        /// </remarks>
         public static Expression<Func<ConstantExpression, ConstantExpression, bool>>
             DefaultConstantRules { get; } =
                 rules.TypesMustMatch<ConstantExpression>()
@@ -97,6 +102,12 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rule for similarities between constants.
         /// </summary>
+        /// <remarks>
+        /// Type type of the values must be assignable to each other. Both values must either
+        /// be <c>null</c> or not <c>null</c>. If the values are expressions, the expressions must
+        /// be similar. If array, collection, or enumerable then the expressions are similar regardless
+        /// of the contents. Otherwise, must pass <see cref="eq.ValuesAreEquivalent(object, object)"/>.
+        /// </remarks>
         public static Expression<Func<ConstantExpression, ConstantExpression, bool>>
             DefaultConstantSimilarities { get; } =
             rules.If(

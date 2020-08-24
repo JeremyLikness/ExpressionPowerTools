@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionRulesExtensions](ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.cs.md) > **AndExpressionsMustBeSimilar**
 
-
+And expressions must be similar.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AndExpressionsMustBeSimilar&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Func&lt;T, Expression> member)](#andexpressionsmustbesimilartexpressionfunct-t-boolean-rule-funct-expression-member) |  |
+| [AndExpressionsMustBeSimilar&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Func&lt;T, Expression> member)](#andexpressionsmustbesimilartexpressionfunct-t-boolean-rule-funct-expression-member) | And expressions must be similar. |
 ## AndExpressionsMustBeSimilar&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Func&lt;T, Expression> member)
 
-
+And expressions must be similar.
 
 ```csharp
 public static Expression<Func<T, T, Boolean>> AndExpressionsMustBeSimilar<T>(Expression<Func<T, T, Boolean>> rule, Func<T, Expression> member)
@@ -19,14 +19,14 @@ public static Expression<Func<T, T, Boolean>> AndExpressionsMustBeSimilar<T>(Exp
 
 ### Return Type
 
- [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
+ [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - A value indicating whether the expressions are similar.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
-| `member` | [Func&lt;T, Expression>](https://docs.microsoft.com/dotnet/api/system.func-2) |  |
+| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The rule to consider. |
+| `member` | [Func&lt;T, Expression>](https://docs.microsoft.com/dotnet/api/system.func-2) | Reference the property that is an expression. |
 
 
 
@@ -34,4 +34,4 @@ public static Expression<Func<T, T, Boolean>> AndExpressionsMustBeSimilar<T>(Exp
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

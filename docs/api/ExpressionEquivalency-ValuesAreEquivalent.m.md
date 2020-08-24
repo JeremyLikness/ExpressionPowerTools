@@ -29,9 +29,15 @@ public static Boolean ValuesAreEquivalent(Object source, Object target)
 | `target` | [Object](https://docs.microsoft.com/dotnet/api/system.object) | The target value. |
 
 
+## Remarks
+
+If one side is `null` and other is not `null` , returns `false` . If the objects are the same reference,
+            returns `true` . If the type implements [IEquatable&lt;T>](https://docs.microsoft.com/dotnet/api/system.iequatable-1) then the result ofis returned. If the type implements [IComparable](https://docs.microsoft.com/dotnet/api/system.icomparable) then the result is `true` ifis `0` . Otherwise, the result offrom
+            the source to the target is returned.
+
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

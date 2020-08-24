@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionRulesExtensions](ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.cs.md) > **MembersMustMatch**
 
-
+Member on source must match member on target.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [MembersMustMatch&lt;T>(Func&lt;T, Object> member)](#membersmustmatchtfunct-object-member) |  |
+| [MembersMustMatch&lt;T>(Func&lt;T, Object> member)](#membersmustmatchtfunct-object-member) | Member on source must match member on target. |
 ## MembersMustMatch&lt;T>(Func&lt;T, Object> member)
 
-
+Member on source must match member on target.
 
 ```csharp
 public static Expression<Func<T, T, Boolean>> MembersMustMatch<T>(Func<T, Object> member)
@@ -19,13 +19,13 @@ public static Expression<Func<T, T, Boolean>> MembersMustMatch<T>(Func<T, Object
 
 ### Return Type
 
- [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
+ [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - An expression that evaluates whether the members match.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `member` | [Func&lt;T, Object>](https://docs.microsoft.com/dotnet/api/system.func-2) |  |
+| `member` | [Func&lt;T, Object>](https://docs.microsoft.com/dotnet/api/system.func-2) | Member access. |
 
 
 
@@ -33,4 +33,4 @@ public static Expression<Func<T, T, Boolean>> MembersMustMatch<T>(Func<T, Object
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

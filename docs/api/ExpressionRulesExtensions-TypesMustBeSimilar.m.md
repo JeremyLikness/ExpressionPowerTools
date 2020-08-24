@@ -9,7 +9,7 @@ Types of the expressions must be similar.
 | Overload | Description |
 | :-- | :-- |
 | [TypesMustBeSimilar&lt;T>()](#typesmustbesimilart) | Types of the expressions must be similar. |
-| [TypesMustBeSimilar&lt;T>(Func&lt;T, Type> typeAccess)](#typesmustbesimilartfunct-type-typeaccess) |  |
+| [TypesMustBeSimilar&lt;T>(Func&lt;T, Type> typeAccess)](#typesmustbesimilartfunct-type-typeaccess) | Types of the expressions must be similar. |
 ## TypesMustBeSimilar&lt;T>()
 
 Types of the expressions must be similar.
@@ -25,7 +25,7 @@ public static Expression<Func<T, T, Boolean>> TypesMustBeSimilar<T>()
 
 ## TypesMustBeSimilar&lt;T>(Func&lt;T, Type> typeAccess)
 
-
+Types of the expressions must be similar.
 
 ```csharp
 public static Expression<Func<T, T, Boolean>> TypesMustBeSimilar<T>(Func<T, Type> typeAccess)
@@ -33,13 +33,13 @@ public static Expression<Func<T, T, Boolean>> TypesMustBeSimilar<T>(Func<T, Type
 
 ### Return Type
 
- [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
+ [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - An expression that evaluates whether the types are similar.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `typeAccess` | [Func&lt;T, Type>](https://docs.microsoft.com/dotnet/api/system.func-2) |  |
+| `typeAccess` | [Func&lt;T, Type>](https://docs.microsoft.com/dotnet/api/system.func-2) | Access to the type. |
 
 
 
@@ -47,4 +47,4 @@ public static Expression<Func<T, T, Boolean>> TypesMustBeSimilar<T>(Func<T, Type
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

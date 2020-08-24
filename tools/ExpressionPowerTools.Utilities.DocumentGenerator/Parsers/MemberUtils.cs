@@ -282,18 +282,24 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     {
                         foreach (var typeArg in paramType.GenericTypeArguments)
                         {
+                            if (first)
+                            {
+                                first = false;
+                            }
+                            else
+                            {
+                                fullname += ",";
+                            }
+
                             if (genericMap.ContainsKey(typeArg.Name))
                             {
-                                if (first)
-                                {
-                                    first = false;
-                                }
-                                else
-                                {
-                                    fullname += ",";
-                                }
-
                                 fullname += $"{tick}{genericMap[typeArg.Name]}";
+                            }
+                            else
+                            {
+                                fullname += typeArg.GenericTypeArguments.Length > 0 ?
+                                    ParseTypeParameters(methodGenericMap, typeGenericMap, false, typeArg) :
+                                    typeArg.FullName ?? $"{typeArg.Namespace}.{typeArg.Name}";
                             }
                         }
                     }
