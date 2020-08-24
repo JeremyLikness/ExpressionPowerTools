@@ -27,13 +27,13 @@ Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IC
 
 | Method | Description |
 | :-- | :-- |
-| [IQueryable CreateQuery(Expression expression)](QueryInterceptingProvider`1-CreateQuery.m.md) | Creates a query host with this provider. |
-| [Object Execute(Expression expression)](QueryInterceptingProvider`1-Execute.m.md) | Execute with transformation. |
-| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](QueryInterceptingProvider`1-ExecuteEnumerable.m.md) | Execute the enumerable. |
-| [Void RegisterInterceptor(ExpressionTransformer transformation)](QueryInterceptingProvider`1-RegisterInterceptor.m.md) | Registers the transformation to apply. |
+| [IQueryable CreateQuery(Expression expression)](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.CreateQuery.m.md) | Creates a query host with this provider. |
+| [Object Execute(Expression expression)](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.Execute.m.md) | Execute with transformation. |
+| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.ExecuteEnumerable.m.md) | Execute the enumerable. |
+| [Void RegisterInterceptor(ExpressionTransformer transformation)](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.RegisterInterceptor.m.md) | Registers the transformation to apply. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

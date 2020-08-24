@@ -14,10 +14,10 @@ Derived  [IQueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Signatures
 
 | Method | Description |
 | :-- | :-- |
-| [Void RegisterInterceptor(ExpressionTransformer transformation)](IQueryInterceptor-RegisterInterceptor.m.md) | Register the transformation to intercept. |
+| [Void RegisterInterceptor(ExpressionTransformer transformation)](ExpressionPowerTools.Core.Signatures.IQueryInterceptor.RegisterInterceptor.m.md) | Register the transformation to intercept. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

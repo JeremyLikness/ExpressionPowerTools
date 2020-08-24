@@ -28,12 +28,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [String GetFriendlyMethodName(MethodInfo method)](TypeCache-GetFriendlyMethodName.m.md) | Gets the friendly (with generic parameters) name for the method. |
-| [Type GetTypeFromName(String name)](TypeCache-GetTypeFromName.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) from the name. |
-| [Void RegisterAssembly(DocAssembly assembly)](TypeCache-RegisterAssembly.m.md) | Register the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) . |
+| [String GetFriendlyMethodName(MethodInfo method)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.GetFriendlyMethodName.m.md) | Gets the friendly (with generic parameters) name for the method. |
+| [Type GetTypeFromName(String name)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.GetTypeFromName.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) from the name. |
+| [Void RegisterAssembly(DocAssembly assembly)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.RegisterAssembly.m.md) | Register the [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -14,11 +14,11 @@ Derived  [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md)
 
 | Method | Description |
 | :-- | :-- |
-| [T GetService&lt;T>(Object[] parameters)](IServices-GetService.m.md) | Gets a configured service. |
-| [Void RegisterServices(Action&lt;IServiceRegistration> register)](IServices-RegisterServices.m.md) | Register multiple service and set configured. |
+| [T GetService&lt;T>(Object[] parameters)](ExpressionPowerTools.Core.Signatures.IServices.GetService.m.md) | Gets a configured service. |
+| [Void RegisterServices(Action&lt;IServiceRegistration> register)](ExpressionPowerTools.Core.Signatures.IServices.RegisterServices.m.md) | Register multiple service and set configured. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -23,11 +23,11 @@ Derived  [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshot
 
 | Method | Description |
 | :-- | :-- |
-| [String RegisterSnap(Action&lt;Expression> callback)](IQuerySnapshotHost`1-RegisterSnap.m.md) | Register a callback to receive the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) when snapped. |
-| [Void UnregisterSnap(String id)](IQuerySnapshotHost`1-UnregisterSnap.m.md) | Unregister for callbacks. |
+| [String RegisterSnap(Action&lt;Expression> callback)](ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.RegisterSnap.m.md) | Register a callback to receive the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) when snapped. |
+| [Void UnregisterSnap(String id)](ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.UnregisterSnap.m.md) | Unregister for callbacks. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

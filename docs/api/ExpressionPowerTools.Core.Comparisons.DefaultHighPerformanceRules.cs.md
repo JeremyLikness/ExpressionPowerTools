@@ -23,13 +23,13 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 
 | Method | Description |
 | :-- | :-- |
-| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckEquivalency.m.md) | Check equivalency for a given type. |
-| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckSimilarity.m.md) | Perform the check. |
-| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](DefaultHighPerformanceRules-GetRuleForEquivalency.m.md) | Get the equivalency rule. |
-| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](DefaultHighPerformanceRules-GetRuleForSimilarity.m.md) | Get the similiarity rule. |
+| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.CheckEquivalency.m.md) | Check equivalency for a given type. |
+| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.CheckSimilarity.m.md) | Perform the check. |
+| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.GetRuleForEquivalency.m.md) | Get the equivalency rule. |
+| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.GetRuleForSimilarity.m.md) | Get the similiarity rule. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

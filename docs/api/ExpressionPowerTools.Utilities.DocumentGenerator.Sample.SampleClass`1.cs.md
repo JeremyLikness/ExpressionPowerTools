@@ -36,13 +36,13 @@ Implements  [IComparable&lt;in T>](https://docs.microsoft.com/dotnet/api/system.
 
 | Method | Description |
 | :-- | :-- |
-| [Int32 CompareTo(SampleClass&lt;T> other)](SampleClass`1-CompareTo.m.md) | Compare to. |
-| [IEnumerator&lt;TypeRef> GetEnumerableFor(TypeRef entity)](SampleClass`1-GetEnumerableFor.m.md) | Get the enumerator. |
-| [Boolean IsReady&lt;T5>(T5 test)](SampleClass`1-IsReady.m.md) | Is it ready test. |
-| [T ProcessComparable&lt;T4>(T4 parameter)](SampleClass`1-ProcessComparable.m.md) | Processes a comparable. |
+| [Int32 CompareTo(SampleClass&lt;T> other)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.CompareTo.m.md) | Compare to. |
+| [IEnumerator&lt;TypeRef> GetEnumerableFor(TypeRef entity)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.GetEnumerableFor.m.md) | Get the enumerator. |
+| [Boolean IsReady&lt;T5>(T5 test)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.IsReady.m.md) | Is it ready test. |
+| [T ProcessComparable&lt;T4>(T4 parameter)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.ProcessComparable.m.md) | Processes a comparable. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -19,13 +19,13 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [InvalidOperationException AsInvalidOperationException(String message, String[] parameters)](ExceptionHelper-AsInvalidOperationException.m.md) | Invalid operation messages. |
-| [ArgumentException MethodCallOnTypeRequiredException(String parameterName)](ExceptionHelper-MethodCallOnTypeRequiredException.m.md) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for invalid expression. |
-| [NullReferenceException NullReferenceNotAllowedException(String memberName)](ExceptionHelper-NullReferenceNotAllowedException.m.md) | Null reference exception. |
-| [ArgumentException WhitespaceNotAllowedException(String parameterName)](ExceptionHelper-WhitespaceNotAllowedException.m.md) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for empty string. |
+| [InvalidOperationException AsInvalidOperationException(String message, String[] parameters)](ExpressionPowerTools.Core.Resources.ExceptionHelper.AsInvalidOperationException.m.md) | Invalid operation messages. |
+| [ArgumentException MethodCallOnTypeRequiredException(String parameterName)](ExpressionPowerTools.Core.Resources.ExceptionHelper.MethodCallOnTypeRequiredException.m.md) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for invalid expression. |
+| [NullReferenceException NullReferenceNotAllowedException(String memberName)](ExpressionPowerTools.Core.Resources.ExceptionHelper.NullReferenceNotAllowedException.m.md) | Null reference exception. |
+| [ArgumentException WhitespaceNotAllowedException(String parameterName)](ExpressionPowerTools.Core.Resources.ExceptionHelper.WhitespaceNotAllowedException.m.md) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for empty string. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

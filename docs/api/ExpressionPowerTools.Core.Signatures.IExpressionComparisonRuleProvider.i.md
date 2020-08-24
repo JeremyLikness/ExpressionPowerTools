@@ -14,13 +14,13 @@ Derived  [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultC
 
 | Method | Description |
 | :-- | :-- |
-| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](IExpressionComparisonRuleProvider-CheckEquivalency.m.md) | Perform the check. |
-| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](IExpressionComparisonRuleProvider-CheckSimilarity.m.md) | Perform the check. |
-| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](IExpressionComparisonRuleProvider-GetRuleForEquivalency.m.md) | Gets a predicate to compare two expressions of a given type. |
-| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](IExpressionComparisonRuleProvider-GetRuleForSimilarity.m.md) | Gets a predicate to compare two expressions of a given type. |
+| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.CheckEquivalency.m.md) | Perform the check. |
+| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.CheckSimilarity.m.md) | Perform the check. |
+| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.GetRuleForEquivalency.m.md) | Gets a predicate to compare two expressions of a given type. |
+| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.GetRuleForSimilarity.m.md) | Gets a predicate to compare two expressions of a given type. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

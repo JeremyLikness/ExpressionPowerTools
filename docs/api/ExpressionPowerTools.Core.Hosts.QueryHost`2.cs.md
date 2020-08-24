@@ -33,17 +33,17 @@ Derived  [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshot
 | :-- | :-- | :-- |
 | [`CustomProvider`](ExpressionPowerTools.Core.Hosts.QueryHost`2.CustomProvider.prop.md) | TProvider | Gets or sets the instance of the [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) . |
 | [`ElementType`](ExpressionPowerTools.Core.Hosts.QueryHost`2.ElementType.prop.md) | [Type](https://docs.microsoft.com/dotnet/api/system.type) | Gets the type of element. |
-| [`Expression`](ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression.prop.md) | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | Gets thefor the query. |
+| [`Expression`](ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression.prop.md) | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | Gets the [Expression](ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression.prop.md) for the query. |
 | [`Provider`](ExpressionPowerTools.Core.Hosts.QueryHost`2.Provider.prop.md) | [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) | Gets the instance of the [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) . |
 
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [IEnumerator&lt;T> GetEnumerator()](QueryHost`2-GetEnumerator.m.md) | Gets an [IEnumerator&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) for the query results. |
+| [IEnumerator&lt;T> GetEnumerator()](ExpressionPowerTools.Core.Hosts.QueryHost`2.GetEnumerator.m.md) | Gets an [IEnumerator&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) for the query results. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

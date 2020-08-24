@@ -71,12 +71,12 @@ The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistra
 
 | Method | Description |
 | :-- | :-- |
-| [T GetService&lt;T>(Object[] parameters)](ServiceHost-GetService.m.md) | Get the service implementation. |
-| [Void Initialize(Action&lt;IServiceRegistration> registration)](ServiceHost-Initialize.m.md) | Initialize the container. Can only be done once unlessis called. |
-| [Void Reset()](ServiceHost-Reset.m.md) | Reset to new services instance. |
+| [T GetService&lt;T>(Object[] parameters)](ExpressionPowerTools.Core.Dependencies.ServiceHost.GetService.m.md) | Get the service implementation. |
+| [Void Initialize(Action&lt;IServiceRegistration> registration)](ExpressionPowerTools.Core.Dependencies.ServiceHost.Initialize.m.md) | Initialize the container. Can only be done once unlessis called. |
+| [Void Reset()](ExpressionPowerTools.Core.Dependencies.ServiceHost.Reset.m.md) | Reset to new services instance. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

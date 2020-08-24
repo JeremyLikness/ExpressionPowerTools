@@ -14,12 +14,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [Void NotNull&lt;T>(Expression&lt;Func&lt;T>> value)](Ensure-NotNull.m.md) | Ensures that the result of an argument expression is            not null. |
-| [Void NotNullOrWhitespace(Expression&lt;Func&lt;String>> value)](Ensure-NotNullOrWhitespace.m.md) |  |
-| [Void VariableNotNull&lt;T>(Expression&lt;Func&lt;T>> value)](Ensure-VariableNotNull.m.md) | Ensures that the result of an expression is not null. |
+| [Void NotNull&lt;T>(Expression&lt;Func&lt;T>> value)](ExpressionPowerTools.Core.Contract.Ensure.NotNull.m.md) | Ensures that the result of an argument expression is            not null. |
+| [Void NotNullOrWhitespace(Expression&lt;Func&lt;String>> value)](ExpressionPowerTools.Core.Contract.Ensure.NotNullOrWhitespace.m.md) |  |
+| [Void VariableNotNull&lt;T>(Expression&lt;Func&lt;T>> value)](ExpressionPowerTools.Core.Contract.Ensure.VariableNotNull.m.md) | Ensures that the result of an expression is not null. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

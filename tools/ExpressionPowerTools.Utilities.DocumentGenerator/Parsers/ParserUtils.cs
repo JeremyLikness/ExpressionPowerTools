@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Xml;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
@@ -88,10 +87,49 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 var targets = cref.Split(":");
                 var text = targets[1];
-                if (targets[0] == "T")
+                switch (targets[0])
                 {
-                    var type = TypeCache.Cache.GetTypeFromName(text);
-                    result = Writer.WriteLink(TypeCache.Cache[type]);
+                    case "T":
+                        var type = TypeCache.Cache.GetTypeFromName(text);
+                        result = Writer.WriteLink(TypeCache.Cache[type]);
+                        break;
+                    case "P":
+                        var link = LinkCache.GetLinkBySelector(cref);
+                        result = link ?? $"`{FriendlyDisplayType(text)}`";
+                        break;
+                    default:
+                        var refLink = LinkCache.GetLinkBySelector(cref);
+
+                        if (refLink == null)
+                        {
+                            // assume it is a Microsoft reference
+                            string baseHref, methodExt = string.Empty;
+                            var parts = text.Split('.').ToList();
+                            var method = parts.FirstOrDefault(p => p.Contains("("));
+                            if (!string.IsNullOrEmpty(method))
+                            {
+                                baseHref = string.Join(
+                                    '.',
+                                    parts.GetRange(0, parts.IndexOf(method)));
+                                methodExt = NameOnly(method.Split('(')[0]);
+                            }
+                            else
+                            {
+                                baseHref = text;
+                            }
+
+                            link = baseHref.Replace('`', '-');
+                            var linkText = FriendlyDisplayType(baseHref);
+                            if (!string.IsNullOrWhiteSpace(methodExt))
+                            {
+                                link += $".{methodExt}";
+                                linkText += $".{methodExt}";
+                            }
+
+                            result = Writer.WriteLink(linkText, $"{TypeCache.MsftApiBaseRef}{link}");
+                        }
+
+                        break;
                 }
             }
 
@@ -227,7 +265,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             if (result.IndexOf('`') > 0)
             {
                 var parts = result.Split('`');
-                var count = int.Parse(parts[1]);
+                if (!int.TryParse(parts[1], out int count))
+                {
+                    return typeName;
+                }
+
                 result = $"{parts[0]}&lt;";
                 for (var idx = 0; idx < count; idx += 1)
                 {

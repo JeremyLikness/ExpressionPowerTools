@@ -24,13 +24,13 @@ Derived  [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGen
 
 | Method | Description |
 | :-- | :-- |
-| [Void DoStuff()](ISampleInterface`3-DoStuff.m.md) | Do stuff. |
-| [T2 GetEnumerableFor(T1 entity)](ISampleInterface`3-GetEnumerableFor.m.md) | Gets an enumerable for the entity. |
-| [Boolean IsReady&lt;T5>(T5 test)](ISampleInterface`3-IsReady.m.md) | Is it ready test. |
-| [T3 ProcessComparable&lt;T4>(T4 parameter)](ISampleInterface`3-ProcessComparable.m.md) | Process a comparable item. |
+| [Void DoStuff()](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.DoStuff.m.md) | Do stuff. |
+| [T2 GetEnumerableFor(T1 entity)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.GetEnumerableFor.m.md) | Gets an enumerable for the entity. |
+| [Boolean IsReady&lt;T5>(T5 test)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.IsReady.m.md) | Is it ready test. |
+| [T3 ProcessComparable&lt;T4>(T4 parameter)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.ProcessComparable.m.md) | Process a comparable item. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

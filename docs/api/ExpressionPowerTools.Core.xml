@@ -1,0 +1,2513 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExpressionPowerTools.Core</name>
+    </assembly>
+    <members>
+        <member name="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules">
+            <summary>
+            Default set of rules to use.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cache">
+            <summary>
+            Internal cache of compiled rules.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules"/> class.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantRules">
+            <summary>
+            Gets the rules for equivalency of <see cref="T:System.Linq.Expressions.ConstantExpression"/>.
+            </summary>
+            <remarks>
+            Must be of same type. Both must be null or not null. If the value is an expression, the expressions
+            must be equivalent. If the values are enumerable, the contents of the enumerable must match. The
+            values must pass <see cref="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ValuesAreEquivalent(System.Object,System.Object)"/>.
+            </remarks>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantSimilarities">
+            <summary>
+            Gets the default rule for similarities between constants.
+            </summary>
+            <remarks>
+            Type type of the values must be assignable to each other. Both values must either
+            be <c>null</c> or not <c>null</c>. If the values are expressions, the expressions must
+            be similar. If array, collection, or enumerable then the expressions are similar regardless
+            of the contents. Otherwise, must pass <see cref="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ValuesAreEquivalent(System.Object,System.Object)"/>.
+            </remarks>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaRules">
+            <summary>
+            Gets the rules for lambda.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaSimilarities">
+            <summary>
+            Gets the similarities for lambda.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodRules">
+            <summary>
+            Gets the rules for method calls.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodSimilarities">
+            <summary>
+            Gets the rules for method call similarities.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberRules">
+            <summary>
+            Gets the default rules for member equivalency.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberSimilarities">
+            <summary>
+            Gets the default rules for member similarity.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultUnaryRules">
+            <summary>
+            Gets the default rules for unaries.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultUnarySimilarities">
+            <summary>
+            Gets the default rules for unary similarities.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultBinaryRules">
+            <summary>
+            Gets the default rules for binaries.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultBinarySimilarities">
+            <summary>
+            Gets the default rules for binary similarities.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultParameterRules">
+            <summary>
+            Gets the default rules for parameters.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultParameterSimilarities">
+            <summary>
+            Gets the default rules for parameter similarities.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewArrayRules">
+            <summary>
+            Gets the default rules for new arrays.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewArraySimilarities">
+            <summary>
+            Gets the default rules for new array similarities.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewRules">
+            <summary>
+            Gets the default rules for object initializers.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewSimilarities">
+            <summary>
+            Gets the default rules for object initializer similarities.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.GetRuleForEquivalency``1">
+            <summary>
+            Gets a predicate to compare two expressions of a given type.
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>The rule.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency``1(``0,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check against all cached types.
+            </summary>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are equivalent.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when either source or target are null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.GetRuleForSimilarity``1">
+            <summary>
+            Gets a predicate to compare two expressions of a given type.
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>The rule or null when not found.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckSimilarity``1(``0,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckSimilarity(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Checks for similarity against all types.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>A value indicating whether a match was found and was successful.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CastToNonGenericRule``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Makes generic access possible from non-generic methods.
+            </summary>
+            <typeparam name="T">The type to cast to.</typeparam>
+            <param name="rule">The rule to cast.</param>
+            <returns>The non-generic function.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.Compare(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Boolean)">
+            <summary>
+            Compare source to target based on all cached rules.
+            </summary>
+            <remarks>
+            Returns on first match, regardless of success.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="similar">A flag indicating whether similarity should be performed instead of equivalency.</param>
+            <returns>A flag indicating whether a successful comparison was made.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CreateEmptyRule``1">
+            <summary>
+            Create an empty rule.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>An empty <see cref="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.Rule"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CreateRule``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Create a rule.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule to make.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.Rule"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CreateComparer``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Creates an entry for quick retrieval from cache.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="equivalencyRule">The rule for equivalency.</param>
+            <param name="similarityRule">The rule for similarity.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.ExpressionComparer"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.Rule">
+            <summary>
+            A comparison item.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.Rule.Original">
+            <summary>
+            The original rule.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.Rule.NonGeneric">
+            <summary>
+            The nongeneric version of the rule.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.ExpressionComparer">
+            <summary>
+            A comparer with equivalency and similarity rules.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.ExpressionComparer.Equivalency">
+            <summary>
+            The equivalency rule.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.ExpressionComparer.Similarity">
+            <summary>
+            The similarity rule.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules">
+            <summary>
+            This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
+            Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
+            you should find the rules-based works fine for most scenarios and performs close to par with the programmed verssion.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.equivalencyRules">
+            <summary>
+            Rules for equivalency.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.similarityRules">
+            <summary>
+            Rules for similarity.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.CheckEquivalency``1(``0,System.Linq.Expressions.Expression)">
+            <summary>
+            Check equivalency for a given type.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>A value indicating whether the expressions are equivalent.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when source or target are null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.CheckEquivalency(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Generic equivilency check.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>A value indicating whether the expressions are equivalent.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when source or target are null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.CheckSimilarity``1(``0,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.CheckSimilarity(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Checks for similarity against all types.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>A value indicating whether a match was found and was successful.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.GetRuleForEquivalency``1">
+            <summary>
+            Get the equivalency rule.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>A rule that determines equivalency between the two expressions.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.GetRuleForSimilarity``1">
+            <summary>
+            Get the similiarity rule.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>A rule that determines similarity between the two expressions.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ExecuteRuleAs``1(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Func{``0,``0,System.Boolean})">
+            <summary>
+            Simple cast operation.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="rule">The rule to apply.</param>
+            <returns>The result of the rule.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.LambdasAreEquivalent(System.Linq.Expressions.LambdaExpression,System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Determine whether two lambdas are equivalent.
+            </summary>
+            <remarks>
+            Two lambda expressions are equivalent when they share the same type,
+            name, tail call optimization, parameter count, and when both body
+            and parameters are equivalent.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.LambdaExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.LambdaExpression"/>.</param>
+            <returns>A flag indicating whether the two expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.MethodsAreEquivalent(System.Linq.Expressions.MethodCallExpression,System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Determine whether two methods are equivalent.
+            </summary>
+            <remarks>
+            Two metods are equivalent when they share the same return type,
+            the same declaring type, the same name, are either both instance
+            or static fields, and all arguments pass equivalency.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.</param>
+            <returns>A flag indicating whether the two expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.MembersAreEquivalent(System.Linq.Expressions.MemberExpression,System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Determine whether two members are equivalent.
+            </summary>
+            <remarks>
+            Two instances of <see cref="T:System.Linq.Expressions.MemberExpression"/> are equivalent
+            when they share the same type (this will match the member type), the same
+            declaring type, the same name, and if there is an expression, the
+            expressions are equivalent.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MemberExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MemberExpression"/>.</param>
+            <returns>A flag indicating whether the two expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.UnariesAreEquivalent(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Determines whether two unaries are equivalent.
+            </summary>
+            <remarks>
+            Two instances of <see cref="T:System.Linq.Expressions.UnaryExpression"/> are equivalent when they share the same
+            <see cref="T:System.Linq.Expressions.ExpressionType"/>, method information, and when their operands pass
+            equivalency.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</param>
+            <returns>A flag that indicates whether the two expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.BinariesAreEquivalent(System.Linq.Expressions.BinaryExpression,System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            Determines whether two binaries are equivalent.
+            </summary>
+            <remarks>
+            Two instances of <see cref="T:System.Linq.Expressions.BinaryExpression"/> are equivalent when they share the same
+            <see cref="T:System.Linq.Expressions.ExpressionType"/> and the recursive determination of the left expressoin and
+            the right expressions is equivalent.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.BinaryExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.BinaryExpression"/>.</param>
+            <returns>A flag that indicates whether the two expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ConstantsAreEquivalent(System.Linq.Expressions.ConstantExpression,System.Linq.Expressions.ConstantExpression)">
+            <summary>
+            Method to compare two <seealso cref="T:System.Linq.Expressions.ConstantExpression"/>
+            instances.
+            </summary>
+            <remarks>
+            To be true, both must have the same type and value. If the
+            value is an expression tree, it is recursed.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.ConstantExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.ConstantExpression"/>.</param>
+            <returns>A flag indicating whether the two are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ParametersAreEquivalent(System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Check for equivalent parameters.
+            </summary>
+            <remarks>
+            To be true, type, value, and reference must be the same.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.ParameterExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.ParameterExpression"/>.</param>
+            <returns>A flag indicating whether the two are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.NewArraysAreEquivalent(System.Linq.Expressions.NewArrayExpression,System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            Check for equivalent array initializers.
+            </summary>
+            <remarks>
+            To be true, type and expressions must be equivalent.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.</param>
+            <returns>A flag indicating whether the array initializers are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.NewAreEquivalent(System.Linq.Expressions.NewExpression,System.Linq.Expressions.NewExpression)">
+            <summary>
+            Check for equivalent object initializer.
+            </summary>
+            <remarks>
+            To be true, type, constructor, methods and arguments must be equivalent.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
+            <returns>A flag indicating whether the object initializers are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.LambdasAreSimilar(System.Linq.Expressions.LambdaExpression,System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Determine whether two lambdas are similar.
+            </summary>
+            <remarks>
+            Two lambda expressions are similar when they share the same name,
+            similar parameters, and when both body and parameters are similar.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.LambdaExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.LambdaExpression"/>.</param>
+            <returns>A flag indicating whether the two expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.MethodsAreSimilar(System.Linq.Expressions.MethodCallExpression,System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Determine whether two methods are similar.
+            </summary>
+            <remarks>
+            Two metods are similar when they share the same return type, declaring type,
+            the same name, are either both instance or static fields, and all
+            arguments pass similarity. Arguments of same expression type are tested
+            for similarity. Arguments of different expression types are tested for the
+            same return type.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.</param>
+            <returns>A flag indicating whether the two expressions are Similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.MembersAreSimilar(System.Linq.Expressions.MemberExpression,System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Determine whether two members are similar.
+            </summary>
+            <remarks>
+            Two instances of <see cref="T:System.Linq.Expressions.MemberExpression"/> are similar
+            when they share the same type (this will match the member type), the same
+            declaring type, the same name, and if there is an expression, the
+            expressions are similar.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MemberExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MemberExpression"/>.</param>
+            <returns>A flag indicating whether the two expressions are Similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.UnariesAreSimilar(System.Linq.Expressions.UnaryExpression,System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Determines whether two unaries are similar.
+            </summary>
+            <remarks>
+            Two instances of <see cref="T:System.Linq.Expressions.UnaryExpression"/> are similar when they share the same
+            <see cref="T:System.Linq.Expressions.ExpressionType"/>, method information, and when their operands pass
+            equivalency.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</param>
+            <returns>A flag that indicates whether the two expressions are Similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.BinariesAreSimilar(System.Linq.Expressions.BinaryExpression,System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            Determines whether two binaries are similar.
+            </summary>
+            <remarks>
+            Two instances of <see cref="T:System.Linq.Expressions.BinaryExpression"/> are similar when they share the same
+            <see cref="T:System.Linq.Expressions.ExpressionType"/> and the recursive determination of the left expressoin and
+            the right expressions is similar.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.BinaryExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.BinaryExpression"/>.</param>
+            <returns>A flag that indicates whether the two expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ConstantsAreSimilar(System.Linq.Expressions.ConstantExpression,System.Linq.Expressions.ConstantExpression)">
+            <summary>
+            Method to compare two <seealso cref="T:System.Linq.Expressions.ConstantExpression"/>
+            instances.
+            </summary>
+            <remarks>
+            If the constant is an expression, similarity is recursed. If it is a value type,
+            the source and target must be equal. Otherwise, similar is based on types.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.ConstantExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.ConstantExpression"/>.</param>
+            <returns>A flag indicating whether the two are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.NewArraysAreSimilar(System.Linq.Expressions.NewArrayExpression,System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            Check for equivalent array initializers.
+            </summary>
+            <remarks>
+            To be true, type must be equivalent and expressions must be similar.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.</param>
+            <returns>A flag indicating whether the array initializers are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.NewAreSimilar(System.Linq.Expressions.NewExpression,System.Linq.Expressions.NewExpression)">
+            <summary>
+            Check for equivalent object initializer.
+            </summary>
+            <remarks>
+            To be true, type, constructor, methods must be equivalent
+            and arguments must be similar.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
+            <returns>A flag indicating whether the object initializers are equivalent.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency">
+            <summary>
+            Host for comparisons.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.Rules">
+            <summary>
+            Gets the configured rule set.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.AreEquivalent(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Entry for equivalency comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.AreEquivalent(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
+            <summary>
+            Comparison of multiple expressions. Equivalent
+            only when all elements match, in order, and
+            pass the equivalent test.
+            </summary>
+            <param name="source">The source expressions.</param>
+            <param name="target">The target expressions.</param>
+            <returns>A flag indicating whether the two sets of
+            expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ValuesAreEquivalent(System.Object,System.Object)">
+            <summary>
+            Attempts to compare values in various ways.
+            </summary>
+            <remarks>
+            If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
+            returns <c>true</c>. If the type implements <see cref="T:System.IEquatable`1"/> then the result of <see cref="M:System.IEquatable`1.Equals(`0)"/>
+            is returned. If the type implements <see cref="T:System.IComparable"/> then the result is <c>true</c> if
+            <see cref="M:System.IComparable.CompareTo(System.Object)"/> is <c>0</c>. Otherwise, the result of <see cref="M:System.Object.Equals(System.Object)"/> from
+            the source to the target is returned.
+            </remarks>
+            <param name="source">The source value.</param>
+            <param name="target">The target value.</param>
+            <returns>A flag indicating equivalency.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.NonGenericEnumerablesAreEquivalent(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+            <summary>
+            Ensures two enumerables are same length an each value is equivalent.
+            </summary>
+            <param name="srcEnumerable">The source <see cref="T:System.Collections.IEnumerable"/>.</param>
+            <param name="tgtEnumerable">The target <see cref="T:System.Collections.IEnumerable"/>.</param>
+            <returns>A flag indicating whether the two are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.NullAndTypeCheck(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Comparison matrix for types and nulls.
+            </summary>
+            <param name="source">The source to compare.</param>
+            <param name="other">The target to compare to.</param>
+            <returns>A flag indicating whether the types are
+            equal and the values are both not null.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator">
+            <summary>
+            Implementation of <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/> for advanced
+            expression comparisons.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Entry for equivalency comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Entry for equivalency comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the entity.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreEquivalent(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
+            <summary>
+            Comparison of multiple expressions. Equivalent
+            only when all elements match, in order, and
+            pass the equivalent test.
+            </summary>
+            <param name="source">The source expressions.</param>
+            <param name="target">The target expressions.</param>
+            <returns>A flag indicating whether the two sets of
+            expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Entry for similarity comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreSimilar``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Entry for similarity comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of entity.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreSimilar(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
+            <summary>
+            Comparison of multiple expressions. Similar
+            only when all elements match, in order, and
+            pass the similarity test. It's fine if the
+            source does not have the same number of entities
+            as the target.
+            </summary>
+            <param name="source">The source expressions.</param>
+            <param name="target">The target expressions.</param>
+            <returns>A flag indicating whether the two sets of
+            expressions are Similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Determines whether an <see cref="T:System.Linq.Expressions.Expression"/> is part of another expression.
+            </summary>
+            <remarks>
+            A source is part of a target if an <see cref="T:System.Linq.Expressions.Expression"/> exists in the
+            target's tree that is similar to the source.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <returns>A flag indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.IsPartOf``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Determines whether an <see cref="T:System.Linq.IQueryable`1"/> is part of another query.
+            </summary>
+            <remarks>
+            A source is part of a target if an <see cref="T:System.Linq.Expressions.Expression"/> exists in the
+            target's tree that is similar to the source.
+            </remarks>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the entity.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/> to parse.</param>
+            <returns>A flag indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity">
+            <summary>
+            Expression similarity methods.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.Rules">
+            <summary>
+            Gets the configured rule set.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Entry for similarity comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.AreSimilar(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
+            <summary>
+            Comparison of multiple expressions. Similar
+            only when all elements match, in order, and
+            pass the similarity test. It's fine if the
+            source does not have the same number of entities
+            as the target.
+            </summary>
+            <param name="source">The source expressions.</param>
+            <param name="target">The target expressions.</param>
+            <returns>A flag indicating whether the two sets of
+            expressions are Similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Determines whether an <see cref="T:System.Linq.Expressions.Expression"/> is part of another expression.
+            </summary>
+            <remarks>
+            A source is part of a target if an <see cref="T:System.Linq.Expressions.Expression"/> exists in the
+            target's tree that is similar to the source.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <returns>A flag indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypesAreSimilar(System.Type,System.Type)">
+            <summary>
+            Determines whether types are similar.
+            </summary>
+            <remarks>
+            Object must match object. Value types must match exactly.
+            Other types can be derived from each other.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Type"/> to check.</param>
+            <param name="target">The target <see cref="T:System.Type"/> to check.</param>
+            <returns>A flag indicating whether the types are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.ArgumentsAreSimilar(System.Collections.Generic.IList{System.Linq.Expressions.Expression},System.Collections.Generic.IList{System.Linq.Expressions.Expression})">
+            <summary>
+            Determines whether arguments are similar.
+            </summary>
+            <param name="source">The source list.</param>
+            <param name="target">The target list.</param>
+            <returns>A value that indicates whether the arguments are similar.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Contract.Ensure">
+            <summary>
+            Helper methods for validation.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Contract.Ensure.NotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Ensures that the result of an argument expression is
+            not null.
+            </summary>
+            <example>
+            <code lang="csharp">
+            Ensure.NotNull(() => parameter);
+            </code>
+            </example>
+            <typeparam name="T">The type of the value to test.</typeparam>
+            <param name="value">An expression that resolves to the value.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Contract.Ensure.VariableNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Ensures that the result of an expression is not null.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            Ensure.VariableNotNull(() => localVariable);
+            </code>
+            </example>
+            <typeparam name="T">The type of the value to test.</typeparam>
+            <param name="value">An expression that resolves to the value.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Contract.Ensure.NotNullOrWhitespace(System.Linq.Expressions.Expression{System.Func{System.String}})">
+            <summary>
+            Ensure the value is not null or whitespace.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            Ensure.NotNullOrWhiteSpace(() => value);
+            </code>
+            </example>
+            <param name="value">An expression that resolves to the value.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Dependencies.ServiceHost">
+            <summary>
+            Host to obtain services.
+            </summary>
+            <remarks>
+            <para>
+            This is a very simple dependency injection container. It allows registration
+            of type implementations, generic implementations, and singletons. It does not
+            recursively resolve dependencies. Registration happens in the call to <see cref="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.Initialize(System.Action{ExpressionPowerTools.Core.Signatures.IServiceRegistration})"/>
+            and can only be done once. <see cref="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.Reset"/> is provided mainly for testing purposes.
+            </para>
+            <para>
+            The <see cref="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration"/> provided by initialization is chainable (each call returns itself).
+            </para>
+            </remarks>
+            <example>
+            To register a type <c>MyType</c> that implements <c>IMyType</c>:
+            <code lang="csharp"><![CDATA[
+            ServiceHost.Initialize(register => register.Register<IMyType, MyType>());
+            ]]></code>
+            To register a singleton:
+            <code lang="csharp"><![CDATA[
+            var singleton = new MyType();
+            ServiceHost.Initialize(register => register.RegisterSingleton<IMyType>(singleton);
+            ]]></code>
+            To register a generic type <c>IGenericType&lt;T></c> that is implemented by
+            <c>GenericType&lt;T></c>:
+            <code lang="csharp"><![CDATA[
+            ServiceHost.Initialize(register =>
+                register.RegisterGeneric(typeof(IGenericType<>), typeof(GenericType<>)));
+            ]]></code>
+            To retrive a service:
+            <code lang="csharp"><![CDATA[
+            var implementation = ServiceHost.GetService<IMyType>();
+            ]]></code>
+            Retrieving a generic service (closed) with parameters:
+            <code lang="csharp"><![CDATA[
+            var implementation = ServiceHost.GetService<IGenericType<string>>(5, 6);
+            ]]></code>
+            </example>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Dependencies.ServiceHost.MutexLock">
+            <summary>
+            A lock object.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Dependencies.ServiceHost.configured">
+            <summary>
+            A value indicating whether the container has already been configured.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:ExpressionPowerTools.Core.Dependencies.ServiceHost"/> class.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Dependencies.ServiceHost.Services">
+            <summary>
+            Gets or sets the global instance of <see cref="T:ExpressionPowerTools.Core.Signatures.IServices"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Dependencies.ServiceHost.DefaultRules">
+            <summary>
+            Gets the shipped default.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.Reset">
+            <summary>
+            Reset to new services instance.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.GetService``1(System.Object[])">
+            <summary>
+            Get the service implementation.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> to resolve.</typeparam>
+            <param name="parameters">The constructor parameters.</param>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.Initialize(System.Action{ExpressionPowerTools.Core.Signatures.IServiceRegistration})">
+            <summary>
+            Initialize the container. Can only be done once unless
+            <see cref="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.Reset"/> is called.
+            </summary>
+            <param name="registration">The registration callback.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.RegisterDefaults(ExpressionPowerTools.Core.Signatures.IServiceRegistration)">
+            <summary>
+            Registers the default instances.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Dependencies.Services">
+            <summary>
+            Container for services.
+            </summary>
+            <remarks>
+            Use the register overloads to register services. Call <see cref="M:ExpressionPowerTools.Core.Dependencies.Services.Configured"/> when done setting up and
+            before attempting to retrieve other instances.
+            </remarks>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Dependencies.Services.services">
+            <summary>
+            Service catalog.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Dependencies.Services.singletons">
+            <summary>
+            Service catalog.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Dependencies.Services.mutex">
+            <summary>
+            Object for synchronization.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Dependencies.Services.configured">
+            <summary>
+            Can only configure once.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.RegisterServices(System.Action{ExpressionPowerTools.Core.Signatures.IServiceRegistration})">
+            <summary>
+            Register multiple services and call configured.
+            </summary>
+            <param name="register">The action to register.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.Register``2">
+            <summary>
+            Register a service.
+            </summary>
+            <typeparam name="T">The type of the signature.</typeparam>
+            <typeparam name="TImpl">The type of the implementation.</typeparam>
+            <returns>An <see cref="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration"/> for chaining.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.RegisterSingleton``1(``0)">
+            <summary>
+            Register a singleton to satisfy a type request.
+            </summary>
+            <typeparam name="T">The type to register.</typeparam>
+            <param name="instance">The singleton.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration"/> for chaining.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.RegisterGeneric(System.Type,System.Type)">
+            <summary>
+            Register a generic service.
+            </summary>
+            <param name="signature">The signature type.</param>
+            <param name="implementation">The implementation type.</param>
+            <returns>An <see cref="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration"/> for chaining.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.GetService``1(System.Object[])">
+            <summary>
+            Get a service based on registration.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the service.</typeparam>
+            <param name="parameters">Constructor parameters.</param>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.IsAssignableToGenericType(System.Type,System.Type)">
+            <summary>
+            Test that an open generic is assignable to another open generic.
+            </summary>
+            <param name="givenType">The <see cref="T:System.Type"/> to test.</param>
+            <param name="genericType">The <see cref="T:System.Type"/> to test against.</param>
+            <returns>A value indicating whether the given type is assignable to the generic type.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.Configured">
+            <summary>
+            Inform that configuratoin is complete.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Dependencies.Services.ConfigureCheck(System.Boolean)">
+            <summary>
+            Check that configuration is in correct state.
+            </summary>
+            <param name="expected">The expected state.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.ExpressionEnumerator">
+            <summary>
+            Recurse an <see cref="T:System.Linq.Expressions.Expression"/> tree.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.ExpressionEnumerator.expression">
+            <summary>
+            The root <see cref="T:System.Linq.Expressions.Expression"/>.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.ExpressionEnumerator.queue">
+            <summary>
+            A queue to track visited expressions.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.#ctor(System.Linq.Expressions.Expression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.ExpressionEnumerator"/> class.
+            </summary>
+            <param name="expr">The <see cref="T:System.Linq.Expressions.Expression"/> to enumerate.
+            </param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.GetEnumerator">
+            <summary>
+            Implements <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerator`1"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Non-generic version.
+            </summary>
+            <returns>The generic version as a non-generic inteface.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseExpression(System.Linq.Expressions.Expression)">
+            <summary>
+            Main entry, similar to "Visit" on <see cref="T:System.Linq.Expressions.ExpressionVisitor"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> under consideration.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseNewArrayExpression(System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            Recurse a new array.
+            </summary>
+            <param name="newArrayExpr">The <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseNewExpression(System.Linq.Expressions.NewExpression)">
+            <summary>
+            Recurse any expression in the new.
+            </summary>
+            <param name="newExpr">The <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseConstantExpression(System.Linq.Expressions.ConstantExpression)">
+            <summary>
+            Recurse any expression in the constant.
+            </summary>
+            <param name="constant">The <see cref="T:System.Linq.Expressions.ConstantExpression"/>.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseBinaryExpression(System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            Recurse a binary expression.
+            </summary>
+            <param name="binary">The <see cref="T:System.Linq.Expressions.BinaryExpression"/> to parse.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseMemberExpression(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Recurse a member expression.
+            </summary>
+            <param name="member">The <see cref="T:System.Linq.Expressions.MemberExpression"/> to parse.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseLambdaExpression(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Recurse a lambda expression.
+            </summary>
+            <param name="lambda">The <see cref="T:System.Linq.Expressions.LambdaExpression"/> to parse.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseMethodCallExpression(System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Recurse a method call expression.
+            </summary>
+            <param name="method">The <see cref="T:System.Linq.Expressions.MethodCallExpression"/> to recurse.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseUnaryExpression(System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Recurse a unary expression.
+            </summary>
+            <param name="unary">The <see cref="T:System.Linq.Expressions.UnaryExpression"/> to parse.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.ExpressionTransformer">
+            <summary>
+            Transform one expression to another.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The transformed expression.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Extensions.ExpressionExtensions">
+            <summary>
+            Extension methods for fluent API over expressions.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.MemberName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Extracts the name of the target of an expression.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            Expression&lt;Func&lt;string>> expr = () => foo;
+            expr.MemberName(); // "foo"
+            </code>
+            </example>
+            <typeparam name="T">The type of the target.</typeparam>
+            <param name="expr">An expression that results in a parameter.</param>
+            <returns>The name of the target.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsEnumerable(System.Linq.Expressions.Expression)">
+            <summary>
+            Provides a way to enumerate an expression tree.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            var expr = Expression.Constant(this);
+            var target = expr.AsEnumerable();
+            </code>
+            </example>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to recurse.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression is null.</exception>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> instance.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsConstantExpression(System.Object)">
+            <summary>
+            Wraps an item as a <see cref="T:System.Linq.Expressions.ConstantExpression"/>.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            var target = this.AsConstantExpression();
+            </code>
+            </example>
+            <param name="obj">The object to wrap.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when object is null.</exception>
+            <returns>The <see cref="T:System.Linq.Expressions.ConstantExpression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsParameterExpression(System.Object,System.String,System.Boolean)">
+            <summary>
+            Creates a <see cref="T:System.Linq.Expressions.ParameterExpression" /> based on the
+            type of the object.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            var target = this.AsParameterExpression(nameof(parameter));
+            // target.Type == this.GetType(), target.Name == "parameter"
+            </code>
+            </example>
+            <param name="obj">The object to inspect.</param>
+            <param name="name">Optional name for the parameter.</param>
+            <param name="byRef">Set to <c>true</c> when parameter is by reference.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when object is null.</exception>
+            <returns>The <see cref="T:System.Linq.Expressions.ParameterExpression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsParameterExpression(System.Type,System.String,System.Boolean)">
+            <summary>
+            Creates a <see cref="T:System.Linq.Expressions.ParameterExpression"/> based on the
+            <see cref="T:System.Type"/>.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            var target = GetType().AsParameterExpression();
+            // target.Type == GetType()
+            </code>
+            </example>
+            <param name="type">The <see cref="T:System.Type"/> to use.</param>
+            <param name="name">Optional name for the parameter.</param>
+            <param name="byRef">Set to <c>true</c> when parameter is by reference.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when type is null.</exception>
+            <returns>The <see cref="T:System.Linq.Expressions.ParameterExpression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Extracts the parameter from a member expression.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            var result = ExpressionExtensions
+                .CreateParameterExpression&lt;Foo, string>(
+                   foo => foo.Bar);
+            // result.Type == typeof(string)
+            // result.Name == "Bar";
+            </code>
+            </example>
+            <typeparam name="T">The parent type.</typeparam>
+            <typeparam name="TValue">The member type.</typeparam>
+            <param name="value">An expression that evaluates to the member.</param>
+            <returns>The <see cref="T:System.Linq.Expressions.ParameterExpression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsEquivalentTo(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Uses <see cref="T:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency"/> to determine equivalency.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>A flag indicating whether the expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsSimilarTo(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Uses <see cref="T:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity"/> to determine similarity.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>A flag indicating whether the expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Uses <see cref="T:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity"/> to determine if an <see cref="T:System.Linq.Expressions.Expression"/>
+            is part of another.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <returns>A flag indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions">
+            <summary>
+            Building blocks for expression rules.
+            </summary>
+            <remarks>
+            The purpose of these extensions are to provide fluent building blocks for rules. They
+            can be chained to test any aspect of comparison. See <see cref="T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules"/> for
+            example implementations.
+            </remarks>
+            <summary>
+            Extensions that relate to enumerable comparisons.
+            </summary>
+            <summary>
+            Extensions related to comparison of <see cref="T:System.Linq.Expressions.Expression"/> values.
+            </summary>
+            <summary>
+            Extensions for branching logic.
+            </summary>
+            <summary>
+            Extensions that are rules for logical comparisons.
+            </summary>
+            <summary>
+            Comparison rules related to members on the <see cref="T:System.Linq.Expressions.Expression"/>.
+            </summary>
+            <summary>
+            Primitive rules.
+            </summary>
+            <summary>
+            Extensions related to comparisons of types on <see cref="T:System.Linq.Expressions.Expression"/> instances.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.Rule``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Basic rule definition. Exists as a base to provide typed template.
+            </summary>
+            <example>
+            For example:
+            <code>
+            ExpressionRulesExtensions.Rule&lt;ConstantExpression>((s, t) => s.Value == t.Vale);
+            </code>
+            </example>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule to make.</param>
+            <returns>The rule as an expression.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.EnumerableExpressionsMustBeEquivalent``1(System.Func{``0,System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}})">
+            <summary>
+            Expression in each enumerable must be equivalent.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">The enumerable child expressions.</param>
+            <returns>A value indicating whether or not the enumerables match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndEnumerableExpressionsMustBeEquivalent``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}})">
+            <summary>
+            Expression in each enumerable must be equivalent.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The existing rule.</param>
+            <param name="member">The enumerable child expressions.</param>
+            <returns>A value indicating whether or not the enumerables match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.EnumerableExpressionsMustBeSimilar``1(System.Func{``0,System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}})">
+            <summary>
+            Expression in each enumerable must be similar.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">The enumerable child expressions.</param>
+            <returns>A value indicating whether or not the enumerables are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndEnumerableExpressionsMustBeSimilar``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}})">
+            <summary>
+            Expression in each enumerable must be similar.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The existing rule.</param>
+            <param name="member">The enumerable child expressions.</param>
+            <returns>A value indicating whether or not the enumerables are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndExpressionsMustBeEquivalent``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Linq.Expressions.Expression})">
+            <summary>
+            Expressions must be equivalent.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">Rule to combine with.</param>
+            <param name="member">Reference the property that is an expression.</param>
+            <returns>A value indicating whether the expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.ExpressionsMustBeEquivalent``1(System.Func{``0,System.Linq.Expressions.Expression})">
+            <summary>
+            Expressions must be equivalent.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">Reference the property that is an expression.</param>
+            <returns>A value indicating whether the expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.ExpressionsMustBeSimilar``1(System.Func{``0,System.Linq.Expressions.Expression})">
+            <summary>
+            Expressions must be similar.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">Reference the property that is an expression.</param>
+            <returns>A value indicating whether the expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndExpressionsMustBeSimilar``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Linq.Expressions.Expression})">
+            <summary>
+            And expressions must be similar.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule to consider.</param>
+            <param name="member">Reference the property that is an expression.</param>
+            <returns>A value indicating whether the expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndSourceMustBePartofTarget``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Linq.Expressions.Expression})">
+            <summary>
+            Expression must be part of another.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule to include.</param>
+            <param name="member">Reference the property that is an expression.</param>
+            <returns>A value indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.SourceMustBePartofTarget``1(System.Func{``0,System.Linq.Expressions.Expression})">
+            <summary>
+            Expression must be part of another.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">Reference the property that is an expression.</param>
+            <returns>A value indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.If``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Enables if ... then logic.
+            </summary>
+            <remarks>
+            Since the logic is Boolean, the statement always returns a <c>bool</c>. If the condition
+            is true, it evaluates to the result of the <c>ifThen</c> condition. If the condition
+            is false, it evaluates to the result of the <c>ifFalse</c> condition. The <c>ifFalse</c>
+            condition evaluates to <c>true</c> by default so it can be part of an "AND" chain. If it
+            is part of an "OR" chain, you should override <c>ifFalse</c> to return <c>false</c>.
+            </remarks>
+            <example>
+            For example, if first name matches and *if* last name isn't <c>null</c>, then it matches.
+            <code>
+            ExpressionRulesExtension.Rule((s, t) => s.FirstName == t.FirstName)
+                .And(If(
+                        condition: (s, t) => s.LastName != null,
+                        ifTrue: (s, t) => s.LastName == t.LastName
+                        ));
+            </code>
+            In another example, if first name matches *or* if last name is not null and matches.
+            For last name to "light up" requires that both condition and <c>ifTrue</c> pass.
+            <code>
+            ExpressionRulesExtension.Rule((s, t) => s.FirstName == t.FirstName)
+                .Or(If(
+                        condition: (s, t) => s.LastName != null,
+                        ifTrue: (s, t) => s.LastName == t.LastName,
+                        ifFalse: ExpressionRuleExtension.False()
+                        ));
+            </code>
+            </example>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <param name="condition">The condition that must pass.</param>
+            <param name="ifTrue">The rule to apply for success.</param>
+            <param name="ifFalse">The rule to apply for failure.</param>
+            <returns>The result of the if/then/else evaluation.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.IfWithCast``2(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``1,``1,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``1,``1,System.Boolean}})">
+            <summary>
+            Enables if ... then logic with a cast to inner evaluations.
+            </summary>
+            <remarks>
+            This special version allows transitioning from a parent expression to a child. For example,
+            consider a <see cref="T:System.Linq.Expressions.BinaryExpression"/> with a <see cref="T:System.Linq.Expressions.ConstantExpression"/> for the
+            <c>Left</c> property. This rule enables you to test if the type matches, then run rules
+            against the child <see cref="T:System.Linq.Expressions.Expression"/>. See the <see cref="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.If``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})"/>
+            definition for more about how the final result is evaluated.
+            </remarks>
+            <example>
+            For example, if child is a constant and the constant type is integer, then it matches.
+            <code>
+            ExpressionRulesExtensions.IfWithCast&lt;BinaryExpression, ConstantExpression>(
+                condition: (s, t) => s.Left is ConstantExpression,
+                conversion: e => e.Left as ConstantExpression,
+                ifTrue: (s, t) => ExpressionEquivalency.AreEquivalent(s, t), // runs as ConstantExpression
+                ifFalse: ExpressionRulesExtensions.False&lt;ConstantExpression>()).Compile();
+            );
+            </code>
+            </example>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <typeparam name="TOther">The type of the child <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <param name="condition">The condition that must pass.</param>
+            <param name="conversion">How to convert to the type (property and cast).</param>
+            <param name="ifTrue">The rule to apply for success.</param>
+            <param name="ifFalse">The rule to apply for failure.</param>
+            <returns>The result of the if/then/else evaluation.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.Not``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Logical NOT of result of rule.
+            </summary>
+            <example>
+            For example:
+            <code lang="csharp">
+            <![CDATA[
+             var source = Expression.Constant(true);
+             var target = Expression.Constant(true);
+             var rule = rules.Not<ConstantExpression>(
+                (s, t) => (bool)s.Value);
+             var result = rule.Compile())source, target);
+             ]]>
+            </code>
+            Because of the call to <c>Not</c>, the result is <c>false</c>.
+            </example>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule to evaluate.</param>
+            <returns>The opposite of the rule evaluation.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndIf``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Logical AND applied to rule and <c>If</c> condition.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule that must pass.</param>
+            <param name="condition">The condition for if/then.</param>
+            <param name="ifTrue">The rule to evaluate for if/then.</param>
+            <param name="ifFalse">The rule to evaluate for if/else.</param>
+            <returns>The result of the <c>If</c> AND the result of the rule.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.OrIf``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Logical OR applied to rule and <c>If</c> condition.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule that might pass.</param>
+            <param name="condition">The condition for if/then.</param>
+            <param name="ifTrue">The rule to evaluate for if/then.</param>
+            <param name="ifFalse">The rule to evaluate for if/else.</param>
+            <returns>The result of the <c>If</c> OR the result of the rule.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.Or``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Start of tree with left and right "or" branches.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="left">Left rule.</param>
+            <param name="right">Right rule.</param>
+            <returns>A value that indicates whether the left or the
+            right resolved to <c>true</c>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.And``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Start of tree with left and right "and" branches.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="left">Left rule.</param>
+            <param name="right">Right rule.</param>
+            <returns>A value that indicates wheter both left and right evaluated to <c>true</c>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.MembersMustMatch``1(System.Func{``0,System.Object})">
+            <summary>
+            Member on source must match member on target.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">Member access.</param>
+            <returns>An expression that evaluates whether the members match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndMembersMustMatch``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Object})">
+            <summary>
+            And match members.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The exist rule to combine with.</param>
+            <param name="member">Member access.</param>
+            <returns>An expression that evaluates whether the members match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.MembersMustMatchNullOrNotNull``1(System.Func{``0,System.Object})">
+            <summary>
+            Both expressions must either have null members, or not null members.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">The access for the member property.</param>
+            <returns>An expression that evaluates whether the expressions are both null or both not null.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndMembersMustMatchNullOrNotNull``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Object})">
+            <summary>
+            Both expressions must either have null members, or not null members.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The rule to add.</param>
+            <param name="member">The access for the member property.</param>
+            <returns>An expression that evaluates whether the expressions are both null or both not null.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.True``1">
+            <summary>
+            Truth.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>Always <c>true</c>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.False``1">
+            <summary>
+            Lies.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>Always <c>false</c>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.NodeTypesMustMatch``1">
+            <summary>
+            The <see cref="T:System.Linq.Expressions.ExpressionType"/> must be the same.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>An expression that evaluates whether the node types match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndNodeTypesMustMatch``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            And the <see cref="T:System.Linq.Expressions.ExpressionType"/> must be the same.
+            </summary>
+            <param name="rule">The existing rule.</param>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>An expression that evaluates whether the node types match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.OrNodeTypesMustMatch``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            Or the <see cref="T:System.Linq.Expressions.ExpressionType"/> must be the same.
+            </summary>
+            <param name="rule">The existing rule.</param>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>An expression that evaluates whether the node types match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.SourceTypeMustBeSimilarToExpression``1">
+            <summary>
+            The source type must be similar to <see cref="T:System.Linq.Expressions.Expression"/>.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>A flag indicating whether the source type is similar to an expression.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.SourceTypeMustBeTypedEnumerable``1">
+            <summary>
+            The source type must be an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <returns>A value that indicates whether the source type is a typed enumerable.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.SourceTypeMustBeArrayOrCollection``1">
+            <summary>
+            The source type must derive from or be an <see cref="T:System.Array"/> or <see cref="T:System.Collections.ICollection"/>.
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>A value that indicates whether the source type is array or collection.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.TypesMustMatch``1">
+            <summary>
+            Types of the expressions must be the same.
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>An expression that evaluates whether the types match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.TypesMustBeSimilar``1">
+            <summary>
+            Types of the expressions must be similar.
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>An expression that evaluates whether the types are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndTypesMustBeSimilar``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}})">
+            <summary>
+            AND types of the expressions must be similar.
+            </summary>
+            <param name="rule">The rule to include.</param>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>An expression that evaluates whether the types are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.TypesMustBeSimilar``1(System.Func{``0,System.Type})">
+            <summary>
+            Types of the expressions must be similar.
+            </summary>
+            <param name="typeAccess">Access to the type.</param>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>An expression that evaluates whether the types are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndTypesMustBeSimilar``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Type})">
+            <summary>
+            Types of the expressions must be similar.
+            </summary>
+            <param name="rule">The rule to attach to.</param>
+            <param name="typeAccess">Access to the type.</param>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>An expression that evaluates whether the types are similar.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions">
+            <summary>
+            Extensions for filtering <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.ConstantsOfType``1(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator)">
+            <summary>
+            Helper extension to extract constants from an expression tree.
+            </summary>
+            <typeparam name="T">The type of constant to extract.</typeparam>
+            <param name="expressionEnumerator">The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> to parse.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when enumerator is null.</exception>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerable`1"/> with
+            matching types.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithNameForType(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.Type,System.String)">
+            <summary>
+            Extracts instances of expressions that represent a method
+            on a type.
+            </summary>
+            <param name="expressionEnumerator">The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> to query.</param>
+            <param name="type">The <see cref="T:System.Type"/> to check for.</param>
+            <param name="name">The name of the method.</param>
+            <returns>The filtered <see cref="T:System.Collections.Generic.IEnumerable`1"/> result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithNameForType``1(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.String)">
+            <summary>
+            Extracts instances of expressions that represent a method
+            on a type.
+            </summary>
+            <typeparam name="T">The type hosting the method.</typeparam>
+            <param name="expressionEnumerator">The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> to query.</param>
+            <param name="name">The name of the method to query for.</param>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerable`1"/> filtered results.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsFromTemplate``1(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>
+            Use a template to specify the method to search for.
+            </summary>
+            <remarks>
+            Only matches method name and declaring type. Arguments are ignored.
+            </remarks>
+            <typeparam name="T">The <see cref="T:System.Type"/> the method is on.</typeparam>
+            <param name="expressionEnumerator">The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> to query.</param>
+            <param name="method">An expression that accesses the method.</param>
+            <returns>The list of matching <see cref="T:System.Linq.Expressions.MethodCallExpression"/> instances.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithName(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.String)">
+            <summary>
+            Helper extension to extract methods with a particular name.
+            </summary>
+            <param name="expressionEnumerator">The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> to query.</param>
+            <param name="name">The method name to extract.</param>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerable`1"/> result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.OfExpressionType(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.Linq.Expressions.ExpressionType)">
+            <summary>
+            Helper extension to extract nodes with a specific
+            <see cref="T:System.Linq.Expressions.ExpressionType"/> value.
+            </summary>
+            <param name="expressionEnumerator">The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> to query.</param>
+            <param name="type">The <see cref="T:System.Linq.Expressions.ExpressionType"/> to extract.</param>
+            <returns>The filtered result of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Extensions.IQueryableExtensions">
+            <summary>
+            Extensions over the <see cref="T:System.Linq.IQueryable"/> interface.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression(System.Linq.IQueryable)">
+            <summary>
+            Providers a way to enumerate the expression behind a query.
+            </summary>
+            <param name="query">The query to enumerate.</param>
+            <example>
+            For example:
+            <code lang="csharp">
+            var query = new List&lt;IQueryableExtensionsTests>()
+                   .AsQueryable()
+                   .Where(t => t.GetHashCode() == int.MaxValue);
+            var target = query.AsEnumerableExpression();
+            </code>
+            </example>
+            <exception cref="T:System.ArgumentNullException">Thrown when query is null.</exception>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/> instance.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsEquivalentTo(System.Linq.IQueryable,System.Linq.IQueryable)">
+            <summary>
+            Determines whether the expression tree of the query is equivalent to the other query.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable"/>.</param>
+            <returns>A flag indicating whether the queries are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsEquivalentTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Determines whether the expression tree of the query is equivalent to the other query.
+            </summary>
+            <typeparam name="T">The entity being queried.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <returns>A flag indicating whether the queries are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo(System.Linq.IQueryable,System.Linq.IQueryable)">
+            <summary>
+            Determines whether the expression tree of the query is similar to the other query.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable"/>.</param>
+            <returns>A flag indicating whether the queries are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.IsSimilarTo``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Determines whether the expression tree of the query is similar to the other query.
+            </summary>
+            <typeparam name="T">The entity being queried.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <returns>A flag indicating whether the queries are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Generic extension.
+            </summary>
+            <typeparam name="T">The query type.</typeparam>
+            <param name="query">The <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1">
+            <summary>
+            Creates a queryable from an empty list used for templates to compare.
+            </summary>
+            <typeparam name="T">The type of entity.</typeparam>
+            <returns>The <see cref="T:System.Linq.IQueryable`1"/> to build on.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateQueryTemplate``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Creates a new queryable to build a template from.
+            </summary>
+            <typeparam name="T">The type of entity.</typeparam>
+            <param name="noop">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable`1"/> to build on.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.HasFragment``1(System.Linq.IQueryable{``0},System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}})">
+            <summary>
+            Determine whether a fragment of queryable exists in the
+            target query.
+            </summary>
+            <remarks>
+            This will return true if all parts of the fragment's expression tree
+            are similar to all parts of a similar expression in the source.
+            </remarks>
+            <typeparam name="T">The type of entity.</typeparam>
+            <param name="source">The <see cref="T:System.Linq.IQueryable`1"/> to check.</param>
+            <param name="fragment">The fragment to test.</param>
+            <returns>A flag indicating whether the fragment is part of the parent query.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateSnapshotQueryable``1(System.Linq.IQueryable{``0},System.Action{System.Linq.Expressions.Expression})">
+            <summary>
+            Creates a snapshot that allows a registered callback to
+            inspect the expression when the query is executed.
+            </summary>
+            <typeparam name="T">The type.</typeparam>
+            <param name="source">The source query.</param>
+            <param name="callback">The callback.</param>
+            <returns>The query with snapshot applied.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.CreateInterceptedQueryable``1(System.Linq.IQueryable{``0},ExpressionPowerTools.Core.ExpressionTransformer)">
+            <summary>
+            Creates a query that can transformation the <see cref="T:System.Linq.Expressions.Expression"/>
+            wen run.
+            </summary>
+            <typeparam name="T">The entity type.</typeparam>
+            <param name="source">The source query.</param>
+            <param name="transformation">The transformation to apply.</param>
+            <returns>The new intercepting query.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Hosts.QueryHost`2">
+            <summary>
+            Base class for custom query host.
+            </summary>
+            <typeparam name="T">The entity type.</typeparam>
+            <typeparam name="TProvider">The <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/> to use.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QueryHost`2.#ctor(System.Linq.Expressions.Expression,`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Hosts.QueryHost`2"/> class.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="provider">The <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/>.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression or provider are null.</exception>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Hosts.QueryHost`2.ElementType">
+            <summary>
+            Gets the type of element.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression">
+            <summary>
+            Gets the <see cref="P:ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression"/> for the query.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Hosts.QueryHost`2.Provider">
+            <summary>
+            Gets the instance of the <see cref="T:System.Linq.IQueryProvider"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Hosts.QueryHost`2.CustomProvider">
+            <summary>
+            Gets or sets the instance of the <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QueryHost`2.GetEnumerator">
+            <summary>
+            Gets an <see cref="T:System.Collections.Generic.IEnumerator`1"/> for the query results.
+            </summary>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerator`1"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QueryHost`2.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Gets the non-typed <see cref="T:System.Collections.IEnumerator"/>.
+            </summary>
+            <returns>The <see cref="T:System.Collections.IEnumerator"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1">
+            <summary>
+            A host to snapshot the query on execution.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.IQueryable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1"/> class.
+            </summary>
+            <param name="source">The <see cref="T:System.Linq.IQueryable`1"/> to snapshot.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.IQueryable,System.Linq.Expressions.Expression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1"/> class.
+            </summary>
+            <param name="source">The query source.</param>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to use.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.#ctor(System.Linq.Expressions.Expression,ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1"/> class.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to use.</param>
+            <param name="provider">The <see cref="T:ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1"/> instance.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.RegisterSnap(System.Action{System.Linq.Expressions.Expression})">
+            <summary>
+            Register for a callback when the <see cref="T:System.Linq.Expressions.Expression"/> is executed.
+            </summary>
+            <param name="callback">The callback to pass the expression to.</param>
+            <returns>A unique identifier for the registration.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when callback is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.UnregisterSnap(System.String)">
+            <summary>
+            Stop listenining.
+            </summary>
+            <param name="id">The unique identifier.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.SnapshotProvider_QueryExecuted(System.Object,ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs)">
+            <summary>
+            Handle snap.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs"/>.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1">
+            <summary>
+            Base query provider class.
+            </summary>
+            <typeparam name="T">The entity type.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.#ctor(System.Linq.IQueryable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1"/> class.
+            </summary>
+            <param name="sourceQuery">The query to snapshot.</param>
+            <exception cref="T:System.ArgumentNullException">Throw when query is null.</exception>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.Source">
+            <summary>
+            Gets the source <see cref="T:System.Linq.IQueryable"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.CreateQuery(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates the query.
+            </summary>
+            <param name="expression">The query <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The query.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates the query.
+            </summary>
+            <typeparam name="TElement">The entity type.</typeparam>
+            <param name="expression">The query <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The query.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.Execute(System.Linq.Expressions.Expression)">
+            <summary>
+            Runs the query and returns the result.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to use.</param>
+            <returns>The query result.</returns>
+            <exception cref="T:System.ArgumentNullException">Throw when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.Execute``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Runs the query and returns the typed result.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="expression">The query <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The query result.</returns>
+            <exception cref="T:System.ArgumentNullException">Throw when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)">
+            <summary>
+            Return the enumerable result.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Throw when expression is null.</exception>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1">
+            <summary>
+            Provider that intercepts the <see cref="T:System.Linq.Expressions.Expression"/> when run.
+            </summary>
+            <typeparam name="T">The entity type.</typeparam>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.transformation">
+            <summary>
+            The transformatoin to apply.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.#ctor(System.Linq.IQueryable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1"/> class.
+            </summary>
+            <param name="sourceQuery">The query to snapshot.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.CreateQuery(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates a query host with this provider.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to use.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Throw when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates a query host with a different type.
+            </summary>
+            <typeparam name="TElement">The entity type.</typeparam>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to use.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable`1"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Throw when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.RegisterInterceptor(ExpressionPowerTools.Core.ExpressionTransformer)">
+            <summary>
+            Registers the transformation to apply.
+            </summary>
+            <param name="transformation">A method that transforms an <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when transformation is null.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when interceptor already registered.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.Execute(System.Linq.Expressions.Expression)">
+            <summary>
+            Execute with transformation.
+            </summary>
+            <param name="expression">The base <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>Result of executing the transformed expression.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)">
+            <summary>
+            Execute the enumerable.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to execute.</param>
+            <returns>The result of the transformed expression.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.TransformExpression(System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the transformation.
+            </summary>
+            <param name="source">The original <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The transformed <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs">
+            <summary>
+            Encapsulates an <see cref="T:System.Linq.Expressions.Expression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.#ctor(System.Linq.Expressions.Expression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs"/> class.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to host.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression">
+            <summary>
+            Gets the <see cref="P:ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression"/>.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1">
+            <summary>
+            Provider that raises an event just before the query is executed.
+            </summary>
+            <typeparam name="T">The type of entity.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.#ctor(System.Linq.IQueryable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1"/> class.
+            </summary>
+            <param name="sourceQuery">The query to snapshot.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.#ctor(System.Linq.IQueryable,ExpressionPowerTools.Core.Signatures.IQuerySnapshot)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1"/> class.
+            </summary>
+            <param name="sourceQuery">The query to snapshot.</param>
+            <param name="parent">The parent that created this.</param>
+        </member>
+        <member name="E:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.QueryExecuted">
+            <summary>
+            Event raised when the query executes.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.Parent">
+            <summary>
+            Gets or sets the <see cref="T:ExpressionPowerTools.Core.Signatures.IQuerySnapshot"/> parent.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.CreateQuery(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates the query.
+            </summary>
+            <param name="expression">The query <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The query.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates the query.
+            </summary>
+            <typeparam name="TElement">The entity type.</typeparam>
+            <param name="expression">The query <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The query.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)">
+            <summary>
+            Return the enumerable result.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.OnExecuteEnumerableCalled(System.Linq.Expressions.Expression)">
+            <summary>
+            Raise the event.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> used.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Resources.ExceptionHelper">
+            <summary>
+            Helper for localized exceptions.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.AlreadyInitialized">
+            <summary>
+            Service host already initialized.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InvalidGenericRegistration">
+            <summary>
+            Can't assign invalid implementation.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InvalidService">
+            <summary>
+            The service is not registered.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InterceptorAlreadyRegistered">
+            <summary>
+            The interceptor was already registered.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.InvalidConfiguration">
+            <summary>
+            Service configuration in wrong state.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.ExceptionResources">
+            <summary>
+            Name of resource file.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.WhitespaceNotAllowed">
+            <summary>
+            Whitespace message.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.NullReference">
+            <summary>
+            Null reference message.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.MethodAccessRequired">
+            <summary>
+            Method access message.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.ResourceFile">
+            <summary>
+            Path to the resource file.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Resources.ExceptionHelper.ResourceManager">
+            <summary>
+            Resource manager to use.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Resources.ExceptionHelper.WhitespaceNotAllowedException(System.String)">
+            <summary>
+            Generates a <see cref="T:System.ArgumentException"/> for empty string.
+            </summary>
+            <param name="parameterName">The name of the parameter.</param>
+            <returns>The <see cref="T:System.ArgumentException"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Resources.ExceptionHelper.MethodCallOnTypeRequiredException(System.String)">
+            <summary>
+            Generates a <see cref="T:System.ArgumentException"/> for invalid expression.
+            </summary>
+            <param name="parameterName">The name of the parameter.</param>
+            <returns>The <see cref="T:System.ArgumentException"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Resources.ExceptionHelper.NullReferenceNotAllowedException(System.String)">
+            <summary>
+            Null reference exception.
+            </summary>
+            <param name="memberName">The member that is null.</param>
+            <returns>A <see cref="T:System.NullReferenceException"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Resources.ExceptionHelper.AsInvalidOperationException(System.String,System.String[])">
+            <summary>
+            Invalid operation messages.
+            </summary>
+            <param name="message">The message key.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>The invalid operation.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Resources.ExceptionResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.AlreadyInitialized">
+            <summary>
+              Looks up a localized string similar to The host has already been initialized. Use reset before attempting to initialize again..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InterceptorAlreadyRegistered">
+            <summary>
+              Looks up a localized string similar to An interceptor has already been registered. Only one registration is allowed..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InvalidConfiguration">
+            <summary>
+              Looks up a localized string similar to Configuration is in wrong state: expected configured {0} but was {1}..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InvalidGenericRegistration">
+            <summary>
+              Looks up a localized string similar to Implementation type [{0}] is not assignable to signature type [{1}]..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.InvalidService">
+            <summary>
+              Looks up a localized string similar to There is no registered service for type [{0}]..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.MethodAccessRequired">
+            <summary>
+              Looks up a localized string similar to The parameter must be an expression that resolves to a method on the declared type..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.NullReference">
+            <summary>
+              Looks up a localized string similar to The value of {0} cannot be null..
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Resources.ExceptionResources.WhitespaceNotAllowed">
+            <summary>
+              Looks up a localized string similar to The parameter requires a value. Null and whitespace not allowed..
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1">
+            <summary>
+            Interface for a custom implementation of <see cref="T:System.Linq.IQueryProvider"/>.
+            </summary>
+            <typeparam name="T">The entity type.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.ExecuteEnumerable(System.Linq.Expressions.Expression)">
+            <summary>
+            Execute enumeration from the <see cref="T:System.Linq.Expressions.Expression"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to enumerate.</param>
+            <returns>An instance of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider">
+            <summary>
+            Interface for a class that provides rules for comparisons.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.GetRuleForEquivalency``1">
+            <summary>
+            Gets a predicate to compare two expressions of a given type.
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>The rule or null when not found.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.CheckEquivalency``1(``0,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.CheckEquivalency(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check against all cached types.
+            </summary>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are equivalent.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when either source or target are null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.GetRuleForSimilarity``1">
+            <summary>
+            Gets a predicate to compare two expressions of a given type.
+            </summary>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/>.</typeparam>
+            <returns>The rule or null when not found.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.CheckSimilarity``1(``0,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.CheckSimilarity(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Perform the check against all cached types.
+            </summary>
+            <param name="source">The source expression.</param>
+            <param name="target">The target expression.</param>
+            <returns>A flag indicating whether the two expressions are similar.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when either source or target are null.</exception>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator">
+            <summary>
+            Enables recursing over an expression tree.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator">
+            <summary>
+            Evaluator as facade to equivalency and similarity.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreEquivalent(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Entry for equivalency comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreEquivalent``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Entry for equivalency comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <typeparam name="T">The type of entity.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreEquivalent(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
+            <summary>
+            Comparison of multiple expressions. Equivalent
+            only when all elements match, in order, and
+            pass the equivalent test.
+            </summary>
+            <param name="source">The source expressions.</param>
+            <param name="target">The target expressions.</param>
+            <returns>A flag indicating whether the two sets of
+            expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Entry for similarity comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Entry for similarity comparisons. Will cast to
+            known types and compare.
+            </summary>
+            <typeparam name="T">The type of entity.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/> to compare to.</param>
+            <returns>A flag indicating whether the source and target are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression},System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
+            <summary>
+            Comparison of multiple expressions. Similar
+            only when all elements match, in order, and
+            pass the similarity test. It's fine if the
+            source does not have the same number of entities
+            as the target.
+            </summary>
+            <param name="source">The source expressions.</param>
+            <param name="target">The target expressions.</param>
+            <returns>A flag indicating whether the two sets of
+            expressions are Similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Determines whether an <see cref="T:System.Linq.Expressions.Expression"/> is part of another expression.
+            </summary>
+            <remarks>
+            A source is part of a target if an <see cref="T:System.Linq.Expressions.Expression"/> exists in the
+            target's tree that is similar to the source.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <returns>A flag indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.IsPartOf``1(System.Linq.IQueryable{``0},System.Linq.IQueryable{``0})">
+            <summary>
+            Determines whether an <see cref="T:System.Linq.IQueryable`1"/> is part of another query.
+            </summary>
+            <remarks>
+            A source is part of a target if an <see cref="T:System.Linq.Expressions.Expression"/> exists in the
+            target's tree that is similar to the source.
+            </remarks>
+            <typeparam name="T">The type of entity.</typeparam>
+            <param name="source">The source <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.IQueryable`1"/> to parse.</param>
+            <returns>A flag indicating whether the source is part of the target.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IQueryHost`2">
+            <summary>
+            Interface for custom query host.
+            </summary>
+            <typeparam name="T">The type of entity.</typeparam>
+            <typeparam name="TProvider">The <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/> to handle logic.</typeparam>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Signatures.IQueryHost`2.CustomProvider">
+            <summary>
+            Gets the <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/> that handles the custom logic.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider`1">
+            <summary>
+            Interface for provider that intercepts the <see cref="T:System.Linq.Expressions.Expression"/> when run.
+            </summary>
+            <typeparam name="T">The type.</typeparam>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IQueryInterceptor">
+            <summary>
+            Exposes a method to register a transformation.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IQueryInterceptor.RegisterInterceptor(ExpressionPowerTools.Core.ExpressionTransformer)">
+            <summary>
+            Register the transformation to intercept.
+            </summary>
+            <param name="transformation">The method to inspect and/or transform.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IQuerySnapshot">
+            <summary>
+            Non-generic interface for snapshot host.
+            </summary>
+        </member>
+        <member name="E:ExpressionPowerTools.Core.Signatures.IQuerySnapshot.QueryExecuted">
+            <summary>
+            Event to raise when the query is triggered.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Signatures.IQuerySnapshot.Parent">
+            <summary>
+            Gets the parent provider for bubbling events.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IQuerySnapshot.OnExecuteEnumerableCalled(System.Linq.Expressions.Expression)">
+            <summary>
+            Method to raise call.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to snapshot.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1">
+            <summary>
+            Host to snapshot a query. Will raise an event when it is executed
+            to allow inspecting the expression.
+            </summary>
+            <typeparam name="T">The type of entity.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.RegisterSnap(System.Action{System.Linq.Expressions.Expression})">
+            <summary>
+            Register a callback to receive the <see cref="T:System.Linq.Expressions.Expression"/> when snapped.
+            </summary>
+            <param name="callback">The callback to use.</param>
+            <returns>A unique identifier used to unregister.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IQuerySnapshotHost`1.UnregisterSnap(System.String)">
+            <summary>
+            Unregister for callbacks.
+            </summary>
+            <param name="id">The unique identifier of the registration.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1">
+            <summary>
+            Provider to intercept query execution for inspection.
+            </summary>
+            <typeparam name="T">The type of snapshot to provide for.</typeparam>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration">
+            <summary>
+            Interface for service registration.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IServiceRegistration.Register``2">
+            <summary>
+            Register a service with two parameters.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the instance.</typeparam>
+            <typeparam name="TImpl">The <see cref="T:System.Type"/> of the implementation.</typeparam>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Signatures.IServices"/> for chaining.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IServiceRegistration.RegisterSingleton``1(``0)">
+            <summary>
+            Register a service with two parameters.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the instance.</typeparam>
+            <param name="instance">The singleton to register.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Signatures.IServices"/> for chaining.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IServiceRegistration.RegisterGeneric(System.Type,System.Type)">
+            <summary>
+            Register a generic service.
+            </summary>
+            <remarks>
+            To register a generic type, register the open type descriptor and the open
+            implementation. Request the typed implementation.
+            </remarks>
+            <example>
+            For example:
+            <code lang="csharp"><![CDATA[
+            registration.RegisterGeneric(typeof(IQueryHost<,>), typeof(QueryHost<,>));
+            var target = source.GetService<IQueryHost<IdType, ICustomQueryProvider<IdType>>>(
+                query.Expression, provider);
+            ]]></code>
+            </example>
+            <param name="signature">The interface or base type of the registration.</param>
+            <param name="implementation">The implementation.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Core.Signatures.IServices"/> for chaining.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Core.Signatures.IServices">
+            <summary>
+            Service registration and resolution.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IServices.GetService``1(System.Object[])">
+            <summary>
+            Gets a configured service.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the service.</typeparam>
+            <param name="parameters">List of parameters.</param>
+            <returns>The service instance.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when service not found.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IServices.RegisterServices(System.Action{ExpressionPowerTools.Core.Signatures.IServiceRegistration})">
+            <summary>
+            Register multiple service and set configured.
+            </summary>
+            <param name="register">The action to register.</param>
+        </member>
+    </members>
+</doc>

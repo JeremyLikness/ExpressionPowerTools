@@ -14,7 +14,7 @@ Implements  [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IService
 
 ## Remarks
 
-Use the register overloads to register services. Callwhen done setting up and
+Use the register overloads to register services. Call [ExpressionPowerTools.Core.Dependencies.Services.Configured](https://docs.microsoft.com/dotnet/api/ExpressionPowerTools.Core.Dependencies.Services.Configured) when done setting up and
             before attempting to retrieve other instances.
 
 ## Constructors
@@ -26,14 +26,14 @@ Use the register overloads to register services. Callwhen done setting up and
 
 | Method | Description |
 | :-- | :-- |
-| [T GetService&lt;T>(Object[] parameters)](Services-GetService.m.md) | Get a service based on registration. |
-| [IServiceRegistration Register&lt;T, TImpl>()](Services-Register.m.md) | Register a service. |
-| [IServiceRegistration RegisterGeneric(Type signature, Type implementation)](Services-RegisterGeneric.m.md) | Register a generic service. |
-| [Void RegisterServices(Action&lt;IServiceRegistration> register)](Services-RegisterServices.m.md) | Register multiple services and call configured. |
-| [IServiceRegistration RegisterSingleton&lt;T>(T instance)](Services-RegisterSingleton.m.md) | Register a singleton to satisfy a type request. |
+| [T GetService&lt;T>(Object[] parameters)](ExpressionPowerTools.Core.Dependencies.Services.GetService.m.md) | Get a service based on registration. |
+| [IServiceRegistration Register&lt;T, TImpl>()](ExpressionPowerTools.Core.Dependencies.Services.Register.m.md) | Register a service. |
+| [IServiceRegistration RegisterGeneric(Type signature, Type implementation)](ExpressionPowerTools.Core.Dependencies.Services.RegisterGeneric.m.md) | Register a generic service. |
+| [Void RegisterServices(Action&lt;IServiceRegistration> register)](ExpressionPowerTools.Core.Dependencies.Services.RegisterServices.m.md) | Register multiple services and call configured. |
+| [IServiceRegistration RegisterSingleton&lt;T>(T instance)](ExpressionPowerTools.Core.Dependencies.Services.RegisterSingleton.m.md) | Register a singleton to satisfy a type request. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

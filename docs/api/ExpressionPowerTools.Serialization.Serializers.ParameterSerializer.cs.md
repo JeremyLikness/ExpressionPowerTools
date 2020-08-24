@@ -21,11 +21,11 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Method | Description |
 | :-- | :-- |
-| [ParameterExpression Deserialize(JsonElement json)](ParameterSerializer-Deserialize.m.md) | Deserialize a serializable class to an actionable [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| [Parameter Serialize(ParameterExpression expression)](ParameterSerializer-Serialize.m.md) | Serializes the expression. |
+| [ParameterExpression Deserialize(JsonElement json)](ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.Deserialize.m.md) | Deserialize a serializable class to an actionable [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [Parameter Serialize(ParameterExpression expression)](ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.Serialize.m.md) | Serializes the expression. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

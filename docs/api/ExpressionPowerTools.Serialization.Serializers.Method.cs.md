@@ -30,10 +30,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [Int32 GetHashCode()](Method-GetHashCode.m.md) | Generates a hash code based on the full method signature. |
+| [Int32 GetHashCode()](ExpressionPowerTools.Serialization.Serializers.Method.GetHashCode.m.md) | Generates a hash code based on the full method signature. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

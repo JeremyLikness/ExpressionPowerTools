@@ -14,11 +14,11 @@ Derived  [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.Con
 
 | Method | Description |
 | :-- | :-- |
-| [Expression Deserialize(JsonElement json)](IBaseSerializer-Deserialize.m.md) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| [SerializableExpression Serialize(Expression expression)](IBaseSerializer-Serialize.m.md) | Serialize to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
+| [Expression Deserialize(JsonElement json)](ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.Deserialize.m.md) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [SerializableExpression Serialize(Expression expression)](ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.Serialize.m.md) | Serialize to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

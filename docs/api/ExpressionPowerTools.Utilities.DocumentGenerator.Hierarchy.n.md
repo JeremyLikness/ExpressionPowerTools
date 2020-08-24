@@ -18,6 +18,7 @@
 | [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) | Represents a parameter. |
 | [DocProperty](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.cs.md) | Represents a property. |
 | [DocTypeParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter.cs.md) | A type parameter. |
+| [LinkCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.LinkCache.cs.md) | Cache for grabbing links. |
 | [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) | Saves the "user-friendly" type and link. |
 | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) | A reference to a type. |
 
@@ -26,4 +27,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

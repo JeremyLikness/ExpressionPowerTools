@@ -19,7 +19,7 @@
 | [ParameterSerializer](ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.cs.md) | Serializer for [ParameterExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.parameterexpression) . |
 | [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) | Helper class to cache [Type](https://docs.microsoft.com/dotnet/api/system.type) and [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) information. |
 | [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) | Class for serialization expressions. |
-| [SerializationRoot](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.cs.md) | Root oftree. |
+| [SerializationRoot](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.cs.md) | Root of [Expression](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.Expression.prop.md) tree. |
 | [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) | Serializable version of the [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
 | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) | Serializer for [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
 
@@ -28,4 +28,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -21,11 +21,11 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Method | Description |
 | :-- | :-- |
-| [ConstantExpression Deserialize(JsonElement json)](ConstantSerializer-Deserialize.m.md) | Deserialize a serializable class to an actionable [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| [Constant Serialize(ConstantExpression expression)](ConstantSerializer-Serialize.m.md) | Serializes the expression. |
+| [ConstantExpression Deserialize(JsonElement json)](ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.Deserialize.m.md) | Deserialize a serializable class to an actionable [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [Constant Serialize(ConstantExpression expression)](ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.Serialize.m.md) | Serializes the expression. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

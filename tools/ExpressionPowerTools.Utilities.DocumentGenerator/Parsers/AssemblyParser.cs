@@ -150,6 +150,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     Code = MemberUtils.GenerateCodeFor(prop),
                 };
 
+                LinkCache.Register(property);
+
                 if (prop.GetIndexParameters().Length > 0)
                 {
                     property.IsIndexer = true;
@@ -175,6 +177,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             target.IsInterface = type.IsInterface;
             target.IsEnum = type.IsEnum;
             target.XPath = MemberUtils.GetSelector(type);
+            LinkCache.Register(target);
         }
 
         /// <summary>
@@ -215,6 +218,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     Name = MemberUtils.GenerateCodeFor(ctor),
                     XPath = MemberUtils.GetSelector(ctor),
                 };
+
+                LinkCache.Register(overload);
 
                 var staticText = ctor.IsStatic ? " static " : " ";
 
@@ -263,6 +268,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     Name = MemberUtils.GenerateCodeFor(methodInfo),
                     XPath = MemberUtils.GetSelector(methodInfo),
                 };
+
+                LinkCache.Register(methodOverload);
 
                 methodOverload.Code = methodOverload.Name;
 

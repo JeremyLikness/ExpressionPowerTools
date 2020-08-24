@@ -34,12 +34,12 @@ IList<string> markdown = table.CloseTable();
 
 | Method | Description |
 | :-- | :-- |
-| [Void AddRow(String[] data)](MarkdownTable-AddRow.m.md) | Add a row to the table. |
-| [IList&lt;String> CloseTable()](MarkdownTable-CloseTable.m.md) | Closes the table and generates the markdown. |
-| [Void SetAlignment(MarkdownColumnAlignment[] alignment)](MarkdownTable-SetAlignment.m.md) | Pass in the alignment settings. |
+| [Void AddRow(String[] data)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.AddRow.m.md) | Add a row to the table. |
+| [IList&lt;String> CloseTable()](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.CloseTable.m.md) | Closes the table and generates the markdown. |
+| [Void SetAlignment(MarkdownColumnAlignment[] alignment)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownTable.SetAlignment.m.md) | Pass in the alignment settings. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

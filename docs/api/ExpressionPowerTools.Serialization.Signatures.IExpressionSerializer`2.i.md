@@ -23,11 +23,11 @@ Derived  [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.Con
 
 | Method | Description |
 | :-- | :-- |
-| [T Deserialize(JsonElement json)](IExpressionSerializer`2-Deserialize.m.md) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| [TSerializable Serialize(T expression)](IExpressionSerializer`2-Serialize.m.md) | Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class. |
+| [T Deserialize(JsonElement json)](ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.Deserialize.m.md) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [TSerializable Serialize(T expression)](ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.Serialize.m.md) | Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

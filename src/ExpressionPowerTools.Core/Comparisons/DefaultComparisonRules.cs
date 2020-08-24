@@ -75,7 +75,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <remarks>
         /// Must be of same type. Both must be null or not null. If the value is an expression, the expressions
         /// must be equivalent. If the values are enumerable, the contents of the enumerable must match. The
-        /// values must must pass <see cref="eq.ValuesAreEquivalent(object, object)"/>.
+        /// values must pass <see cref="eq.ValuesAreEquivalent(object, object)"/>.
         /// </remarks>
         public static Expression<Func<ConstantExpression, ConstantExpression, bool>>
             DefaultConstantRules { get; } =

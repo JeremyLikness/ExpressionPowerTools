@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > **SerializationRoot**
 
-Root oftree.
+Root of [Expression](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.Expression.prop.md) tree.
 
 ```csharp
 public class SerializationRoot
@@ -27,4 +27,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

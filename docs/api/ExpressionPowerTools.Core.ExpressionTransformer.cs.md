@@ -21,12 +21,12 @@ Implements  [ICloneable](https://docs.microsoft.com/dotnet/api/system.icloneable
 
 | Method | Description |
 | :-- | :-- |
-| [IAsyncResult BeginInvoke(Expression source, AsyncCallback callback, Object object)](ExpressionTransformer-BeginInvoke.m.md) |  |
-| [Expression EndInvoke(IAsyncResult result)](ExpressionTransformer-EndInvoke.m.md) |  |
-| [Expression Invoke(Expression source)](ExpressionTransformer-Invoke.m.md) |  |
+| [IAsyncResult BeginInvoke(Expression source, AsyncCallback callback, Object object)](ExpressionPowerTools.Core.ExpressionTransformer.BeginInvoke.m.md) |  |
+| [Expression EndInvoke(IAsyncResult result)](ExpressionPowerTools.Core.ExpressionTransformer.EndInvoke.m.md) |  |
+| [Expression Invoke(Expression source)](ExpressionPowerTools.Core.ExpressionTransformer.Invoke.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

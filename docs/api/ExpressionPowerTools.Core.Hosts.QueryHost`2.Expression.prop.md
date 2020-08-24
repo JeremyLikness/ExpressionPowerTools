@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **Expression**
 
-Gets thefor the query.
+Gets the [Expression](ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression.prop.md) for the query.
 
 ```csharp
 public virtual Expression Expression { get; }
@@ -17,4 +17,4 @@ public virtual Expression Expression { get; }
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

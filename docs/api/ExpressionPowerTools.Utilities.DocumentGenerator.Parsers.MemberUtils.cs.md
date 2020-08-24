@@ -19,12 +19,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [String GenerateCodeFor(MemberInfo memberInfo)](MemberUtils-GenerateCodeFor.m.md) | Generates the code declaration for documentation. |
-| [String GetSelector(MemberInfo member)](MemberUtils-GetSelector.m.md) | Gets the selector in XML docs for the provided member. |
-| [Void ParseGenericTypeConstraints(Type type, DocTypeParameter docType)](MemberUtils-ParseGenericTypeConstraints.m.md) | Returns a list of generic type constraints. |
+| [String GenerateCodeFor(MemberInfo memberInfo)](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.GenerateCodeFor.m.md) | Generates the code declaration for documentation. |
+| [String GetSelector(MemberInfo member)](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.GetSelector.m.md) | Gets the selector in XML docs for the provided member. |
+| [Void ParseGenericTypeConstraints(Type type, DocTypeParameter docType)](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.MemberUtils.ParseGenericTypeConstraints.m.md) | Returns a list of generic type constraints. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -19,11 +19,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [Boolean FileExists(String path)](FileHelper-FileExists.m.md) | Determine if a file exists at the path in the location. |
-| [XmlDocument LoadXmlDocs(String path)](FileHelper-LoadXmlDocs.m.md) | Loads an XML document from the specified path. |
+| [Boolean FileExists(String path)](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper.FileExists.m.md) | Determine if a file exists at the path in the location. |
+| [XmlDocument LoadXmlDocs(String path)](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileHelper.LoadXmlDocs.m.md) | Loads an XML document from the specified path. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -7,6 +7,8 @@ You can install it from:
 
 [![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Core)](https://www.nuget.org/packages/ExpressionPowerTools.Core/)
 
+[Back to Main Documentation](../README.md)
+
 **Table of Contents**
 
 - [Create expressions](#create-expressions)

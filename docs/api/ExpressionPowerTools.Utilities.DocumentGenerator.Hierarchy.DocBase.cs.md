@@ -32,12 +32,12 @@ Derived  [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarch
 
 | Method | Description |
 | :-- | :-- |
-| [Boolean Equals(Object obj)](DocBase-Equals.m.md) | Equality: selectors must match. |
-| [Int32 GetHashCode()](DocBase-GetHashCode.m.md) | Hash code. |
-| [String ToString()](DocBase-ToString.m.md) | String display. |
+| [Boolean Equals(Object obj)](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.Equals.m.md) | Equality: selectors must match. |
+| [Int32 GetHashCode()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.GetHashCode.m.md) | Hash code. |
+| [String ToString()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.ToString.m.md) | String display. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

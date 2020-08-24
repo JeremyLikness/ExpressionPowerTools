@@ -17,7 +17,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// <summary>
         /// Base API URL for Microsoft documentation.
         /// </summary>
-        private const string MsftApiBaseRef = "https://docs.microsoft.com/dotnet/api/";
+        public const string MsftApiBaseRef = "https://docs.microsoft.com/dotnet/api/";
 
         /// <summary>
         /// The cache. Maps type to user-friendly name and link.

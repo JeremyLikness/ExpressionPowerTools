@@ -14,12 +14,12 @@ Derived  [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md)
 
 | Method | Description |
 | :-- | :-- |
-| [IServiceRegistration Register&lt;T, TImpl>()](IServiceRegistration-Register.m.md) | Register a service with two parameters. |
-| [IServiceRegistration RegisterGeneric(Type signature, Type implementation)](IServiceRegistration-RegisterGeneric.m.md) | Register a generic service. |
-| [IServiceRegistration RegisterSingleton&lt;T>(T instance)](IServiceRegistration-RegisterSingleton.m.md) | Register a service with two parameters. |
+| [IServiceRegistration Register&lt;T, TImpl>()](ExpressionPowerTools.Core.Signatures.IServiceRegistration.Register.m.md) | Register a service with two parameters. |
+| [IServiceRegistration RegisterGeneric(Type signature, Type implementation)](ExpressionPowerTools.Core.Signatures.IServiceRegistration.RegisterGeneric.m.md) | Register a generic service. |
+| [IServiceRegistration RegisterSingleton&lt;T>(T instance)](ExpressionPowerTools.Core.Signatures.IServiceRegistration.RegisterSingleton.m.md) | Register a service with two parameters. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

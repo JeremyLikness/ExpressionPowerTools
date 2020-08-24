@@ -14,13 +14,13 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [Boolean AreSimilar(Expression source, Expression target)](ExpressionSimilarity-AreSimilar.m.md) | Entry for similarity comparisons. Will cast to            known types and compare. |
-| [Boolean ArgumentsAreSimilar(IList&lt;Expression> source, IList&lt;Expression> target)](ExpressionSimilarity-ArgumentsAreSimilar.m.md) | Determines whether arguments are similar. |
-| [Boolean IsPartOf(Expression source, Expression target)](ExpressionSimilarity-IsPartOf.m.md) | Determines whether an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is part of another expression. |
-| [Boolean TypesAreSimilar(Type source, Type target)](ExpressionSimilarity-TypesAreSimilar.m.md) | Determines whether types are similar. |
+| [Boolean AreSimilar(Expression source, Expression target)](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.AreSimilar.m.md) | Entry for similarity comparisons. Will cast to            known types and compare. |
+| [Boolean ArgumentsAreSimilar(IList&lt;Expression> source, IList&lt;Expression> target)](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.ArgumentsAreSimilar.m.md) | Determines whether arguments are similar. |
+| [Boolean IsPartOf(Expression source, Expression target)](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.IsPartOf.m.md) | Determines whether an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is part of another expression. |
+| [Boolean TypesAreSimilar(Type source, Type target)](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.TypesAreSimilar.m.md) | Determines whether types are similar. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

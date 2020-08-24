@@ -19,18 +19,18 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [Void AddRange(ICollection&lt;String> target, ICollection&lt;String> source)](MarkdownWriter-AddRange.m.md) | Add a range of items to a list. |
-| [String Normalize(String source)](MarkdownWriter-Normalize.m.md) | Normalize the text. |
-| [ICollection&lt;String> WriteCode(String code)](MarkdownWriter-WriteCode.m.md) | Write a code block. |
-| [String WriteHeading1(String heading)](MarkdownWriter-WriteHeading1.m.md) | Write a heading. |
-| [String WriteHeading2(String heading)](MarkdownWriter-WriteHeading2.m.md) | Write a sub-heading. |
-| [String WriteHeading3(String heading)](MarkdownWriter-WriteHeading3.m.md) | Write a nested sub-heading. |
-| [String WriteInlineCode(String code)](MarkdownWriter-WriteInlineCode.m.md) | Write an inline code block. |
-| [String WriteLink(ValueTuple&lt;String, String> link)](MarkdownWriter-WriteLink.m.md) | Write a link. |
-| [String WriteRelativeLink(String text, String path)](MarkdownWriter-WriteRelativeLink.m.md) | Writes a relative link. |
+| [Void AddRange(ICollection&lt;String> target, ICollection&lt;String> source)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.AddRange.m.md) | Add a range of items to a list. |
+| [String Normalize(String source)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.Normalize.m.md) | Normalize the text. |
+| [ICollection&lt;String> WriteCode(String code)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.WriteCode.m.md) | Write a code block. |
+| [String WriteHeading1(String heading)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.WriteHeading1.m.md) | Write a heading. |
+| [String WriteHeading2(String heading)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.WriteHeading2.m.md) | Write a sub-heading. |
+| [String WriteHeading3(String heading)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.WriteHeading3.m.md) | Write a nested sub-heading. |
+| [String WriteInlineCode(String code)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.WriteInlineCode.m.md) | Write an inline code block. |
+| [String WriteLink(ValueTuple&lt;String, String> link)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.WriteLink.m.md) | Write a link. |
+| [String WriteRelativeLink(String text, String path)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.WriteRelativeLink.m.md) | Writes a relative link. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

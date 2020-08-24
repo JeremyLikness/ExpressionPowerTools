@@ -26,11 +26,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [MethodInfo GetMethodFromCache(Method method)](ReflectionHelper-GetMethodFromCache.m.md) | Gets the [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) based on the hash computed            by the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) signature. |
-| [Type GetTypeFromCache(String name)](ReflectionHelper-GetTypeFromCache.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) based on full name. |
+| [MethodInfo GetMethodFromCache(Method method)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetMethodFromCache.m.md) | Gets the [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) based on the hash computed            by the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) signature. |
+| [Type GetTypeFromCache(String name)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetTypeFromCache.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) based on full name. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

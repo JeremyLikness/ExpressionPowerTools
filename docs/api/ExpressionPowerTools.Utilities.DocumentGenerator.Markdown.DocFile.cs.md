@@ -28,13 +28,13 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [Void Add(String line)](DocFile-Add.m.md) | Add a line to the markdown. |
-| [Void AddBlankLine()](DocFile-AddBlankLine.m.md) | Add a blank line. |
-| [Void AddDivider()](DocFile-AddDivider.m.md) | Add a divider. |
-| [Void AddThenBlankLine(String line)](DocFile-AddThenBlankLine.m.md) | Add a line, followed by a blank line. |
+| [Void Add(String line)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.Add.m.md) | Add a line to the markdown. |
+| [Void AddBlankLine()](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.AddBlankLine.m.md) | Add a blank line. |
+| [Void AddDivider()](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.AddDivider.m.md) | Add a divider. |
+| [Void AddThenBlankLine(String line)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.AddThenBlankLine.m.md) | Add a line, followed by a blank line. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

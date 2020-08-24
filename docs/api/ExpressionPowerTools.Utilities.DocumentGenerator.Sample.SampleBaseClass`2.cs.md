@@ -40,15 +40,15 @@ Derived  [SampleClass&lt;T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sa
 
 | Method | Description |
 | :-- | :-- |
-| [Int32 ConvertLongToInt(Int64 x)](SampleBaseClass`2-ConvertLongToInt.m.md) | Just another method. |
-| [Void DoStuff()](SampleBaseClass`2-DoStuff.m.md) | Does stuff. |
-| [IEnumerator&lt;T1> GetEnumerableFor(T1 entity)](SampleBaseClass`2-GetEnumerableFor.m.md) | The abstract enumerator. |
-| [Boolean IsReady&lt;T5>(T5 test)](SampleBaseClass`2-IsReady.m.md) | Test for readiness. |
-| [T2 ProcessComparable&lt;T4>(T4 parameter)](SampleBaseClass`2-ProcessComparable.m.md) | Test for comparability. |
-| [Void SetInstance(SampleBaseClass&lt;T1, T2> instance)](SampleBaseClass`2-SetInstance.m.md) | Set the instance. |
+| [Int32 ConvertLongToInt(Int64 x)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.ConvertLongToInt.m.md) | Just another method. |
+| [Void DoStuff()](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.DoStuff.m.md) | Does stuff. |
+| [IEnumerator&lt;T1> GetEnumerableFor(T1 entity)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.GetEnumerableFor.m.md) | The abstract enumerator. |
+| [Boolean IsReady&lt;T5>(T5 test)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.IsReady.m.md) | Test for readiness. |
+| [T2 ProcessComparable&lt;T4>(T4 parameter)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.ProcessComparable.m.md) | Test for comparability. |
+| [Void SetInstance(SampleBaseClass&lt;T1, T2> instance)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.SetInstance.m.md) | Set the instance. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

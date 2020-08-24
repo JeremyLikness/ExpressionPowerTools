@@ -45,6 +45,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         /// <summary>
         /// Gets the overridden filename to attach methods to related types.
         /// </summary>
-        public override string FileName => $"{MethodType.Name.Split('.')[^1]}-{Name}.{Extension}.md";
+        public override string FileName => $"{MethodType.Name}.{Name}.{Extension}.md";
     }
 }

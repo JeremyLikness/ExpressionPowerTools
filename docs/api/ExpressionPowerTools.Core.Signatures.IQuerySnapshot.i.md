@@ -20,12 +20,12 @@ Derived  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQu
 
 | Method | Description |
 | :-- | :-- |
-| [Void add_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-add_QueryExecuted.m.md) |  |
-| [Void OnExecuteEnumerableCalled(Expression expression)](IQuerySnapshot-OnExecuteEnumerableCalled.m.md) | Method to raise call. |
-| [Void remove_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-remove_QueryExecuted.m.md) |  |
+| [Void add_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.add_QueryExecuted.m.md) |  |
+| [Void OnExecuteEnumerableCalled(Expression expression)](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.OnExecuteEnumerableCalled.m.md) | Method to raise call. |
+| [Void remove_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.remove_QueryExecuted.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

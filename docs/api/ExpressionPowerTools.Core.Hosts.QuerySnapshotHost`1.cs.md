@@ -29,11 +29,11 @@ Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collectio
 
 | Method | Description |
 | :-- | :-- |
-| [String RegisterSnap(Action&lt;Expression> callback)](QuerySnapshotHost`1-RegisterSnap.m.md) | Register for a callback when the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is executed. |
-| [Void UnregisterSnap(String id)](QuerySnapshotHost`1-UnregisterSnap.m.md) | Stop listenining. |
+| [String RegisterSnap(Action&lt;Expression> callback)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.RegisterSnap.m.md) | Register for a callback when the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is executed. |
+| [Void UnregisterSnap(String id)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.UnregisterSnap.m.md) | Stop listenining. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

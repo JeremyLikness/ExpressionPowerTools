@@ -12,7 +12,7 @@ public static Expression<Func<ConstantExpression, ConstantExpression, Boolean>> 
 
 Must be of same type. Both must be null or not null. If the value is an expression, the expressions
             must be equivalent. If the values are enumerable, the contents of the enumerable must match. The
-            values must must pass.
+            values must pass.
 
 ### Property Value
 
@@ -23,4 +23,4 @@ Must be of same type. Both must be null or not null. If the value is an expressi
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 8:28:46 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
