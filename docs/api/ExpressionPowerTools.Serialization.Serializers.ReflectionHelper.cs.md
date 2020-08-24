@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > **ReflectionHelper**
 
-
+Helper class to cache [Type](https://docs.microsoft.com/dotnet/api/system.type) and [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) information.
 
 ```csharp
 public class ReflectionHelper
@@ -14,23 +14,23 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Ctor | Description |
 | :-- | :-- |
-| [ReflectionHelper()](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.ctor.md#reflectionhelper) |  |
-| [static ReflectionHelper()](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.ctor.md#static-reflectionhelper) |  |
+| [ReflectionHelper()](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.ctor.md#reflectionhelper) | Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class. |
+| [static ReflectionHelper()](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.ctor.md#static-reflectionhelper) | Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class. |
 ## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Instance`](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.Instance.prop.md) | [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) |  |
+| [`Instance`](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.Instance.prop.md) | [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) | Gets the static instance. |
 
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [MethodInfo GetMethodFromCache(Method method)](ReflectionHelper-GetMethodFromCache.m.md) |  |
-| [Type GetTypeFromCache(String name)](ReflectionHelper-GetTypeFromCache.m.md) |  |
+| [MethodInfo GetMethodFromCache(Method method)](ReflectionHelper-GetMethodFromCache.m.md) | Gets the [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) based on the hash computed            by the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) signature. |
+| [Type GetTypeFromCache(String name)](ReflectionHelper-GetTypeFromCache.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) based on full name. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

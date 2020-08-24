@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IServices](ExpressionPowerTools.Core.Signatures.IServices.i.md) > **GetService**
 
-
+Gets a configured service.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [GetService&lt;T>(Object[] parameters)](#getservicetobject[]-parameters) |  |
+| [GetService&lt;T>(Object[] parameters)](#getservicetobject[]-parameters) | Gets a configured service. |
 ## GetService&lt;T>(Object[] parameters)
 
-
+Gets a configured service.
 
 ```csharp
 public virtual T GetService<T>(Object[] parameters)
@@ -19,18 +19,23 @@ public virtual T GetService<T>(Object[] parameters)
 
 ### Return Type
 
-T
+T - The service instance.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `parameters` | [Object[]](https://docs.microsoft.com/dotnet/api/system.object[]) |  |
+| `parameters` | [Object[]](https://docs.microsoft.com/dotnet/api/system.object[]) | List of parameters. |
 
+### Exceptions
+
+| Exception | Description |
+| :-- | :-- |
+| [InvalidOperationException](https://docs.microsoft.com/dotnet/api/system.invalidoperationexception) | Throws when service not found. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

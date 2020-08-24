@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > **IExpressionEnumeratorExtensions**
 
-
+Extensions for filtering [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) .
 
 ```csharp
 public static class IExpressionEnumeratorExtensions
@@ -14,14 +14,14 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [IEnumerable&lt;ConstantExpression> ConstantsOfType&lt;T>(IExpressionEnumerator expressionEnumerator)](IExpressionEnumeratorExtensions-ConstantsOfType.m.md) |  |
-| [IEnumerable&lt;MethodCallExpression> MethodsFromTemplate&lt;T>(IExpressionEnumerator expressionEnumerator, Expression&lt;Action&lt;T>> method)](IExpressionEnumeratorExtensions-MethodsFromTemplate.m.md) |  |
-| [IEnumerable&lt;MethodCallExpression> MethodsWithName(IExpressionEnumerator expressionEnumerator, String name)](IExpressionEnumeratorExtensions-MethodsWithName.m.md) |  |
-| [IEnumerable&lt;MethodCallExpression> MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](IExpressionEnumeratorExtensions-MethodsWithNameForType.m.md) |  |
-| [IEnumerable&lt;Expression> OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)](IExpressionEnumeratorExtensions-OfExpressionType.m.md) |  |
+| [IEnumerable&lt;ConstantExpression> ConstantsOfType&lt;T>(IExpressionEnumerator expressionEnumerator)](IExpressionEnumeratorExtensions-ConstantsOfType.m.md) | Helper extension to extract constants from an expression tree. |
+| [IEnumerable&lt;MethodCallExpression> MethodsFromTemplate&lt;T>(IExpressionEnumerator expressionEnumerator, Expression&lt;Action&lt;T>> method)](IExpressionEnumeratorExtensions-MethodsFromTemplate.m.md) | Use a template to specify the method to search for. |
+| [IEnumerable&lt;MethodCallExpression> MethodsWithName(IExpressionEnumerator expressionEnumerator, String name)](IExpressionEnumeratorExtensions-MethodsWithName.m.md) | Helper extension to extract methods with a particular name. |
+| [IEnumerable&lt;MethodCallExpression> MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](IExpressionEnumeratorExtensions-MethodsWithNameForType.m.md) | Extracts instances of expressions that represent a method            on a type. |
+| [IEnumerable&lt;Expression> OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)](IExpressionEnumeratorExtensions-OfExpressionType.m.md) | Helper extension to extract nodes with a specific [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) value. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

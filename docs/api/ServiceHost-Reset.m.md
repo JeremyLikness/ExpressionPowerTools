@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Dependencies](ExpressionPowerTools.Core.Dependencies.n.md) > [ServiceHost](ExpressionPowerTools.Core.Dependencies.ServiceHost.cs.md) > **Reset**
 
-
+Reset to new services instance.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Reset()](#reset) |  |
+| [Reset()](#reset) | Reset to new services instance. |
 ## Reset()
 
-
+Reset to new services instance.
 
 ```csharp
 public static Void Reset()
@@ -27,4 +27,4 @@ public static Void Reset()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

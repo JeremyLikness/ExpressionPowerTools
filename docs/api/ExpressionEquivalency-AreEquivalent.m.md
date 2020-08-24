@@ -2,17 +2,19 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [ExpressionEquivalency](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.cs.md) > **AreEquivalent**
 
-
+Entry for equivalency comparisons. Will cast to
+            known types and compare.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AreEquivalent(Expression source, Expression target)](#areequivalentexpression-source-expression-target) |  |
-| [AreEquivalent(IEnumerable&lt;Expression> source, IEnumerable&lt;Expression> target)](#areequivalentienumerableexpression-source-ienumerableexpression-target) |  |
+| [AreEquivalent(Expression source, Expression target)](#areequivalentexpression-source-expression-target) | Entry for equivalency comparisons. Will cast to            known types and compare. |
+| [AreEquivalent(IEnumerable&lt;Expression> source, IEnumerable&lt;Expression> target)](#areequivalentienumerableexpression-source-ienumerableexpression-target) | Comparison of multiple expressions. Equivalent            only when all elements match, in order, and            pass the equivalent test. |
 ## AreEquivalent(Expression source, Expression target)
 
-
+Entry for equivalency comparisons. Will cast to
+            known types and compare.
 
 ```csharp
 public static Boolean AreEquivalent(Expression source, Expression target)
@@ -20,19 +22,21 @@ public static Boolean AreEquivalent(Expression source, Expression target)
 
 ### Return Type
 
- [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) 
+ [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean)  - A flag indicating whether the source and target are equivalent.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `source` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
-| `target` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
+| `source` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The source [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| `target` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The target [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to compare to. |
 
 
 ## AreEquivalent(IEnumerable&lt;Expression> source, IEnumerable&lt;Expression> target)
 
-
+Comparison of multiple expressions. Equivalent
+            only when all elements match, in order, and
+            pass the equivalent test.
 
 ```csharp
 public static Boolean AreEquivalent(IEnumerable<Expression> source, IEnumerable<Expression> target)
@@ -40,14 +44,15 @@ public static Boolean AreEquivalent(IEnumerable<Expression> source, IEnumerable<
 
 ### Return Type
 
- [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) 
+ [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean)  - A flag indicating whether the two sets of
+            expressions are equivalent.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `source` | [IEnumerable&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) |  |
-| `target` | [IEnumerable&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) |  |
+| `source` | [IEnumerable&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) | The source expressions. |
+| `target` | [IEnumerable&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) | The target expressions. |
 
 
 
@@ -55,4 +60,4 @@ public static Boolean AreEquivalent(IEnumerable<Expression> source, IEnumerable<
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

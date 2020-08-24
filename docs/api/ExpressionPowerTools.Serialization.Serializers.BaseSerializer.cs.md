@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > **BaseSerializer**
 
-
+Base class for serializers.
 
 ```csharp
 public abstract class BaseSerializer
@@ -16,10 +16,10 @@ Derived  [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.Con
 
 | Ctor | Description |
 | :-- | :-- |
-| [BaseSerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)](ExpressionPowerTools.Serialization.Serializers.BaseSerializer.ctor.md#baseserializeriexpressionserializerexpression-serializableexpression-serializer) |  |
+| [BaseSerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)](ExpressionPowerTools.Serialization.Serializers.BaseSerializer.ctor.md#baseserializeriexpressionserializerexpression-serializableexpression-serializer) | Initializes a new instance of the [BaseSerializer](ExpressionPowerTools.Serialization.Serializers.BaseSerializer.cs.md) class with a default serializer. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

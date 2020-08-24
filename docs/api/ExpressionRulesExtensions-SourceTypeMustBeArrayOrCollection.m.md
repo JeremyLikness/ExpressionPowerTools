@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionRulesExtensions](ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.cs.md) > **SourceTypeMustBeArrayOrCollection**
 
-
+The source type must derive from or be an [Array](https://docs.microsoft.com/dotnet/api/system.array) or [ICollection](https://docs.microsoft.com/dotnet/api/system.collections.icollection) .
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [SourceTypeMustBeArrayOrCollection&lt;T>()](#sourcetypemustbearrayorcollectiont) |  |
+| [SourceTypeMustBeArrayOrCollection&lt;T>()](#sourcetypemustbearrayorcollectiont) | The source type must derive from or be an [Array](https://docs.microsoft.com/dotnet/api/system.array) or [ICollection](https://docs.microsoft.com/dotnet/api/system.collections.icollection) . |
 ## SourceTypeMustBeArrayOrCollection&lt;T>()
 
-
+The source type must derive from or be an [Array](https://docs.microsoft.com/dotnet/api/system.array) or [ICollection](https://docs.microsoft.com/dotnet/api/system.collections.icollection) .
 
 ```csharp
 public static Expression<Func<T, T, Boolean>> SourceTypeMustBeArrayOrCollection<T>()
@@ -19,7 +19,7 @@ public static Expression<Func<T, T, Boolean>> SourceTypeMustBeArrayOrCollection<
 
 ### Return Type
 
- [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
+ [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - A value that indicates whether the source type is array or collection.
 
 
 
@@ -27,4 +27,4 @@ public static Expression<Func<T, T, Boolean>> SourceTypeMustBeArrayOrCollection<
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

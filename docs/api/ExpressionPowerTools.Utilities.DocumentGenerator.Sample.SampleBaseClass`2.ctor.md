@@ -2,18 +2,18 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > [SampleBaseClass<T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) > **SampleBaseClass()**
 
-
+Initializes a new instance of the [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) class.
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [SampleBaseClass()](#samplebaseclass) |  |
-| [SampleBaseClass(T1 entity, String id)](#samplebaseclasst1-entity-string-id) |  |
+| [SampleBaseClass()](#samplebaseclass) | Initializes a new instance of the [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) class. |
+| [SampleBaseClass(T1 entity, String id)](#samplebaseclasst1-entity-string-id) | Initializes a new instance of the [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) class.            Saves an entity and identifier. |
 
 ## SampleBaseClass()
 
-
+Initializes a new instance of the [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) class.
 
 ```csharp
 public SampleBaseClass()
@@ -23,7 +23,8 @@ public SampleBaseClass()
 
 ## SampleBaseClass(T1 entity, String id)
 
-
+Initializes a new instance of the [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) class.
+            Saves an entity and identifier.
 
 ```csharp
 public SampleBaseClass(T1 entity, String id)
@@ -33,8 +34,8 @@ public SampleBaseClass(T1 entity, String id)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `entity` | T1 |  |
-| `id` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `entity` | T1 | The entity. |
+| `id` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The identifier. |
 
 
 
@@ -42,4 +43,4 @@ public SampleBaseClass(T1 entity, String id)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

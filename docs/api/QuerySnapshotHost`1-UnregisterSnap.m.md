@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QuerySnapshotHost<T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) > **UnregisterSnap**
 
-
+Stop listenining.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [UnregisterSnap(String id)](#unregistersnapstring-id) |  |
+| [UnregisterSnap(String id)](#unregistersnapstring-id) | Stop listenining. |
 ## UnregisterSnap(String id)
 
-
+Stop listenining.
 
 ```csharp
 public virtual Void UnregisterSnap(String id)
@@ -25,7 +25,7 @@ public virtual Void UnregisterSnap(String id)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `id` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `id` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The unique identifier. |
 
 
 
@@ -33,4 +33,4 @@ public virtual Void UnregisterSnap(String id)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > **UnarySerializer**
 
-
+Serializer for [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) .
 
 ```csharp
 public class UnarySerializer : BaseSerializer, IBaseSerializer, IExpressionSerializer<UnaryExpression, Unary>
@@ -16,16 +16,16 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Ctor | Description |
 | :-- | :-- |
-| [UnarySerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.ctor.md#unaryserializeriexpressionserializerexpression-serializableexpression-serializer) |  |
+| [UnarySerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.ctor.md#unaryserializeriexpressionserializerexpression-serializableexpression-serializer) | Initializes a new instance of the [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) class with a            base serializer for recurision. |
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [UnaryExpression Deserialize(JsonElement json)](UnarySerializer-Deserialize.m.md) |  |
-| [Unary Serialize(UnaryExpression expression)](UnarySerializer-Serialize.m.md) |  |
+| [UnaryExpression Deserialize(JsonElement json)](UnarySerializer-Deserialize.m.md) | Deserializes a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
+| [Unary Serialize(UnaryExpression expression)](UnarySerializer-Serialize.m.md) | Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) to a [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

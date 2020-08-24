@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [MarkdownWriter](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.cs.md) > **AddRange**
 
-
+Add a range of items to a list.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AddRange(ICollection&lt;String> target, ICollection&lt;String> source)](#addrangeicollectionstring-target-icollectionstring-source) |  |
+| [AddRange(ICollection&lt;String> target, ICollection&lt;String> source)](#addrangeicollectionstring-target-icollectionstring-source) | Add a range of items to a list. |
 ## AddRange(ICollection&lt;String> target, ICollection&lt;String> source)
 
-
+Add a range of items to a list.
 
 ```csharp
 public Void AddRange(ICollection<String> target, ICollection<String> source)
@@ -25,8 +25,8 @@ public Void AddRange(ICollection<String> target, ICollection<String> source)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `target` | [ICollection&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) |  |
-| `source` | [ICollection&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) |  |
+| `target` | [ICollection&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | The target to add the range to. |
+| `source` | [ICollection&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | The source to add. |
 
 
 
@@ -34,4 +34,4 @@ public Void AddRange(ICollection<String> target, ICollection<String> source)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

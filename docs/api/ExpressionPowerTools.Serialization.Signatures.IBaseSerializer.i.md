@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Signatures](ExpressionPowerTools.Serialization.Signatures.n.md) > **IBaseSerializer**
 
-
+Non-generic interface for serializers.
 
 ```csharp
 public interface IBaseSerializer
@@ -14,11 +14,11 @@ Derived  [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.Con
 
 | Method | Description |
 | :-- | :-- |
-| [Expression Deserialize(JsonElement json)](IBaseSerializer-Deserialize.m.md) |  |
-| [SerializableExpression Serialize(Expression expression)](IBaseSerializer-Serialize.m.md) |  |
+| [Expression Deserialize(JsonElement json)](IBaseSerializer-Deserialize.m.md) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [SerializableExpression Serialize(Expression expression)](IBaseSerializer-Serialize.m.md) | Serialize to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

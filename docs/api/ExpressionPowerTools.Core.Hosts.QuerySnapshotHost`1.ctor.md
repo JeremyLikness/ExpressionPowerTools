@@ -2,19 +2,19 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QuerySnapshotHost<T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) > **QuerySnapshotHost(IQueryable&lt;T> source)**
 
-
+Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class.
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [QuerySnapshotHost(IQueryable&lt;T> source)](#querysnapshothostiqueryablet-source) |  |
-| [QuerySnapshotHost(IQueryable source, Expression expression)](#querysnapshothostiqueryable-source-expression-expression) |  |
-| [QuerySnapshotHost(Expression expression, IQuerySnapshotProvider&lt;T> provider)](#querysnapshothostexpression-expression-iquerysnapshotprovidert-provider) |  |
+| [QuerySnapshotHost(IQueryable&lt;T> source)](#querysnapshothostiqueryablet-source) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
+| [QuerySnapshotHost(IQueryable source, Expression expression)](#querysnapshothostiqueryable-source-expression-expression) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
+| [QuerySnapshotHost(Expression expression, IQuerySnapshotProvider&lt;T> provider)](#querysnapshothostexpression-expression-iquerysnapshotprovidert-provider) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
 
 ## QuerySnapshotHost(IQueryable&lt;T> source)
 
-
+Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class.
 
 ```csharp
 public QuerySnapshotHost(IQueryable<T> source)
@@ -24,13 +24,13 @@ public QuerySnapshotHost(IQueryable<T> source)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `source` | [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) |  |
+| `source` | [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) | The [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) to snapshot. |
 
 
 
 ## QuerySnapshotHost(IQueryable source, Expression expression)
 
-
+Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class.
 
 ```csharp
 public QuerySnapshotHost(IQueryable source, Expression expression)
@@ -40,14 +40,14 @@ public QuerySnapshotHost(IQueryable source, Expression expression)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `source` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) |  |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
+| `source` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The query source. |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to use. |
 
 
 
 ## QuerySnapshotHost(Expression expression, IQuerySnapshotProvider&lt;T> provider)
 
-
+Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class.
 
 ```csharp
 public QuerySnapshotHost(Expression expression, IQuerySnapshotProvider<T> provider)
@@ -57,8 +57,8 @@ public QuerySnapshotHost(Expression expression, IQuerySnapshotProvider<T> provid
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
-| `provider` | [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) |  |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to use. |
+| `provider` | [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) | The [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQuerySnapshotProvider`1.i.md) instance. |
 
 
 
@@ -66,4 +66,4 @@ public QuerySnapshotHost(Expression expression, IQuerySnapshotProvider<T> provid
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

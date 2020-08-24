@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) > **OnExecuteEnumerableCalled**
 
-
+Method to raise call.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [OnExecuteEnumerableCalled(Expression expression)](#onexecuteenumerablecalledexpression-expression) |  |
+| [OnExecuteEnumerableCalled(Expression expression)](#onexecuteenumerablecalledexpression-expression) | Method to raise call. |
 ## OnExecuteEnumerableCalled(Expression expression)
 
-
+Method to raise call.
 
 ```csharp
 public virtual Void OnExecuteEnumerableCalled(Expression expression)
@@ -25,7 +25,7 @@ public virtual Void OnExecuteEnumerableCalled(Expression expression)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to snapshot. |
 
 
 
@@ -33,4 +33,4 @@ public virtual Void OnExecuteEnumerableCalled(Expression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

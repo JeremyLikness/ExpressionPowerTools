@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > **QuerySnapshotEventArgs**
 
-
+Encapsulates an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
 
 ```csharp
 public class QuerySnapshotEventArgs : EventArgs
@@ -14,16 +14,16 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [E
 
 | Ctor | Description |
 | :-- | :-- |
-| [QuerySnapshotEventArgs(Expression expression)](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.ctor.md#querysnapshoteventargsexpression-expression) |  |
+| [QuerySnapshotEventArgs(Expression expression)](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.ctor.md#querysnapshoteventargsexpression-expression) | Initializes a new instance of the [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) class. |
 ## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Expression`](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression.prop.md) | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
+| [`Expression`](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.Expression.prop.md) | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | Gets the. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

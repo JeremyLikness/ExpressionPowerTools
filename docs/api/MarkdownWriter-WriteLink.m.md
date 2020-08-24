@@ -2,18 +2,18 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [MarkdownWriter](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.cs.md) > **WriteLink**
 
-
+Write a link.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [WriteLink(String text, String link)](#writelinkstring-text-string-link) |  |
-| [WriteLink(TypeRef type)](#writelinktyperef-type) |  |
-| [WriteLink(ValueTuple&lt;String, String> link)](#writelinkvaluetuplestring-string-link) |  |
+| [WriteLink(String text, String link)](#writelinkstring-text-string-link) | Write a link. |
+| [WriteLink(TypeRef type)](#writelinktyperef-type) | Writes the link for a type. |
+| [WriteLink(ValueTuple&lt;String, String> link)](#writelinkvaluetuplestring-string-link) | Write a link. |
 ## WriteLink(String text, String link)
 
-
+Write a link.
 
 ```csharp
 public String WriteLink(String text, String link)
@@ -21,19 +21,19 @@ public String WriteLink(String text, String link)
 
 ### Return Type
 
- [String](https://docs.microsoft.com/dotnet/api/system.string) 
+ [String](https://docs.microsoft.com/dotnet/api/system.string)  - The markdown link.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `text` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
-| `link` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `text` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The link text. |
+| `link` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The link target. |
 
 
 ## WriteLink(TypeRef type)
 
-
+Writes the link for a type.
 
 ```csharp
 public String WriteLink(TypeRef type)
@@ -41,18 +41,18 @@ public String WriteLink(TypeRef type)
 
 ### Return Type
 
- [String](https://docs.microsoft.com/dotnet/api/system.string) 
+ [String](https://docs.microsoft.com/dotnet/api/system.string)  - The link to the documentation for the type.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `type` | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) |  |
+| `type` | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) | The [Type](https://docs.microsoft.com/dotnet/api/system.type) to create a link for. |
 
 
 ## WriteLink(ValueTuple&lt;String, String> link)
 
-
+Write a link.
 
 ```csharp
 public String WriteLink(ValueTuple<String, String> link)
@@ -60,13 +60,13 @@ public String WriteLink(ValueTuple<String, String> link)
 
 ### Return Type
 
- [String](https://docs.microsoft.com/dotnet/api/system.string) 
+ [String](https://docs.microsoft.com/dotnet/api/system.string)  - The markdown link.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `link` | [ValueTuple&lt;String, String>](https://docs.microsoft.com/dotnet/api/system.valuetuple-2) |  |
+| `link` | [ValueTuple&lt;String, String>](https://docs.microsoft.com/dotnet/api/system.valuetuple-2) | The named tuple with the text and link target. |
 
 
 
@@ -74,4 +74,4 @@ public String WriteLink(ValueTuple<String, String> link)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

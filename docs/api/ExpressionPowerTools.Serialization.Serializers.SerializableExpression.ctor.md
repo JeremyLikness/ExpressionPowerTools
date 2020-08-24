@@ -2,18 +2,18 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) > **SerializableExpression()**
 
-
+Initializes a new instance of the [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) class.
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [SerializableExpression()](#serializableexpression) |  |
-| [SerializableExpression(Expression expression)](#serializableexpressionexpression-expression) |  |
+| [SerializableExpression()](#serializableexpression) | Initializes a new instance of the [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) class. |
+| [SerializableExpression(Expression expression)](#serializableexpressionexpression-expression) | Initializes a new instance of the [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) class and captures            the [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) of the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) passed in. |
 
 ## SerializableExpression()
 
-
+Initializes a new instance of the [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) class.
 
 ```csharp
 public SerializableExpression()
@@ -23,7 +23,8 @@ public SerializableExpression()
 
 ## SerializableExpression(Expression expression)
 
-
+Initializes a new instance of the [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) class and captures
+            the [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) of the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) passed in.
 
 ```csharp
 public SerializableExpression(Expression expression)
@@ -33,12 +34,17 @@ public SerializableExpression(Expression expression)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
 
+### Exceptions
+
+| Exception | Description |
+| :-- | :-- |
+| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Thrown when expression is null. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,18 +2,18 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) > **Parameter()**
 
-
+Initializes a new instance of the [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) class.
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [Parameter()](#parameter) |  |
-| [Parameter(ParameterExpression expression)](#parameterparameterexpression-expression) |  |
+| [Parameter()](#parameter) | Initializes a new instance of the [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) class. |
+| [Parameter(ParameterExpression expression)](#parameterparameterexpression-expression) | Initializes a new instance of the [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) class. |
 
 ## Parameter()
 
-
+Initializes a new instance of the [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) class.
 
 ```csharp
 public Parameter()
@@ -23,7 +23,7 @@ public Parameter()
 
 ## Parameter(ParameterExpression expression)
 
-
+Initializes a new instance of the [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) class.
 
 ```csharp
 public Parameter(ParameterExpression expression)
@@ -33,7 +33,7 @@ public Parameter(ParameterExpression expression)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [ParameterExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.parameterexpression) |  |
+| `expression` | [ParameterExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.parameterexpression) | The [ParameterExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.parameterexpression) to serialize. |
 
 
 
@@ -41,4 +41,4 @@ public Parameter(ParameterExpression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **GetEnumerator**
 
-
+Gets an [IEnumerator&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) for the query results.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [GetEnumerator()](#getenumerator) |  |
+| [GetEnumerator()](#getenumerator) | Gets an [IEnumerator&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) for the query results. |
 ## GetEnumerator()
 
-
+Gets an [IEnumerator&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) for the query results.
 
 ```csharp
 public virtual IEnumerator<T> GetEnumerator()
@@ -19,7 +19,7 @@ public virtual IEnumerator<T> GetEnumerator()
 
 ### Return Type
 
- [IEnumerator&lt;T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) 
+ [IEnumerator&lt;T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1)  - The [IEnumerator&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) .
 
 
 
@@ -27,4 +27,4 @@ public virtual IEnumerator<T> GetEnumerator()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

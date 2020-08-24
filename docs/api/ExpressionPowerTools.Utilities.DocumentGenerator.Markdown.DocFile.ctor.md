@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) > **DocFile(String name)**
 
-
+Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class.
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocFile(String name)](#docfilestring-name) |  |
+| [DocFile(String name)](#docfilestring-name) | Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class. |
 
 ## DocFile(String name)
 
-
+Initializes a new instance of the [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) class.
 
 ```csharp
 public DocFile(String name)
@@ -22,7 +22,7 @@ public DocFile(String name)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the file. |
 
 
 
@@ -30,4 +30,4 @@ public DocFile(String name)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

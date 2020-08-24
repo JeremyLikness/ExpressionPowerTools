@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) > **AssemblyParser(Assembly assembly)**
 
-
+Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class.
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [AssemblyParser(Assembly assembly)](#assemblyparserassembly-assembly) |  |
+| [AssemblyParser(Assembly assembly)](#assemblyparserassembly-assembly) | Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class. |
 
 ## AssemblyParser(Assembly assembly)
 
-
+Initializes a new instance of the [AssemblyParser](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.AssemblyParser.cs.md) class.
 
 ```csharp
 public AssemblyParser(Assembly assembly)
@@ -22,7 +22,7 @@ public AssemblyParser(Assembly assembly)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `assembly` | [Assembly](https://docs.microsoft.com/dotnet/api/system.reflection.assembly) |  |
+| `assembly` | [Assembly](https://docs.microsoft.com/dotnet/api/system.reflection.assembly) | The assembly to parse. |
 
 
 
@@ -30,4 +30,4 @@ public AssemblyParser(Assembly assembly)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

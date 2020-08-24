@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [ParserUtils](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.cs.md) > **ExtractLink**
 
-
+Extracts a link by cross-referencing the type.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [ExtractLink(XmlElement see)](#extractlinkxmlelement-see) |  |
+| [ExtractLink(XmlElement see)](#extractlinkxmlelement-see) | Extracts a link by cross-referencing the type. |
 ## ExtractLink(XmlElement see)
 
-
+Extracts a link by cross-referencing the type.
 
 ```csharp
 public static String ExtractLink(XmlElement see)
@@ -19,13 +19,13 @@ public static String ExtractLink(XmlElement see)
 
 ### Return Type
 
- [String](https://docs.microsoft.com/dotnet/api/system.string) 
+ [String](https://docs.microsoft.com/dotnet/api/system.string)  - The extracted link.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `see` | [XmlElement](https://docs.microsoft.com/dotnet/api/system.xml.xmlelement) |  |
+| `see` | [XmlElement](https://docs.microsoft.com/dotnet/api/system.xml.xmlelement) | The [XmlElement](https://docs.microsoft.com/dotnet/api/system.xml.xmlelement) with the reference. |
 
 
 
@@ -33,4 +33,4 @@ public static String ExtractLink(XmlElement see)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

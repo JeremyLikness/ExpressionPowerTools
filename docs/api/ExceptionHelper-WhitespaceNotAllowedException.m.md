@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Resources](ExpressionPowerTools.Core.Resources.n.md) > [ExceptionHelper](ExpressionPowerTools.Core.Resources.ExceptionHelper.cs.md) > **WhitespaceNotAllowedException**
 
-
+Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for empty string.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [WhitespaceNotAllowedException(String parameterName)](#whitespacenotallowedexceptionstring-parametername) |  |
+| [WhitespaceNotAllowedException(String parameterName)](#whitespacenotallowedexceptionstring-parametername) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for empty string. |
 ## WhitespaceNotAllowedException(String parameterName)
 
-
+Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for empty string.
 
 ```csharp
 public static ArgumentException WhitespaceNotAllowedException(String parameterName)
@@ -19,13 +19,13 @@ public static ArgumentException WhitespaceNotAllowedException(String parameterNa
 
 ### Return Type
 
- [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) 
+ [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception)  - The [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) .
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `parameterName` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `parameterName` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the parameter. |
 
 
 
@@ -33,4 +33,4 @@ public static ArgumentException WhitespaceNotAllowedException(String parameterNa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > **ExpressionSerializerAttribute**
 
-
+Attribute to tag a serializer.
 
 ```csharp
 public class ExpressionSerializerAttribute : Attribute
@@ -14,16 +14,16 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [A
 
 | Ctor | Description |
 | :-- | :-- |
-| [ExpressionSerializerAttribute(ExpressionType type)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.ctor.md#expressionserializerattributeexpressiontype-type) |  |
+| [ExpressionSerializerAttribute(ExpressionType type)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.ctor.md#expressionserializerattributeexpressiontype-type) | Initializes a new instance of the [ExpressionSerializerAttribute](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.cs.md) class with an [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) . |
 ## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Type`](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.Type.prop.md) | [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) |  |
+| [`Type`](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.Type.prop.md) | [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) | Gets the [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) the serializer handles. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

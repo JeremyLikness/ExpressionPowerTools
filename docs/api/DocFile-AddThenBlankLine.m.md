@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) > **AddThenBlankLine**
 
-
+Add a line, followed by a blank line.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AddThenBlankLine(String line)](#addthenblanklinestring-line) |  |
+| [AddThenBlankLine(String line)](#addthenblanklinestring-line) | Add a line, followed by a blank line. |
 ## AddThenBlankLine(String line)
 
-
+Add a line, followed by a blank line.
 
 ```csharp
 public Void AddThenBlankLine(String line)
@@ -25,7 +25,7 @@ public Void AddThenBlankLine(String line)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `line` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `line` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The line to add. |
 
 
 
@@ -33,4 +33,4 @@ public Void AddThenBlankLine(String line)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

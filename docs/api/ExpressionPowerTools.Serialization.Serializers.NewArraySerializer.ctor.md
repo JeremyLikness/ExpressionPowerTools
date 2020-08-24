@@ -2,17 +2,19 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [NewArraySerializer](ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.cs.md) > **NewArraySerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)**
 
-
+Initializes a new instance of the [NewArraySerializer](ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.cs.md) class with a
+            base serializer for recurision.
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [NewArraySerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)](#newarrayserializeriexpressionserializerexpression-serializableexpression-serializer) |  |
+| [NewArraySerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)](#newarrayserializeriexpressionserializerexpression-serializableexpression-serializer) | Initializes a new instance of the [NewArraySerializer](ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.cs.md) class with a            base serializer for recurision. |
 
 ## NewArraySerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)
 
-
+Initializes a new instance of the [NewArraySerializer](ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.cs.md) class with a
+            base serializer for recurision.
 
 ```csharp
 public NewArraySerializer(IExpressionSerializer<Expression, SerializableExpression> serializer)
@@ -22,7 +24,7 @@ public NewArraySerializer(IExpressionSerializer<Expression, SerializableExpressi
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `serializer` | [IExpressionSerializer&lt;Expression, SerializableExpression>](ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.i.md) |  |
+| `serializer` | [IExpressionSerializer&lt;Expression, SerializableExpression>](ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.i.md) | The base serializer. |
 
 
 
@@ -30,4 +32,4 @@ public NewArraySerializer(IExpressionSerializer<Expression, SerializableExpressi
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:53:14 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
