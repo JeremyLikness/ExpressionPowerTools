@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [IQueryableExtensions](ExpressionPowerTools.Core.Extensions.IQueryableExtensions.cs.md) > **CreateQueryTemplate**
 
-Creates a queryable from an empty list used for templates to compare.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [CreateQueryTemplate&lt;T>()](#createquerytemplatet) | Creates a queryable from an empty list used for templates to compare. |
-| [CreateQueryTemplate&lt;T>(IQueryable&lt;T> noop)](#createquerytemplatetiqueryablet-noop) | Creates a new queryable to build a template from. |
+| [CreateQueryTemplate&lt;T>()](#createquerytemplatet) |  |
+| [CreateQueryTemplate&lt;T>(IQueryable&lt;T> noop)](#createquerytemplatetiqueryablet-noop) |  |
 ## CreateQueryTemplate&lt;T>()
 
-Creates a queryable from an empty list used for templates to compare.
+
 
 ```csharp
 public static IQueryable<T> CreateQueryTemplate<T>()
@@ -20,12 +20,12 @@ public static IQueryable<T> CreateQueryTemplate<T>()
 
 ### Return Type
 
- [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1)  - The [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) to build on.
+ [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) 
 
 
 ## CreateQueryTemplate&lt;T>(IQueryable&lt;T> noop)
 
-Creates a new queryable to build a template from.
+
 
 ```csharp
 public static IQueryable<T> CreateQueryTemplate<T>(IQueryable<T> noop)
@@ -33,13 +33,13 @@ public static IQueryable<T> CreateQueryTemplate<T>(IQueryable<T> noop)
 
 ### Return Type
 
- [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1)  - The [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) to build on.
+ [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `noop` | [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) | The source [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) . |
+| `noop` | [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) |  |
 
 
 
@@ -47,4 +47,4 @@ public static IQueryable<T> CreateQueryTemplate<T>(IQueryable<T> noop)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) > **QuerySnapshotEventArgs(Expression expression)**
 
-Initializes a new instance of the [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) class.
+
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [QuerySnapshotEventArgs(Expression expression)](#querysnapshoteventargsexpression-expression) | Initializes a new instance of the [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) class. |
+| [QuerySnapshotEventArgs(Expression expression)](#querysnapshoteventargsexpression-expression) |  |
 
 ## QuerySnapshotEventArgs(Expression expression)
 
-Initializes a new instance of the [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) class.
+
 
 ```csharp
 public QuerySnapshotEventArgs(Expression expression)
@@ -22,7 +22,7 @@ public QuerySnapshotEventArgs(Expression expression)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to host. |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
 
 
 
@@ -30,4 +30,4 @@ public QuerySnapshotEventArgs(Expression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

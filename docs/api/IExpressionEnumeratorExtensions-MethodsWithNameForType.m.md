@@ -2,19 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [IExpressionEnumeratorExtensions](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.cs.md) > **MethodsWithNameForType**
 
-Extracts instances of expressions that represent a method
-            on a type.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](#methodswithnamefortypeiexpressionenumerator-expressionenumerator-type-type-string-name) | Extracts instances of expressions that represent a method            on a type. |
-| [MethodsWithNameForType&lt;T>(IExpressionEnumerator expressionEnumerator, String name)](#methodswithnamefortypetiexpressionenumerator-expressionenumerator-string-name) | Extracts instances of expressions that represent a method            on a type. |
+| [MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](#methodswithnamefortypeiexpressionenumerator-expressionenumerator-type-type-string-name) |  |
+| [MethodsWithNameForType&lt;T>(IExpressionEnumerator expressionEnumerator, String name)](#methodswithnamefortypetiexpressionenumerator-expressionenumerator-string-name) |  |
 ## MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)
 
-Extracts instances of expressions that represent a method
-            on a type.
+
 
 ```csharp
 public static IEnumerable<MethodCallExpression> MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)
@@ -22,21 +20,20 @@ public static IEnumerable<MethodCallExpression> MethodsWithNameForType(IExpressi
 
 ### Return Type
 
- [IEnumerable&lt;MethodCallExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1)  - The filtered [IEnumerable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) result.
+ [IEnumerable&lt;MethodCallExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expressionEnumerator` | [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) | The [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) to query. |
-| `type` | [Type](https://docs.microsoft.com/dotnet/api/system.type) | The [Type](https://docs.microsoft.com/dotnet/api/system.type) to check for. |
-| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the method. |
+| `expressionEnumerator` | [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) |  |
+| `type` | [Type](https://docs.microsoft.com/dotnet/api/system.type) |  |
+| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 ## MethodsWithNameForType&lt;T>(IExpressionEnumerator expressionEnumerator, String name)
 
-Extracts instances of expressions that represent a method
-            on a type.
+
 
 ```csharp
 public static IEnumerable<MethodCallExpression> MethodsWithNameForType<T>(IExpressionEnumerator expressionEnumerator, String name)
@@ -44,14 +41,14 @@ public static IEnumerable<MethodCallExpression> MethodsWithNameForType<T>(IExpre
 
 ### Return Type
 
- [IEnumerable&lt;MethodCallExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1)  - The [IEnumerable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) filtered results.
+ [IEnumerable&lt;MethodCallExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expressionEnumerator` | [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) | The [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) to query. |
-| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the method to query for. |
+| `expressionEnumerator` | [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) |  |
+| `name` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -59,4 +56,4 @@ public static IEnumerable<MethodCallExpression> MethodsWithNameForType<T>(IExpre
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

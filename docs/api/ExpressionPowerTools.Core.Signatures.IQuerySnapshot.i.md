@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > **IQuerySnapshot**
 
-Non-generic interface for snapshot host.
+
 
 ```csharp
 public interface IQuerySnapshot
@@ -14,18 +14,18 @@ Derived  [IQuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQu
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Parent`](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.Parent.prop.md) | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) | Gets the parent provider for bubbling events. |
+| [`Parent`](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.Parent.prop.md) | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) |  |
 
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
 | [Void add_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-add_QueryExecuted.m.md) |  |
-| [Void OnExecuteEnumerableCalled(Expression expression)](IQuerySnapshot-OnExecuteEnumerableCalled.m.md) | Method to raise call. |
+| [Void OnExecuteEnumerableCalled(Expression expression)](IQuerySnapshot-OnExecuteEnumerableCalled.m.md) |  |
 | [Void remove_QueryExecuted(EventHandler&lt;QuerySnapshotEventArgs> value)](IQuerySnapshot-remove_QueryExecuted.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

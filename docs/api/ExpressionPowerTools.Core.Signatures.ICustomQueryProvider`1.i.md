@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > **ICustomQueryProvider<T>**
 
-Interface for a custom implementation of [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) .
+
 
 ```csharp
 public interface ICustomQueryProvider<T> : IQueryProvider
@@ -12,7 +12,7 @@ public interface ICustomQueryProvider<T> : IQueryProvider
 
 | Parameter Name | Constraints | Description |
 | :-- | :-- | :-- |
-| `T` | None. | The entity type. |
+| `T` | None. |  |
 
 Implements  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) 
 
@@ -22,10 +22,10 @@ Derived  [CustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Providers.CustomQ
 
 | Method | Description |
 | :-- | :-- |
-| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](ICustomQueryProvider`1-ExecuteEnumerable.m.md) | Execute enumeration from the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](ICustomQueryProvider`1-ExecuteEnumerable.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

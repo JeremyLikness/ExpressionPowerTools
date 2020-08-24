@@ -2,18 +2,18 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QuerySnapshotProvider<T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) > **QuerySnapshotProvider(IQueryable sourceQuery)**
 
-Initializes a new instance of the [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) class.
+
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [QuerySnapshotProvider(IQueryable sourceQuery)](#querysnapshotprovideriqueryable-sourcequery) | Initializes a new instance of the [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) class. |
-| [QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)](#querysnapshotprovideriqueryable-sourcequery-iquerysnapshot-parent) | Initializes a new instance of the [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) class. |
+| [QuerySnapshotProvider(IQueryable sourceQuery)](#querysnapshotprovideriqueryable-sourcequery) |  |
+| [QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)](#querysnapshotprovideriqueryable-sourcequery-iquerysnapshot-parent) |  |
 
 ## QuerySnapshotProvider(IQueryable sourceQuery)
 
-Initializes a new instance of the [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) class.
+
 
 ```csharp
 public QuerySnapshotProvider(IQueryable sourceQuery)
@@ -23,13 +23,13 @@ public QuerySnapshotProvider(IQueryable sourceQuery)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `sourceQuery` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The query to snapshot. |
+| `sourceQuery` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) |  |
 
 
 
 ## QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)
 
-Initializes a new instance of the [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) class.
+
 
 ```csharp
 public QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)
@@ -39,8 +39,8 @@ public QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `sourceQuery` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The query to snapshot. |
-| `parent` | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) | The parent that created this. |
+| `sourceQuery` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) |  |
+| `parent` | [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) |  |
 
 
 
@@ -48,4 +48,4 @@ public QuerySnapshotProvider(IQueryable sourceQuery, IQuerySnapshot parent)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

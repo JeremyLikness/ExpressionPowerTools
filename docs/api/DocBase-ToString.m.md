@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocBase](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBase.cs.md) > **ToString**
 
-String display.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [ToString()](#tostring) | String display. |
+| [ToString()](#tostring) |  |
 ## ToString()
 
-String display.
+
 
 ```csharp
 public virtual String ToString()
@@ -19,7 +19,7 @@ public virtual String ToString()
 
 ### Return Type
 
- [String](https://docs.microsoft.com/dotnet/api/system.string)  - The type and the name.
+ [String](https://docs.microsoft.com/dotnet/api/system.string) 
 
 
 
@@ -27,4 +27,4 @@ public virtual String ToString()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

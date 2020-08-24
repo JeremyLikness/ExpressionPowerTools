@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) > **ArgumentsAreSimilar**
 
-Determines whether arguments are similar.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [ArgumentsAreSimilar(IList&lt;Expression> source, IList&lt;Expression> target)](#argumentsaresimilarilistexpression-source-ilistexpression-target) | Determines whether arguments are similar. |
+| [ArgumentsAreSimilar(IList&lt;Expression> source, IList&lt;Expression> target)](#argumentsaresimilarilistexpression-source-ilistexpression-target) |  |
 ## ArgumentsAreSimilar(IList&lt;Expression> source, IList&lt;Expression> target)
 
-Determines whether arguments are similar.
+
 
 ```csharp
 public static Boolean ArgumentsAreSimilar(IList<Expression> source, IList<Expression> target)
@@ -19,14 +19,14 @@ public static Boolean ArgumentsAreSimilar(IList<Expression> source, IList<Expres
 
 ### Return Type
 
- [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean)  - A value that indicates whether the arguments are similar.
+ [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `source` | [IList&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | The source list. |
-| `target` | [IList&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) | The target list. |
+| `source` | [IList&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) |  |
+| `target` | [IList&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) |  |
 
 
 
@@ -34,4 +34,4 @@ public static Boolean ArgumentsAreSimilar(IList<Expression> source, IList<Expres
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

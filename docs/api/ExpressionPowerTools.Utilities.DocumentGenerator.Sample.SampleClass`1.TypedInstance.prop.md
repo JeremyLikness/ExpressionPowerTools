@@ -2,8 +2,6 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > [SampleClass<T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) > **TypedInstance**
 
-Gets the typed instance.
-
 ```csharp
 public static SampleBaseClass<TypeRef, IComparable<IEnumerator<TypeRef>>> TypedInstance { get; }
 ```
@@ -17,4 +15,4 @@ public static SampleBaseClass<TypeRef, IComparable<IEnumerator<TypeRef>>> TypedI
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

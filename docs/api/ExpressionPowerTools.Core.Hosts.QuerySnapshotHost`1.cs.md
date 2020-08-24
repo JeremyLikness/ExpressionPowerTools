@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > **QuerySnapshotHost<T>**
 
-A host to snapshot the query on execution.
+
 
 ```csharp
 public class QuerySnapshotHost<T> : QueryHost<T, IQuerySnapshotProvider<T>>, IQuerySnapshotHost<T>
@@ -12,7 +12,7 @@ public class QuerySnapshotHost<T> : QueryHost<T, IQuerySnapshotProvider<T>>, IQu
 
 | Parameter Name | Constraints | Description |
 | :-- | :-- | :-- |
-| `T` | None. | The type of the query. |
+| `T` | None. |  |
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [QueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) → **QuerySnapshotHost&lt;T>**
 
@@ -22,18 +22,18 @@ Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collectio
 
 | Ctor | Description |
 | :-- | :-- |
-| [QuerySnapshotHost(IQueryable&lt;T> source)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostiqueryablet-source) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
-| [QuerySnapshotHost(IQueryable source, Expression expression)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostiqueryable-source-expression-expression) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
-| [QuerySnapshotHost(Expression expression, IQuerySnapshotProvider&lt;T> provider)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostexpression-expression-iquerysnapshotprovidert-provider) | Initializes a new instance of the [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.cs.md) class. |
+| [QuerySnapshotHost(IQueryable&lt;T> source)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostiqueryablet-source) |  |
+| [QuerySnapshotHost(IQueryable source, Expression expression)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostiqueryable-source-expression-expression) |  |
+| [QuerySnapshotHost(Expression expression, IQuerySnapshotProvider&lt;T> provider)](ExpressionPowerTools.Core.Hosts.QuerySnapshotHost`1.ctor.md#querysnapshothostexpression-expression-iquerysnapshotprovidert-provider) |  |
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [String RegisterSnap(Action&lt;Expression> callback)](QuerySnapshotHost`1-RegisterSnap.m.md) | Register for a callback when the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is executed. |
-| [Void UnregisterSnap(String id)](QuerySnapshotHost`1-UnregisterSnap.m.md) | Stop listenining. |
+| [String RegisterSnap(Action&lt;Expression> callback)](QuerySnapshotHost`1-RegisterSnap.m.md) |  |
+| [Void UnregisterSnap(String id)](QuerySnapshotHost`1-UnregisterSnap.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

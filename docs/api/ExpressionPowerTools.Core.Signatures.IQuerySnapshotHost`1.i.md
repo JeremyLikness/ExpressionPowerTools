@@ -2,8 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > **IQuerySnapshotHost<T>**
 
-Host to snapshot a query. Will raise an event when it is executed
-            to allow inspecting the expression.
+
 
 ```csharp
 public interface IQuerySnapshotHost<T> : IQueryHost<T, IQuerySnapshotProvider<T>>
@@ -13,7 +12,7 @@ public interface IQuerySnapshotHost<T> : IQueryHost<T, IQuerySnapshotProvider<T>
 
 | Parameter Name | Constraints | Description |
 | :-- | :-- | :-- |
-| `T` | None. | The type of entity. |
+| `T` | None. |  |
 
 Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collections.ienumerable) ,  [IEnumerable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) ,  [IOrderedQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iorderedqueryable) ,  [IOrderedQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iorderedqueryable-1) ,  [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) ,  [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) ,  [IQueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Signatures.IQueryHost`2.i.md) 
 
@@ -23,11 +22,11 @@ Derived  [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshot
 
 | Method | Description |
 | :-- | :-- |
-| [String RegisterSnap(Action&lt;Expression> callback)](IQuerySnapshotHost`1-RegisterSnap.m.md) | Register a callback to receive the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) when snapped. |
-| [Void UnregisterSnap(String id)](IQuerySnapshotHost`1-UnregisterSnap.m.md) | Unregister for callbacks. |
+| [String RegisterSnap(Action&lt;Expression> callback)](IQuerySnapshotHost`1-RegisterSnap.m.md) |  |
+| [Void UnregisterSnap(String id)](IQuerySnapshotHost`1-UnregisterSnap.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

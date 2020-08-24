@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QueryInterceptingProvider<T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) > **CreateQuery**
 
-Creates a query host with this provider.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [CreateQuery(Expression expression)](#createqueryexpression-expression) | Creates a query host with this provider. |
-| [CreateQuery&lt;TElement>(Expression expression)](#createquerytelementexpression-expression) | Creates a query host with a different type. |
+| [CreateQuery(Expression expression)](#createqueryexpression-expression) |  |
+| [CreateQuery&lt;TElement>(Expression expression)](#createquerytelementexpression-expression) |  |
 ## CreateQuery(Expression expression)
 
-Creates a query host with this provider.
+
 
 ```csharp
 public virtual IQueryable CreateQuery(Expression expression)
@@ -20,23 +20,18 @@ public virtual IQueryable CreateQuery(Expression expression)
 
 ### Return Type
 
- [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable)  - The [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) .
+ [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to use. |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
 
-### Exceptions
-
-| Exception | Description |
-| :-- | :-- |
-| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Throw when expression is null. |
 
 ## CreateQuery&lt;TElement>(Expression expression)
 
-Creates a query host with a different type.
+
 
 ```csharp
 public virtual IQueryable<TElement> CreateQuery<TElement>(Expression expression)
@@ -44,23 +39,18 @@ public virtual IQueryable<TElement> CreateQuery<TElement>(Expression expression)
 
 ### Return Type
 
- [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable)  - The [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) .
+ [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to use. |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
 
-### Exceptions
-
-| Exception | Description |
-| :-- | :-- |
-| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Throw when expression is null. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

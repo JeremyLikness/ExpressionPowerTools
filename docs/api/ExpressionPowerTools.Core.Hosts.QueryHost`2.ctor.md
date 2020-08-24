@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **QueryHost(Expression expression, TProvider provider)**
 
-Initializes a new instance of the [QueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) class.
+
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [QueryHost(Expression expression, TProvider provider)](#queryhostexpression-expression-tprovider-provider) | Initializes a new instance of the [QueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) class. |
+| [QueryHost(Expression expression, TProvider provider)](#queryhostexpression-expression-tprovider-provider) |  |
 
 ## QueryHost(Expression expression, TProvider provider)
 
-Initializes a new instance of the [QueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) class.
+
 
 ```csharp
 public QueryHost(Expression expression, TProvider provider)
@@ -22,18 +22,13 @@ public QueryHost(Expression expression, TProvider provider)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| `provider` | TProvider | The [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) . |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
+| `provider` | TProvider |  |
 
-### Exceptions
-
-| Exception | Description |
-| :-- | :-- |
-| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Thrown when expression or provider are null. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

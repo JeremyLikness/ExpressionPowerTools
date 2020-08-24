@@ -2,8 +2,6 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultConstantSimilarities**
 
-Gets the default rule for similarities between constants.
-
 ```csharp
 public static Expression<Func<ConstantExpression, ConstantExpression, Boolean>> DefaultConstantSimilarities { get; }
 ```
@@ -17,4 +15,4 @@ public static Expression<Func<ConstantExpression, ConstantExpression, Boolean>> 
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,19 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) > **DocConstructor(DocExportedType type)**
 
-Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with
-            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) .
+
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocConstructor(DocExportedType type)](#docconstructordocexportedtype-type) | Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) . |
+| [DocConstructor(DocExportedType type)](#docconstructordocexportedtype-type) |  |
 
 ## DocConstructor(DocExportedType type)
 
-Initializes a new instance of the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) class with
-            the specified [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) .
+
 
 ```csharp
 public DocConstructor(DocExportedType type)
@@ -24,7 +22,7 @@ public DocConstructor(DocExportedType type)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `type` | [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) | The [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) the constructor is for. |
+| `type` | [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) |  |
 
 
 
@@ -32,4 +30,4 @@ public DocConstructor(DocExportedType type)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

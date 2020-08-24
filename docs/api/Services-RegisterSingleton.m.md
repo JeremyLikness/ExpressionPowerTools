@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Dependencies](ExpressionPowerTools.Core.Dependencies.n.md) > [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md) > **RegisterSingleton**
 
-Register a singleton to satisfy a type request.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [RegisterSingleton&lt;T>(T instance)](#registersingletontt-instance) | Register a singleton to satisfy a type request. |
+| [RegisterSingleton&lt;T>(T instance)](#registersingletontt-instance) |  |
 ## RegisterSingleton&lt;T>(T instance)
 
-Register a singleton to satisfy a type request.
+
 
 ```csharp
 public virtual IServiceRegistration RegisterSingleton<T>(T instance)
@@ -19,13 +19,13 @@ public virtual IServiceRegistration RegisterSingleton<T>(T instance)
 
 ### Return Type
 
- [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md)  - The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) for chaining.
+ [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `instance` | T | The singleton. |
+| `instance` | T |  |
 
 
 
@@ -33,4 +33,4 @@ public virtual IServiceRegistration RegisterSingleton<T>(T instance)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

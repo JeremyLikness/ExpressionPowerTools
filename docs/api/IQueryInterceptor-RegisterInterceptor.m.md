@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IQueryInterceptor](ExpressionPowerTools.Core.Signatures.IQueryInterceptor.i.md) > **RegisterInterceptor**
 
-Register the transformation to intercept.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [RegisterInterceptor(ExpressionTransformer transformation)](#registerinterceptorexpressiontransformer-transformation) | Register the transformation to intercept. |
+| [RegisterInterceptor(ExpressionTransformer transformation)](#registerinterceptorexpressiontransformer-transformation) |  |
 ## RegisterInterceptor(ExpressionTransformer transformation)
 
-Register the transformation to intercept.
+
 
 ```csharp
 public virtual Void RegisterInterceptor(ExpressionTransformer transformation)
@@ -25,7 +25,7 @@ public virtual Void RegisterInterceptor(ExpressionTransformer transformation)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `transformation` | [ExpressionTransformer](ExpressionPowerTools.Core.ExpressionTransformer.cs.md) | The method to inspect and/or transform. |
+| `transformation` | [ExpressionTransformer](ExpressionPowerTools.Core.ExpressionTransformer.cs.md) |  |
 
 
 
@@ -33,4 +33,4 @@ public virtual Void RegisterInterceptor(ExpressionTransformer transformation)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

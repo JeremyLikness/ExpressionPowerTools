@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > [ISampleInterface<in T1, out T2, T3>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.ISampleInterface`3.i.md) > **ProcessComparable**
 
-Process a comparable item.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [ProcessComparable&lt;T4>(T4 parameter)](#processcomparablet4t4-parameter) | Process a comparable item. |
+| [ProcessComparable&lt;T4>(T4 parameter)](#processcomparablet4t4-parameter) |  |
 ## ProcessComparable&lt;T4>(T4 parameter)
 
-Process a comparable item.
+
 
 ```csharp
 public virtual T3 ProcessComparable<T4>(T4 parameter)
@@ -19,13 +19,13 @@ public virtual T3 ProcessComparable<T4>(T4 parameter)
 
 ### Return Type
 
-T3 - A comparable.
+T3
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `parameter` | T4 | The value to process. |
+| `parameter` | T4 |  |
 
 
 
@@ -33,4 +33,4 @@ T3 - A comparable.
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,8 +2,6 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) > **Operand**
 
-Gets or sets the operand or main [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) for the operation.
-
 ```csharp
 public Object Operand { get; set; }
 ```
@@ -17,4 +15,4 @@ public Object Operand { get; set; }
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/23/2020 9:59:26 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

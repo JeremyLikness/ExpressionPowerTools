@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Parsers](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.n.md) > [ParserUtils](ExpressionPowerTools.Utilities.DocumentGenerator.Parsers.ParserUtils.cs.md) > **NameOnly**
 
-Strips the namespace qualification and normalizes the name.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [NameOnly(String fullName)](#nameonlystring-fullname) | Strips the namespace qualification and normalizes the name. |
+| [NameOnly(String fullName)](#nameonlystring-fullname) |  |
 ## NameOnly(String fullName)
 
-Strips the namespace qualification and normalizes the name.
+
 
 ```csharp
 public static String NameOnly(String fullName)
@@ -19,28 +19,18 @@ public static String NameOnly(String fullName)
 
 ### Return Type
 
- [String](https://docs.microsoft.com/dotnet/api/system.string)  - The name by itself.
+ [String](https://docs.microsoft.com/dotnet/api/system.string) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `fullName` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The source name. |
+| `fullName` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
-
-## Examples
-
-For example, the name `Sytem.Foo.IBar`2` would get transformed to:
-
-```csharp
-
-IBar<>
-            
-```
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

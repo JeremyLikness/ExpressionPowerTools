@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Dependencies](ExpressionPowerTools.Core.Dependencies.n.md) > [Services](ExpressionPowerTools.Core.Dependencies.Services.cs.md) > **RegisterGeneric**
 
-Register a generic service.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [RegisterGeneric(Type signature, Type implementation)](#registergenerictype-signature-type-implementation) | Register a generic service. |
+| [RegisterGeneric(Type signature, Type implementation)](#registergenerictype-signature-type-implementation) |  |
 ## RegisterGeneric(Type signature, Type implementation)
 
-Register a generic service.
+
 
 ```csharp
 public virtual IServiceRegistration RegisterGeneric(Type signature, Type implementation)
@@ -19,14 +19,14 @@ public virtual IServiceRegistration RegisterGeneric(Type signature, Type impleme
 
 ### Return Type
 
- [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md)  - An [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) for chaining.
+ [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `signature` | [Type](https://docs.microsoft.com/dotnet/api/system.type) | The signature type. |
-| `implementation` | [Type](https://docs.microsoft.com/dotnet/api/system.type) | The implementation type. |
+| `signature` | [Type](https://docs.microsoft.com/dotnet/api/system.type) |  |
+| `implementation` | [Type](https://docs.microsoft.com/dotnet/api/system.type) |  |
 
 
 
@@ -34,4 +34,4 @@ public virtual IServiceRegistration RegisterGeneric(Type signature, Type impleme
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

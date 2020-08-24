@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > **ISampleInterface<in T1, out T2, T3>**
 
-Sample interface for testing.
+
 
 ```csharp
 public interface ISampleInterface<in T1, out T2, T3>
@@ -14,9 +14,9 @@ public interface ISampleInterface<in T1, out T2, T3>
 
 | Parameter Name | Constraints | Description |
 | :-- | :-- | :-- |
-| `out T1` | The parameter must have a default parameterless constructor. The parameter must be a reference type. The parameter is contravariant. You may use a type that `T1` derives from. | The main type. |
-| `T2` | The parameter is covariant. You may use a type that derives from `T2`.  [IEnumerator&lt;in T1>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) | The enumerator. |
-| `T3` | [IComparable&lt;out T2>](https://docs.microsoft.com/dotnet/api/system.icomparable-1) | The comparable. |
+| `out T1` | The parameter must have a default parameterless constructor. The parameter must be a reference type. The parameter is contravariant. You may use a type that `T1` derives from. |  |
+| `T2` | The parameter is covariant. You may use a type that derives from `T2`.  [IEnumerator&lt;in T1>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) |  |
+| `T3` | [IComparable&lt;out T2>](https://docs.microsoft.com/dotnet/api/system.icomparable-1) |  |
 
 Derived  [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.cs.md) ,  [SampleClass&lt;T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) 
 
@@ -24,13 +24,13 @@ Derived  [SampleBaseClass&lt;T1, T2>](ExpressionPowerTools.Utilities.DocumentGen
 
 | Method | Description |
 | :-- | :-- |
-| [Void DoStuff()](ISampleInterface`3-DoStuff.m.md) | Do stuff. |
-| [T2 GetEnumerableFor(T1 entity)](ISampleInterface`3-GetEnumerableFor.m.md) | Gets an enumerable for the entity. |
-| [Boolean IsReady&lt;T5>(T5 test)](ISampleInterface`3-IsReady.m.md) | Is it ready test. |
-| [T3 ProcessComparable&lt;T4>(T4 parameter)](ISampleInterface`3-ProcessComparable.m.md) | Process a comparable item. |
+| [Void DoStuff()](ISampleInterface`3-DoStuff.m.md) |  |
+| [T2 GetEnumerableFor(T1 entity)](ISampleInterface`3-GetEnumerableFor.m.md) |  |
+| [Boolean IsReady&lt;T5>(T5 test)](ISampleInterface`3-IsReady.m.md) |  |
+| [T3 ProcessComparable&lt;T4>(T4 parameter)](ISampleInterface`3-ProcessComparable.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

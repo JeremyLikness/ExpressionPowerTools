@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [DocFile](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.DocFile.cs.md) > **Add**
 
-Add a line to the markdown.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Add(String line)](#addstring-line) | Add a line to the markdown. |
+| [Add(String line)](#addstring-line) |  |
 ## Add(String line)
 
-Add a line to the markdown.
+
 
 ```csharp
 public Void Add(String line)
@@ -25,7 +25,7 @@ public Void Add(String line)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `line` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The line of markdown. |
+| `line` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -33,4 +33,4 @@ public Void Add(String line)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

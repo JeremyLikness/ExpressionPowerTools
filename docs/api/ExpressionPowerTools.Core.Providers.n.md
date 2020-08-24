@@ -6,14 +6,14 @@
 
 | Class | Description |
 | :-- | :-- |
-| [CustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.cs.md) | Base query provider class. |
-| [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) | Provider that intercepts the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) when run. |
-| [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) | Encapsulates an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) | Provider that raises an event just before the query is executed. |
+| [CustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.cs.md) |  |
+| [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) |  |
+| [QuerySnapshotEventArgs](ExpressionPowerTools.Core.Providers.QuerySnapshotEventArgs.cs.md) |  |
+| [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.QuerySnapshotProvider`1.cs.md) |  |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

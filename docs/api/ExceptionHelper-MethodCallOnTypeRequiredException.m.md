@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Resources](ExpressionPowerTools.Core.Resources.n.md) > [ExceptionHelper](ExpressionPowerTools.Core.Resources.ExceptionHelper.cs.md) > **MethodCallOnTypeRequiredException**
 
-Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for invalid expression.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [MethodCallOnTypeRequiredException(String parameterName)](#methodcallontyperequiredexceptionstring-parametername) | Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for invalid expression. |
+| [MethodCallOnTypeRequiredException(String parameterName)](#methodcallontyperequiredexceptionstring-parametername) |  |
 ## MethodCallOnTypeRequiredException(String parameterName)
 
-Generates a [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) for invalid expression.
+
 
 ```csharp
 public static ArgumentException MethodCallOnTypeRequiredException(String parameterName)
@@ -19,13 +19,13 @@ public static ArgumentException MethodCallOnTypeRequiredException(String paramet
 
 ### Return Type
 
- [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception)  - The [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) .
+ [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `parameterName` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the parameter. |
+| `parameterName` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -33,4 +33,4 @@ public static ArgumentException MethodCallOnTypeRequiredException(String paramet
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

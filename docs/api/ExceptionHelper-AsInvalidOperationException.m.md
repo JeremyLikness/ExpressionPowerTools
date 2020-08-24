@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Resources](ExpressionPowerTools.Core.Resources.n.md) > [ExceptionHelper](ExpressionPowerTools.Core.Resources.ExceptionHelper.cs.md) > **AsInvalidOperationException**
 
-Invalid operation messages.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AsInvalidOperationException(String message, String[] parameters)](#asinvalidoperationexceptionstring-message-string[]-parameters) | Invalid operation messages. |
+| [AsInvalidOperationException(String message, String[] parameters)](#asinvalidoperationexceptionstring-message-string[]-parameters) |  |
 ## AsInvalidOperationException(String message, String[] parameters)
 
-Invalid operation messages.
+
 
 ```csharp
 public static InvalidOperationException AsInvalidOperationException(String message, String[] parameters)
@@ -19,14 +19,14 @@ public static InvalidOperationException AsInvalidOperationException(String messa
 
 ### Return Type
 
- [InvalidOperationException](https://docs.microsoft.com/dotnet/api/system.invalidoperationexception)  - The invalid operation.
+ [InvalidOperationException](https://docs.microsoft.com/dotnet/api/system.invalidoperationexception) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `message` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The message key. |
-| `parameters` | [String[]](https://docs.microsoft.com/dotnet/api/system.string[]) | The parameters. |
+| `message` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `parameters` | [String[]](https://docs.microsoft.com/dotnet/api/system.string[]) |  |
 
 
 
@@ -34,4 +34,4 @@ public static InvalidOperationException AsInvalidOperationException(String messa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

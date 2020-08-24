@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > **MarkdownList**
 
-Utility to make a markdown list.
+
 
 ```csharp
 public class MarkdownList
@@ -10,35 +10,20 @@ public class MarkdownList
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MarkdownList**
 
-## Examples
-
-For example:
-
-```csharp
-
-var list = new MarkdownList();
-foreach(var item in items)
-{
-    list.AddItem(item);
-}
-ICollection<string> result = list.CloseList();
-            
-```
-
 ## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
-| [MarkdownList(Boolean isOrdered)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.ctor.md#markdownlistboolean-isordered) | Initializes a new instance of the [MarkdownList](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.cs.md) class. |
+| [MarkdownList(Boolean isOrdered)](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.ctor.md#markdownlistboolean-isordered) |  |
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [Void AddItem(String item)](MarkdownList-AddItem.m.md) | Add an item to the list. |
-| [ICollection&lt;String> CloseList()](MarkdownList-CloseList.m.md) | Close the list and obtain the generated markdown. |
+| [Void AddItem(String item)](MarkdownList-AddItem.m.md) |  |
+| [ICollection&lt;String> CloseList()](MarkdownList-CloseList.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Resources](ExpressionPowerTools.Core.Resources.n.md) > [ExceptionHelper](ExpressionPowerTools.Core.Resources.ExceptionHelper.cs.md) > **NullReferenceNotAllowedException**
 
-Null reference exception.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [NullReferenceNotAllowedException(String memberName)](#nullreferencenotallowedexceptionstring-membername) | Null reference exception. |
+| [NullReferenceNotAllowedException(String memberName)](#nullreferencenotallowedexceptionstring-membername) |  |
 ## NullReferenceNotAllowedException(String memberName)
 
-Null reference exception.
+
 
 ```csharp
 public static NullReferenceException NullReferenceNotAllowedException(String memberName)
@@ -19,13 +19,13 @@ public static NullReferenceException NullReferenceNotAllowedException(String mem
 
 ### Return Type
 
- [NullReferenceException](https://docs.microsoft.com/dotnet/api/system.nullreferenceexception)  - A [NullReferenceException](https://docs.microsoft.com/dotnet/api/system.nullreferenceexception) .
+ [NullReferenceException](https://docs.microsoft.com/dotnet/api/system.nullreferenceexception) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `memberName` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The member that is null. |
+| `memberName` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -33,4 +33,4 @@ public static NullReferenceException NullReferenceNotAllowedException(String mem
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

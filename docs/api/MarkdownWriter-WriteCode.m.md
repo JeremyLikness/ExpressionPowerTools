@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [MarkdownWriter](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.cs.md) > **WriteCode**
 
-Write a code block.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [WriteCode(String code)](#writecodestring-code) | Write a code block. |
+| [WriteCode(String code)](#writecodestring-code) |  |
 ## WriteCode(String code)
 
-Write a code block.
+
 
 ```csharp
 public ICollection<String> WriteCode(String code)
@@ -19,13 +19,13 @@ public ICollection<String> WriteCode(String code)
 
 ### Return Type
 
- [ICollection&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1)  - The code markdown.
+ [ICollection&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `code` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The code to write. |
+| `code` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -33,4 +33,4 @@ public ICollection<String> WriteCode(String code)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

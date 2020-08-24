@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [CustomQueryProvider<T>](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.cs.md) > **Execute**
 
-Runs the query and returns the result.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Execute(Expression expression)](#executeexpression-expression) | Runs the query and returns the result. |
-| [Execute&lt;TResult>(Expression expression)](#executetresultexpression-expression) | Runs the query and returns the typed result. |
+| [Execute(Expression expression)](#executeexpression-expression) |  |
+| [Execute&lt;TResult>(Expression expression)](#executetresultexpression-expression) |  |
 ## Execute(Expression expression)
 
-Runs the query and returns the result.
+
 
 ```csharp
 public virtual Object Execute(Expression expression)
@@ -20,23 +20,18 @@ public virtual Object Execute(Expression expression)
 
 ### Return Type
 
- [Object](https://docs.microsoft.com/dotnet/api/system.object)  - The query result.
+ [Object](https://docs.microsoft.com/dotnet/api/system.object) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to use. |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
 
-### Exceptions
-
-| Exception | Description |
-| :-- | :-- |
-| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Throw when expression is null. |
 
 ## Execute&lt;TResult>(Expression expression)
 
-Runs the query and returns the typed result.
+
 
 ```csharp
 public virtual TResult Execute<TResult>(Expression expression)
@@ -44,23 +39,18 @@ public virtual TResult Execute<TResult>(Expression expression)
 
 ### Return Type
 
- [Object](https://docs.microsoft.com/dotnet/api/system.object)  - The query result.
+ [Object](https://docs.microsoft.com/dotnet/api/system.object) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The query [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
 
-### Exceptions
-
-| Exception | Description |
-| :-- | :-- |
-| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Throw when expression is null. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

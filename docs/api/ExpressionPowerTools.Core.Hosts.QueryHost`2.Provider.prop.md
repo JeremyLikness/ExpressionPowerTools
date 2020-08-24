@@ -2,8 +2,6 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > [QueryHost<T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) > **Provider**
 
-Gets the instance of the [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) .
-
 ```csharp
 public virtual IQueryProvider Provider { get; }
 ```
@@ -17,4 +15,4 @@ public virtual IQueryProvider Provider { get; }
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

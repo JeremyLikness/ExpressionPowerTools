@@ -2,17 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [IQueryableExtensions](ExpressionPowerTools.Core.Extensions.IQueryableExtensions.cs.md) > **AsEnumerableExpression**
 
-Providers a way to enumerate the expression behind a query.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AsEnumerableExpression(IQueryable query)](#asenumerableexpressioniqueryable-query) | Providers a way to enumerate the expression behind a query. |
-| [AsEnumerableExpression&lt;T>(IQueryable&lt;T> query)](#asenumerableexpressiontiqueryablet-query) | Generic extension. |
+| [AsEnumerableExpression(IQueryable query)](#asenumerableexpressioniqueryable-query) |  |
+| [AsEnumerableExpression&lt;T>(IQueryable&lt;T> query)](#asenumerableexpressiontiqueryablet-query) |  |
 ## AsEnumerableExpression(IQueryable query)
 
-Providers a way to enumerate the expression behind a query.
+
 
 ```csharp
 public static IExpressionEnumerator AsEnumerableExpression(IQueryable query)
@@ -20,36 +20,18 @@ public static IExpressionEnumerator AsEnumerableExpression(IQueryable query)
 
 ### Return Type
 
- [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md)  - The [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) instance.
+ [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `query` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The query to enumerate. |
+| `query` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) |  |
 
-### Exceptions
-
-| Exception | Description |
-| :-- | :-- |
-| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Thrown when query is null. |
-
-## Examples
-
-For example:
-
-```csharp
-
-var query = new List<IQueryableExtensionsTests>()
-       .AsQueryable()
-       .Where(t => t.GetHashCode() == int.MaxValue);
-var target = query.AsEnumerableExpression();
-            
-```
 
 ## AsEnumerableExpression&lt;T>(IQueryable&lt;T> query)
 
-Generic extension.
+
 
 ```csharp
 public static IExpressionEnumerator AsEnumerableExpression<T>(IQueryable<T> query)
@@ -57,13 +39,13 @@ public static IExpressionEnumerator AsEnumerableExpression<T>(IQueryable<T> quer
 
 ### Return Type
 
- [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md)  - The [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) .
+ [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `query` | [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) | The [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) . |
+| `query` | [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) |  |
 
 
 
@@ -71,4 +53,4 @@ public static IExpressionEnumerator AsEnumerableExpression<T>(IQueryable<T> quer
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

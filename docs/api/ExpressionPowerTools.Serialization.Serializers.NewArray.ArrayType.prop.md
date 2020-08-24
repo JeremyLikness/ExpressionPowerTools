@@ -2,8 +2,6 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) > **ArrayType**
 
-Gets or sets the type of the array.
-
 ```csharp
 public String ArrayType { get; set; }
 ```
@@ -17,4 +15,4 @@ public String ArrayType { get; set; }
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

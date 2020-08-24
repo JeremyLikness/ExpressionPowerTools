@@ -2,18 +2,18 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) > **Method()**
 
-Initializes a new instance of the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) class.
+
 
 ## Overloads
 
 | Ctor | Description |
 | :-- | :-- |
-| [Method()](#method) | Initializes a new instance of the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) class. |
-| [Method(MethodInfo info)](#methodmethodinfo-info) | Initializes a new instance of the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) class and            populates values based on the [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) passed in. |
+| [Method()](#method) |  |
+| [Method(MethodInfo info)](#methodmethodinfo-info) |  |
 
 ## Method()
 
-Initializes a new instance of the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) class.
+
 
 ```csharp
 public Method()
@@ -23,8 +23,7 @@ public Method()
 
 ## Method(MethodInfo info)
 
-Initializes a new instance of the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) class and
-            populates values based on the [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) passed in.
+
 
 ```csharp
 public Method(MethodInfo info)
@@ -34,7 +33,7 @@ public Method(MethodInfo info)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `info` | [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) | The [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) to parse. |
+| `info` | [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) |  |
 
 
 
@@ -42,4 +41,4 @@ public Method(MethodInfo info)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/23/2020 9:59:26 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [IExpressionEnumeratorExtensions](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.cs.md) > **OfExpressionType**
 
-Helper extension to extract nodes with a specific [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) value.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)](#ofexpressiontypeiexpressionenumerator-expressionenumerator-expressiontype-type) | Helper extension to extract nodes with a specific [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) value. |
+| [OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)](#ofexpressiontypeiexpressionenumerator-expressionenumerator-expressiontype-type) |  |
 ## OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)
 
-Helper extension to extract nodes with a specific [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) value.
+
 
 ```csharp
 public static IEnumerable<Expression> OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)
@@ -19,14 +19,14 @@ public static IEnumerable<Expression> OfExpressionType(IExpressionEnumerator exp
 
 ### Return Type
 
- [IEnumerable&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1)  - The filtered result of [IEnumerable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) .
+ [IEnumerable&lt;Expression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expressionEnumerator` | [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) | The [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) to query. |
-| `type` | [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) | The [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) to extract. |
+| `expressionEnumerator` | [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) |  |
+| `type` | [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) |  |
 
 
 
@@ -34,4 +34,4 @@ public static IEnumerable<Expression> OfExpressionType(IExpressionEnumerator exp
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

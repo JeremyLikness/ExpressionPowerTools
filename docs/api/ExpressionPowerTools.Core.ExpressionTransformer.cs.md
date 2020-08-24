@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.n.md) > **ExpressionTransformer**
 
-Transform one expression to another.
+
 
 ```csharp
 public class ExpressionTransformer : MulticastDelegate, ICloneable, ISerializable
@@ -16,7 +16,7 @@ Implements  [ICloneable](https://docs.microsoft.com/dotnet/api/system.icloneable
 
 | Ctor | Description |
 | :-- | :-- |
-| [ExpressionTransformer(Object object, IntPtr method)](ExpressionPowerTools.Core.ExpressionTransformer.ctor.md#expressiontransformerobject-object-intptr-method) | Initializes a new instance of the [ExpressionTransformer](ExpressionPowerTools.Core.ExpressionTransformer.cs.md) class. |
+| [ExpressionTransformer(Object object, IntPtr method)](ExpressionPowerTools.Core.ExpressionTransformer.ctor.md#expressiontransformerobject-object-intptr-method) |  |
 ## Methods
 
 | Method | Description |
@@ -29,4 +29,4 @@ Implements  [ICloneable](https://docs.microsoft.com/dotnet/api/system.icloneable
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

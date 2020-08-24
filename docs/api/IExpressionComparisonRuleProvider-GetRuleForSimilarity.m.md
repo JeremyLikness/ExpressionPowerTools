@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) > **GetRuleForSimilarity**
 
-Gets a predicate to compare two expressions of a given type.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [GetRuleForSimilarity&lt;T>()](#getruleforsimilarityt) | Gets a predicate to compare two expressions of a given type. |
+| [GetRuleForSimilarity&lt;T>()](#getruleforsimilarityt) |  |
 ## GetRuleForSimilarity&lt;T>()
 
-Gets a predicate to compare two expressions of a given type.
+
 
 ```csharp
 public virtual Func<T, T, Boolean> GetRuleForSimilarity<T>()
@@ -19,7 +19,7 @@ public virtual Func<T, T, Boolean> GetRuleForSimilarity<T>()
 
 ### Return Type
 
- [Func&lt;T, T, Boolean>](https://docs.microsoft.com/dotnet/api/system.func-3)  - The rule or null when not found.
+ [Func&lt;T, T, Boolean>](https://docs.microsoft.com/dotnet/api/system.func-3) 
 
 
 
@@ -27,4 +27,4 @@ public virtual Func<T, T, Boolean> GetRuleForSimilarity<T>()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

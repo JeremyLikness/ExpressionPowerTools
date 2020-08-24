@@ -2,9 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > **DefaultHighPerformanceRules**
 
-This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
-            Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
-            you should find the rules-based works fine for most scenarios and performs close to par with the programmed verssion.
+
 
 ```csharp
 public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
@@ -18,18 +16,18 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 
 | Ctor | Description |
 | :-- | :-- |
-| [DefaultHighPerformanceRules()](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ctor.md#defaulthighperformancerules) | Initializes a new instance of the [DefaultHighPerformanceRules](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.cs.md) class. |
+| [DefaultHighPerformanceRules()](ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.ctor.md#defaulthighperformancerules) |  |
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckEquivalency.m.md) | Check equivalency for a given type. |
-| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckSimilarity.m.md) | Perform the check. |
-| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](DefaultHighPerformanceRules-GetRuleForEquivalency.m.md) | Get the equivalency rule. |
-| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](DefaultHighPerformanceRules-GetRuleForSimilarity.m.md) | Get the similiarity rule. |
+| [Boolean CheckEquivalency&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckEquivalency.m.md) |  |
+| [Boolean CheckSimilarity&lt;T>(T source, Expression target)](DefaultHighPerformanceRules-CheckSimilarity.m.md) |  |
+| [Func&lt;T, T, Boolean> GetRuleForEquivalency&lt;T>()](DefaultHighPerformanceRules-GetRuleForEquivalency.m.md) |  |
+| [Func&lt;T, T, Boolean> GetRuleForSimilarity&lt;T>()](DefaultHighPerformanceRules-GetRuleForSimilarity.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

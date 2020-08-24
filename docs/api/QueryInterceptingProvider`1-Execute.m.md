@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > [QueryInterceptingProvider<T>](ExpressionPowerTools.Core.Providers.QueryInterceptingProvider`1.cs.md) > **Execute**
 
-Execute with transformation.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Execute(Expression expression)](#executeexpression-expression) | Execute with transformation. |
+| [Execute(Expression expression)](#executeexpression-expression) |  |
 ## Execute(Expression expression)
 
-Execute with transformation.
+
 
 ```csharp
 public virtual Object Execute(Expression expression)
@@ -19,23 +19,18 @@ public virtual Object Execute(Expression expression)
 
 ### Return Type
 
- [Object](https://docs.microsoft.com/dotnet/api/system.object)  - Result of executing the transformed expression.
+ [Object](https://docs.microsoft.com/dotnet/api/system.object) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The base [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
 
-### Exceptions
-
-| Exception | Description |
-| :-- | :-- |
-| [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Thrown when expression is null. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

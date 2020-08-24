@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > **IQuerySnapshotProvider<T>**
 
-Provider to intercept query execution for inspection.
+
 
 ```csharp
 public interface IQuerySnapshotProvider<T> : ICustomQueryProvider<T>, IQuerySnapshot
@@ -12,7 +12,7 @@ public interface IQuerySnapshotProvider<T> : ICustomQueryProvider<T>, IQuerySnap
 
 | Parameter Name | Constraints | Description |
 | :-- | :-- | :-- |
-| `T` | None. | The type of snapshot to provide for. |
+| `T` | None. |  |
 
 Implements  [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) ,  [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) ,  [IQuerySnapshot](ExpressionPowerTools.Core.Signatures.IQuerySnapshot.i.md) 
 
@@ -23,4 +23,4 @@ Derived  [QuerySnapshotProvider&lt;T>](ExpressionPowerTools.Core.Providers.Query
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

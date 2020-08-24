@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.n.md) > **ExpressionEnumerator**
 
-Recurse an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree.
+
 
 ```csharp
 public class ExpressionEnumerator : IExpressionEnumerator
@@ -16,15 +16,15 @@ Implements  [IEnumerable](https://docs.microsoft.com/dotnet/api/system.collectio
 
 | Ctor | Description |
 | :-- | :-- |
-| [ExpressionEnumerator(Expression expr)](ExpressionPowerTools.Core.ExpressionEnumerator.ctor.md#expressionenumeratorexpression-expr) | Initializes a new instance of the [ExpressionEnumerator](ExpressionPowerTools.Core.ExpressionEnumerator.cs.md) class. |
+| [ExpressionEnumerator(Expression expr)](ExpressionPowerTools.Core.ExpressionEnumerator.ctor.md#expressionenumeratorexpression-expr) |  |
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [IEnumerator&lt;Expression> GetEnumerator()](ExpressionEnumerator-GetEnumerator.m.md) | Implements [IEnumerable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) . |
+| [IEnumerator&lt;Expression> GetEnumerator()](ExpressionEnumerator-GetEnumerator.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md) > **QueryHost<T, TProvider>**
 
-Base class for custom query host.
+
 
 ```csharp
 public class QueryHost<T, TProvider> : IQueryHost<T, TProvider>
@@ -13,8 +13,8 @@ public class QueryHost<T, TProvider> : IQueryHost<T, TProvider>
 
 | Parameter Name | Constraints | Description |
 | :-- | :-- | :-- |
-| `T` | None. | The entity type. |
-| `TProvider` | [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) | The [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) to use. |
+| `T` | None. |  |
+| `TProvider` | [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) |  |
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **QueryHost&lt;T, TProvider>**
 
@@ -26,24 +26,24 @@ Derived  [QuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Hosts.QuerySnapshot
 
 | Ctor | Description |
 | :-- | :-- |
-| [QueryHost(Expression expression, TProvider provider)](ExpressionPowerTools.Core.Hosts.QueryHost`2.ctor.md#queryhostexpression-expression-tprovider-provider) | Initializes a new instance of the [QueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Hosts.QueryHost`2.cs.md) class. |
+| [QueryHost(Expression expression, TProvider provider)](ExpressionPowerTools.Core.Hosts.QueryHost`2.ctor.md#queryhostexpression-expression-tprovider-provider) |  |
 ## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`CustomProvider`](ExpressionPowerTools.Core.Hosts.QueryHost`2.CustomProvider.prop.md) | TProvider | Gets or sets the instance of the [ICustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1.i.md) . |
-| [`ElementType`](ExpressionPowerTools.Core.Hosts.QueryHost`2.ElementType.prop.md) | [Type](https://docs.microsoft.com/dotnet/api/system.type) | Gets the type of element. |
-| [`Expression`](ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression.prop.md) | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | Gets thefor the query. |
-| [`Provider`](ExpressionPowerTools.Core.Hosts.QueryHost`2.Provider.prop.md) | [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) | Gets the instance of the [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) . |
+| [`CustomProvider`](ExpressionPowerTools.Core.Hosts.QueryHost`2.CustomProvider.prop.md) | TProvider |  |
+| [`ElementType`](ExpressionPowerTools.Core.Hosts.QueryHost`2.ElementType.prop.md) | [Type](https://docs.microsoft.com/dotnet/api/system.type) |  |
+| [`Expression`](ExpressionPowerTools.Core.Hosts.QueryHost`2.Expression.prop.md) | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) |  |
+| [`Provider`](ExpressionPowerTools.Core.Hosts.QueryHost`2.Provider.prop.md) | [IQueryProvider](https://docs.microsoft.com/dotnet/api/system.linq.iqueryprovider) |  |
 
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [IEnumerator&lt;T> GetEnumerator()](QueryHost`2-GetEnumerator.m.md) | Gets an [IEnumerator&lt;out T>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1) for the query results. |
+| [IEnumerator&lt;T> GetEnumerator()](QueryHost`2-GetEnumerator.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

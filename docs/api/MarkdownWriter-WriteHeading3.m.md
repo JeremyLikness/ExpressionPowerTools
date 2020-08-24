@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [MarkdownWriter](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownWriter.cs.md) > **WriteHeading3**
 
-Write a nested sub-heading.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [WriteHeading3(String heading)](#writeheading3string-heading) | Write a nested sub-heading. |
+| [WriteHeading3(String heading)](#writeheading3string-heading) |  |
 ## WriteHeading3(String heading)
 
-Write a nested sub-heading.
+
 
 ```csharp
 public String WriteHeading3(String heading)
@@ -19,13 +19,13 @@ public String WriteHeading3(String heading)
 
 ### Return Type
 
- [String](https://docs.microsoft.com/dotnet/api/system.string)  - The nested sub-heading markdown.
+ [String](https://docs.microsoft.com/dotnet/api/system.string) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `heading` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The heading text. |
+| `heading` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -33,4 +33,4 @@ public String WriteHeading3(String heading)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

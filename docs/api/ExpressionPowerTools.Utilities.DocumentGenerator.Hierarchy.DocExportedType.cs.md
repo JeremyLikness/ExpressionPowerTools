@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.n.md) > **DocExportedType**
 
-A class or intrface.
+
 
 ```csharp
 public class DocExportedType : DocBaseType
@@ -14,18 +14,18 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Ctor | Description |
 | :-- | :-- |
-| [DocExportedType()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.ctor.md#docexportedtype) | Initializes a new instance of the [DocExportedType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.cs.md) class. |
+| [DocExportedType()](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.ctor.md#docexportedtype) |  |
 ## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Constructor`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Constructor.prop.md) | [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) | Gets or sets the [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) . |
-| [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension for a unique filename. |
-| [`Namespace`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Namespace.prop.md) | [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) | Gets or sets the namespace the type belongs to. |
+| [`Constructor`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Constructor.prop.md) | [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) |  |
+| [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| [`Namespace`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocExportedType.Namespace.prop.md) | [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) |  |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

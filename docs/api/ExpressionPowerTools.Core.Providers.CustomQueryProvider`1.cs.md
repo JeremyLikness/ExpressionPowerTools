@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md) > **CustomQueryProvider<T>**
 
-Base query provider class.
+
 
 ```csharp
 public abstract class CustomQueryProvider<T> : ICustomQueryProvider<T>
@@ -12,7 +12,7 @@ public abstract class CustomQueryProvider<T> : ICustomQueryProvider<T>
 
 | Parameter Name | Constraints | Description |
 | :-- | :-- | :-- |
-| `T` | None. | The entity type. |
+| `T` | None. |  |
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **CustomQueryProvider&lt;T>**
 
@@ -24,17 +24,17 @@ Derived  [QueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Providers.Q
 
 | Ctor | Description |
 | :-- | :-- |
-| [CustomQueryProvider(IQueryable sourceQuery)](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.ctor.md#customqueryprovideriqueryable-sourcequery) | Initializes a new instance of the [CustomQueryProvider&lt;T>](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.cs.md) class. |
+| [CustomQueryProvider(IQueryable sourceQuery)](ExpressionPowerTools.Core.Providers.CustomQueryProvider`1.ctor.md#customqueryprovideriqueryable-sourcequery) |  |
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [IQueryable CreateQuery(Expression expression)](CustomQueryProvider`1-CreateQuery.m.md) | Creates the query. |
-| [Object Execute(Expression expression)](CustomQueryProvider`1-Execute.m.md) | Runs the query and returns the result. |
-| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](CustomQueryProvider`1-ExecuteEnumerable.m.md) | Return the enumerable result. |
+| [IQueryable CreateQuery(Expression expression)](CustomQueryProvider`1-CreateQuery.m.md) |  |
+| [Object Execute(Expression expression)](CustomQueryProvider`1-Execute.m.md) |  |
+| [IEnumerable&lt;T> ExecuteEnumerable(Expression expression)](CustomQueryProvider`1-ExecuteEnumerable.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

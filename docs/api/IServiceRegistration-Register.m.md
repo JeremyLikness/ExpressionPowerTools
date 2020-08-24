@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md) > [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) > **Register**
 
-Register a service with two parameters.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Register&lt;T, TImpl>()](#registert-timpl) | Register a service with two parameters. |
+| [Register&lt;T, TImpl>()](#registert-timpl) |  |
 ## Register&lt;T, TImpl>()
 
-Register a service with two parameters.
+
 
 ```csharp
 public virtual IServiceRegistration Register<T, TImpl>()
@@ -19,7 +19,7 @@ public virtual IServiceRegistration Register<T, TImpl>()
 
 ### Return Type
 
- [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md)  - The [IServices](ExpressionPowerTools.Core.Signatures.IServices.i.md) for chaining.
+ [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) 
 
 
 
@@ -27,4 +27,4 @@ public virtual IServiceRegistration Register<T, TImpl>()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |

@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Markdown](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.n.md) > [MarkdownList](ExpressionPowerTools.Utilities.DocumentGenerator.Markdown.MarkdownList.cs.md) > **AddItem**
 
-Add an item to the list.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AddItem(String item)](#additemstring-item) | Add an item to the list. |
+| [AddItem(String item)](#additemstring-item) |  |
 ## AddItem(String item)
 
-Add an item to the list.
+
 
 ```csharp
 public Void AddItem(String item)
@@ -25,7 +25,7 @@ public Void AddItem(String item)
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `item` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The item to add. |
+| `item` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -33,4 +33,4 @@ public Void AddItem(String item)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/20/2020 6:23:17 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/24/2020 5:39:06 AM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
