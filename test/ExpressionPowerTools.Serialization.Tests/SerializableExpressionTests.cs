@@ -144,5 +144,36 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(lambda.ReturnType.FullName, target.ReturnType);
         }
 
+        [Fact]
+        public void GivenInvocationExpressionWhenInvocationCreatedThenShouldSetProperties()
+        {
+            Expression<Func<int>> template = () => 1;
+            var invocationExpr = Expression.Invoke(template);
+            var invocation = new Invocation(invocationExpr);
+            Assert.Equal(
+                invocationExpr.Type.FullName,
+                invocation.InvocationType);
+            Assert.NotNull(invocation.Arguments);
+        }
+
+        public long Double(int x) => x * 2;
+
+        [Fact]
+        public void GivenMethodCallExpressionWhenMethodExprCreatedThenShouldSetProperties()
+        {
+            var method = GetType()
+                .GetMethod(nameof(Double));
+            var methodCall = Expression.Call(
+                Expression.Constant(this),
+                method,
+                Expression.Constant(int.MaxValue));
+            var methodExpr = new MethodExpr(methodCall);
+            Assert.Equal(
+                methodCall.Method.Name,
+                methodExpr.MethodInfo.Name);
+            Assert.Equal(
+                methodCall.Type.FullName, methodExpr.MethodCallType);
+            Assert.NotNull(methodExpr.Arguments);
+        }
     }
 }

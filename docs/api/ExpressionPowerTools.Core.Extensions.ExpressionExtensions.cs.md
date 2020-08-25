@@ -16,6 +16,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | :-- | :-- |
 | [ConstantExpression AsConstantExpression(Object obj)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsConstantExpression.m.md) | Wraps an item as a [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
 | [IExpressionEnumerator AsEnumerable(Expression expression)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsEnumerable.m.md) | Provides a way to enumerate an expression tree. |
+| [InvocationExpression AsInvocationExpression(LambdaExpression lambda)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsInvocationExpression.m.md) | Converts a lambda expresion into an invocation. |
 | [ParameterExpression AsParameterExpression(Object obj, String name, Boolean byRef)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsParameterExpression.m.md) | Creates a [ParameterExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.parameterexpression) based on the            type of the object. |
 | [ParameterExpression CreateParameterExpression&lt;T, TValue>(Expression&lt;Func&lt;T, TValue>> value)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression.m.md) | Extracts the parameter from a member expression. |
 | [Boolean IsEquivalentTo(Expression source, Expression target)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsEquivalentTo.m.md) | Uses [ExpressionEquivalency](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.cs.md) to determine equivalency. |
@@ -27,4 +28,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/25/2020 5:55:15 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

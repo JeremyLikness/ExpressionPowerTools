@@ -121,6 +121,25 @@ namespace ExpressionPowerTools.Core.Extensions
         }
 
         /// <summary>
+        /// Converts a lambda expresion into an invocation.
+        /// </summary>
+        /// <param name="lambda">The <see cref="LambdaExpression"/> to convert.</param>
+        /// <returns>The transformed <see cref="InvocationExpression"/>.</returns>
+        /// <example>
+        /// For example:
+        /// <code lang="csharp"><![CDATA[
+        /// Expression<Func<int, bool>> lambda = i => i > 2;
+        /// var invocation = lambda.AsInvocationExpression();
+        /// ]]></code>
+        /// </example>
+        /// <exception cref="ArgumentNullException">Thrown when lambda is null.</exception>
+        public static InvocationExpression AsInvocationExpression(this LambdaExpression lambda)
+        {
+            Ensure.NotNull(() => lambda);
+            return Expression.Invoke(lambda, lambda.Parameters);
+        }
+
+        /// <summary>
         /// Extracts the parameter from a member expression.
         /// </summary>
         /// <example>

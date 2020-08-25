@@ -44,6 +44,12 @@ namespace ExpressionPowerTools.Core.Tests
         private static ParameterExpression IntByRefParameter =>
             Expression.Parameter(typeof(int).MakeByRefType());
 
+        private static readonly Expression<Func<bool>> FuncBool = () => true;
+
+        private static readonly Expression<Func<string>> FuncString = () => nameof(FuncString);
+
+        private static readonly Expression<Func<int, bool>> FuncIntBool = i => i > 2;
+
         public static IEnumerable<object[]> GetBinaryExpressionMatrix()
         {
 
@@ -785,6 +791,51 @@ namespace ExpressionPowerTools.Core.Tests
             var source = Expression.New(typeof(IdType));
             var target = Expression.New(typeof(IdType));
             Assert.True(eq.AreEquivalent(source, target));
+        }
+
+        public static IEnumerable<object[]> GetInvocationExpressionMatrix()
+        {
+
+            // left equivalent, right not equivalent (false)
+            yield return new object[]
+            {
+                Expression.Invoke(FuncBool, FuncBool.Parameters)
+            };
+
+            yield return new object[]
+            {
+                Expression.Invoke(FuncString, FuncString.Parameters)
+            };
+
+            yield return new object[]
+            {
+                Expression.Invoke(FuncIntBool, FuncIntBool.Parameters)
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetInvocationExpressionMatrix))]
+        public void GivenTwoInvocationsWhenSameThenAreEquivalentShouldReturnTrue(InvocationExpression invocation)
+        {
+            Assert.True(eq.AreEquivalent(
+                invocation,
+                invocation.Update(invocation.Expression, invocation.Arguments)));
+        }
+
+        [Fact]
+        public void GivenTwoInvocationsWhenDifferentThenAreEquivalentShouldReturnFalse()
+        {
+            var source = Expression.Invoke(FuncBool, FuncBool.Parameters);
+            var target = Expression.Invoke(FuncIntBool, FuncIntBool.Parameters);
+            Assert.False(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenTwoInvocationsWhenDifferentArgsThenAreEquivalentShouldReturnFalse()
+        {
+            var source = Expression.Invoke(FuncBool, FuncBool.Parameters);
+            var target = Expression.Invoke(FuncString, FuncBool.Parameters);
+            Assert.False(eq.AreEquivalent(source, target));
         }
 
         [Fact]

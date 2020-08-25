@@ -668,6 +668,67 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
+        public void GivenInvocationExpressionWhenTypeIsDifferentThenAreSimilarShouldReturnFalse()
+        {
+            Expression<Func<object>> intExpr = () => 1;
+            Expression<Func<object>> strExpr = () => "1";
+            var source = Expression.Invoke(intExpr, intExpr.Parameters);
+            var target = Expression.Invoke(strExpr, strExpr.Parameters);
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenInvocationExpressionWhenParameterCountDiffersThenAreSimilarShouldReturnFalse()
+        {
+            Expression<Func<object>> intExpr = () => 1;
+            Expression<Func<int, object>> intParamExpr = val => 1;
+            var source = Expression.Invoke(intExpr, intExpr.Parameters);
+            var target = Expression.Invoke(intParamExpr, intParamExpr.Parameters);
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenInvocationExpressionWhenSingaturesMatchThenAreSimilarShouldReturnTrue()
+        {
+            Expression<Func<long, object>> longParamExpr = val => 1;
+            Expression<Func<long, object>> longParamExpr1 = val1 => 1;
+            var source = Expression.Invoke(longParamExpr, longParamExpr.Parameters);
+            var target = Expression.Invoke(longParamExpr1, longParamExpr1.Parameters);
+            Assert.True(eq.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenInvocationExpressionWhenParametersAreDifferentTypesThenAreSimilarShouldReturnFalse()
+        {
+            Expression<Func<long, object>> longParamExpr = val => 1;
+            Expression<Func<int, object>> intParamExpr = val => 1;
+            var source = Expression.Invoke(longParamExpr, longParamExpr.Parameters);
+            var target = Expression.Lambda(intParamExpr, intParamExpr.Parameters);
+            Assert.False(eq.AreSimilar(source, target));
+        }
+
+        public interface ITemp
+        {
+            string Id { get; set; }
+        }
+
+        public class Temp : ITemp
+        {
+            public string Id { get; set; }
+        }
+
+        [Fact]
+        public void GivenInvocationExpressionWhenSimilarThenAreSimilarShouldReturnTrue()
+        {
+            Expression<Func<Temp, Temp>> expr = i => i;
+            Expression<Func<ITemp, ITemp>> expr1 = i => i;
+            Assert.True(
+                eq.AreSimilar(
+                    Expression.Invoke(expr, expr.Parameters),
+                    Expression.Invoke(expr1, expr1.Parameters)));
+        }
+
+        [Fact]
         public void GivenTwoQueriesWhenSimilarThenAreSimilarShouldReturnTrue()
         {
             var source = QueryHelper.QuerySkip2Take3.Expression;

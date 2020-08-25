@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Extensions;
@@ -171,6 +173,41 @@ namespace ExpressionPowerTools.Core.Tests
                 (test => test.Id);
             Assert.NotNull(target);
             Assert.Equal(nameof(Id), target.Name);
+        }
+
+        [Fact]
+        public void AsInvocationExpressionWithNoParametersShouldReturnInvocation()
+        {
+            Expression<Func<bool>> lambda = () => true;
+            var invocation = lambda.AsInvocationExpression();
+            Assert.NotNull(invocation);
+            Assert.Same(invocation.Expression, lambda);            
+        }
+
+        public static IEnumerable<object[]> GetInvocationMatrix()
+        {
+            Expression<Func<int, bool>> intbool = i => i > 2;
+            Expression<Func<int, int, long>> multiply = (a, b) => a * b;
+
+            yield return new object[]
+            {
+                intbool
+            };
+
+            yield return new object[]
+            {
+                multiply
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetInvocationMatrix))]
+        public void AsInvocationExpressionWithParametersShouldReturnInvocation(LambdaExpression expr)
+        {
+            var invocation = expr.AsInvocationExpression();
+            Assert.NotNull(invocation);
+            Assert.Same(invocation.Expression, expr);
+            Assert.Equal(invocation.Arguments, expr.Parameters);
         }
 
         [Fact]

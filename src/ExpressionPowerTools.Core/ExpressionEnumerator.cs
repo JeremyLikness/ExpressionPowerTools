@@ -79,6 +79,9 @@ namespace ExpressionPowerTools.Core
                 case ConstantExpression constant:
                     RecurseConstantExpression(constant);
                     break;
+                case InvocationExpression invocation:
+                    RecurseInvocationExpression(invocation);
+                    break;
                 case LambdaExpression lambda:
                     RecurseLambdaExpression(lambda);
                     break;
@@ -176,6 +179,21 @@ namespace ExpressionPowerTools.Core
             }
 
             RecurseExpression(lambda.Body);
+        }
+
+        /// <summary>
+        /// Recurse an invocation expression.
+        /// </summary>
+        /// <param name="invocation">The <see cref="InvocationExpression"/> to parse.</param>
+        private void RecurseInvocationExpression(InvocationExpression invocation)
+        {
+            queue.Enqueue(invocation);
+            foreach (var arg in invocation.Arguments)
+            {
+                RecurseExpression(arg);
+            }
+
+            RecurseExpression(invocation.Expression);
         }
 
         /// <summary>

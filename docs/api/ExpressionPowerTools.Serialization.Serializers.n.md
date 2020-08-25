@@ -11,8 +11,12 @@
 | [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.cs.md) | Serializer for [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
 | [ExpressionSerializer](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.cs.md) | Top-level serializer that passes work off to specific types. |
 | [ExpressionSerializerAttribute](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.cs.md) | Attribute to tag a serializer. |
+| [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) | A serializable version of [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
+| [InvocationSerializer](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.cs.md) | Serialization logic for expressions of type [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
 | [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) | Serializable version of [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
+| [LambdaSerializer](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.cs.md) | Serialization logic for expressions of type [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
 | [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) | Represents [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) for serialization. |
+| [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) | Serializable container for [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
 | [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) | New array serialization. |
 | [NewArraySerializer](ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.cs.md) | Serializer for [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) . |
 | [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) | A serializable type for [ParameterExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.parameterexpression) . |
@@ -28,4 +32,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/25/2020 5:55:15 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

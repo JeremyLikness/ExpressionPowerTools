@@ -154,5 +154,17 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.Single(target.OfType<NewExpression>());
             Assert.Equal(2, target.OfType<ConstantExpression>().Count());
         }
+
+        [Fact]
+        public void WhenGetEnumeratorCalledWithInvocationExpressionThenShouldReturnSubExpressions()
+        {
+            Expression<Func<object>> expr = () => new { id = 1, name = nameof(expr) };
+            var invocation = Expression.Invoke(expr, expr.Parameters);
+            var target = new ExpressionEnumerator(invocation).ToList();
+            Assert.Single(target.OfType<InvocationExpression>());
+            Assert.Single(target.OfType<LambdaExpression>());
+            Assert.Single(target.OfType<NewExpression>());
+            Assert.Equal(2, target.OfType<ConstantExpression>().Count());
+        }
     }
 }

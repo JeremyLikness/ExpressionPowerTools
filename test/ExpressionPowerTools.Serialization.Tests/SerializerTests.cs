@@ -95,5 +95,19 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Assert.Equal(unary.Method, target.Method);
             }
         }
+
+        public static IEnumerable<object[]> GetLambdaExpressions() =>
+            LambdaSerializerTests.GetLambdaExpressions();
+
+        [Theory]
+        [MemberData(nameof(GetLambdaExpressions))]
+        public void GivenLambdaExpressionWhenSerializedThenShouldDeserialize(LambdaExpression lambda)
+        {
+            var json = Serializer.Serialize(lambda);
+            var target = Serializer.Deserialize<LambdaExpression>(json);
+            Assert.Equal(lambda.Type, target.Type);
+            Assert.Equal(lambda.Body?.NodeType, target.Body?.NodeType);
+            Assert.Equal(lambda.Parameters, target.Parameters);
+        }
     }
 }

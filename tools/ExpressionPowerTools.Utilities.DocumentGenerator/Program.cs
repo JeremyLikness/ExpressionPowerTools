@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text.Json;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
@@ -34,6 +35,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
         private static string rootDir = "../../../../../docs/api/";
 
         /// <summary>
+        /// Version informatoin file.
+        /// </summary>
+        private static string versionInfo = "../../../../../version.json";
+
+        /// <summary>
         /// The main entry method.
         /// </summary>
         /// <param name="args">Optional arguments (not used).</param>
@@ -55,11 +61,17 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             var location = Directory.GetCurrentDirectory();
+            var versionPath = Path.Combine(location, versionInfo);
+            Console.WriteLine($"Retrieving version info from {versionPath}...");
+            var versionDoc = JsonDocument.Parse(File.ReadAllText(versionPath));
+            string version = versionDoc.RootElement.GetProperty(nameof(version)).GetString();
+            Console.WriteLine($"Docs version is {version}");
             var fileChecker = new FileHelper(location);
             var xmlParser = new XmlDocParser(fileChecker);
             var markdown = new DocsToMarkdownParser();
             var writer = new FileWriter(
-                rootDir.StartsWith("..") ? Path.Combine(location, rootDir) : rootDir);
+                rootDir.StartsWith("..") ? Path.Combine(location, rootDir) : rootDir,
+                version);
             Console.WriteLine("Parsing assemblies (pass 1)...");
             var assemblies = new List<(DocAssembly doc, AssemblyParser parser)>();
             foreach (var type in ExampleTypes)

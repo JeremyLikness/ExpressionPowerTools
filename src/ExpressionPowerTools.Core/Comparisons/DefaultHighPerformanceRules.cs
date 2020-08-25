@@ -38,6 +38,7 @@ namespace ExpressionPowerTools.Core.Comparisons
             {
                 { typeof(LambdaExpression), (s, t) => ExecuteRuleAs<LambdaExpression>(s, t, LambdasAreEquivalent) },
                 { typeof(ConstantExpression), (s, t) => ExecuteRuleAs<ConstantExpression>(s, t, ConstantsAreEquivalent) },
+                { typeof(InvocationExpression), (s, t) => ExecuteRuleAs<InvocationExpression>(s, t, InvocationsAreEquivalent) },
                 { typeof(MemberExpression), (s, t) => ExecuteRuleAs<MemberExpression>(s, t, MembersAreEquivalent) },
                 { typeof(MethodCallExpression), (s, t) => ExecuteRuleAs<MethodCallExpression>(s, t, MethodsAreEquivalent) },
                 { typeof(BinaryExpression), (s, t) => ExecuteRuleAs<BinaryExpression>(s, t, BinariesAreEquivalent) },
@@ -53,6 +54,7 @@ namespace ExpressionPowerTools.Core.Comparisons
                 { typeof(LambdaExpression), (s, t) => ExecuteRuleAs<LambdaExpression>(s, t, LambdasAreSimilar) },
                 { typeof(ConstantExpression), (s, t) => ExecuteRuleAs<ConstantExpression>(s, t, ConstantsAreSimilar) },
                 { typeof(MemberExpression), (s, t) => ExecuteRuleAs<MemberExpression>(s, t, MembersAreSimilar) },
+                { typeof(InvocationExpression), (s, t) => ExecuteRuleAs<InvocationExpression>(s, t, InvocationsAreSimilar) },
                 { typeof(MethodCallExpression), (s, t) => ExecuteRuleAs<MethodCallExpression>(s, t, MethodsAreSimilar) },
                 { typeof(BinaryExpression), (s, t) => ExecuteRuleAs<BinaryExpression>(s, t, BinariesAreSimilar) },
                 { typeof(NewArrayExpression), (s, t) => ExecuteRuleAs<NewArrayExpression>(s, t, NewArraysAreSimilar) },
@@ -738,6 +740,64 @@ namespace ExpressionPowerTools.Core.Comparisons
             return eq.ValuesAreEquivalent(
                     source.Value,
                     target.Value);
+        }
+
+        /// <summary>
+        /// Method to compare two <see cref="InvocationExpression"/> instances.
+        /// </summary>
+        /// <remarks>
+        /// Must match type, expression, and arguments.
+        /// </remarks>
+        /// <param name="source">The source <see cref="InvocationExpression"/>.</param>
+        /// <param name="target">The target <see cref="InvocationExpression"/>.</param>
+        /// <returns>A value that indicates whether they are equivalent.</returns>
+        private bool InvocationsAreEquivalent(
+            InvocationExpression source,
+            InvocationExpression target)
+        {
+            if (source.Type != target.Type)
+            {
+                return false;
+            }
+
+            if (!eq.AreEquivalent(source.Expression, target.Expression))
+            {
+                return false;
+            }
+
+            return eq.AreEquivalent(source.Arguments, target.Arguments);
+        }
+
+        /// <summary>
+        /// Method to compare two <see cref="InvocationExpression"/> for similarty.
+        /// </summary>
+        /// <remarks>
+        /// To be similar, types must be assignable, arguments must be similar,
+        /// and the source expression must be part of the target expression.
+        /// </remarks>
+        /// <param name="source">The source <see cref="InvocationExpression"/>.</param>
+        /// <param name="target">The target <see cref="InvocationExpression"/>.</param>
+        /// <returns>A value that indicates whether they are similar.</returns>
+        private bool InvocationsAreSimilar(
+            InvocationExpression source,
+            InvocationExpression target)
+        {
+            if (!ExpressionSimilarity.TypesAreSimilar(source.Type, target.Type))
+            {
+                return false;
+            }
+
+            if (source.Arguments.Count != target.Arguments.Count)
+            {
+                return false;
+            }
+
+            if (!ExpressionSimilarity.AreSimilar(source.Arguments, target.Arguments))
+            {
+                return false;
+            }
+
+            return ExpressionSimilarity.IsPartOf(source.Expression, target.Expression);
         }
 
         /// <summary>

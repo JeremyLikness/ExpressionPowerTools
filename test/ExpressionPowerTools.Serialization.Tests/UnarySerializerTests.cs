@@ -160,15 +160,13 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.PreIncrementAssign(value, methodDecrement)
             };
 
-            // TODO: Handle Lambda expressions
+            Expression<Func<bool>> truth = () => true;
+            var expr = Expression.Lambda<Func<bool>>(Expression.Invoke(truth));
 
-            //Expression<Func<bool>> truth = () => true;
-            //var expr = Expression.Lambda<Func<bool>>(Expression.Invoke(truth));
-            
-            //yield return new object[]
-            //{
-            //    Expression.Quote(expr)
-            //};
+            yield return new object[]
+            {
+                Expression.Quote(expr)
+            };
 
             yield return new object[]
             {
@@ -217,8 +215,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetUnaryExpressions))]
         public void UnaryExpressionShouldSerialize(UnaryExpression unary)
         {
-            var serializer = new UnarySerializer(new ExpressionSerializer());
-            var target = serializer.Serialize(unary);
+            var target = unarySerializer.Serialize(unary);
             Assert.Equal(target.Type, unary.NodeType.ToString());
         }
 
@@ -226,9 +223,8 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetUnaryExpressions))]
         public void UnaryExpressionShouldDeserialize(UnaryExpression unary)
         {
-            var serializer = new UnarySerializer(new ExpressionSerializer());
             var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary);
-            var deserialized = serializer.Deserialize(serialized);
+            var deserialized = unarySerializer.Deserialize(serialized);
             Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
         }
     }

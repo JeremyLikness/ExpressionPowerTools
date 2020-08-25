@@ -1,6 +1,6 @@
 ﻿# FileWriter Constructors
 
-[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.IO](ExpressionPowerTools.Utilities.DocumentGenerator.IO.n.md) > [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) > **FileWriter(String rootDir)**
+[Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.IO](ExpressionPowerTools.Utilities.DocumentGenerator.IO.n.md) > [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) > **FileWriter(String rootDir, String version)**
 
 Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class.
 
@@ -8,14 +8,14 @@ Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.Do
 
 | Ctor | Description |
 | :-- | :-- |
-| [FileWriter(String rootDir)](#filewriterstring-rootdir) | Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class. |
+| [FileWriter(String rootDir, String version)](#filewriterstring-rootdir-string-version) | Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class. |
 
-## FileWriter(String rootDir)
+## FileWriter(String rootDir, String version)
 
 Initializes a new instance of the [FileWriter](ExpressionPowerTools.Utilities.DocumentGenerator.IO.FileWriter.cs.md) class.
 
 ```csharp
-public FileWriter(String rootDir)
+public FileWriter(String rootDir, String version)
 ```
 
 ### Parameters
@@ -23,6 +23,7 @@ public FileWriter(String rootDir)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `rootDir` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The target root directory. |
+| `version` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
 
 
 
@@ -30,4 +31,4 @@ public FileWriter(String rootDir)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/25/2020 5:55:15 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

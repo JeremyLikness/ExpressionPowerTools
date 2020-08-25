@@ -51,4 +51,4 @@ To register a generic type, register the open type descriptor and the open
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/25/2020 5:55:15 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

@@ -44,10 +44,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets thte list of parameters for the lambda.
+        /// Gets or sets the list of parameters for the lambda.
         /// </summary>
-        public List<object> Parameters { get; set; } =
-            new List<object>();
+        public List<Parameter> Parameters { get; set; } =
+            new List<Parameter>();
 
         /// <summary>
         /// Gets or sets the type of the lambda.

@@ -31,7 +31,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.IO
         /// Initializes a new instance of the <see cref="FileWriter"/> class.
         /// </summary>
         /// <param name="rootDir">The target root directory.</param>
-        public FileWriter(string rootDir)
+        public FileWriter(string rootDir, string version)
         {
             if (!Directory.Exists(rootDir))
             {
@@ -39,7 +39,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.IO
             }
 
             targetDir = rootDir;
-            SetupFooter();
+            SetupFooter(version);
         }
 
         /// <summary>
@@ -76,10 +76,8 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.IO
         /// <summary>
         /// Sets up the documentation footer.
         /// </summary>
-        private void SetupFooter()
+        private void SetupFooter(string version)
         {
-            var versionInfo = typeof(ExpressionEnumerator).Assembly.GetName().Version;
-            var version = $"**v{versionInfo.Major}.{versionInfo.Minor}.{versionInfo.Revision}.{versionInfo.Build}**";
             var copyrightInfo = GetType().Assembly
                 .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0] as AssemblyCopyrightAttribute;
             var copyright = copyrightInfo?.Copyright;

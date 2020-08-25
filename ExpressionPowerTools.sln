@@ -20,9 +20,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionPowerTools.Serialization", "src\ExpressionPowerTools.Serialization\ExpressionPowerTools.Serialization.csproj", "{E8653B62-2341-4CDE-B056-7EFA2638E437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization", "src\ExpressionPowerTools.Serialization\ExpressionPowerTools.Serialization.csproj", "{E8653B62-2341-4CDE-B056-7EFA2638E437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionPowerTools.Serialization.Tests", "test\ExpressionPowerTools.Serialization.Tests\ExpressionPowerTools.Serialization.Tests.csproj", "{0F6E6849-9B64-457E-B728-4C5E38ABEB70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.Tests", "test\ExpressionPowerTools.Serialization.Tests\ExpressionPowerTools.Serialization.Tests.csproj", "{0F6E6849-9B64-457E-B728-4C5E38ABEB70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{8405940B-68E6-45E4-AD2A-670FA9C058D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{23234061-56D5-42AC-ADE2-C853C8078F5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8BCF883B-B2DC-4F39-ABA6-3D9E2BE5096E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{423D2D42-E490-4316-8361-1479D1C38ED2} = {8405940B-68E6-45E4-AD2A-670FA9C058D2}
+		{6B9EA11C-97EB-42B5-A4CD-B258DC70E047} = {23234061-56D5-42AC-ADE2-C853C8078F5A}
+		{EE593E53-0A03-4E7C-9E80-70019D0EC929} = {8BCF883B-B2DC-4F39-ABA6-3D9E2BE5096E}
+		{E8653B62-2341-4CDE-B056-7EFA2638E437} = {8405940B-68E6-45E4-AD2A-670FA9C058D2}
+		{0F6E6849-9B64-457E-B728-4C5E38ABEB70} = {23234061-56D5-42AC-ADE2-C853C8078F5A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B28C42C5-B2A8-4475-8A0B-240DA8AEA906}

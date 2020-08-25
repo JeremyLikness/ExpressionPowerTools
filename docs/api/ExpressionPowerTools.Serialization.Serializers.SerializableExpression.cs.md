@@ -10,7 +10,7 @@ public class SerializableExpression
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **SerializableExpression**
 
-Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
+Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
 
 ## Constructors
 
@@ -29,4 +29,4 @@ Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.m
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/24/2020 11:34:48 PM | (c) Copyright 2020 Jeremy Likness. | **v0.8.0.0** |
+| 8/25/2020 5:55:15 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
