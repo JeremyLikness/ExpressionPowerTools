@@ -31,6 +31,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.IO
         /// Initializes a new instance of the <see cref="FileWriter"/> class.
         /// </summary>
         /// <param name="rootDir">The target root directory.</param>
+        /// <param name="version">The version to generate.</param>
         public FileWriter(string rootDir, string version)
         {
             if (!Directory.Exists(rootDir))

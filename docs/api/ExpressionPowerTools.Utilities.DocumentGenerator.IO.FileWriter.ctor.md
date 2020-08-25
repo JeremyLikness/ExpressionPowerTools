@@ -23,7 +23,7 @@ public FileWriter(String rootDir, String version)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `rootDir` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The target root directory. |
-| `version` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
+| `version` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The version to generate. |
 
 
 
@@ -31,4 +31,4 @@ public FileWriter(String rootDir, String version)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 5:55:15 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
