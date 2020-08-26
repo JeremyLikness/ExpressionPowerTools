@@ -728,8 +728,6 @@ namespace ExpressionPowerTools.Core.Tests
                     Expression.Invoke(expr1, expr1.Parameters)));
         }
 
-
-
         [Fact]
         public void GivenTwoQueriesWhenSimilarThenAreSimilarShouldReturnTrue()
         {

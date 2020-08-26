@@ -12,6 +12,16 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) 
 
+## Remarks
+
+The documentation for each rule has remarks that detail the application of the rule.
+
+When documentation refers to "are similar" it means the similarity rules are applied to the child expressions.
+            Types are similar if one is assignable to the other.
+
+Is a part of refers to the expression tree. For example, a take might be buried inside an include, but a top level
+            take will pass "is part of" an expression with a nest take.
+
 ## Constructors
 
 | Ctor | Description |
@@ -26,14 +36,14 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 | [`DefaultBinarySimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultBinarySimilarities.prop.md) | [Expression&lt;Func&lt;BinaryExpression, BinaryExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for binary similarities. |
 | [`DefaultConstantRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantRules.prop.md) | [Expression&lt;Func&lt;ConstantExpression, ConstantExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for equivalency of [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
 | [`DefaultConstantSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantSimilarities.prop.md) | [Expression&lt;Func&lt;ConstantExpression, ConstantExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rule for similarities between constants. |
-| [`DefaultInvocationRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultInvocationRules.prop.md) | [Expression&lt;Func&lt;InvocationExpression, InvocationExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for invocations. |
-| [`DefaultInvocationSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultInvocationSimilarities.prop.md) | [Expression&lt;Func&lt;InvocationExpression, InvocationExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the similarities for lambda. |
-| [`DefaultLambdaRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaRules.prop.md) | [Expression&lt;Func&lt;LambdaExpression, LambdaExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for lambda. |
-| [`DefaultLambdaSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaSimilarities.prop.md) | [Expression&lt;Func&lt;LambdaExpression, LambdaExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the similarities for lambda. |
+| [`DefaultInvocationRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultInvocationRules.prop.md) | [Expression&lt;Func&lt;InvocationExpression, InvocationExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for invocations. |
+| [`DefaultInvocationSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultInvocationSimilarities.prop.md) | [Expression&lt;Func&lt;InvocationExpression, InvocationExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default similarities for lambda. |
+| [`DefaultLambdaRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaRules.prop.md) | [Expression&lt;Func&lt;LambdaExpression, LambdaExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for lambda. |
+| [`DefaultLambdaSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultLambdaSimilarities.prop.md) | [Expression&lt;Func&lt;LambdaExpression, LambdaExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default similarities for lambda. |
 | [`DefaultMemberRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberRules.prop.md) | [Expression&lt;Func&lt;MemberExpression, MemberExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for member equivalency. |
 | [`DefaultMemberSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberSimilarities.prop.md) | [Expression&lt;Func&lt;MemberExpression, MemberExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for member similarity. |
-| [`DefaultMethodRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodRules.prop.md) | [Expression&lt;Func&lt;MethodCallExpression, MethodCallExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for method calls. |
-| [`DefaultMethodSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodSimilarities.prop.md) | [Expression&lt;Func&lt;MethodCallExpression, MethodCallExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the rules for method call similarities. |
+| [`DefaultMethodRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodRules.prop.md) | [Expression&lt;Func&lt;MethodCallExpression, MethodCallExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for method calls. |
+| [`DefaultMethodSimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMethodSimilarities.prop.md) | [Expression&lt;Func&lt;MethodCallExpression, MethodCallExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the defeault rules for method call similarities. |
 | [`DefaultNewArrayRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewArrayRules.prop.md) | [Expression&lt;Func&lt;NewArrayExpression, NewArrayExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for new arrays. |
 | [`DefaultNewArraySimilarities`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewArraySimilarities.prop.md) | [Expression&lt;Func&lt;NewArrayExpression, NewArrayExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for new array similarities. |
 | [`DefaultNewRules`](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultNewRules.prop.md) | [Expression&lt;Func&lt;NewExpression, NewExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | Gets the default rules for object initializers. |
@@ -56,4 +66,4 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

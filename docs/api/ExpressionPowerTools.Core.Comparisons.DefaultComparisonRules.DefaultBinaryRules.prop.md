@@ -8,6 +8,11 @@ Gets the default rules for binaries.
 public static Expression<Func<BinaryExpression, BinaryExpression, Boolean>> DefaultBinaryRules { get; }
 ```
 
+## Remarks
+
+The node types (i.e. "Greater than", "Equals", etc.) must be equal.
+            The left and right expressions must both be equivalent.
+
 ### Property Value
 
  [Expression&lt;Func&lt;BinaryExpression, BinaryExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
@@ -17,4 +22,4 @@ public static Expression<Func<BinaryExpression, BinaryExpression, Boolean>> Defa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

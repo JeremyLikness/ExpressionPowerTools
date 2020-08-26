@@ -5,10 +5,10 @@
 Serializer for [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) .
 
 ```csharp
-public class UnarySerializer : BaseSerializer, IBaseSerializer, IExpressionSerializer<UnaryExpression, Unary>
+public class UnarySerializer : BaseSerializer<UnaryExpression, Unary>, IExpressionSerializer<UnaryExpression, Unary>, IBaseSerializer
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [BaseSerializer](ExpressionPowerTools.Serialization.Serializers.BaseSerializer.cs.md) → **UnarySerializer**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [BaseSerializer&lt;TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) → **UnarySerializer**
 
 Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.i.md) ,  [IExpressionSerializer&lt;T, TSerializable>](ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.i.md) 
 
@@ -28,4 +28,4 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

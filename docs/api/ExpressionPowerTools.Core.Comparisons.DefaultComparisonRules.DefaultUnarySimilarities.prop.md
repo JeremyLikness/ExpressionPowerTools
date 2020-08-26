@@ -8,6 +8,12 @@ Gets the default rules for unary similarities.
 public static Expression<Func<UnaryExpression, UnaryExpression, Boolean>> DefaultUnarySimilarities { get; }
 ```
 
+## Remarks
+
+The node types must match, the methods, if they exist, must have the
+            same name and similar declaring type. The source operand must be part
+            of the target operand.
+
 ### Property Value
 
  [Expression&lt;Func&lt;UnaryExpression, UnaryExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
@@ -17,4 +23,4 @@ public static Expression<Func<UnaryExpression, UnaryExpression, Boolean>> Defaul
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

@@ -8,6 +8,11 @@ Gets the default rules for object initializers.
 public static Expression<Func<NewExpression, NewExpression, Boolean>> DefaultNewRules { get; }
 ```
 
+## Remarks
+
+The types must be equal. The constructors must be identical (i.e. not a
+            different override). The constuctor arguments must be equivalent.
+
 ### Property Value
 
  [Expression&lt;Func&lt;NewExpression, NewExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
@@ -17,4 +22,4 @@ public static Expression<Func<NewExpression, NewExpression, Boolean>> DefaultNew
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

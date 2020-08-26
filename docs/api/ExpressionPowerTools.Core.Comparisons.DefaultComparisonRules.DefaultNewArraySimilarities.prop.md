@@ -8,6 +8,11 @@ Gets the default rules for new array similarities.
 public static Expression<Func<NewArrayExpression, NewArrayExpression, Boolean>> DefaultNewArraySimilarities { get; }
 ```
 
+## Remarks
+
+Types must be similar. Each expression in the source must have a similar
+            expression in the target.
+
 ### Property Value
 
  [Expression&lt;Func&lt;NewArrayExpression, NewArrayExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
@@ -17,4 +22,4 @@ public static Expression<Func<NewArrayExpression, NewArrayExpression, Boolean>> 
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

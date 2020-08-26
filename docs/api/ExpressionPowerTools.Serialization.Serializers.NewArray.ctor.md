@@ -1,6 +1,6 @@
 ﻿# NewArray Constructors
 
-[Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) > **NewArray(NewArrayExpression expression)**
+[Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) > **NewArray()**
 
 Initializes a new instance of the [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) class.
 
@@ -8,7 +8,18 @@ Initializes a new instance of the [NewArray](ExpressionPowerTools.Serialization.
 
 | Ctor | Description |
 | :-- | :-- |
+| [NewArray()](#newarray) | Initializes a new instance of the [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) class. |
 | [NewArray(NewArrayExpression expression)](#newarraynewarrayexpression-expression) | Initializes a new instance of the [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) class. |
+
+## NewArray()
+
+Initializes a new instance of the [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) class.
+
+```csharp
+public NewArray()
+```
+
+
 
 ## NewArray(NewArrayExpression expression)
 
@@ -30,4 +41,4 @@ public NewArray(NewArrayExpression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

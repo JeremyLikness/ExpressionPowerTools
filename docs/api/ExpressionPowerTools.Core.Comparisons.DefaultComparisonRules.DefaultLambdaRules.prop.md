@@ -2,11 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultLambdaRules**
 
-Gets the rules for lambda.
+Gets the default rules for lambda.
 
 ```csharp
 public static Expression<Func<LambdaExpression, LambdaExpression, Boolean>> DefaultLambdaRules { get; }
 ```
+
+## Remarks
+
+The name of the lambda expressions must be equal. The main expression body must
+            be equivalent between the source and target, and if one is tail call optimized, the other must be, too.
 
 ### Property Value
 
@@ -17,4 +22,4 @@ public static Expression<Func<LambdaExpression, LambdaExpression, Boolean>> Defa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

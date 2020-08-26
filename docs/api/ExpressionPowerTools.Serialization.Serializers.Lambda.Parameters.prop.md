@@ -2,10 +2,10 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) > **Parameters**
 
-Gets or sets the list of parameters for the lambda.
+Gets the list of parameters for the lambda.
 
 ```csharp
-public List<Parameter> Parameters { get; set; }
+public List<Parameter> Parameters { get; private set; }
 ```
 
 ### Property Value
@@ -17,4 +17,4 @@ public List<Parameter> Parameters { get; set; }
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

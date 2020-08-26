@@ -8,6 +8,12 @@ Gets the default rules for member equivalency.
 public static Expression<Func<MemberExpression, MemberExpression, Boolean>> DefaultMemberRules { get; }
 ```
 
+## Remarks
+
+Must be the same type, have the same name and declaring type. If the
+            member has an expression, the source and target expressions must be
+            equivalent.
+
 ### Property Value
 
  [Expression&lt;Func&lt;MemberExpression, MemberExpression, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
@@ -17,4 +23,4 @@ public static Expression<Func<MemberExpression, MemberExpression, Boolean>> Defa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

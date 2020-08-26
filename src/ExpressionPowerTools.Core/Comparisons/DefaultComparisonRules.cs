@@ -15,6 +15,13 @@ namespace ExpressionPowerTools.Core.Comparisons
     /// <summary>
     /// Default set of rules to use.
     /// </summary>
+    /// <remarks>
+    /// <para>The documentation for each rule has remarks that detail the application of the rule.</para>
+    /// <para>When documentation refers to "are similar" it means the similarity rules are applied to the child expressions.
+    /// Types are similar if one is assignable to the other.</para>
+    /// <para>Is a part of refers to the expression tree. For example, a take might be buried inside an include, but a top level
+    /// take will pass "is part of" an expression with a nest take.</para>
+    /// </remarks>
     public class DefaultComparisonRules : IExpressionComparisonRuleProvider
     {
         /// <summary>
@@ -138,8 +145,10 @@ namespace ExpressionPowerTools.Core.Comparisons
                 ifFalse: rules.False<ConstantExpression>());
 
         /// <summary>
-        /// Gets the rules for lambda.
+        /// Gets the default rules for lambda.
         /// </summary>
+        /// <remarks>The name of the lambda expressions must be equal. The main expression body must
+        /// be equivalent between the source and target, and if one is tail call optimized, the other must be, too.</remarks>
         public static Expression<Func<LambdaExpression, LambdaExpression, bool>>
             DefaultLambdaRules
         { get; } =
@@ -148,8 +157,12 @@ namespace ExpressionPowerTools.Core.Comparisons
             .AndExpressionsMustBeEquivalent(e => e.Body);
 
         /// <summary>
-        /// Gets the similarities for lambda.
+        /// Gets the default similarities for lambda.
         /// </summary>
+        /// <remarks>
+        /// The name must match, the count of parameters must match, and parameters must be similar.
+        /// The source expression must be part of the target expression.
+        /// </remarks>
         public static Expression<Func<LambdaExpression, LambdaExpression, bool>>
             DefaultLambdaSimilarities
         { get; } =
@@ -159,17 +172,25 @@ namespace ExpressionPowerTools.Core.Comparisons
             .AndSourceMustBePartofTarget(e => e.Body);
 
         /// <summary>
-        /// Gets the rules for invocations.
+        /// Gets the default rules for invocations.
         /// </summary>
+        /// <remarks>
+        /// The return types must match. The expressions must be equivalent. All arguments must be equivalent.
+        /// </remarks>
         public static Expression<Func<InvocationExpression, InvocationExpression, bool>>
             DefaultInvocationRules
         { get; } =
                 rules.TypesMustMatch<InvocationExpression>()
+                .AndExpressionsMustBeEquivalent(e => e.Expression)
                 .AndEnumerableExpressionsMustBeEquivalent(e => e.Arguments);
 
         /// <summary>
-        /// Gets the similarities for lambda.
+        /// Gets the default similarities for lambda.
         /// </summary>
+        /// <remarks>
+        /// The return types must be similar. Argument counts must match and all arguments must be
+        /// similar. The source expression must be part of the target expression.
+        /// </remarks>
         public static Expression<Func<InvocationExpression, InvocationExpression, bool>>
             DefaultInvocationSimilarities
         { get; } =
@@ -179,8 +200,14 @@ namespace ExpressionPowerTools.Core.Comparisons
             .AndSourceMustBePartofTarget(e => e.Expression);
 
         /// <summary>
-        /// Gets the rules for method calls.
+        /// Gets the default rules for method calls.
         /// </summary>
+        /// <remarks>
+        /// The types must match. The method name and declaring type must match. If the
+        /// <c>Object</c> property is not null, the properties must be equivalent. The
+        /// source and target must have equivalent count of arguments and each argument
+        /// must be equivalent.
+        /// </remarks>
         public static Expression<Func<MethodCallExpression, MethodCallExpression, bool>>
             DefaultMethodRules
         { get; } =
@@ -195,8 +222,13 @@ namespace ExpressionPowerTools.Core.Comparisons
                 e => e.Arguments);
 
         /// <summary>
-        /// Gets the rules for method call similarities.
+        /// Gets the defeault rules for method call similarities.
         /// </summary>
+        /// <remarks>
+        /// The types must be similar. The name and count of arguments must be equal. If the
+        /// <c>Object</c> property exists, the source object must be part of the target.
+        /// Arguments must be similar.
+        /// </remarks>
         public static Expression<Func<MethodCallExpression, MethodCallExpression, bool>>
             DefaultMethodSimilarities
         { get; } =
@@ -215,6 +247,11 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for member equivalency.
         /// </summary>
+        /// <remarks>
+        /// Must be the same type, have the same name and declaring type. If the
+        /// member has an expression, the source and target expressions must be
+        /// equivalent.
+        /// </remarks>
         public static Expression<Func<MemberExpression, MemberExpression, bool>>
             DefaultMemberRules
         { get; } =
@@ -228,10 +265,15 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for member similarity.
         /// </summary>
+        /// <remarks>
+        /// The the types must be similar. Names and declarity types must be equal.
+        /// If the expression is not <c>null</c>, the source must be part of the
+        /// target.
+        /// </remarks>
         public static Expression<Func<MemberExpression, MemberExpression, bool>>
             DefaultMemberSimilarities
         { get; } =
-            rules.TypesMustMatch<MemberExpression>()
+            rules.TypesMustBeSimilar<MemberExpression>()
             .AndMembersMustMatch(e => e.Member.Name)
             .AndMembersMustMatch(e => e.Member.DeclaringType)
             .AndIf(
@@ -241,6 +283,11 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for unaries.
         /// </summary>
+        /// <remarks>
+        /// The types, node type, "is lifted" flag, "is lifted to null" flag must be equal.
+        /// If the method is not null, the method name and declaring type must match.
+        /// The operands must be equivalent.
+        /// </remarks>
         public static Expression<Func<UnaryExpression, UnaryExpression, bool>>
             DefaultUnaryRules
         { get; } =
@@ -258,6 +305,11 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for unary similarities.
         /// </summary>
+        /// <remarks>
+        /// The node types must match, the methods, if they exist, must have the
+        /// same name and similar declaring type. The source operand must be part
+        /// of the target operand.
+        /// </remarks>
         public static Expression<Func<UnaryExpression, UnaryExpression, bool>>
             DefaultUnarySimilarities
         { get; } =
@@ -272,6 +324,10 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for binaries.
         /// </summary>
+        /// <remarks>
+        /// The node types (i.e. "Greater than", "Equals", etc.) must be equal.
+        /// The left and right expressions must both be equivalent.
+        /// </remarks>
         public static Expression<Func<BinaryExpression, BinaryExpression, bool>>
             DefaultBinaryRules
         { get; } =
@@ -282,6 +338,10 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for binary similarities.
         /// </summary>
+        /// <remarks>
+        /// The node types must be equal. The left and right expressions must be
+        /// similar.
+        /// </remarks>
         public static Expression<Func<BinaryExpression, BinaryExpression, bool>>
             DefaultBinarySimilarities
         { get; } =
@@ -292,6 +352,9 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for parameters.
         /// </summary>
+        /// <remarks>
+        /// The type, name, and "by reference" flags must all be equal.
+        /// </remarks>
         public static Expression<Func<ParameterExpression, ParameterExpression, bool>>
             DefaultParameterRules
         { get; } =
@@ -302,6 +365,9 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for parameter similarities.
         /// </summary>
+        /// <remarks>
+        /// The types must be similar.
+        /// </remarks>
         public static Expression<Func<ParameterExpression, ParameterExpression, bool>>
             DefaultParameterSimilarities
         { get; } =
@@ -310,6 +376,10 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for new arrays.
         /// </summary>
+        /// <remarks>
+        /// The types must be equal. Each expression in the source array must have
+        /// an equivalnet expression in the target array.
+        /// </remarks>
         public static Expression<Func<NewArrayExpression, NewArrayExpression, bool>>
             DefaultNewArrayRules
         { get; } =
@@ -319,15 +389,23 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for new array similarities.
         /// </summary>
+        /// <remarks>
+        /// Types must be similar. Each expression in the source must have a similar
+        /// expression in the target.
+        /// </remarks>
         public static Expression<Func<NewArrayExpression, NewArrayExpression, bool>>
             DefaultNewArraySimilarities
         { get; } =
-            rules.TypesMustMatch<NewArrayExpression>()
+            rules.TypesMustBeSimilar<NewArrayExpression>()
             .AndEnumerableExpressionsMustBeSimilar(e => e.Expressions);
 
         /// <summary>
         /// Gets the default rules for object initializers.
         /// </summary>
+        /// <remarks>
+        /// The types must be equal. The constructors must be identical (i.e. not a
+        /// different override). The constuctor arguments must be equivalent.
+        /// </remarks>
         public static Expression<Func<NewExpression, NewExpression, bool>>
             DefaultNewRules
         { get; } =
@@ -338,6 +416,10 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <summary>
         /// Gets the default rules for object initializer similarities.
         /// </summary>
+        /// <remarks>
+        /// The types must be similar, but the constructors must match.
+        /// Arguments must be similar.
+        /// </remarks>
         public static Expression<Func<NewExpression, NewExpression, bool>>
             DefaultNewSimilarities
         { get; } =

@@ -236,6 +236,23 @@ namespace ExpressionPowerTools.Core.Tests
         };
 
         [Fact]
+        public void GivenQueryableWhenCreateInterceptedQueryCalledThenShouldApplyTransformation()
+        {
+            var list = TestDb;
+            var query = list.AsQueryable().OrderBy(i => i.Id);
+            var intercepted = query.CreateInterceptedQueryable(e =>
+            {
+                var newQuery = query.Provider.CreateQuery<IdType>(e)
+                    .Take(2);
+                return newQuery.Expression;
+            });
+            var result = intercepted.Skip(1).ToList();
+            Assert.Equal(2, result.Count);
+            var expected = list.OrderBy(i => i.Id).Skip(1).Take(2).ToList();
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void GivenQueryableWhenCreateInterceptedQueryCalledThenShouldReturnQueryHost()
         {
             var list = TestDb;

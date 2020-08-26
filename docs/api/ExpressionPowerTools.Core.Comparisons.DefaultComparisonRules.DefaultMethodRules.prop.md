@@ -2,11 +2,17 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMethodRules**
 
-Gets the rules for method calls.
+Gets the default rules for method calls.
 
 ```csharp
 public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolean>> DefaultMethodRules { get; }
 ```
+
+## Remarks
+
+The types must match. The method name and declaring type must match. If the `Object` property is not null, the properties must be equivalent. The
+            source and target must have equivalent count of arguments and each argument
+            must be equivalent.
 
 ### Property Value
 
@@ -17,4 +23,4 @@ public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolea
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

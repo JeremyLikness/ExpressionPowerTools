@@ -2,11 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Comparisons](ExpressionPowerTools.Core.Comparisons.n.md) > [DefaultComparisonRules](ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cs.md) > **DefaultMethodSimilarities**
 
-Gets the rules for method call similarities.
+Gets the defeault rules for method call similarities.
 
 ```csharp
 public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolean>> DefaultMethodSimilarities { get; }
 ```
+
+## Remarks
+
+The types must be similar. The name and count of arguments must be equal. If the `Object` property exists, the source object must be part of the target.
+            Arguments must be similar.
 
 ### Property Value
 
@@ -17,4 +22,4 @@ public static Expression<Func<MethodCallExpression, MethodCallExpression, Boolea
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/25/2020 6:00:34 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
