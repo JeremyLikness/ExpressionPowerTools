@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -51,6 +52,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the list of arguments.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public List<object> Arguments { get; set; } =
             new List<object>();
     }

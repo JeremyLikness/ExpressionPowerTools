@@ -92,6 +92,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var type = GetTypeFromCache(method.DeclaringType);
 
+            if (type == null)
+            {
+                return null;
+            }
+
             MethodInfo[] methodSearch;
             if (method.IsStatic)
             {

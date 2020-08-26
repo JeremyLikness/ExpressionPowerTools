@@ -175,5 +175,18 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(invocation.Type, target.Type);
             Assert.True(invocation.IsEquivalentTo(target));
         }
+
+        public static IEnumerable<object[]> GetMethodCallExpressions() =>
+            MethodSerializerTests.GetMethodCallMatrix();
+
+        [Theory]
+        [MemberData(nameof(GetMethodCallExpressions))]
+        public void GivenMethodCallExpressionWhenSerializedThenShouldDeserialize(
+            MethodCallExpression method)
+        {
+            var json = Serializer.Serialize(method);
+            var target = Serializer.Deserialize<MethodCallExpression>(json);
+            Assert.True(method.IsEquivalentTo(target));
+        }
     }
 }

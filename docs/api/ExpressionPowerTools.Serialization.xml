@@ -451,6 +451,45 @@
             Gets or sets the list of arguments.
             </summary>
         </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.MethodSerializer">
+            <summary>
+            Serializer for <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.#ctor(ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer{System.Linq.Expressions.Expression,ExpressionPowerTools.Serialization.Serializers.SerializableExpression})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.MethodSerializer"/> class.
+            </summary>
+            <param name="serializer">The base serializer.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Deserialize(System.Text.Json.JsonElement)">
+            <summary>
+            Deserialize a <see cref="T:ExpressionPowerTools.Serialization.Serializers.MethodExpr"/> to a <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.
+            </summary>
+            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
+            <returns>The <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Serialize(System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Serialize a <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.MethodCallExpression"/> to serialize.</param>
+            <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.MethodExpr"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Deserialize(System.Text.Json.JsonElement)">
+            <summary>
+            Explicitly implement interface.
+            </summary>
+            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/>.</param>
+            <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Serialize(System.Linq.Expressions.Expression)">
+            <summary>
+            Explicitly implement interface.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
+        </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.NewArray">
             <summary>
             New array serialization.

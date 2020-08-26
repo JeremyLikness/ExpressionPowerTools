@@ -32,5 +32,21 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Assert.Equal(methodInfo, target.GetMethodFromCache(method));
             }
         }
+
+        [Theory]
+        [InlineData("foo", "bar")]
+        [InlineData("System.Int32", "fake")]
+        public void GivenBadMethodWhenGetMethodFromCacheCalledThenShouldReturnNull(
+            string typeName, string methodName)
+        {
+            var method = new Method
+            {
+                Name = methodName,
+                DeclaringType = typeName
+            };
+
+            var methodInfo = target.GetMethodFromCache(method);
+            Assert.Null(methodInfo);
+        }
     }
 }
