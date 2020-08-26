@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -13,6 +14,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
     [Serializable]
     public class NewArray : SerializableExpression
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NewArray"/> class.
+        /// </summary>
+        public NewArray()
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NewArray"/> class.
         /// </summary>
@@ -29,9 +37,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public string ArrayType { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of expressions.
+        /// Gets the list of expressions.
         /// </summary>
-        public List<object> Expressions { get; set; } =
+        [ExcludeFromCodeCoverage]
+        public List<object> Expressions { get; private set; } =
             new List<object>();
     }
 }

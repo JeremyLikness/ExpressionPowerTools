@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -44,9 +45,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of parameters for the lambda.
+        /// Gets the list of parameters for the lambda.
         /// </summary>
-        public List<Parameter> Parameters { get; set; } =
+        [ExcludeFromCodeCoverage]
+        public List<Parameter> Parameters { get; private set; } =
             new List<Parameter>();
 
         /// <summary>

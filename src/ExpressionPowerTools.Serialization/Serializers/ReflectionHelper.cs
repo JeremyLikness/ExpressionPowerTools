@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -34,6 +35,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets the static instance.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public static ReflectionHelper Instance { get; private set; }
             = new ReflectionHelper();
 
@@ -89,10 +91,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var type = GetTypeFromCache(method.DeclaringType);
-            if (type == null)
-            {
-                return null;
-            }
 
             MethodInfo[] methodSearch;
             if (method.IsStatic)

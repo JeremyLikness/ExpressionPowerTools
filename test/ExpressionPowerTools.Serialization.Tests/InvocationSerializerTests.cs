@@ -13,22 +13,47 @@ namespace ExpressionPowerTools.Serialization.Tests
         private readonly InvocationSerializer invocationSerializer =
             new InvocationSerializer(TestSerializer.ExpressionSerializer);
 
-        private readonly Expression<Func<int, bool>> expr = i => true;
+        private static readonly Expression<Func<int, bool>> FuncIntBool = i => true;
 
-        // TODO: expr => i > 5;
+        private static readonly Expression<Func<bool>> FuncBool = () => true;
 
-        [Fact]
-        public void InvocationExpressionShouldSerialize()
+        private static readonly Expression<Func<string>> FuncString = () => nameof(FuncString);
+
+        // TODO
+        // private static readonly Expression<Func<long,bool>> FuncLongBool = i => i > int.MaxValue;
+
+        public static IEnumerable<object[]> GetInvocationExpressionMatrix()
         {
-            var invocation = Expression.Invoke(expr, expr.Parameters);
+
+            // left equivalent, right not equivalent (false)
+            yield return new object[]
+            {
+                Expression.Invoke(FuncBool, FuncBool.Parameters)
+            };
+
+            yield return new object[]
+            {
+                Expression.Invoke(FuncString, FuncString.Parameters)
+            };
+
+            yield return new object[]
+            {
+                Expression.Invoke(FuncIntBool, FuncIntBool.Parameters)
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetInvocationExpressionMatrix))]
+        public void InvocationExpressionShouldSerialize(InvocationExpression invocation)
+        {
             var target = invocationSerializer.Serialize(invocation);
             Assert.Equal(target.Type, invocation.NodeType.ToString());
         }
 
-        [Fact]
-        public void InvocationExpressionShouldDeserialize()
+        [Theory]
+        [MemberData(nameof(GetInvocationExpressionMatrix))]
+        public void InvocationExpressionShouldDeserialize(InvocationExpression invocation)
         {
-            var invocation = Expression.Invoke(expr, expr.Parameters);
             var serialized = TestSerializer.GetSerializedFragment<Invocation,
                 InvocationExpression>(invocation);
             var deserialized = invocationSerializer.Deserialize(serialized);

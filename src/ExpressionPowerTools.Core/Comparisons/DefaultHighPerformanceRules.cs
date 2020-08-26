@@ -746,7 +746,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Method to compare two <see cref="InvocationExpression"/> instances.
         /// </summary>
         /// <remarks>
-        /// Must match type, expression, and arguments.
+        /// Must match type (which includes expression) and arguments.
         /// </remarks>
         /// <param name="source">The source <see cref="InvocationExpression"/>.</param>
         /// <param name="target">The target <see cref="InvocationExpression"/>.</param>
@@ -756,11 +756,6 @@ namespace ExpressionPowerTools.Core.Comparisons
             InvocationExpression target)
         {
             if (source.Type != target.Type)
-            {
-                return false;
-            }
-
-            if (!eq.AreEquivalent(source.Expression, target.Expression))
             {
                 return false;
             }

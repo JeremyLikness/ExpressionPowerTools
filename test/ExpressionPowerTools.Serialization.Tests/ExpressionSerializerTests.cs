@@ -43,5 +43,22 @@ namespace ExpressionPowerTools.Serialization.Tests
             var deserialized = target.Deserialize(json.RootElement);
             Assert.Null(deserialized);
         }
+
+        [Fact]
+        public void GivenExpressionHasNoTypeWhenDeserializeCalledThenShouldReturnNull()
+        {
+            var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5 }");
+            var deserialized = target.Deserialize(json.RootElement);
+            Assert.Null(deserialized);
+        }
+
+
+        [Fact]
+        public void GivenExpressionHasNullTypeWhenDeserializeCalledThenShouldReturnNull()
+        {
+            var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": null }");
+            var deserialized = target.Deserialize(json.RootElement);
+            Assert.Null(deserialized);
+        }
     }
 }

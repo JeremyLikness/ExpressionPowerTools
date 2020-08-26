@@ -45,6 +45,11 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Expression.Constant(5, typeof(IComparable))
             };
+
+            yield return new object[]
+            {
+                Expression.Constant(Expression.Constant(5))
+            };
         }
 
         [Theory]
@@ -52,10 +57,19 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ConstantExpressionShouldSerialize(ConstantExpression constant)
         {
             var target = serializer.Serialize(constant);
-            Assert.Equal(constant.Type.FullName, target.ConstantType);
-            Assert.Equal(constant.Value, target.Value);
-            Assert.Equal(constant.Value == null ? constant.Type.FullName :
-                constant.Value.GetType().FullName, target.ValueType);
+            if (constant.Value is ConstantExpression ce)
+            {
+                var targetType = target.Value as Constant;
+                Assert.NotNull(targetType);
+                Assert.Equal(ce.Value, targetType.Value);
+            }
+            else
+            {
+                Assert.Equal(constant.Type.FullName, target.ConstantType);
+                Assert.Equal(constant.Value, target.Value);
+                Assert.Equal(constant.Value == null ? constant.Type.FullName :
+                    constant.Value.GetType().FullName, target.ValueType);
+            }
         }
 
         [Theory]
@@ -72,8 +86,16 @@ namespace ExpressionPowerTools.Serialization.Tests
             }
             else
             {
-                Assert.Equal(constant.Type, deserialized.Type);
-                Assert.Equal(constant.Value, deserialized.Value);
+                if (constant.Value is ConstantExpression ce)
+                {
+                    var deserializedExpr = deserialized.Value as ConstantExpression;
+                    Assert.Equal(ce.Value, deserializedExpr.Value);
+                }
+                else
+                {
+                    Assert.Equal(constant.Type, deserialized.Type);
+                    Assert.Equal(constant.Value, deserialized.Value);
+                }
             }            
         }
     }

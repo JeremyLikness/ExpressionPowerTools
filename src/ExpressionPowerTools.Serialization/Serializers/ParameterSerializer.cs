@@ -13,7 +13,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// </summary>
     [ExpressionSerializer(ExpressionType.Parameter)]
     public class ParameterSerializer :
-        BaseSerializer, IBaseSerializer, IExpressionSerializer<ParameterExpression, Parameter>
+        BaseSerializer<ParameterExpression, Parameter>, IBaseSerializer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ParameterSerializer"/> class.
@@ -29,7 +29,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        public ParameterExpression Deserialize(JsonElement json)
+        public override ParameterExpression Deserialize(JsonElement json)
         {
             var type = Type.GetType(json.GetProperty(nameof(Parameter.ParameterType)).GetString());
             var name = json.GetProperty(nameof(Parameter.Name)).GetString();
@@ -42,7 +42,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="expression">The <see cref="ConstantExpression"/> to serialize.</param>
         /// <returns>The serializable <see cref="Constant"/>.</returns>
-        public Parameter Serialize(ParameterExpression expression)
+        public override Parameter Serialize(ParameterExpression expression)
         {
             if (expression == null)
             {

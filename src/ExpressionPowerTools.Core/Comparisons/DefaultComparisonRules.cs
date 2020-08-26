@@ -165,7 +165,6 @@ namespace ExpressionPowerTools.Core.Comparisons
             DefaultInvocationRules
         { get; } =
                 rules.TypesMustMatch<InvocationExpression>()
-                .AndExpressionsMustBeEquivalent(e => e.Expression)
                 .AndEnumerableExpressionsMustBeEquivalent(e => e.Arguments);
 
         /// <summary>

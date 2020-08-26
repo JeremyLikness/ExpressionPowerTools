@@ -13,9 +13,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// </summary>
     [ExpressionSerializer(ExpressionType.Lambda)]
     public class LambdaSerializer :
-        BaseSerializer,
-        IBaseSerializer,
-        IExpressionSerializer<LambdaExpression, Lambda>
+        BaseSerializer<LambdaExpression, Lambda>,
+        IBaseSerializer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LambdaSerializer"/> class with a
@@ -32,7 +31,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <returns>The <see cref="LambdaExpression"/>.</returns>
-        public LambdaExpression Deserialize(JsonElement json)
+        public override LambdaExpression Deserialize(JsonElement json)
         {
             var type = json.GetProperty(nameof(Lambda.LambdaType)).GetString();
             var returnType = json.GetProperty(nameof(Lambda.ReturnType)).GetString();
@@ -51,7 +50,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="expression">The <see cref="LambdaExpression"/>.</param>
         /// <returns>The <see cref="Lambda"/>.</returns>
-        public Lambda Serialize(LambdaExpression expression)
+        public override Lambda Serialize(LambdaExpression expression)
         {
             if (expression == null)
             {

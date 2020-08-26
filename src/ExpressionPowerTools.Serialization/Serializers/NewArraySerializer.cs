@@ -13,9 +13,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// </summary>
     [ExpressionSerializer(ExpressionType.NewArrayInit)]
     public class NewArraySerializer
-        : BaseSerializer,
-        IBaseSerializer,
-        IExpressionSerializer<NewArrayExpression, NewArray>
+        : BaseSerializer<NewArrayExpression, NewArray>,
+        IBaseSerializer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NewArraySerializer"/> class with a
@@ -32,7 +31,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <returns>The <see cref="NewArrayExpression"/>.</returns>
-        public NewArrayExpression Deserialize(JsonElement json)
+        public override NewArrayExpression Deserialize(JsonElement json)
         {
             var type = json.GetProperty(nameof(NewArray.ArrayType)).GetString();
             var materializedType = ReflectionHelper.Instance.GetTypeFromCache(type);
@@ -46,7 +45,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="expression">The <see cref="NewArrayExpression"/>.</param>
         /// <returns>The <see cref="NewArray"/>.</returns>
-        public NewArray Serialize(NewArrayExpression expression)
+        public override NewArray Serialize(NewArrayExpression expression)
         {
             if (expression == null)
             {

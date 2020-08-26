@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -38,6 +39,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the arguments list.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public List<object> Arguments { get; set; }
             = new List<object>();
 

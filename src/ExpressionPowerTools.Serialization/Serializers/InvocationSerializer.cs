@@ -13,9 +13,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// </summary>
     [ExpressionSerializer(ExpressionType.Invoke)]
     public class InvocationSerializer :
-        BaseSerializer,
-        IBaseSerializer,
-        IExpressionSerializer<InvocationExpression, Invocation>
+        BaseSerializer<InvocationExpression, Invocation>,
+        IBaseSerializer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InvocationSerializer"/> class
@@ -32,7 +31,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <returns>The <see cref="InvocationExpression"/>.</returns>
-        public InvocationExpression Deserialize(JsonElement json)
+        public override InvocationExpression Deserialize(JsonElement json)
         {
             var expr = json.GetProperty(nameof(Invocation.Expression));
             var expression = Serializer.Deserialize(expr);
@@ -47,7 +46,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="expression">The <see cref="InvocationExpression"/>.</param>
         /// <returns>The <see cref="Invocation"/>.</returns>
-        public Invocation Serialize(InvocationExpression expression)
+        public override Invocation Serialize(InvocationExpression expression)
         {
             if (expression == null)
             {

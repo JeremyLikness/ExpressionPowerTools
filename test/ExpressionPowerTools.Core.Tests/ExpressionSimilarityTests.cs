@@ -670,8 +670,8 @@ namespace ExpressionPowerTools.Core.Tests
         [Fact]
         public void GivenInvocationExpressionWhenTypeIsDifferentThenAreSimilarShouldReturnFalse()
         {
-            Expression<Func<object>> intExpr = () => 1;
-            Expression<Func<object>> strExpr = () => "1";
+            Expression<Func<int>> intExpr = () => 1;
+            Expression<Func<string>> strExpr = () => "1";
             var source = Expression.Invoke(intExpr, intExpr.Parameters);
             var target = Expression.Invoke(strExpr, strExpr.Parameters);
             Assert.False(eq.AreSimilar(source, target));
@@ -688,7 +688,7 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void GivenInvocationExpressionWhenSingaturesMatchThenAreSimilarShouldReturnTrue()
+        public void GivenInvocationExpressionWhenSignaturesMatchThenAreSimilarShouldReturnTrue()
         {
             Expression<Func<long, object>> longParamExpr = val => 1;
             Expression<Func<long, object>> longParamExpr1 = val1 => 1;
@@ -703,7 +703,7 @@ namespace ExpressionPowerTools.Core.Tests
             Expression<Func<long, object>> longParamExpr = val => 1;
             Expression<Func<int, object>> intParamExpr = val => 1;
             var source = Expression.Invoke(longParamExpr, longParamExpr.Parameters);
-            var target = Expression.Lambda(intParamExpr, intParamExpr.Parameters);
+            var target = Expression.Invoke(intParamExpr, intParamExpr.Parameters);
             Assert.False(eq.AreSimilar(source, target));
         }
 
@@ -727,6 +727,8 @@ namespace ExpressionPowerTools.Core.Tests
                     Expression.Invoke(expr, expr.Parameters),
                     Expression.Invoke(expr1, expr1.Parameters)));
         }
+
+
 
         [Fact]
         public void GivenTwoQueriesWhenSimilarThenAreSimilarShouldReturnTrue()

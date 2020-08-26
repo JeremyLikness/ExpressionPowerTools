@@ -15,7 +15,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// </summary>
     [ExpressionSerializer(ExpressionType.Constant)]
     public class ConstantSerializer :
-        BaseSerializer, IBaseSerializer, IExpressionSerializer<ConstantExpression, Constant>
+        BaseSerializer<ConstantExpression, Constant>, IBaseSerializer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConstantSerializer"/> class.
@@ -31,7 +31,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        public ConstantExpression Deserialize(JsonElement json)
+        public override ConstantExpression Deserialize(JsonElement json)
         {
             var value = json.GetProperty(nameof(Constant.Value)).GetRawText();
             var typeName = json.GetProperty(nameof(Constant.ConstantType)).GetString();
@@ -66,7 +66,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="expression">The <see cref="ConstantExpression"/> to serialize.</param>
         /// <returns>The serializable <see cref="Constant"/>.</returns>
-        public Constant Serialize(ConstantExpression expression)
+        public override Constant Serialize(ConstantExpression expression)
         {
             if (expression == null)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization;
 using ExpressionPowerTools.Serialization.Serializers;
 using Xunit;
 
@@ -60,6 +61,15 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(method.ReturnType.FullName, serializerMethod.ReturnType);
             Assert.Equal(method.GetParameters().Select(p => new KeyValuePair<string, string>(p.Name, p.ParameterType.FullName)),
                 serializerMethod.Parameters);
+        }
+
+        [Fact]
+        public void GivenMethodWhenParametersSetThenOverridesExistingParameters()
+        {
+            // needed for serialization
+            var method = new Method();
+            method.Parameters = new Dictionary<string, string>();
+            Assert.NotNull(method.Parameters);
         }
 
         [Fact]
@@ -175,5 +185,22 @@ namespace ExpressionPowerTools.Serialization.Tests
                 methodCall.Type.FullName, methodExpr.MethodCallType);
             Assert.NotNull(methodExpr.Arguments);
         }
+
+        public static IEnumerable<object[]> GetSerializableExpressionMatrix()
+        {
+            var baseType = typeof(SerializableExpression);
+            foreach (var type in baseType.Assembly.GetTypes().Where(t => baseType.IsAssignableFrom(t)))
+            {
+                yield return new object[] { type };
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetSerializableExpressionMatrix))]
+        public void DefaultCtorWorksForSerialization(Type serializableType)
+        {
+            var serializable = Activator.CreateInstance(serializableType);
+            Assert.NotNull(serializable);
+        }        
     }
 }

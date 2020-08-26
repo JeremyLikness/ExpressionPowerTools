@@ -15,11 +15,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
     public class Method
     {
         /// <summary>
-        /// Hash code computed from constuctor.
-        /// </summary>
-        private int hashCode;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Method"/> class.
         /// </summary>
         public Method()
@@ -75,19 +70,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Generates a hash code based on the full method signature.
         /// </summary>
         /// <returns>The hash code based on parameters, parameter types, return type, declaring type and name.</returns>
-        public override int GetHashCode()
-        {
-            if (hashCode == 0)
-            {
-                hashCode = string.Join(
+        public override int GetHashCode() =>
+            string.Join(
                 ",",
                 Parameters.Keys.ToArray()
                 .Union(Parameters.Values.ToArray())
                 .Union(new[] { DeclaringType, ReturnType, Name }))
                 .GetHashCode();
-            }
-
-            return hashCode;
-        }
     }
 }

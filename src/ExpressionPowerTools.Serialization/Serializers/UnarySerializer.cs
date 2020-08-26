@@ -27,9 +27,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
     [ExpressionSerializer(ExpressionType.TypeAs)]
     [ExpressionSerializer(ExpressionType.UnaryPlus)]
     [ExpressionSerializer(ExpressionType.Unbox)]
-    public class UnarySerializer : BaseSerializer,
-        IBaseSerializer,
-        IExpressionSerializer<UnaryExpression, Unary>
+    public class UnarySerializer :
+        BaseSerializer<UnaryExpression, Unary>, IBaseSerializer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnarySerializer"/> class with a
@@ -46,7 +45,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <returns>The <see cref="UnaryExpression"/>.</returns>
-        public UnaryExpression Deserialize(JsonElement json)
+        public override UnaryExpression Deserialize(JsonElement json)
         {
             var method = json.GetProperty(nameof(Unary.UnaryMethod));
             var methodProp = JsonSerializer.Deserialize<Method>(method.GetRawText());
@@ -54,18 +53,20 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var operandElement = json.GetProperty(nameof(UnaryExpression.Operand));
             var operand = Serializer.Deserialize(operandElement);
             var expressionType = GetExpressionTypeFor(type);
-            var unaryType = json.GetProperty(nameof(Unary.UnaryType)).GetString();
+            var unaryTypeName = json.GetProperty(nameof(Unary.UnaryType)).GetString();
+            var unaryType = ReflectionHelper.Instance.GetTypeFromCache(unaryTypeName);
 
             if (methodProp != null)
             {
+                var methodInfo = ReflectionHelper.Instance.GetMethodFromCache(methodProp);
                 return Expression.MakeUnary(
                     expressionType,
                     operand,
-                    ReflectionHelper.Instance.GetTypeFromCache(unaryType),
-                    ReflectionHelper.Instance.GetMethodFromCache(methodProp));
+                    unaryType,
+                    methodInfo);
             }
 
-            return Expression.MakeUnary(expressionType, operand, ReflectionHelper.Instance.GetTypeFromCache(unaryType));
+            return Expression.MakeUnary(expressionType, operand, unaryType);
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="expression">The <see cref="UnaryExpression"/>.</param>
         /// <returns>The <see cref="Unary"/>.</returns>
-        public Unary Serialize(UnaryExpression expression)
+        public override Unary Serialize(UnaryExpression expression)
         {
             if (expression == null)
             {

@@ -34,7 +34,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public ExpressionSerializer()
         {
             var types = GetType().Assembly.GetTypes()
-                .Where(t => t.Namespace == typeof(BaseSerializer).Namespace
+                .Where(t => t.Namespace == typeof(BaseSerializer<,>).Namespace
                     && t.GetCustomAttributes(false)
                     .Any(c => c is ExpressionSerializerAttribute))
                 .SelectMany(t => t.GetCustomAttributes(false).OfType<ExpressionSerializerAttribute>()
@@ -65,7 +65,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
-            var typeElem = json.GetProperty(nameof(Type));
+            if (!json.TryGetProperty(nameof(Type), out JsonElement typeElem))
+            {
+                return null;
+            }
+
             if (typeElem.ValueKind == JsonValueKind.Null)
             {
                 return null;

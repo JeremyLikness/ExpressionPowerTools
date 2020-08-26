@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Signatures;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -13,6 +18,42 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             Assert.Throws<ArgumentNullException>(() =>
                 Serializer.Serialize(null));
+        }
+
+        public static IEnumerable<object[]> GetSerializers()
+        {
+            foreach (var type in typeof(IBaseSerializer).Assembly.GetTypes()
+                .Where(t => !t.IsAbstract && !t.IsInterface &&
+                    typeof(IBaseSerializer).IsAssignableFrom(t)))
+            {
+                yield return new object[]
+                {
+                    Activator
+                    .CreateInstance(
+                        type,
+                        new[] { (object)TestSerializer.ExpressionSerializer })
+                    as IBaseSerializer
+                };
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(GetSerializers))]
+        public void GivenSerializerWhenSerializeCalledWithNullThenShouldReturnNull(IBaseSerializer serializer)
+        {
+            Assert.Null(serializer.Serialize(null));
+        }
+
+        [Fact]
+        public void WhenDeserializeCalledWithEmptyJsonThenShouldReturnNull()
+        {
+            Assert.Null(Serializer.Deserialize("{}"));
+        }
+
+        [Fact]
+        public void WhenGetExpressionTypeForCalledWithInvalidStringThenShouldReturnDefault()
+        {
+            Assert.Equal(default, new TestBaseSerializer().GetExpressionType("fake"));
         }
 
         [Theory]
@@ -44,7 +85,15 @@ namespace ExpressionPowerTools.Serialization.Tests
             else
             {
                 Assert.Equal(constant.Type, target.Type);
-                Assert.Equal(constant.Value, target.Value);
+                if (constant.Value is ConstantExpression ce)
+                {
+                    Assert.Equal(ce.Value, (target.Value as ConstantExpression).Value);
+                }
+                else
+                { 
+                    Assert.Equal(constant.Value, target.Value);
+                }
+                Assert.True(constant.IsEquivalentTo(target));
             }
         }
 
@@ -63,6 +112,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(
                 array.Expressions.OfType<ConstantExpression>().Select(c => c.Value),
                 target.Expressions.OfType<ConstantExpression>().Select(c => c.Value));
+            Assert.True(array.IsEquivalentTo(target));
         }
 
         public static IEnumerable<object[]> GetParameterExpressions() =>
@@ -94,6 +144,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Assert.Equal(unary.Method, target.Method);
             }
+
+            Assert.True(unary.IsEquivalentTo(target));
         }
 
         public static IEnumerable<object[]> GetLambdaExpressions() =>
@@ -108,6 +160,20 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(lambda.Type, target.Type);
             Assert.Equal(lambda.Body?.NodeType, target.Body?.NodeType);
             Assert.Equal(lambda.Parameters, target.Parameters);
+            Assert.True(lambda.IsEquivalentTo(target));
+        }
+
+        public static IEnumerable<object[]> GetInvocationExpressions() =>
+            InvocationSerializerTests.GetInvocationExpressionMatrix();
+
+        [Theory]
+        [MemberData(nameof(GetInvocationExpressions))]
+        public void GivenInvocationExpressionWhenSerializedThenShouldDeserialize(InvocationExpression invocation)
+        {
+            var json = Serializer.Serialize(invocation);
+            var target = Serializer.Deserialize<InvocationExpression>(json);
+            Assert.Equal(invocation.Type, target.Type);
+            Assert.True(invocation.IsEquivalentTo(target));
         }
     }
 }

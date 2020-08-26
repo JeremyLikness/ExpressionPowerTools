@@ -118,6 +118,11 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return ((IComparable)source).CompareTo(target) == 0;
             }
 
+            if (source is Exception ex)
+            {
+                return target is Exception ex2 && ex.Message == ex2.Message;
+            }
+
             return source.Equals(target);
         }
 

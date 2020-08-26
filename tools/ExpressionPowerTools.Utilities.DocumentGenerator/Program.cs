@@ -25,19 +25,19 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
         private static readonly Type[] ExampleTypes = new[]
         {
             typeof(DefaultComparisonRules),
-            typeof(BaseSerializer),
+            typeof(BaseSerializer<,>),
             typeof(FileHelper),
         };
+
+        /// <summary>
+        /// Version informatoin file.
+        /// </summary>
+        private static readonly string VersionInfo = "../../../../../version.json";
 
         /// <summary>
         /// Root directory for documentation output.
         /// </summary>
         private static string rootDir = "../../../../../docs/api/";
-
-        /// <summary>
-        /// Version informatoin file.
-        /// </summary>
-        private static string versionInfo = "../../../../../version.json";
 
         /// <summary>
         /// The main entry method.
@@ -61,7 +61,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             var location = Directory.GetCurrentDirectory();
-            var versionPath = Path.Combine(location, versionInfo);
+            var versionPath = Path.Combine(location, VersionInfo);
             Console.WriteLine($"Retrieving version info from {versionPath}...");
             var versionDoc = JsonDocument.Parse(File.ReadAllText(versionPath));
             string version = versionDoc.RootElement.GetProperty(nameof(version)).GetString();
