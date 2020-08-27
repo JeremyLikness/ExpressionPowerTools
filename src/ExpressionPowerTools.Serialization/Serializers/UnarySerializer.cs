@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -44,21 +45,26 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserializes a <see cref="UnaryExpression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="UnaryExpression"/>.</returns>
-        public override UnaryExpression Deserialize(JsonElement json)
+        public override UnaryExpression Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options)
         {
             var method = json.GetProperty(nameof(Unary.UnaryMethod));
-            var methodProp = JsonSerializer.Deserialize<Method>(method.GetRawText());
+            var methodProp = JsonSerializer.Deserialize<Method>(method.GetRawText(), options);
             var type = json.GetProperty(nameof(SerializableExpression.Type)).GetString();
             var operandElement = json.GetProperty(nameof(UnaryExpression.Operand));
-            var operand = Serializer.Deserialize(operandElement);
+            var operand = Serializer.Deserialize(operandElement, queryRoot, options);
             var expressionType = GetExpressionTypeFor(type);
             var unaryTypeName = json.GetProperty(nameof(Unary.UnaryType)).GetString();
             var unaryType = ReflectionHelper.Instance.GetTypeFromCache(unaryTypeName);
 
             if (methodProp != null)
             {
-                var methodInfo = ReflectionHelper.Instance.GetMethodFromCache(methodProp);
+                var methodInfo = GetMemberInfo<MethodInfo, Method>(methodProp);
                 return Expression.MakeUnary(
                     expressionType,
                     operand,
@@ -73,8 +79,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="UnaryExpression"/> to a <see cref="Unary"/>.
         /// </summary>
         /// <param name="expression">The <see cref="UnaryExpression"/>.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="Unary"/>.</returns>
-        public override Unary Serialize(UnaryExpression expression)
+        public override Unary Serialize(
+            UnaryExpression expression,
+            JsonSerializerOptions options)
         {
             if (expression == null)
             {
@@ -83,25 +92,33 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var unary = new Unary(expression)
             {
-                Operand = Serializer.Serialize(expression.Operand),
+                Operand = Serializer.Serialize(expression.Operand, options),
             };
 
             return unary;
         }
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(JsonElement json) => Deserialize(json);
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <returns>The <see cref="Expression"/>.</returns>
+        Expression IBaseSerializer.Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(Expression expression) =>
-            Serialize(expression as UnaryExpression);
+        SerializableExpression IBaseSerializer.Serialize(
+            Expression expression,
+            JsonSerializerOptions options) =>
+            Serialize(expression as UnaryExpression, options);
     }
 }

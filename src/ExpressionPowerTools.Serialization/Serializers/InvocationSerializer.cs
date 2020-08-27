@@ -30,14 +30,19 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserializes a <see cref="InvocationExpression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="InvocationExpression"/>.</returns>
-        public override InvocationExpression Deserialize(JsonElement json)
+        public override InvocationExpression Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options)
         {
             var expr = json.GetProperty(nameof(Invocation.Expression));
-            var expression = Serializer.Deserialize(expr);
+            var expression = Serializer.Deserialize(expr, queryRoot, options);
             var list = json.GetProperty(nameof(Invocation.Arguments));
             var argumentList = list.EnumerateArray().Select(element =>
-                Serializer.Deserialize(element)).ToList();
+                Serializer.Deserialize(element, queryRoot, options)).ToList();
             return Expression.Invoke(expression, argumentList);
         }
 
@@ -45,8 +50,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize an <see cref="InvocationExpression"/> to an <see cref="Invocation"/>.
         /// </summary>
         /// <param name="expression">The <see cref="InvocationExpression"/>.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="Invocation"/>.</returns>
-        public override Invocation Serialize(InvocationExpression expression)
+        public override Invocation Serialize(
+            InvocationExpression expression,
+            JsonSerializerOptions options)
         {
             if (expression == null)
             {
@@ -55,30 +63,38 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var result = new Invocation(expression)
             {
-                Expression = Serializer.Serialize(expression.Expression),
+                Expression = Serializer.Serialize(expression.Expression, options),
             };
 
             foreach (var argument in expression.Arguments)
             {
-                result.Arguments.Add(Serializer.Serialize(argument));
+                result.Arguments.Add(Serializer.Serialize(argument, options));
             }
 
             return result;
         }
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(JsonElement json) => Deserialize(json);
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <returns>The <see cref="Expression"/>.</returns>
+        Expression IBaseSerializer.Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(Expression expression) =>
-            Serialize(expression as InvocationExpression);
+        SerializableExpression IBaseSerializer.Serialize(
+            Expression expression,
+            JsonSerializerOptions options) =>
+            Serialize(expression as InvocationExpression, options);
     }
 }

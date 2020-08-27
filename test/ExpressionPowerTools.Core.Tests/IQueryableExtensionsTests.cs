@@ -20,7 +20,7 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void AsEnumerableShouldReturnIExpresionEnumeratorForQueryExpression()
+        public void AsEnumerableShouldReturnIExpressionEnumeratorForQueryExpression()
         {
             var query = new List<IQueryableExtensionsTests>()
                 .AsQueryable()

@@ -4,7 +4,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
@@ -102,7 +104,25 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return true;
             }
 
+            if (source is Expression expression)
+            {
+                return AreEquivalent(expression, target as Expression);
+            }
+
             var type = source.GetType();
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(EnumerableQuery<>))
+            {
+                var targetType = target.GetType();
+                return targetType.IsGenericType &&
+                    targetType.GetGenericTypeDefinition() == typeof(EnumerableQuery<>) &&
+                    !targetType.GenericTypeArguments.Except(type.GenericTypeArguments).Any();
+            }
+
+            if (source is IEnumerable enumerable)
+            {
+                return NonGenericEnumerablesAreEquivalent(
+                    enumerable, target as IEnumerable);
+            }
 
             var equatableType = typeof(IEquatable<>)
                     .MakeGenericType(type);

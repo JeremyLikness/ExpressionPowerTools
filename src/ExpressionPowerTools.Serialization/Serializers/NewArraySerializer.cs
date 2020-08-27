@@ -4,6 +4,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -30,13 +31,18 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserializes a <see cref="NewArrayExpression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="NewArrayExpression"/>.</returns>
-        public override NewArrayExpression Deserialize(JsonElement json)
+        public override NewArrayExpression Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options)
         {
-            var type = json.GetProperty(nameof(NewArray.ArrayType)).GetString();
-            var materializedType = ReflectionHelper.Instance.GetTypeFromCache(type);
+            var materializedType = json.GetProperty(nameof(NewArray.ArrayType)).GetDeserializedType();
             var list = json.GetProperty(nameof(NewArray.Expressions));
-            var expressionList = list.EnumerateArray().Select(element => Serializer.Deserialize(element)).ToList();
+            var expressionList = list.EnumerateArray().Select(element => Serializer.Deserialize(
+                element, queryRoot, options)).ToList();
             return Expression.NewArrayInit(materializedType, expressionList);
         }
 
@@ -44,8 +50,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="NewArrayExpression"/> to a <see cref="NewArray"/>.
         /// </summary>
         /// <param name="expression">The <see cref="NewArrayExpression"/>.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="NewArray"/>.</returns>
-        public override NewArray Serialize(NewArrayExpression expression)
+        public override NewArray Serialize(
+            NewArrayExpression expression,
+            JsonSerializerOptions options)
         {
             if (expression == null)
             {
@@ -55,25 +64,33 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var result = new NewArray(expression);
             foreach (var child in expression.Expressions)
             {
-                result.Expressions.Add(Serializer.Serialize(child));
+                result.Expressions.Add(Serializer.Serialize(child, options));
             }
 
             return result;
         }
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(JsonElement json) => Deserialize(json);
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <returns>The <see cref="Expression"/>.</returns>
+        Expression IBaseSerializer.Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(Expression expression) =>
-            Serialize(expression as NewArrayExpression);
+        SerializableExpression IBaseSerializer.Serialize(
+            Expression expression,
+            JsonSerializerOptions options) =>
+            Serialize(expression as NewArrayExpression, options);
     }
 }

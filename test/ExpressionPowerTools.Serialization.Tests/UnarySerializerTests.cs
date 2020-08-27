@@ -215,7 +215,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetUnaryExpressions))]
         public void UnaryExpressionShouldSerialize(UnaryExpression unary)
         {
-            var target = unarySerializer.Serialize(unary);
+            var target = unarySerializer.Serialize(unary, null);
             Assert.Equal(target.Type, unary.NodeType.ToString());
         }
 
@@ -224,7 +224,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void UnaryExpressionShouldDeserialize(UnaryExpression unary)
         {
             var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary);
-            var deserialized = unarySerializer.Deserialize(serialized);
+            var deserialized = unarySerializer.Deserialize(serialized, null, null);
             Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
         }
     }

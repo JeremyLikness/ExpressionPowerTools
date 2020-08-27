@@ -12,7 +12,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// Represents <see cref="MethodInfo"/> for serialization.
     /// </summary>
     [Serializable]
-    public class Method
+    public class Method : MemberBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Method"/> class.
@@ -28,31 +28,23 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="info">The <see cref="MethodInfo"/> to parse.</param>
         public Method(MethodInfo info)
         {
-            DeclaringType = info.DeclaringType.FullName;
-            ReturnType = info.ReturnType.FullName;
+            DeclaringType = SerializeType(info.DeclaringType);
+            MemberValueType = SerializeType(info.ReturnType);
             IsStatic = info.IsStatic;
             Name = info.Name;
             Parameters = info.GetParameters().Select(
-                p => new KeyValuePair<string, string>(
-                    p.Name, p.ParameterType.FullName))
-                .ToDictionary(p => p.Key, p => p.Value);
-            GetHashCode();
+                p => new
+                {
+                    p.Name,
+                    Type = ReflectionHelper.Instance.SerializeType(p.ParameterType),
+                })
+                .ToDictionary(p => p.Name, p => p.Type);
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether the method is static.
         /// </summary>
         public bool IsStatic { get; set; }
-
-        /// <summary>
-        /// Gets or sets the full name of the declaring type.
-        /// </summary>
-        public string DeclaringType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the full name of the return type.
-        /// </summary>
-        public string ReturnType { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the method.
@@ -63,19 +55,40 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Gets or sets the list of parameters with parameter name mapped to the
         /// full name of the type.
         /// </summary>
-        public Dictionary<string, string> Parameters { get; set; }
-            = new Dictionary<string, string>();
+        public Dictionary<string, SerializableType> Parameters { get; set; }
+            = new Dictionary<string, SerializableType>();
 
         /// <summary>
-        /// Generates a hash code based on the full method signature.
+        /// Gets or sets the member type.
         /// </summary>
-        /// <returns>The hash code based on parameters, parameter types, return type, declaring type and name.</returns>
-        public override int GetHashCode() =>
+        /// <remarks>
+        /// Setting is only to accommodate serialization.
+        /// </remarks>
+        public override string MemberType
+        {
+            get => MemberTypes.Method.ToString();
+            set
+            {
+            }
+        }
+
+        /// <summary>
+        /// Gets the unique key for the method.
+        /// </summary>
+        /// <returns>The unique key.</returns>
+        public override string CalculateKey() =>
             string.Join(
                 ",",
-                Parameters.Keys.ToArray()
-                .Union(Parameters.Values.ToArray())
-                .Union(new[] { DeclaringType, ReturnType, Name }))
-                .GetHashCode();
+                new[] { "M:" }
+                .Union(Parameters.Keys.ToArray())
+                .Union(Parameters.Values.Select(p =>
+                    GetFullNameOfType(p)).ToArray())
+                .Union(new[]
+                {
+                    IsStatic.ToString(),
+                    GetFullNameOfType(DeclaringType),
+                    GetFullNameOfType(MemberValueType),
+                    Name,
+                }));
     }
 }

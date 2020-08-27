@@ -16,14 +16,20 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// Deserialize to an <see cref="Expression"/>.
         /// </summary>
         /// <param name="json">The fragment to deserialize.</param>
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="Expression"/>, or <c>null</c>.</returns>
-        Expression Deserialize(JsonElement json);
+        Expression Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options);
 
         /// <summary>
         /// Serialize to a <see cref="SerializableExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression Serialize(Expression expression);
+        SerializableExpression Serialize(Expression expression, JsonSerializerOptions options);
     }
 }

@@ -31,18 +31,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
             : base(methodCall)
         {
             MethodInfo = new Method(methodCall.Method);
-            MethodCallType = methodCall.Type.FullName;
         }
 
         /// <summary>
         /// Gets or sets the serializable <see cref="MethodInfo"/>.
         /// </summary>
         public Method MethodInfo { get; set; }
-
-        /// <summary>
-        /// Gets or sets the method call type.
-        /// </summary>
-        public string MethodCallType { get; set; }
 
         /// <summary>
         /// Gets or sets the method's object.

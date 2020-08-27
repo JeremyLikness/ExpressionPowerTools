@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -22,15 +23,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
             Dictionary<string, Type>();
 
         /// <summary>
+        /// Serializable type cache.
+        /// </summary>
+        private readonly IDictionary<Type, SerializableType> serializableTypes =
+            new Dictionary<Type, SerializableType>();
+
+        /// <summary>
         /// Object for locking access to dictionary.
         /// </summary>
         private readonly object lockObj = new object();
 
         /// <summary>
-        /// Method cache.
+        /// Cache of members.
         /// </summary>
-        private readonly IDictionary<int, MethodInfo> methods = new
-            Dictionary<int, MethodInfo>();
+        private readonly IDictionary<string, MemberInfo> memberCache =
+            new Dictionary<string, MemberInfo>();
 
         /// <summary>
         /// Gets the static instance.
@@ -77,50 +84,184 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
-        /// Gets the <see cref="MethodInfo"/> based on the hash computed
-        /// by the <see cref="Method"/> signature.
+        /// Gets the full type name of the serialized type.
         /// </summary>
-        /// <param name="method">The <see cref="Method"/> template to use.</param>
-        /// <returns>The <see cref="MethodInfo"/>.</returns>
-        public MethodInfo GetMethodFromCache(Method method)
+        /// <param name="serializedType">The <see cref="SerializableType"/>.</param>
+        /// <param name="builder">A <see cref="StringBuilder"/>.</param>
+        /// <param name="level">The recurision level.</param>
+        /// <returns>The full type name.</returns>
+        public string GetFullTypeName(
+            SerializableType serializedType,
+            StringBuilder builder = null,
+            int level = 0)
         {
-            var hash = method.GetHashCode();
-            if (methods.ContainsKey(hash))
+            builder = builder ?? new StringBuilder();
+            builder.Append(serializedType.TypeName);
+            if (serializedType.GenericTypeArguments != null &&
+                serializedType.GenericTypeArguments.Length > 0)
             {
-                return methods[hash];
+                if (!serializedType.TypeName.Contains("`"))
+                {
+                    builder.Append($"`{serializedType.GenericTypeArguments.Length}");
+                }
+
+                builder.Append("[");
+
+                var first = true;
+                foreach (var arg in serializedType.GenericTypeArguments)
+                {
+                    if (first)
+                    {
+                        first = false;
+                    }
+                    else
+                    {
+                        builder.Append(", ");
+                    }
+
+                    GetFullTypeName(arg, builder, level + 1);
+                }
+
+                builder.Append("]");
             }
 
-            var type = GetTypeFromCache(method.DeclaringType);
+            return level == 0 ? builder.ToString() : string.Empty;
+        }
 
-            if (type == null)
+        /// <summary>
+        /// Deserializes a <see cref="Type"/>.
+        /// </summary>
+        /// <param name="serializedType">The serialized <see cref="Type"/>.</param>
+        /// <returns>The deserialized <see cref="Type"/>.</returns>
+        public Type DeserializeType(SerializableType serializedType)
+        {
+            if (string.IsNullOrWhiteSpace(serializedType.TypeName))
             {
                 return null;
             }
 
-            MethodInfo[] methodSearch;
-            if (method.IsStatic)
+            var type = GetTypeFromCache(serializedType.TypeName);
+            if (type.IsGenericTypeDefinition && serializedType.GenericTypeArguments != null)
             {
-                methodSearch = type.GetMethods(
-                    BindingFlags.Public |
-                    BindingFlags.NonPublic |
-                    BindingFlags.Static);
+                var typeParams = serializedType
+                    .GenericTypeArguments.Select(arg => DeserializeType(arg))
+                    .ToArray();
+                return type.MakeGenericType(typeParams);
+            }
+
+            return type;
+        }
+
+        /// <summary>
+        /// Creates a serializable type.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> to serialize.</param>
+        /// <returns>The <see cref="SerializableType"/>.</returns>
+        public SerializableType SerializeType(Type type)
+        {
+            if (serializableTypes.ContainsKey(type))
+            {
+                return serializableTypes[type];
+            }
+
+            var serializableType = default(SerializableType);
+
+            if (type.IsGenericType && !type.IsGenericTypeDefinition)
+            {
+                var definition = type.GetGenericTypeDefinition();
+                serializableType.TypeName = definition.FullName;
+                serializableType.GenericTypeArguments =
+                    type.GetGenericArguments()
+                    .Select(arg => SerializeType(arg))
+                    .ToArray();
             }
             else
             {
-                methodSearch = type.GetMethods();
+                serializableType.TypeName = type.FullName;
             }
 
-            var target = methodSearch.FirstOrDefault(
-                m => new Method(m).GetHashCode() == hash);
-            if (target != null)
+            SafeMutate(
+                () => !serializableTypes.ContainsKey(type),
+                () => serializableTypes.Add(type, serializableType));
+
+            return serializableType;
+        }
+
+        /// <summary>
+        /// Gets the specified member. Will add to cache if not found.
+        /// </summary>
+        /// <typeparam name="TMemberInfo">The type of the item to retrieve.</typeparam>
+        /// <typeparam name="TMemberBase">The type of the member base.</typeparam>
+        /// <param name="member">The key for the item.</param>
+        /// <returns>The cached item.</returns>
+        public TMemberInfo GetMemberFromCache<TMemberInfo, TMemberBase>(TMemberBase member)
+            where TMemberInfo : MemberInfo
+            where TMemberBase : MemberBase
+        {
+            var key = member.GetKey();
+            if (memberCache.ContainsKey(key))
             {
-                SafeMutate(
-                    () => !methods.ContainsKey(hash),
-                    () => methods.Add(hash, target));
-                return target;
+                return memberCache[key] as TMemberInfo;
+            }
+
+            if (member is Method method)
+            {
+                return AddMethodToCache(method, key) as TMemberInfo;
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Finds the method to match and adds it to the cache.
+        /// </summary>
+        /// <param name="method">The <see cref="Method"/> template to use.</param>
+        /// <param name="key">The unique key for the method.</param>
+        /// <returns>The <see cref="MethodInfo"/>.</returns>
+        private MethodInfo AddMethodToCache(Method method, string key)
+        {
+            var type = DeserializeType(method.DeclaringType);
+            var staticFlag = method.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
+            var methods = type.GetMethods(
+                BindingFlags.Public | staticFlag);
+
+            MethodInfo methodInfo = null;
+            foreach (var candidate in methods.Where(m => m.Name == method.Name))
+            {
+                var candidateType = candidate;
+                if (candidate.IsGenericMethodDefinition)
+                {
+                    var typeArgs = candidate.GetGenericArguments().Length;
+                    if (method.MemberValueType.GenericTypeArguments?.Length ==
+                        typeArgs)
+                    {
+                        var types = method.MemberValueType.GenericTypeArguments
+                            .Select(t => DeserializeType(t))
+                            .Where(dt => dt != null).ToArray();
+                        if (types.Length == typeArgs)
+                        {
+                            candidateType = candidate.MakeGenericMethod(types);
+                        }
+                    }
+                }
+
+                var check = new Method(candidateType);
+                if (check.GetKey() == key)
+                {
+                    methodInfo = candidateType;
+                    break;
+                }
+            }
+
+            if (methodInfo == null)
+            {
+                return null;
+            }
+
+            SafeMutate(
+                () => !memberCache.ContainsKey(key),
+                () => memberCache.Add(key, methodInfo));
+            return methodInfo;
         }
 
         /// <summary>

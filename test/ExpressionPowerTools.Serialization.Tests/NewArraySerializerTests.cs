@@ -19,8 +19,8 @@ namespace ExpressionPowerTools.Serialization.Tests
                 typeof(int),
                 Expression.Constant(1),
                 Expression.Constant(2));
-            var target = serializer.Serialize(newArray);
-            Assert.Equal(newArray.Type.GetElementType().FullName, target.ArrayType);
+            var target = serializer.Serialize(newArray, null);
+            Assert.Equal(newArray.Type.GetElementType(), ReflectionHelper.Instance.DeserializeType(target.ArrayType));
             Assert.True(target.Expressions.OfType<Constant>().Any());
         }
 
@@ -32,11 +32,10 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.Constant(1),
                 Expression.Constant(2));
 
-            var serialized = JsonDocument.Parse("{\"Expression\":{\"ArrayType\":\"System.Int32\",\"Expressions\":" +
-                "[{\"ConstantType\":\"System.Int32\",\"ValueType\":\"System.Int32\",\"Value\":1,\"Type\":\"Constant\"}," +
-                "{\"ConstantType\":\"System.Int32\",\"ValueType\":\"System.Int32\",\"Value\":2,\"Type\":\"Constant\"}]}}");
+            var json = Serializer.Serialize(newArray);
+            var doc = JsonDocument.Parse(json);
 
-            var deserialized = serializer.Deserialize(serialized.RootElement.GetProperty("Expression"));
+            var deserialized = serializer.Deserialize(doc.RootElement.GetProperty(nameof(Expression)), null, null);
 
             Assert.Equal(newArray.Type, deserialized.Type);
             Assert.Equal(

@@ -28,13 +28,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public NewArray(NewArrayExpression expression)
             : base(expression)
         {
-            ArrayType = expression.Type.GetElementType().FullName;
+            ArrayType = SerializeType(expression.Type.GetElementType());
         }
 
         /// <summary>
         /// Gets or sets the type of the array.
         /// </summary>
-        public string ArrayType { get; set; }
+        public SerializableType ArrayType { get; set; }
 
         /// <summary>
         /// Gets the list of expressions.

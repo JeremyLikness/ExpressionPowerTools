@@ -56,7 +56,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetConstantExpressions))]
         public void ConstantExpressionShouldSerialize(ConstantExpression constant)
         {
-            var target = serializer.Serialize(constant);
+            var target = serializer.Serialize(constant, null);
             if (constant.Value is ConstantExpression ce)
             {
                 var targetType = target.Value as Constant;
@@ -65,10 +65,12 @@ namespace ExpressionPowerTools.Serialization.Tests
             }
             else
             {
-                Assert.Equal(constant.Type.FullName, target.ConstantType);
+                Assert.Equal(constant.Type.ToString(),
+                    ReflectionHelper.Instance.DeserializeType(target.ConstantType).ToString());
                 Assert.Equal(constant.Value, target.Value);
-                Assert.Equal(constant.Value == null ? constant.Type.FullName :
-                    constant.Value.GetType().FullName, target.ValueType);
+                Assert.Equal(constant.Value == null ? constant.Type.ToString() :
+                    constant.Value.GetType().ToString(),
+                    ReflectionHelper.Instance.DeserializeType(target.ValueType).ToString());
             }
         }
 
@@ -77,7 +79,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ConstantExpressionShouldDeserialize(ConstantExpression constant)
         {
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(constant);
-            var deserialized = serializer.Deserialize(serialized);
+            var deserialized = serializer.Deserialize(serialized, null, null);
             if (constant.Type.FullName.Contains("AnonymousType"))
             {
                 Assert.Equal(

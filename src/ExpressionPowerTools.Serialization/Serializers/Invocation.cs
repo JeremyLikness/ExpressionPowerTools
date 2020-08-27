@@ -28,7 +28,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public Invocation(InvocationExpression expression)
             : base(expression)
         {
-            InvocationType = expression.Type.FullName;
+            InvocationType = SerializeType(expression.Type);
         }
 
         /// <summary>
@@ -46,6 +46,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the type of the invocation.
         /// </summary>
-        public string InvocationType { get; set; }
+        public SerializableType InvocationType { get; set; }
     }
 }

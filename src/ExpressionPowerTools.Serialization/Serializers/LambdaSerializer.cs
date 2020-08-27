@@ -4,6 +4,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -30,18 +31,23 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserializes a <see cref="LambdaExpression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="LambdaExpression"/>.</returns>
-        public override LambdaExpression Deserialize(JsonElement json)
+        public override LambdaExpression Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options)
         {
-            var type = json.GetProperty(nameof(Lambda.LambdaType)).GetString();
-            var returnType = json.GetProperty(nameof(Lambda.ReturnType)).GetString();
-            var body = Serializer.Deserialize(json.GetProperty(nameof(Lambda.Body)));
+            var materializedType = json.GetProperty(nameof(Lambda.LambdaType))
+                .GetDeserializedType();
+            var materializedReturnType = json.GetProperty(nameof(Lambda.ReturnType))
+                .GetDeserializedType();
+            var body = Serializer.Deserialize(json.GetProperty(nameof(Lambda.Body)), queryRoot, options);
             var name = json.GetProperty(nameof(Lambda.Name)).GetString();
-            var materializedType = ReflectionHelper.Instance.GetTypeFromCache(type);
-            var materializedReturnType = ReflectionHelper.Instance.GetTypeFromCache(returnType);
             var list = json.GetProperty(nameof(Lambda.Parameters));
             var parameterList = list.EnumerateArray().Select(element =>
-                Serializer.Deserialize(element) as ParameterExpression).ToList();
+                Serializer.Deserialize(element, queryRoot, options) as ParameterExpression).ToList();
             return Expression.Lambda(materializedType, body, name, parameterList);
         }
 
@@ -49,8 +55,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="LambdaExpression"/> to a <see cref="Lambda"/>.
         /// </summary>
         /// <param name="expression">The <see cref="LambdaExpression"/>.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="Lambda"/>.</returns>
-        public override Lambda Serialize(LambdaExpression expression)
+        public override Lambda Serialize(
+            LambdaExpression expression,
+            JsonSerializerOptions options)
         {
             if (expression == null)
             {
@@ -59,29 +68,37 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var result = new Lambda(expression)
             {
-                Body = Serializer.Serialize(expression.Body),
+                Body = Serializer.Serialize(expression.Body, options),
             };
             foreach (var parameter in expression.Parameters)
             {
-                result.Parameters.Add(Serializer.Serialize(parameter) as Parameter);
+                result.Parameters.Add(Serializer.Serialize(parameter, options) as Parameter);
             }
 
             return result;
         }
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(JsonElement json) => Deserialize(json);
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <returns>The <see cref="Expression"/>.</returns>
+        Expression IBaseSerializer.Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
 
         /// <summary>
-        /// Explicit implementation of <see cref="IBaseSerializer"/>.
+        /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(Expression expression) =>
-            Serialize(expression as LambdaExpression);
+        SerializableExpression IBaseSerializer.Serialize(
+            Expression expression,
+            JsonSerializerOptions options) =>
+            Serialize(expression as LambdaExpression, options);
     }
 }

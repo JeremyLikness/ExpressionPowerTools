@@ -86,7 +86,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetMethodCallMatrix))]
         public void MethodCallExpressionShouldSerialize(MethodCallExpression method)
         {
-            var target = methodSerializer.Serialize(method);
+            var target = methodSerializer.Serialize(method, null);
             Assert.Equal(target.Type, method.NodeType.ToString());
         }
 
@@ -96,7 +96,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
-            var deserialized = methodSerializer.Deserialize(serialized);
+            var deserialized = methodSerializer.Deserialize(serialized, null, null);
             Assert.Equal(method.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
         }

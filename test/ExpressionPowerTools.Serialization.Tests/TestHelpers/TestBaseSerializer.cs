@@ -10,7 +10,10 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
         {
         }
 
-        public override Expression Deserialize(JsonElement json)
+        public override Expression Deserialize(
+            JsonElement json,
+            Expression queryRoot = null,
+            JsonSerializerOptions options = null)
         {
             throw new System.NotImplementedException();
         }
@@ -18,7 +21,9 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
         public ExpressionType GetExpressionType(string type)
             => GetExpressionTypeFor(type);
 
-        public override SerializableExpression Serialize(Expression expression)
+        public override SerializableExpression Serialize(
+            Expression expression,
+            JsonSerializerOptions options = null)
         {
             throw new System.NotImplementedException();
         }

@@ -26,15 +26,15 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public Constant(ConstantExpression expression)
             : base(expression)
         {
-            ConstantType = expression.Type.FullName;
+            ConstantType = SerializeType(expression.Type);
             Value = expression.Value;
-            ValueType = Value == null ? ConstantType : Value.GetType().FullName;
+            ValueType = Value == null ? ConstantType : SerializeTypeOf(Value);
         }
 
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
-        public string ConstantType { get; set; }
+        public SerializableType ConstantType { get; set; }
 
         /// <summary>
         /// Gets or sets the value.
@@ -44,6 +44,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
-        public string ValueType { get; set; }
+        public SerializableType ValueType { get; set; }
     }
 }

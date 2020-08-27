@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -14,10 +13,19 @@ namespace ExpressionPowerTools.Serialization.Tests
     public class SerializerTests
     {
         [Fact]
-        public void GivenSerializeWhenCalledWithNullThenShouldThrowArgumentNull()
+        public void GivenSerializeWhenCalledWithNullExpressionThenShouldThrowArgumentNull()
         {
+            Expression expression = null;
             Assert.Throws<ArgumentNullException>(() =>
-                Serializer.Serialize(null));
+                Serializer.Serialize(expression));
+        }
+
+        [Fact]
+        public void GivenSerializeWhenCalledWithNullQueryThenShouldThrowArgumentNull()
+        {
+            IQueryable query = null;
+            Assert.Throws<ArgumentNullException>(() =>
+                Serializer.Serialize(query));
         }
 
         public static IEnumerable<object[]> GetSerializers()
@@ -41,13 +49,127 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetSerializers))]
         public void GivenSerializerWhenSerializeCalledWithNullThenShouldReturnNull(IBaseSerializer serializer)
         {
-            Assert.Null(serializer.Serialize(null));
+            Assert.Null(serializer.Serialize(null, null));
         }
 
         [Fact]
         public void WhenDeserializeCalledWithEmptyJsonThenShouldReturnNull()
         {
             Assert.Null(Serializer.Deserialize("{}"));
+        }
+
+        [Fact]
+        public void WhenDeserializeQueryCalledWithNullHostThenShouldThrowArgumentNull()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                Serializer.DeserializeQuery(null, "{}"));
+        }
+
+        [Fact]
+        public void WhenDeserializeQueryForTypeCalledWithNullHostThenShouldThrowArgumentNull()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                Serializer.DeserializeQuery<TestableThing>(null, "{}"));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("  ")]
+        public void WhenDeserializeQueryCalledWithEmptyOrNullJsonThenShouldThrowArgument(string json)
+        {
+            Assert.Throws<ArgumentException>(() =>
+                Serializer.DeserializeQuery((IQueryable)TestableThing.MakeQuery(), json));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("  ")]
+        public void WhenDeserializeQueryForTypeCalledWithEmptyOrNullJsonThenShouldThrowArgument(string json)
+        {
+            Assert.Throws<ArgumentException>(() =>
+                Serializer.DeserializeQuery(TestableThing.MakeQuery(), json));
+        }
+
+        public enum Queries
+        {
+            Skip1Take1,
+            OrderByCreatedThenByDescendingId,
+            WhereIdContainsAA,
+
+        }
+
+        public static IEnumerable<object[]> GetQueryMatrix()
+        {
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Skip(1).Take(1),
+                Queries.Skip1Take1
+            };
+
+            //yield return new object[]
+            //{
+            //    TestableThing.MakeQuery().OrderBy(t => t.Created).ThenByDescending(t => t.Id),
+            //    Queries.OrderByCreatedThenByDescendingId
+            //};
+
+            //yield return new object[]
+            //{
+            //    TestableThing.MakeQuery().Where(t => t.Id.Contains("aa")),
+            //    Queries.WhereIdContainsAA
+            //};
+        }
+
+        public bool ValidateQuery(IList<TestableThing> list, Queries type)
+        {
+            switch(type)
+            {
+                case Queries.Skip1Take1:
+                    return list.Count() == 1;
+                case Queries.OrderByCreatedThenByDescendingId:
+                    var ordered = list.OrderBy(t => t.Created).ThenByDescending(t => t.Id)
+                        .ToList();
+                    for (var idx = 0; idx < list.Count; idx += 1)
+                    {
+                        if (ordered[idx].Id != list[idx].Id)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                case Queries.WhereIdContainsAA:
+                    return list.All(t => t.Id.Contains("aa"));
+            }
+            return false;
+        }
+
+        [Theory]
+        [MemberData(nameof(GetQueryMatrix))]
+        public void GivenQueryWhenSerializeCalledThenShouldDeserialize(
+            IQueryable query,
+            Queries type)
+        {
+            var json = Serializer.Serialize(query);
+            var queryHost = TestableThing.MakeQuery(100);
+            var newQuery = Serializer.DeserializeQuery(queryHost, json);
+            Assert.True(query.IsEquivalentTo(newQuery));
+            var list = newQuery.ToList();
+            ValidateQuery(list, type);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetQueryMatrix))]
+        public void GivenQueryWhenSerializeCalledThenShouldDeserializeForType(
+            IQueryable<TestableThing> query,
+            Queries type)
+        {
+            var json = Serializer.Serialize(query);
+            var queryHost = TestableThing.MakeQuery(100);
+            var newQuery = Serializer.DeserializeQuery(queryHost, json);
+            Assert.True(query.IsEquivalentTo(newQuery));
+            var list = newQuery.ToList();
+            ValidateQuery(list, type);
         }
 
         [Fact]

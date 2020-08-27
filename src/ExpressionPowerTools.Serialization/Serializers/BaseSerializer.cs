@@ -2,8 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
@@ -48,15 +46,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserialize a <see cref="JsonElement"/> to an <see cref="Expression"/>.
         /// </summary>
         /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
+        /// <param name="queryRoot">The query root to apply.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        public abstract TExpression Deserialize(JsonElement json);
+        public abstract TExpression Deserialize(
+            JsonElement json,
+            Expression queryRoot,
+            JsonSerializerOptions options);
 
         /// <summary>
         /// Serialize an <see cref="Expression"/> to a <see cref="SerializableExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
+        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        public abstract TSerializable Serialize(TExpression expression);
+        public abstract TSerializable Serialize(TExpression expression, JsonSerializerOptions options);
 
         /// <summary>
         /// Gets the <see cref="ExpressionType"/> from the string representation.
@@ -72,5 +76,17 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return default;
         }
+
+        /// <summary>
+        /// Helper to get method info.
+        /// </summary>
+        /// <typeparam name="TMemberInfo">The <see cref="MemberInfo"/> type to get.</typeparam>
+        /// <typeparam name="TMemberBase">The type of <see cref="MemberBase"/> that was deserialized.</typeparam>
+        /// <param name="member">The <see cref="MemberBase"/> to use as a template.</param>
+        /// <returns>The requested member info.</returns>
+        protected TMemberInfo GetMemberInfo<TMemberInfo, TMemberBase>(TMemberBase member)
+            where TMemberInfo : MemberInfo
+            where TMemberBase : MemberBase =>
+            ReflectionHelper.Instance.GetMemberFromCache<TMemberInfo, TMemberBase>(member);
     }
 }

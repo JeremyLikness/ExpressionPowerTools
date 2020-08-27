@@ -22,4 +22,8 @@
     <ProjectReference Include="..\..\src\ExpressionPowerTools.Serialization\ExpressionPowerTools.Serialization.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

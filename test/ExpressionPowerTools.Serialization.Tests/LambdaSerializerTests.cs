@@ -26,7 +26,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetLambdaExpressions))]
         public void LambdaExpressionShouldSerialize(LambdaExpression lambda)
         {
-            var target = lambdaSerializer.Serialize(lambda);
+            var target = lambdaSerializer.Serialize(lambda, null);
             Assert.Equal(target.Type, lambda.NodeType.ToString());
         }
 
@@ -35,7 +35,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void LambdaExpressionShouldDeserialize(LambdaExpression lambda)
         {
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda);
-            var deserialized = lambdaSerializer.Deserialize(serialized);
+            var deserialized = lambdaSerializer.Deserialize(serialized, null, null);
             Assert.Equal(lambda.Type.FullName, deserialized.Type.FullName);
         }
     }

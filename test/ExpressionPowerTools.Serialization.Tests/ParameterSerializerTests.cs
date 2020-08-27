@@ -29,8 +29,8 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetParameterExpressions))]
         public void ParameterExpressionShouldSerialize(ParameterExpression parameter)
         {
-            var serializable = serializer.Serialize(parameter);
-            Assert.Equal(parameter.Type.FullName, serializable.ParameterType);
+            var serializable = serializer.Serialize(parameter, null);
+            Assert.Equal(parameter.Type, ReflectionHelper.Instance.DeserializeType(serializable.ParameterType));
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {
                 Assert.Equal(parameter.Name, serializable.Name);
@@ -42,7 +42,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ParameterExpressionShouldDeserialize(ParameterExpression parameter)
         {
             var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter);
-            var deserialized = serializer.Deserialize(serialized);
+            var deserialized = serializer.Deserialize(serialized, null, null);
             Assert.Equal(parameter.Type, deserialized.Type);
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {

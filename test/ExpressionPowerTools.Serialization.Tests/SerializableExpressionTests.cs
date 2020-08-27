@@ -29,9 +29,9 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.Constant(5);
             var target = new Constant(expr);
-            Assert.Equal(expr.Type.FullName, target.ConstantType);
+            Assert.Equal(expr.Type.FullName, target.ConstantType.TypeName);
             Assert.Equal(expr.Value, target.Value);
-            Assert.Equal(expr.Value.GetType().FullName, target.ValueType);
+            Assert.Equal(expr.Value.GetType().FullName, target.ValueType.TypeName);
         }
 
         public static IEnumerable<object[]> GetMethods()
@@ -57,19 +57,14 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serializerMethod = new Method(method);
             Assert.Equal(method.IsStatic, serializerMethod.IsStatic);
             Assert.Equal(method.Name, serializerMethod.Name);
-            Assert.Equal(method.DeclaringType.FullName, serializerMethod.DeclaringType);
-            Assert.Equal(method.ReturnType.FullName, serializerMethod.ReturnType);
-            Assert.Equal(method.GetParameters().Select(p => new KeyValuePair<string, string>(p.Name, p.ParameterType.FullName)),
-                serializerMethod.Parameters);
-        }
-
-        [Fact]
-        public void GivenMethodWhenParametersSetThenOverridesExistingParameters()
-        {
-            // needed for serialization
-            var method = new Method();
-            method.Parameters = new Dictionary<string, string>();
-            Assert.NotNull(method.Parameters);
+            Assert.Equal(method.DeclaringType, ReflectionHelper.Instance.DeserializeType(serializerMethod.DeclaringType));
+            Assert.Equal(method.ReturnType, ReflectionHelper.Instance.DeserializeType(serializerMethod.MemberValueType));
+            Assert.Equal(method.GetParameters().Select(p => new
+            {
+                p.Name,
+                Type = ReflectionHelper.Instance.SerializeType(p.ParameterType)
+            }).ToDictionary(p => p.Name, p => p.Type),
+            serializerMethod.Parameters);
         }
 
         [Fact]
@@ -89,7 +84,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.NewArrayInit(typeof(int), Expression.Constant(1), Expression.Constant(2));
             var target = new NewArray(expr);
-            Assert.Equal(expr.Type.GetElementType().FullName, target.ArrayType);
+            Assert.Equal(expr.Type.GetElementType(), ReflectionHelper.Instance.DeserializeType(target.ArrayType));
         }
 
         [Fact]
@@ -105,7 +100,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.Parameter(typeof(int), nameof(GivenParameterExpressionWhenParameterCreatedThenShouldSetNameAndParameterType));
             var target = new Parameter(expr);
-            Assert.Equal(expr.Type.FullName, target.ParameterType);
+            Assert.Equal(expr.Type, ReflectionHelper.Instance.DeserializeType(target.ParameterType));
             Assert.Equal(expr.Name, target.Name);
         }
 
@@ -150,8 +145,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             var target = new Lambda(lambda);
             Assert.NotNull(target.Parameters);
             Assert.Equal(lambda.Name, target.Name);
-            Assert.Equal(lambda.Type.FullName, target.LambdaType);
-            Assert.Equal(lambda.ReturnType.FullName, target.ReturnType);
+            Assert.Equal(lambda.Type, ReflectionHelper.Instance.DeserializeType(target.LambdaType));
+            Assert.Equal(lambda.ReturnType, ReflectionHelper.Instance.DeserializeType(target.ReturnType));
         }
 
         [Fact]
@@ -162,7 +157,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var invocation = new Invocation(invocationExpr);
             Assert.Equal(
                 invocationExpr.Type.FullName,
-                invocation.InvocationType);
+                invocation.InvocationType.TypeName);
             Assert.NotNull(invocation.Arguments);
         }
 
@@ -181,8 +176,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(
                 methodCall.Method.Name,
                 methodExpr.MethodInfo.Name);
-            Assert.Equal(
-                methodCall.Type.FullName, methodExpr.MethodCallType);
             Assert.NotNull(methodExpr.Arguments);
         }
 

@@ -9,11 +9,13 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
         public static ExpressionSerializer ExpressionSerializer { get; } =
             new ExpressionSerializer();
         
-        public static JsonElement GetSerializedFragment<TSerializer, TExpression>(TExpression expression)
+        public static JsonElement GetSerializedFragment<TSerializer, TExpression>(
+            TExpression expression,
+            JsonSerializerOptions options = null)
             where TExpression : Expression
             where TSerializer : SerializableExpression
         {
-            var json = JsonSerializer.Serialize(ExpressionSerializer.Serialize(expression) as TSerializer);
+            var json = JsonSerializer.Serialize(ExpressionSerializer.Serialize(expression, options) as TSerializer);
             return JsonDocument.Parse(json).RootElement;
         }        
     }
