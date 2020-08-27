@@ -8,13 +8,13 @@ Serializes the expression.
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(ConstantExpression expression)](#serializeconstantexpression-expression) | Serializes the expression. |
-## Serialize(ConstantExpression expression)
+| [Serialize(ConstantExpression expression, JsonSerializerOptions options)](#serializeconstantexpression-expression-jsonserializeroptions-options) | Serializes the expression. |
+## Serialize(ConstantExpression expression, JsonSerializerOptions options)
 
 Serializes the expression.
 
 ```csharp
-public virtual Constant Serialize(ConstantExpression expression)
+public virtual Constant Serialize(ConstantExpression expression, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -26,6 +26,7 @@ public virtual Constant Serialize(ConstantExpression expression)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) | The [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) to serialize. |
+| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 
 
@@ -33,4 +34,4 @@ public virtual Constant Serialize(ConstantExpression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

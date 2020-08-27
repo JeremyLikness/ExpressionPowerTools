@@ -20,13 +20,13 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`ConstantType`](ExpressionPowerTools.Serialization.Serializers.Constant.ConstantType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the value type. |
+| [`ConstantType`](ExpressionPowerTools.Serialization.Serializers.Constant.ConstantType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the value type. |
 | [`Value`](ExpressionPowerTools.Serialization.Serializers.Constant.Value.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the value. |
-| [`ValueType`](ExpressionPowerTools.Serialization.Serializers.Constant.ValueType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the value type. |
+| [`ValueType`](ExpressionPowerTools.Serialization.Serializers.Constant.ValueType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the value type. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

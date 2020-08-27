@@ -20,7 +20,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`ArrayType`](ExpressionPowerTools.Serialization.Serializers.NewArray.ArrayType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the type of the array. |
+| [`ArrayType`](ExpressionPowerTools.Serialization.Serializers.NewArray.ArrayType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the type of the array. |
 | [`Expressions`](ExpressionPowerTools.Serialization.Serializers.NewArray.Expressions.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets the list of expressions. |
 
 
@@ -28,4 +28,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

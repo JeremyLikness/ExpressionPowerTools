@@ -21,7 +21,6 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Arguments`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.Arguments.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the list of arguments. |
-| [`MethodCallType`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodCallType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the method call type. |
 | [`MethodInfo`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodInfo.prop.md) | [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) | Gets or sets the serializable [MethodInfo](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodInfo.prop.md) . |
 | [`MethodObject`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodObject.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the method's object. |
 
@@ -30,4 +29,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

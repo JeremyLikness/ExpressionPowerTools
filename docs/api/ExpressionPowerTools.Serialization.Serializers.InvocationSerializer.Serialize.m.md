@@ -8,13 +8,13 @@ Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(InvocationExpression expression)](#serializeinvocationexpression-expression) | Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) . |
-## Serialize(InvocationExpression expression)
+| [Serialize(InvocationExpression expression, JsonSerializerOptions options)](#serializeinvocationexpression-expression-jsonserializeroptions-options) | Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) . |
+## Serialize(InvocationExpression expression, JsonSerializerOptions options)
 
 Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) .
 
 ```csharp
-public virtual Invocation Serialize(InvocationExpression expression)
+public virtual Invocation Serialize(InvocationExpression expression, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -26,6 +26,7 @@ public virtual Invocation Serialize(InvocationExpression expression)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) | The [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
+| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 
 
@@ -33,4 +34,4 @@ public virtual Invocation Serialize(InvocationExpression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

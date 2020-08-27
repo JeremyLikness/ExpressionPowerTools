@@ -8,14 +8,14 @@ Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(String json, JsonSerializerOptions options)](#deserializestring-json-jsonserializeroptions-options) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
-| [Deserialize&lt;T>(String json, JsonSerializerOptions options)](#deserializetstring-json-jsonserializeroptions-options) | Overload to return a specific type. |
-## Deserialize(String json, JsonSerializerOptions options)
+| [Deserialize(String json, Expression queryRoot, JsonSerializerOptions options)](#deserializestring-json-expression-queryroot-jsonserializeroptions-options) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
+| [Deserialize&lt;T>(String json, Expression queryRoot, JsonSerializerOptions options)](#deserializetstring-json-expression-queryroot-jsonserializeroptions-options) | Overload to return a specific type. |
+## Deserialize(String json, Expression queryRoot, JsonSerializerOptions options)
 
 Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree.
 
 ```csharp
-public static Expression Deserialize(String json, JsonSerializerOptions options)
+public static Expression Deserialize(String json, Expression queryRoot, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -27,6 +27,7 @@ public static Expression Deserialize(String json, JsonSerializerOptions options)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json text. |
+| `queryRoot` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root of the query to apply. |
 | `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | Optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 ### Exceptions
@@ -35,12 +36,12 @@ public static Expression Deserialize(String json, JsonSerializerOptions options)
 | :-- | :-- |
 | [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) | Thrown when the json is `null` or whitespace. |
 
-## Deserialize&lt;T>(String json, JsonSerializerOptions options)
+## Deserialize&lt;T>(String json, Expression queryRoot, JsonSerializerOptions options)
 
 Overload to return a specific type.
 
 ```csharp
-public static T Deserialize<T>(String json, JsonSerializerOptions options)
+public static T Deserialize<T>(String json, Expression queryRoot, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -52,12 +53,18 @@ public static T Deserialize<T>(String json, JsonSerializerOptions options)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json. |
+| `queryRoot` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root of the query to apply. |
 | `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | Optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
+
+## Remarks
+
+Do not use this method to deserialize [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) or [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) .
+            Themethod is provided for this.
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

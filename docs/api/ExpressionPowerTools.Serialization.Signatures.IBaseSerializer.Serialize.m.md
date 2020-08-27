@@ -8,13 +8,13 @@ Serialize to a [SerializableExpression](ExpressionPowerTools.Serialization.Seria
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(Expression expression)](#serializeexpression-expression) | Serialize to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
-## Serialize(Expression expression)
+| [Serialize(Expression expression, JsonSerializerOptions options)](#serializeexpression-expression-jsonserializeroptions-options) | Serialize to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
+## Serialize(Expression expression, JsonSerializerOptions options)
 
 Serialize to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) .
 
 ```csharp
-public virtual SerializableExpression Serialize(Expression expression)
+public virtual SerializableExpression Serialize(Expression expression, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -26,6 +26,7 @@ public virtual SerializableExpression Serialize(Expression expression)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to serialize. |
+| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 
 
@@ -33,4 +34,4 @@ public virtual SerializableExpression Serialize(Expression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

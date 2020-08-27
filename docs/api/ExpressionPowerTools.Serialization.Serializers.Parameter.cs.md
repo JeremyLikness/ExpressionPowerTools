@@ -20,12 +20,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Name`](ExpressionPowerTools.Serialization.Serializers.Parameter.Name.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the name. |
-| [`ParameterType`](ExpressionPowerTools.Serialization.Serializers.Parameter.ParameterType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the parameter type. |
+| [`Name`](ExpressionPowerTools.Serialization.Serializers.Parameter.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the name. |
+| [`ParameterType`](ExpressionPowerTools.Serialization.Serializers.Parameter.ParameterType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the parameter type. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

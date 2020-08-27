@@ -8,13 +8,13 @@ Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.exp
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(T expression)](#serializet-expression) | Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class. |
-## Serialize(T expression)
+| [Serialize(T expression, JsonSerializerOptions options)](#serializet-expression-jsonserializeroptions-options) | Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class. |
+## Serialize(T expression, JsonSerializerOptions options)
 
 Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class.
 
 ```csharp
-public virtual TSerializable Serialize(T expression)
+public virtual TSerializable Serialize(T expression, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -26,6 +26,7 @@ TSerializable - The serializeable class.
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | T | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to serialize. |
+| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 
 
@@ -33,4 +34,4 @@ TSerializable - The serializeable class.
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

@@ -8,13 +8,13 @@ Serialize a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(MethodCallExpression expression)](#serializemethodcallexpression-expression) | Serialize a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
-## Serialize(MethodCallExpression expression)
+| [Serialize(MethodCallExpression expression, JsonSerializerOptions options)](#serializemethodcallexpression-expression-jsonserializeroptions-options) | Serialize a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
+## Serialize(MethodCallExpression expression, JsonSerializerOptions options)
 
 Serialize a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) .
 
 ```csharp
-public virtual MethodExpr Serialize(MethodCallExpression expression)
+public virtual MethodExpr Serialize(MethodCallExpression expression, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -26,6 +26,7 @@ public virtual MethodExpr Serialize(MethodCallExpression expression)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) | The [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) to serialize. |
+| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 
 
@@ -33,4 +34,4 @@ public virtual MethodExpr Serialize(MethodCallExpression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

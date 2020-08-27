@@ -6,16 +6,16 @@ Gets or sets the list of parameters with parameter name mapped to the
             full name of the type.
 
 ```csharp
-public Dictionary<String, String> Parameters { get; set; }
+public Dictionary<String, SerializableType> Parameters { get; set; }
 ```
 
 ### Property Value
 
- [Dictionary&lt;String, String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2) 
+ [Dictionary&lt;String, SerializableType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2) 
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

@@ -22,11 +22,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | :-- | :-- | :-- |
 | [`Arguments`](ExpressionPowerTools.Serialization.Serializers.Invocation.Arguments.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the arguments list. |
 | [`Expression`](ExpressionPowerTools.Serialization.Serializers.Invocation.Expression.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the target [Expression](ExpressionPowerTools.Serialization.Serializers.Invocation.Expression.prop.md) . |
-| [`InvocationType`](ExpressionPowerTools.Serialization.Serializers.Invocation.InvocationType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the type of the invocation. |
+| [`InvocationType`](ExpressionPowerTools.Serialization.Serializers.Invocation.InvocationType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the type of the invocation. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

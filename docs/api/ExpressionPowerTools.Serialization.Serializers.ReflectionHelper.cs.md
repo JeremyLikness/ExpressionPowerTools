@@ -26,11 +26,14 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [MethodInfo GetMethodFromCache(Method method)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetMethodFromCache.m.md) | Gets the [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) based on the hash computed            by the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) signature. |
+| [Type DeserializeType(SerializableType serializedType)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.DeserializeType.m.md) | Deserializes a [Type](https://docs.microsoft.com/dotnet/api/system.type) . |
+| [String GetFullTypeName(SerializableType serializedType, StringBuilder builder, Int32 level)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetFullTypeName.m.md) | Gets the full type name of the serialized type. |
+| [TMemberInfo GetMemberFromCache&lt;TMemberInfo, TMemberBase>(TMemberBase member)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetMemberFromCache.m.md) | Gets the specified member. Will add to cache if not found. |
 | [Type GetTypeFromCache(String name)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetTypeFromCache.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) based on full name. |
+| [SerializableType SerializeType(Type type)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.SerializeType.m.md) | Creates a serializable type. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

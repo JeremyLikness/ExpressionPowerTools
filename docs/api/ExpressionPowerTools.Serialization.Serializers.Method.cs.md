@@ -5,10 +5,10 @@
 Represents [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) for serialization.
 
 ```csharp
-public class Method
+public class Method : MemberBase
 ```
 
-Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **Method**
+Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [MemberBase](ExpressionPowerTools.Serialization.Serializers.MemberBase.cs.md) → **Method**
 
 ## Constructors
 
@@ -20,20 +20,19 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`DeclaringType`](ExpressionPowerTools.Serialization.Serializers.Method.DeclaringType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full name of the declaring type. |
 | [`IsStatic`](ExpressionPowerTools.Serialization.Serializers.Method.IsStatic.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether the method is static. |
+| [`MemberType`](ExpressionPowerTools.Serialization.Serializers.Method.MemberType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the member type. |
 | [`Name`](ExpressionPowerTools.Serialization.Serializers.Method.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the name of the method. |
-| [`Parameters`](ExpressionPowerTools.Serialization.Serializers.Method.Parameters.prop.md) | [Dictionary&lt;String, String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2) | Gets or sets the list of parameters with parameter name mapped to the            full name of the type. |
-| [`ReturnType`](ExpressionPowerTools.Serialization.Serializers.Method.ReturnType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full name of the return type. |
+| [`Parameters`](ExpressionPowerTools.Serialization.Serializers.Method.Parameters.prop.md) | [Dictionary&lt;String, SerializableType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2) | Gets or sets the list of parameters with parameter name mapped to the            full name of the type. |
 
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
-| [Int32 GetHashCode()](ExpressionPowerTools.Serialization.Serializers.Method.GetHashCode.m.md) | Generates a hash code based on the full method signature. |
+| [String CalculateKey()](ExpressionPowerTools.Serialization.Serializers.Method.CalculateKey.m.md) | Gets the unique key for the method. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

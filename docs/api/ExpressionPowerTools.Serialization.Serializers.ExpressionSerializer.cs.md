@@ -27,11 +27,11 @@ The constructor for this class scans the assembly for serializers tagged with [E
 
 | Method | Description |
 | :-- | :-- |
-| [Expression Deserialize(JsonElement json)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Deserialize.m.md) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| [SerializableExpression Serialize(Expression expression)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Serialize.m.md) | Serialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [Expression Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Deserialize.m.md) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [SerializableExpression Serialize(Expression expression, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Serialize.m.md) | Serialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

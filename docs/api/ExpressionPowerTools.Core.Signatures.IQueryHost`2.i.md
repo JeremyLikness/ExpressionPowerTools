@@ -31,4 +31,4 @@ Derived  [IQuerySnapshotHost&lt;T>](ExpressionPowerTools.Core.Signatures.IQueryS
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |

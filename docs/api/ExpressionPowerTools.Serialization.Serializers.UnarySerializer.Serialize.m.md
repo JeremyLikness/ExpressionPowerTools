@@ -8,13 +8,13 @@ Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(UnaryExpression expression)](#serializeunaryexpression-expression) | Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) to a [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) . |
-## Serialize(UnaryExpression expression)
+| [Serialize(UnaryExpression expression, JsonSerializerOptions options)](#serializeunaryexpression-expression-jsonserializeroptions-options) | Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) to a [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) . |
+## Serialize(UnaryExpression expression, JsonSerializerOptions options)
 
 Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) to a [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) .
 
 ```csharp
-public virtual Unary Serialize(UnaryExpression expression)
+public virtual Unary Serialize(UnaryExpression expression, JsonSerializerOptions options)
 ```
 
 ### Return Type
@@ -26,6 +26,7 @@ public virtual Unary Serialize(UnaryExpression expression)
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) | The [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
+| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 
 
@@ -33,4 +34,4 @@ public virtual Unary Serialize(UnaryExpression expression)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/26/2020 6:58:17 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
