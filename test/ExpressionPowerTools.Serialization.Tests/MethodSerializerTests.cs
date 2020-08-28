@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.Json;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
@@ -27,6 +28,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Justification = "Used by the test.")]
         public static void StaticDoNothing() { }
         public static int StaticReturnInt() => 1;
+        public static object NullableParameter(object parameter) => parameter;
         public static int StaticReturnIntDoubled(int i) => i * 2;
 
         public static IEnumerable<object[]> GetMethodCallMatrix()
@@ -99,6 +101,25 @@ namespace ExpressionPowerTools.Serialization.Tests
             var deserialized = methodSerializer.Deserialize(serialized, null, null);
             Assert.Equal(method.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
+        }
+
+        [Fact]
+        public void GivenOptionsIgnoreNullWhenMethodCallSerializedThenShouldDeserialize()
+        {
+            var nullableParameter = GetType().GetMethod(
+                nameof(NullableParameter),
+                BindingFlags.Public | BindingFlags.Static);
+            var method = Expression.Call(nullableParameter, Expression.Constant(null));
+            var options = new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true
+            };
+
+            var serialized = TestSerializer
+                .GetSerializedFragment<MethodExpr, MethodCallExpression>(method, options);
+            var deserialized = methodSerializer.Deserialize(serialized, null, options);
+            Assert.NotNull(deserialized);
         }
 
         public override bool Equals(object obj) =>

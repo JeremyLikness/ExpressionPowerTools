@@ -52,7 +52,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Null(deserialized);
         }
 
-
         [Fact]
         public void GivenExpressionHasNullTypeWhenDeserializeCalledThenShouldReturnNull()
         {

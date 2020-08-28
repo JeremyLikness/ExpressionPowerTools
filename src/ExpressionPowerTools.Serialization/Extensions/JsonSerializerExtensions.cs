@@ -13,6 +13,12 @@ namespace ExpressionPowerTools.Serialization.Extensions
     public static class JsonSerializerExtensions
     {
         /// <summary>
+        /// A null document.
+        /// </summary>
+        private static readonly JsonElement NullDoc =
+            JsonDocument.Parse("{\"null\": null}").RootElement;
+
+        /// <summary>
         /// Gets the type, including generic arguments.
         /// </summary>
         /// <param name="element">The <see cref="JsonElement"/> that contains the type.</param>
@@ -33,6 +39,23 @@ namespace ExpressionPowerTools.Serialization.Extensions
         {
             var json = element.GetRawText();
             return JsonSerializer.Deserialize<Method>(json);
+        }
+
+        /// <summary>
+        /// Safe way to access a property. Returns an element that evaluates to <c>null</c>
+        /// when the underlying property doesn't exist.
+        /// </summary>
+        /// <param name="element">The <see cref="JsonElement"/> to inspect.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <returns>The property node, or a <c>null</c> node.</returns>
+        public static JsonElement GetNullableProperty(this JsonElement element, string propertyName)
+        {
+            if (element.TryGetProperty(propertyName, out JsonElement property))
+            {
+                return property;
+            }
+
+            return NullDoc.Clone().GetProperty("null");
         }
     }
 }

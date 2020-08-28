@@ -1,0 +1,94 @@
+﻿// Copyright (c) Jeremy Likness. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the repository root for license information.
+
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Contract;
+
+namespace ExpressionPowerTools.Serialization.Serializers
+{
+    /// <summary>
+    /// Helper for serializing and deserializing anonymous types.
+    /// </summary>
+    [Serializable]
+    public class AnonType
+    {
+        /// <summary>
+        /// Holds the dynamic value.
+        /// </summary>
+        private dynamic dynamicValue = null;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnonType"/> class.
+        /// </summary>
+        public AnonType()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnonType"/> class with the
+        /// anonymous instance to serialize.
+        /// </summary>
+        /// <param name="value">The anonymous value.</param>
+        public AnonType(object value)
+        {
+            Ensure.NotNull(() => value);
+            AnonymousTypeName = value.GetType().ToString();
+            PropertyNames = value.GetType().GetProperties().Select(p => p.Name).ToArray();
+            List<AnonValue> values =
+                new List<AnonValue>();
+            foreach (var name in PropertyNames)
+            {
+                var prop = value.GetType().GetProperty(name);
+                var type = prop.PropertyType;
+                var val = prop.GetValue(value);
+                values.Add(new AnonValue(type, val));
+            }
+
+            PropertyValues = values.ToArray();
+        }
+
+        /// <summary>
+        /// Gets or sets the anonymous type name.
+        /// </summary>
+        public string AnonymousTypeName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property names.
+        /// </summary>
+        public string[] PropertyNames { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property values.
+        /// </summary>
+        public AnonValue[] PropertyValues { get; set; }
+
+        /// <summary>
+        /// Gets the value as a <see cref="DynamicObject"/>.
+        /// </summary>
+        /// <returns>The dynamic value.</returns>
+        public dynamic GetValue()
+        {
+            if (PropertyNames == null)
+            {
+                return null;
+            }
+
+            if (dynamicValue != null)
+            {
+                return dynamicValue;
+            }
+
+            dynamicValue = new Dictionary<string, object>();
+            for (var idx = 0; idx < PropertyNames.Length; idx++)
+            {
+                dynamicValue.Add(PropertyNames[idx], PropertyValues[idx].AnonVal);
+            }
+
+            return dynamicValue;
+        }
+    }
+}

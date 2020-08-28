@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.Json;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -225,6 +226,21 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary);
             var deserialized = unarySerializer.Deserialize(serialized, null, null);
+            Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
+        }
+
+        [Fact]
+        public void GivenOptionsIgnoreNullWhenUnarySerializedThenShouldDeserialize()
+        {
+            var unary = Expression.Throw(Expression.Constant(null));
+            var options = new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true
+            };
+
+            var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary, options);
+            var deserialized = unarySerializer.Deserialize(serialized, null, options);
             Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
         }
     }

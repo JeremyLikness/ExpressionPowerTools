@@ -33,11 +33,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
-        /// Gets the anonymous type name.
-        /// </summary>
-        protected string AnonymousType => nameof(AnonymousType);
-
-        /// <summary>
         /// Gets the default <see cref="IExpressionSerializer{T, TSerializable}"/>.
         /// </summary>
         protected IExpressionSerializer<Expression, SerializableExpression> Serializer { get; private set; }

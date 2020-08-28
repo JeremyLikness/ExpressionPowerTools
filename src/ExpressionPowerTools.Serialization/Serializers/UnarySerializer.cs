@@ -4,6 +4,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -53,10 +54,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
             Expression queryRoot,
             JsonSerializerOptions options)
         {
-            var method = json.GetProperty(nameof(Unary.UnaryMethod));
+            var method = json.GetNullableProperty(nameof(Unary.UnaryMethod));
             var methodProp = JsonSerializer.Deserialize<Method>(method.GetRawText(), options);
             var type = json.GetProperty(nameof(SerializableExpression.Type)).GetString();
-            var operandElement = json.GetProperty(nameof(UnaryExpression.Operand));
+            var operandElement = json.GetNullableProperty(nameof(UnaryExpression.Operand));
             var operand = Serializer.Deserialize(operandElement, queryRoot, options);
             var expressionType = GetExpressionTypeFor(type);
             var unaryTypeName = json.GetProperty(nameof(Unary.UnaryType)).GetString();

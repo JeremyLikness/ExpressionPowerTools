@@ -38,7 +38,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonSerializerOptions options)
         {
             var type = json.GetProperty(nameof(Parameter.ParameterType)).GetDeserializedType();
-            var name = json.GetProperty(nameof(Parameter.Name)).GetString();
+            var name = json.GetNullableProperty(nameof(Parameter.Name)).GetString();
             return string.IsNullOrWhiteSpace(name) ? Expression.Parameter(type) :
                 Expression.Parameter(type, name);
         }

@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Comparisons
@@ -23,6 +24,30 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// </summary>
         private static IExpressionComparisonRuleProvider Rules =>
             ServiceHost.GetService<IExpressionComparisonRuleProvider>();
+
+        /// <summary>
+        /// Determine if a <see cref="Type"/> is equivalent to another type.
+        /// </summary>
+        /// <remarks>
+        /// Handles anonymous types converted to dynamic dictionary.
+        /// </remarks>
+        /// <param name="source">The source <see cref="Type"/>.</param>
+        /// <param name="target">The target <see cref="Type"/>.</param>
+        /// <returns>A value indicating whether the types are equivalent.</returns>
+        public static bool TypesAreEquivalent(Type source, Type target)
+        {
+            if (source.IsAnonymousType())
+            {
+                if (target.IsAnonymousType())
+                {
+                    return source.ToString() == target.ToString();
+                }
+
+                return typeof(IDictionary).IsAssignableFrom(target);
+            }
+
+            return source == target;
+        }
 
         /// <summary>
         /// Entry for equivalency comparisons. Will cast to
@@ -94,6 +119,8 @@ namespace ExpressionPowerTools.Core.Comparisons
             object source,
             object target)
         {
+            const string AnonymousType = nameof(AnonymousType);
+
             if (source == null)
             {
                 return target == null;
@@ -116,6 +143,22 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return targetType.IsGenericType &&
                     targetType.GetGenericTypeDefinition() == typeof(EnumerableQuery<>) &&
                     !targetType.GenericTypeArguments.Except(type.GenericTypeArguments).Any();
+            }
+
+            if (type.IsAnonymousType())
+            {
+                var src = type.GetProperties().Select(p => new { p.Name, Value = p.GetValue(source) })
+                    .ToDictionary(p => p.Name, p => p.Value);
+                var tgt = target is IDictionary targetDictionary ?
+                    targetDictionary :
+                    target.GetType().GetProperties().Select(p => new { p.Name, Value = p.GetValue(target) })
+                    .ToDictionary(p => p.Name, p => p.Value);
+                return DictionariesAreEquivalent(src, tgt);
+            }
+
+            if (source is IDictionary dictionary)
+            {
+                return DictionariesAreEquivalent(dictionary, target as IDictionary);
             }
 
             if (source is IEnumerable enumerable)
@@ -144,6 +187,26 @@ namespace ExpressionPowerTools.Core.Comparisons
             }
 
             return source.Equals(target);
+        }
+
+        /// <summary>
+        /// Ensures two dictionaries are equivalent.
+        /// </summary>
+        /// <param name="source">The source <see cref="IDictionary"/>.</param>
+        /// <param name="target">The target <see cref="IDictionary"/>.</param>
+        /// <returns>A value indicating whether the dictionaries are equivalent.</returns>
+        public static bool DictionariesAreEquivalent(
+            IDictionary source,
+            IDictionary target)
+        {
+            Ensure.NotNull(() => source);
+            if (target == null)
+            {
+                return false;
+            }
+
+            return NonGenericEnumerablesAreEquivalent(source.Keys, target.Keys) &&
+                NonGenericEnumerablesAreEquivalent(source.Values, target.Values);
         }
 
         /// <summary>

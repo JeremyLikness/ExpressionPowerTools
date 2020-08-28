@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Text.Json.Serialization;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -12,13 +13,30 @@ namespace ExpressionPowerTools.Serialization.Serializers
     public struct SerializableType
     {
         /// <summary>
+        /// Gets or sets the full type name.
+        /// </summary>
+        [JsonIgnore]
+        public string FullTypeName { get; set; }
+
+        /// <summary>
         /// Gets or sets the full name of the type.
         /// </summary>
         public string TypeName { get; set; }
 
         /// <summary>
+        /// Gets or sets the type parameter name.
+        /// </summary>
+        public string TypeParamName { get; set; }
+
+        /// <summary>
         /// Gets or sets the list of generic type arguments for the type.
         /// </summary>
         public SerializableType[] GenericTypeArguments { get; set; }
+
+        /// <summary>
+        /// Overload to show type.
+        /// </summary>
+        /// <returns>The first usable string it finds.</returns>
+        public override string ToString() => FullTypeName ?? TypeName ?? TypeParamName;
     }
 }

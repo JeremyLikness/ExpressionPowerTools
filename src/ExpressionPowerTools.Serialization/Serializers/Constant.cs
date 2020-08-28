@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Extensions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -12,6 +13,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
     [Serializable]
     public class Constant : SerializableExpression
     {
+        /// <summary>
+        /// Anonymous type for reference.
+        /// </summary>
+        public static readonly SerializableType AnonType =
+            ReflectionHelper.Instance.SerializeType(typeof(AnonType));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Constant"/> class.
         /// </summary>
@@ -27,8 +34,20 @@ namespace ExpressionPowerTools.Serialization.Serializers
             : base(expression)
         {
             ConstantType = SerializeType(expression.Type);
-            Value = expression.Value;
-            ValueType = Value == null ? ConstantType : SerializeTypeOf(Value);
+            ValueType = expression.Value == null ?
+                ConstantType : SerializeTypeOf(expression.Value);
+            var isAnonymous = expression.Value == null ?
+                expression.Type.IsAnonymousType() :
+                expression.Value.GetType().IsAnonymousType();
+            if (isAnonymous)
+            {
+                ValueType = AnonType;
+                Value = new AnonType(expression.Value);
+            }
+            else
+            {
+                Value = expression.Value;
+            }
         }
 
         /// <summary>

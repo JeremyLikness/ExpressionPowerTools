@@ -386,7 +386,7 @@ namespace ExpressionPowerTools.Core.Comparisons
             ConstantExpression source,
             ConstantExpression target)
         {
-            if (source.Type != target.Type)
+            if (!eq.TypesAreEquivalent(source.Type, target.Type))
             {
                 return false;
             }
@@ -401,39 +401,6 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return eq.AreEquivalent(
                     expression,
                     target.Value as Expression);
-            }
-
-            if (source.Value is System.Collections.IEnumerable enumerable)
-            {
-                var targetEnumerable = target.Value as System.Collections.IEnumerable;
-                var src = enumerable.GetEnumerator();
-                var tgt = targetEnumerable.GetEnumerator();
-                while (src.MoveNext())
-                {
-                    if (!tgt.MoveNext())
-                    {
-                        return false;
-                    }
-
-                    if (src.Current == null && tgt.Current == null)
-                    {
-                        continue;
-                    }
-
-                    if (src.Current == null || tgt.Current == null)
-                    {
-                        return false;
-                    }
-
-                    if (!eq.ValuesAreEquivalent(
-                        src.Current,
-                        tgt.Current))
-                    {
-                        return false;
-                    }
-                }
-
-                return !tgt.MoveNext();
             }
 
             return eq.ValuesAreEquivalent(source.Value, target.Value);

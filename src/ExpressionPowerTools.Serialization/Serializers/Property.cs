@@ -5,41 +5,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
     /// <summary>
-    /// Represents <see cref="MethodInfo"/> for serialization.
+    /// A serializable property.
     /// </summary>
-    [Serializable]
-    public class Method : MemberBase
+    public class Property : MemberBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Method"/> class.
+        /// Initializes a new instance of the <see cref="Property"/> class.
         /// </summary>
-        public Method()
+        public Property()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Method"/> class and
-        /// populates values based on the <see cref="MethodInfo"/> passed in.
+        /// Initializes a new instance of the <see cref="Property"/> class and
+        /// populates values based on the <see cref="PropertyInfo"/> passed in.
         /// </summary>
-        /// <param name="info">The <see cref="MethodInfo"/> to parse.</param>
-        public Method(MethodInfo info)
+        /// <param name="info">The <see cref="PropertyInfo"/> to parse.</param>
+        public Property(PropertyInfo info)
         {
             DeclaringType = SerializeType(info.DeclaringType);
-            MemberValueType = SerializeType(info.ReturnType);
-            ReflectedType = SerializeType(info.ReflectedType);
-            IsStatic = info.IsStatic;
+            MemberValueType = SerializeType(info.PropertyType);
+            IsStatic = info.CanRead ? info.GetMethod.IsStatic :
+                info.SetMethod.IsStatic;
             Name = info.Name;
-            Parameters = info.GetParameters().Select(
-                p => new
-                {
-                    p.Name,
-                    Type = SerializeType(p.ParameterType),
-                })
-                .ToDictionary(p => p.Name, p => p.Type);
         }
 
         /// <summary>
@@ -53,13 +46,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of parameters with parameter name mapped to the
-        /// full name of the type.
-        /// </summary>
-        public Dictionary<string, SerializableType> Parameters { get; set; }
-            = new Dictionary<string, SerializableType>();
-
-        /// <summary>
         /// Gets or sets the member type.
         /// </summary>
         /// <remarks>
@@ -67,7 +53,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </remarks>
         public override string MemberType
         {
-            get => MemberTypes.Method.ToString();
+            get => MemberTypes.Property.ToString();
             set
             {
             }
@@ -80,13 +66,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public override string CalculateKey() =>
             string.Join(
                 ",",
-                new[] { "M:" }
-                .Union(Parameters.Keys.ToArray())
-                .Union(Parameters.Values.Select(p =>
-                    GetFullNameOfType(p)).ToArray())
+                new[] { "P:" }
                 .Union(new[]
                 {
-                    GetFullNameOfType(ReflectedType),
                     IsStatic.ToString(),
                     GetFullNameOfType(DeclaringType),
                     GetFullNameOfType(MemberValueType),

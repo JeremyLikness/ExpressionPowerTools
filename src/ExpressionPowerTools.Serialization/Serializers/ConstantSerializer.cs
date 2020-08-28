@@ -39,16 +39,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
             Expression queryRoot,
             JsonSerializerOptions options)
         {
-            var value = json.GetProperty(nameof(Constant.Value)).GetRawText();
+            var value = json.GetNullableProperty(nameof(Constant.Value)).GetRawText();
             var type = json.GetProperty(nameof(Constant.ConstantType)).GetDeserializedType();
-            var valueTypeNode = json.GetProperty(nameof(Constant.ValueType)).GetRawText();
+            var valueTypeNode = json.GetNullableProperty(nameof(Constant.ValueType)).GetRawText();
             var valueTypeName = JsonSerializer.Deserialize<SerializableType>(valueTypeNode, options);
-
-            if (valueTypeName.TypeName.Contains(AnonymousType))
-            {
-                var val = JsonSerializer.Deserialize<Dictionary<string, object>>(value, options);
-                return Expression.Constant(val);
-            }
 
             var valueType = ReflectionHelper.Instance.DeserializeType(valueTypeName);
 
@@ -73,6 +67,24 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var constantVal = JsonSerializer.Deserialize(value, valueType, options);
+
+            if (constantVal is AnonType anonType)
+            {
+                // normalize values
+                foreach (var propValue in anonType.PropertyValues)
+                {
+                    if (propValue.AnonVal == null)
+                    {
+                        continue;
+                    }
+
+                    var valuetype = ReflectionHelper.Instance.DeserializeType(propValue.AnonValueType);
+                    var jsonValue = (JsonElement)propValue.AnonVal;
+                    propValue.AnonVal = JsonSerializer.Deserialize(jsonValue.GetRawText(), valuetype, options);
+                }
+
+                return Expression.Constant(anonType.GetValue());
+            }
 
             return type == valueType ? Expression.Constant(constantVal) :
                 Expression.Constant(constantVal, type);

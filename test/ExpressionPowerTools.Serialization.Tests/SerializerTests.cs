@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Comparisons;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -198,25 +201,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var json = Serializer.Serialize(constant);
             var target = Serializer.Deserialize<ConstantExpression>(json);
 
-            if (constant.Type.FullName.Contains("AnonymousType"))
-            {
-                Assert.Equal(
-                    constant.Type.GetProperties().Where(p => p.CanRead).Select(p => p.Name),
-                    ((IDictionary<string, object>)target.Value).Keys);
-            }
-            else
-            {
-                Assert.Equal(constant.Type, target.Type);
-                if (constant.Value is ConstantExpression ce)
-                {
-                    Assert.Equal(ce.Value, (target.Value as ConstantExpression).Value);
-                }
-                else
-                { 
-                    Assert.Equal(constant.Value, target.Value);
-                }
-                Assert.True(constant.IsEquivalentTo(target));
-            }
+            Assert.True(constant.IsEquivalentTo(target));
         }
 
         [Fact]
@@ -279,9 +264,6 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var json = Serializer.Serialize(lambda);
             var target = Serializer.Deserialize<LambdaExpression>(json);
-            Assert.Equal(lambda.Type, target.Type);
-            Assert.Equal(lambda.Body?.NodeType, target.Body?.NodeType);
-            Assert.Equal(lambda.Parameters, target.Parameters);
             Assert.True(lambda.IsEquivalentTo(target));
         }
 

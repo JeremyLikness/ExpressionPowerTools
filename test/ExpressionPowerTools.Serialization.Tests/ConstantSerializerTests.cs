@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.Json;
+using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
+using NuGet.Frameworks;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -33,6 +36,11 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             yield return new object[]
             {
+                Expression.Constant(new { foo = "bar", bar = default(object) })
+            };
+
+            yield return new object[]
+            {
                 Expression.Constant(new int[0])
             };
 
@@ -57,20 +65,20 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ConstantExpressionShouldSerialize(ConstantExpression constant)
         {
             var target = serializer.Serialize(constant, null);
-            if (constant.Value is ConstantExpression ce)
+            if (target.Value is AnonType anon)
             {
-                var targetType = target.Value as Constant;
-                Assert.NotNull(targetType);
-                Assert.Equal(ce.Value, targetType.Value);
+                Assert.True(ExpressionEquivalency.ValuesAreEquivalent(
+                    constant.Value, anon.GetValue()));
+            }
+            else if (target.Value is Constant constantValue)
+            {
+                Assert.True(ExpressionEquivalency.ValuesAreEquivalent(
+                    ((ConstantExpression)constant.Value).Value,
+                    constantValue.Value));
             }
             else
             {
-                Assert.Equal(constant.Type.ToString(),
-                    ReflectionHelper.Instance.DeserializeType(target.ConstantType).ToString());
-                Assert.Equal(constant.Value, target.Value);
-                Assert.Equal(constant.Value == null ? constant.Type.ToString() :
-                    constant.Value.GetType().ToString(),
-                    ReflectionHelper.Instance.DeserializeType(target.ValueType).ToString());
+                Assert.True(ExpressionEquivalency.ValuesAreEquivalent(constant.Value, target.Value));
             }
         }
 
@@ -80,25 +88,21 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(constant);
             var deserialized = serializer.Deserialize(serialized, null, null);
-            if (constant.Type.FullName.Contains("AnonymousType"))
+            Assert.True(ExpressionEquivalency.ValuesAreEquivalent(constant.Value, deserialized.Value));
+        }
+
+        [Fact]
+        public void GivenOptionIgnoreNullValuesWhenConstantExpressionSerializedThenShouldDeserialize()
+        {
+            var options = new JsonSerializerOptions
             {
-                Assert.Equal(
-                    constant.Type.GetProperties().Select(p => p.Name),
-                    ((IDictionary<string, object>)deserialized.Value).Keys);            
-            }
-            else
-            {
-                if (constant.Value is ConstantExpression ce)
-                {
-                    var deserializedExpr = deserialized.Value as ConstantExpression;
-                    Assert.Equal(ce.Value, deserializedExpr.Value);
-                }
-                else
-                {
-                    Assert.Equal(constant.Type, deserialized.Type);
-                    Assert.Equal(constant.Value, deserialized.Value);
-                }
-            }            
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true
+            };
+            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(
+                Expression.Constant(null), options);
+            var deserialized = serializer.Deserialize(serialized, null, null);
+            Assert.NotNull(deserialized);
         }
     }
 }

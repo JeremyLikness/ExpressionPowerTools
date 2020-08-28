@@ -103,12 +103,6 @@ namespace ExpressionPowerTools.Core.Comparisons
                                 s.Value as Expression,
                                 t.Value as Expression),
                             ifFalse: rules.False<ConstantExpression>())
-                        .OrIf(
-                                condition: (s, t) => s.Value is System.Collections.IEnumerable,
-                                ifTrue: (s, t) => eq.NonGenericEnumerablesAreEquivalent(
-                                    s.Value as System.Collections.IEnumerable,
-                                    t.Value as System.Collections.IEnumerable),
-                                ifFalse: rules.False<ConstantExpression>())
                             .Or((s, t) => eq.ValuesAreEquivalent(s.Value, t.Value)));
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
@@ -44,10 +45,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var materializedReturnType = json.GetProperty(nameof(Lambda.ReturnType))
                 .GetDeserializedType();
             var body = Serializer.Deserialize(json.GetProperty(nameof(Lambda.Body)), queryRoot, options);
-            var name = json.GetProperty(nameof(Lambda.Name)).GetString();
-            var list = json.GetProperty(nameof(Lambda.Parameters));
-            var parameterList = list.EnumerateArray().Select(element =>
-                Serializer.Deserialize(element, queryRoot, options) as ParameterExpression).ToList();
+            var name = json.GetNullableProperty(nameof(Lambda.Name)).GetString();
+            var list = json.GetNullableProperty(nameof(Lambda.Parameters));
+            var parameterList = list.ValueKind == JsonValueKind.Array ?
+                list.EnumerateArray().Select(element =>
+                    Serializer.Deserialize(element, queryRoot, options) as ParameterExpression).ToList() :
+                new List<ParameterExpression>();
             return Expression.Lambda(materializedType, body, name, parameterList);
         }
 

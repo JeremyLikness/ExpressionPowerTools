@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text.Json;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -48,6 +49,21 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Assert.Equal(parameter.Name, deserialized.Name);
             }
+        }
+
+        [Fact]
+        public void GivenOptionsIgnoreNullWhenParameterSerializedThenShouldDeserialize()
+        {
+            var parameter = Expression.Parameter(typeof(long));
+            var options = new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true
+            };
+
+            var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter, options);
+            var deserialized = serializer.Deserialize(serialized, null, options);
+            Assert.Equal(parameter.Type, deserialized.Type);
         }
     }
 }

@@ -33,6 +33,12 @@ namespace ExpressionPowerTools.Serialization
         public static string Serialize(Expression root, JsonSerializerOptions options = null)
         {
             Ensure.NotNull(() => root);
+            var opt = new JsonSerializerOptions();
+            options = options ?? new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true,
+            };
             var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, options));
             return JsonSerializer.Serialize(serializeRoot, options);
         }

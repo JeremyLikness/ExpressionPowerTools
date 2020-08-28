@@ -16,6 +16,23 @@ namespace ExpressionPowerTools.Core.Extensions
     public static class ExpressionExtensions
     {
         /// <summary>
+        /// Anonymous type name.
+        /// </summary>
+        public static readonly string AnonymousType = nameof(AnonymousType);
+
+        /// <summary>
+        /// Helper for determing anonymous types, with a pessimistic algorithm.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> to check.</param>
+        /// <returns>A value indicating whether the type is anonymous.</returns>
+        public static bool IsAnonymousType(this Type type) =>
+            type.Namespace == null &&
+            type.BaseType == typeof(object) &&
+            type.IsSealed &&
+            !type.IsPublic &&
+            type.FullName.Contains(AnonymousType);
+
+        /// <summary>
         /// Extracts the name of the target of an expression.
         /// </summary>
         /// <example>

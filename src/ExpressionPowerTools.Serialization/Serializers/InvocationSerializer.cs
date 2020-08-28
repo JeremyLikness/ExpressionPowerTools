@@ -4,6 +4,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -40,7 +41,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         {
             var expr = json.GetProperty(nameof(Invocation.Expression));
             var expression = Serializer.Deserialize(expr, queryRoot, options);
-            var list = json.GetProperty(nameof(Invocation.Arguments));
+            var list = json.GetNullableProperty(nameof(Invocation.Arguments));
             var argumentList = list.EnumerateArray().Select(element =>
                 Serializer.Deserialize(element, queryRoot, options)).ToList();
             return Expression.Invoke(expression, argumentList);

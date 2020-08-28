@@ -27,6 +27,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public SerializableType MemberValueType { get; set; }
 
         /// <summary>
+        /// Gets or sets the hash of the reflected type.
+        /// </summary>
+        public SerializableType ReflectedType { get; set; }
+
+        /// <summary>
         /// Gets or sets the unique key.
         /// </summary>
         private string Key { get; set; }

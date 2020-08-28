@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using ExpressionPowerTools.Core.Extensions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -96,6 +97,19 @@ namespace ExpressionPowerTools.Serialization.Serializers
             int level = 0)
         {
             builder = builder ?? new StringBuilder();
+
+            if (!string.IsNullOrWhiteSpace(serializedType.TypeParamName))
+            {
+                builder.Append($"<{serializedType.TypeParamName}>");
+                return level == 0 ? builder.ToString() : string.Empty;
+            }
+
+            if (!string.IsNullOrWhiteSpace(serializedType.FullTypeName))
+            {
+                builder.Append(serializedType.FullTypeName);
+                return level == 0 ? builder.ToString() : string.Empty;
+            }
+
             builder.Append(serializedType.TypeName);
             if (serializedType.GenericTypeArguments != null &&
                 serializedType.GenericTypeArguments.Length > 0)
@@ -166,6 +180,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var serializableType = default(SerializableType);
 
+            if (type.FullName == null)
+            {
+                serializableType.TypeParamName = type.Name;
+                serializableType.FullTypeName = GetFullTypeName(serializableType);
+                return serializableType;
+            }
+
             if (type.IsGenericType && !type.IsGenericTypeDefinition)
             {
                 var definition = type.GetGenericTypeDefinition();
@@ -179,6 +200,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 serializableType.TypeName = type.FullName;
             }
+
+            serializableType.FullTypeName = GetFullTypeName(serializableType);
 
             SafeMutate(
                 () => !serializableTypes.ContainsKey(type),

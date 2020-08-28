@@ -72,10 +72,14 @@ namespace ExpressionPowerTools.Core.Extensions
         /// <summary>
         /// Types of the expressions must be the same.
         /// </summary>
+        /// <remarks>
+        /// Returns <c>true</c>c> if types are same, or one type is anonymous and the othere is a dictionary.
+        /// </remarks>
         /// <typeparam name="T">The type of the <see cref="Expression"/>.</typeparam>
         /// <returns>An expression that evaluates whether the types match.</returns>
         public static Expression<Func<T, T, bool>> TypesMustMatch<T>()
-            where T : Expression => (s, t) => s.Type == t.Type;
+            where T : Expression => (s, t) =>
+            Comparisons.ExpressionEquivalency.TypesAreEquivalent(s.Type, t.Type);
 
         /// <summary>
         /// Types of the expressions must be similar.
