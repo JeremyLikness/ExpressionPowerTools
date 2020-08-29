@@ -3,6 +3,7 @@ using ExpressionPowerTools.Core.Tests.TestHelpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
@@ -50,6 +51,8 @@ namespace ExpressionPowerTools.Core.Tests
 
         private static readonly Expression<Func<int, bool>> FuncIntBool = i => i > 2;
 
+        private static readonly Expression<Func<int, bool>> FuncIntBoolAlt = j => j > 2;
+
         private static readonly Expression<Func<long, bool>> FuncLongBool = i => i > 2;
 
         public static IEnumerable<object[]> GetBinaryExpressionMatrix()
@@ -86,7 +89,7 @@ namespace ExpressionPowerTools.Core.Tests
             {
                 Expression.Constant(5), null
             };
-            
+
             yield return new object[]
             {
                 null, Expression.Constant(5)
@@ -238,7 +241,8 @@ namespace ExpressionPowerTools.Core.Tests
         public void GivenIEquatableImplementedAndTrueThenAreEquivalentShouldReturnTrue()
         {
             var source = new IdType().AsConstantExpression();
-            var target = new IdType { 
+            var target = new IdType
+            {
                 Id = ((IdType)source.Value).Id,
                 IdVal = ((IdType)source.Value).IdVal
             }.AsConstantExpression();
@@ -374,6 +378,14 @@ namespace ExpressionPowerTools.Core.Tests
             var source = new[] { Five, Six, OfFive, OfOfFive };
             var target = new[] { Five, Six, OfFive, OfOfFive };
             Assert.True(eq.AreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenEnumerableWithTargetNullThenAreEquivalentShouldReturnFalse()
+        {
+            IEnumerable<ConstantExpression> source = new[] { Five, Six };
+            var target = default(IEnumerable<ConstantExpression>);
+            Assert.False(eq.AreEquivalent(source, target));
         }
 
         [Fact]
@@ -674,7 +686,7 @@ namespace ExpressionPowerTools.Core.Tests
             var target = Expression.Lambda(intExpr, nameof(intExpr), new ParameterExpression[0]);
             Assert.False(eq.AreEquivalent(source, target));
         }
-        
+
         [Fact]
         public void GivenLambdaExpressionWhenTailCallIsDifferentThenAreEquivalentShouldReturnFalse()
         {
@@ -844,7 +856,7 @@ namespace ExpressionPowerTools.Core.Tests
         public void GivenTwoInvocationsWhenDifferentArgsThenAreEquivalentShouldReturnFalse()
         {
             var source = Expression.Invoke(FuncIntBool, FuncIntBool.Parameters);
-            var target = Expression.Invoke(FuncLongBool, FuncLongBool.Parameters);
+            var target = Expression.Invoke(FuncIntBool, FuncIntBoolAlt.Parameters);
             Assert.False(eq.AreEquivalent(source, target));
         }
 
@@ -855,10 +867,234 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void AreEquivalentNonGenericeNumerableWithNullTargetShouldReturnFalse()
+        public void AreEquivalentNonGenericEnumerableWithNullTargetShouldReturnFalse()
         {
             IEnumerable nonGenericEnumerable = new int[] { 1, 2 };
             Assert.False(eq.NonGenericEnumerablesAreEquivalent(nonGenericEnumerable, null));
+        }
+
+        private static IDictionary dictionary => new Dictionary<string, object>
+        {
+            {"one", 1},
+            {"two", 2}
+        };
+
+        private static IDictionary dictionaryAltKey => new Dictionary<string, object>
+        {
+            {"one", 1},
+            {"three", 2}
+        };
+
+        private static IDictionary dictionaryAltValue => new Dictionary<string, object>
+        {
+            {"one", 1},
+            {"two", 3}
+        };
+
+        public static IEnumerable<object[]> GetDictionaryMatrix()
+        {
+            yield return new object[]
+            {
+                dictionary, dictionary, true
+            };
+
+            yield return new object[]
+            {
+                dictionary, null, false
+            };
+
+            yield return new object[]
+            {
+                dictionary, dictionaryAltKey, false
+            };
+
+            yield return new object[]
+            {
+                dictionary, dictionaryAltValue, false
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetDictionaryMatrix))]
+        public void GivenTwoIDictionaryWhenDictionariesAreEquivalentCalledThenShouldReturnResult(
+            IDictionary source,
+            IDictionary target,
+            bool areEqual)
+        {
+            Assert.Equal(areEqual, eq.DictionariesAreEquivalent(source, target));
+        }
+
+        [Theory]
+        [MemberData(nameof(GetDictionaryMatrix))]
+        public void GivenTwoIDictionaryWhenValuesAreEquivalentCalledThenShouldReturnResult(
+            IDictionary source,
+            IDictionary target,
+            bool areEqual)
+        {
+            Assert.Equal(areEqual, eq.ValuesAreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenExceptionOfDifferentTypeWhenValuesAreEquivalentCalledThenShouldReturnFalse()
+        {
+            var source = new ArgumentException();
+            var target = new ArgumentNullException();
+            Assert.False(eq.ValuesAreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenExceptionOfSameTypeAndDifferentMessageWhenValuesAreEquivalentCalledThenShouldReturnFalse()
+        {
+            var source = new ArgumentException(nameof(ArgumentException));
+            var target = new ArgumentException(nameof(ArgumentNullException));
+            Assert.False(eq.ValuesAreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenExceptionOfSameTypeAndMessageWhenValuesAreEquivalentCalledThenShouldReturnTrue()
+        {
+            var source = new ArgumentException(nameof(ArgumentException));
+            var target = new ArgumentException(nameof(ArgumentException));
+            Assert.True(eq.ValuesAreEquivalent(source, target));
+        }
+
+        public static IEnumerable<object[]> SpecialTypesMatrix()
+        {
+            var anonymousType = new { Foo = 1 }.GetType();
+
+            yield return new object[]
+            {
+                anonymousType, typeof(object), false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousType, true
+            };
+
+            yield return new object[]
+            {
+                anonymousType, typeof(IDictionary), true
+            };
+
+            yield return new object[]
+            {
+                anonymousType, typeof(IDictionary<string, object>), true
+            };
+
+            yield return new object[]
+            {
+                anonymousType, typeof(Dictionary<int, Type>), true
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(SpecialTypesMatrix))]
+        public void GivenTwoTypesWhenTypesAreEquivalentThenShouldReturnResult(
+            Type source,
+            Type target,
+            bool areEquivalent)
+        {
+            Assert.Equal(areEquivalent, eq.TypesAreEquivalent(source, target));
+        }
+
+        [Fact]
+        public void GivenEnumerableQueryWhenTargetIsNotEnumerableQueryThenValuesAreEquivalentShouldBeFalse()
+        {
+            var enumerableQuery = new EnumerableQuery<string>(Expression.Constant("this"));
+            var notEnumerableQuery = new List<int>();
+            Assert.False(eq.ValuesAreEquivalent(enumerableQuery, notEnumerableQuery));
+        }
+
+        [Fact]
+        public void GivenEnumerableQueryWhenOfSameTypeThenAreEquivalentShouldBeTrue()
+        {
+            var enumerableQuery = new EnumerableQuery<string>(Expression.Constant("this"));
+            var enumerableQuerySame = new EnumerableQuery<string>(Expression.Constant("that"));
+            Assert.True(eq.AreEquivalent(
+                Expression.Constant(enumerableQuery),
+                Expression.Constant(enumerableQuerySame)));
+        }
+
+        [Fact]
+        public void GivenEnumreableQueryWhenOfDifferentTypeThenAreEquivalentShouldBeFalse()
+        {
+            var enumerableQuery = new EnumerableQuery<string>(Expression.Constant("this"));
+            var enumerableQueryDifferent = new EnumerableQuery<int>(Expression.Constant(5));
+            Assert.False(eq.AreEquivalent(
+                Expression.Constant(enumerableQuery),
+                Expression.Constant(enumerableQueryDifferent)));
+        }
+
+        public static IEnumerable<object[]> GetAnonymousTypesMatrix()
+        {
+            var anonymousType = new { Foo = 1, Bar = "hello" };
+            var otherType = new { Foo = 1, Bar = "hello" };
+            var differentType = new { Foo = 1, Bar = "goodbye" };
+            Dictionary<string, object> anonymousDictionary = new Dictionary<string, object>
+            {
+                { nameof(anonymousType.Foo), anonymousType.Foo },
+                { nameof(anonymousType.Bar), anonymousType.Bar }
+            };
+            IDictionary anonymousNonGenericDictionary = anonymousDictionary;
+            ExpandoObject anonymousExpando = new ExpandoObject();
+            ((IDictionary<string, object>)anonymousExpando).Add(
+                nameof(anonymousType.Foo), anonymousType.Foo);
+            ((IDictionary<string, object>)anonymousExpando).Add(
+                nameof(anonymousType.Bar), anonymousType.Bar);
+
+            yield return new object[]
+            {
+                anonymousType, anonymousType, true
+            };
+
+            yield return new object[]
+            {
+                anonymousType, otherType, true
+            };
+
+            yield return new object[]
+            {
+                anonymousType, differentType, false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousDictionary, true
+            };
+
+            yield return new object[]
+            {
+                differentType, anonymousDictionary, false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousNonGenericDictionary, true
+            };
+
+            yield return new object[]
+            {
+                differentType, anonymousNonGenericDictionary, false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousExpando, true
+            };
+
+            yield return new object[]
+            {
+                differentType, anonymousExpando, false
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetAnonymousTypesMatrix))]
+        public void GivenAnonymousTypeWhenComparedToDictionaryThenValuesAreEquivalentShouldReturnResult(
+            object source, object target, bool areEquivalent)
+        {
+            Assert.Equal(areEquivalent, eq.ValuesAreEquivalent(source, target));
         }
     }
 }

@@ -52,13 +52,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <returns>The <see cref="SerializableType"/>.</returns>
         protected SerializableType SerializeTypeOf(object target) =>
             ReflectionHelper.Instance.SerializeType(target.GetType());
-
-        /// <summary>
-        /// Gets the full, unique type name for hashing.
-        /// </summary>
-        /// <param name="type">The <see cref="SerializableType"/> to parse.</param>
-        /// <returns>The full type name.</returns>
-        protected string GetFullTypeName(SerializableType type) =>
-            ReflectionHelper.Instance.GetFullTypeName(type);
     }
 }

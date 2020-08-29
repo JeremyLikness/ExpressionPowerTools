@@ -43,7 +43,8 @@ namespace ExpressionPowerTools.Core.Comparisons
                     return source.ToString() == target.ToString();
                 }
 
-                return typeof(IDictionary).IsAssignableFrom(target);
+                return typeof(IDictionary).IsAssignableFrom(target) ||
+                    typeof(IDictionary<string, object>).IsAssignableFrom(target);
             }
 
             return source == target;
@@ -119,8 +120,6 @@ namespace ExpressionPowerTools.Core.Comparisons
             object source,
             object target)
         {
-            const string AnonymousType = nameof(AnonymousType);
-
             if (source == null)
             {
                 return target == null;
@@ -149,11 +148,23 @@ namespace ExpressionPowerTools.Core.Comparisons
             {
                 var src = type.GetProperties().Select(p => new { p.Name, Value = p.GetValue(source) })
                     .ToDictionary(p => p.Name, p => p.Value);
-                var tgt = target is IDictionary targetDictionary ?
-                    targetDictionary :
-                    target.GetType().GetProperties().Select(p => new { p.Name, Value = p.GetValue(target) })
-                    .ToDictionary(p => p.Name, p => p.Value);
-                return DictionariesAreEquivalent(src, tgt);
+                if (target is IDictionary tgt)
+                {
+                    return DictionariesAreEquivalent(src, tgt);
+                }
+
+                if (target is IDictionary<string, object> tgtExpando)
+                {
+                    return DictionariesAreEquivalent(
+                        src,
+                        tgtExpando.ToDictionary(t => t.Key, t => t.Value));
+                }
+
+                return DictionariesAreEquivalent(
+                    src,
+                    target.GetType().GetProperties().Select(
+                        p => new { p.Name, Value = p.GetValue(target) })
+                    .ToDictionary(p => p.Name, p => p.Value));
             }
 
             if (source is IDictionary dictionary)

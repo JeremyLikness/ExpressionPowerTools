@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Cryptography;
 using ExpressionPowerTools.Serialization.Serializers;
 using Xunit;
 
@@ -83,6 +84,54 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = target.SerializeType(type);
             var computedTypeName = target.GetFullTypeName(serialized);
             Assert.Equal(typeName, computedTypeName);
+        }
+
+        [Fact]
+        public void GivenTypeParamWhenGetFullTypeNameCalledThenShouldGenerateUniqueName()
+        {
+            var type = new SerializableType { TypeParamName = "T" };
+            Assert.Equal("<T>", target.GetFullTypeName(type));
+        }
+
+        [Fact]
+        public void GivenTypeNameWithoutTicksWhenGetFullTypeNameCalledThenShouldGenerateNameWithTicks()
+        {
+            var type = new SerializableType { TypeName = "IGeneric" };
+            type.GenericTypeArguments = new[]
+            {
+                new SerializableType { TypeParamName = "T1" },
+                new SerializableType { TypeParamName = "T2" }
+            };
+            Assert.Contains("`2", target.GetFullTypeName(type));
+        }
+
+        [Fact]
+        public void GivenMemberNotInCacheWhenGetMemberFromCacheCalledThenShouldReturnNull()
+        {
+            var method = new Method { Name = "Not Going to Work" };
+            Assert.Null(target.GetMemberFromCache<MethodInfo, Method>(method));
+        }
+
+        class SafeMutateThrows : ReflectionHelper
+        {
+            public void MakeItThrow() =>
+                SafeMutate(() => true, () => throw new InvalidCastException());
+
+            public bool ProofItUnlocked()
+            {
+                bool ran = false;
+                SafeMutate(() => true, () => ran = true);
+                return ran;
+            }
+        }
+
+        [Fact]
+        public void GivenSafeMutateWhenThrowsThenShouldUnlockAndThrow()
+        {
+            var target = new SafeMutateThrows();
+            Assert.Throws<InvalidCastException>(
+                () => target.MakeItThrow());
+            Assert.True(target.ProofItUnlocked());
         }
 
         public static IEnumerable<object[]> GetMethodInfos()

@@ -48,5 +48,15 @@ namespace ExpressionPowerTools.Serialization.Tests
             var hashSet = new HashSet<string>(list);
             Assert.Equal(list.Count, hashSet.Count);
         }
+
+        [Fact]
+        public void GivenMethodInfoWhenMethodCreatedThenShouldCacheKey()
+        {
+            var methodInfo = GetType().GetMethods().First();
+            var method = new Method(methodInfo);
+            Assert.Equal(method.GetKey(), method.CalculateKey());
+            method.Name = nameof(methodInfo);
+            Assert.NotEqual(method.GetKey(), method.CalculateKey());
+        }
     }
 }

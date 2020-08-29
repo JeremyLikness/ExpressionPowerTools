@@ -975,6 +975,13 @@
             <param name="member">The key for the item.</param>
             <returns>The cached item.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.SafeMutate(System.Func{System.Boolean},System.Action)">
+            <summary>
+            Safely mutate the dictionary.
+            </summary>
+            <param name="test">Test that must pass.</param>
+            <param name="action">The action to take.</param>
+        </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.AddMethodToCache(ExpressionPowerTools.Serialization.Serializers.Method,System.String)">
             <summary>
             Finds the method to match and adds it to the cache.
@@ -982,13 +989,6 @@
             <param name="method">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Method"/> template to use.</param>
             <param name="key">The unique key for the method.</param>
             <returns>The <see cref="T:System.Reflection.MethodInfo"/>.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.SafeMutate(System.Func{System.Boolean},System.Action)">
-            <summary>
-            Safely mutate the dictionary.
-            </summary>
-            <param name="test">Test that must pass.</param>
-            <param name="action">The action to take.</param>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression">
             <summary>
@@ -1026,13 +1026,6 @@
             </summary>
             <param name="target">The target to inspect the type of.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableType"/>.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.SerializableExpression.GetFullTypeName(ExpressionPowerTools.Serialization.Serializers.SerializableType)">
-            <summary>
-            Gets the full, unique type name for hashing.
-            </summary>
-            <param name="type">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableType"/> to parse.</param>
-            <returns>The full type name.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.SerializableType">
             <summary>

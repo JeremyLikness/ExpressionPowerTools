@@ -82,12 +82,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return dynamicValue;
             }
 
-            dynamicValue = new Dictionary<string, object>();
+            var anon = (IDictionary<string, object>)new ExpandoObject();
             for (var idx = 0; idx < PropertyNames.Length; idx++)
             {
-                dynamicValue.Add(PropertyNames[idx], PropertyValues[idx].AnonVal);
+                anon.Add(PropertyNames[idx], PropertyValues[idx].AnonVal);
             }
 
+            dynamicValue = anon;
             return dynamicValue;
         }
     }

@@ -236,6 +236,35 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
+        /// Safely mutate the dictionary.
+        /// </summary>
+        /// <param name="test">Test that must pass.</param>
+        /// <param name="action">The action to take.</param>
+        protected void SafeMutate(Func<bool> test, Action action)
+        {
+            if (test())
+            {
+                Monitor.Enter(lockObj);
+
+                try
+                {
+                    if (test())
+                    {
+                        action();
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    Monitor.Exit(lockObj);
+                }
+            }
+        }
+
+        /// <summary>
         /// Finds the method to match and adds it to the cache.
         /// </summary>
         /// <param name="method">The <see cref="Method"/> template to use.</param>
@@ -244,6 +273,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         private MethodInfo AddMethodToCache(Method method, string key)
         {
             var type = DeserializeType(method.DeclaringType);
+
+            if (type == null)
+            {
+                return null;
+            }
+
             var staticFlag = method.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
             var methods = type.GetMethods(
                 BindingFlags.Public | staticFlag);
@@ -285,35 +320,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 () => !memberCache.ContainsKey(key),
                 () => memberCache.Add(key, methodInfo));
             return methodInfo;
-        }
-
-        /// <summary>
-        /// Safely mutate the dictionary.
-        /// </summary>
-        /// <param name="test">Test that must pass.</param>
-        /// <param name="action">The action to take.</param>
-        private void SafeMutate(Func<bool> test, Action action)
-        {
-            if (test())
-            {
-                Monitor.Enter(lockObj);
-
-                try
-                {
-                    if (test())
-                    {
-                        action();
-                    }
-                }
-                catch
-                {
-                    throw;
-                }
-                finally
-                {
-                    Monitor.Exit(lockObj);
-                }
-            }
         }
     }
 }

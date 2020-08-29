@@ -92,6 +92,37 @@ namespace ExpressionPowerTools.Serialization.Tests
         }
 
         [Fact]
+        public void GivenEnumerableQueryWhenQueryRootIsConstantExpressionThenShouldBeSet()
+        {
+            EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[0]));
+            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
+            var root = Expression.Constant(2);
+            var deserialized = serializer.Deserialize(serialized, root, null);
+            Assert.Same(deserialized, root);
+        }
+
+        [Fact]
+        public void GivenEnumerableQueryWhenQueryRootIsNonConstantExpressionThenShouldBeSet()
+        {
+            EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[] { 1, 2 }));
+            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
+            Expression<Func<int[]>> one = () => new[] { 1 };
+            var root = Expression.Invoke(one, one.Parameters);
+            var deserialized = serializer.Deserialize(serialized, root, null);
+            Assert.IsAssignableFrom<InvocationExpression>(deserialized.Value);
+            Assert.Same(deserialized.Value, root);
+        }
+
+        [Fact]
+        public void GivenEnumerableQueryWhenQueryRootIsNullThenShouldReturnNullConstant()
+        {
+            EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[2]));
+            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
+            var deserialized = serializer.Deserialize(serialized, null, null);
+            Assert.Null(deserialized.Value);
+        }
+
+        [Fact]
         public void GivenOptionIgnoreNullValuesWhenConstantExpressionSerializedThenShouldDeserialize()
         {
             var options = new JsonSerializerOptions
