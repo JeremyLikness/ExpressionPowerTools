@@ -29,29 +29,28 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserialize a serializable class to an actionable <see cref="Expression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public override ParameterExpression Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             var type = json.GetProperty(nameof(Parameter.ParameterType)).GetDeserializedType();
             var name = json.GetNullableProperty(nameof(Parameter.Name)).GetString();
-            return string.IsNullOrWhiteSpace(name) ? Expression.Parameter(type) :
+            var parameter = string.IsNullOrWhiteSpace(name) ? Expression.Parameter(type) :
                 Expression.Parameter(type, name);
+            return state.GetOrCacheParameter(parameter);
         }
 
         /// <summary>
         /// Serializes the expression.
         /// </summary>
         /// <param name="expression">The <see cref="ConstantExpression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The serializable <see cref="Constant"/>.</returns>
         public override Parameter Serialize(
             ParameterExpression expression,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             if (expression == null)
             {
@@ -66,23 +65,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="Expression"/>.</returns>
         Expression IBaseSerializer.Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
+            SerializationState state) => Deserialize(json, state);
 
         /// <summary>
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         SerializableExpression IBaseSerializer.Serialize(
             Expression expression,
-            JsonSerializerOptions options) =>
-            Serialize(expression as ParameterExpression, options);
+            SerializationState state) =>
+            Serialize(expression as ParameterExpression, state);
     }
 }

@@ -41,21 +41,19 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserialize a <see cref="JsonElement"/> to an <see cref="Expression"/>.
         /// </summary>
         /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public abstract TExpression Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options);
+            SerializationState state);
 
         /// <summary>
         /// Serialize an <see cref="Expression"/> to a <see cref="SerializableExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        public abstract TSerializable Serialize(TExpression expression, JsonSerializerOptions options);
+        public abstract TSerializable Serialize(TExpression expression, SerializationState state);
 
         /// <summary>
         /// Gets the <see cref="ExpressionType"/> from the string representation.

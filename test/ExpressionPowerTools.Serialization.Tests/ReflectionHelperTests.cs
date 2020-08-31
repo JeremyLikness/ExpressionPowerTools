@@ -168,6 +168,47 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             var methodInfo = target.GetMemberFromCache<MethodInfo, Method>(method);
             Assert.Null(methodInfo);
-        }        
+        }
+
+        public static IEnumerable<object[]> GetTypeNameMatrix()
+        {
+            yield return new object[]
+            {
+                new SerializableType
+                {
+                    FullTypeName = nameof(SerializableType.FullTypeName),
+                    TypeName = nameof(SerializableType.TypeName),
+                    TypeParamName = nameof(SerializableType.TypeParamName)
+                },
+                nameof(SerializableType.FullTypeName)
+            };
+
+            yield return new object[]
+            {
+                new SerializableType
+                {
+                    TypeName = nameof(SerializableType.TypeName),
+                    TypeParamName = nameof(SerializableType.TypeParamName)
+                },
+                nameof(SerializableType.TypeName)
+            };
+
+            yield return new object[]
+            {
+                new SerializableType
+                {
+                    TypeParamName = nameof(SerializableType.TypeParamName)
+                },
+                nameof(SerializableType.TypeParamName)
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetTypeNameMatrix))]
+        public void GivenSerializableTypeWhenToStringCalledThenShouldPickFullTypeNameThenTypeNameThenTypeParamName(
+            SerializableType type, string name)
+        {
+            Assert.Equal(type.ToString(), name);
+        }
     }
 }

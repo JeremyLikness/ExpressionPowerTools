@@ -57,13 +57,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserialize an <see cref="Expression"/>.
         /// </summary>
         /// <param name="json">The fragment to deserialize.</param>
-        /// <param name="queryRoot">The root query to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public Expression Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             if (json.ValueKind == JsonValueKind.Null)
             {
@@ -83,7 +81,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var type = typeElem.GetString();
             if (serializers.ContainsKey(type))
             {
-                return serializers[type].Deserialize(json, queryRoot, options);
+                return serializers[type].Deserialize(json, state);
             }
 
             return null;
@@ -93,11 +91,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize an <see cref="Expression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The serialized <see cref="SerializableExpression"/>.</returns>
         public SerializableExpression Serialize(
             Expression expression,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             if (expression == null)
             {
@@ -107,7 +105,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var type = expression.NodeType.ToString();
             if (serializers.ContainsKey(type))
             {
-                return serializers[type].Serialize(expression, options);
+                return serializers[type].Serialize(expression, state);
             }
 
             return new SerializableExpression(expression);

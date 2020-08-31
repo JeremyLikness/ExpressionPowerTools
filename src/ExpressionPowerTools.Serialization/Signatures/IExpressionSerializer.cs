@@ -20,17 +20,16 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// Deserialize an <see cref="Expression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The root of the query to recreate.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        T Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options);
+        T Deserialize(JsonElement json, SerializationState state);
 
         /// <summary>
         /// Serializes an <see cref="Expression"/> to a serializable class.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The serializeable class.</returns>
-        TSerializable Serialize(T expression, JsonSerializerOptions options);
+        TSerializable Serialize(T expression, SerializationState state);
     }
 }

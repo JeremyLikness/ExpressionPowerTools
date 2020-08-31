@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -98,7 +99,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
-            var deserialized = methodSerializer.Deserialize(serialized, null, null);
+            var deserialized = methodSerializer.Deserialize(serialized, new SerializationState());
             Assert.Equal(method.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
         }
@@ -118,7 +119,7 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method, options);
-            var deserialized = methodSerializer.Deserialize(serialized, null, options);
+            var deserialized = methodSerializer.Deserialize(serialized, options.ToSerializationState());
             Assert.NotNull(deserialized);
         }
 

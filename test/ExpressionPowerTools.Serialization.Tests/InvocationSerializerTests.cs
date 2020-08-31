@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -57,7 +58,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer.GetSerializedFragment<Invocation,
                 InvocationExpression>(invocation);
-            var deserialized = invocationSerializer.Deserialize(serialized, null, null);
+            var deserialized = invocationSerializer.Deserialize(serialized, new SerializationState());
             Assert.Equal(invocation.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -72,7 +73,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
             var serialized = TestSerializer.GetSerializedFragment<Invocation,
                 InvocationExpression>(expr, options);
-            var deserialized = invocationSerializer.Deserialize(serialized, null, options);
+            var deserialized = invocationSerializer.Deserialize(serialized, options.ToSerializationState());
             Assert.NotNull(deserialized);
         }
     }

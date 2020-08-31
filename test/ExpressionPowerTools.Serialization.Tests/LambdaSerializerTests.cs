@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -43,7 +45,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void LambdaExpressionShouldDeserialize(LambdaExpression lambda)
         {
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda);
-            var deserialized = lambdaSerializer.Deserialize(serialized, null, null);
+            var deserialized = lambdaSerializer.Deserialize(serialized, new SerializationState());
             Assert.Equal(lambda.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -66,8 +68,21 @@ namespace ExpressionPowerTools.Serialization.Tests
                 IgnoreReadOnlyProperties = true
             };
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda, options);
-            var deserialized = lambdaSerializer.Deserialize(serialized, null, options);
+            var deserialized = lambdaSerializer.Deserialize(serialized, options.ToSerializationState());
             Assert.NotNull(deserialized);
+        }
+
+        [Fact]
+        public void GivenObjectWhenLambdaExpressionThatReferencesPropertyIsDeserializedThenShouldResolveProperty()
+        {
+            var things = TestableThing.MakeQuery(2).ToList();
+            Expression<Func<List<TestableThing>, string>> firstId =
+                list => list.First().Id;
+            var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(firstId);
+            var deserialized = lambdaSerializer.Deserialize(serialized, new SerializationState());
+            var expected = firstId.Compile()(things);
+            var actual = deserialized.Compile().DynamicInvoke(things);
+            Assert.Equal(expected, actual);
         }
     }
 }

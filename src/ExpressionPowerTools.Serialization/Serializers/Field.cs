@@ -12,27 +12,26 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// <summary>
     /// A serializable property.
     /// </summary>
-    public class Property : MemberBase
+    public class Field : MemberBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Property"/> class.
+        /// Initializes a new instance of the <see cref="Field"/> class.
         /// </summary>
-        public Property()
+        public Field()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Property"/> class and
-        /// populates values based on the <see cref="PropertyInfo"/> passed in.
+        /// Initializes a new instance of the <see cref="Field"/> class and
+        /// populates values based on the <see cref="FieldInfo"/> passed in.
         /// </summary>
-        /// <param name="info">The <see cref="PropertyInfo"/> to parse.</param>
-        public Property(PropertyInfo info)
+        /// <param name="info">The <see cref="FieldInfo"/> to parse.</param>
+        public Field(FieldInfo info)
         {
             DeclaringType = SerializeType(info.DeclaringType);
-            MemberValueType = SerializeType(info.PropertyType);
+            MemberValueType = SerializeType(info.FieldType);
             ReflectedType = SerializeType(info.ReflectedType);
-            IsStatic = info.CanRead ? info.GetMethod.IsStatic :
-                info.SetMethod.IsStatic;
+            IsStatic = info.IsStatic;
             Name = info.Name;
         }
 
@@ -54,7 +53,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </remarks>
         public override string MemberType
         {
-            get => MemberTypes.Property.ToString();
+            get => MemberTypes.Field.ToString();
             set
             {
             }
@@ -67,7 +66,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public override string CalculateKey() =>
             string.Join(
                 ",",
-                new[] { "P:" }
+                new[] { "F:" }
                 .Union(new[]
                 {
                     IsStatic.ToString(),

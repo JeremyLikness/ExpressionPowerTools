@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 using ExpressionPowerTools.Core.Extensions;
@@ -232,6 +233,16 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return AddMethodToCache(method, key) as TMemberInfo;
             }
 
+            if (member is Property property)
+            {
+                return AddPropertyToCache(property, key) as TMemberInfo;
+            }
+
+            if (member is Field field)
+            {
+                return AddFieldToCache(field, key) as TMemberInfo;
+            }
+
             return null;
         }
 
@@ -264,12 +275,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
         }
 
-        /// <summary>
-        /// Finds the method to match and adds it to the cache.
-        /// </summary>
-        /// <param name="method">The <see cref="Method"/> template to use.</param>
-        /// <param name="key">The unique key for the method.</param>
-        /// <returns>The <see cref="MethodInfo"/>.</returns>
         private MethodInfo AddMethodToCache(Method method, string key)
         {
             var type = DeserializeType(method.DeclaringType);
@@ -287,13 +292,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
             foreach (var candidate in methods.Where(m => m.Name == method.Name))
             {
                 var candidateType = candidate;
-                if (candidate.IsGenericMethodDefinition)
+                if (method.GenericMethodDefinition != null && candidate.IsGenericMethodDefinition)
                 {
                     var typeArgs = candidate.GetGenericArguments().Length;
-                    if (method.MemberValueType.GenericTypeArguments?.Length ==
-                        typeArgs)
+                    if (method.GenericArguments?.Length == typeArgs)
                     {
-                        var types = method.MemberValueType.GenericTypeArguments
+                        var types = method.GenericArguments
                             .Select(t => DeserializeType(t))
                             .Where(dt => dt != null).ToArray();
                         if (types.Length == typeArgs)
@@ -320,6 +324,80 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 () => !memberCache.ContainsKey(key),
                 () => memberCache.Add(key, methodInfo));
             return methodInfo;
+        }
+
+        /// <summary>
+        /// Finds the property to match and adds it to the cache.
+        /// </summary>
+        /// <param name="property">The <see cref="Property"/> template to use.</param>
+        /// <param name="key">The unique key for the property.</param>
+        /// <returns>The <see cref="PropertyInfo"/>.</returns>
+        private PropertyInfo AddPropertyToCache(Property property, string key)
+        {
+            var type = DeserializeType(property.DeclaringType);
+
+            var staticFlag = property.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
+            var properties = type.GetProperties(
+                BindingFlags.Public | staticFlag);
+
+            PropertyInfo propertyInfo = null;
+            foreach (var candidate in properties.Where(p => p.Name == property.Name))
+            {
+                var check = new Property(candidate);
+                if (check.GetKey() == key)
+                {
+                    propertyInfo = candidate;
+                    break;
+                }
+            }
+
+            if (propertyInfo == null)
+            {
+                return null;
+            }
+
+            SafeMutate(
+                () => !memberCache.ContainsKey(key),
+                () => memberCache.Add(key, propertyInfo));
+
+            return propertyInfo;
+        }
+
+        /// <summary>
+        /// Finds the field to match and adds it to the cache.
+        /// </summary>
+        /// <param name="field">The <see cref="Field"/> template to use.</param>
+        /// <param name="key">The unique key for the field.</param>
+        /// <returns>The <see cref="FieldInfo"/>.</returns>
+        private FieldInfo AddFieldToCache(Field field, string key)
+        {
+            var type = DeserializeType(field.DeclaringType);
+
+            var staticFlag = field.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
+            var fields = type.GetFields(
+                BindingFlags.Public | staticFlag);
+
+            FieldInfo fieldInfo = null;
+            foreach (var candidate in fields.Where(f => f.Name == field.Name))
+            {
+                var check = new Field(candidate);
+                if (check.GetKey() == key)
+                {
+                    fieldInfo = candidate;
+                    break;
+                }
+            }
+
+            if (fieldInfo == null)
+            {
+                return null;
+            }
+
+            SafeMutate(
+                () => !memberCache.ContainsKey(key),
+                () => memberCache.Add(key, fieldInfo));
+
+            return fieldInfo;
         }
     }
 }

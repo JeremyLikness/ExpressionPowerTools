@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -43,7 +44,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ParameterExpressionShouldDeserialize(ParameterExpression parameter)
         {
             var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter);
-            var deserialized = serializer.Deserialize(serialized, null, null);
+            var deserialized = serializer.Deserialize(serialized, new SerializationState());
             Assert.Equal(parameter.Type, deserialized.Type);
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {
@@ -62,7 +63,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
 
             var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter, options);
-            var deserialized = serializer.Deserialize(serialized, null, options);
+            var deserialized = serializer.Deserialize(serialized, options.ToSerializationState());
             Assert.Equal(parameter.Type, deserialized.Type);
         }
     }

@@ -7,6 +7,11 @@ using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
 {
+    public class TestHost<T>
+    {
+        public T GenericProperty { get; set; }
+    }
+
     public class MemberBaseTests
     {
         public T First<T, TList>(TList list)
@@ -15,6 +20,18 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             return list.FirstOrDefault();
         }
+
+        public int Integer { get; set; }
+
+        public static long Long { get; set; }
+
+        public int SetOnly { set { } }
+
+        public static int StaticSetOnly { set { } }
+
+        public string stringField;
+
+        public static int staticIntField;
 
         [Fact]
         public void GivenMethodInfoWhenMethodCreatedThenShouldSetProperties()
@@ -57,6 +74,126 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(method.GetKey(), method.CalculateKey());
             method.Name = nameof(methodInfo);
             Assert.NotEqual(method.GetKey(), method.CalculateKey());
+        }
+
+        public static IEnumerable<object[]> GetPropertyMatrix()
+        {
+            yield return new object[]
+            {
+                typeof(MemberBaseTests).GetProperty(nameof(Integer))
+            };
+
+            yield return new object[]
+            {
+                typeof(MemberBaseTests).GetProperty(nameof(SetOnly))
+            };
+
+            yield return new object[]
+            {
+                typeof(MemberBaseTests).GetProperty(nameof(Long),
+                BindingFlags.Public | BindingFlags.Static)
+            };
+
+            yield return new object[]
+            {
+                typeof(MemberBaseTests).GetProperty(nameof(StaticSetOnly),
+                BindingFlags.Public | BindingFlags.Static)
+            };
+
+            yield return new object[]
+            {
+                typeof(TestHost<int>).GetProperty(nameof(TestHost<int>.GenericProperty))
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetPropertyMatrix))]
+        public void GivenPropertyInfoWhenPropertyCreatedThenShouldSetProperties(PropertyInfo property)
+        {
+            var target = new Property(property);
+            Assert.Equal(property.CanRead ?
+                property.GetMethod.IsStatic :
+                property.SetMethod.IsStatic, target.IsStatic);
+            Assert.Equal(property.Name, target.Name);
+            Assert.Equal(property.DeclaringType,
+                ReflectionHelper.Instance.DeserializeType(target.DeclaringType));
+            Assert.Equal(property.PropertyType,
+                ReflectionHelper.Instance.DeserializeType(target.MemberValueType));
+            Assert.Equal(MemberTypes.Property.ToString(), target.MemberType);
+        }
+
+        [Fact]
+        public void GivenPropertyInfoWhenPropertyCreatedThenShouldCreateUniqueKey()
+        {
+            var list = new List<string>();
+            foreach(object[] prop in GetPropertyMatrix())
+            {
+                list.Add(new Property(prop[0] as PropertyInfo).GetKey());
+            }
+
+            var hashSet = new HashSet<string>(list);
+            Assert.Equal(list.Count, hashSet.Count);
+        }
+
+        [Fact]
+        public void GivenPropertyInfoWhenPropertyCreatedThenShouldCacheKey()
+        {
+            var propertyInfo = (GetPropertyMatrix().First())[0] as PropertyInfo;
+            var property = new Property(propertyInfo);
+            Assert.Equal(property.GetKey(), property.CalculateKey());
+            property.Name = nameof(propertyInfo);
+            Assert.NotEqual(property.GetKey(), property.CalculateKey());
+        }
+
+        public static IEnumerable<object[]> GetFieldMatrix()
+        {
+            yield return new object[]
+            {
+                typeof(MemberBaseTests).GetField(nameof(stringField))
+            };
+
+            yield return new object[]
+            {
+                typeof(MemberBaseTests).GetField(nameof(staticIntField),
+                BindingFlags.Public | BindingFlags.Static)
+            };         
+        }
+
+        [Theory]
+        [MemberData(nameof(GetFieldMatrix))]
+        public void GivenFieldInfoWhenFieldCreatedThenShouldSetProperties(FieldInfo field)
+        {
+            var target = new Field(field);
+            Assert.Equal(field.IsStatic, target.IsStatic);
+            Assert.Equal(field.Name, target.Name);
+            Assert.Equal(field.DeclaringType,
+                ReflectionHelper.Instance.DeserializeType(target.DeclaringType));
+            Assert.Equal(field.FieldType,
+                ReflectionHelper.Instance.DeserializeType(target.MemberValueType));
+            Assert.Equal(MemberTypes.Field.ToString(), target.MemberType);
+        }
+
+        [Fact]
+        public void GivenFieldInfoWhenFieldCreatedThenShouldCreateUniqueKey()
+        {
+            var list = new List<string>();
+            foreach (object[] field in GetFieldMatrix())
+            {
+                list.Add(new Field(field[0] as FieldInfo).GetKey());
+            }
+
+            var hashSet = new HashSet<string>(list);
+            Assert.Equal(list.Count, hashSet.Count);
+        }
+
+        [Fact]
+        public void GivenFieldInfoWhenPropertyCreatedThenShouldCacheKey()
+        {
+            var fieldInfo = (GetFieldMatrix().First())[0] as FieldInfo;
+            var field = new Field(fieldInfo);
+            Assert.Equal(field.GetKey(), field.CalculateKey());
+            field.Name = nameof(fieldInfo);
+            Assert.NotEqual(field.GetKey(), field.CalculateKey());
         }
     }
 }

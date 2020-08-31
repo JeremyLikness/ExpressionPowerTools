@@ -39,7 +39,8 @@ namespace ExpressionPowerTools.Serialization
                 IgnoreNullValues = true,
                 IgnoreReadOnlyProperties = true,
             };
-            var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, options));
+            var state = new SerializationState { Options = options };
+            var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, state));
             return JsonSerializer.Serialize(serializeRoot, options);
         }
 
@@ -70,10 +71,16 @@ namespace ExpressionPowerTools.Serialization
             JsonSerializerOptions options = null)
         {
             Ensure.NotNullOrWhitespace(() => json);
+            var state = new SerializationState
+            {
+                QueryRoot = queryRoot,
+                Options = options,
+            };
+
             var root = JsonSerializer.Deserialize<SerializationRoot>(json, options);
             if (root.Expression is JsonElement jsonChild)
             {
-                return SerializerValue.Deserialize(jsonChild, queryRoot, options);
+                return SerializerValue.Deserialize(jsonChild, state);
             }
 
             return null;

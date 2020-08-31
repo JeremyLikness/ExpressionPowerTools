@@ -133,7 +133,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Assert.Equal(unary.Method.Name, target.UnaryMethod.Name);
             }
-            Assert.Equal(unary.Type.FullName, target.UnaryType);
+            Assert.Equal(unary.Type, ReflectionHelper.Instance.DeserializeType(target.UnaryType));
         }
 
         [Fact]

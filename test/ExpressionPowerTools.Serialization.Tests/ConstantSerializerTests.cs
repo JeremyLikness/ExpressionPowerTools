@@ -6,7 +6,7 @@ using System.Text.Json;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
-using NuGet.Frameworks;
+using ExpressionPowerTools.Serialization.Extensions;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -87,7 +87,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ConstantExpressionShouldDeserialize(ConstantExpression constant)
         {
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(constant);
-            var deserialized = serializer.Deserialize(serialized, null, null);
+            var deserialized = serializer.Deserialize(serialized, new SerializationState());
             Assert.True(ExpressionEquivalency.ValuesAreEquivalent(constant.Value, deserialized.Value));
         }
 
@@ -97,7 +97,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[0]));
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
             var root = Expression.Constant(2);
-            var deserialized = serializer.Deserialize(serialized, root, null);
+            var deserialized = serializer.Deserialize(serialized, root.ToSerializationState());
             Assert.Same(deserialized, root);
         }
 
@@ -108,7 +108,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
             Expression<Func<int[]>> one = () => new[] { 1 };
             var root = Expression.Invoke(one, one.Parameters);
-            var deserialized = serializer.Deserialize(serialized, root, null);
+            var deserialized = serializer.Deserialize(serialized, root.ToSerializationState());
             Assert.IsAssignableFrom<InvocationExpression>(deserialized.Value);
             Assert.Same(deserialized.Value, root);
         }
@@ -118,7 +118,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[2]));
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
-            var deserialized = serializer.Deserialize(serialized, null, null);
+            var deserialized = serializer.Deserialize(serialized, new SerializationState());
             Assert.Null(deserialized.Value);
         }
 
@@ -132,8 +132,25 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(
                 Expression.Constant(null), options);
-            var deserialized = serializer.Deserialize(serialized, null, null);
+            var deserialized = serializer.Deserialize(serialized, new SerializationState());
             Assert.NotNull(deserialized);
+        }
+
+        [Fact]
+        public void GivenNoParameterValuesWhenGetValueCalledThenShouldReturnNull()
+        {
+            var target = new AnonType
+            {
+                AnonymousTypeName = "test"
+            };
+            Assert.Null(target.GetValue());
+        }
+
+        [Fact]
+        public void GivenAnonTypeWhenGetValueCalledMultipleTimesThenShouldReturnSameInstance()
+        {
+            var target = new AnonType(new { Foo = 1, Bar = "two" });
+            Assert.Same(target.GetValue(), target.GetValue());
         }
     }
 }

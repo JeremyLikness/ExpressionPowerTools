@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using ExpressionPowerTools.Core.Comparisons;
-using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Core.Signatures;
+using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -100,7 +98,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Skip1Take1,
             OrderByCreatedThenByDescendingId,
             WhereIdContainsAA,
-
+            IdProjection,
         }
 
         public static IEnumerable<object[]> GetQueryMatrix()
@@ -111,17 +109,36 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Queries.Skip1Take1
             };
 
-            //yield return new object[]
-            //{
-            //    TestableThing.MakeQuery().OrderBy(t => t.Created).ThenByDescending(t => t.Id),
-            //    Queries.OrderByCreatedThenByDescendingId
-            //};
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().OrderBy(t => t.Created).ThenByDescending(t => t.Id),
+                Queries.OrderByCreatedThenByDescendingId
+            };
 
-            //yield return new object[]
-            //{
-            //    TestableThing.MakeQuery().Where(t => t.Id.Contains("aa")),
-            //    Queries.WhereIdContainsAA
-            //};
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Where(t => t.Id.Contains("aa")),
+                Queries.WhereIdContainsAA
+            };
+
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Select(t => t.Id),
+                Queries.IdProjection
+            };
+        }
+
+        public static IEnumerable<object[]> GetTypedQueryMatrix()
+        {
+            foreach(object[] pair in GetQueryMatrix())
+            {
+                if ((Queries)pair[1] == Queries.IdProjection)
+                {
+                    continue;
+                }
+
+                yield return pair;
+            }
         }
 
         public bool ValidateQuery(IList<TestableThing> list, Queries type)
@@ -152,17 +169,20 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenQueryWhenSerializeCalledThenShouldDeserialize(
             IQueryable query,
             Queries type)
-        {
+        {            
             var json = Serializer.Serialize(query);
-            var queryHost = TestableThing.MakeQuery(100);
+            IQueryable queryHost = TestableThing.MakeQuery(100);
             var newQuery = Serializer.DeserializeQuery(queryHost, json);
             Assert.True(query.IsEquivalentTo(newQuery));
-            var list = newQuery.ToList();
-            ValidateQuery(list, type);
+            if (newQuery is IQueryable<TestableThing> thingQuery)
+            { 
+                var list = thingQuery.ToList();
+                ValidateQuery(list, type);
+            }
         }
 
         [Theory]
-        [MemberData(nameof(GetQueryMatrix))]
+        [MemberData(nameof(GetTypedQueryMatrix))]
         public void GivenQueryWhenSerializeCalledThenShouldDeserializeForType(
             IQueryable<TestableThing> query,
             Queries type)
@@ -171,8 +191,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var queryHost = TestableThing.MakeQuery(100);
             var newQuery = Serializer.DeserializeQuery(queryHost, json);
             Assert.True(query.IsEquivalentTo(newQuery));
-            var list = newQuery.ToList();
-            ValidateQuery(list, type);
+            ValidateQuery(newQuery.ToList(), type);
         }
 
         [Fact]
@@ -291,6 +310,19 @@ namespace ExpressionPowerTools.Serialization.Tests
             var json = Serializer.Serialize(method);
             var target = Serializer.Deserialize<MethodCallExpression>(json);
             Assert.True(method.IsEquivalentTo(target));
+        }
+
+        public static IEnumerable<object[]> GetMemberMatrix() =>
+            MemberSerializerTests.GetMemberMatrix();
+
+        [Theory]
+        [MemberData(nameof(GetMemberMatrix))]
+        public void GivenMemberExpressionWhenSerializedThenShouldDeserialize(
+            MemberExpression member)
+        {
+            var json = Serializer.Serialize(member);
+            var target = Serializer.Deserialize<MemberExpression>(json);
+            Assert.True(member.IsEquivalentTo(target));
         }
     }
 }

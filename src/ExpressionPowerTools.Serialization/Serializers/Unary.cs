@@ -32,7 +32,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 UnaryMethod = new Method(expression.Method);
             }
 
-            UnaryType = expression.Type.FullName;
+            UnaryType = SerializeType(expression.Type);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the full type of the <see cref="UnaryExpression"/>.
         /// </summary>
-        public string UnaryType { get; set; }
+        public SerializableType UnaryType { get; set; }
 
         /// <summary>
         /// Gets or sets the operand or main <see cref="Expression"/> for the operation.

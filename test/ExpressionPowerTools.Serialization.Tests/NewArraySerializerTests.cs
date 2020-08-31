@@ -35,7 +35,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var json = Serializer.Serialize(newArray);
             var doc = JsonDocument.Parse(json);
 
-            var deserialized = serializer.Deserialize(doc.RootElement.GetProperty(nameof(Expression)), null, null);
+            var deserialized = serializer.Deserialize(doc.RootElement.GetProperty(nameof(Expression)), new SerializationState());
 
             Assert.Equal(newArray.Type, deserialized.Type);
             Assert.Equal(

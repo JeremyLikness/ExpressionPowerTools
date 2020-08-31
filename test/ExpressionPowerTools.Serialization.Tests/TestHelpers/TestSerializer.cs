@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 
 namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
@@ -16,7 +17,7 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
             where TSerializer : SerializableExpression
         {
             var json = JsonSerializer.Serialize(
-                ExpressionSerializer.Serialize(expression, options) as TSerializer,
+                ExpressionSerializer.Serialize(expression, options.ToSerializationState()) as TSerializer,
                 options);
             return JsonDocument.Parse(json).RootElement;
         }        

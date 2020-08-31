@@ -32,20 +32,18 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserialize a <see cref="MethodExpr"/> to a <see cref="MethodCallExpression"/>.
         /// </summary>
         /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="MethodCallExpression"/>.</returns>
         public override MethodCallExpression Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             Expression obj = null;
             if (json.TryGetProperty(
                 nameof(MethodExpr.MethodObject),
                 out JsonElement jsonObj))
             {
-                obj = Serializer.Deserialize(jsonObj, queryRoot, options);
+                obj = Serializer.Deserialize(jsonObj, state);
             }
 
             var method = json.GetProperty(nameof(MethodExpr.MethodInfo)).GetMethod();
@@ -53,7 +51,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var list = json.GetProperty(nameof(MethodExpr.Arguments));
             var argumentList = list.EnumerateArray().Select(element =>
-                Serializer.Deserialize(element, queryRoot, options)).ToList();
+                Serializer.Deserialize(element, state)).ToList();
             if (obj != null)
             {
                 return Expression.Call(obj, methodInfo, argumentList);
@@ -66,11 +64,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="MethodCallExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="MethodCallExpression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The serializable <see cref="MethodExpr"/>.</returns>
         public override MethodExpr Serialize(
             MethodCallExpression expression,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             if (expression == null)
             {
@@ -79,12 +77,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var method = new MethodExpr(expression)
             {
-                MethodObject = Serializer.Serialize(expression.Object, options),
+                MethodObject = Serializer.Serialize(expression.Object, state),
             };
 
             foreach (var arg in expression.Arguments)
             {
-                method.Arguments.Add(Serializer.Serialize(arg, options));
+                method.Arguments.Add(Serializer.Serialize(arg, state));
             }
 
             return method;
@@ -94,23 +92,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="Expression"/>.</returns>
         Expression IBaseSerializer.Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
+            SerializationState state) => Deserialize(json, state);
 
         /// <summary>
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         SerializableExpression IBaseSerializer.Serialize(
             Expression expression,
-            JsonSerializerOptions options) =>
-            Serialize(expression as MethodCallExpression, options);
+            SerializationState state) =>
+            Serialize(expression as MethodCallExpression, state);
     }
 }

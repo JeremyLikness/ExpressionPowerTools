@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Serializers;
 
@@ -42,6 +43,28 @@ namespace ExpressionPowerTools.Serialization.Extensions
         }
 
         /// <summary>
+        /// Gets the property from the <see cref="JsonElement"/>.
+        /// </summary>
+        /// <param name="element">The <see cref="JsonElement"/> to parse.</param>
+        /// <returns>The deserialized <see cref="Property"/>.</returns>
+        public static Property GetSerializedProperty(this JsonElement element)
+        {
+            var json = element.GetRawText();
+            return JsonSerializer.Deserialize<Property>(json);
+        }
+
+        /// <summary>
+        /// Gets the field from the <see cref="JsonElement"/>.
+        /// </summary>
+        /// <param name="element">The <see cref="JsonElement"/> to parse.</param>
+        /// <returns>The deserialized <see cref="Field"/>.</returns>
+        public static Field GetSerializedField(this JsonElement element)
+        {
+            var json = element.GetRawText();
+            return JsonSerializer.Deserialize<Field>(json);
+        }
+
+        /// <summary>
         /// Safe way to access a property. Returns an element that evaluates to <c>null</c>
         /// when the underlying property doesn't exist.
         /// </summary>
@@ -57,5 +80,21 @@ namespace ExpressionPowerTools.Serialization.Extensions
 
             return NullDoc.Clone().GetProperty("null");
         }
+
+        /// <summary>
+        /// Cast <see cref="JsonSerializerOptions"/> into the <see cref="SerializationState"/> the APIs expect.
+        /// </summary>
+        /// <param name="options">The <see cref="JsonSerializerOptions"/>.</param>
+        /// <returns>The initialized <see cref="SerializationState"/> instance.</returns>
+        public static SerializationState ToSerializationState(this JsonSerializerOptions options) =>
+            new SerializationState { Options = options };
+
+        /// <summary>
+        /// Cast an <see cref="Expression"/> into the <see cref="SerializationState"/> the APIs expect.
+        /// </summary>
+        /// <param name="queryRoot">The <see cref="Expression"/> that is the root fo the query..</param>
+        /// <returns>The initialized <see cref="SerializationState"/> instance.</returns>
+        public static SerializationState ToSerializationState(this Expression queryRoot) =>
+            new SerializationState { QueryRoot = queryRoot };
     }
 }

@@ -40,7 +40,25 @@ namespace ExpressionPowerTools.Serialization.Serializers
                     Type = SerializeType(p.ParameterType),
                 })
                 .ToDictionary(p => p.Name, p => p.Type);
+
+            if (info.IsGenericMethod && !info.IsGenericMethodDefinition)
+            {
+                GenericArguments = info
+                    .GetGenericArguments()
+                    .Select(t => SerializeType(t)).ToArray();
+                GenericMethodDefinition = new Method(info.GetGenericMethodDefinition());
+            }
         }
+
+        /// <summary>
+        /// Gets or sets the generic method definition that the method inherits from.
+        /// </summary>
+        public Method GenericMethodDefinition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the generic arguments to the method.
+        /// </summary>
+        public SerializableType[] GenericArguments { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the method is static.

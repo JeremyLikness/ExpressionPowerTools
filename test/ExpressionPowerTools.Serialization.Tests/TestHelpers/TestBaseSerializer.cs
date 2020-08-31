@@ -12,8 +12,7 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 
         public override Expression Deserialize(
             JsonElement json,
-            Expression queryRoot = null,
-            JsonSerializerOptions options = null)
+            SerializationState state)
         {
             throw new System.NotImplementedException();
         }
@@ -23,7 +22,7 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 
         public override SerializableExpression Serialize(
             Expression expression,
-            JsonSerializerOptions options = null)
+            SerializationState state)
         {
             throw new System.NotImplementedException();
         }

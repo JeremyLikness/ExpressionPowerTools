@@ -23,7 +23,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var json = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>
                 (Expression.Constant(5));
-            var deserialized = target.Deserialize(json, null, null);
+            var deserialized = target.Deserialize(json, new SerializationState());
             Assert.IsType<ConstantExpression>(deserialized);
             Assert.Equal(5, ((ConstantExpression)deserialized).Value);
         }
@@ -40,7 +40,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenExpressionHasNoSerializerWhenDeserializeCalledThenShouldReturnNull()
         {
             var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\":\"Goto\"}");
-            var deserialized = target.Deserialize(json.RootElement, null, null);
+            var deserialized = target.Deserialize(json.RootElement, new SerializationState());
             Assert.Null(deserialized);
         }
 
@@ -48,7 +48,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenExpressionHasNoTypeWhenDeserializeCalledThenShouldReturnNull()
         {
             var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5 }");
-            var deserialized = target.Deserialize(json.RootElement, null, null);
+            var deserialized = target.Deserialize(json.RootElement, new SerializationState());
             Assert.Null(deserialized);
         }
 
@@ -56,7 +56,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenExpressionHasNullTypeWhenDeserializeCalledThenShouldReturnNull()
         {
             var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": null }");
-            var deserialized = target.Deserialize(json.RootElement, null, null);
+            var deserialized = target.Deserialize(json.RootElement, new SerializationState());
             Assert.Null(deserialized);
         }
     }

@@ -31,18 +31,16 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserializes a <see cref="NewArrayExpression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="NewArrayExpression"/>.</returns>
         public override NewArrayExpression Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             var materializedType = json.GetProperty(nameof(NewArray.ArrayType)).GetDeserializedType();
             var list = json.GetProperty(nameof(NewArray.Expressions));
             var expressionList = list.EnumerateArray().Select(element => Serializer.Deserialize(
-                element, queryRoot, options)).ToList();
+                element, state)).ToList();
             return Expression.NewArrayInit(materializedType, expressionList);
         }
 
@@ -50,11 +48,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="NewArrayExpression"/> to a <see cref="NewArray"/>.
         /// </summary>
         /// <param name="expression">The <see cref="NewArrayExpression"/>.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The <see cref="NewArray"/>.</returns>
         public override NewArray Serialize(
             NewArrayExpression expression,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             if (expression == null)
             {
@@ -64,7 +62,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var result = new NewArray(expression);
             foreach (var child in expression.Expressions)
             {
-                result.Expressions.Add(Serializer.Serialize(child, options));
+                result.Expressions.Add(Serializer.Serialize(child, state));
             }
 
             return result;
@@ -74,23 +72,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="Expression"/>.</returns>
         Expression IBaseSerializer.Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
+            SerializationState state) => Deserialize(json, state);
 
         /// <summary>
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         SerializableExpression IBaseSerializer.Serialize(
             Expression expression,
-            JsonSerializerOptions options) =>
-            Serialize(expression as NewArrayExpression, options);
+            SerializationState state) =>
+            Serialize(expression as NewArrayExpression, state);
     }
 }

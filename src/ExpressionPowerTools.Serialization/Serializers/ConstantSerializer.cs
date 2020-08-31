@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
@@ -31,18 +29,16 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Deserialize a serializable class to an actionable <see cref="Expression"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The root query to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public override ConstantExpression Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options)
+            SerializationState state)
         {
             var value = json.GetNullableProperty(nameof(Constant.Value)).GetRawText();
             var type = json.GetProperty(nameof(Constant.ConstantType)).GetDeserializedType();
             var valueTypeNode = json.GetNullableProperty(nameof(Constant.ValueType)).GetRawText();
-            var valueTypeName = JsonSerializer.Deserialize<SerializableType>(valueTypeNode, options);
+            var valueTypeName = JsonSerializer.Deserialize<SerializableType>(valueTypeNode, state.Options);
 
             var valueType = ReflectionHelper.Instance.DeserializeType(valueTypeName);
 
@@ -50,23 +46,22 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 var innerValue = Serializer.Deserialize(
                     json.GetProperty(nameof(Constant.Value)),
-                    queryRoot,
-                    options);
+                    state);
                 return Expression.Constant(innerValue, innerValue.GetType());
             }
 
             if (valueType.IsGenericType && valueType.GetGenericTypeDefinition()
                 == typeof(EnumerableQuery<>))
             {
-                if (queryRoot is ConstantExpression ce)
+                if (state.QueryRoot is ConstantExpression ce)
                 {
                     return ce;
                 }
 
-                return queryRoot != null ? Expression.Constant(queryRoot) : Expression.Constant(null, valueType);
+                return state.QueryRoot != null ? Expression.Constant(state.QueryRoot) : Expression.Constant(null, valueType);
             }
 
-            var constantVal = JsonSerializer.Deserialize(value, valueType, options);
+            var constantVal = JsonSerializer.Deserialize(value, valueType, state.Options);
 
             if (constantVal is AnonType anonType)
             {
@@ -80,7 +75,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
                     var valuetype = ReflectionHelper.Instance.DeserializeType(propValue.AnonValueType);
                     var jsonValue = (JsonElement)propValue.AnonVal;
-                    propValue.AnonVal = JsonSerializer.Deserialize(jsonValue.GetRawText(), valuetype, options);
+                    propValue.AnonVal = JsonSerializer.Deserialize(jsonValue.GetRawText(), valuetype, state.Options);
                 }
 
                 return Expression.Constant(anonType.GetValue());
@@ -94,9 +89,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serializes the expression.
         /// </summary>
         /// <param name="expression">The <see cref="ConstantExpression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The serializable <see cref="Constant"/>.</returns>
-        public override Constant Serialize(ConstantExpression expression, JsonSerializerOptions options)
+        public override Constant Serialize(ConstantExpression expression, SerializationState state)
         {
             if (expression == null)
             {
@@ -106,7 +101,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var result = new Constant(expression);
             if (expression.Value is Expression expr)
             {
-                result.Value = Serializer.Serialize(expr, options);
+                result.Value = Serializer.Serialize(expr, state);
                 result.ValueType =
                     ReflectionHelper.Instance.SerializeType(
                         result.Value.GetType());
@@ -119,23 +114,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
-        /// <param name="queryRoot">The query root to apply.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="Expression"/>.</returns>
         Expression IBaseSerializer.Deserialize(
             JsonElement json,
-            Expression queryRoot,
-            JsonSerializerOptions options) => Deserialize(json, queryRoot, options);
+            SerializationState state) => Deserialize(json, state);
 
         /// <summary>
         /// Implements <see cref="IBaseSerializer"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         SerializableExpression IBaseSerializer.Serialize(
             Expression expression,
-            JsonSerializerOptions options) =>
-            Serialize(expression as ConstantExpression, options);
+            SerializationState state) =>
+            Serialize(expression as ConstantExpression, state);
     }
 }
