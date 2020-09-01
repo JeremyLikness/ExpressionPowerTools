@@ -21,11 +21,11 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Method | Description |
 | :-- | :-- |
-| [LambdaExpression Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.Deserialize.m.md) | Deserializes a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
-| [Lambda Serialize(LambdaExpression expression, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.Serialize.m.md) | Serialize a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) to a [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) . |
+| [LambdaExpression Deserialize(JsonElement json, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.Deserialize.m.md) | Deserializes a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
+| [Lambda Serialize(LambdaExpression expression, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.Serialize.m.md) | Serialize a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) to a [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

@@ -8,13 +8,13 @@ Serializes the expression.
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(ConstantExpression expression, JsonSerializerOptions options)](#serializeconstantexpression-expression-jsonserializeroptions-options) | Serializes the expression. |
-## Serialize(ConstantExpression expression, JsonSerializerOptions options)
+| [Serialize(ConstantExpression expression, SerializationState state)](#serializeconstantexpression-expression-serializationstate-state) | Serializes the expression. |
+## Serialize(ConstantExpression expression, SerializationState state)
 
 Serializes the expression.
 
 ```csharp
-public virtual Constant Serialize(ConstantExpression expression, JsonSerializerOptions options)
+public virtual Constant Serialize(ConstantExpression expression, SerializationState state)
 ```
 
 ### Return Type
@@ -26,7 +26,7 @@ public virtual Constant Serialize(ConstantExpression expression, JsonSerializerO
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) | The [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) to serialize. |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the serialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual Constant Serialize(ConstantExpression expression, JsonSerializerO
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

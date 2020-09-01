@@ -13,7 +13,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [Fact]
         public void GivenExpressionHasSerializerWhenSerializeCalledThenShouldSerialize()
         {
-            var serialized = target.Serialize(Expression.Constant(5), null);
+            var serialized = target.Serialize(Expression.Constant(5), new SerializationState());
             Assert.NotNull(serialized);
             Assert.Equal(ExpressionType.Constant, (ExpressionType)serialized.Type);
         }

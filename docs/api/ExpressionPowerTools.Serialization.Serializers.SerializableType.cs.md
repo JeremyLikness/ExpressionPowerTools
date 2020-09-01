@@ -14,12 +14,20 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [V
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
+| [`FullTypeName`](ExpressionPowerTools.Serialization.Serializers.SerializableType.FullTypeName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full type name. |
 | [`GenericTypeArguments`](ExpressionPowerTools.Serialization.Serializers.SerializableType.GenericTypeArguments.prop.md) | [SerializableType[]](https://docs.microsoft.com/dotnet/api/expressionpowertools.serialization.serializers.serializabletype[]) | Gets or sets the list of generic type arguments for the type. |
 | [`TypeName`](ExpressionPowerTools.Serialization.Serializers.SerializableType.TypeName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full name of the type. |
+| [`TypeParamName`](ExpressionPowerTools.Serialization.Serializers.SerializableType.TypeParamName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the type parameter name. |
 
+## Methods
+
+| Method | Description |
+| :-- | :-- |
+| [Int32 GetHashCode()](ExpressionPowerTools.Serialization.Serializers.SerializableType.GetHashCode.m.md) | Gets the hash code for the type. |
+| [String ToString()](ExpressionPowerTools.Serialization.Serializers.SerializableType.ToString.m.md) | Overload to show type. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

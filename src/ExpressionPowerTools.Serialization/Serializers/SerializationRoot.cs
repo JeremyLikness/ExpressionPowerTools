@@ -32,6 +32,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
+        /// Gets or sets the top level index of types to reference and de-reference.
+        /// </summary>
+        public SerializableType[] TypeIndex { get; set; }
+
+        /// <summary>
         /// Gets or sets the root <see cref="SerializableExpression"/>.
         /// </summary>
         /// <remarks>

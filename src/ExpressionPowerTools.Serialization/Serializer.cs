@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Contract;
-using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -28,9 +28,13 @@ namespace ExpressionPowerTools.Serialization
         /// </summary>
         /// <param name="root">The root <see cref="Expression"/>.</param>
         /// <param name="options">The <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="compressTypes">Set to <c>true</c> to reduce footprint of type definitions.</param>
         /// <returns>The serialized <see cref="Expression"/> tree.</returns>
         /// <exception cref="ArgumentNullException">Thrown when the <see cref="Expression"/> is <c>null</c>.</exception>
-        public static string Serialize(Expression root, JsonSerializerOptions options = null)
+        public static string Serialize(
+            Expression root,
+            JsonSerializerOptions options = null,
+            bool compressTypes = true)
         {
             Ensure.NotNull(() => root);
             var opt = new JsonSerializerOptions();
@@ -39,8 +43,11 @@ namespace ExpressionPowerTools.Serialization
                 IgnoreNullValues = true,
                 IgnoreReadOnlyProperties = true,
             };
-            var state = new SerializationState { Options = options };
-            var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, state));
+            var state = new SerializationState { Options = options, CompressTypes = compressTypes };
+            var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, state))
+            {
+                TypeIndex = state.TypeIndex.ToArray(),
+            };
             return JsonSerializer.Serialize(serializeRoot, options);
         }
 
@@ -49,12 +56,16 @@ namespace ExpressionPowerTools.Serialization
         /// </summary>
         /// <param name="query">The <see cref="IQueryable"/> to serialize.</param>
         /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="compressTypes">Set to <c>true</c> to reduce the footprint of types in the payload.</param>
         /// <returns>The serialized <see cref="IQueryable"/>.</returns>
         /// <exception cref="ArgumentNullException">Throws when the query is null.</exception>
-        public static string Serialize(IQueryable query, JsonSerializerOptions options = null)
+        public static string Serialize(
+            IQueryable query,
+            JsonSerializerOptions options = null,
+            bool compressTypes = true)
         {
             Ensure.NotNull(() => query);
-            return Serialize(query.Expression, options);
+            return Serialize(query.Expression, options, compressTypes);
         }
 
         /// <summary>
@@ -78,6 +89,8 @@ namespace ExpressionPowerTools.Serialization
             };
 
             var root = JsonSerializer.Deserialize<SerializationRoot>(json, options);
+            state.TypeIndex = new List<SerializableType>(
+                root.TypeIndex ?? new SerializableType[0]);
             if (root.Expression is JsonElement jsonChild)
             {
                 return SerializerValue.Deserialize(jsonChild, state);

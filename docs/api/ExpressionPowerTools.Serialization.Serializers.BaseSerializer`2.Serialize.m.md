@@ -8,13 +8,13 @@ Serialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expr
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(TExpression expression, JsonSerializerOptions options)](#serializetexpression-expression-jsonserializeroptions-options) | Serialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
-## Serialize(TExpression expression, JsonSerializerOptions options)
+| [Serialize(TExpression expression, SerializationState state)](#serializetexpression-expression-serializationstate-state) | Serialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
+## Serialize(TExpression expression, SerializationState state)
 
 Serialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) .
 
 ```csharp
-public virtual TSerializable Serialize(TExpression expression, JsonSerializerOptions options)
+public virtual TSerializable Serialize(TExpression expression, SerializationState state)
 ```
 
 ### Return Type
@@ -26,7 +26,7 @@ TSerializable - The [SerializableExpression](ExpressionPowerTools.Serialization.
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | TExpression | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to serialize. |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
 
 
 
@@ -34,4 +34,4 @@ TSerializable - The [SerializableExpression](ExpressionPowerTools.Serialization.
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

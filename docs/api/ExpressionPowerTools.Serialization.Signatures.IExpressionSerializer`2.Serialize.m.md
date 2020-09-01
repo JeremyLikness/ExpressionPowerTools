@@ -8,13 +8,13 @@ Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.exp
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(T expression, JsonSerializerOptions options)](#serializet-expression-jsonserializeroptions-options) | Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class. |
-## Serialize(T expression, JsonSerializerOptions options)
+| [Serialize(T expression, SerializationState state)](#serializet-expression-serializationstate-state) | Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class. |
+## Serialize(T expression, SerializationState state)
 
 Serializes an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to a serializable class.
 
 ```csharp
-public virtual TSerializable Serialize(T expression, JsonSerializerOptions options)
+public virtual TSerializable Serialize(T expression, SerializationState state)
 ```
 
 ### Return Type
@@ -26,7 +26,7 @@ TSerializable - The serializeable class.
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | T | The [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) to serialize. |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the serialization. |
 
 
 
@@ -34,4 +34,4 @@ TSerializable - The serializeable class.
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

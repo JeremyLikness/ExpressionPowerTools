@@ -19,7 +19,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 typeof(int),
                 Expression.Constant(1),
                 Expression.Constant(2));
-            var target = serializer.Serialize(newArray, null);
+            var target = serializer.Serialize(newArray, new SerializationState());
             Assert.Equal(newArray.Type.GetElementType(), ReflectionHelper.Instance.DeserializeType(target.ArrayType));
             Assert.True(target.Expressions.OfType<Constant>().Any());
         }
@@ -32,7 +32,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.Constant(1),
                 Expression.Constant(2));
 
-            var json = Serializer.Serialize(newArray);
+            var json = Serializer.Serialize(newArray, compressTypes: false);
             var doc = JsonDocument.Parse(json);
 
             var deserialized = serializer.Deserialize(doc.RootElement.GetProperty(nameof(Expression)), new SerializationState());

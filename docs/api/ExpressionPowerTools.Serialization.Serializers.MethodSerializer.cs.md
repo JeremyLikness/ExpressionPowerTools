@@ -21,11 +21,11 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Method | Description |
 | :-- | :-- |
-| [MethodCallExpression Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Deserialize.m.md) | Deserialize a [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) to a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
-| [MethodExpr Serialize(MethodCallExpression expression, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Serialize.m.md) | Serialize a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
+| [MethodCallExpression Deserialize(JsonElement json, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Deserialize.m.md) | Deserialize a [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) to a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
+| [MethodExpr Serialize(MethodCallExpression expression, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Serialize.m.md) | Serialize a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

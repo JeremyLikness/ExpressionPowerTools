@@ -5,16 +5,16 @@
 Gets or sets the full type of the [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) .
 
 ```csharp
-public String UnaryType { get; set; }
+public SerializableType UnaryType { get; set; }
 ```
 
 ### Property Value
 
- [String](https://docs.microsoft.com/dotnet/api/system.string) 
+ [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) 
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

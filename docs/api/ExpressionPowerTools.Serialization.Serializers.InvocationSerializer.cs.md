@@ -21,11 +21,11 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Method | Description |
 | :-- | :-- |
-| [InvocationExpression Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.Deserialize.m.md) | Deserializes a [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
-| [Invocation Serialize(InvocationExpression expression, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.Serialize.m.md) | Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) . |
+| [InvocationExpression Deserialize(JsonElement json, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.Deserialize.m.md) | Deserializes a [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
+| [Invocation Serialize(InvocationExpression expression, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.Serialize.m.md) | Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

@@ -48,7 +48,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetInvocationExpressionMatrix))]
         public void InvocationExpressionShouldSerialize(InvocationExpression invocation)
         {
-            var target = invocationSerializer.Serialize(invocation, null);
+            var target = invocationSerializer.Serialize(invocation, new SerializationState());
             Assert.Equal((ExpressionType)target.Type, invocation.NodeType);
         }
 

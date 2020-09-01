@@ -64,7 +64,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetConstantExpressions))]
         public void ConstantExpressionShouldSerialize(ConstantExpression constant)
         {
-            var target = serializer.Serialize(constant, null);
+            var target = serializer.Serialize(constant, new SerializationState());
             if (target.Value is AnonType anon)
             {
                 Assert.True(ExpressionEquivalency.ValuesAreEquivalent(

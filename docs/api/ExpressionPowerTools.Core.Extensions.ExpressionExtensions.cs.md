@@ -10,6 +10,11 @@ public static class ExpressionExtensions
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionExtensions**
 
+## Constructors
+
+| Ctor | Description |
+| :-- | :-- |
+| [static ExpressionExtensions()](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.ctor.md#static-expressionextensions) | Initializes a new instance of the [ExpressionExtensions](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.cs.md) class. |
 ## Methods
 
 | Method | Description |
@@ -19,6 +24,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [InvocationExpression AsInvocationExpression(LambdaExpression lambda)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsInvocationExpression.m.md) | Converts a lambda expresion into an invocation. |
 | [ParameterExpression AsParameterExpression(Object obj, String name, Boolean byRef)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.AsParameterExpression.m.md) | Creates a [ParameterExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.parameterexpression) based on the            type of the object. |
 | [ParameterExpression CreateParameterExpression&lt;T, TValue>(Expression&lt;Func&lt;T, TValue>> value)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression.m.md) | Extracts the parameter from a member expression. |
+| [Boolean IsAnonymousType(Type type)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsAnonymousType.m.md) | Helper for determing anonymous types, with a pessimistic algorithm. |
 | [Boolean IsEquivalentTo(Expression source, Expression target)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsEquivalentTo.m.md) | Uses [ExpressionEquivalency](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.cs.md) to determine equivalency. |
 | [Boolean IsPartOf(Expression source, Expression target)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsPartOf.m.md) | Uses [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) to determine if an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is part of another. |
 | [Boolean IsSimilarTo(Expression source, Expression target)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsSimilarTo.m.md) | Uses [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) to determine similarity. |
@@ -28,4 +34,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

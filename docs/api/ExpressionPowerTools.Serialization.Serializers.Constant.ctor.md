@@ -10,6 +10,7 @@ Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.
 | :-- | :-- |
 | [Constant()](#constant) | Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) class. |
 | [Constant(ConstantExpression expression)](#constantconstantexpression-expression) | Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) class. |
+| [static Constant()](#static-constant) | Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) class. |
 
 ## Constant()
 
@@ -37,8 +38,18 @@ public Constant(ConstantExpression expression)
 
 
 
+## static Constant()
+
+Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) class.
+
+```csharp
+public static Constant()
+```
+
+
+
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

@@ -217,7 +217,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetUnaryExpressions))]
         public void UnaryExpressionShouldSerialize(UnaryExpression unary)
         {
-            var target = unarySerializer.Serialize(unary, null);
+            var target = unarySerializer.Serialize(unary, new SerializationState());
             Assert.Equal((ExpressionType)target.Type, unary.NodeType);
         }
 

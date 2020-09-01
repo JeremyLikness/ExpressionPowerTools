@@ -53,13 +53,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
             if (membertype == MemberTypes.Property)
             {
                 var property = json.GetProperty(nameof(MemberExpr.PropertyInfo))
-                    .GetSerializedProperty();
+                    .GetSerializedProperty(state);
                 memberInfo = GetMemberInfo<PropertyInfo, Property>(property);
             }
             else if (membertype == MemberTypes.Field)
             {
                 var field = json.GetProperty(nameof(MemberExpr.FieldInfo))
-                    .GetSerializedField();
+                    .GetSerializedField(state);
                 memberInfo = GetMemberInfo<FieldInfo, Field>(field);
             }
 
@@ -85,6 +85,16 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Expression = Serializer.Serialize(expression.Expression, state),
             };
+
+            if (member.FieldInfo != null)
+            {
+                state.CompressMemberTypes(member.FieldInfo);
+            }
+
+            if (member.PropertyInfo != null)
+            {
+                state.CompressMemberTypes(member.PropertyInfo);
+            }
 
             return member;
         }

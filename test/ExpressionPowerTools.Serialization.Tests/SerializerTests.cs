@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;

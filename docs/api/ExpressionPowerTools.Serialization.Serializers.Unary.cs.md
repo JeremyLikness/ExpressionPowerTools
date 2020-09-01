@@ -22,11 +22,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | :-- | :-- | :-- |
 | [`Operand`](ExpressionPowerTools.Serialization.Serializers.Unary.Operand.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the operand or main [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) for the operation. |
 | [`UnaryMethod`](ExpressionPowerTools.Serialization.Serializers.Unary.UnaryMethod.prop.md) | [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) | Gets or sets the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) this expression uses. |
-| [`UnaryType`](ExpressionPowerTools.Serialization.Serializers.Unary.UnaryType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full type of the [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
+| [`UnaryType`](ExpressionPowerTools.Serialization.Serializers.Unary.UnaryType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the full type of the [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

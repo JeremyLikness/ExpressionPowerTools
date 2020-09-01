@@ -68,7 +68,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetMemberMatrix))]
         public void MemberExpressionShouldSerialize(MemberExpression member)
         {
-            var target = memberSerializer.Serialize(member, null);
+            var target = memberSerializer.Serialize(member, new SerializationState());
             Assert.Equal((ExpressionType)target.Type, member.NodeType);
         }
 

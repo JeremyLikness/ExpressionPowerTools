@@ -10,15 +10,16 @@ public abstract class MemberBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MemberBase**
 
-Derived  [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) 
+Derived  [Field](ExpressionPowerTools.Serialization.Serializers.Field.cs.md) ,  [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) ,  [Property](ExpressionPowerTools.Serialization.Serializers.Property.cs.md) 
 
 ## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`DeclaringType`](ExpressionPowerTools.Serialization.Serializers.MemberBase.DeclaringType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the declaring type. |
-| [`MemberType`](ExpressionPowerTools.Serialization.Serializers.MemberBase.MemberType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the type of the member. See [MemberTypes](https://docs.microsoft.com/dotnet/api/system.reflection.membertypes) for options. |
+| [`MemberType`](ExpressionPowerTools.Serialization.Serializers.MemberBase.MemberType.prop.md) | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | Gets or sets the type of the member. See [MemberTypes](https://docs.microsoft.com/dotnet/api/system.reflection.membertypes) for options. |
 | [`MemberValueType`](ExpressionPowerTools.Serialization.Serializers.MemberBase.MemberValueType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the return type. |
+| [`ReflectedType`](ExpressionPowerTools.Serialization.Serializers.MemberBase.ReflectedType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the reflected type. Used for a unique key calculation. |
 
 ## Methods
 
@@ -31,4 +32,4 @@ Derived  [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

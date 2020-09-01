@@ -156,7 +156,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var type = GetTypeFromCache(serializedType.TypeName);
-            if (type.IsGenericTypeDefinition && serializedType.GenericTypeArguments != null)
+            if (type.IsGenericTypeDefinition && serializedType.GenericTypeArguments?.Length > 0)
             {
                 var typeParams = serializedType
                     .GenericTypeArguments.Select(arg => DeserializeType(arg))

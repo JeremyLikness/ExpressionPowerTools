@@ -8,13 +8,13 @@ Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(UnaryExpression expression, JsonSerializerOptions options)](#serializeunaryexpression-expression-jsonserializeroptions-options) | Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) to a [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) . |
-## Serialize(UnaryExpression expression, JsonSerializerOptions options)
+| [Serialize(UnaryExpression expression, SerializationState state)](#serializeunaryexpression-expression-serializationstate-state) | Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) to a [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) . |
+## Serialize(UnaryExpression expression, SerializationState state)
 
 Serialize a [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) to a [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) .
 
 ```csharp
-public virtual Unary Serialize(UnaryExpression expression, JsonSerializerOptions options)
+public virtual Unary Serialize(UnaryExpression expression, SerializationState state)
 ```
 
 ### Return Type
@@ -26,7 +26,7 @@ public virtual Unary Serialize(UnaryExpression expression, JsonSerializerOptions
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) | The [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the serialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual Unary Serialize(UnaryExpression expression, JsonSerializerOptions
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

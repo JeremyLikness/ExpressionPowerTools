@@ -16,8 +16,10 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
             where TExpression : Expression
             where TSerializer : SerializableExpression
         {
+            var state = options == null ?
+                new SerializationState() : options.ToSerializationState();
             var json = JsonSerializer.Serialize(
-                ExpressionSerializer.Serialize(expression, options.ToSerializationState()) as TSerializer,
+                ExpressionSerializer.Serialize(expression, state) as TSerializer,
                 options);
             return JsonDocument.Parse(json).RootElement;
         }        

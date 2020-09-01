@@ -36,11 +36,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
             SerializationState state)
         {
             var value = json.GetNullableProperty(nameof(Constant.Value)).GetRawText();
-            var type = json.GetProperty(nameof(Constant.ConstantType)).GetDeserializedType();
-            var valueTypeNode = json.GetNullableProperty(nameof(Constant.ValueType)).GetRawText();
-            var valueTypeName = JsonSerializer.Deserialize<SerializableType>(valueTypeNode, state.Options);
-
-            var valueType = ReflectionHelper.Instance.DeserializeType(valueTypeName);
+            var type = json.GetProperty(nameof(Constant.ConstantType)).GetDeserializedType(state);
+            var valueType = json.GetProperty(nameof(Constant.ValueType)).GetDeserializedType(state);
 
             if (typeof(SerializableExpression).IsAssignableFrom(valueType))
             {
@@ -74,7 +71,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                         continue;
                     }
 
-                    var valuetype = ReflectionHelper.Instance.DeserializeType(propValue.AnonValueType);
+                    var valuetype = state.GetType(propValue.AnonValueType);
                     var jsonValue = (JsonElement)propValue.AnonVal;
                     propValue.AnonVal = JsonSerializer.Deserialize(jsonValue.GetRawText(), valuetype, state.Options);
                 }
@@ -100,12 +97,15 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var result = new Constant(expression);
+            result.ConstantType = state.CompressType(result.ConstantType);
             if (expression.Value is Expression expr)
             {
                 result.Value = Serializer.Serialize(expr, state);
-                result.ValueType =
-                    ReflectionHelper.Instance.SerializeType(
-                        result.Value.GetType());
+                result.ValueType = state.CompressType(result.Value.GetType());
+            }
+            else
+            {
+                result.ValueType = state.CompressType(result.ValueType);
             }
 
             return result;

@@ -38,5 +38,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <returns>The first usable string it finds.</returns>
         public override string ToString() => FullTypeName ?? TypeName ?? TypeParamName;
+
+        /// <summary>
+        /// Gets the hash code for the type.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode() => ToString().GetHashCode();
     }
 }

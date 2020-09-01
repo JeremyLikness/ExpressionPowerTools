@@ -10,7 +10,7 @@ public class SerializableExpression
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **SerializableExpression**
 
-Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
+Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) ,  [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
 
 ## Constructors
 
@@ -22,11 +22,11 @@ Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.m
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Type`](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.Type.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the type of the expression. |
+| [`Type`](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.Type.prop.md) | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | Gets or sets the type of the expression. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

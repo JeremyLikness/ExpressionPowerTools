@@ -8,13 +8,13 @@ Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(InvocationExpression expression, JsonSerializerOptions options)](#serializeinvocationexpression-expression-jsonserializeroptions-options) | Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) . |
-## Serialize(InvocationExpression expression, JsonSerializerOptions options)
+| [Serialize(InvocationExpression expression, SerializationState state)](#serializeinvocationexpression-expression-serializationstate-state) | Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) . |
+## Serialize(InvocationExpression expression, SerializationState state)
 
 Serialize an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to an [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) .
 
 ```csharp
-public virtual Invocation Serialize(InvocationExpression expression, JsonSerializerOptions options)
+public virtual Invocation Serialize(InvocationExpression expression, SerializationState state)
 ```
 
 ### Return Type
@@ -26,7 +26,7 @@ public virtual Invocation Serialize(InvocationExpression expression, JsonSeriali
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) | The [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the serialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual Invocation Serialize(InvocationExpression expression, JsonSeriali
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

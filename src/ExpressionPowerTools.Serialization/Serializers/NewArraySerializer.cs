@@ -37,7 +37,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var materializedType = json.GetProperty(nameof(NewArray.ArrayType)).GetDeserializedType();
+            var materializedType = json.GetProperty(nameof(NewArray.ArrayType)).GetDeserializedType(state);
             var list = json.GetProperty(nameof(NewArray.Expressions));
             var expressionList = list.EnumerateArray().Select(element => Serializer.Deserialize(
                 element, state)).ToList();
@@ -60,6 +60,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var result = new NewArray(expression);
+            result.ArrayType = state.CompressType(result.ArrayType);
             foreach (var child in expression.Expressions)
             {
                 result.Expressions.Add(Serializer.Serialize(child, state));

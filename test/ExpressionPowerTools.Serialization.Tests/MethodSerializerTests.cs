@@ -89,7 +89,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetMethodCallMatrix))]
         public void MethodCallExpressionShouldSerialize(MethodCallExpression method)
         {
-            var target = methodSerializer.Serialize(method, null);
+            var target = methodSerializer.Serialize(method, new SerializationState());
             Assert.Equal((ExpressionType)target.Type, method.NodeType);
         }
 

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Cryptography;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -106,10 +107,57 @@ namespace ExpressionPowerTools.Serialization.Tests
         }
 
         [Fact]
+        public void GivenTypeNotInCacheWhenGetTypeFromCacheCalledThenShouldReturnNull()
+        {
+            var type = target.GetTypeFromCache(nameof(GivenTypeNotInCacheWhenGetTypeFromCacheCalledThenShouldReturnNull));
+            Assert.Null(type);
+        }
+
+        [Fact]
         public void GivenMemberNotInCacheWhenGetMemberFromCacheCalledThenShouldReturnNull()
         {
             var method = new Method { Name = "Not Going to Work" };
             Assert.Null(target.GetMemberFromCache<MethodInfo, Method>(method));
+        }
+
+        [Fact]
+        public void GivenUnsupportedMemberInfoWhenGetMemberFromCacheCalledThenShouldReturnNull()
+        {
+            var test = new TestMemberBase();
+            var info = target.GetMemberFromCache<ConstructorInfo, TestMemberBase>(test);
+            Assert.Null(info);
+        }
+
+        public int Property { get; set; }
+        public int field;
+
+        [Fact]
+        public void GivenPropertyNotValidWhenGetMemberFromCacheCalledThenShouldReturnNull()
+        {
+            var prop = new Property(GetType().GetProperty(nameof(Property)))
+            {
+                Name = nameof(field)
+            };
+            var cached = ReflectionHelper.Instance.GetMemberFromCache<PropertyInfo, Property>(prop);
+            Assert.Null(cached);
+        }
+
+        [Fact]
+        public void GivenFieldNotValidWhenGetMemberFromCacheCalledThenShouldReturnNull()
+        {
+            var f = new Field(GetType().GetField(nameof(field)))
+            {
+                Name = nameof(Property)
+            };
+            var cached = ReflectionHelper.Instance.GetMemberFromCache<FieldInfo, Field>(f);
+            Assert.Null(cached);
+        }
+
+        [Fact]
+        public void GivenSerializedTypeWhenGetHashCodeCalledThenShouldReturnHashOfToString()
+        {
+            var type = ReflectionHelper.Instance.SerializeType(typeof(IComparable<int>));
+            Assert.Equal(type.GetHashCode(), type.ToString().GetHashCode());
         }
 
         class SafeMutateThrows : ReflectionHelper

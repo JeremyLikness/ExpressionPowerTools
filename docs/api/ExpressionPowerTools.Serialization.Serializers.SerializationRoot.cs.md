@@ -21,10 +21,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Expression`](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.Expression.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the root [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) . |
+| [`TypeIndex`](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.TypeIndex.prop.md) | [SerializableType[]](https://docs.microsoft.com/dotnet/api/expressionpowertools.serialization.serializers.serializabletype[]) | Gets or sets the top level index of types to reference and de-reference. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
@@ -53,11 +54,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
             SerializationState state)
         {
             var method = json.GetNullableProperty(nameof(Unary.UnaryMethod));
-            var methodProp = JsonSerializer.Deserialize<Method>(method.GetRawText(), state.Options);
+            var methodProp = method.GetMethod(state);
             var expressionType = (ExpressionType)json.GetProperty(nameof(SerializableExpression.Type)).GetInt32();
             var operandElement = json.GetNullableProperty(nameof(UnaryExpression.Operand));
             var operand = Serializer.Deserialize(operandElement, state);
-            var unaryType = json.GetProperty(nameof(Unary.UnaryType)).GetDeserializedType();
+            var unaryType = json.GetProperty(nameof(Unary.UnaryType)).GetDeserializedType(state);
 
             if (methodProp != null)
             {
@@ -91,6 +92,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Operand = Serializer.Serialize(expression.Operand, state),
             };
+
+            unary.UnaryType = state.CompressType(unary.UnaryType);
+            if (unary.UnaryMethod != null)
+            {
+                state.CompressMemberTypes(unary.UnaryMethod);
+            }
 
             return unary;
         }

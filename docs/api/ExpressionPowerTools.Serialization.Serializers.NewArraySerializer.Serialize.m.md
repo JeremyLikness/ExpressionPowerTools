@@ -8,13 +8,13 @@ Serialize a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.li
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(NewArrayExpression expression, JsonSerializerOptions options)](#serializenewarrayexpression-expression-jsonserializeroptions-options) | Serialize a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) to a [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) . |
-## Serialize(NewArrayExpression expression, JsonSerializerOptions options)
+| [Serialize(NewArrayExpression expression, SerializationState state)](#serializenewarrayexpression-expression-serializationstate-state) | Serialize a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) to a [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) . |
+## Serialize(NewArrayExpression expression, SerializationState state)
 
 Serialize a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) to a [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) .
 
 ```csharp
-public virtual NewArray Serialize(NewArrayExpression expression, JsonSerializerOptions options)
+public virtual NewArray Serialize(NewArrayExpression expression, SerializationState state)
 ```
 
 ### Return Type
@@ -26,7 +26,7 @@ public virtual NewArray Serialize(NewArrayExpression expression, JsonSerializerO
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `expression` | [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) | The [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) . |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the serialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual NewArray Serialize(NewArrayExpression expression, JsonSerializerO
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

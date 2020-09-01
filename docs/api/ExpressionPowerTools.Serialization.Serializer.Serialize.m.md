@@ -8,14 +8,14 @@ Serialize an expression tree.
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(Expression root, JsonSerializerOptions options)](#serializeexpression-root-jsonserializeroptions-options) | Serialize an expression tree. |
-| [Serialize(IQueryable query, JsonSerializerOptions options)](#serializeiqueryable-query-jsonserializeroptions-options) | Serialize an [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) . |
-## Serialize(Expression root, JsonSerializerOptions options)
+| [Serialize(Expression root, JsonSerializerOptions options, Boolean compressTypes)](#serializeexpression-root-jsonserializeroptions-options-boolean-compresstypes) | Serialize an expression tree. |
+| [Serialize(IQueryable query, JsonSerializerOptions options, Boolean compressTypes)](#serializeiqueryable-query-jsonserializeroptions-options-boolean-compresstypes) | Serialize an [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) . |
+## Serialize(Expression root, JsonSerializerOptions options, Boolean compressTypes)
 
 Serialize an expression tree.
 
 ```csharp
-public static String Serialize(Expression root, JsonSerializerOptions options)
+public static String Serialize(Expression root, JsonSerializerOptions options, Boolean compressTypes)
 ```
 
 ### Return Type
@@ -28,6 +28,7 @@ public static String Serialize(Expression root, JsonSerializerOptions options)
 | :-- | :-- | :-- |
 | `root` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
 | `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `compressTypes` | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Set to `true` to reduce footprint of type definitions. |
 
 ### Exceptions
 
@@ -35,12 +36,12 @@ public static String Serialize(Expression root, JsonSerializerOptions options)
 | :-- | :-- |
 | [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Thrown when the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is `null` . |
 
-## Serialize(IQueryable query, JsonSerializerOptions options)
+## Serialize(IQueryable query, JsonSerializerOptions options, Boolean compressTypes)
 
 Serialize an [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) .
 
 ```csharp
-public static String Serialize(IQueryable query, JsonSerializerOptions options)
+public static String Serialize(IQueryable query, JsonSerializerOptions options, Boolean compressTypes)
 ```
 
 ### Return Type
@@ -53,6 +54,7 @@ public static String Serialize(IQueryable query, JsonSerializerOptions options)
 | :-- | :-- | :-- |
 | `query` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) to serialize. |
 | `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `compressTypes` | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Set to `true` to reduce the footprint of types in the payload. |
 
 ### Exceptions
 
@@ -65,4 +67,4 @@ public static String Serialize(IQueryable query, JsonSerializerOptions options)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

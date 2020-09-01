@@ -20,8 +20,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [M
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
+| [`GenericArguments`](ExpressionPowerTools.Serialization.Serializers.Method.GenericArguments.prop.md) | [SerializableType[]](https://docs.microsoft.com/dotnet/api/expressionpowertools.serialization.serializers.serializabletype[]) | Gets or sets the generic arguments to the method. |
+| [`GenericMethodDefinition`](ExpressionPowerTools.Serialization.Serializers.Method.GenericMethodDefinition.prop.md) | [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) | Gets or sets the generic method definition that the method inherits from. |
 | [`IsStatic`](ExpressionPowerTools.Serialization.Serializers.Method.IsStatic.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether the method is static. |
-| [`MemberType`](ExpressionPowerTools.Serialization.Serializers.Method.MemberType.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the member type. |
+| [`MemberType`](ExpressionPowerTools.Serialization.Serializers.Method.MemberType.prop.md) | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | Gets or sets the member type. |
 | [`Name`](ExpressionPowerTools.Serialization.Serializers.Method.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the name of the method. |
 | [`Parameters`](ExpressionPowerTools.Serialization.Serializers.Method.Parameters.prop.md) | [Dictionary&lt;String, SerializableType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2) | Gets or sets the list of parameters with parameter name mapped to the            full name of the type. |
 
@@ -35,4 +37,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [M
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

@@ -22,9 +22,13 @@ public static Expression<Func<T, T, Boolean>> TypesMustMatch<T>()
  [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - An expression that evaluates whether the types match.
 
 
+## Remarks
+
+Returns `true` c> if types are same, or one type is anonymous and the othere is a dictionary.
+
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |

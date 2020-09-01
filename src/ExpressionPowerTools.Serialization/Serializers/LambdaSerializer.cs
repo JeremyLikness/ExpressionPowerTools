@@ -39,9 +39,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
             SerializationState state)
         {
             var materializedType = json.GetProperty(nameof(Lambda.LambdaType))
-                .GetDeserializedType();
+                .GetDeserializedType(state);
             var materializedReturnType = json.GetProperty(nameof(Lambda.ReturnType))
-                .GetDeserializedType();
+                .GetDeserializedType(state);
             var body = Serializer.Deserialize(json.GetProperty(nameof(Lambda.Body)), state);
             var name = json.GetNullableProperty(nameof(Lambda.Name)).GetString();
             var list = json.GetNullableProperty(nameof(Lambda.Parameters));
@@ -71,6 +71,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Body = Serializer.Serialize(expression.Body, state),
             };
+
+            result.ReturnType = state.CompressType(result.ReturnType);
+            result.LambdaType = state.CompressType(result.LambdaType);
             foreach (var parameter in expression.Parameters)
             {
                 result.Parameters.Add(Serializer.Serialize(parameter, state) as Parameter);

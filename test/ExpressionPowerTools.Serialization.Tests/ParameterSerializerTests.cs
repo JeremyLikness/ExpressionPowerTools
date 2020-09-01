@@ -31,7 +31,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetParameterExpressions))]
         public void ParameterExpressionShouldSerialize(ParameterExpression parameter)
         {
-            var serializable = serializer.Serialize(parameter, null);
+            var serializable = serializer.Serialize(parameter, new SerializationState());
             Assert.Equal(parameter.Type, ReflectionHelper.Instance.DeserializeType(serializable.ParameterType));
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {

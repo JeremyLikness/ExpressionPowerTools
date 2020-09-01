@@ -8,13 +8,13 @@ Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.ex
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options)](#deserializejsonelement-json-expression-queryroot-jsonserializeroptions-options) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-## Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options)
+| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+## Deserialize(JsonElement json, SerializationState state)
 
 Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
 
 ```csharp
-public virtual T Deserialize(JsonElement json, Expression queryRoot, JsonSerializerOptions options)
+public virtual T Deserialize(JsonElement json, SerializationState state)
 ```
 
 ### Return Type
@@ -26,8 +26,7 @@ T - The deserialized [Expression](https://docs.microsoft.com/dotnet/api/system.l
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The serialized fragment. |
-| `queryRoot` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root of the query to recreate. |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
 
 
 
@@ -35,4 +34,4 @@ T - The deserialized [Expression](https://docs.microsoft.com/dotnet/api/system.l
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 8/27/2020 11:30:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.2-alpha |
+| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
