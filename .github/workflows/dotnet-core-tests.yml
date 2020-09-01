@@ -42,6 +42,3 @@ jobs:
         name: Serialization Test Results
         # A file, directory or wildcard pattern that describes what to upload
         path: test/ExpressionPowerTools.Serialization.Tests/TestResults
-        # The desired behavior if no files are found using the provided path.
-        warn: Can't find Serialization test results!
-        
