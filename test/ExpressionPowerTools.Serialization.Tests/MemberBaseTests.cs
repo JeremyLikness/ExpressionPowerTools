@@ -119,7 +119,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 ReflectionHelper.Instance.DeserializeType(target.DeclaringType));
             Assert.Equal(property.PropertyType,
                 ReflectionHelper.Instance.DeserializeType(target.MemberValueType));
-            Assert.Equal(MemberTypes.Property.ToString(), target.MemberType);
+            Assert.Equal(MemberTypes.Property, (MemberTypes)target.MemberType);
         }
 
         [Fact]
@@ -170,7 +170,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 ReflectionHelper.Instance.DeserializeType(target.DeclaringType));
             Assert.Equal(field.FieldType,
                 ReflectionHelper.Instance.DeserializeType(target.MemberValueType));
-            Assert.Equal(MemberTypes.Field.ToString(), target.MemberType);
+            Assert.Equal(MemberTypes.Field, (MemberTypes)target.MemberType);
         }
 
         [Fact]

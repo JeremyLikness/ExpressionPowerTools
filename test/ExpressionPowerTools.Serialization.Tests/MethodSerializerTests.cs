@@ -90,7 +90,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void MethodCallExpressionShouldSerialize(MethodCallExpression method)
         {
             var target = methodSerializer.Serialize(method, null);
-            Assert.Equal(target.Type, method.NodeType.ToString());
+            Assert.Equal((ExpressionType)target.Type, method.NodeType);
         }
 
         [Theory]

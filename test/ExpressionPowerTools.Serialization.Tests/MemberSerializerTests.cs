@@ -69,7 +69,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void MemberExpressionShouldSerialize(MemberExpression member)
         {
             var target = memberSerializer.Serialize(member, null);
-            Assert.Equal(target.Type, member.NodeType.ToString());
+            Assert.Equal((ExpressionType)target.Type, member.NodeType);
         }
 
         [Theory]

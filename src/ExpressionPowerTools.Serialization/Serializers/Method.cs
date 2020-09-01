@@ -83,9 +83,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <remarks>
         /// Setting is only to accommodate serialization.
         /// </remarks>
-        public override string MemberType
+        public override int MemberType
         {
-            get => MemberTypes.Method.ToString();
+            get => (int)MemberTypes.Method;
             set
             {
             }

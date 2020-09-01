@@ -52,9 +52,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <remarks>
         /// Setting is only to accommodate serialization.
         /// </remarks>
-        public override string MemberType
+        public override int MemberType
         {
-            get => MemberTypes.Property.ToString();
+            get => (int)MemberTypes.Property;
             set
             {
             }

@@ -17,7 +17,7 @@ namespace ExpressionPowerTools.Core.Tests
             yield return new object[] { QueryHelper.QuerySkip2Take3, null };
         }
 
-        private IExpressionEvaluator evaluator = new ExpressionEvaluator();
+        private readonly IExpressionEvaluator evaluator = new ExpressionEvaluator();
 
         private Expression Add1And2 => 
             Expression.Add(1.AsConstantExpression(), 2.AsConstantExpression());

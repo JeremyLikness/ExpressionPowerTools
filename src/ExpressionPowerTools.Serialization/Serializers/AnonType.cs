@@ -37,7 +37,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
         {
             Ensure.NotNull(() => value);
             AnonymousTypeName = value.GetType().ToString();
-            PropertyNames = value.GetType().GetProperties().Select(p => p.Name).ToArray();
+            PropertyNames = value.GetType().GetProperties()
+                .Select(p => p.Name).ToArray();
             List<AnonValue> values =
                 new List<AnonValue>();
             foreach (var name in PropertyNames)

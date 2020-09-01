@@ -44,7 +44,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the member type.
         /// </summary>
-        public string MemberType { get; set; }
+        public int MemberType { get; set; }
 
         /// <summary>
         /// Gets or sets the serializable <see cref="PropertyInfo"/>.

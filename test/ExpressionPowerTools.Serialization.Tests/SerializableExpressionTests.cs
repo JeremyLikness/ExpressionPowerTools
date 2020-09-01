@@ -21,7 +21,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenNonNullExpressionWhenConstructorCalledThenShouldSetType()
         {
             var target = new SerializableExpression(Expression.Constant(5));
-            Assert.Equal(ExpressionType.Constant.ToString(), target.Type);
+            Assert.Equal(ExpressionType.Constant, (ExpressionType)target.Type);
         }
 
         [Fact]

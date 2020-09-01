@@ -25,8 +25,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// The constant serializer.
         /// </summary>
-        private readonly IDictionary<string, IBaseSerializer> serializers =
-            new Dictionary<string, IBaseSerializer>();
+        private readonly IDictionary<ExpressionType, IBaseSerializer> serializers =
+            new Dictionary<ExpressionType, IBaseSerializer>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionSerializer"/> class.
@@ -38,7 +38,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                     && t.GetCustomAttributes(false)
                     .Any(c => c is ExpressionSerializerAttribute))
                 .SelectMany(t => t.GetCustomAttributes(false).OfType<ExpressionSerializerAttribute>()
-                    .Select(c => new { serializer = t, type = c.Type.ToString() }));
+                    .Select(c => new { serializer = t, type = c.Type }));
 
             var activated = new Dictionary<Type, IBaseSerializer>();
 
@@ -78,7 +78,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
-            var type = typeElem.GetString();
+            var type = (ExpressionType)typeElem.GetInt32();
             if (serializers.ContainsKey(type))
             {
                 return serializers[type].Deserialize(json, state);
@@ -102,7 +102,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
-            var type = expression.NodeType.ToString();
+            var type = expression.NodeType;
             if (serializers.ContainsKey(type))
             {
                 return serializers[type].Serialize(expression, state);

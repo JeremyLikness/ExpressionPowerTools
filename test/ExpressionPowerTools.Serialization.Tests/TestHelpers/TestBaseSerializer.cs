@@ -17,9 +17,6 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
             throw new System.NotImplementedException();
         }
 
-        public ExpressionType GetExpressionType(string type)
-            => GetExpressionTypeFor(type);
-
         public override SerializableExpression Serialize(
             Expression expression,
             SerializationState state)

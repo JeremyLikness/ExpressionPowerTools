@@ -244,13 +244,6 @@
             <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.GetExpressionTypeFor(System.String)">
-            <summary>
-            Gets the <see cref="T:System.Linq.Expressions.ExpressionType"/> from the string representation.
-            </summary>
-            <param name="type">The string representation of the <see cref="T:System.Linq.Expressions.ExpressionType"/>.</param>
-            <returns>The <see cref="T:System.Linq.Expressions.ExpressionType"/>.</returns>
-        </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.GetMemberInfo``2(``1)">
             <summary>
             Helper to get method info.

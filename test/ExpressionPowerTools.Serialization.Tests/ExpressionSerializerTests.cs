@@ -15,7 +15,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = target.Serialize(Expression.Constant(5), null);
             Assert.NotNull(serialized);
-            Assert.Equal(ExpressionType.Constant.ToString(), serialized.Type);
+            Assert.Equal(ExpressionType.Constant, (ExpressionType)serialized.Type);
         }
 
         [Fact]
@@ -33,13 +33,14 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = target.Serialize(Expression.Goto(Expression.Label()), null);
             Assert.IsType<SerializableExpression>(serialized);
-            Assert.Equal(ExpressionType.Goto.ToString(), serialized.Type);
+            Assert.Equal(ExpressionType.Goto, (ExpressionType)serialized.Type);
         }
 
         [Fact]
         public void GivenExpressionHasNoSerializerWhenDeserializeCalledThenShouldReturnNull()
         {
-            var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\":\"Goto\"}");
+            var gotoNum = (int)ExpressionType.Goto;
+            var json = JsonDocument.Parse($"{{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": {gotoNum}}}");
             var deserialized = target.Deserialize(json.RootElement, new SerializationState());
             Assert.Null(deserialized);
         }

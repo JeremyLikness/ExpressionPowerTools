@@ -194,12 +194,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             ValidateQuery(newQuery.ToList(), type);
         }
 
-        [Fact]
-        public void WhenGetExpressionTypeForCalledWithInvalidStringThenShouldReturnDefault()
-        {
-            Assert.Equal(default, new TestBaseSerializer().GetExpressionType("fake"));
-        }
-
         [Theory]
         [InlineData(null)]
         [InlineData("")]

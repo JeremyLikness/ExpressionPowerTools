@@ -37,7 +37,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void LambdaExpressionShouldSerialize(LambdaExpression lambda)
         {
             var target = lambdaSerializer.Serialize(lambda, null);
-            Assert.Equal(target.Type, lambda.NodeType.ToString());
+            Assert.Equal((ExpressionType)target.Type, lambda.NodeType);
         }
 
         [Theory]

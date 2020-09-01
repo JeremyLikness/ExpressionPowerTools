@@ -14,7 +14,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the type of the member. See <see cref="MemberTypes"/> for options.
         /// </summary>
-        public abstract string MemberType { get; set; }
+        public abstract int MemberType { get; set; }
 
         /// <summary>
         /// Gets or sets the declaring type.

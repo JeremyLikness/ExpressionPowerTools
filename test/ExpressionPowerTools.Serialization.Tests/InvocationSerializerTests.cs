@@ -49,7 +49,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void InvocationExpressionShouldSerialize(InvocationExpression invocation)
         {
             var target = invocationSerializer.Serialize(invocation, null);
-            Assert.Equal(target.Type, invocation.NodeType.ToString());
+            Assert.Equal((ExpressionType)target.Type, invocation.NodeType);
         }
 
         [Theory]

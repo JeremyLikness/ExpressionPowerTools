@@ -58,7 +58,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                     return ce;
                 }
 
-                return state.QueryRoot != null ? Expression.Constant(state.QueryRoot) : Expression.Constant(null, valueType);
+                return state.QueryRoot != null ?
+                    Expression.Constant(state.QueryRoot) : Expression.Constant(null, valueType);
             }
 
             var constantVal = JsonSerializer.Deserialize(value, valueType, state.Options);

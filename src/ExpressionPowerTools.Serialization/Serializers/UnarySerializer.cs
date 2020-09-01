@@ -54,10 +54,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
         {
             var method = json.GetNullableProperty(nameof(Unary.UnaryMethod));
             var methodProp = JsonSerializer.Deserialize<Method>(method.GetRawText(), state.Options);
-            var type = json.GetProperty(nameof(SerializableExpression.Type)).GetString();
+            var expressionType = (ExpressionType)json.GetProperty(nameof(SerializableExpression.Type)).GetInt32();
             var operandElement = json.GetNullableProperty(nameof(UnaryExpression.Operand));
             var operand = Serializer.Deserialize(operandElement, state);
-            var expressionType = GetExpressionTypeFor(type);
             var unaryType = json.GetProperty(nameof(Unary.UnaryType)).GetDeserializedType();
 
             if (methodProp != null)

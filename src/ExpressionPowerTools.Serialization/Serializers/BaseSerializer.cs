@@ -56,21 +56,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public abstract TSerializable Serialize(TExpression expression, SerializationState state);
 
         /// <summary>
-        /// Gets the <see cref="ExpressionType"/> from the string representation.
-        /// </summary>
-        /// <param name="type">The string representation of the <see cref="ExpressionType"/>.</param>
-        /// <returns>The <see cref="ExpressionType"/>.</returns>
-        protected ExpressionType GetExpressionTypeFor(string type)
-        {
-            if (Enum.TryParse(type, out ExpressionType result))
-            {
-                return result;
-            }
-
-            return default;
-        }
-
-        /// <summary>
         /// Helper to get method info.
         /// </summary>
         /// <typeparam name="TMemberInfo">The <see cref="MemberInfo"/> type to get.</typeparam>

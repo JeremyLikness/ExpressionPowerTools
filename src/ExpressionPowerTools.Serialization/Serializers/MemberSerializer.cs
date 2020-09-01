@@ -45,17 +45,18 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 expr = Serializer.Deserialize(jsonObj, state);
             }
 
-            var membertype = json.GetProperty(nameof(MemberExpr.MemberType)).GetString();
+            var membertype = (MemberTypes)json
+                .GetProperty(nameof(MemberExpr.MemberType)).GetInt32();
 
             MemberInfo memberInfo = null;
 
-            if (membertype == MemberTypes.Property.ToString())
+            if (membertype == MemberTypes.Property)
             {
                 var property = json.GetProperty(nameof(MemberExpr.PropertyInfo))
                     .GetSerializedProperty();
                 memberInfo = GetMemberInfo<PropertyInfo, Property>(property);
             }
-            else if (membertype == MemberTypes.Field.ToString())
+            else if (membertype == MemberTypes.Field)
             {
                 var field = json.GetProperty(nameof(MemberExpr.FieldInfo))
                     .GetSerializedField();

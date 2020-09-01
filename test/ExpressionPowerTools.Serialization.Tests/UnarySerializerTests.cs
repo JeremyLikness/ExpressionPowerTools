@@ -218,7 +218,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void UnaryExpressionShouldSerialize(UnaryExpression unary)
         {
             var target = unarySerializer.Serialize(unary, null);
-            Assert.Equal(target.Type, unary.NodeType.ToString());
+            Assert.Equal((ExpressionType)target.Type, unary.NodeType);
         }
 
         [Theory]

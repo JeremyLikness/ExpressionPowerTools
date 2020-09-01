@@ -29,13 +29,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public SerializableExpression(Expression expression)
         {
             Ensure.NotNull(() => expression);
-            Type = expression.NodeType.ToString();
+            Type = (int)expression.NodeType;
         }
 
         /// <summary>
         /// Gets or sets the type of the expression.
         /// </summary>
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// Helper for serializing types.
