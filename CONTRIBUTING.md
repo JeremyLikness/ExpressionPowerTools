@@ -34,6 +34,7 @@ In general, the checklist for pull requests is:
 - Check with the maintainers for larger requests
 - Ensure the project compiles in _both_ `Debug` and `Release` modes
 - Write tests to adequately cover your functionality
+- All files added should have complete XML documentation with examples where appropriate and the required heading
 
 Project maintainers will review PRs and merge/update versions as appropriate.
 
@@ -46,4 +47,4 @@ Project maintainers will review PRs and merge/update versions as appropriate.
 
 ## Code of conduct
 
-See [CODE-OF-CONDUCT.md](./CODE-OF-CONDUCT.md)
+See [Code of Conduct](https://github.com/JeremyLikness/ExpressionPowerTools/blob/master/CODE_OF_CONDUCT.md)
