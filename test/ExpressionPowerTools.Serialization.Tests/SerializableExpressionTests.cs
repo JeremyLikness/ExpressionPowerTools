@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -57,12 +58,12 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serializerMethod = new Method(method);
             Assert.Equal(method.IsStatic, serializerMethod.IsStatic);
             Assert.Equal(method.Name, serializerMethod.Name);
-            Assert.Equal(method.DeclaringType, ReflectionHelper.Instance.DeserializeType(serializerMethod.DeclaringType));
-            Assert.Equal(method.ReturnType, ReflectionHelper.Instance.DeserializeType(serializerMethod.MemberValueType));
+            Assert.Equal(method.DeclaringType, TestSerializer.ReflectionHelper.DeserializeType(serializerMethod.DeclaringType));
+            Assert.Equal(method.ReturnType, TestSerializer.ReflectionHelper.DeserializeType(serializerMethod.MemberValueType));
             Assert.Equal(method.GetParameters().Select(p => new
             {
                 p.Name,
-                Type = ReflectionHelper.Instance.SerializeType(p.ParameterType)
+                Type = TestSerializer.ReflectionHelper.SerializeType(p.ParameterType)
             }).ToDictionary(p => p.Name, p => p.Type),
             serializerMethod.Parameters);
         }
@@ -84,7 +85,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.NewArrayInit(typeof(int), Expression.Constant(1), Expression.Constant(2));
             var target = new NewArray(expr);
-            Assert.Equal(expr.Type.GetElementType(), ReflectionHelper.Instance.DeserializeType(target.ArrayType));
+            Assert.Equal(expr.Type.GetElementType(), TestSerializer.ReflectionHelper.DeserializeType(target.ArrayType));
         }
 
         [Fact]
@@ -100,7 +101,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.Parameter(typeof(int), nameof(GivenParameterExpressionWhenParameterCreatedThenShouldSetNameAndParameterType));
             var target = new Parameter(expr);
-            Assert.Equal(expr.Type, ReflectionHelper.Instance.DeserializeType(target.ParameterType));
+            Assert.Equal(expr.Type, TestSerializer.ReflectionHelper.DeserializeType(target.ParameterType));
             Assert.Equal(expr.Name, target.Name);
         }
 
@@ -133,7 +134,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Assert.Equal(unary.Method.Name, target.UnaryMethod.Name);
             }
-            Assert.Equal(unary.Type, ReflectionHelper.Instance.DeserializeType(target.UnaryType));
+            Assert.Equal(unary.Type, TestSerializer.ReflectionHelper.DeserializeType(target.UnaryType));
         }
 
         [Fact]
@@ -145,8 +146,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             var target = new Lambda(lambda);
             Assert.NotNull(target.Parameters);
             Assert.Equal(lambda.Name, target.Name);
-            Assert.Equal(lambda.Type, ReflectionHelper.Instance.DeserializeType(target.LambdaType));
-            Assert.Equal(lambda.ReturnType, ReflectionHelper.Instance.DeserializeType(target.ReturnType));
+            Assert.Equal(lambda.Type, TestSerializer.ReflectionHelper.DeserializeType(target.LambdaType));
+            Assert.Equal(lambda.ReturnType, TestSerializer.ReflectionHelper.DeserializeType(target.ReturnType));
         }
 
         [Fact]

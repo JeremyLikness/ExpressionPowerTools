@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Extensions;
 using Xunit;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 
 namespace ExpressionPowerTools.Serialization.Tests
 {
@@ -47,7 +48,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenCompressTypesFalseWhenCompressTypeCalledThenDoesNothing()
         {
             var target = new SerializationState { CompressTypes = false };
-            var type = ReflectionHelper.Instance.SerializeType(typeof(int));
+            var type = TestSerializer.ReflectionHelper.SerializeType(typeof(int));
             Assert.True(comparer.Equals(type, target.CompressType(type)));
         }
 
@@ -55,7 +56,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenCompressTypesTrueWhenCompressTypeCalledThenCompressesType()
         {
             var target = new SerializationState { CompressTypes = true };
-            var type = ReflectionHelper.Instance.SerializeType(typeof(int));
+            var type = TestSerializer.ReflectionHelper.SerializeType(typeof(int));
             var compressedType = target.CompressType(type);
             Assert.False(comparer.Equals(type, compressedType));
             Assert.Equal("^0", compressedType.TypeName);
@@ -65,7 +66,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenComplexTypeWhenCompressTypeCalledThenSholdRecursivelyCompressType()
         {
             var target = new SerializationState { CompressTypes = true };
-            var type = ReflectionHelper.Instance.SerializeType(typeof(IComparable<IQueryable<int>>));
+            var type = TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<IQueryable<int>>));
             var compressedType = target.CompressType(type);
             Assert.False(comparer.Equals(type, compressedType));
             Assert.Equal(3, target.TypeIndex.Count);
@@ -100,7 +101,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var target = new SerializationState { CompressTypes = true };
             var types = TypeList;
-            var serialized = types.Select(t => ReflectionHelper.Instance.SerializeType(t)).ToArray();
+            var serialized = types.Select(t => TestSerializer.ReflectionHelper.SerializeType(t)).ToArray();
             // compressing raw type
             var compressed = types.Select(t => target.CompressType(t)).ToArray();
             var decompressed = compressed.Select(t => target.DecompressType(t)).ToArray();
@@ -113,7 +114,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var target = new SerializationState { CompressTypes = true };
             var types = TypeList;
-            var serialized = types.Select(t => ReflectionHelper.Instance.SerializeType(t)).ToArray();
+            var serialized = types.Select(t => TestSerializer.ReflectionHelper.SerializeType(t)).ToArray();
             // compressing serialized type
             var compressed = serialized.Select(t => target.CompressType(t)).ToArray();
             var decompressed = compressed.Select(t => target.DecompressType(t)).ToArray();
@@ -126,7 +127,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var target = new SerializationState { CompressTypes = true };
             var types = TypeList;
-            var serialized = types.Select(t => ReflectionHelper.Instance.SerializeType(t)).ToArray();
+            var serialized = types.Select(t => TestSerializer.ReflectionHelper.SerializeType(t)).ToArray();
             // compressing raw type
             var compressed = types.Select(t => target.CompressType(t)).ToArray();
             var decompressed = target.DecompressType(compressed.First());
@@ -158,11 +159,11 @@ namespace ExpressionPowerTools.Serialization.Tests
 
         public Method GetMethod => new Method
         {
-            DeclaringType = ReflectionHelper.Instance.SerializeType(
+            DeclaringType = TestSerializer.ReflectionHelper.SerializeType(
                 typeof(UberSomething<Something<Guid>, Guid, string>)),
-            ReflectedType = ReflectionHelper.Instance.SerializeType(
+            ReflectedType = TestSerializer.ReflectionHelper.SerializeType(
                 typeof(Something<Method>)),
-            MemberValueType = ReflectionHelper.Instance.SerializeType(
+            MemberValueType = TestSerializer.ReflectionHelper.SerializeType(
                 typeof(IComparable<Something<byte[]>>))
         };
 
@@ -194,7 +195,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenSerializableTypeWithNoFullNameWhenCompressTypeCalledThenShouldResolveFullName()
         {
             var target = new SerializationState { CompressTypes = true };
-            var type = ReflectionHelper.Instance.SerializeType(
+            var type = TestSerializer.ReflectionHelper.SerializeType(
                 typeof(UberSomething<Something<Guid>, Guid, string>));
             type.FullTypeName = null;
             var compressed = target.CompressType(type);
@@ -205,7 +206,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenTypeNotInIndexWhenIndexOfTypeExtensionCalledThenShouldReturnNegative()
         {
             var list = new List<SerializableType>();
-            var type = ReflectionHelper.Instance.SerializeType(typeof(int));
+            var type = TestSerializer.ReflectionHelper.SerializeType(typeof(int));
             Assert.Equal(-1, list.IndexOfType(type));
         }
     }

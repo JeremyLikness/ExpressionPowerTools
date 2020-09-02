@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -14,28 +15,28 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             yield return new object[]
             {
-                ReflectionHelper.Instance.SerializeType(typeof(int)),
-                ReflectionHelper.Instance.SerializeType(typeof(int)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(int)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(int)),
                 true
             };
 
             yield return new object[]
             {
-                ReflectionHelper.Instance.SerializeType(typeof(int)),
-                ReflectionHelper.Instance.SerializeType(typeof(long)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(int)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(long)),
                 false
             };
 
             yield return new object[]
             {
                 default(SerializableType),
-                ReflectionHelper.Instance.SerializeType(typeof(int)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(int)),
                 false
             };
 
             yield return new object[]
             {
-                ReflectionHelper.Instance.SerializeType(typeof(int)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(int)),
                 default(SerializableType),
                 false
             };
@@ -49,29 +50,29 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             yield return new object[]
             {
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<int>)),
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<int>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<int>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<int>)),
                 true
             };
 
             yield return new object[]
             {
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<int>)),
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<long>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<int>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<long>)),
                 false
             };
 
             yield return new object[]
             {
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<int>)),
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<int>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<>)),
                 false
             };
 
             yield return new object[]
             {
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<>)),
-                ReflectionHelper.Instance.SerializeType(typeof(IComparable<>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<>)),
+                TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<>)),
                 true
             };
 
@@ -103,7 +104,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [Fact]
         public void GivenComparerWhenGetHashCodeCalledThenCallsGetHashCodeOnSerializableType()
         {
-            var type = ReflectionHelper.Instance.SerializeType(typeof(IComparable<IEqualityComparer<int>>));
+            var type = TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<IEqualityComparer<int>>));
             Assert.Equal(type.GetHashCode(), comparer.GetHashCode(type));
         }
     }

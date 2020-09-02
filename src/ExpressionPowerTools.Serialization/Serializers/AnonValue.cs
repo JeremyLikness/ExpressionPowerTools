@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -26,7 +28,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="value">The value.</param>
         public AnonValue(Type type, object value)
         {
-            AnonValueType = ReflectionHelper.Instance.SerializeType(type);
+            AnonValueType = ServiceHost.GetService<IReflectionHelper>().SerializeType(type);
             AnonVal = value;
         }
 

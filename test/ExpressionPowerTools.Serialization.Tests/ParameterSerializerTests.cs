@@ -32,7 +32,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ParameterExpressionShouldSerialize(ParameterExpression parameter)
         {
             var serializable = serializer.Serialize(parameter, new SerializationState());
-            Assert.Equal(parameter.Type, ReflectionHelper.Instance.DeserializeType(serializable.ParameterType));
+            Assert.Equal(parameter.Type, TestSerializer.ReflectionHelper.DeserializeType(serializable.ParameterType));
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {
                 Assert.Equal(parameter.Name, serializable.Name);

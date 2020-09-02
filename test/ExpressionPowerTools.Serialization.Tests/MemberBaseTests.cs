@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -41,14 +41,14 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(methodInfo.IsStatic, target.IsStatic);
             Assert.Equal(methodInfo.Name, target.Name);
             Assert.Equal(methodInfo.DeclaringType,
-                ReflectionHelper.Instance.DeserializeType(target.DeclaringType));
+                TestSerializer.ReflectionHelper.DeserializeType(target.DeclaringType));
             Assert.Equal(methodInfo.ReturnType.Name, target.MemberValueType.TypeParamName);
             Assert.Equal(methodInfo.GetParameters().Select(p => p.Name),
                 target.Parameters.Select(p => p.Key));
             Assert.Equal(methodInfo.GetParameters()
                 .Where(p => p.ParameterType.FullName != null)
                 .Select(p => p.ParameterType),
-                target.Parameters.Select(p => ReflectionHelper.Instance.DeserializeType(p.Value)).Where(p => p != null));
+                target.Parameters.Select(p => TestSerializer.ReflectionHelper.DeserializeType(p.Value)).Where(p => p != null));
         }
 
         [Fact]
@@ -116,9 +116,9 @@ namespace ExpressionPowerTools.Serialization.Tests
                 property.SetMethod.IsStatic, target.IsStatic);
             Assert.Equal(property.Name, target.Name);
             Assert.Equal(property.DeclaringType,
-                ReflectionHelper.Instance.DeserializeType(target.DeclaringType));
+                TestSerializer.ReflectionHelper.DeserializeType(target.DeclaringType));
             Assert.Equal(property.PropertyType,
-                ReflectionHelper.Instance.DeserializeType(target.MemberValueType));
+                TestSerializer.ReflectionHelper.DeserializeType(target.MemberValueType));
             Assert.Equal(MemberTypes.Property, (MemberTypes)target.MemberType);
         }
 
@@ -167,9 +167,9 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(field.IsStatic, target.IsStatic);
             Assert.Equal(field.Name, target.Name);
             Assert.Equal(field.DeclaringType,
-                ReflectionHelper.Instance.DeserializeType(target.DeclaringType));
+                TestSerializer.ReflectionHelper.DeserializeType(target.DeclaringType));
             Assert.Equal(field.FieldType,
-                ReflectionHelper.Instance.DeserializeType(target.MemberValueType));
+                TestSerializer.ReflectionHelper.DeserializeType(target.MemberValueType));
             Assert.Equal(MemberTypes.Field, (MemberTypes)target.MemberType);
         }
 

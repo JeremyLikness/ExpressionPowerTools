@@ -2,6 +2,7 @@
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 {
@@ -9,6 +10,9 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
     {
         public static ExpressionSerializer ExpressionSerializer { get; } =
             new ExpressionSerializer();
+
+        public static IReflectionHelper ReflectionHelper { get; private set; } =
+            new ReflectionHelper();
         
         public static JsonElement GetSerializedFragment<TSerializer, TExpression>(
             TExpression expression,

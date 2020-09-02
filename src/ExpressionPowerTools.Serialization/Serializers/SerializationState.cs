@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Extensions;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -25,6 +27,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         private readonly IEqualityComparer<SerializableType> typeComparer =
             new SerializableTypeComparer();
+
+        /// <summary>
+        /// The <see cref="IReflectionHelper"/> instance.
+        /// </summary>
+        private readonly IReflectionHelper reflectionHelper =
+            ServiceHost.GetService<IReflectionHelper>();
 
         /// <summary>
         /// List of parameters to preserve across stack.
@@ -96,7 +104,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="type">The <see cref="SerializableType"/> to cache or retrieve.</param>
         /// <returns>The full type for an indexed type, or an indexed type for a full type.</returns>
         public Type GetType(SerializableType type) =>
-            ReflectionHelper.Instance.DeserializeType(
+            reflectionHelper.DeserializeType(
                 DecompressType(type));
 
         /// <summary>
@@ -113,7 +121,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             if (string.IsNullOrWhiteSpace(type.FullTypeName))
             {
-                type.FullTypeName = ReflectionHelper.Instance.GetFullTypeName(type);
+                type.FullTypeName = reflectionHelper.GetFullTypeName(type);
             }
 
             if (!TypeIndex.Contains(type, typeComparer))
@@ -141,7 +149,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <returns>The indexed <see cref="SerializableType"/>.</returns>
         public SerializableType CompressType(Type type)
         {
-            return CompressType(ReflectionHelper.Instance.SerializeType(type));
+            return CompressType(reflectionHelper.SerializeType(type));
         }
 
         /// <summary>
@@ -193,7 +201,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var result = DecompressType(type);
             result.GenericTypeArguments = genericTypes;
-            result.FullTypeName = ReflectionHelper.Instance.GetFullTypeName(result);
+            result.FullTypeName = reflectionHelper.GetFullTypeName(result);
             return result;
         }
 

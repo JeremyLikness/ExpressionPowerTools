@@ -3,6 +3,8 @@
 
 using System;
 using System.Reflection;
+using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -11,6 +13,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// </summary>
     public abstract class MemberBase
     {
+        /// <summary>
+        /// The <see cref="IReflectionHelper"/>.
+        /// </summary>
+        private readonly IReflectionHelper reflectionHelper =
+            ServiceHost.GetService<IReflectionHelper>();
+
         /// <summary>
         /// Gets or sets the type of the member. See <see cref="MemberTypes"/> for options.
         /// </summary>
@@ -63,7 +71,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="type">The <see cref="Type"/> to serialize.</param>
         /// <returns>The <see cref="SerializableType"/>.</returns>
         protected SerializableType SerializeType(Type type) =>
-            ReflectionHelper.Instance.SerializeType(type);
+            reflectionHelper.SerializeType(type);
 
         /// <summary>
         /// Helper to get the full name of a type.
@@ -71,6 +79,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="serializableType">The <see cref="SerializableType"/> to get the name for.</param>
         /// <returns>The full name of the type.</returns>
         protected string GetFullNameOfType(SerializableType serializableType) =>
-            ReflectionHelper.Instance.GetFullTypeName(serializableType);
+            reflectionHelper.GetFullTypeName(serializableType);
     }
 }

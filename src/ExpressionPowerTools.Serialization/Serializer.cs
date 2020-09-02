@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -32,9 +35,9 @@ namespace ExpressionPowerTools.Serialization
         /// <returns>The serialized <see cref="Expression"/> tree.</returns>
         /// <exception cref="ArgumentNullException">Thrown when the <see cref="Expression"/> is <c>null</c>.</exception>
         public static string Serialize(
-            Expression root,
-            JsonSerializerOptions options = null,
-            bool compressTypes = true)
+        Expression root,
+        JsonSerializerOptions options = null,
+        bool compressTypes = true)
         {
             Ensure.NotNull(() => root);
             var opt = new JsonSerializerOptions();

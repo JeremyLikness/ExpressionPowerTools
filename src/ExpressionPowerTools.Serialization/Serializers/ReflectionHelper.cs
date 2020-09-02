@@ -5,18 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
-using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
     /// <summary>
     /// Helper class to cache <see cref="Type"/> and <see cref="MethodInfo"/> information.
     /// </summary>
-    public class ReflectionHelper
+    public class ReflectionHelper : IReflectionHelper
     {
         /// <summary>
         /// Type cache.
@@ -42,11 +42,45 @@ namespace ExpressionPowerTools.Serialization.Serializers
             new Dictionary<string, MemberInfo>();
 
         /// <summary>
-        /// Gets the static instance.
+        /// Initializes a new instance of the <see cref="ReflectionHelper"/> class.
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        public static ReflectionHelper Instance { get; private set; }
-            = new ReflectionHelper();
+        public ReflectionHelper()
+        {
+            var preRegister = new List<Type>();
+            foreach (var assemblyType in new[] { typeof(Expression), typeof(Queryable) })
+            {
+                foreach (var type in assemblyType.Assembly.GetTypes())
+                {
+                    if (!string.IsNullOrWhiteSpace(type.FullName) &&
+                        !types.ContainsKey(type.FullName))
+                    {
+                        preRegister.Add(type);
+                    }
+                }
+            }
+
+            RegisterTypes(preRegister.ToArray());
+        }
+
+        /// <summary>
+        /// Pre-register types to the cache to improve discoverability.
+        /// </summary>
+        /// <param name="typeList">The <see cref="Type"/> list to register.</param>
+        public void RegisterTypes(params Type[] typeList)
+        {
+            Monitor.Enter(lockObj);
+
+            foreach (var type in typeList)
+            {
+                if (!string.IsNullOrWhiteSpace(type.FullName) &&
+                    !types.ContainsKey(type.FullName))
+                {
+                    types.Add(type.FullName, type);
+                }
+            }
+
+            Monitor.Exit(lockObj);
+        }
 
         /// <summary>
         /// Get a <see cref="Type"/> based on full name.

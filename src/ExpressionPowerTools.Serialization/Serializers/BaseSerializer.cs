@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -20,6 +20,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         where TExpression : Expression
         where TSerializable : SerializableExpression
     {
+        /// <summary>
+        /// Instance of <see cref="IReflectionHelper"/>.
+        /// </summary>
+        private readonly IReflectionHelper reflectionHelper = ServiceHost.GetService<IReflectionHelper>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSerializer{T, TSerializable}"/> class with a default serializer.
         /// </summary>
@@ -65,6 +70,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         protected TMemberInfo GetMemberInfo<TMemberInfo, TMemberBase>(TMemberBase member)
             where TMemberInfo : MemberInfo
             where TMemberBase : MemberBase =>
-            ReflectionHelper.Instance.GetMemberFromCache<TMemberInfo, TMemberBase>(member);
+            reflectionHelper.GetMemberFromCache<TMemberInfo, TMemberBase>(member);
     }
 }

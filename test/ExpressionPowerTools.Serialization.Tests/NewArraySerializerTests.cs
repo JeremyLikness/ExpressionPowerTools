@@ -20,7 +20,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.Constant(1),
                 Expression.Constant(2));
             var target = serializer.Serialize(newArray, new SerializationState());
-            Assert.Equal(newArray.Type.GetElementType(), ReflectionHelper.Instance.DeserializeType(target.ArrayType));
+            Assert.Equal(newArray.Type.GetElementType(), TestSerializer.ReflectionHelper.DeserializeType(target.ArrayType));
             Assert.True(target.Expressions.OfType<Constant>().Any());
         }
 

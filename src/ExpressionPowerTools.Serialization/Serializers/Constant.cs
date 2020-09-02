@@ -3,7 +3,9 @@
 
 using System;
 using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -17,7 +19,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Anonymous type for reference.
         /// </summary>
         public static readonly SerializableType AnonType =
-            ReflectionHelper.Instance.SerializeType(typeof(AnonType));
+            ServiceHost.GetService<IReflectionHelper>().SerializeType(typeof(AnonType));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Constant"/> class.

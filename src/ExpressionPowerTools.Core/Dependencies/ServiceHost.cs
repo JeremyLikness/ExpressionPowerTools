@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Linq;
 using System.Threading;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Hosts;
@@ -89,7 +90,14 @@ namespace ExpressionPowerTools.Core.Dependencies
             Monitor.Enter(MutexLock);
             configured = false;
             Services = new Services();
-            Services.RegisterServices(RegisterDefaults);
+            Services.RegisterServices(register =>
+            {
+                RegisterDefaults(register);
+
+                // now satellite assemblies
+                RegisterSatellites(register);
+            });
+
             Monitor.Exit(MutexLock);
         }
 
@@ -119,10 +127,14 @@ namespace ExpressionPowerTools.Core.Dependencies
             try
             {
                 Services = new Services();
+
                 Services.RegisterServices(register =>
                 {
                     // defaults first
                     RegisterDefaults(register);
+
+                    // now satellite assemblies
+                    RegisterSatellites(register);
 
                     // now user overrides
                     registration(register);
@@ -149,6 +161,23 @@ namespace ExpressionPowerTools.Core.Dependencies
                 .RegisterGeneric(typeof(IQueryHost<,>), typeof(QueryHost<,>))
                 .RegisterGeneric(typeof(IQueryInterceptingProvider<>), typeof(QueryInterceptingProvider<>))
                 .RegisterGeneric(typeof(IQuerySnapshotProvider<>), typeof(QuerySnapshotProvider<>));
+        }
+
+        /// <summary>
+        /// Register defaults from satellite assemblies.
+        /// </summary>
+        /// <param name="register">The <see cref="IServiceRegistration"/>.</param>
+        private static void RegisterSatellites(IServiceRegistration register)
+        {
+            // now satellite assemblies
+            foreach (var dependent in AppDomain.CurrentDomain.GetAssemblies().SelectMany(
+                a => a.GetTypes()
+                .Where(t => typeof(IDependentServiceRegistration).IsAssignableFrom(t) &&
+                !t.IsInterface)))
+            {
+                var satelliteRegistration = Activator.CreateInstance(dependent) as IDependentServiceRegistration;
+                satelliteRegistration.RegisterDefaultServices(register);
+            }
         }
     }
 }

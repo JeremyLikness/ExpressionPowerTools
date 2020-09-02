@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
@@ -138,7 +139,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Name = nameof(field)
             };
-            var cached = ReflectionHelper.Instance.GetMemberFromCache<PropertyInfo, Property>(prop);
+            var cached = TestSerializer.ReflectionHelper.GetMemberFromCache<PropertyInfo, Property>(prop);
             Assert.Null(cached);
         }
 
@@ -149,14 +150,14 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Name = nameof(Property)
             };
-            var cached = ReflectionHelper.Instance.GetMemberFromCache<FieldInfo, Field>(f);
+            var cached = TestSerializer.ReflectionHelper.GetMemberFromCache<FieldInfo, Field>(f);
             Assert.Null(cached);
         }
 
         [Fact]
         public void GivenSerializedTypeWhenGetHashCodeCalledThenShouldReturnHashOfToString()
         {
-            var type = ReflectionHelper.Instance.SerializeType(typeof(IComparable<int>));
+            var type = TestSerializer.ReflectionHelper.SerializeType(typeof(IComparable<int>));
             Assert.Equal(type.GetHashCode(), type.ToString().GetHashCode());
         }
 
@@ -211,7 +212,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Name = "fake",
                 DeclaringType =
-                    ReflectionHelper.Instance.SerializeType(typeof(int))
+                    TestSerializer.ReflectionHelper.SerializeType(typeof(int))
             };
 
             var methodInfo = target.GetMemberFromCache<MethodInfo, Method>(method);
@@ -257,6 +258,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             SerializableType type, string name)
         {
             Assert.Equal(type.ToString(), name);
-        }
+        }       
     }
 }

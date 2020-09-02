@@ -4,6 +4,8 @@
 using System;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -13,6 +15,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
     [Serializable]
     public class SerializableExpression
     {
+        /// <summary>
+        /// Reflection helper instance.
+        /// </summary>
+        private readonly IReflectionHelper reflectionHelper =
+            ServiceHost.GetService<IReflectionHelper>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializableExpression"/> class.
         /// </summary>
@@ -43,7 +51,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="type">The <see cref="Type"/> to serialize.</param>
         /// <returns>The <see cref="SerializableType"/>.</returns>
         protected SerializableType SerializeType(Type type) =>
-            ReflectionHelper.Instance.SerializeType(type);
+            reflectionHelper.SerializeType(type);
 
         /// <summary>
         /// Serialize the type of an object.
@@ -51,6 +59,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="target">The target to inspect the type of.</param>
         /// <returns>The <see cref="SerializableType"/>.</returns>
         protected SerializableType SerializeTypeOf(object target) =>
-            ReflectionHelper.Instance.SerializeType(target.GetType());
+            reflectionHelper.SerializeType(target.GetType());
     }
 }
