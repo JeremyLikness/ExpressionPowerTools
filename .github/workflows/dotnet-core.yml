@@ -28,6 +28,8 @@ jobs:
       run: dotnet tool install --tool-path . nbgv
     - name: Install dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+    - name: Build Core
+      run: dotnet build --configuration Release --no-restore src/ExpressionPowerTools.Core/ExpressionPowerTools.Core.csproj
+    - name: Build Serialization
+      run: dotnet build --configuration Release --no-restore src/ExpressionPowerTools.Serialization/ExpressionPowerTools.Serialization.csproj
   
