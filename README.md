@@ -2,6 +2,7 @@
 
 ![.NET Core](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/.NET%20Core/badge.svg)
 ![.NET Core Tests](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/.NET%20Core%20Tests/badge.svg)
+![Pack and Publish NuGet](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/Pack%20and%20Publish%20NuGet/badge.svg)
 [![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Core)](https://www.nuget.org/packages/ExpressionPowerTools.Core/)
 
 Power tools for working with `IQueryable` and Expression trees. User-friendly documentation is coming. Best way to 
