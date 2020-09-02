@@ -39,3 +39,12 @@ jobs:
         NUGET_KEY: ${{ secrets.NUGET_EXPRESSION }}
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
         INCLUDE_SYMBOLS: true
+    - uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+        # Filepath of the project to be packaged, relative to root of repository
+        PROJECT_FILE_PATH: src/ExpressionPowerTools.Serialization/ExpressionPowerTools.Serialization.csproj
+        TAG_COMMIT: false
+        VERSION_STATIC: true
+        NUGET_KEY: ${{ secrets.NUGET_EXPRESSION }}
+        # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+        INCLUDE_SYMBOLS: true
