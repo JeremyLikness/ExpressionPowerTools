@@ -17,6 +17,7 @@
 | [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) | A given constructor overload. |
 | [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) | Represents a parameter. |
 | [DocProperty](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.cs.md) | Represents a property. |
+| [DocSerialization](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocSerialization.cs.md) | Serialization cross-reference. |
 | [DocTypeParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter.cs.md) | A type parameter. |
 | [LinkCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.LinkCache.cs.md) | Cache for grabbing links. |
 | [TypeCache](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeCache.cs.md) | Saves the "user-friendly" type and link. |
@@ -27,4 +28,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

@@ -28,6 +28,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
             new List<DocNamespace>();
 
         /// <summary>
+        /// Gets or sets custom documents associated with the assembly.
+        /// </summary>
+        public ICollection<DocBase> CustomDocs { get; set; } =
+            new List<DocBase>();
+
+        /// <summary>
         /// Gets the file extension.
         /// </summary>
         public override string Extension => "a";

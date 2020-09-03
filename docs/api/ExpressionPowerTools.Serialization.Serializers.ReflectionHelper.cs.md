@@ -5,23 +5,18 @@
 Helper class to cache [Type](https://docs.microsoft.com/dotnet/api/system.type) and [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) information.
 
 ```csharp
-public class ReflectionHelper
+public class ReflectionHelper : IReflectionHelper
 ```
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ReflectionHelper**
+
+Implements  [IReflectionHelper](ExpressionPowerTools.Serialization.Signatures.IReflectionHelper.i.md) 
 
 ## Constructors
 
 | Ctor | Description |
 | :-- | :-- |
 | [ReflectionHelper()](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.ctor.md#reflectionhelper) | Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class. |
-| [static ReflectionHelper()](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.ctor.md#static-reflectionhelper) | Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class. |
-## Properties
-
-| Property | Type | Description |
-| :-- | :-- | :-- |
-| [`Instance`](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.Instance.prop.md) | [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) | Gets the static instance. |
-
 ## Methods
 
 | Method | Description |
@@ -30,10 +25,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [String GetFullTypeName(SerializableType serializedType, StringBuilder builder, Int32 level)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetFullTypeName.m.md) | Gets the full type name of the serialized type. |
 | [TMemberInfo GetMemberFromCache&lt;TMemberInfo, TMemberBase>(TMemberBase member)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetMemberFromCache.m.md) | Gets the specified member. Will add to cache if not found. |
 | [Type GetTypeFromCache(String name)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetTypeFromCache.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) based on full name. |
+| [Void RegisterTypes(Type[] typeList)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.RegisterTypes.m.md) | Pre-register types to the cache to improve discoverability. |
 | [SerializableType SerializeType(Type type)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.SerializeType.m.md) | Creates a serializable type. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

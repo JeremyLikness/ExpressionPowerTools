@@ -23,6 +23,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [V
 
 | Method | Description |
 | :-- | :-- |
+| [Boolean Equals(Object obj)](ExpressionPowerTools.Serialization.Serializers.SerializableType.Equals.m.md) | Gets equality for serializable type. |
 | [Int32 GetHashCode()](ExpressionPowerTools.Serialization.Serializers.SerializableType.GetHashCode.m.md) | Gets the hash code for the type. |
 | [String ToString()](ExpressionPowerTools.Serialization.Serializers.SerializableType.ToString.m.md) | Overload to show type. |
 
@@ -30,4 +31,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [V
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

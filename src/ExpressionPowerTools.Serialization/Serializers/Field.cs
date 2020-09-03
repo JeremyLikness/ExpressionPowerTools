@@ -8,7 +8,7 @@ using System.Reflection;
 namespace ExpressionPowerTools.Serialization.Serializers
 {
     /// <summary>
-    /// A serializable property.
+    /// A serializable field.
     /// </summary>
     [Serializable]
     public class Field : MemberBase

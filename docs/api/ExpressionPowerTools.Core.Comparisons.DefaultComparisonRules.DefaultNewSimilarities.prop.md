@@ -10,8 +10,7 @@ public static Expression<Func<NewExpression, NewExpression, Boolean>> DefaultNew
 
 ## Remarks
 
-The types must be similar, but the constructors must match.
-            Arguments must be similar.
+The types must be similar, parameters and arguments must be similar.
 
 ### Property Value
 
@@ -22,4 +21,4 @@ The types must be similar, but the constructors must match.
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
