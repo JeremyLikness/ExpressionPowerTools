@@ -9,6 +9,15 @@ namespace ExpressionPowerTools.Serialization.Tests
 {
     public class TestHost<T>
     {
+        public TestHost()
+        {
+        }
+
+        public TestHost(T prop)
+        {
+            GenericProperty = prop;
+        }
+
         public T GenericProperty { get; set; }
     }
 

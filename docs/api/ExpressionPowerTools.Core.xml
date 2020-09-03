@@ -211,6 +211,24 @@
             Arguments must be similar.
             </remarks>
         </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberInitRules">
+            <summary>
+            Gets the default rules for member initializers.
+            </summary>
+            <remarks>
+            The types must be equal. The expression for initialization must
+            be equivalent. All bindings must be equivalent.
+            </remarks>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberInitSimilarities">
+            <summary>
+            Gets the default rules for member initializer similarites.
+            </summary>
+            <remarks>
+            The types must be similar. The expression for initialization must
+            be similar. All bindings must be similar.
+            </remarks>
+        </member>
         <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.GetRuleForEquivalency``1">
             <summary>
             Gets a predicate to compare two expressions of a given type.
@@ -528,6 +546,28 @@
             <param name="target">The target <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
             <returns>A flag indicating whether the object initializers are equivalent.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.MemberInitAreEquivalent(System.Linq.Expressions.MemberInitExpression,System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            Check for equivalent member initialization.
+            </summary>
+            <remarks>
+            The expression must be equivalent and every binding must be equivalent.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.</param>
+            <returns>A flag indicating whether the member initializations are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.MemberInitAreSimilar(System.Linq.Expressions.MemberInitExpression,System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            Check for similar member initialization.
+            </summary>
+            <remarks>
+            The expression must be similar, the types similar, and every binding must be equivalent.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.</param>
+            <returns>A flag indicating whether the member initializations are similar.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.LambdasAreSimilar(System.Linq.Expressions.LambdaExpression,System.Linq.Expressions.LambdaExpression)">
             <summary>
             Determine whether two lambdas are similar.
@@ -644,11 +684,11 @@
         </member>
         <member name="M:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.NewAreSimilar(System.Linq.Expressions.NewExpression,System.Linq.Expressions.NewExpression)">
             <summary>
-            Check for equivalent object initializer.
+            Check for similar object initializer.
             </summary>
             <remarks>
-            To be true, type, constructor, methods must be equivalent
-            and arguments must be similar.
+            To be true, type must be similar, constructor names are equal,
+            parameters are simlar and arguments are similar.
             </remarks>
             <param name="source">The source <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
             <param name="target">The target <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
@@ -709,6 +749,14 @@
             <param name="source">The source value.</param>
             <param name="target">The target value.</param>
             <returns>A flag indicating equivalency.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.MemberBindingsAreEquivalent(System.Linq.Expressions.MemberBinding,System.Linq.Expressions.MemberBinding)">
+            <summary>
+            Ensures that two <see cref="T:System.Linq.Expressions.MemberBinding"/> instances are equivalent.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MemberBinding"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MemberBinding"/>.</param>
+            <returns>A value that indicates whether the bindings are equivalent.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.DictionariesAreEquivalent(System.Collections.IDictionary,System.Collections.IDictionary)">
             <summary>
@@ -860,6 +908,14 @@
             <returns>A flag indicating whether the two sets of
             expressions are Similar.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.ParameterInfosAreSimilar(System.Collections.Generic.IList{System.Reflection.ParameterInfo},System.Collections.Generic.IList{System.Reflection.ParameterInfo})">
+            <summary>
+            Determines whether a list of parameters for a method or constructor are similar.
+            </summary>
+            <param name="source">The source parameter list.</param>
+            <param name="target">The target parameter list.</param>
+            <returns>A flag that indicates whether the parameters are similar.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
             <summary>
             Determines whether an <see cref="T:System.Linq.Expressions.Expression"/> is part of another expression.
@@ -891,6 +947,14 @@
             <param name="source">The source list.</param>
             <param name="target">The target list.</param>
             <returns>A value that indicates whether the arguments are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.MemberBindingsAreSimilar(System.Collections.Generic.IList{System.Linq.Expressions.MemberBinding},System.Collections.Generic.IList{System.Linq.Expressions.MemberBinding})">
+            <summary>
+            Determines whether two lists of <see cref="T:System.Linq.Expressions.MemberBinding"/> are similar.
+            </summary>
+            <param name="source">The source list.</param>
+            <param name="target">The target list.</param>
+            <returns>A value indicating whether the individual bindings are similar.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Core.Contract.Ensure">
             <summary>
@@ -1157,6 +1221,12 @@
             Main entry, similar to "Visit" on <see cref="T:System.Linq.Expressions.ExpressionVisitor"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> under consideration.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseMemberInitExpression(System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            Recurse a member initialization.
+            </summary>
+            <param name="init">The <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.</param>
         </member>
         <member name="M:ExpressionPowerTools.Core.ExpressionEnumerator.RecurseNewArrayExpression(System.Linq.Expressions.NewArrayExpression)">
             <summary>
@@ -1437,6 +1507,23 @@
             <param name="member">The enumerable child expressions.</param>
             <returns>A value indicating whether or not the enumerables match.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.NonGenericEnumerablesMustBeEquivalent``1(System.Func{``0,System.Collections.IEnumerable})">
+            <summary>
+            Each value in the enumerable must be equivalent.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">The enumerable child.</param>
+            <returns>A value indicating whether or not the enumerable values match.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndNonGenericEnumerablesMustBeEquivalent``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Collections.IEnumerable})">
+            <summary>
+            Each value in the enumerable must be equivalent.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The existing rule.</param>
+            <param name="member">The enumerable child.</param>
+            <returns>A value indicating whether or not the enumerable values match.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.EnumerableExpressionsMustBeSimilar``1(System.Func{``0,System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression}})">
             <summary>
             Expression in each enumerable must be similar.
@@ -1453,6 +1540,23 @@
             <param name="rule">The existing rule.</param>
             <param name="member">The enumerable child expressions.</param>
             <returns>A value indicating whether or not the enumerables are similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.MemberBindingsMustBeSimilar``1(System.Func{``0,System.Collections.Generic.IList{System.Linq.Expressions.MemberBinding}})">
+            <summary>
+            Each value in the binding list must be similar.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="member">The binding list child.</param>
+            <returns>A value indicating whether or not the bindings are all similar.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndMemberBindingsMustBeSimilar``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Collections.Generic.IList{System.Linq.Expressions.MemberBinding}})">
+            <summary>
+            Each value in the binding list must be similar.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Linq.Expressions.Expression"/> type.</typeparam>
+            <param name="rule">The existing rule.</param>
+            <param name="member">The binding list child.</param>
+            <returns>A value indicating whether or not the bindings are all similar.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.AndExpressionsMustBeEquivalent``1(System.Linq.Expressions.Expression{System.Func{``0,``0,System.Boolean}},System.Func{``0,System.Linq.Expressions.Expression})">
             <summary>

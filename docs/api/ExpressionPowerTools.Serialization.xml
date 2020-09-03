@@ -367,6 +367,53 @@
             <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
         </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.Ctor">
+            <summary>
+            Serializable version of <see cref="T:System.Reflection.ConstructorInfo"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Ctor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Ctor"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Ctor.#ctor(System.Reflection.ConstructorInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Ctor"/> class and
+            initializes it with a <see cref="T:System.Reflection.ConstructorInfo"/>.
+            </summary>
+            <param name="info">The <see cref="T:System.Reflection.ConstructorInfo"/> for initialization.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Ctor.MemberType">
+            <summary>
+            Gets or sets the type of the member.
+            </summary>
+            <remarks>
+            Setting is just to accommodate serialization.
+            </remarks>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Ctor.IsStatic">
+            <summary>
+            Gets or sets a value indicating whether the method is static.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Ctor.Name">
+            <summary>
+            Gets or sets the name of the method.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.Ctor.Parameters">
+            <summary>
+            Gets or sets the list of parameters with parameter name mapped to the
+            full name of the type.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Ctor.CalculateKey">
+            <summary>
+            Gets the unique key for the method.
+            </summary>
+            <returns>The unique key.</returns>
+        </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer">
             <summary>
             Top-level serializer that passes work off to specific types.
@@ -462,6 +509,23 @@
             Gets the unique key for the method.
             </summary>
             <returns>The unique key.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.Init">
+            <summary>
+            Represents a serializable <see cref="T:System.Linq.Expressions.NewExpression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Init.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Init"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.Init.#ctor(System.Linq.Expressions.NewExpression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Init"/> class with
+            a <see cref="T:System.Linq.Expressions.NewExpression"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.NewExpression"/> to initialize.</param>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.Invocation">
             <summary>

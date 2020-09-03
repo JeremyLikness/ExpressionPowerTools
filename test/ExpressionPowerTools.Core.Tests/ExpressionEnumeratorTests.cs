@@ -166,5 +166,32 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.Single(target.OfType<NewExpression>());
             Assert.Equal(2, target.OfType<ConstantExpression>().Count());
         }
+
+        public class Foo
+        {
+            public int Id { get; set; }
+        }
+
+        public class Bar
+        {
+            public Bar()
+            {
+            }
+
+            public Bar(string id)
+            {
+                Id = id;
+            }
+
+            public string Id { get; set; }
+            public int Other { get; set; }
+        }
+
+        [Fact]
+        public void GivenAnExpressionWithInitializationWhenGetEnumeratorCalledThenShouldReturnSubExpressions()
+        {
+            var query = new List<Foo>().AsQueryable().Select(f => new Bar(f.Id.ToString()) { Other = f.Id });
+            var tree = new ExpressionEnumerator(query.Expression).ToList();
+        }
     }
 }
