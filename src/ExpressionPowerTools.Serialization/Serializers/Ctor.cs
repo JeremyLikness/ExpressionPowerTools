@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +11,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// <summary>
     /// Serializable version of <see cref="ConstructorInfo"/>.
     /// </summary>
+    [Serializable]
     public class Ctor : MemberBase
     {
         /// <summary>
@@ -30,7 +32,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             MemberValueType = DeclaringType;
             ReflectedType = SerializeType(info.ReflectedType);
             IsStatic = info.IsStatic;
-            Name = info.Name;
+            Name = $"{DeclaringType.FullTypeName}()";
             Parameters = info.GetParameters().Select(
                 p => new
                 {

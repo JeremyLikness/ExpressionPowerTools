@@ -5,9 +5,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
+using Xunit.Sdk;
 
 namespace ExpressionPowerTools.Serialization.Tests
 {
@@ -258,6 +260,89 @@ namespace ExpressionPowerTools.Serialization.Tests
             SerializableType type, string name)
         {
             Assert.Equal(type.ToString(), name);
-        }       
+        }
+
+        public class TestClass<T, T1>
+        {
+            static TestClass()
+            {
+            }
+
+            public TestClass()
+            {
+            }
+
+            public TestClass(int prop)
+            {
+                Prop = prop;
+            }
+
+            public TestClass(T thing)
+            {
+                Thing = thing;
+            }
+
+            public TestClass(T thing, T1 _)
+                : this(thing)
+            {                
+            }
+
+            public T Thing { get; set; }
+            public IComparable<T1> Comparer { get; set; }
+            public int Prop { get; set; }
+        }
+
+
+        public static IEnumerable<object[]> GetCtorMatrix()
+        {
+            var genericType = typeof(TestClass<,>);
+            var closed = typeof(TestClass<int, string>);
+            var pub = BindingFlags.Public | BindingFlags.Instance;
+            var stat = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+
+            var ctors = genericType.GetConstructors(pub)
+                .Union(genericType.GetConstructors(stat))
+                .Union(closed.GetConstructors(pub))
+                .Union(closed.GetConstructors(stat)).Distinct();
+
+            foreach (var ctor in ctors)
+            {
+                yield return new object[] { ctor };
+            }            
+        }
+
+        [Theory]
+        [MemberData(nameof(GetCtorMatrix))]
+        public void GivenConstructorInfoWhenCachedThenRetrieveFromCacheShouldReturnCtor(ConstructorInfo info)
+        {
+            var ctor = new Ctor(info);
+            var ctorInfo = target.GetMemberFromCache<ConstructorInfo, Ctor>(ctor);
+            Assert.NotNull(ctorInfo);
+            Assert.Same(info, ctorInfo);
+        }
+
+        [Fact]
+        public void GivenCtorWithTypeNotFoundThenRetrieveFromCacheShouldReturnNull()
+        {
+            var closed = typeof(TestClass<int, string>);
+            var ctorInfo = closed.GetConstructors()[0];
+            var ctor = new Ctor(ctorInfo)
+            {
+                DeclaringType = default
+            };
+            var cached = target.GetMemberFromCache<ConstructorInfo, Ctor>(ctor);
+            Assert.Null(cached);
+        }
+
+        [Fact]
+        public void GivenCtorWithConstructorInfoNotFoundThenRetrieveFromCacheShouldReturnNull()
+        {
+            var closed = typeof(TestClass<int, string>);
+            var ctorInfo = closed.GetConstructors()[0];
+            var ctor = new Ctor(ctorInfo);
+            ctor.Parameters.Add(nameof(ctor), target.SerializeType(GetType()));
+            var cached = target.GetMemberFromCache<ConstructorInfo, Ctor>(ctor);
+            Assert.Null(cached);
+        }
     }
 }

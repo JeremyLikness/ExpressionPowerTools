@@ -2,16 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
     /// <summary>
     /// A serializable property.
     /// </summary>
+    [Serializable]
     public class Field : MemberBase
     {
         /// <summary>

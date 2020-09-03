@@ -114,6 +114,27 @@ namespace ExpressionPowerTools.Serialization.Extensions
         }
 
         /// <summary>
+        /// Gets the field from the <see cref="JsonElement"/>.
+        /// </summary>
+        /// <param name="element">The <see cref="JsonElement"/> to parse.</param>
+        /// <param name="state">The state of serialization.</param>
+        /// <returns>The deserialized <see cref="Ctor"/>.</returns>
+        public static Ctor GetSerializedCtor(
+            this JsonElement element,
+            SerializationState state)
+        {
+            var json = element.GetRawText();
+            var ctor = JsonSerializer.Deserialize<Ctor>(json);
+
+            if (ctor != null)
+            {
+                state.DecompressMemberTypes(ctor);
+            }
+
+            return ctor;
+        }
+
+        /// <summary>
         /// Safe way to access a property. Returns an element that evaluates to <c>null</c>
         /// when the underlying property doesn't exist.
         /// </summary>

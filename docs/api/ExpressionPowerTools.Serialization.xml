@@ -51,6 +51,14 @@
             <param name="state">The state of serialization.</param>
             <returns>The deserialized <see cref="T:ExpressionPowerTools.Serialization.Serializers.Field"/>.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetSerializedCtor(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Gets the field from the <see cref="T:System.Text.Json.JsonElement"/>.
+            </summary>
+            <param name="element">The <see cref="T:System.Text.Json.JsonElement"/> to parse.</param>
+            <param name="state">The state of serialization.</param>
+            <returns>The deserialized <see cref="T:ExpressionPowerTools.Serialization.Serializers.Ctor"/>.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetNullableProperty(System.Text.Json.JsonElement,System.String)">
             <summary>
             Safe way to access a property. Returns an element that evaluates to <c>null</c>
@@ -414,6 +422,97 @@
             </summary>
             <returns>The unique key.</returns>
         </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr">
+            <summary>
+            Represents a serializable <see cref="T:System.Linq.Expressions.NewExpression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorExpr.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorExpr.#ctor(System.Linq.Expressions.NewExpression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr"/> class
+            initialized with a <see cref="T:System.Linq.Expressions.NewExpression"/>.
+            </summary>
+            <param name="ctor">The <see cref="T:System.Linq.Expressions.NewExpression"/> to
+            serialize.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.CtorExpr.CtorInfo">
+            <summary>
+            Gets or sets the serializable <see cref="T:System.Reflection.ConstructorInfo"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.CtorExpr.Arguments">
+            <summary>
+            Gets or sets the method's object.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.CtorExpr.Members">
+            <summary>
+            Gets or sets the members.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.CtorExpr.MemberTypeList">
+            <summary>
+            Gets or sets the list of member types.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.CtorExpr.Properties">
+            <summary>
+            Gets or sets the property list.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.CtorExpr.Fields">
+            <summary>
+            Gets or sets the field list.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.CtorSerializer">
+            <summary>
+            Serialization services for <see cref="T:System.Linq.Expressions.NewExpression"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.#ctor(ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer{System.Linq.Expressions.Expression,ExpressionPowerTools.Serialization.Serializers.SerializableExpression})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.CtorSerializer"/> class.
+            </summary>
+            <param name="serializer">The base serializer.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Deserialize a <see cref="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr"/> to a <see cref="T:System.Linq.Expressions.NewExpression"/>.
+            </summary>
+            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
+            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
+            <returns>The <see cref="T:System.Linq.Expressions.NewExpression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Serialize(System.Linq.Expressions.NewExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Serialize a <see cref="T:System.Linq.Expressions.NewExpression"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.NewExpression"/> to serialize.</param>
+            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Implements <see cref="T:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer"/>.
+            </summary>
+            <param name="json">The serialized fragment.</param>
+            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
+            <returns>The <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Serialize(System.Linq.Expressions.Expression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Implements <see cref="T:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer"/>.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
+            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
+        </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer">
             <summary>
             Top-level serializer that passes work off to specific types.
@@ -509,23 +608,6 @@
             Gets the unique key for the method.
             </summary>
             <returns>The unique key.</returns>
-        </member>
-        <member name="T:ExpressionPowerTools.Serialization.Serializers.Init">
-            <summary>
-            Represents a serializable <see cref="T:System.Linq.Expressions.NewExpression"/>.
-            </summary>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.Init.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Init"/> class.
-            </summary>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.Init.#ctor(System.Linq.Expressions.NewExpression)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.Init"/> class with
-            a <see cref="T:System.Linq.Expressions.NewExpression"/>.
-            </summary>
-            <param name="expression">The <see cref="T:System.Linq.Expressions.NewExpression"/> to initialize.</param>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.Invocation">
             <summary>
@@ -1231,6 +1313,14 @@
             <param name="test">Test that must pass.</param>
             <param name="action">The action to take.</param>
         </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.AddMethodToCache(ExpressionPowerTools.Serialization.Serializers.Method,System.String)">
+            <summary>
+            Finds the method to match and adds it to the cache.
+            </summary>
+            <param name="method">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Method"/>.</param>
+            <param name="key">The key to the cache.</param>
+            <returns>The <see cref="T:System.Reflection.MethodInfo"/>.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.AddPropertyToCache(ExpressionPowerTools.Serialization.Serializers.Property,System.String)">
             <summary>
             Finds the property to match and adds it to the cache.
@@ -1246,6 +1336,14 @@
             <param name="field">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Field"/> template to use.</param>
             <param name="key">The unique key for the field.</param>
             <returns>The <see cref="T:System.Reflection.FieldInfo"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.AddCtorToCache(ExpressionPowerTools.Serialization.Serializers.Ctor,System.String)">
+            <summary>
+            Finds the constructor to match and adds it to the cache.
+            </summary>
+            <param name="ctor">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Ctor"/>.</param>
+            <param name="key">The key to the cache.</param>
+            <returns>The <see cref="T:System.Reflection.ConstructorInfo"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression">
             <summary>
@@ -1325,6 +1423,13 @@
             Gets the hash code for the type.
             </summary>
             <returns>The hash code.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.SerializableType.Equals(System.Object)">
+            <summary>
+            Gets equality for serializable type.
+            </summary>
+            <param name="obj">The object to compare to.</param>
+            <returns>A value indicating whether the serializable types are equal.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.SerializableTypeComparer">
             <summary>

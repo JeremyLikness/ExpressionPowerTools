@@ -1,7 +1,5 @@
 ﻿using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Signatures;
-using System.Linq.Expressions;
-using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
 {

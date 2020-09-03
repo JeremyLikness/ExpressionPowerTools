@@ -1026,6 +1026,57 @@ namespace ExpressionPowerTools.Core.Tests
                 Expression.Constant(enumerableQueryDifferent)));
         }
 
+        public static IEnumerable<object[]> GetEnumerableValuesMatrix()
+        {
+            var matrix = nameof(GetEnumerableValuesMatrix);
+            var matrixSame = nameof(GetEnumerableValuesMatrix);
+            var matrixDifferent = nameof(matrix);
+            var enumerable = new string[] { "one", "two" };
+            var enumerableSame = new string[] { "one", "two" };
+            var enumerableMatrix = matrix.AsEnumerable().ToArray();
+            var enumerableMatrixSame = matrixSame.AsEnumerable().ToArray();
+
+            yield return new object[]
+            {
+                matrix, matrixSame, true
+            };
+
+            yield return new object[]
+            {
+                matrix, matrixDifferent, false
+            };
+
+            yield return new object[]
+            {
+                matrix, enumerableMatrix, false
+            };
+
+            yield return new object[]
+            {
+                enumerable, enumerableSame, true
+            };
+
+            yield return new object[]
+            {
+                enumerable, enumerableMatrix, false
+            };
+
+            yield return new object[]
+            {
+                enumerableMatrix, enumerableMatrixSame, true
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetEnumerableValuesMatrix))]
+        public void GivenTwoEnumerablesWhenValuesAreEquivalentCalledThenShouldResolveWithoutEnumeratingString(
+            object source,
+            object target,
+            bool areEquivalent)
+        {
+            Assert.Equal(areEquivalent, eq.ValuesAreEquivalent(source, target));
+        }
+
         public static IEnumerable<object[]> GetAnonymousTypesMatrix()
         {
             var anonymousType = new { Foo = 1, Bar = "hello" };
@@ -1099,6 +1150,13 @@ namespace ExpressionPowerTools.Core.Tests
 
         public class TestData
         {
+            public TestData() { }
+
+            public TestData(string name)
+            {
+                Name = name;
+            }
+
             public string Name { get; set; }
         }
 
@@ -1107,6 +1165,10 @@ namespace ExpressionPowerTools.Core.Tests
 
         public static Expression<Func<ExpressionEquivalencyTests>> memberAssignmentExpr =
                 () => new ExpressionEquivalencyTests { TestProp = new TestData() };
+        public static Expression<Func<TestData>> memberAssignmentExprDifferentType =
+                () => new TestData { Name = "Hello" };
+        public static Expression<Func<TestData>> memberAssignmentExprDifferentTypeCtor =
+                () => new TestData("Hello") { Name = "GoodBye" };
         public static Expression<Func<ExpressionEquivalencyTests>> memberAssignmentDup =
                 () => new ExpressionEquivalencyTests { TestProp = new TestData() };
         public static Expression<Func<ExpressionEquivalencyTests>> memberAssignmentExprAlt =
@@ -1131,6 +1193,27 @@ namespace ExpressionPowerTools.Core.Tests
                 Resolve(memberAssignmentExpr, bindings),
                 Resolve(memberAssignmentExpr, bindings),
                 true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr, bindings),
+                null,
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr, bindings),
+                Resolve(memberAssignmentExprDifferentType, bindings),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExprDifferentType, bindings),
+                Resolve(memberAssignmentExprDifferentTypeCtor, bindings),
+                false
             };
 
             yield return new object[]

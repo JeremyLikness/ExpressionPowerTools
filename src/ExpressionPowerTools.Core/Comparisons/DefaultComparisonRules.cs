@@ -415,14 +415,12 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for object initializer similarities.
         /// </summary>
         /// <remarks>
-        /// The types must be similar, but the constructors must match by name.
-        /// Parameters and arguments must be similar.
+        /// The types must be similar, parameters and arguments must be similar.
         /// </remarks>
         public static Expression<Func<NewExpression, NewExpression, bool>>
             DefaultNewSimilarities
         { get; } =
             rules.TypesMustBeSimilar<NewExpression>()
-            .AndMembersMustMatch(e => e.Constructor.Name)
             .And((s, t) => ExpressionSimilarity.ParameterInfosAreSimilar(
                 s.Constructor.GetParameters(),
                 t.Constructor.GetParameters()))

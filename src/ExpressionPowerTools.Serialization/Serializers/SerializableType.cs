@@ -37,12 +37,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Overload to show type.
         /// </summary>
         /// <returns>The first usable string it finds.</returns>
-        public override string ToString() => FullTypeName ?? TypeName ?? TypeParamName;
+        public override string ToString() => FullTypeName ?? TypeName ?? TypeParamName ?? string.Empty;
 
         /// <summary>
         /// Gets the hash code for the type.
         /// </summary>
         /// <returns>The hash code.</returns>
         public override int GetHashCode() => ToString().GetHashCode();
+
+        /// <summary>
+        /// Gets equality for serializable type.
+        /// </summary>
+        /// <param name="obj">The object to compare to.</param>
+        /// <returns>A value indicating whether the serializable types are equal.</returns>
+        public override bool Equals(object obj) =>
+            obj is SerializableType otherType &&
+            GetHashCode() == otherType.GetHashCode();
     }
 }

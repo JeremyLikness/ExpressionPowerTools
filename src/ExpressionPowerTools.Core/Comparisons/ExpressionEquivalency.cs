@@ -130,6 +130,11 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return true;
             }
 
+            if (source is Type srcType)
+            {
+                return TypesAreEquivalent(srcType, target as Type);
+            }
+
             if (source is Expression expression)
             {
                 return AreEquivalent(expression, target as Expression);
@@ -177,17 +182,16 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return DictionariesAreEquivalent(dictionary, target as IDictionary);
             }
 
-            if (source is IEnumerable enumerable)
-            {
-                return NonGenericEnumerablesAreEquivalent(
-                    enumerable, target as IEnumerable);
-            }
-
             var equatableType = typeof(IEquatable<>)
                     .MakeGenericType(type);
 
             if (equatableType.IsAssignableFrom(type))
             {
+                if (!equatableType.IsAssignableFrom(target.GetType()))
+                {
+                    return false;
+                }
+
                 var equatable = equatableType.GetMethod(nameof(IEquatable<object>.Equals));
                 return (bool)equatable.Invoke(source, new object[] { target });
             }
@@ -200,6 +204,12 @@ namespace ExpressionPowerTools.Core.Comparisons
             if (source is Exception ex)
             {
                 return target is Exception ex2 && ex.Message == ex2.Message;
+            }
+
+            if (type != typeof(string) && source is IEnumerable enumerable)
+            {
+                return NonGenericEnumerablesAreEquivalent(
+                    enumerable, target as IEnumerable);
             }
 
             return source.Equals(target);

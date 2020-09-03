@@ -207,8 +207,7 @@
             Gets the default rules for object initializer similarities.
             </summary>
             <remarks>
-            The types must be similar, but the constructors must match.
-            Arguments must be similar.
+            The types must be similar, parameters and arguments must be similar.
             </remarks>
         </member>
         <member name="P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultMemberInitRules">
@@ -687,8 +686,8 @@
             Check for similar object initializer.
             </summary>
             <remarks>
-            To be true, type must be similar, constructor names are equal,
-            parameters are simlar and arguments are similar.
+            To be true, type must be similar,
+            parameters are similar and arguments are similar.
             </remarks>
             <param name="source">The source <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>
             <param name="target">The target <see cref="T:System.Linq.Expressions.NewExpression"/>.</param>

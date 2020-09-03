@@ -841,8 +841,8 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Check for similar object initializer.
         /// </summary>
         /// <remarks>
-        /// To be true, type must be similar, constructor names are equal,
-        /// parameters are simlar and arguments are similar.
+        /// To be true, type must be similar,
+        /// parameters are similar and arguments are similar.
         /// </remarks>
         /// <param name="source">The source <see cref="NewExpression"/>.</param>
         /// <param name="target">The target <see cref="NewExpression"/>.</param>
@@ -852,11 +852,6 @@ namespace ExpressionPowerTools.Core.Comparisons
             NewExpression target)
         {
             if (!ExpressionSimilarity.TypesAreSimilar(source.Type, target.Type))
-            {
-                return false;
-            }
-
-            if (source.Constructor.Name != target.Constructor.Name)
             {
                 return false;
             }

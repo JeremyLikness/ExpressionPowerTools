@@ -135,6 +135,50 @@ namespace ExpressionPowerTools.Core.Tests
             ServiceHost.Reset();
         }
 
+        public interface IGenericService
+        {
+            string Id { get; }
+        }
+
+        public class GenericService : IGenericService
+        {
+            public string Id => nameof(GenericService);
+        }
+
+        public class OverriddenService : IGenericService
+        {
+            public string Id => nameof(OverriddenService);
+        }
+
+        public class RegisterTestServices : IDependentServiceRegistration
+        {
+            public void RegisterDefaultServices(IServiceRegistration registration)
+            {
+                registration.RegisterSingleton<IGenericService>(new GenericService());
+            }
+        }
+
+        [Fact]
+        public void GivenSatelliteImplementationOfIDependentServiceRegistrationWhenResetCalledThenShouldRegisterService()
+        {
+            ServiceHost.Reset();
+            var service = ServiceHost.GetService<IGenericService>();
+            Assert.NotNull(service);
+            Assert.IsType<GenericService>(service);
+        }
+
+        [Fact]
+        public void GivenRegisteredSatelliteServiceWhenInitializeCalledThenWillOverride()
+        {
+            ServiceHost.Reset();
+            ServiceHost.Initialize(registration =>
+                registration.RegisterSingleton<IGenericService>(new OverriddenService()));
+            var service = ServiceHost.GetService<IGenericService>();
+            Assert.NotNull(service);
+            Assert.IsType<OverriddenService>(service);
+        }
+
+
         [Fact]
         public void DefaultQuerySnapshotProviderIsQuerySnapshotProvider()
         {
@@ -146,5 +190,7 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.IsType<QuerySnapshotProvider<string>>(target);
             ServiceHost.Reset();
         }
+
+
     }
 }
