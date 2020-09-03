@@ -20,6 +20,8 @@ Power tools for working with `IQueryable` and Expression trees. Enables enumerat
 
 ## Serialization
 
+[![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Serialization)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization/)
+
 Power tools for writing client-side queries that can be safely serialized to run on the server.
 
 [API Documentation](docs/api/ExpressionPowerTools.Serialization.a.md)
