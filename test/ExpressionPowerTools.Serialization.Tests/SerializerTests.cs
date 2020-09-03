@@ -98,6 +98,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             OrderByCreatedThenByDescendingId,
             WhereIdContainsAA,
             IdProjection,
+            IdOnly
         }
 
         public static IEnumerable<object[]> GetQueryMatrix()
@@ -124,6 +125,12 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 TestableThing.MakeQuery().Select(t => t.Id),
                 Queries.IdProjection
+            };
+
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().OrderBy(t => t.Id).Select(t => new TestableThing(t.Id)),
+                Queries.IdOnly
             };
         }
 
@@ -159,6 +166,8 @@ namespace ExpressionPowerTools.Serialization.Tests
                     return true;
                 case Queries.WhereIdContainsAA:
                     return list.All(t => t.Id.Contains("aa"));
+                case Queries.IdOnly:
+                    return list.All(t => t.IsActive && t.Value == int.MinValue);
             }
             return false;
         }

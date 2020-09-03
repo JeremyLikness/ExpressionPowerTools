@@ -14,7 +14,7 @@ Deserializes a [Type](https://docs.microsoft.com/dotnet/api/system.type) .
 Deserializes a [Type](https://docs.microsoft.com/dotnet/api/system.type) .
 
 ```csharp
-public Type DeserializeType(SerializableType serializedType)
+public virtual Type DeserializeType(SerializableType serializedType)
 ```
 
 ### Return Type
@@ -33,4 +33,4 @@ public Type DeserializeType(SerializableType serializedType)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

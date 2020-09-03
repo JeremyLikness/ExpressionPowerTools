@@ -19,6 +19,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
+| [`CustomInfo`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.CustomInfo.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets custom property info. Used for rules. |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the extension for properties. |
 | [`IndexerType`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.IndexerType.prop.md) | [TypeRef](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.TypeRef.cs.md) | Gets or sets the type of the index. |
 | [`IndexName`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocProperty.IndexName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the name showing the indexer. |
@@ -31,4 +32,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

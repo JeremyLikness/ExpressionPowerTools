@@ -85,6 +85,9 @@ namespace ExpressionPowerTools.Core
                 case LambdaExpression lambda:
                     RecurseLambdaExpression(lambda);
                     break;
+                case MemberInitExpression init:
+                    RecurseMemberInitExpression(init);
+                    break;
                 case MemberExpression member:
                     RecurseMemberExpression(member);
                     break;
@@ -104,6 +107,16 @@ namespace ExpressionPowerTools.Core
                     queue.Enqueue(expression);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Recurse a member initialization.
+        /// </summary>
+        /// <param name="init">The <see cref="MemberInitExpression"/>.</param>
+        private void RecurseMemberInitExpression(MemberInitExpression init)
+        {
+            queue.Enqueue(init);
+            RecurseExpression(init.NewExpression);
         }
 
         /// <summary>

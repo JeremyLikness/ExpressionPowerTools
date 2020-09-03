@@ -75,6 +75,10 @@ namespace ExpressionPowerTools.Core.Comparisons
                 typeof(NewExpression),
                 CreateComparer(DefaultNewRules, DefaultNewSimilarities));
 
+            cache.Add(
+                typeof(MemberInitExpression),
+                CreateComparer(DefaultMemberInitRules, DefaultMemberInitSimilarities));
+
             // show case of default false
             cache.Add(
                 typeof(GotoExpression), CreateComparer<GotoExpression>(null, null));
@@ -411,15 +415,44 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Gets the default rules for object initializer similarities.
         /// </summary>
         /// <remarks>
-        /// The types must be similar, but the constructors must match.
-        /// Arguments must be similar.
+        /// The types must be similar, parameters and arguments must be similar.
         /// </remarks>
         public static Expression<Func<NewExpression, NewExpression, bool>>
             DefaultNewSimilarities
         { get; } =
             rules.TypesMustBeSimilar<NewExpression>()
-            .AndMembersMustMatch(e => e.Constructor)
+            .And((s, t) => ExpressionSimilarity.ParameterInfosAreSimilar(
+                s.Constructor.GetParameters(),
+                t.Constructor.GetParameters()))
             .AndEnumerableExpressionsMustBeSimilar(e => e.Arguments);
+
+        /// <summary>
+        /// Gets the default rules for member initializers.
+        /// </summary>
+        /// <remarks>
+        /// The types must be equal. The expression for initialization must
+        /// be equivalent. All bindings must be equivalent.
+        /// </remarks>
+        public static Expression<Func<MemberInitExpression, MemberInitExpression, bool>>
+            DefaultMemberInitRules
+        { get; } =
+            rules.TypesMustMatch<MemberInitExpression>()
+            .AndExpressionsMustBeEquivalent(e => e.NewExpression)
+            .AndNonGenericEnumerablesMustBeEquivalent(e => e.Bindings);
+
+        /// <summary>
+        /// Gets the default rules for member initializer similarites.
+        /// </summary>
+        /// <remarks>
+        /// The types must be similar. The expression for initialization must
+        /// be similar. All bindings must be similar.
+        /// </remarks>
+        public static Expression<Func<MemberInitExpression, MemberInitExpression, bool>>
+            DefaultMemberInitSimilarities
+        { get; } =
+            rules.TypesMustBeSimilar<MemberInitExpression>()
+            .AndExpressionsMustBeSimilar(e => e.NewExpression)
+            .AndMemberBindingsMustBeSimilar(e => e.Bindings);
 
         /// <summary>
         /// Gets a predicate to compare two expressions of a given type.

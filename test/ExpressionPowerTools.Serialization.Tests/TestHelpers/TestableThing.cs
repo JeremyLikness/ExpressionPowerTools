@@ -6,6 +6,17 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 {
     public class TestableThing
     {
+        public TestableThing()
+        {
+        }
+
+        public TestableThing(string id)
+        {
+            Id = id;
+            Value = int.MinValue;
+            IsActive = true;
+        }
+
         private static readonly Random randomizer = new Random();
         private static int MinutesAgo() => -1 * randomizer.Next(2, 365 * 24 * 60);
 

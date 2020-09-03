@@ -44,6 +44,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
         public string IndexName => $"[{IndexerType?.FriendlyName}]";
 
         /// <summary>
+        /// Gets or sets custom property info. Used for rules.
+        /// </summary>
+        public string CustomInfo { get; set; }
+
+        /// <summary>
         /// Gets the extension for properties.
         /// </summary>
         public override string Extension => "prop";

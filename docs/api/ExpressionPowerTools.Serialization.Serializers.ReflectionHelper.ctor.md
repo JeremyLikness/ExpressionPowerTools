@@ -9,7 +9,6 @@ Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serial
 | Ctor | Description |
 | :-- | :-- |
 | [ReflectionHelper()](#reflectionhelper) | Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class. |
-| [static ReflectionHelper()](#static-reflectionhelper) | Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class. |
 
 ## ReflectionHelper()
 
@@ -21,18 +20,8 @@ public ReflectionHelper()
 
 
 
-## static ReflectionHelper()
-
-Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class.
-
-```csharp
-public static ReflectionHelper()
-```
-
-
-
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

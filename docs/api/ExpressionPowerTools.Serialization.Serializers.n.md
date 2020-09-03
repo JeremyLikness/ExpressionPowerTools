@@ -9,11 +9,14 @@
 | [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) | Helper for serializing and deserializing anonymous types. |
 | [AnonValue](ExpressionPowerTools.Serialization.Serializers.AnonValue.cs.md) | Represents the combination of a type and value. |
 | [BaseSerializer&lt;TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) | Base class for serializers. |
-| [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) | Represents a [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
+| [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) | Represents a serializable [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
 | [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.cs.md) | Serializer for [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
+| [Ctor](ExpressionPowerTools.Serialization.Serializers.Ctor.cs.md) | Serializable version of [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
+| [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) | Represents a serializable [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
+| [CtorSerializer](ExpressionPowerTools.Serialization.Serializers.CtorSerializer.cs.md) | Serialization services for [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
 | [ExpressionSerializer](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.cs.md) | Top-level serializer that passes work off to specific types. |
 | [ExpressionSerializerAttribute](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.cs.md) | Attribute to tag a serializer. |
-| [Field](ExpressionPowerTools.Serialization.Serializers.Field.cs.md) | A serializable property. |
+| [Field](ExpressionPowerTools.Serialization.Serializers.Field.cs.md) | A serializable field. |
 | [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) | A serializable version of [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
 | [InvocationSerializer](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.cs.md) | Serialization logic for expressions of type [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
 | [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) | Serializable version of [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
@@ -43,4 +46,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

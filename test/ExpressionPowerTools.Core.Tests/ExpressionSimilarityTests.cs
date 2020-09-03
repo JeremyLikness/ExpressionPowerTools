@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Extensions;
 using eq = ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity;
 using Xunit;
-using System.Reflection.Metadata;
+using ExpressionPowerTools.Core.Comparisons;
 
 namespace ExpressionPowerTools.Core.Tests
 {
@@ -364,6 +364,20 @@ namespace ExpressionPowerTools.Core.Tests
         {
             Assert.True(eq.AreSimilar(
                 IntParameter, IntParameter));
+        }
+
+        public class RefClass
+        {
+            public RefClass(int _)
+            {
+            }
+        }
+
+        [Fact]
+        public void GivenParameterWhenSecondParameterNullThenAreSimilarShouldReturnFalse()
+        {
+            var parameters = typeof(RefClass).GetConstructors().Single().GetParameters();
+            Assert.False(eq.ParameterInfosAreSimilar(parameters, null));
         }
 
         [Fact]
@@ -837,5 +851,157 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.True(eq.AreSimilar(source, target));
         }
 
+        public class SimilarClass
+        {
+            public string Name { get; set; }
+        }
+
+        public class SimilarHost
+        {
+            public SimilarHost()
+            {
+            }
+
+            public SimilarHost(SimilarClass classToAdd)
+            {
+                Classes.Add(classToAdd);
+            }
+
+            public SimilarClass SimClass { get; set; } = new SimilarClass();
+
+            public List<SimilarClass> Classes { get; set; } =
+                new List<SimilarClass>();
+        }
+
+        public class InheritedClass : SimilarClass
+        {
+           
+        }
+
+        public class InheritedHost : SimilarHost
+        {
+
+        }
+
+        public class Different
+        {
+            public string Name { get; set; }
+        }
+
+        public static Expression<Func<SimilarHost>> memberAssignmentExpr =
+                () => new SimilarHost { SimClass = new SimilarClass() };
+        public static Expression<Func<Different>> memberAssignmentDiffType =
+                () => new Different() { Name = nameof(Different) };
+        public static Expression<Func<SimilarHost>> memberAssignmentDup =
+                () => new SimilarHost { SimClass = new SimilarClass() };
+        public static Expression<Func<SimilarHost>> memberAssignmentDiffCtor =
+                () => new SimilarHost(new SimilarClass()) { SimClass = new SimilarClass() };
+        public static Expression<Func<SimilarHost>> memberAssignmentInherited =
+                () => new InheritedHost { SimClass = new InheritedClass() };
+        public static Expression<Func<SimilarHost>> memberAssignmentExprAlt =
+            () => new SimilarHost { SimClass = null };
+        public static Expression<Func<SimilarHost>> memberMemberBindingExpr =
+            () => new SimilarHost { SimClass = { Name = nameof(ExpressionSimilarityTests) } };
+        public static Expression<Func<SimilarHost>> memberListBindingExpr =
+            () => new InheritedHost { Classes = { new SimilarClass(), new InheritedClass() } };
+        public static Expression<Func<SimilarHost>> memberListBindingExprAlt =
+            () => new SimilarHost { Classes = { new SimilarClass(), null } };
+        public static Expression<Func<SimilarHost>> memberListBindingMultiple =
+            () => new SimilarHost { Classes = { new SimilarClass(), null }, SimClass = new SimilarClass() };
+
+        static MemberInitExpression Resolve(LambdaExpression expr) => expr.Body as MemberInitExpression;
+
+        public static IEnumerable<object[]> GetMemberInitMatrix()
+        {
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr),
+                Resolve(memberAssignmentExpr),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr),
+                Resolve(memberAssignmentDup),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr),
+                Resolve(memberAssignmentDiffType),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr),
+                Resolve(memberAssignmentDiffCtor),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr),
+                Resolve(memberAssignmentExprAlt),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr),
+                Resolve(memberAssignmentInherited),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberMemberBindingExpr),
+                Resolve(memberMemberBindingExpr),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberListBindingExpr),
+                Resolve(memberListBindingExpr),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberListBindingExpr),
+                Resolve(memberListBindingExprAlt),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberMemberBindingExpr),
+                Resolve(memberListBindingExpr),
+                false
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetMemberInitMatrix))]
+        public void GivenMemberInitsWhenComparedThenAreSimilarShouldReturnResult(
+                    MemberInitExpression source,
+                    MemberInitExpression target,
+                    bool areSimilar)
+        {
+            Assert.Equal(areSimilar, ExpressionSimilarity.AreSimilar(source, target));
+        }
+
+        [Fact]
+        public void GivenMemberBindingListsOfDifferentLengthsWhenMemberBindingsAreSimilarCalledThenShouldReturnFalse()
+        {
+            var memberInit = Resolve(memberListBindingMultiple);
+            var bindings = memberInit.Bindings;
+            var oneBinding = memberInit.Bindings.Take(1).ToList();
+            Assert.False(eq.MemberBindingsAreSimilar(bindings, oneBinding));
+        }
     }
 }

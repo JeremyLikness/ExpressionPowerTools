@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Markdown;
 
@@ -32,6 +35,15 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
             var list = new MarkdownList();
 
+            foreach (var customDoc in assembly.CustomDocs)
+            {
+                if (customDoc is DocSerialization ser)
+                {
+                    list.AddItem(writer.WriteLink($"{ser.Name.NameOnly()} Reference", ser.FileName));
+                    result.Files.Add(ProcessSerialization(ser, assembly));
+                }
+            }
+
             foreach (var ns in assembly.Namespaces.OrderBy(ns => ns.Name))
             {
                 list.AddItem(writer.WriteLink(ns.Name, ns.FileName));
@@ -39,6 +51,30 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             }
 
             writer.AddRange(result.Markdown, list.CloseList());
+            return result;
+        }
+
+        private DocFile ProcessSerialization(DocSerialization ser, DocAssembly assembly)
+        {
+            var result = new DocFile(ser.FileName);
+            result.AddThenBlankLine(writer.WriteHeading1($"{ser.Name} Reference"));
+            result.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(assembly));
+            var table = new MarkdownTable("ExpressionType", "Serializer");
+            foreach (ExpressionType expressionType in Enum.GetValues(typeof(ExpressionType)))
+            {
+                var name = expressionType.ToString();
+                if (ser.Serializers.ContainsKey(expressionType))
+                {
+                    var entry = ser.Serializers[expressionType];
+                    table.AddRow(name, writer.WriteLink(entry.Name, entry.FileName));
+                }
+                else
+                {
+                    table.AddRow(name, "_Not Supported_");
+                }
+            }
+
+            writer.AddRange(result.Markdown, table.CloseTable());
             return result;
         }
 
@@ -110,6 +146,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
 
             var classification = t.IsInterface ? "Interface" : (t.IsEnum ? "Enum" : "Class");
             result.AddThenBlankLine(writer.WriteHeading1($"{MarkdownWriter.Normalize(t.TypeRef.FriendlyName)} {classification}"));
+
             result.AddThenBlankLine(ParserUtils.ProcessBreadcrumb(t));
             result.AddThenBlankLine(t.Description);
             ExtractCode(t.Code, result);
@@ -339,12 +376,18 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// </summary>
         /// <param name="properties">The list of <see cref="DocProperty"/>.</param>
         /// <param name="docFile">The <see cref="DocFile"/> target.</param>
-        private void ExtractProperties(IList<DocProperty> properties, DocFile docFile)
+        /// <param name="customHeading">Optional custom heading.</param>
+        private void ExtractProperties(
+            IList<DocProperty> properties,
+            DocFile docFile,
+            string customHeading = null)
         {
             if (properties.Any())
             {
                 docFile.AddThenBlankLine(writer.WriteHeading2("Properties"));
-                var table = new MarkdownTable("Property", "Type", "Description");
+                var table = customHeading == null ?
+                    new MarkdownTable("Property", "Type", "Description") :
+                    new MarkdownTable("Property", "Type", "Description", customHeading);
                 foreach (var property in properties.OrderBy(p => p.Name))
                 {
                     string typeLink;
@@ -355,12 +398,25 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         $"Index {property.IndexName}" :
                         property.Name.NameOnly();
 
-                    table.AddRow(
+                    if (customHeading == null)
+                    {
+                        table.AddRow(
+                            writer.WriteLink(
+                                $"`{name}`",
+                                property.FileName),
+                            typeLink,
+                            property.Description);
+                    }
+                    else
+                    {
+                        table.AddRow(
                         writer.WriteLink(
                             $"`{name}`",
                             property.FileName),
                         typeLink,
-                        property.Description);
+                        property.Description,
+                        property.CustomInfo);
+                    }
 
                     var propertyDoc = new DocFile(property.FileName);
                     propertyDoc.AddThenBlankLine(writer.WriteHeading1(

@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -51,8 +52,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 foreach (var type in assemblyType.Assembly.GetTypes())
                 {
-                    if (!string.IsNullOrWhiteSpace(type.FullName) &&
-                        !types.ContainsKey(type.FullName))
+                    if (!string.IsNullOrWhiteSpace(type.FullName))
                     {
                         preRegister.Add(type);
                     }
@@ -277,6 +277,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return AddFieldToCache(field, key) as TMemberInfo;
             }
 
+            if (member is Ctor ctor)
+            {
+                return AddCtorToCache(ctor, key) as TMemberInfo;
+            }
+
             return null;
         }
 
@@ -309,6 +314,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
         }
 
+        /// <summary>
+        /// Finds the method to match and adds it to the cache.
+        /// </summary>
+        /// <param name="method">The <see cref="Method"/>.</param>
+        /// <param name="key">The key to the cache.</param>
+        /// <returns>The <see cref="MethodInfo"/>.</returns>
         private MethodInfo AddMethodToCache(Method method, string key)
         {
             var type = DeserializeType(method.DeclaringType);
@@ -432,6 +443,65 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 () => memberCache.Add(key, fieldInfo));
 
             return fieldInfo;
+        }
+
+        /// <summary>
+        /// Finds the constructor to match and adds it to the cache.
+        /// </summary>
+        /// <param name="ctor">The <see cref="Ctor"/>.</param>
+        /// <param name="key">The key to the cache.</param>
+        /// <returns>The <see cref="ConstructorInfo"/>.</returns>
+        private ConstructorInfo AddCtorToCache(Ctor ctor, string key)
+        {
+            var type = DeserializeType(ctor.DeclaringType);
+
+            if (type == null)
+            {
+                return null;
+            }
+
+            var flags = ctor.IsStatic ? (BindingFlags.Public |
+                BindingFlags.NonPublic |
+                BindingFlags.Static) : (BindingFlags.Public | BindingFlags.Instance);
+
+            var constructors = type.GetConstructors(flags);
+
+            ConstructorInfo constructorInfo = null;
+            foreach (var candidate in constructors)
+            {
+                if (candidate.GetParameters().Length != ctor.Parameters.Count())
+                {
+                    continue;
+                }
+
+                var candidateType = candidate;
+
+                var parameters = candidate.GetParameters().Select(
+                    p => new { p.Name, p.ParameterType })
+                    .ToDictionary(p => p.Name, p => SerializeType(p.ParameterType));
+
+                if (!ExpressionEquivalency.DictionariesAreEquivalent(ctor.Parameters, parameters))
+                {
+                    continue;
+                }
+
+                var check = new Ctor(candidateType);
+                if (check.GetKey() == key)
+                {
+                    constructorInfo = candidateType;
+                    break;
+                }
+            }
+
+            if (constructorInfo == null)
+            {
+                return null;
+            }
+
+            SafeMutate(
+                () => !memberCache.ContainsKey(key),
+                () => memberCache.Add(key, constructorInfo));
+            return constructorInfo;
         }
     }
 }

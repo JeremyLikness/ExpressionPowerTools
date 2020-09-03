@@ -14,7 +14,7 @@ Gets the full type name of the serialized type.
 Gets the full type name of the serialized type.
 
 ```csharp
-public String GetFullTypeName(SerializableType serializedType, StringBuilder builder, Int32 level)
+public virtual String GetFullTypeName(SerializableType serializedType, StringBuilder builder, Int32 level)
 ```
 
 ### Return Type
@@ -35,4 +35,4 @@ public String GetFullTypeName(SerializableType serializedType, StringBuilder bui
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

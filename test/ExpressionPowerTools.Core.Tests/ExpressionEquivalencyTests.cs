@@ -1017,13 +1017,64 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
-        public void GivenEnumreableQueryWhenOfDifferentTypeThenAreEquivalentShouldBeFalse()
+        public void GivenEnumerableQueryWhenOfDifferentTypeThenAreEquivalentShouldBeFalse()
         {
             var enumerableQuery = new EnumerableQuery<string>(Expression.Constant("this"));
             var enumerableQueryDifferent = new EnumerableQuery<int>(Expression.Constant(5));
             Assert.False(eq.AreEquivalent(
                 Expression.Constant(enumerableQuery),
                 Expression.Constant(enumerableQueryDifferent)));
+        }
+
+        public static IEnumerable<object[]> GetEnumerableValuesMatrix()
+        {
+            var matrix = nameof(GetEnumerableValuesMatrix);
+            var matrixSame = nameof(GetEnumerableValuesMatrix);
+            var matrixDifferent = nameof(matrix);
+            var enumerable = new string[] { "one", "two" };
+            var enumerableSame = new string[] { "one", "two" };
+            var enumerableMatrix = matrix.AsEnumerable().ToArray();
+            var enumerableMatrixSame = matrixSame.AsEnumerable().ToArray();
+
+            yield return new object[]
+            {
+                matrix, matrixSame, true
+            };
+
+            yield return new object[]
+            {
+                matrix, matrixDifferent, false
+            };
+
+            yield return new object[]
+            {
+                matrix, enumerableMatrix, false
+            };
+
+            yield return new object[]
+            {
+                enumerable, enumerableSame, true
+            };
+
+            yield return new object[]
+            {
+                enumerable, enumerableMatrix, false
+            };
+
+            yield return new object[]
+            {
+                enumerableMatrix, enumerableMatrixSame, true
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetEnumerableValuesMatrix))]
+        public void GivenTwoEnumerablesWhenValuesAreEquivalentCalledThenShouldResolveWithoutEnumeratingString(
+            object source,
+            object target,
+            bool areEquivalent)
+        {
+            Assert.Equal(areEquivalent, eq.ValuesAreEquivalent(source, target));
         }
 
         public static IEnumerable<object[]> GetAnonymousTypesMatrix()
@@ -1095,6 +1146,153 @@ namespace ExpressionPowerTools.Core.Tests
             object source, object target, bool areEquivalent)
         {
             Assert.Equal(areEquivalent, eq.ValuesAreEquivalent(source, target));
+        }
+
+        public class TestData
+        {
+            public TestData() { }
+
+            public TestData(string name)
+            {
+                Name = name;
+            }
+
+            public string Name { get; set; }
+        }
+
+        public TestData TestProp { get; set; } = new TestData();
+        public List<TestData> TestProps { get; set; } = new List<TestData>();
+
+        public static Expression<Func<ExpressionEquivalencyTests>> memberAssignmentExpr =
+                () => new ExpressionEquivalencyTests { TestProp = new TestData() };
+        public static Expression<Func<TestData>> memberAssignmentExprDifferentType =
+                () => new TestData { Name = "Hello" };
+        public static Expression<Func<TestData>> memberAssignmentExprDifferentTypeCtor =
+                () => new TestData("Hello") { Name = "GoodBye" };
+        public static Expression<Func<ExpressionEquivalencyTests>> memberAssignmentDup =
+                () => new ExpressionEquivalencyTests { TestProp = new TestData() };
+        public static Expression<Func<ExpressionEquivalencyTests>> memberAssignmentExprAlt =
+            () => new ExpressionEquivalencyTests { TestProp = null };
+        public static Expression<Func<ExpressionEquivalencyTests>> memberMemberBindingExpr =
+            () => new ExpressionEquivalencyTests { TestProp = { Name = nameof(ExpressionEquivalencyTests) } };
+        public static Expression<Func<ExpressionEquivalencyTests>> memberListBindingExpr =
+            () => new ExpressionEquivalencyTests { TestProps = { new TestData(), new TestData() } };
+        public static Expression<Func<ExpressionEquivalencyTests>> memberListBindingExprAlt =
+            () => new ExpressionEquivalencyTests { TestProps = { new TestData(), null } };
+
+        public static IEnumerable<object[]> GetMemberInitAndBindingMatrix(bool bindings = false)
+        {
+            static object Resolve(LambdaExpression expr, bool bindings)
+            {
+                var init = expr.Body as MemberInitExpression;
+                return bindings ? (object)init.Bindings.First() : init;
+            }
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr, bindings),
+                Resolve(memberAssignmentExpr, bindings),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr, bindings),
+                null,
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr, bindings),
+                Resolve(memberAssignmentExprDifferentType, bindings),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExprDifferentType, bindings),
+                Resolve(memberAssignmentExprDifferentTypeCtor, bindings),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr, bindings),
+                Resolve(memberAssignmentDup, bindings),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberAssignmentExpr, bindings),
+                Resolve(memberAssignmentExprAlt, bindings),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberMemberBindingExpr, bindings),
+                Resolve(memberMemberBindingExpr, bindings),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberListBindingExpr, bindings),
+                Resolve(memberListBindingExpr, bindings),
+                true
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberListBindingExpr, bindings),
+                Resolve(memberListBindingExprAlt, bindings),
+                false
+            };
+
+            yield return new object[]
+            {
+                Resolve(memberMemberBindingExpr, bindings),
+                Resolve(memberListBindingExpr, bindings),
+                false
+            };
+        }
+
+        public static IEnumerable<object[]> GetMemberBindingMatrix()
+        {
+            foreach(var result in GetMemberInitAndBindingMatrix(true))
+            {
+                yield return result;
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(GetMemberBindingMatrix))]
+        public void GivenMemberBindingsWhenComparedThenMemberBindingsAreEquivalentShouldReturnResult(
+            MemberBinding source,
+            MemberBinding target,
+            bool areEquivalent)
+        {
+            Assert.Equal(areEquivalent, eq.MemberBindingsAreEquivalent(source, target));
+        }
+
+        public static IEnumerable<object[]> GetMemberInitMatrix()
+        {
+            foreach (var result in GetMemberInitAndBindingMatrix(false))
+            {
+                yield return result;
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(GetMemberInitMatrix))]
+        public void GivenMemberInitsWhenComparedThenAreEquivalentShouldReturnResult(
+            MemberInitExpression source,
+            MemberInitExpression target,
+            bool areEquivalent)
+        {
+            Assert.Equal(areEquivalent, eq.AreEquivalent(source, target));
         }
     }
 }

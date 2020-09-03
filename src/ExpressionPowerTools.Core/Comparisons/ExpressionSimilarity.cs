@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 
@@ -68,6 +70,33 @@ namespace ExpressionPowerTools.Core.Comparisons
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Determines whether a list of parameters for a method or constructor are similar.
+        /// </summary>
+        /// <param name="source">The source parameter list.</param>
+        /// <param name="target">The target parameter list.</param>
+        /// <returns>A flag that indicates whether the parameters are similar.</returns>
+        public static bool ParameterInfosAreSimilar(
+            IList<ParameterInfo> source,
+            IList<ParameterInfo> target)
+        {
+            Ensure.NotNull(() => source);
+            if (target == null)
+            {
+                return false;
+            }
+
+            if (source.Count() != target.Count())
+            {
+                return false;
+            }
+
+            var sourceList = source.Select(p => Expression.Parameter(p.ParameterType, p.Name));
+            var targetList = target.Select(p => Expression.Parameter(p.ParameterType, p.Name));
+
+            return AreSimilar(sourceList, targetList);
         }
 
         /// <summary>
@@ -150,6 +179,59 @@ namespace ExpressionPowerTools.Core.Comparisons
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Determines whether two lists of <see cref="MemberBinding"/> are similar.
+        /// </summary>
+        /// <param name="source">The source list.</param>
+        /// <param name="target">The target list.</param>
+        /// <returns>A value indicating whether the individual bindings are similar.</returns>
+        public static bool MemberBindingsAreSimilar(
+            IList<MemberBinding> source,
+            IList<MemberBinding> target)
+        {
+            if (source.Count() != target.Count())
+            {
+                return false;
+            }
+
+            var similar = true;
+
+            for (var idx = 0; idx < source.Count() && similar; idx += 1)
+            {
+                if (source[idx].BindingType != target[idx].BindingType)
+                {
+                    return false;
+                }
+
+                if (source[idx] is MemberAssignment assign)
+                {
+                    var targetAssign = target[idx] as MemberAssignment;
+                    similar = assign.Member.MemberType == targetAssign.Member.MemberType &&
+                        TypesAreSimilar(assign.Member.DeclaringType, targetAssign.Member.DeclaringType) &&
+                        IsPartOf(assign.Expression, targetAssign.Expression);
+                }
+
+                if (source[idx] is MemberMemberBinding memberMemberBinding)
+                {
+                    var targetMemberBinding = target[idx] as MemberMemberBinding;
+                    similar = memberMemberBinding.Member.MemberType == targetMemberBinding.Member.MemberType &&
+                        TypesAreSimilar(memberMemberBinding.Member.DeclaringType, targetMemberBinding.Member.DeclaringType) &&
+                        MemberBindingsAreSimilar(memberMemberBinding.Bindings, targetMemberBinding.Bindings);
+                }
+
+                if (source[idx] is MemberListBinding memberListBinding)
+                {
+                    var targetListBinding = target[idx] as MemberListBinding;
+                    similar = memberListBinding.Member.MemberType == targetListBinding.Member.MemberType &&
+                        TypesAreSimilar(memberListBinding.Member.DeclaringType, targetListBinding.Member.DeclaringType) &&
+                        ExpressionEquivalency.NonGenericEnumerablesAreEquivalent(
+                            memberListBinding.Initializers, targetListBinding.Initializers);
+                }
+            }
+
+            return similar;
         }
     }
 }

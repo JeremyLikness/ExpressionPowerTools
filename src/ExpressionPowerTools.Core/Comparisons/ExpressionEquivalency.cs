@@ -130,9 +130,19 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return true;
             }
 
+            if (source is Type srcType)
+            {
+                return TypesAreEquivalent(srcType, target as Type);
+            }
+
             if (source is Expression expression)
             {
                 return AreEquivalent(expression, target as Expression);
+            }
+
+            if (source is MemberBinding memberBinding)
+            {
+                return MemberBindingsAreEquivalent(memberBinding, target as MemberBinding);
             }
 
             var type = source.GetType();
@@ -172,17 +182,16 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return DictionariesAreEquivalent(dictionary, target as IDictionary);
             }
 
-            if (source is IEnumerable enumerable)
-            {
-                return NonGenericEnumerablesAreEquivalent(
-                    enumerable, target as IEnumerable);
-            }
-
             var equatableType = typeof(IEquatable<>)
                     .MakeGenericType(type);
 
             if (equatableType.IsAssignableFrom(type))
             {
+                if (!equatableType.IsAssignableFrom(target.GetType()))
+                {
+                    return false;
+                }
+
                 var equatable = equatableType.GetMethod(nameof(IEquatable<object>.Equals));
                 return (bool)equatable.Invoke(source, new object[] { target });
             }
@@ -197,7 +206,56 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return target is Exception ex2 && ex.Message == ex2.Message;
             }
 
+            if (type != typeof(string) && source is IEnumerable enumerable)
+            {
+                return NonGenericEnumerablesAreEquivalent(
+                    enumerable, target as IEnumerable);
+            }
+
             return source.Equals(target);
+        }
+
+        /// <summary>
+        /// Ensures that two <see cref="MemberBinding"/> instances are equivalent.
+        /// </summary>
+        /// <param name="source">The source <see cref="MemberBinding"/>.</param>
+        /// <param name="target">The target <see cref="MemberBinding"/>.</param>
+        /// <returns>A value that indicates whether the bindings are equivalent.</returns>
+        public static bool MemberBindingsAreEquivalent(
+            MemberBinding source,
+            MemberBinding target)
+        {
+            Ensure.NotNull(() => source);
+            if (target == null)
+            {
+                return false;
+            }
+
+            if (source.BindingType != target.BindingType ||
+                !Equals(source.Member, target.Member))
+            {
+                return false;
+            }
+
+            if (source is MemberAssignment ma)
+            {
+                var tgtma = target as MemberAssignment;
+                return AreEquivalent(ma.Expression, tgtma.Expression);
+            }
+
+            if (source is MemberMemberBinding mb)
+            {
+                var tgtmb = target as MemberMemberBinding;
+                return NonGenericEnumerablesAreEquivalent(mb.Bindings, tgtmb.Bindings);
+            }
+
+            if (source is MemberListBinding ml)
+            {
+                var tgtml = target as MemberListBinding;
+                return NonGenericEnumerablesAreEquivalent(ml.Initializers, tgtml.Initializers);
+            }
+
+            return false;
         }
 
         /// <summary>

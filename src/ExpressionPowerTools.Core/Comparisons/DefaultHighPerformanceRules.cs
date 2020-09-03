@@ -46,6 +46,7 @@ namespace ExpressionPowerTools.Core.Comparisons
                 { typeof(NewExpression), (s, t) => ExecuteRuleAs<NewExpression>(s, t, NewAreEquivalent) },
                 { typeof(ParameterExpression), (s, t) => ExecuteRuleAs<ParameterExpression>(s, t, ParametersAreEquivalent) },
                 { typeof(UnaryExpression), (s, t) => ExecuteRuleAs<UnaryExpression>(s, t, UnariesAreEquivalent) },
+                { typeof(MemberInitExpression), (s, t) => ExecuteRuleAs<MemberInitExpression>(s, t, MemberInitAreEquivalent) },
             };
 
             similarityRules =
@@ -66,6 +67,7 @@ namespace ExpressionPowerTools.Core.Comparisons
                         (src, tgt) => ExpressionSimilarity.TypesAreSimilar(src.Type, tgt.Type))
                 },
                 { typeof(UnaryExpression), (s, t) => ExecuteRuleAs<UnaryExpression>(s, t, UnariesAreSimilar) },
+                { typeof(MemberInitExpression), (s, t) => ExecuteRuleAs<MemberInitExpression>(s, t, MemberInitAreSimilar) },
             };
         }
 
@@ -470,6 +472,58 @@ namespace ExpressionPowerTools.Core.Comparisons
         }
 
         /// <summary>
+        /// Check for equivalent member initialization.
+        /// </summary>
+        /// <remarks>
+        /// The expression must be equivalent and every binding must be equivalent.
+        /// </remarks>
+        /// <param name="source">The source <see cref="MemberInitExpression"/>.</param>
+        /// <param name="target">The target <see cref="MemberInitExpression"/>.</param>
+        /// <returns>A flag indicating whether the member initializations are equivalent.</returns>
+        private bool MemberInitAreEquivalent(
+            MemberInitExpression source,
+            MemberInitExpression target)
+        {
+            if (source.Type != target.Type)
+            {
+                return false;
+            }
+
+            if (!eq.AreEquivalent(source.NewExpression, target.NewExpression))
+            {
+                return false;
+            }
+
+            return eq.NonGenericEnumerablesAreEquivalent(source.Bindings, target.Bindings);
+        }
+
+        /// <summary>
+        /// Check for similar member initialization.
+        /// </summary>
+        /// <remarks>
+        /// The expression must be similar, the types similar, and every binding must be equivalent.
+        /// </remarks>
+        /// <param name="source">The source <see cref="MemberInitExpression"/>.</param>
+        /// <param name="target">The target <see cref="MemberInitExpression"/>.</param>
+        /// <returns>A flag indicating whether the member initializations are similar.</returns>
+        private bool MemberInitAreSimilar(
+            MemberInitExpression source,
+            MemberInitExpression target)
+        {
+            if (!ExpressionSimilarity.TypesAreSimilar(source.Type, target.Type))
+            {
+                return false;
+            }
+
+            if (!ExpressionSimilarity.AreSimilar(source.NewExpression, target.NewExpression))
+            {
+                return false;
+            }
+
+            return ExpressionSimilarity.MemberBindingsAreSimilar(source.Bindings, target.Bindings);
+        }
+
+        /// <summary>
         /// Determine whether two lambdas are similar.
         /// </summary>
         /// <remarks>
@@ -784,11 +838,11 @@ namespace ExpressionPowerTools.Core.Comparisons
         }
 
         /// <summary>
-        /// Check for equivalent object initializer.
+        /// Check for similar object initializer.
         /// </summary>
         /// <remarks>
-        /// To be true, type, constructor, methods must be equivalent
-        /// and arguments must be similar.
+        /// To be true, type must be similar,
+        /// parameters are similar and arguments are similar.
         /// </remarks>
         /// <param name="source">The source <see cref="NewExpression"/>.</param>
         /// <param name="target">The target <see cref="NewExpression"/>.</param>
@@ -797,12 +851,14 @@ namespace ExpressionPowerTools.Core.Comparisons
             NewExpression source,
             NewExpression target)
         {
-            if (source.Type != target.Type)
+            if (!ExpressionSimilarity.TypesAreSimilar(source.Type, target.Type))
             {
                 return false;
             }
 
-            if (!source.Constructor.Equals(target.Constructor))
+            if (!ExpressionSimilarity.ParameterInfosAreSimilar(
+                source.Constructor.GetParameters(),
+                target.Constructor.GetParameters()))
             {
                 return false;
             }

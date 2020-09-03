@@ -19,6 +19,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
+| [`CustomDocs`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.CustomDocs.prop.md) | [ICollection&lt;DocBase>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets or sets custom documents associated with the assembly. |
 | [`Extension`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.Extension.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the file extension. |
 | [`Namespaces`](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.Namespaces.prop.md) | [ICollection&lt;DocNamespace>](https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1) | Gets or sets the list of [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) instances. |
 
@@ -32,4 +33,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [D
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

@@ -10,7 +10,7 @@ using ExpressionPowerTools.Serialization.Signatures;
 namespace ExpressionPowerTools.Serialization.Serializers
 {
     /// <summary>
-    /// Represents a <see cref="ConstantExpression"/>.
+    /// Represents a serializable <see cref="ConstantExpression"/>.
     /// </summary>
     [Serializable]
     public class Constant : SerializableExpression

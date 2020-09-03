@@ -22,6 +22,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [Type GetDeserializedType(JsonElement element, SerializationState state)](ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetDeserializedType.m.md) | Gets the type, including generic arguments. |
 | [Method GetMethod(JsonElement element, SerializationState state)](ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetMethod.m.md) | Gets the method from the [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) . |
 | [JsonElement GetNullableProperty(JsonElement element, String propertyName)](ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetNullableProperty.m.md) | Safe way to access a property. Returns an element that evaluates to `null` when the underlying property doesn't exist. |
+| [Ctor GetSerializedCtor(JsonElement element, SerializationState state)](ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetSerializedCtor.m.md) | Gets the field from the [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) . |
 | [Field GetSerializedField(JsonElement element, SerializationState state)](ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetSerializedField.m.md) | Gets the field from the [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) . |
 | [Property GetSerializedProperty(JsonElement element, SerializationState state)](ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetSerializedProperty.m.md) | Gets the property from the [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) . |
 | [Int32 IndexOfType(IList&lt;SerializableType> typeList, SerializableType type)](ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.IndexOfType.m.md) | Gets the index of the [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) in the list. |
@@ -31,4 +32,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

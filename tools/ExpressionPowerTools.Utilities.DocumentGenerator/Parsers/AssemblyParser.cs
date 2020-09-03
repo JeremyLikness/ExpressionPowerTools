@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ExpressionPowerTools.Core.Comparisons;
+using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
@@ -60,7 +62,44 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 IterateNamespacesPass2(doc);
             }
 
+            if (Assembly.GetTypes().Any(t => t == typeof(ExpressionSerializerAttribute)))
+            {
+                IterateSerializers(doc);
+            }
+
             return doc;
+        }
+
+        /// <summary>
+        /// Builds the serializer cross-reference.
+        /// </summary>
+        /// <param name="doc">The <see cref="DocAssembly"/> for serializers.</param>
+        private void IterateSerializers(DocAssembly doc)
+        {
+            if (doc.CustomDocs.OfType<DocSerialization>().Any())
+            {
+                return;
+            }
+
+            var serializerDoc = new DocSerialization
+            {
+                Name = typeof(ExpressionSerializerAttribute).Namespace,
+            };
+
+            var types = Assembly.GetTypes()
+                .Where(t => t.Namespace == typeof(BaseSerializer<,>).Namespace
+                    && t.GetCustomAttributes(false)
+                    .Any(c => c is ExpressionSerializerAttribute))
+                .SelectMany(t => t.GetCustomAttributes(false).OfType<ExpressionSerializerAttribute>()
+                    .Select(c => new { serializer = t, type = c.Type }));
+            foreach (var serializer in types)
+            {
+                var name = serializer.serializer.FullName;
+                var typeDoc = ParserUtils.GetTypeQuery(doc).Where(d => d.Name == name).Single();
+                serializerDoc.Serializers.Add(serializer.type, typeDoc);
+            }
+
+            doc.CustomDocs.Add(serializerDoc);
         }
 
         /// <summary>
@@ -133,6 +172,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// <param name="exportedType">The <see cref="DocExportedType"/> to parse.</param>
         private void ProcessProperties(DocExportedType exportedType)
         {
+            var defaultRules = typeof(DefaultComparisonRules);
             foreach (var prop in exportedType.Type.GetProperties(
                 BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static))
             {
@@ -149,6 +189,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     TypeParameters = ProcessTypeParameters(prop.PropertyType),
                     Code = MemberUtils.GenerateCodeFor(prop),
                 };
+
+                if (exportedType.Type == defaultRules && prop.GetMethod.IsStatic)
+                {
+                    var expression = prop.GetMethod.Invoke(null, null);
+                    property.CustomInfo = expression.ToString();
+                }
 
                 LinkCache.Register(property);
 

@@ -10,7 +10,7 @@ public abstract class DocBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **DocBase**
 
-Derived  [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) ,  [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) ,  [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) ,  [DocMethod](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.cs.md) ,  [DocMethodOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.cs.md) ,  [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) ,  [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) ,  [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) ,  [DocTypeParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter.cs.md) 
+Derived  [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocAssembly.cs.md) ,  [DocBaseType](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocBaseType.cs.md) ,  [DocConstructor](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocConstructor.cs.md) ,  [DocMethod](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethod.cs.md) ,  [DocMethodOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocMethodOverload.cs.md) ,  [DocNamespace](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocNamespace.cs.md) ,  [DocOverload](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocOverload.cs.md) ,  [DocParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocParameter.cs.md) ,  [DocSerialization](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocSerialization.cs.md) ,  [DocTypeParameter](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy.DocTypeParameter.cs.md) 
 
 ## Properties
 
@@ -40,4 +40,4 @@ Derived  [DocAssembly](ExpressionPowerTools.Utilities.DocumentGenerator.Hierarch
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/1/2020 9:40:36 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.3-alpha |
+| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |

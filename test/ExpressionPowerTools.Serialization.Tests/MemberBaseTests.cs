@@ -9,6 +9,22 @@ namespace ExpressionPowerTools.Serialization.Tests
 {
     public class TestHost<T>
     {
+        public TestHost()
+        {
+        }
+
+        public TestHost(T prop)
+        {
+            GenericProperty = prop;
+        }
+
+        public TestHost(T prop, int value)
+            : this(prop)
+        {
+            Value = value;
+        }
+
+        public int Value { get; set; }
         public T GenericProperty { get; set; }
     }
 
@@ -187,13 +203,68 @@ namespace ExpressionPowerTools.Serialization.Tests
         }
 
         [Fact]
-        public void GivenFieldInfoWhenPropertyCreatedThenShouldCacheKey()
+        public void GivenFieldInfoWhenFieldCreatedThenShouldCacheKey()
         {
             var fieldInfo = (GetFieldMatrix().First())[0] as FieldInfo;
             var field = new Field(fieldInfo);
             Assert.Equal(field.GetKey(), field.CalculateKey());
             field.Name = nameof(fieldInfo);
             Assert.NotEqual(field.GetKey(), field.CalculateKey());
+        }
+
+        public static IEnumerable<object[]> GetCtorMatrix()
+        {
+            var generic = typeof(TestHost<>);
+            var closed = typeof(TestHost<int>);
+            foreach (var ctor in generic.GetConstructors().Union(closed.GetConstructors()))
+            {
+                yield return new object[] { ctor };
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(GetCtorMatrix))]
+        public void GivenCtorWhenConstructorCreatedThenShouldSetProperties(
+            ConstructorInfo constructor)
+        {
+            var ctor = new Ctor(constructor);
+            Assert.Equal(constructor.DeclaringType,
+                TestSerializer.ReflectionHelper.DeserializeType(ctor.DeclaringType));
+            Assert.Equal(constructor.ReflectedType,
+                TestSerializer.ReflectionHelper.DeserializeType(ctor.ReflectedType));
+            Assert.Equal(constructor.IsStatic, ctor.IsStatic);
+            Assert.Equal(MemberTypes.Constructor, (MemberTypes)ctor.MemberType);
+            Assert.Equal(constructor.GetParameters().Select(p => new
+            {
+                p.Name,
+                p.ParameterType
+            }).ToDictionary(
+                p => p.Name,
+                p => TestSerializer.ReflectionHelper.SerializeType(p.ParameterType)),
+            ctor.Parameters);
+        }
+
+        [Fact]
+        public void GivenConstructorInfoWhenCtorCreatedThenShouldCreateUniqueKey()
+        {
+            var list = new List<string>();
+            foreach (object[] ctor in GetCtorMatrix())
+            {
+                list.Add(new Ctor(ctor[0] as ConstructorInfo).GetKey());
+            }
+
+            var hashSet = new HashSet<string>(list);
+            Assert.Equal(list.Count, hashSet.Count);
+        }
+
+        [Fact]
+        public void GivenConstructorInfoWhenCtorCreatedThenShouldCacheKey()
+        {
+            var ctorInfo = (GetCtorMatrix().First())[0] as ConstructorInfo;
+            var ctor = new Ctor(ctorInfo);
+            Assert.Equal(ctor.GetKey(), ctor.CalculateKey());
+            ctor.Name = nameof(ctorInfo);
+            Assert.NotEqual(ctor.GetKey(), ctor.CalculateKey());
         }
     }
 }

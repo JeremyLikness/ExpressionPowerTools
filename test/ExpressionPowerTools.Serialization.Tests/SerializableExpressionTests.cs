@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.Serialization;
+using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -178,6 +178,134 @@ namespace ExpressionPowerTools.Serialization.Tests
                 methodCall.Method.Name,
                 methodExpr.MethodInfo.Name);
             Assert.NotNull(methodExpr.Arguments);
+        }
+
+        public class CtorClass
+        {
+            public CtorClass()
+            {
+            }
+
+            public CtorClass(int prop)
+            {
+                Prop = prop;
+            }
+
+            public int Prop { get; set; }
+        }
+
+        public static IEnumerable<object[]> GetCtorMatrix()
+        {
+            var ctors = typeof(CtorClass).GetConstructors();
+            var defaultCtor = ctors.First(c => c.GetParameters().Length == 0);
+            var propCtor = ctors.First(c => c.GetParameters().Length == 1);
+            var prop = typeof(CtorClass).GetProperty(nameof(CtorClass.Prop));
+
+            yield return new object[]
+            {
+                defaultCtor, null, null
+            };
+
+            yield return new object[]
+            {
+                propCtor, Expression.Constant(1), null
+            };
+
+            yield return new object[]
+            {
+                propCtor, Expression.Constant(1), prop
+            };
+        }
+
+        [Fact]
+        public void WhenCtorExprCreatedThenShouldInitializeLists()
+        {
+            var target = new CtorExpr();
+            Assert.NotNull(target.Arguments);
+            Assert.NotNull(target.MemberTypeList);
+            Assert.NotNull(target.Members);
+            Assert.NotNull(target.Properties);
+            Assert.NotNull(target.Fields);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetCtorMatrix))]
+        public void GivenConstructorWhenCtorExprCreatedThenShouldSetProperties(
+            ConstructorInfo info,
+            Expression arg,
+            MemberInfo member)
+        {
+            NewExpression expr;
+            if (arg == null)
+            {
+                expr = Expression.New(info);
+            }
+            else if (member == null)
+            {
+                expr = Expression.New(info, new[] { arg });
+            }
+            else
+            {
+                expr = Expression.New(info, new[] { arg }, new[] { member });
+            }
+            var ctor = new CtorExpr(expr);
+            Assert.NotNull(ctor.CtorInfo);
+            if (member != null)
+            {
+                Assert.Equal(member.Name, ctor.Properties[0].Name);
+            }
+        }
+
+        public class FieldsAndProps
+        {
+            public FieldsAndProps(
+                int inField,
+                string inValueStr,
+                int inValue,
+                string inFieldStr)
+            {
+                field = inField;
+                ValueStr = inValueStr;
+                Value = inValue;
+                fieldStr = inFieldStr;
+            }
+
+            public int field;
+            public string fieldStr;
+            public int Value { get; set; }
+            public string ValueStr { get; set; }
+        }
+
+        [Fact]
+        public void GivenMixedFieldsAndPropertiesWhenCtorExprCreatedThenShouldMapAppropriately()
+        {
+            var expr = Expression.New(
+                typeof(FieldsAndProps).GetConstructors().Single(),
+                new[]
+                {
+                    1.AsConstantExpression(),
+                    nameof(SerializableExpressionTests).AsConstantExpression(),
+                    2.AsConstantExpression(),
+                    nameof(GivenMixedFieldsAndPropertiesWhenCtorExprCreatedThenShouldMapAppropriately)
+                    .AsConstantExpression()
+                },
+                new MemberInfo[]
+                {
+                    typeof(FieldsAndProps).GetField(nameof(FieldsAndProps.field)),
+                    typeof(FieldsAndProps).GetProperty(nameof(FieldsAndProps.ValueStr)),
+                    typeof(FieldsAndProps).GetProperty(nameof(FieldsAndProps.Value)),
+                    typeof(FieldsAndProps).GetField(nameof(FieldsAndProps.fieldStr)),
+                });
+            var ctor = new CtorExpr(expr);
+            Assert.Equal(2, ctor.Properties.Count);
+            Assert.Equal(2, ctor.Fields.Count);
+            Assert.Equal(new[]
+            {
+                (int)MemberTypes.Field,
+                (int)MemberTypes.Property,
+                (int)MemberTypes.Property,
+                (int)MemberTypes.Field
+            }, ctor.MemberTypeList);
         }
 
         public static IEnumerable<object[]> GetSerializableExpressionMatrix()
