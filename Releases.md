@@ -2,16 +2,16 @@
 
 [Back to README](./README.md)
 
-- [0.8 Alpha](#0.8_Alpha)
+- [0.8 Alpha](#08_Alpha)
 
 ## 0.8 Alpha
 
-- [0.8.5-alpha](#0.8.5-alpha)
-- [0.8.4-alpha](#0.8.4-alpha)
-- [0.8.3-alpha](#0.8.3-alpha)
-- [0.8.2-alpha](#0.8.2-alpha)
-- [0.8.1-alpha](#0.8.1-alpha)
-- [0.8.0-alpha](#0.8.0-alpha)
+- [0.8.5-alpha](#085-alpha)
+- [0.8.4-alpha](#084-alpha)
+- [0.8.3-alpha](#083-alpha)
+- [0.8.2-alpha](#082-alpha)
+- [0.8.1-alpha](#081-alpha)
+- [0.8.0-alpha](#080-alpha)
 
 
 ### 0.8.5-alpha
