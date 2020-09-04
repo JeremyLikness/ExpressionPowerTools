@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using ExpressionPowerTools.Core.Signatures;
+using ExpressionPowerTools.Serialization.Configuration;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -20,6 +21,8 @@ namespace ExpressionPowerTools.Serialization
         {
             registration.RegisterSingleton<IReflectionHelper>(
                 new ReflectionHelper());
+            registration.Register<IConfigurationBuilder, ConfigurationBuilder>();
+            registration.RegisterSingleton<IDefaultConfiguration>(new DefaultConfiguration());
         }
     }
 }

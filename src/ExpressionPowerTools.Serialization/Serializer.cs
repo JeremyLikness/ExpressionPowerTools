@@ -5,11 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
-using ExpressionPowerTools.Core.Signatures;
+using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -27,48 +26,53 @@ namespace ExpressionPowerTools.Serialization
             SerializerValue = new ExpressionSerializer();
 
         /// <summary>
+        /// The default configuration when not specified.
+        /// </summary>
+        private static readonly Lazy<IDefaultConfiguration> DefaultConfiguration =
+            new Lazy<IDefaultConfiguration>(() => ServiceHost.GetService<IDefaultConfiguration>());
+
+        /// <summary>
         /// Serialize an expression tree.
         /// </summary>
         /// <param name="root">The root <see cref="Expression"/>.</param>
-        /// <param name="options">The <see cref="JsonSerializerOptions"/>.</param>
-        /// <param name="compressTypes">Set to <c>true</c> to reduce footprint of type definitions.</param>
+        /// <param name="config">Optional configuration.</param>
         /// <returns>The serialized <see cref="Expression"/> tree.</returns>
         /// <exception cref="ArgumentNullException">Thrown when the <see cref="Expression"/> is <c>null</c>.</exception>
         public static string Serialize(
         Expression root,
-        JsonSerializerOptions options = null,
-        bool compressTypes = true)
+        Func<IConfigurationBuilder, SerializationState> config = null)
         {
             Ensure.NotNull(() => root);
-            var opt = new JsonSerializerOptions();
-            options = options ?? new JsonSerializerOptions
+            SerializationState state;
+            if (config != null)
             {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true,
-            };
-            var state = new SerializationState { Options = options, CompressTypes = compressTypes };
+                state = config(ServiceHost.GetService<IConfigurationBuilder>());
+            }
+            else
+            {
+                state = DefaultConfiguration.Value.GetDefaultState();
+            }
+
             var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, state))
             {
                 TypeIndex = state.TypeIndex.ToArray(),
             };
-            return JsonSerializer.Serialize(serializeRoot, options);
+            return JsonSerializer.Serialize(serializeRoot, state.Options);
         }
 
         /// <summary>
         /// Serialize an <see cref="IQueryable"/>.
         /// </summary>
         /// <param name="query">The <see cref="IQueryable"/> to serialize.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
-        /// <param name="compressTypes">Set to <c>true</c> to reduce the footprint of types in the payload.</param>
+        /// <param name="config">Option configuration.</param>
         /// <returns>The serialized <see cref="IQueryable"/>.</returns>
         /// <exception cref="ArgumentNullException">Throws when the query is null.</exception>
         public static string Serialize(
             IQueryable query,
-            JsonSerializerOptions options = null,
-            bool compressTypes = true)
+            Func<IConfigurationBuilder, SerializationState> config = null)
         {
             Ensure.NotNull(() => query);
-            return Serialize(query.Expression, options, compressTypes);
+            return Serialize(query.Expression, config);
         }
 
         /// <summary>
@@ -76,22 +80,29 @@ namespace ExpressionPowerTools.Serialization
         /// </summary>
         /// <param name="json">The json text.</param>
         /// <param name="queryRoot">The root of the query to apply.</param>
-        /// <param name="options">Optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="config">Optional configuration.</param>
         /// <returns>The deserialized <see cref="Expression"/> or <c>null</c>.</returns>
         /// <exception cref="ArgumentException">Thrown when the json is <c>null</c> or whitespace.</exception>
         public static Expression Deserialize(
             string json,
             Expression queryRoot = null,
-            JsonSerializerOptions options = null)
+            Func<IConfigurationBuilder, SerializationState> config = null)
         {
             Ensure.NotNullOrWhitespace(() => json);
-            var state = new SerializationState
-            {
-                QueryRoot = queryRoot,
-                Options = options,
-            };
 
-            var root = JsonSerializer.Deserialize<SerializationRoot>(json, options);
+            SerializationState state;
+            if (config != null)
+            {
+                state = config(ServiceHost.GetService<IConfigurationBuilder>());
+            }
+            else
+            {
+                state = DefaultConfiguration.Value.GetDefaultState();
+            }
+
+            state.QueryRoot = queryRoot;
+
+            var root = JsonSerializer.Deserialize<SerializationRoot>(json, state.Options);
             state.TypeIndex = new List<SerializableType>(
                 root.TypeIndex ?? new SerializableType[0]);
             if (root.Expression is JsonElement jsonChild)
@@ -107,18 +118,18 @@ namespace ExpressionPowerTools.Serialization
         /// </summary>
         /// <param name="host">The host to create the <see cref="IQueryable"/>.</param>
         /// <param name="json">The json text.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="config">Optional configuratoin.</param>
         /// <returns>The deserialized <see cref="IQueryable"/>.</returns>
         /// <exception cref="ArgumentNullException">Throws when host is null.</exception>
         /// <exception cref="ArgumentException">Throws when the json is empty or whitespace.</exception>
         public static IQueryable DeserializeQuery(
             IQueryable host,
             string json,
-            JsonSerializerOptions options = null)
+            Func<IConfigurationBuilder, SerializationState> config = null)
         {
             Ensure.NotNull(() => host);
             Ensure.NotNullOrWhitespace(() => json);
-            var expression = Deserialize(json, host.Expression, options);
+            var expression = Deserialize(json, host.Expression, config);
             return host.Provider.CreateQuery(expression);
         }
 
@@ -126,29 +137,51 @@ namespace ExpressionPowerTools.Serialization
         /// Deserializes a query from the raw json.
         /// </summary>
         /// <typeparam name="T">The type of the query.</typeparam>
-        /// <param name="host">The <see cref="IQueryable{T}"/> host to create the query.</param>
         /// <param name="json">The json text.</param>
-        /// <param name="options">The optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="host">The <see cref="IQueryable{T}"/> host to create the query.</param>
+        /// <param name="config">The optional configuration.</param>
         /// <returns>The deserialized <see cref="IQueryable{T}"/>.</returns>
         public static IQueryable<T> DeserializeQuery<T>(
-            IQueryable<T> host,
             string json,
-            JsonSerializerOptions options = null) =>
-            DeserializeQuery((IQueryable)host, json, options) as IQueryable<T>;
+            IQueryable<T> host = null,
+            Func<IConfigurationBuilder, SerializationState> config = null)
+        {
+            host = host ?? IQueryableExtensions.CreateQueryTemplate<T>();
+            return DeserializeQuery(host, json, config) as IQueryable<T>;
+        }
 
         /// <summary>
         /// Overload to return a specific type.
         /// </summary>
         /// <remarks>
         /// Do not use this method to deserialize <see cref="IQueryable"/> or <see cref="IQueryable{T}"/>.
-        /// The <see cref="DeserializeQuery(IQueryable, string, JsonSerializerOptions)"/> method is provided for this.
+        /// The <see cref="DeserializeQuery(IQueryable, string, Func{IConfigurationBuilder, SerializationState})"/> method is provided for this.
         /// </remarks>
         /// <typeparam name="T">The type of the <see cref="Expression"/> root.</typeparam>
         /// <param name="json">The json.</param>
         /// <param name="queryRoot">The root of the query to apply.</param>
-        /// <param name="options">Optional <see cref="JsonSerializerOptions"/>.</param>
+        /// <param name="config">Optional configuration.</param>
         /// <returns>The <see cref="Expression"/> or <c>null</c>.</returns>
-        public static T Deserialize<T>(string json, Expression queryRoot = null, JsonSerializerOptions options = null)
-            where T : Expression => (T)Deserialize(json, queryRoot, options);
+        public static T Deserialize<T>(
+            string json,
+            Expression queryRoot = null,
+            Func<IConfigurationBuilder, SerializationState> config = null)
+            where T : Expression => (T)Deserialize(json, queryRoot, config);
+
+        /// <summary>
+        /// Configure default settings.
+        /// </summary>
+        /// <param name="config">The configuration builder.</param>
+        /// <remarks>
+        /// Will set the global defaults moving forward. Can be called multiple times.
+        /// </remarks>
+        /// <example>
+        /// For example:
+        /// <code lang="csharp">
+        /// Serializer.ConfigureDefaults(config => config.CompressTypes(false).Configure());
+        /// </code>
+        /// </example>
+        public static void ConfigureDefaults(Func<IConfigurationBuilder, SerializationState> config) =>
+            DefaultConfiguration.Value.SetDefaultState(builder => config(builder));
     }
 }

@@ -2,10 +2,11 @@
 
 [Back to README](./README.md)
 
-- [0.8 Alpha](#08_Alpha)
+- [0.8 Alpha](#08-Alpha)
 
 ## 0.8 Alpha
 
+- [0.8.6-alpha](#086-alpha)
 - [0.8.5-alpha](#085-alpha)
 - [0.8.4-alpha](#084-alpha)
 - [0.8.3-alpha](#083-alpha)
@@ -13,6 +14,19 @@
 - [0.8.1-alpha](#081-alpha)
 - [0.8.0-alpha](#080-alpha)
 
+### 0.8.6-alpha
+
+**_Breaking Change_**
+
+An overload of the [`Serializer`](./docs/api/ExpressionPowerTools.Serialization.Serializer.cs.md) was changed. The non-typed `Deserialize` requires a
+`IQueryHost` to understand the type being deserialized, but the typed overload can default to LINQ-to-objects.
+
+**Serialization**
+
+- Added [`ConfigurationBuilder`](./docs/api/ExpressionPowerTools.Serialization.Configuration.ConfigurationBuilder.cs.md) as the
+optimal way to build configurations.
+- Added [`DefaultConfiguration`](./docs/api/ExpressionPowerTools.Serialization.Configuration.DefaultConfiguration.cs.md) to 
+allow default configurations. 
 
 ### 0.8.5-alpha
 

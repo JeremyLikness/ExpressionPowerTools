@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.Json;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
@@ -70,7 +71,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void WhenDeserializeQueryForTypeCalledWithNullHostThenShouldThrowArgumentNull()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                Serializer.DeserializeQuery<TestableThing>(null, "{}"));
+                Serializer.DeserializeQuery<TestableThing>("{}", null));
         }
 
         [Theory]
@@ -207,7 +208,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var json = Serializer.Serialize(query);
             var queryHost = TestableThing.MakeQuery(100);
-            var newQuery = Serializer.DeserializeQuery(queryHost, json);
+            var newQuery = Serializer.DeserializeQuery(json, queryHost);
             Assert.True(query.IsEquivalentTo(newQuery));
             ValidateQuery(newQuery.ToList(), type);
         }
@@ -364,6 +365,38 @@ namespace ExpressionPowerTools.Serialization.Tests
             var json = Serializer.Serialize(binary);
             var target = Serializer.Deserialize<BinaryExpression>(json);
             Assert.True(binary.IsEquivalentTo(target));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GivenDefaultConfigurationWhenNoConfigProvidedThenShouldUseDefault(bool configOverride)
+        {
+            var query = TestableThing.MakeQuery().Where(t => t.Id.Contains("aa") && (t.IsActive || t.Value < int.MaxValue / 2));
+
+            Serializer.ConfigureDefaults(config => config.WithJsonSerializerOptions(
+                new JsonSerializerOptions
+                {
+                    IgnoreNullValues = false,
+                    IgnoreReadOnlyProperties = true
+                }).Configure());
+
+            if (configOverride)
+            {
+                var json = Serializer.Serialize(query, config => config.CompressTypes(false).Configure());
+                Assert.DoesNotContain("null", json);
+                Assert.DoesNotContain("^", json);
+                var expr = Serializer.DeserializeQuery<TestableThing>(json, config: config => config.CompressTypes(false).Configure());
+                Assert.True(query.IsEquivalentTo(expr));
+            }
+            else
+            {
+                var json = Serializer.Serialize(query);
+                Assert.Contains("null", json);
+                Assert.Contains("^", json);
+            }
+
+            Serializer.ConfigureDefaults(config => config.Configure());
         }
     }
 }
