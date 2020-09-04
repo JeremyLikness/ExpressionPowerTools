@@ -66,7 +66,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                 if (ser.Serializers.ContainsKey(expressionType))
                 {
                     var entry = ser.Serializers[expressionType];
-                    table.AddRow(name, writer.WriteLink(entry.Name, entry.FileName));
+                    table.AddRow(name, writer.WriteLink(entry.Name.NameOnly(), entry.FileName));
                 }
                 else
                 {

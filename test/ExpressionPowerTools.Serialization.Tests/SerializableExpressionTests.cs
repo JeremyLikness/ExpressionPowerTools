@@ -323,6 +323,24 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serializable = Activator.CreateInstance(serializableType);
             Assert.NotNull(serializable);
-        }        
+        }
+
+        public static double Divide(double x, double y) => x / y;
+
+        [Fact]
+        public void GivenBinaryExpressionWithMethodWhenBinaryInstantiatedThenShouldSetMethod()
+        {
+            var method = GetType().GetMethod(
+                nameof(Divide),
+                BindingFlags.Public | BindingFlags.Static);
+            var expr = Expression.Divide(
+                4.0.AsConstantExpression(),
+                2.0.AsConstantExpression(),
+                method);
+            var target = new Binary(expr);
+            Assert.NotNull(target.BinaryMethod);
+            Assert.Equal(nameof(Divide), target.BinaryMethod.Name);
+            Assert.Equal(expr.IsLifted, target.LiftToNull);
+        }
     }
 }

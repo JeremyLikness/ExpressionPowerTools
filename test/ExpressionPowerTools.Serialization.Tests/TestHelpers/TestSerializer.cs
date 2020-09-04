@@ -26,6 +26,8 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
                 ExpressionSerializer.Serialize(expression, state) as TSerializer,
                 options);
             return JsonDocument.Parse(json).RootElement;
-        }        
+        }
+
+        public static object[] AsObjectArray(this object source) => new object[] { source };
     }
 }

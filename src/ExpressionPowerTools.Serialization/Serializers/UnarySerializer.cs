@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
