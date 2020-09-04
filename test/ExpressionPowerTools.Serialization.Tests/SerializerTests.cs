@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
@@ -98,7 +99,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             OrderByCreatedThenByDescendingId,
             WhereIdContainsAA,
             IdProjection,
-            IdOnly
+            IdOnly,
+            Filtered
         }
 
         public static IEnumerable<object[]> GetQueryMatrix()
@@ -131,6 +133,12 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 TestableThing.MakeQuery().OrderBy(t => t.Id).Select(t => new TestableThing(t.Id)),
                 Queries.IdOnly
+            };
+
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Where(t => t.Id.Contains("aa") && (t.IsActive || t.Value < int.MaxValue/2)),
+                Queries.Filtered
             };
         }
 
@@ -168,6 +176,8 @@ namespace ExpressionPowerTools.Serialization.Tests
                     return list.All(t => t.Id.Contains("aa"));
                 case Queries.IdOnly:
                     return list.All(t => t.IsActive && t.Value == int.MinValue);
+                case Queries.Filtered:
+                    return list.All(t => t.Id.Contains("aa") && (t.IsActive || t.Value < int.MaxValue / 2));
             }
             return false;
         }
@@ -325,6 +335,35 @@ namespace ExpressionPowerTools.Serialization.Tests
             var json = Serializer.Serialize(member);
             var target = Serializer.Deserialize<MemberExpression>(json);
             Assert.True(member.IsEquivalentTo(target));
+        }
+
+        public static IEnumerable<object[]> GetNewMatrix() =>
+            CtorSerializerTests.GetCtorMatrix();
+
+        [Theory]
+        [MemberData(nameof(GetNewMatrix))]
+        public void GivenNewExpressionWhenSerializedThenShouldDeserialize(
+            ConstructorInfo info,
+            Expression[] args,
+            MemberInfo[] members)
+        {
+            var ctor = CtorSerializerTests.MakeNew(info, args, members);
+            var json = Serializer.Serialize(ctor);
+            var target = Serializer.Deserialize<NewExpression>(json);
+            Assert.True(ctor.IsEquivalentTo(target));
+        }
+
+        public static IEnumerable<object[]> GetBinaryExpressions =
+            BinarySerializerTests.GetBinaryExpressions();
+
+        [Theory]
+        [MemberData(nameof(GetBinaryExpressions))]
+        public void GivenBinaryExpressionWhenSerializedThenShouldDeserialize(
+            BinaryExpression binary)
+        {
+            var json = Serializer.Serialize(binary);
+            var target = Serializer.Deserialize<BinaryExpression>(json);
+            Assert.True(binary.IsEquivalentTo(target));
         }
     }
 }

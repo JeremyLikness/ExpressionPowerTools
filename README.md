@@ -10,6 +10,8 @@ User-friendly documentation is coming. Best way to explore now is to browse the 
 
 [Quick Start](docs/quickstart.md)
 
+[Release Notes](./Releases.md)
+
 ## Core
 
 [![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Core)](https://www.nuget.org/packages/ExpressionPowerTools.Core/)

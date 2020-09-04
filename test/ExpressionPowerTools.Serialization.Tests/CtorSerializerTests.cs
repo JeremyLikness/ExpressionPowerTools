@@ -162,7 +162,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
         }
 
-        NewExpression MakeNew(ConstructorInfo info, Expression[] args, MemberInfo[] members)
+        public static NewExpression MakeNew(ConstructorInfo info, Expression[] args, MemberInfo[] members)
         {
             if (args?.Length == 0)
             {
@@ -203,6 +203,11 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.True(deserialized.IsEquivalentTo(deserialized));
         }
 
-        
+        public override bool Equals(object obj) => obj is CtorSerializerTests;
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

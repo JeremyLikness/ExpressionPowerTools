@@ -252,6 +252,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy
                 type = type.GetGenericTypeDefinition();
             }
 
+            if (type.IsArray)
+            {
+                type = type.GetElementType();
+            }
+
             var localType = assemblies.SelectMany(a => a.Namespaces)
                 .SelectMany(ns => ns.Types)
                 .FirstOrDefault(t => t.Name == type.FullName);

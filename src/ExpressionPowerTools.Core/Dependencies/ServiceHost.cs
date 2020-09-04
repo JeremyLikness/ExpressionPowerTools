@@ -23,6 +23,10 @@ namespace ExpressionPowerTools.Core.Dependencies
     /// and can only be done once. <see cref="Reset"/> is provided mainly for testing purposes.
     /// </para>
     /// <para>
+    /// Satellite assemblies can hook into the registration by implementing <see cref="IDependentServiceRegistration"/>. This is
+    /// scanned and loaded before user overridees.
+    /// </para>
+    /// <para>
     /// The <see cref="IServiceRegistration"/> provided by initialization is chainable (each call returns itself).
     /// </para>
     /// </remarks>

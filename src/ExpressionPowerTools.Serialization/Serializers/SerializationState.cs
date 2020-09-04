@@ -55,13 +55,25 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public JsonSerializerOptions Options { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not types are compressed.
+        /// Gets or sets a value indicating whether or not types are compressed. Default is <c>true</c>.
         /// </summary>
+        /// <remarks>
+        /// When this flag is set, instead of serializing long types, each type is indexed in a master
+        /// "type index" the first time it is encountered. Subsequent references will use <c>^x</c>
+        /// where <c>x</c> is the index of the type. Set this to <c>false</c> if you need to debug the
+        /// serialization payload. This flag is ignored during deserialization as compressed types are
+        /// automatically detected and decompressed when present.
+        /// </remarks>
         public bool CompressTypes { get; set; }
 
         /// <summary>
         /// Gets or sets the index of types.
         /// </summary>
+        /// <remarks>
+        /// This table is used to build a master index of types. For example, if <see cref="string"/> is
+        /// referenced multiple times, the intial entry may be <c>System.String</c> and subsequent entries
+        /// will reference <c>^0</c>.
+        /// </remarks>
         public List<SerializableType> TypeIndex { get; set; } = new List<SerializableType>();
 
         /// <summary>
