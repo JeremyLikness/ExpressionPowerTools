@@ -10,7 +10,7 @@ public class SerializableExpression
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **SerializableExpression**
 
-Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) ,  [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) ,  [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
+Derived  [Binary](ExpressionPowerTools.Serialization.Serializers.Binary.cs.md) ,  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) ,  [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) ,  [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
 
 ## Constructors
 
@@ -29,4 +29,4 @@ Derived  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.m
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

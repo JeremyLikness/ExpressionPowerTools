@@ -19,7 +19,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`CompressTypes`](ExpressionPowerTools.Serialization.Serializers.SerializationState.CompressTypes.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether or not types are compressed. |
+| [`CompressTypes`](ExpressionPowerTools.Serialization.Serializers.SerializationState.CompressTypes.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether or not types are compressed. Default is `true` . |
 | [`Options`](ExpressionPowerTools.Serialization.Serializers.SerializationState.Options.prop.md) | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | Gets or sets the optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 | [`QueryRoot`](ExpressionPowerTools.Serialization.Serializers.SerializationState.QueryRoot.prop.md) | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | Gets or sets the query root to build the query from. |
 | [`TypeIndex`](ExpressionPowerTools.Serialization.Serializers.SerializationState.TypeIndex.prop.md) | [List&lt;SerializableType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the index of types. |
@@ -39,4 +39,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

@@ -60,6 +60,9 @@ This is a very simple dependency injection container. It allows registration
             of type implementations, generic implementations, and singletons. It does not
             recursively resolve dependencies. Registration happens in the call toand can only be done once.is provided mainly for testing purposes.
 
+Satellite assemblies can hook into the registration by implementing [IDependentServiceRegistration](ExpressionPowerTools.Core.Signatures.IDependentServiceRegistration.i.md) . This is
+            scanned and loaded before user overridees.
+
 The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) provided by initialization is chainable (each call returns itself).
 
 ## Constructors
@@ -79,4 +82,4 @@ The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistra
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

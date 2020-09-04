@@ -4,87 +4,87 @@
 
 | ExpressionType | Serializer |
 | :-- | :-- |
-| Add | _Not Supported_ |
-| AddChecked | _Not Supported_ |
-| And | _Not Supported_ |
-| AndAlso | _Not Supported_ |
-| ArrayLength | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| Add | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| AddChecked | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| And | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| AndAlso | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| ArrayLength | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
 | ArrayIndex | _Not Supported_ |
-| Call | [ExpressionPowerTools.Serialization.Serializers.MethodSerializer](ExpressionPowerTools.Serialization.Serializers.MethodSerializer.cs.md) |
-| Coalesce | _Not Supported_ |
+| Call | [MethodSerializer](ExpressionPowerTools.Serialization.Serializers.MethodSerializer.cs.md) |
+| Coalesce | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
 | Conditional | _Not Supported_ |
-| Constant | [ExpressionPowerTools.Serialization.Serializers.ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.cs.md) |
-| Convert | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| ConvertChecked | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| Divide | _Not Supported_ |
-| Equal | _Not Supported_ |
-| ExclusiveOr | _Not Supported_ |
-| GreaterThan | _Not Supported_ |
-| GreaterThanOrEqual | _Not Supported_ |
-| Invoke | [ExpressionPowerTools.Serialization.Serializers.InvocationSerializer](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.cs.md) |
-| Lambda | [ExpressionPowerTools.Serialization.Serializers.LambdaSerializer](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.cs.md) |
-| LeftShift | _Not Supported_ |
-| LessThan | _Not Supported_ |
-| LessThanOrEqual | _Not Supported_ |
+| Constant | [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.cs.md) |
+| Convert | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| ConvertChecked | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| Divide | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Equal | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| ExclusiveOr | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| GreaterThan | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| GreaterThanOrEqual | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Invoke | [InvocationSerializer](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.cs.md) |
+| Lambda | [LambdaSerializer](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.cs.md) |
+| LeftShift | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| LessThan | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| LessThanOrEqual | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
 | ListInit | _Not Supported_ |
-| MemberAccess | [ExpressionPowerTools.Serialization.Serializers.MemberSerializer](ExpressionPowerTools.Serialization.Serializers.MemberSerializer.cs.md) |
+| MemberAccess | [MemberSerializer](ExpressionPowerTools.Serialization.Serializers.MemberSerializer.cs.md) |
 | MemberInit | _Not Supported_ |
-| Modulo | _Not Supported_ |
-| Multiply | _Not Supported_ |
-| MultiplyChecked | _Not Supported_ |
-| Negate | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| UnaryPlus | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| NegateChecked | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| New | [ExpressionPowerTools.Serialization.Serializers.CtorSerializer](ExpressionPowerTools.Serialization.Serializers.CtorSerializer.cs.md) |
-| NewArrayInit | [ExpressionPowerTools.Serialization.Serializers.NewArraySerializer](ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.cs.md) |
+| Modulo | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Multiply | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| MultiplyChecked | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Negate | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| UnaryPlus | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| NegateChecked | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| New | [CtorSerializer](ExpressionPowerTools.Serialization.Serializers.CtorSerializer.cs.md) |
+| NewArrayInit | [NewArraySerializer](ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.cs.md) |
 | NewArrayBounds | _Not Supported_ |
-| Not | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| NotEqual | _Not Supported_ |
-| Or | _Not Supported_ |
-| OrElse | _Not Supported_ |
-| Parameter | [ExpressionPowerTools.Serialization.Serializers.ParameterSerializer](ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.cs.md) |
-| Power | _Not Supported_ |
-| Quote | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| RightShift | _Not Supported_ |
-| Subtract | _Not Supported_ |
-| SubtractChecked | _Not Supported_ |
-| TypeAs | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| Not | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| NotEqual | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Or | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| OrElse | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Parameter | [ParameterSerializer](ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.cs.md) |
+| Power | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Quote | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| RightShift | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| Subtract | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| SubtractChecked | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| TypeAs | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
 | TypeIs | _Not Supported_ |
-| Assign | _Not Supported_ |
+| Assign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
 | Block | _Not Supported_ |
 | DebugInfo | _Not Supported_ |
-| Decrement | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| Decrement | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
 | Dynamic | _Not Supported_ |
 | Default | _Not Supported_ |
 | Extension | _Not Supported_ |
 | Goto | _Not Supported_ |
-| Increment | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| Increment | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
 | Index | _Not Supported_ |
 | Label | _Not Supported_ |
 | RuntimeVariables | _Not Supported_ |
 | Loop | _Not Supported_ |
 | Switch | _Not Supported_ |
-| Throw | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| Throw | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
 | Try | _Not Supported_ |
-| Unbox | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| AddAssign | _Not Supported_ |
-| AndAssign | _Not Supported_ |
-| DivideAssign | _Not Supported_ |
-| ExclusiveOrAssign | _Not Supported_ |
-| LeftShiftAssign | _Not Supported_ |
-| ModuloAssign | _Not Supported_ |
-| MultiplyAssign | _Not Supported_ |
-| OrAssign | _Not Supported_ |
-| PowerAssign | _Not Supported_ |
-| RightShiftAssign | _Not Supported_ |
-| SubtractAssign | _Not Supported_ |
-| AddAssignChecked | _Not Supported_ |
-| MultiplyAssignChecked | _Not Supported_ |
-| SubtractAssignChecked | _Not Supported_ |
-| PreIncrementAssign | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| PreDecrementAssign | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| PostIncrementAssign | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
-| PostDecrementAssign | [ExpressionPowerTools.Serialization.Serializers.UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| Unbox | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| AddAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| AndAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| DivideAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| ExclusiveOrAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| LeftShiftAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| ModuloAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| MultiplyAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| OrAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| PowerAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| RightShiftAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| SubtractAssign | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| AddAssignChecked | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| MultiplyAssignChecked | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| SubtractAssignChecked | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
+| PreIncrementAssign | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| PreDecrementAssign | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| PostIncrementAssign | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
+| PostDecrementAssign | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) |
 | TypeEqual | _Not Supported_ |
 | OnesComplement | _Not Supported_ |
 | IsTrue | _Not Supported_ |
@@ -94,4 +94,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

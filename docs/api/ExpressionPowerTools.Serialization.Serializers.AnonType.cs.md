@@ -21,8 +21,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`AnonymousTypeName`](ExpressionPowerTools.Serialization.Serializers.AnonType.AnonymousTypeName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the anonymous type name. |
-| [`PropertyNames`](ExpressionPowerTools.Serialization.Serializers.AnonType.PropertyNames.prop.md) | [String[]](https://docs.microsoft.com/dotnet/api/system.string[]) | Gets or sets the property names. |
-| [`PropertyValues`](ExpressionPowerTools.Serialization.Serializers.AnonType.PropertyValues.prop.md) | [AnonValue[]](https://docs.microsoft.com/dotnet/api/expressionpowertools.serialization.serializers.anonvalue[]) | Gets or sets the property values. |
+| [`PropertyNames`](ExpressionPowerTools.Serialization.Serializers.AnonType.PropertyNames.prop.md) | [String[]](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the property names. |
+| [`PropertyValues`](ExpressionPowerTools.Serialization.Serializers.AnonType.PropertyValues.prop.md) | [AnonValue[]](ExpressionPowerTools.Serialization.Serializers.AnonValue.cs.md) | Gets or sets the property values. |
 
 ## Methods
 
@@ -34,4 +34,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

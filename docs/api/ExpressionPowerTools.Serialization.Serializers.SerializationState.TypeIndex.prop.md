@@ -8,6 +8,12 @@ Gets or sets the index of types.
 public List<SerializableType> TypeIndex { get; set; }
 ```
 
+## Remarks
+
+This table is used to build a master index of types. For example, if [String](https://docs.microsoft.com/dotnet/api/system.string) is
+            referenced multiple times, the intial entry may be `System.String` and subsequent entries
+            will reference `^0` .
+
 ### Property Value
 
  [List&lt;SerializableType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) 
@@ -17,4 +23,4 @@ public List<SerializableType> TypeIndex { get; set; }
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

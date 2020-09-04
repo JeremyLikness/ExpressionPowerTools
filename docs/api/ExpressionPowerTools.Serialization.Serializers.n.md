@@ -9,6 +9,8 @@
 | [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) | Helper for serializing and deserializing anonymous types. |
 | [AnonValue](ExpressionPowerTools.Serialization.Serializers.AnonValue.cs.md) | Represents the combination of a type and value. |
 | [BaseSerializer&lt;TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) | Base class for serializers. |
+| [Binary](ExpressionPowerTools.Serialization.Serializers.Binary.cs.md) | Represents a serializable [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) . |
+| [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) | Serialization services for [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) . |
 | [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) | Represents a serializable [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
 | [ConstantSerializer](ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.cs.md) | Serializer for [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
 | [Ctor](ExpressionPowerTools.Serialization.Serializers.Ctor.cs.md) | Serializable version of [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
@@ -46,4 +48,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

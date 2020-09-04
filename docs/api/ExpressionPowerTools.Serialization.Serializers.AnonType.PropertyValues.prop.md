@@ -10,11 +10,11 @@ public AnonValue[] PropertyValues { get; set; }
 
 ### Property Value
 
- [AnonValue[]](https://docs.microsoft.com/dotnet/api/expressionpowertools.serialization.serializers.anonvalue[]) 
+ [AnonValue[]](ExpressionPowerTools.Serialization.Serializers.AnonValue.cs.md) 
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |

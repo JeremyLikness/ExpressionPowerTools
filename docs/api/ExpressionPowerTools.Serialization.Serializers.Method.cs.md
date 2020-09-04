@@ -20,7 +20,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [M
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`GenericArguments`](ExpressionPowerTools.Serialization.Serializers.Method.GenericArguments.prop.md) | [SerializableType[]](https://docs.microsoft.com/dotnet/api/expressionpowertools.serialization.serializers.serializabletype[]) | Gets or sets the generic arguments to the method. |
+| [`GenericArguments`](ExpressionPowerTools.Serialization.Serializers.Method.GenericArguments.prop.md) | [SerializableType[]](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the generic arguments to the method. |
 | [`GenericMethodDefinition`](ExpressionPowerTools.Serialization.Serializers.Method.GenericMethodDefinition.prop.md) | [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) | Gets or sets the generic method definition that the method inherits from. |
 | [`IsStatic`](ExpressionPowerTools.Serialization.Serializers.Method.IsStatic.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether the method is static. |
 | [`MemberType`](ExpressionPowerTools.Serialization.Serializers.Method.MemberType.prop.md) | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | Gets or sets the member type. |
@@ -37,4 +37,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [M
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/3/2020 10:27:04 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.4-alpha |
+| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
