@@ -27,6 +27,13 @@ An overload of the [`Serializer`](./docs/api/ExpressionPowerTools.Serialization.
 optimal way to build configurations.
 - Added [`DefaultConfiguration`](./docs/api/ExpressionPowerTools.Serialization.Configuration.DefaultConfiguration.cs.md) to 
 allow default configurations. 
+- Extended [`ReflectionHelper`](./docs/api/ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) 
+to provide ability to match closed members by [finding generic counterparts](./docs/api/ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.FindGenericVersion.m.md).
+- Added [`SerializationRule`](./docs/api/ExpressionPowerTools.Serialization.Rules.SerializationRule.cs.md) and 
+the [`RulesEngine`](./docs/api/ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.md) to build/host/analyze rules.
+- Added [`TypeBase`](./docs/api/ExpressionPowerTools.Serialization.Serializers.TypeBase.cs.md) for easy key calculation for types.
+- Added [`MemberSelector`](./docs/api/ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) to provide 
+ways to specify members when configuring rules using [`SelectorExtensions`](./docs/api/ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.cs.md)
 
 ### 0.8.5-alpha
 

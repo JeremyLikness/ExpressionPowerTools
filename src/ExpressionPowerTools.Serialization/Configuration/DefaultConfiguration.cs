@@ -58,12 +58,13 @@ namespace ExpressionPowerTools.Serialization.Configuration
         /// Uses the configuration builder to configure the default state.
         /// </summary>
         /// <param name="builder">The <see cref="IConfigurationBuilder"/>.</param>
-        public void SetDefaultState(Func<IConfigurationBuilder, SerializationState> builder)
+        public void SetDefaultState(Action<IConfigurationBuilder> builder)
         {
-            var state = builder(ServiceHost.GetService<IConfigurationBuilder>());
+            var config = ServiceHost.GetService<IConfigurationBuilder>();
+            builder(config);
             lock (lockObj)
             {
-                defaultState = state;
+                defaultState = config.Configure();
             }
         }
     }

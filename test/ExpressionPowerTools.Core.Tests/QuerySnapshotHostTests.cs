@@ -7,8 +7,6 @@ using IEnumerableNonGeneric = System.Collections.IEnumerable;
 using Xunit;
 using ExpressionPowerTools.Core.Providers;
 using System.Linq.Expressions;
-using System;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ExpressionPowerTools.Core.Tests
 {

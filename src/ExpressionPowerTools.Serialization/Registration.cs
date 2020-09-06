@@ -3,6 +3,7 @@
 
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Configuration;
+using ExpressionPowerTools.Serialization.Rules;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -23,6 +24,7 @@ namespace ExpressionPowerTools.Serialization
                 new ReflectionHelper());
             registration.Register<IConfigurationBuilder, ConfigurationBuilder>();
             registration.RegisterSingleton<IDefaultConfiguration>(new DefaultConfiguration());
+            registration.RegisterSingleton<IRulesEngine>(new RulesEngine());
         }
     }
 }

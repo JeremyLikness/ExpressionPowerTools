@@ -40,13 +40,15 @@ namespace ExpressionPowerTools.Serialization
         /// <exception cref="ArgumentNullException">Thrown when the <see cref="Expression"/> is <c>null</c>.</exception>
         public static string Serialize(
         Expression root,
-        Func<IConfigurationBuilder, SerializationState> config = null)
+        Action<IConfigurationBuilder> config = null)
         {
             Ensure.NotNull(() => root);
             SerializationState state;
             if (config != null)
             {
-                state = config(ServiceHost.GetService<IConfigurationBuilder>());
+                var builder = ServiceHost.GetService<IConfigurationBuilder>();
+                config(builder);
+                state = builder.Configure();
             }
             else
             {
@@ -69,7 +71,7 @@ namespace ExpressionPowerTools.Serialization
         /// <exception cref="ArgumentNullException">Throws when the query is null.</exception>
         public static string Serialize(
             IQueryable query,
-            Func<IConfigurationBuilder, SerializationState> config = null)
+            Action<IConfigurationBuilder> config = null)
         {
             Ensure.NotNull(() => query);
             return Serialize(query.Expression, config);
@@ -86,14 +88,16 @@ namespace ExpressionPowerTools.Serialization
         public static Expression Deserialize(
             string json,
             Expression queryRoot = null,
-            Func<IConfigurationBuilder, SerializationState> config = null)
+            Action<IConfigurationBuilder> config = null)
         {
             Ensure.NotNullOrWhitespace(() => json);
 
             SerializationState state;
             if (config != null)
             {
-                state = config(ServiceHost.GetService<IConfigurationBuilder>());
+                var builder = ServiceHost.GetService<IConfigurationBuilder>();
+                config(builder);
+                state = builder.Configure();
             }
             else
             {
@@ -125,7 +129,7 @@ namespace ExpressionPowerTools.Serialization
         public static IQueryable DeserializeQuery(
             IQueryable host,
             string json,
-            Func<IConfigurationBuilder, SerializationState> config = null)
+            Action<IConfigurationBuilder> config = null)
         {
             Ensure.NotNull(() => host);
             Ensure.NotNullOrWhitespace(() => json);
@@ -144,7 +148,7 @@ namespace ExpressionPowerTools.Serialization
         public static IQueryable<T> DeserializeQuery<T>(
             string json,
             IQueryable<T> host = null,
-            Func<IConfigurationBuilder, SerializationState> config = null)
+            Action<IConfigurationBuilder> config = null)
         {
             host = host ?? IQueryableExtensions.CreateQueryTemplate<T>();
             return DeserializeQuery(host, json, config) as IQueryable<T>;
@@ -155,7 +159,7 @@ namespace ExpressionPowerTools.Serialization
         /// </summary>
         /// <remarks>
         /// Do not use this method to deserialize <see cref="IQueryable"/> or <see cref="IQueryable{T}"/>.
-        /// The <see cref="DeserializeQuery(IQueryable, string, Func{IConfigurationBuilder, SerializationState})"/> method is provided for this.
+        /// The <see cref="DeserializeQuery(IQueryable, string, Action{IConfigurationBuilder})"/> method is provided for this.
         /// </remarks>
         /// <typeparam name="T">The type of the <see cref="Expression"/> root.</typeparam>
         /// <param name="json">The json.</param>
@@ -165,7 +169,7 @@ namespace ExpressionPowerTools.Serialization
         public static T Deserialize<T>(
             string json,
             Expression queryRoot = null,
-            Func<IConfigurationBuilder, SerializationState> config = null)
+            Action<IConfigurationBuilder> config = null)
             where T : Expression => (T)Deserialize(json, queryRoot, config);
 
         /// <summary>
@@ -181,7 +185,7 @@ namespace ExpressionPowerTools.Serialization
         /// Serializer.ConfigureDefaults(config => config.CompressTypes(false).Configure());
         /// </code>
         /// </example>
-        public static void ConfigureDefaults(Func<IConfigurationBuilder, SerializationState> config) =>
+        public static void ConfigureDefaults(Action<IConfigurationBuilder> config) =>
             DefaultConfiguration.Value.SetDefaultState(builder => config(builder));
     }
 }

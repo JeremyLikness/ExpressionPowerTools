@@ -7,14 +7,14 @@ using ExpressionPowerTools.Serialization.Serializers;
 namespace ExpressionPowerTools.Serialization.Signatures
 {
     /// <summary>
-    /// Holds the default configuration for serializatoin.
+    /// Holds the default configuration for serialization.
     /// </summary>
     public interface IDefaultConfiguration
     {
         /// <summary>
         /// Sets the default state.
         /// </summary>
-        void SetDefaultState(Func<IConfigurationBuilder, SerializationState> builder);
+        void SetDefaultState(Action<IConfigurationBuilder> builder);
 
         /// <summary>
         /// Gets the default state.

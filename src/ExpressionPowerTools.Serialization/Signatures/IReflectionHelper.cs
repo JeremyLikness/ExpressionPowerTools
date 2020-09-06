@@ -14,6 +14,11 @@ namespace ExpressionPowerTools.Serialization.Signatures
     public interface IReflectionHelper
     {
         /// <summary>
+        /// Gets the <see cref="BindingFlags"/> for public instance or static.
+        /// </summary>
+        BindingFlags AllPublic { get; }
+
+        /// <summary>
         /// Deserializes a <see cref="Type"/>.
         /// </summary>
         /// <param name="serializedType">The serialized <see cref="Type"/>.</param>
@@ -39,6 +44,21 @@ namespace ExpressionPowerTools.Serialization.Signatures
         TMemberInfo GetMemberFromCache<TMemberInfo, TMemberBase>(TMemberBase member)
             where TMemberInfo : MemberInfo
             where TMemberBase : MemberBase;
+
+        /// <summary>
+        /// Translates a <see cref="MemberInfo"/> to the <see cref="MemberBase"/> derived type.
+        /// </summary>
+        /// <param name="member">The <see cref="MemberInfo"/> to transform.</param>
+        /// <returns>The <see cref="MemberBase"/>.</returns>
+        MemberBase TranslateMemberInfo(MemberInfo member);
+
+        /// <summary>
+        /// Finds the generic counterpart of a <see cref="MemberInfo"/>.
+        /// </summary>
+        /// <param name="member">The <see cref="MemberInfo"/> to check.</param>
+        /// <param name="genericType">The generic <see cref="Type"/>.</param>
+        /// <returns>The correleated member.</returns>
+        MemberInfo FindGenericVersion(MemberInfo member, Type genericType = null);
 
         /// <summary>
         /// Get a <see cref="Type"/> based on full name.

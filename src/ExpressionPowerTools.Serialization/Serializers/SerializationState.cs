@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Extensions;
@@ -33,6 +34,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         private readonly IReflectionHelper reflectionHelper =
             ServiceHost.GetService<IReflectionHelper>();
+
+        /// <summary>
+        /// Access to the <see cref="IRulesEngine"/>.
+        /// </summary>
+        private readonly Lazy<IRulesEngine> rulesEngine =
+            new Lazy<IRulesEngine>(() => ServiceHost.GetService<IRulesEngine>());
 
         /// <summary>
         /// List of parameters to preserve across stack.
