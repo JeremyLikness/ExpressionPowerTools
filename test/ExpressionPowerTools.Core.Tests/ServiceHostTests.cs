@@ -64,6 +64,27 @@ namespace ExpressionPowerTools.Core.Tests
             ServiceHost.Initialize(register => { });
         }
 
+        public interface ILazyTest
+        {
+            int Prop { get; }
+        }
+
+        public class LazyService : ILazyTest
+        {
+            public int Prop => int.MaxValue;
+        }
+
+        [Fact]
+        public void GetLazyDefersResolutionUntilValueAcccessed()
+        {
+            ServiceHost.Reset();
+            var lazyTestProvider = ServiceHost.GetLazyService<ILazyTest>();
+            ServiceHost.Initialize(
+                registration => registration.Register<ILazyTest, LazyService>());
+            var target = lazyTestProvider.Value;
+            Assert.NotNull(target);
+        }
+
         [Fact]
         public void DefaultRulesProviderIsSingletonOfDefaultComparisonRules()
         {
@@ -150,8 +171,15 @@ namespace ExpressionPowerTools.Core.Tests
             public string Id => nameof(OverriddenService);
         }
 
+        public static bool AfterRegisterCalled = false;
+
         public class RegisterTestServices : IDependentServiceRegistration
         {
+            public void AfterRegistered()
+            {
+                AfterRegisterCalled = true;
+            }
+
             public void RegisterDefaultServices(IServiceRegistration registration)
             {
                 registration.RegisterSingleton<IGenericService>(new GenericService());
@@ -178,6 +206,15 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.IsType<OverriddenService>(service);
         }
 
+        [Fact]
+        public void GivenRegisteredSatelliteServiceWhenInitializeCalledThenAfterRegisteredCalled()
+        {
+            ServiceHost.Reset();
+            AfterRegisterCalled = false;
+            ServiceHost.Initialize(registration =>
+                registration.RegisterSingleton<IGenericService>(new OverriddenService()));
+            Assert.True(AfterRegisterCalled);
+        }
 
         [Fact]
         public void DefaultQuerySnapshotProviderIsQuerySnapshotProvider()

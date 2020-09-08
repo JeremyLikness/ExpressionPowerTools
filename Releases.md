@@ -2,10 +2,11 @@
 
 [Back to README](./README.md)
 
-- [0.8 Alpha](#08_Alpha)
+- [0.8 Alpha](#08-Alpha)
 
 ## 0.8 Alpha
 
+- [0.8.6-alpha](#086-alpha)
 - [0.8.5-alpha](#085-alpha)
 - [0.8.4-alpha](#084-alpha)
 - [0.8.3-alpha](#083-alpha)
@@ -13,6 +14,30 @@
 - [0.8.1-alpha](#081-alpha)
 - [0.8.0-alpha](#080-alpha)
 
+### 0.8.6-alpha
+
+**_Breaking Change_**
+
+An overload of the [`Serializer`](./docs/api/ExpressionPowerTools.Serialization.Serializer.cs.md) was changed. The non-typed `Deserialize` requires a
+`IQueryHost` to understand the type being deserialized, but the typed overload can default to LINQ-to-objects.
+
+**Serialization**
+
+- Added [`ConfigurationBuilder`](./docs/api/ExpressionPowerTools.Serialization.Configuration.ConfigurationBuilder.cs.md) as the
+optimal way to build configurations.
+- Added [`DefaultConfiguration`](./docs/api/ExpressionPowerTools.Serialization.Configuration.DefaultConfiguration.cs.md) to 
+allow default configurations. 
+- Extended [`ReflectionHelper`](./docs/api/ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) 
+to provide ability to match closed members by [finding generic counterparts](./docs/api/ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.FindGenericVersion.m.md).
+- Added [`SerializationRule`](./docs/api/ExpressionPowerTools.Serialization.Rules.SerializationRule.cs.md) and 
+the [`RulesEngine`](./docs/api/ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.md) to build/host/analyze rules.
+- Added [`TypeBase`](./docs/api/ExpressionPowerTools.Serialization.Serializers.TypeBase.cs.md) for easy key calculation for types.
+- Added [`MemberSelector`](./docs/api/ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) to provide 
+ways to specify members when configuring rules using [`SelectorExtensions`](./docs/api/ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.cs.md)
+- Added lazy service requests to [`ServiceHost`](./docs/api/ExpressionPowerTools.Core.Dependencies.ServiceHost.cs.md)
+- Modified the expressions with methods and members (`BinaryExpression`, `NewExpression`, `MethodCallExpression` and 
+`MemberAccessExpression`) to make authorization checks
+- Added the [`ConfigureRules`](./docs/api/ExpressionPowerTools.Serialization.Serializer.ConfigureRules.m.md) method
 
 ### 0.8.5-alpha
 

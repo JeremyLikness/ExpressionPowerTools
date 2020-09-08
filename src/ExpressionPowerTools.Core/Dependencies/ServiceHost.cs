@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using ExpressionPowerTools.Core.Comparisons;
@@ -63,6 +64,12 @@ namespace ExpressionPowerTools.Core.Dependencies
         private static readonly object MutexLock = new object();
 
         /// <summary>
+        /// The satellite registrations.
+        /// </summary>
+        private static readonly Stack<IDependentServiceRegistration> Satellites =
+            new Stack<IDependentServiceRegistration>();
+
+        /// <summary>
         /// A value indicating whether the container has already been configured.
         /// </summary>
         private static bool configured = false;
@@ -102,6 +109,8 @@ namespace ExpressionPowerTools.Core.Dependencies
                 RegisterSatellites(register);
             });
 
+            AfterRegistered();
+
             Monitor.Exit(MutexLock);
         }
 
@@ -113,6 +122,15 @@ namespace ExpressionPowerTools.Core.Dependencies
         /// <returns>The instance.</returns>
         public static T GetService<T>(params object[] parameters) =>
             Services.GetService<T>(parameters);
+
+        /// <summary>
+        /// Gets a lazy loaded service.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="Type"/> of the service.</typeparam>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The lazy intialization for the service.</returns>
+        public static Lazy<T> GetLazyService<T>(params object[] parameters) =>
+            new Lazy<T>(() => GetService<T>(parameters), LazyThreadSafetyMode.PublicationOnly);
 
         /// <summary>
         /// Initialize the container. Can only be done once unless
@@ -144,10 +162,23 @@ namespace ExpressionPowerTools.Core.Dependencies
                     registration(register);
                 });
                 configured = true;
+                AfterRegistered();
             }
             finally
             {
                 Monitor.Exit(MutexLock);
+            }
+        }
+
+        /// <summary>
+        /// Notifies satellite assemblies registation is done.
+        /// </summary>
+        private static void AfterRegistered()
+        {
+            while (Satellites.Count > 0)
+            {
+                var satellite = Satellites.Pop();
+                satellite.AfterRegistered();
             }
         }
 
@@ -181,6 +212,7 @@ namespace ExpressionPowerTools.Core.Dependencies
             {
                 var satelliteRegistration = Activator.CreateInstance(dependent) as IDependentServiceRegistration;
                 satelliteRegistration.RegisterDefaultServices(register);
+                Satellites.Push(satelliteRegistration);
             }
         }
     }

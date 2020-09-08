@@ -32,7 +32,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.Constant(1),
                 Expression.Constant(2));
 
-            var json = Serializer.Serialize(newArray, compressTypes: false);
+            var json = Serializer.Serialize(newArray, options => options.CompressTypes(false).Configure());
             var doc = JsonDocument.Parse(json);
 
             var deserialized = serializer.Deserialize(doc.RootElement.GetProperty(nameof(Expression)), new SerializationState());

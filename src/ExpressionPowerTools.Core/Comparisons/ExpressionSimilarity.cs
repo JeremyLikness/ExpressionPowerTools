@@ -18,10 +18,16 @@ namespace ExpressionPowerTools.Core.Comparisons
     public static class ExpressionSimilarity
     {
         /// <summary>
+        /// A lazy proxy to the rules.
+        /// </summary>
+        private static readonly Lazy<IExpressionComparisonRuleProvider> Provider =
+            ServiceHost.GetLazyService<IExpressionComparisonRuleProvider>();
+
+        /// <summary>
         /// Gets the configured rule set.
         /// </summary>
         private static IExpressionComparisonRuleProvider Rules =>
-            ServiceHost.GetService<IExpressionComparisonRuleProvider>();
+            Provider.Value;
 
         /// <summary>
         /// Entry for similarity comparisons. Will cast to

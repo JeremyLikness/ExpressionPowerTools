@@ -1,9 +1,7 @@
 ﻿using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
-using System.Diagnostics;
 using System.Linq.Expressions;
-using System.Net.Mail;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests

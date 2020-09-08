@@ -63,6 +63,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 memberInfo = GetMemberInfo<FieldInfo, Field>(field);
             }
 
+            AuthorizeMembers(new[] { memberInfo });
+
             return Expression.MakeMemberAccess(expr, memberInfo);
         }
 

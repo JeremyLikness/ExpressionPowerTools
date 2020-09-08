@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
@@ -14,6 +16,14 @@ namespace ExpressionPowerTools.Serialization.Tests
     {
         private readonly LambdaSerializer lambdaSerializer =
             new LambdaSerializer(TestSerializer.ExpressionSerializer);
+
+        private readonly IRulesConfiguration rulesConfig;
+
+        public LambdaSerializerTests()
+        {
+            rulesConfig = ServiceHost.GetService<IRulesConfiguration>();
+            rulesConfig.RuleForType<LambdaSerializerTests>();
+        }
 
         public static IEnumerable<object[]> GetLambdaExpressions()
         {
