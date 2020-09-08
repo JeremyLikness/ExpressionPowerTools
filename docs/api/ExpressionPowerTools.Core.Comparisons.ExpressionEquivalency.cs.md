@@ -10,6 +10,11 @@ public static class ExpressionEquivalency
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **ExpressionEquivalency**
 
+## Constructors
+
+| Ctor | Description |
+| :-- | :-- |
+| [static ExpressionEquivalency()](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.ctor.md#static-expressionequivalency) | Initializes a new instance of the [ExpressionEquivalency](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.cs.md) class. |
 ## Methods
 
 | Method | Description |
@@ -26,4 +31,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

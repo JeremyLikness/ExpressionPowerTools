@@ -13,10 +13,11 @@ public interface IDependentServiceRegistration
 
 | Method | Description |
 | :-- | :-- |
+| [Void AfterRegistered()](ExpressionPowerTools.Core.Signatures.IDependentServiceRegistration.AfterRegistered.m.md) | Called after registration is complete. |
 | [Void RegisterDefaultServices(IServiceRegistration registration)](ExpressionPowerTools.Core.Signatures.IDependentServiceRegistration.RegisterDefaultServices.m.md) | Implement to register default services. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

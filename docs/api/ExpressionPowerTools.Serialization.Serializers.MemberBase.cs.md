@@ -10,7 +10,7 @@ public abstract class MemberBase
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MemberBase**
 
-Derived  [Ctor](ExpressionPowerTools.Serialization.Serializers.Ctor.cs.md) ,  [Field](ExpressionPowerTools.Serialization.Serializers.Field.cs.md) ,  [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) ,  [Property](ExpressionPowerTools.Serialization.Serializers.Property.cs.md) 
+Derived  [Ctor](ExpressionPowerTools.Serialization.Serializers.Ctor.cs.md) ,  [Field](ExpressionPowerTools.Serialization.Serializers.Field.cs.md) ,  [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) ,  [Property](ExpressionPowerTools.Serialization.Serializers.Property.cs.md) ,  [TypeBase](ExpressionPowerTools.Serialization.Serializers.TypeBase.cs.md) 
 
 ## Properties
 
@@ -32,4 +32,4 @@ Derived  [Ctor](ExpressionPowerTools.Serialization.Serializers.Ctor.cs.md) ,  [F
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

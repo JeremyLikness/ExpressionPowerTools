@@ -8,14 +8,14 @@ Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(String json, Expression queryRoot, JsonSerializerOptions options)](#deserializestring-json-expression-queryroot-jsonserializeroptions-options) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
-| [Deserialize&lt;T>(String json, Expression queryRoot, JsonSerializerOptions options)](#deserializetstring-json-expression-queryroot-jsonserializeroptions-options) | Overload to return a specific type. |
-## Deserialize(String json, Expression queryRoot, JsonSerializerOptions options)
+| [Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)](#deserializestring-json-expression-queryroot-actioniconfigurationbuilder-config) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
+| [Deserialize&lt;T>(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)](#deserializetstring-json-expression-queryroot-actioniconfigurationbuilder-config) | Overload to return a specific type. |
+## Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)
 
 Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree.
 
 ```csharp
-public static Expression Deserialize(String json, Expression queryRoot, JsonSerializerOptions options)
+public static Expression Deserialize(String json, Expression queryRoot, Action<IConfigurationBuilder> config)
 ```
 
 ### Return Type
@@ -28,7 +28,7 @@ public static Expression Deserialize(String json, Expression queryRoot, JsonSeri
 | :-- | :-- | :-- |
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json text. |
 | `queryRoot` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root of the query to apply. |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | Optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | Optional configuration. |
 
 ### Exceptions
 
@@ -36,12 +36,12 @@ public static Expression Deserialize(String json, Expression queryRoot, JsonSeri
 | :-- | :-- |
 | [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) | Thrown when the json is `null` or whitespace. |
 
-## Deserialize&lt;T>(String json, Expression queryRoot, JsonSerializerOptions options)
+## Deserialize&lt;T>(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)
 
 Overload to return a specific type.
 
 ```csharp
-public static T Deserialize<T>(String json, Expression queryRoot, JsonSerializerOptions options)
+public static T Deserialize<T>(String json, Expression queryRoot, Action<IConfigurationBuilder> config)
 ```
 
 ### Return Type
@@ -54,7 +54,7 @@ public static T Deserialize<T>(String json, Expression queryRoot, JsonSerializer
 | :-- | :-- | :-- |
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json. |
 | `queryRoot` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root of the query to apply. |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | Optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | Optional configuration. |
 
 
 ## Remarks
@@ -67,4 +67,4 @@ Do not use this method to deserialize [IQueryable](https://docs.microsoft.com/do
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

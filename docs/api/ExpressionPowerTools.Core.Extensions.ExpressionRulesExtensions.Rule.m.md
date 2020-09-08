@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionRulesExtensions](ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.cs.md) > **Rule**
 
-Basic rule definition. Exists as a base to provide typed template.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Rule&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule)](#ruletexpressionfunct-t-boolean-rule) | Basic rule definition. Exists as a base to provide typed template. |
+| [Rule&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule)](#ruletexpressionfunct-t-boolean-rule) |  |
 ## Rule&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule)
 
-Basic rule definition. Exists as a base to provide typed template.
+
 
 ```csharp
 public static Expression<Func<T, T, Boolean>> Rule<T>(Expression<Func<T, T, Boolean>> rule)
@@ -19,28 +19,18 @@ public static Expression<Func<T, T, Boolean>> Rule<T>(Expression<Func<T, T, Bool
 
 ### Return Type
 
- [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - The rule as an expression.
+ [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The rule to make. |
+| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
 
-
-## Examples
-
-For example:
-
-```csharp
-
-ExpressionRulesExtensions.Rule<ConstantExpression>((s, t) => s.Value == t.Vale);
-            
-```
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

@@ -7,12 +7,17 @@
 | Interface | Description |
 | :-- | :-- |
 | [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.i.md) | Non-generic interface for serializers. |
+| [IConfigurationBuilder](ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.i.md) | Configuration builder for [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) . |
+| [IDefaultConfiguration](ExpressionPowerTools.Serialization.Signatures.IDefaultConfiguration.i.md) | Holds the default configuration for serialization. |
 | [IExpressionSerializer&lt;T, TSerializable>](ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.i.md) | Interface for serialization/deserialization. |
 | [IReflectionHelper](ExpressionPowerTools.Serialization.Signatures.IReflectionHelper.i.md) | Helper class to cache [Type](https://docs.microsoft.com/dotnet/api/system.type) and [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) information. |
+| [IRulesConfiguration](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.i.md) | Interface for configuring rules. |
+| [IRulesEngine](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.i.md) | The rules engine. |
+| [ISerializationRule](ExpressionPowerTools.Serialization.Signatures.ISerializationRule.i.md) | Represents a rule to allow or disallow a serialization. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

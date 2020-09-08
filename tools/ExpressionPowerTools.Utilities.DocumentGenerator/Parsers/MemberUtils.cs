@@ -316,8 +316,15 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                                 fullname += ",";
                             }
 
-                            fullname += typeArg.FullName ??
-                                ParseTypeParameters(methodGenericMap, typeGenericMap, false, typeArg);
+                            if (typeArg.FullName != null && typeArg.FullName.Contains("`"))
+                            {
+                                fullname +=
+                                    ParseTypeParameters(methodGenericMap, typeGenericMap, false, typeArg);
+                            }
+                            else
+                            {
+                                fullname += typeArg.FullName ?? $"{typeArg.Namespace}.{typeArg.Name}";
+                            }
                         }
                     }
                     else if (paramType.ContainsGenericParameters)

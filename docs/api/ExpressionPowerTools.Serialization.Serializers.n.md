@@ -40,6 +40,7 @@
 | [SerializableTypeComparer](ExpressionPowerTools.Serialization.Serializers.SerializableTypeComparer.cs.md) | Type comparer for [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) . |
 | [SerializationRoot](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.cs.md) | Root of [Expression](ExpressionPowerTools.Serialization.Serializers.SerializationRoot.Expression.prop.md) tree. |
 | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State info passed recurisvely through the serialization process. |
+| [TypeBase](ExpressionPowerTools.Serialization.Serializers.TypeBase.cs.md) | Simple class to represent type information. Never serialized, but            used for key calculation. |
 | [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) | Serializable version of the [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
 | [UnarySerializer](ExpressionPowerTools.Serialization.Serializers.UnarySerializer.cs.md) | Serializer for [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
 
@@ -48,4 +49,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

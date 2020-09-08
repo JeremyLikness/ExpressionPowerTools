@@ -8,14 +8,14 @@ Serialize an expression tree.
 
 | Overload | Description |
 | :-- | :-- |
-| [Serialize(Expression root, JsonSerializerOptions options, Boolean compressTypes)](#serializeexpression-root-jsonserializeroptions-options-boolean-compresstypes) | Serialize an expression tree. |
-| [Serialize(IQueryable query, JsonSerializerOptions options, Boolean compressTypes)](#serializeiqueryable-query-jsonserializeroptions-options-boolean-compresstypes) | Serialize an [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) . |
-## Serialize(Expression root, JsonSerializerOptions options, Boolean compressTypes)
+| [Serialize(Expression root, Action&lt;IConfigurationBuilder> config)](#serializeexpression-root-actioniconfigurationbuilder-config) | Serialize an expression tree. |
+| [Serialize(IQueryable query, Action&lt;IConfigurationBuilder> config)](#serializeiqueryable-query-actioniconfigurationbuilder-config) | Serialize an [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) . |
+## Serialize(Expression root, Action&lt;IConfigurationBuilder> config)
 
 Serialize an expression tree.
 
 ```csharp
-public static String Serialize(Expression root, JsonSerializerOptions options, Boolean compressTypes)
+public static String Serialize(Expression root, Action<IConfigurationBuilder> config)
 ```
 
 ### Return Type
@@ -27,8 +27,7 @@ public static String Serialize(Expression root, JsonSerializerOptions options, B
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `root` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
-| `compressTypes` | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Set to `true` to reduce footprint of type definitions. |
+| `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | Optional configuration. |
 
 ### Exceptions
 
@@ -36,12 +35,12 @@ public static String Serialize(Expression root, JsonSerializerOptions options, B
 | :-- | :-- |
 | [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Thrown when the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is `null` . |
 
-## Serialize(IQueryable query, JsonSerializerOptions options, Boolean compressTypes)
+## Serialize(IQueryable query, Action&lt;IConfigurationBuilder> config)
 
 Serialize an [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) .
 
 ```csharp
-public static String Serialize(IQueryable query, JsonSerializerOptions options, Boolean compressTypes)
+public static String Serialize(IQueryable query, Action<IConfigurationBuilder> config)
 ```
 
 ### Return Type
@@ -53,8 +52,7 @@ public static String Serialize(IQueryable query, JsonSerializerOptions options, 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `query` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) to serialize. |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The optional [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
-| `compressTypes` | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Set to `true` to reduce the footprint of types in the payload. |
+| `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | Option configuration. |
 
 ### Exceptions
 
@@ -67,4 +65,4 @@ public static String Serialize(IQueryable query, JsonSerializerOptions options, 
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

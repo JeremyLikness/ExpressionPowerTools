@@ -21,10 +21,12 @@ Implements  [IDependentServiceRegistration](ExpressionPowerTools.Core.Signatures
 
 | Method | Description |
 | :-- | :-- |
+| [Void AfterRegistered()](ExpressionPowerTools.Serialization.Registration.AfterRegistered.m.md) | Adds default "safe" rules for serialization. |
+| [Void RegisterDefaultRules(IRulesConfiguration rules)](ExpressionPowerTools.Serialization.Registration.RegisterDefaultRules.m.md) | Registers the default rules. |
 | [Void RegisterDefaultServices(IServiceRegistration registration)](ExpressionPowerTools.Serialization.Registration.RegisterDefaultServices.m.md) | Registers the services used by serialization. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

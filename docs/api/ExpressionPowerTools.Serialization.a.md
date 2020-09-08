@@ -4,7 +4,9 @@
 
 - [Serializers Reference](ExpressionPowerTools.Serialization.Serializers.ser.md)
 - [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.n.md)
+- [ExpressionPowerTools.Serialization.Configuration](ExpressionPowerTools.Serialization.Configuration.n.md)
 - [ExpressionPowerTools.Serialization.Extensions](ExpressionPowerTools.Serialization.Extensions.n.md)
+- [ExpressionPowerTools.Serialization.Rules](ExpressionPowerTools.Serialization.Rules.n.md)
 - [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md)
 - [ExpressionPowerTools.Serialization.Signatures](ExpressionPowerTools.Serialization.Signatures.n.md)
 
@@ -12,4 +14,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |

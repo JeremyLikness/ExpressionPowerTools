@@ -17,19 +17,27 @@ Implements  [IReflectionHelper](ExpressionPowerTools.Serialization.Signatures.IR
 | Ctor | Description |
 | :-- | :-- |
 | [ReflectionHelper()](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.ctor.md#reflectionhelper) | Initializes a new instance of the [ReflectionHelper](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.cs.md) class. |
+## Properties
+
+| Property | Type | Description |
+| :-- | :-- | :-- |
+| [`AllPublic`](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.AllPublic.prop.md) | [BindingFlags](https://docs.microsoft.com/dotnet/api/system.reflection.bindingflags) | Gets the [BindingFlags](https://docs.microsoft.com/dotnet/api/system.reflection.bindingflags) for public instance and static. |
+
 ## Methods
 
 | Method | Description |
 | :-- | :-- |
 | [Type DeserializeType(SerializableType serializedType)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.DeserializeType.m.md) | Deserializes a [Type](https://docs.microsoft.com/dotnet/api/system.type) . |
+| [MemberInfo FindGenericVersion(MemberInfo member, Type genericType)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.FindGenericVersion.m.md) | Finds the generic counterpart of a [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) . |
 | [String GetFullTypeName(SerializableType serializedType, StringBuilder builder, Int32 level)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetFullTypeName.m.md) | Gets the full type name of the serialized type. |
 | [TMemberInfo GetMemberFromCache&lt;TMemberInfo, TMemberBase>(TMemberBase member)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetMemberFromCache.m.md) | Gets the specified member. Will add to cache if not found. |
 | [Type GetTypeFromCache(String name)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.GetTypeFromCache.m.md) | Get a [Type](https://docs.microsoft.com/dotnet/api/system.type) based on full name. |
 | [Void RegisterTypes(Type[] typeList)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.RegisterTypes.m.md) | Pre-register types to the cache to improve discoverability. |
 | [SerializableType SerializeType(Type type)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.SerializeType.m.md) | Creates a serializable type. |
+| [MemberBase TranslateMemberInfo(MemberInfo member)](ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.TranslateMemberInfo.m.md) | Translates a [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) to a [MemberBase](ExpressionPowerTools.Serialization.Serializers.MemberBase.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/4/2020 7:10:41 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.5-alpha |
+| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |
