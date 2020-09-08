@@ -4,8 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -14,6 +17,9 @@ namespace ExpressionPowerTools.Serialization.Tests
 {
     public class SerializerTests
     {
+        public readonly IRulesConfiguration rulesConfig =
+            ServiceHost.GetService<IRulesConfiguration>();
+
         [Fact]
         public void GivenSerializeWhenCalledWithNullExpressionThenShouldThrowArgumentNull()
         {
@@ -190,6 +196,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Queries type)
         {            
             var json = Serializer.Serialize(query);
+            rulesConfig.RuleForType<TestableThing>();
             IQueryable queryHost = TestableThing.MakeQuery(100);
             var newQuery = Serializer.DeserializeQuery(queryHost, json);
             Assert.True(query.IsEquivalentTo(newQuery));
@@ -207,6 +214,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Queries type)
         {
             var json = Serializer.Serialize(query);
+            rulesConfig.RuleForType<TestableThing>();
             var queryHost = TestableThing.MakeQuery(100);
             var newQuery = Serializer.DeserializeQuery(json, queryHost);
             Assert.True(query.IsEquivalentTo(newQuery));
@@ -349,6 +357,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             MemberInfo[] members)
         {
             var ctor = CtorSerializerTests.MakeNew(info, args, members);
+            rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(info));
             var json = Serializer.Serialize(ctor);
             var target = Serializer.Deserialize<NewExpression>(json);
             Assert.True(ctor.IsEquivalentTo(target));
@@ -362,6 +371,10 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenBinaryExpressionWhenSerializedThenShouldDeserialize(
             BinaryExpression binary)
         {
+            if (binary.Method != null)
+            {
+                rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(binary.Method));
+            }
             var json = Serializer.Serialize(binary);
             var target = Serializer.Deserialize<BinaryExpression>(json);
             Assert.True(binary.IsEquivalentTo(target));
@@ -397,6 +410,44 @@ namespace ExpressionPowerTools.Serialization.Tests
             }
 
             Serializer.ConfigureDefaults(config => config.Configure());
+        }
+
+        [Fact]
+        public void GivenRulesConfigThenReplacesExistingRules()
+        {
+            var method = GetType().GetMethod(nameof(GivenRulesConfigThenReplacesExistingRules));
+            var expr = Expression.Call(this.AsConstantExpression(), method);
+            var json = Serializer.Serialize(expr);
+            Serializer.ConfigureRules(
+                rules => rules.RuleForMethod(selector => selector.ByResolver<MethodInfo, SerializerTests>(
+                test => test.GivenRulesConfigThenReplacesExistingRules())));
+            var target = Serializer.Deserialize<MethodCallExpression>(json);
+            Assert.NotNull(target);
+            Serializer.ConfigureRules();
+            Assert.Throws<UnauthorizedAccessException>(() =>
+                Serializer.Deserialize<MethodCallExpression>(json));
+        }
+
+        [Fact]
+        public void GivenConfigureRulesThenShouldConfigureDefaults()
+        {
+            Expression<Func<string, bool>> expr = str => str.Contains("aa");
+            var json = Serializer.Serialize(expr);
+            Serializer.ConfigureRules();
+            var target = Serializer.Deserialize<LambdaExpression>(json);
+            Assert.NotNull(target);
+        }
+
+        [Fact]
+        public void GivenConfigureRulesNoDefaultsThenShouldConfigureNoDefaultRule()
+        {
+            Expression<Func<string, bool>> expr = str => str.Contains("aa");
+            var json = Serializer.Serialize(expr);
+            Serializer.ConfigureRules(noDefaults: true);
+            Assert.Throws<UnauthorizedAccessException>(
+                () => Serializer.Deserialize<LambdaExpression>(json));
+            Serializer.ConfigureRules();
+
         }
     }
 }

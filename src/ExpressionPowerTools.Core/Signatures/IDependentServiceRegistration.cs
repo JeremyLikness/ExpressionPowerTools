@@ -14,5 +14,10 @@ namespace ExpressionPowerTools.Core.Signatures
         /// </summary>
         /// <param name="registration">The <see cref="IServiceRegistration"/>.</param>
         void RegisterDefaultServices(IServiceRegistration registration);
+
+        /// <summary>
+        /// Called after registration is complete.
+        /// </summary>
+        void AfterRegistered();
     }
 }

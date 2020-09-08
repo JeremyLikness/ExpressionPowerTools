@@ -27,5 +27,10 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// Compiles the rules for efficiency.
         /// </summary>
         void Compile();
+
+        /// <summary>
+        /// Clears the rules.
+        /// </summary>
+        void Reset();
     }
 }

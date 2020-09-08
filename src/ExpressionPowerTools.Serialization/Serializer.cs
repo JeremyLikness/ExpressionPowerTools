@@ -17,6 +17,13 @@ namespace ExpressionPowerTools.Serialization
     /// <summary>
     /// Class for serialization and de-deserialization of <see cref="Expression"/> trees.
     /// </summary>
+    /// <remarks>
+    /// By default, the serializer will compress types and ignore null and readonly values. You can override the configuration for a session
+    /// by using the <see cref="IConfigurationBuilder"/>. You can also set defaults for all sessions using <see cref="ConfigureDefaults(Action{IConfigurationBuilder})"/>.
+    /// For permissions, use the <see cref="ConfigureRules(Action{IRulesConfiguration}, bool)"/> option. By default, perimssions are given for:
+    /// <see cref="Math"/>, <see cref="Enumerable"/>, <see cref="Queryable"/> and <see cref="string"/> types (all methods and properties are allowed).
+    /// See the <see cref="ExpressionPowerTools.Serialization.Rules.RulesEngine"/> documentation for more on rules.
+    /// </remarks>
     public static class Serializer
     {
         /// <summary>
@@ -29,7 +36,7 @@ namespace ExpressionPowerTools.Serialization
         /// The default configuration when not specified.
         /// </summary>
         private static readonly Lazy<IDefaultConfiguration> DefaultConfiguration =
-            new Lazy<IDefaultConfiguration>(() => ServiceHost.GetService<IDefaultConfiguration>());
+            ServiceHost.GetLazyService<IDefaultConfiguration>();
 
         /// <summary>
         /// Serialize an expression tree.
@@ -187,5 +194,27 @@ namespace ExpressionPowerTools.Serialization
         /// </example>
         public static void ConfigureDefaults(Action<IConfigurationBuilder> config) =>
             DefaultConfiguration.Value.SetDefaultState(builder => config(builder));
+
+        /// <summary>
+        /// Configures the rule set for serialization.
+        /// </summary>
+        /// <param name="rules">The <see cref="IRulesConfiguration"/> to configure rules.</param>
+        /// <param name="noDefaults">A value that indicates whether the default type permissions can be applied.</param>
+        public static void ConfigureRules(
+            Action<IRulesConfiguration> rules = null,
+            bool noDefaults = false)
+        {
+            var rulesEngine = ServiceHost.GetService<IRulesEngine>();
+            var rulesConfig = ServiceHost.GetService<IRulesConfiguration>();
+            rulesEngine.Reset();
+            if (noDefaults == false)
+            {
+                Registration.RegisterDefaultRules(rulesConfig);
+            }
+
+            rules?.Invoke(rulesConfig);
+
+            rulesEngine.Compile();
+        }
     }
 }

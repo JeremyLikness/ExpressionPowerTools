@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
@@ -24,6 +25,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Instance of <see cref="IReflectionHelper"/>.
         /// </summary>
         private readonly IReflectionHelper reflectionHelper = ServiceHost.GetService<IReflectionHelper>();
+
+        /// <summary>
+        /// The <see cref="IRulesEngine"/> implementation.
+        /// </summary>
+        private readonly IRulesEngine rulesEngine = ServiceHost.GetService<IRulesEngine>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSerializer{T, TSerializable}"/> class with a default serializer.
@@ -59,6 +65,22 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         public abstract TSerializable Serialize(TExpression expression, SerializationState state);
+
+        /// <summary>
+        /// Check the <see cref="MemberInfo"/> against the rules.
+        /// </summary>
+        /// <param name="members">The list of members to check.</param>
+        /// <exception cref="UnauthorizedAccessException">Thrown when acccess is not allowed.</exception>
+        protected void AuthorizeMembers(params MemberInfo[] members)
+        {
+            foreach (var member in members)
+            {
+                if (!rulesEngine.MemberIsAllowed(member))
+                {
+                    throw new UnauthorizedAccessException($"{member.DeclaringType}: {member}");
+                }
+            }
+        }
 
         /// <summary>
         /// Helper to get method info.

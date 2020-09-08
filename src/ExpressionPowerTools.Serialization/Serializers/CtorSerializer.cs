@@ -116,6 +116,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
+            AuthorizeMembers(ctorInfo);
+
             if (args.Count == 0)
             {
                 return Expression.New(ctorInfo);

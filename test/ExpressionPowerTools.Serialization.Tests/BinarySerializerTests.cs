@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
@@ -13,6 +15,11 @@ namespace ExpressionPowerTools.Serialization.Tests
 {
     public class BinarySerializerTests
     {
+        public BinarySerializerTests()
+        {
+            Serializer.ConfigureRules(config => config.RuleForType<BinarySerializerTests>());            
+        }
+
         private readonly BinarySerializer binarySerializer =
             new BinarySerializer(TestSerializer.ExpressionSerializer);
 
@@ -375,6 +382,36 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(binary, options);
             var deserialized = binarySerializer.Deserialize(serialized, options.ToSerializationState());
             Assert.Equal(binary.Type.FullName, deserialized.Type.FullName);
+        }
+
+        [Fact]
+        public void GivenAuthorizedMethodWhenDeserializeCalledThenShouldDeserialize()
+        {
+            var method = GetType().GetMethod(nameof(DoMath));
+            var expr = Expression.Multiply(
+                1.AsConstantExpression(),
+                2.AsConstantExpression(),
+                method);
+            var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(expr);
+            ServiceHost.GetService<IRulesConfiguration>().RuleForMethod(
+                selector => selector.ByMemberInfo(method)).Allow();
+            var deserialized = binarySerializer.Deserialize(serialized, new SerializationState());
+            Assert.NotNull(deserialized);
+        }
+
+        [Fact]
+        public void GivenUnauthorizedMethodWhenDeserializeCalledThenShouldThrowUnauthorizedAccess()
+        {
+            var method = GetType().GetMethod(nameof(DoMath));
+            var expr = Expression.Multiply(
+                1.AsConstantExpression(),
+                2.AsConstantExpression(),
+                method);
+            var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(expr);
+            ServiceHost.GetService<IRulesConfiguration>().RuleForMethod(
+                selector => selector.ByMemberInfo(method)).Deny();
+            Assert.Throws<UnauthorizedAccessException>(() =>
+                binarySerializer.Deserialize(serialized, new SerializationState()));
         }
 
         public override bool Equals(object obj) => obj is BinarySerializerTests;

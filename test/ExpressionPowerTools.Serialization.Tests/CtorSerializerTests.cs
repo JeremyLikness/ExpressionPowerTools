@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
@@ -13,6 +17,8 @@ namespace ExpressionPowerTools.Serialization.Tests
     {
         private readonly CtorSerializer ctorSerializer =
         new CtorSerializer(TestSerializer.ExpressionSerializer);
+
+        private readonly IRulesConfiguration rulesConfig = ServiceHost.GetService<IRulesConfiguration>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
             "Usage",
@@ -197,10 +203,37 @@ namespace ExpressionPowerTools.Serialization.Tests
             MemberInfo[] members)
         {
             var expr = MakeNew(info, args, members);
+            rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(info));
             var serialized = TestSerializer
                 .GetSerializedFragment<CtorExpr, NewExpression>(expr);
             var deserialized = ctorSerializer.Deserialize(serialized, new SerializationState());
             Assert.True(deserialized.IsEquivalentTo(deserialized));
+        }
+
+        [Fact]
+        public void GivenCtorAllowedWhenDeserializeCalledThenShouldDeserialize()
+        {
+            var noArgs = typeof(TestClass<int, IComparable<int>>).GetConstructors().First(
+                c => c.GetParameters().Length == 0);
+            rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(noArgs));
+            var expr = MakeNew(noArgs, null, null);
+            var serialized = TestSerializer
+                .GetSerializedFragment<CtorExpr, NewExpression>(expr);
+            var deserialized = ctorSerializer.Deserialize(serialized, new SerializationState());
+            Assert.NotNull(deserialized);
+        }
+
+        [Fact]
+        public void GivenCtorNotAllowedWhenDeserializeCalledThenShouldThrowUnauthorizedAccess()
+        {
+            var noArgs = typeof(TestClass<int,IComparable<int>>).GetConstructors().First(
+            c => c.GetParameters().Length == 0);
+            rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(noArgs)).Deny();
+            var expr = MakeNew(noArgs, null, null);
+            var serialized = TestSerializer
+                .GetSerializedFragment<CtorExpr, NewExpression>(expr);
+            Assert.Throws<UnauthorizedAccessException>(() =>
+                ctorSerializer.Deserialize(serialized, new SerializationState()));
         }
 
         public override bool Equals(object obj) => obj is CtorSerializerTests;

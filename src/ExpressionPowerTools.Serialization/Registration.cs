@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
+using System.Linq;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Configuration;
 using ExpressionPowerTools.Serialization.Rules;
@@ -15,6 +18,18 @@ namespace ExpressionPowerTools.Serialization
     public class Registration : IDependentServiceRegistration
     {
         /// <summary>
+        /// Registers the default rules.
+        /// </summary>
+        /// <param name="rules">The <see cref="IRulesConfiguration"/>.</param>
+        public static void RegisterDefaultRules(IRulesConfiguration rules)
+        {
+            rules.RuleForType(typeof(Math))
+                .RuleForType(typeof(Enumerable))
+                .RuleForType(typeof(Queryable))
+                .RuleForType<string>();
+        }
+
+        /// <summary>
         /// Registers the services used by serialization.
         /// </summary>
         /// <param name="registration">The <see cref="IServiceRegistration"/> to register with.</param>
@@ -24,7 +39,18 @@ namespace ExpressionPowerTools.Serialization
                 new ReflectionHelper());
             registration.Register<IConfigurationBuilder, ConfigurationBuilder>();
             registration.RegisterSingleton<IDefaultConfiguration>(new DefaultConfiguration());
-            registration.RegisterSingleton<IRulesEngine>(new RulesEngine());
+            var rules = new RulesEngine();
+            registration.RegisterSingleton<IRulesEngine>(rules);
+            registration.RegisterSingleton<IRulesConfiguration>(rules);
+        }
+
+        /// <summary>
+        /// Adds default "safe" rules for serialization.
+        /// </summary>
+        public void AfterRegistered()
+        {
+            var rules = ServiceHost.GetService<IRulesConfiguration>();
+            RegisterDefaultRules(rules);
         }
     }
 }

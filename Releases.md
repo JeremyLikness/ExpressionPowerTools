@@ -34,6 +34,10 @@ the [`RulesEngine`](./docs/api/ExpressionPowerTools.Serialization.Rules.RulesEng
 - Added [`TypeBase`](./docs/api/ExpressionPowerTools.Serialization.Serializers.TypeBase.cs.md) for easy key calculation for types.
 - Added [`MemberSelector`](./docs/api/ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) to provide 
 ways to specify members when configuring rules using [`SelectorExtensions`](./docs/api/ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.cs.md)
+- Added lazy service requests to [`ServiceHost`](./docs/api/ExpressionPowerTools.Core.Dependencies.ServiceHost.cs.md)
+- Modified the expressions with methods and members (`BinaryExpression`, `NewExpression`, `MethodCallExpression` and 
+`MemberAccessExpression`) to make authorization checks
+- Added the [`ConfigureRules`](./docs/api/ExpressionPowerTools.Serialization.Serializer.ConfigureRules.m.md) method
 
 ### 0.8.5-alpha
 

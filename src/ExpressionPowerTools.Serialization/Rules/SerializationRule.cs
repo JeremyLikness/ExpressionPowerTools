@@ -13,6 +13,8 @@ namespace ExpressionPowerTools.Serialization.Rules
     /// </summary>
     public class SerializationRule : ISerializationRule
     {
+        private string targetKey = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializationRule"/> class
         /// with the options to allow and the match.
@@ -25,11 +27,7 @@ namespace ExpressionPowerTools.Serialization.Rules
         {
             Allow = allow;
             Target = info;
-
-            var reflectionHelper = ServiceHost.GetService<IReflectionHelper>();
-            var member = reflectionHelper.TranslateMemberInfo(info);
             MemberType = info.MemberType;
-            TargetKey = member.CalculateKey();
         }
 
         /// <summary>
@@ -50,7 +48,21 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// <summary>
         /// Gets the target key.
         /// </summary>
-        public string TargetKey { get; }
+        public string TargetKey
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(targetKey))
+                {
+                    return targetKey;
+                }
+
+                var reflectionHelper = ServiceHost.GetService<IReflectionHelper>();
+                var member = reflectionHelper.TranslateMemberInfo(Target);
+                targetKey = member.CalculateKey();
+                return targetKey;
+            }
+        }
 
         /// <summary>
         /// Gets the hash code of the key.

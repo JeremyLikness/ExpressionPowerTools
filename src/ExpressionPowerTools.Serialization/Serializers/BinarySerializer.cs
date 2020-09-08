@@ -84,6 +84,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             if (methodProp != null)
             {
                 methodInfo = GetMemberInfo<MethodInfo, Method>(methodProp);
+                AuthorizeMembers(methodInfo);
             }
 
             if (Serializer.Deserialize(conversionElement, state) is LambdaExpression conversion)

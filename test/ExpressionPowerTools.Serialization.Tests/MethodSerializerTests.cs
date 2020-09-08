@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
@@ -14,6 +17,14 @@ namespace ExpressionPowerTools.Serialization.Tests
     {
         private readonly MethodSerializer methodSerializer =
             new MethodSerializer(TestSerializer.ExpressionSerializer);
+
+        private readonly IRulesConfiguration rulesConfig;
+
+        public MethodSerializerTests()
+        {
+            rulesConfig = ServiceHost.GetService<IRulesConfiguration>();
+            rulesConfig.RuleForType<MethodSerializerTests>();
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
             "Usage",
@@ -119,8 +130,39 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method, options);
+            rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
             var deserialized = methodSerializer.Deserialize(serialized, options.ToSerializationState());
             Assert.NotNull(deserialized);
+        }
+
+        [Fact]
+        public void GivenMethodAllowedWhenDeserializeCalledThenShouldDeserialize()
+        {
+            var nullableParameter = GetType().GetMethod(
+                            nameof(NullableParameter),
+                            BindingFlags.Public | BindingFlags.Static);
+            var method = Expression.Call(nullableParameter, Expression.Constant(null));
+            var serialized = TestSerializer
+                .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
+            rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
+            var deserialized = methodSerializer.Deserialize(serialized,
+                ServiceHost.GetService<IDefaultConfiguration>().GetDefaultState());
+            Assert.NotNull(deserialized);
+        }
+
+        [Fact]
+        public void GivenMethodNotAllowedWhenDeserializeCalledThenShouldThrowUnauthorizedAccess()
+        {
+            var nullableParameter = GetType().GetMethod(
+                            nameof(NullableParameter),
+                            BindingFlags.Public | BindingFlags.Static);
+            var method = Expression.Call(nullableParameter, Expression.Constant(null));
+            var serialized = TestSerializer
+                .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
+            rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter)).Deny();
+            Assert.Throws<UnauthorizedAccessException>(() =>
+            methodSerializer.Deserialize(serialized,
+                ServiceHost.GetService<IDefaultConfiguration>().GetDefaultState()));
         }
 
         public override bool Equals(object obj) =>

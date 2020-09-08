@@ -50,6 +50,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 nameof(MethodExpr.MethodInfo)).GetMethod(state);
             var methodInfo = GetMemberInfo<MethodInfo, MemberBase>(method);
 
+            AuthorizeMembers(methodInfo);
+
             var list = json.GetProperty(nameof(MethodExpr.Arguments));
             var argumentList = list.EnumerateArray().Select(element =>
                 Serializer.Deserialize(element, state)).ToList();

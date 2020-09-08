@@ -228,6 +228,18 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.False(target.MemberIsAllowed(ClosedCtor));
         }
 
+        [Fact]
+        public void GivenGenericRulesWhenResetCalledThenShouldResetAll()
+        {
+            target.RuleForType(GenericType).Allow()
+                  .RuleForConstructor(selector => selector.ByMemberInfo(ClosedCtor)).Allow();
+            target.Reset();
+            Assert.False(target.MemberIsAllowed(GenericCtor));
+            Assert.False(target.MemberIsAllowed(ClosedCtor));
+            new Registration().AfterRegistered();
+        }
+
+
         [Theory]
         [InlineData(true)]
         [InlineData(false)]

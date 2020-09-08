@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -32,10 +33,10 @@ namespace ExpressionPowerTools.Serialization.Rules
     public partial class RulesEngine : IRulesEngine
     {
         /// <summary>
-        /// Instance of the <see cref="ReflectionHelper"/>.
+        /// Provider for <see cref="IReflectionHelper"/>.
         /// </summary>
-        private readonly Lazy<IReflectionHelper> reflectionHelper =
-            new Lazy<IReflectionHelper>(() => ServiceHost.GetService<IReflectionHelper>());
+        private readonly Lazy<IReflectionHelper> reflectionProvider =
+            ServiceHost.GetLazyService<IReflectionHelper>();
 
         /// <summary>
         /// The collection of rules.
@@ -68,6 +69,11 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// A value that indicates whether the rules have been compiled or not.
         /// </summary>
         private bool compiled;
+
+        /// <summary>
+        /// Gets an instance of the <see cref="ReflectionHelper"/>.
+        /// </summary>
+        private IReflectionHelper ReflectionHelper => reflectionProvider.Value;
 
         /// <summary>
         /// Adds a rule to the engine.
@@ -123,7 +129,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             }
 
             // easiest check
-            var memberKey = reflectionHelper.Value.TranslateMemberInfo(member);
+            var memberKey = ReflectionHelper.TranslateMemberInfo(member);
             var key = memberKey.CalculateKey();
             if (permissions.ContainsKey(key))
             {
@@ -135,10 +141,18 @@ namespace ExpressionPowerTools.Serialization.Rules
                 typeDef : member.DeclaringType;
             var typeKey = new TypeBase(type).CalculateKey();
 
+            // is the type allowed or denied? This will inherit.
+            if (permissions.ContainsKey(typeKey))
+            {
+                var permission = permissions[typeKey];
+                permissions.Add(key, permission);
+                return permission;
+            }
+
             if (type.IsGenericType && !type.IsGenericTypeDefinition)
             {
                 var generic = type.GetGenericTypeDefinition();
-                memberKey = reflectionHelper.Value.TranslateMemberInfo(generic);
+                memberKey = ReflectionHelper.TranslateMemberInfo(generic);
                 var genericKey = memberKey.CalculateKey();
                 if (permissions.ContainsKey(genericKey))
                 {
@@ -150,10 +164,10 @@ namespace ExpressionPowerTools.Serialization.Rules
                     }
                 }
 
-                var genericVersion = reflectionHelper.Value.FindGenericVersion(member, generic);
+                var genericVersion = ReflectionHelper.FindGenericVersion(member, generic);
                 if (genericVersion != null)
                 {
-                    var genericVersionKey = reflectionHelper.Value.TranslateMemberInfo(genericVersion)
+                    var genericVersionKey = ReflectionHelper.TranslateMemberInfo(genericVersion)
                         .CalculateKey();
                     if (permissions.ContainsKey(genericVersionKey))
                     {
@@ -201,6 +215,11 @@ namespace ExpressionPowerTools.Serialization.Rules
                 r.MemberType == MemberTypes.TypeInfo ||
                 r.MemberType == MemberTypes.NestedType))
             {
+                if (compiledPermissions.ContainsKey(rule.TargetKey))
+                {
+                    continue;
+                }
+
                 var permission = rule.Allow;
                 compiledPermissions.Add(rule.TargetKey, permission);
 
@@ -211,15 +230,23 @@ namespace ExpressionPowerTools.Serialization.Rules
                     .Union(type.GetProperties(allpublic))
                     .Union(type.GetFields(allpublic))
                     .Union(type.GetConstructors(allpublic))
-                    .Select(m => reflectionHelper.Value.TranslateMemberInfo(m).CalculateKey());
+                    .Select(m => ReflectionHelper.TranslateMemberInfo(m).CalculateKey());
                 foreach (var child in children)
                 {
-                    compiledPermissions.Add(child, permission);
+                    if (!compiledPermissions.ContainsKey(child))
+                    {
+                        compiledPermissions.Add(child, permission);
+                    }
+                    else
+                    {
+                        compiledPermissions[child] = permission;
+                    }
                 }
             }
 
             // overrides
-            foreach (var rule in rules.Where(r => r.MemberType != MemberTypes.All))
+            foreach (var rule in rules.Where(r => r.MemberType != MemberTypes.TypeInfo &&
+                r.MemberType != MemberTypes.NestedType))
             {
                 if (compiledPermissions.ContainsKey(rule.TargetKey))
                 {
@@ -241,6 +268,19 @@ namespace ExpressionPowerTools.Serialization.Rules
 
                 compiled = true;
             }
+        }
+
+        /// <summary>
+        /// Clears the ruleset.
+        /// </summary>
+        public void Reset()
+        {
+            Monitor.Enter(objLock);
+            rules.Clear();
+            typeHierarchy.Clear();
+            permissions.Clear();
+            compiled = false;
+            Monitor.Exit(objLock);
         }
     }
 }
