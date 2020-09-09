@@ -65,5 +65,11 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// <param name="selector">The selector to resolve the constructor.</param>
         /// <returns>The chainable <see cref="IRulesConfiguration"/>.</returns>
         IRulesConfiguration RuleForConstructor(Action<MemberSelector<ConstructorInfo>> selector);
+
+        /// <summary>
+        /// Rule to deny anonymous types.
+        /// </summary>
+        /// <returns>The chainable <see cref="IRulesConfiguration"/>.</returns>
+        IRulesConfiguration DenyAnonymousTypes();
     }
 }

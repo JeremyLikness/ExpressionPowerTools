@@ -11,6 +11,11 @@ namespace ExpressionPowerTools.Serialization.Signatures
     public interface IRulesEngine
     {
         /// <summary>
+        /// Gets a value indicating whether or not anonymous types are allowed.
+        /// </summary>
+        bool AllowAnonymousTypes { get; }
+
+        /// <summary>
         /// Add a rule to the engine.
         /// </summary>
         /// <param name="rule">The <see cref="ISerializationRule"/> to add.</param>

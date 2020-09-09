@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -71,6 +72,11 @@ namespace ExpressionPowerTools.Serialization.Rules
         private bool compiled;
 
         /// <summary>
+        /// Gets a value indicating whether anonymous types are allowed.
+        /// </summary>
+        public bool AllowAnonymousTypes { get; private set; } = true;
+
+        /// <summary>
         /// Gets an instance of the <see cref="ReflectionHelper"/>.
         /// </summary>
         private IReflectionHelper ReflectionHelper => reflectionProvider.Value;
@@ -126,6 +132,15 @@ namespace ExpressionPowerTools.Serialization.Rules
             if (!compiled)
             {
                 Compile();
+            }
+
+            // anonymous type
+            if (member is ConstructorInfo ctor)
+            {
+                if (member.DeclaringType.IsAnonymousType())
+                {
+                    return AllowAnonymousTypes;
+                }
             }
 
             // easiest check

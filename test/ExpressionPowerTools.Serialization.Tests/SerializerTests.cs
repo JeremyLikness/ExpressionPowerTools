@@ -106,6 +106,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             OrderByCreatedThenByDescendingId,
             WhereIdContainsAA,
             IdProjection,
+            IdAnonymousType,
             IdOnly,
             Filtered
         }
@@ -138,6 +139,12 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             yield return new object[]
             {
+                TestableThing.MakeQuery().Select(t => new { t.Id }),
+                Queries.IdAnonymousType
+            };
+
+            yield return new object[]
+            {
                 TestableThing.MakeQuery().OrderBy(t => t.Id).Select(t => new TestableThing(t.Id)),
                 Queries.IdOnly
             };
@@ -153,7 +160,8 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             foreach(object[] pair in GetQueryMatrix())
             {
-                if ((Queries)pair[1] == Queries.IdProjection)
+                if ((Queries)pair[1] == Queries.IdProjection ||
+                    (Queries)pair[1] == Queries.IdAnonymousType)
                 {
                     continue;
                 }

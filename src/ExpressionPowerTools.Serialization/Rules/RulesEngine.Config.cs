@@ -120,6 +120,16 @@ namespace ExpressionPowerTools.Serialization.Rules
         public IRulesConfiguration RuleForType<T>() => RuleForType(typeof(T));
 
         /// <summary>
+        /// Use this rule to disallow anonymous types.
+        /// </summary>
+        /// <returns>The <see cref="IRulesConfiguration"/>.</returns>
+        public IRulesConfiguration DenyAnonymousTypes()
+        {
+            AllowAnonymousTypes = false;
+            return this;
+        }
+
+        /// <summary>
         /// Check the state of <see cref="memberInfo"/>.
         /// </summary>
         /// <param name="shouldExist">A value indicating whether the <see cref="memberInfo"/> should exist.</param>

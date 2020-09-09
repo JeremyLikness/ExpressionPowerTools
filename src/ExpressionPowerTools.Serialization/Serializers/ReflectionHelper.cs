@@ -504,7 +504,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 }
 
                 var check = new Method(candidateType);
-                if (check.GetKey() == key)
+                if (check.CalculateKey() == key)
                 {
                     methodInfo = candidateType;
                     break;

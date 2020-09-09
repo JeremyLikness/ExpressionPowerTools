@@ -96,6 +96,23 @@ namespace ExpressionPowerTools.Serialization.Tests
         }
 
         [Fact]
+        public void GivenNonConfigWhenAnonymousCtorIsRequestedThenShouldReturnTrue()
+        {
+            var anonymous = new { Id = 1 };
+            var memberInfo = anonymous.GetType().GetConstructors().Single();
+            Assert.True(target.MemberIsAllowed(memberInfo));
+        }
+
+        [Fact]
+        public void GivenAnonymousDeniedWhenAnonymousCtorIsRequestedThenShouldReturnFalse()
+        {
+            var anonymous = new { Id = 1 };
+            var memberInfo = anonymous.GetType().GetConstructors().Single();
+            target.DenyAnonymousTypes();
+            Assert.False(target.MemberIsAllowed(memberInfo));
+        }
+
+        [Fact]
         public void GivenGenericTypeAllowedWhenMemberIsAllowedForClosedTypeThenShouldReturnTrue()
         {
             target.RuleForType(GenericType);

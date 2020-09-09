@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Extensions;
@@ -36,12 +35,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             ServiceHost.GetService<IReflectionHelper>();
 
         /// <summary>
-        /// Access to the <see cref="IRulesEngine"/>.
-        /// </summary>
-        private readonly Lazy<IRulesEngine> rulesEngine =
-            new Lazy<IRulesEngine>(() => ServiceHost.GetService<IRulesEngine>());
-
-        /// <summary>
         /// List of parameters to preserve across stack.
         /// </summary>
         private HashSet<ParameterExpression> parameters;
@@ -50,6 +43,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// A value that indicates whether the type index has been recursively decompressed.
         /// </summary>
         private bool decompressedTypes;
+
+        /// <summary>
+        /// A value that indicates whether the type index is being decompressed.
+        /// </summary>
+        private bool decompressingTypes;
 
         /// <summary>
         /// Gets or sets the query root to build the query from.
@@ -104,14 +102,42 @@ namespace ExpressionPowerTools.Serialization.Serializers
             if (!decompressedTypes)
             {
                 decompressedTypes = true;
-                var tempIdx = TypeIndex.Select(t => RecurseType(t)).ToList();
-                TypeIndex = tempIdx;
+                decompressingTypes = true;
+                var typeIdx = TypeIndex.ToArray();
+                var newIdx = new List<SerializableType>();
+                foreach (var idxType in typeIdx)
+                {
+                    var args = new SerializableType[0];
+                    if (idxType.GenericTypeArguments?.Length > 0)
+                    {
+                        args = idxType.GenericTypeArguments.Select(
+                            t => DecompressType(t)).ToArray();
+                    }
+
+                    var newType = default(SerializableType);
+                    newType.FullTypeName = idxType.FullTypeName;
+                    newType.TypeName = idxType.TypeName;
+                    newType.TypeParamName = idxType.TypeParamName;
+                    newType.GenericTypeArguments = args;
+                    newIdx.Add(newType);
+                }
+
+                TypeIndex.Clear();
+                TypeIndex.AddRange(newIdx);
+                decompressingTypes = false;
             }
 
             if (!string.IsNullOrWhiteSpace(type.TypeName) &&
                 type.TypeName.StartsWith(CompressedType))
             {
                 type = TypeIndex[int.Parse(type.TypeName.Substring(1))];
+
+                if (decompressingTypes && type.GenericTypeArguments?.Length > 0)
+                {
+                    var args = type.GenericTypeArguments.Select(arg => DecompressType(arg))
+                        .ToArray();
+                    type.GenericTypeArguments = args;
+                }
             }
 
             return type;
@@ -202,26 +228,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             parameters.Add(expr);
             return expr;
-        }
-
-        /// <summary>
-        /// Recurses the type definitions to decompress.
-        /// </summary>
-        /// <param name="type">The <see cref="SerializableType"/> to start with.</param>
-        /// <returns>The decompressed type.</returns>
-        private SerializableType RecurseType(SerializableType type)
-        {
-            SerializableType[] genericTypes = new SerializableType[0];
-            if (type.GenericTypeArguments?.Length > 0)
-            {
-                genericTypes = type.GenericTypeArguments
-                    .Select(t => RecurseType(t)).ToArray();
-            }
-
-            var result = DecompressType(type);
-            result.GenericTypeArguments = genericTypes;
-            result.FullTypeName = reflectionHelper.GetFullTypeName(result);
-            return result;
         }
 
         /// <summary>
