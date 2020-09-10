@@ -3,9 +3,11 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Configuration;
+using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Rules;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -26,7 +28,11 @@ namespace ExpressionPowerTools.Serialization
             rules.RuleForType(typeof(Math))
                 .RuleForType(typeof(Enumerable))
                 .RuleForType(typeof(Queryable))
-                .RuleForType<string>();
+                .RuleForType<string>()
+                .RuleForMethod(
+                    selector =>
+                    selector.ByNameForType<MethodInfo, object>(
+                        nameof(object.ToString)));
         }
 
         /// <summary>
