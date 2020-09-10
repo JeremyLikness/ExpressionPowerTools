@@ -10,6 +10,12 @@ public interface IRulesEngine
 
 Derived  [RulesEngine](ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.md) 
 
+## Properties
+
+| Property | Type | Description |
+| :-- | :-- | :-- |
+| [`AllowAnonymousTypes`](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.AllowAnonymousTypes.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets a value indicating whether or not anonymous types are allowed. |
+
 ## Methods
 
 | Method | Description |
@@ -23,4 +29,4 @@ Derived  [RulesEngine](ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.m
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |
+| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |

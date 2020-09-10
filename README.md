@@ -28,6 +28,14 @@ Power tools for writing client-side queries that can be safely serialized to run
 
 [API Documentation](docs/api/ExpressionPowerTools.Serialization.a.md)
 
+## ASP.NET Core Middleware for EF Core
+
+[![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Serialization.EFCore.AspNetCore)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization.EFCore.AspNetCore/)
+
+Power tools for deserializing queries initiated by remote clients.
+
+[API Documentation](docs/api/ExpressionPowerTools.Serialization.EFCore.AspNetCore.a.md)
+
 ## Documentation Generator
 
 Internal utility to auto-generate API documentation based on comments and reflection. Directly generates markdown. Also self-documents.

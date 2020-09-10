@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ExpressionPowerTools.Core\ExpressionPowerTools.Core.csproj" />
+    <ProjectReference Include="..\..\src\ExpressionPowerTools.Serialization.EFCore.AspNetCore\ExpressionPowerTools.Serialization.EFCore.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\ExpressionPowerTools.Serialization\ExpressionPowerTools.Serialization.csproj" />
   </ItemGroup>
 

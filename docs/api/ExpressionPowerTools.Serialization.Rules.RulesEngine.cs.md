@@ -33,6 +33,12 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 | Ctor | Description |
 | :-- | :-- |
 | [RulesEngine()](ExpressionPowerTools.Serialization.Rules.RulesEngine.ctor.md#rulesengine) | Initializes a new instance of the [RulesEngine](ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.md) class. |
+## Properties
+
+| Property | Type | Description |
+| :-- | :-- | :-- |
+| [`AllowAnonymousTypes`](ExpressionPowerTools.Serialization.Rules.RulesEngine.AllowAnonymousTypes.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets a value indicating whether anonymous types are allowed. |
+
 ## Methods
 
 | Method | Description |
@@ -41,6 +47,7 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 | [IRulesConfiguration Allow()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Allow.m.md) | Allow the rule in queue. |
 | [Void Compile()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Compile.m.md) | Compiles the rules into a set of allowed keys. |
 | [IRulesConfiguration Deny()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Deny.m.md) | Deny the rule in queue. |
+| [IRulesConfiguration DenyAnonymousTypes()](ExpressionPowerTools.Serialization.Rules.RulesEngine.DenyAnonymousTypes.m.md) | Use this rule to disallow anonymous types. |
 | [Boolean MemberIsAllowed(MemberInfo member)](ExpressionPowerTools.Serialization.Rules.RulesEngine.MemberIsAllowed.m.md) | Check if a member is allowed. |
 | [Void Reset()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Reset.m.md) | Clears the ruleset. |
 | [IRulesConfiguration RuleForConstructor(Action&lt;MemberSelector&lt;ConstructorInfo>> selector)](ExpressionPowerTools.Serialization.Rules.RulesEngine.RuleForConstructor.m.md) | Sets up a constructor rule. |
@@ -53,4 +60,4 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |
+| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
