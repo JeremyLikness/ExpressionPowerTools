@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Comparisons;
+using ExpressionPowerTools.Serialization.EFCore.AspNetCore;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 using ExpressionPowerTools.Utilities.DocumentGenerator.IO;
@@ -26,6 +27,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
         {
             typeof(DefaultComparisonRules),
             typeof(BaseSerializer<,>),
+            typeof(ExpressionPowerToolsEFCoreMiddleware),
             typeof(FileHelper),
         };
 

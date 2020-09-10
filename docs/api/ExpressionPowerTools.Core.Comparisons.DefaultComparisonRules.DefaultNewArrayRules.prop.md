@@ -22,4 +22,4 @@ The types must be equal. Each expression in the source array must have
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |
+| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |

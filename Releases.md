@@ -6,6 +6,7 @@
 
 ## 0.8 Alpha
 
+- [0.8.7-alpha](#087-alpha)
 - [0.8.6-alpha](#086-alpha)
 - [0.8.5-alpha](#085-alpha)
 - [0.8.4-alpha](#084-alpha)
@@ -13,6 +14,10 @@
 - [0.8.2-alpha](#082-alpha)
 - [0.8.1-alpha](#081-alpha)
 - [0.8.0-alpha](#080-alpha)
+
+### 0.8.7-alpha
+
+- Added entire [ASP.NET Core Middleware](docs/api/ExpressionPowerTools.Serialization.EFCore.AspNetCore.a.md) with tests.
 
 ### 0.8.6-alpha
 

@@ -16,6 +16,7 @@ Derived  [RulesEngine](ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.m
 | :-- | :-- |
 | [IRulesConfiguration Allow()](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.Allow.m.md) | Allow the rule. |
 | [IRulesConfiguration Deny()](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.Deny.m.md) | Deny the rule. |
+| [IRulesConfiguration DenyAnonymousTypes()](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.DenyAnonymousTypes.m.md) | Rule to deny anonymous types. |
 | [IRulesConfiguration RuleForConstructor(Action&lt;MemberSelector&lt;ConstructorInfo>> selector)](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.RuleForConstructor.m.md) | Rule for a [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
 | [IRulesConfiguration RuleForField(Action&lt;MemberSelector&lt;FieldInfo>> selector)](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.RuleForField.m.md) | Rule for a [FieldInfo](https://docs.microsoft.com/dotnet/api/system.reflection.fieldinfo) . |
 | [IRulesConfiguration RuleForMethod(Action&lt;MemberSelector&lt;MethodInfo>> selector)](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.RuleForMethod.m.md) | Rule for a [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) . |
@@ -26,4 +27,4 @@ Derived  [RulesEngine](ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.m
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/8/2020 3:10:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.6-alpha |
+| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
