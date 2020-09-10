@@ -107,8 +107,6 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
                     await next.Invoke(httpContext);
                     return;
                 }
-
-                httpContext.Response.StatusCode = (int)HttpStatusCode.OK;
             }
             catch (UnauthorizedAccessException uae)
             {
@@ -159,7 +157,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
 
             var logger = provider.GetService(typeof(ILogger<ExpressionPowerToolsEFCoreMiddleware>))
                 as ILogger<ExpressionPowerToolsEFCoreMiddleware>;
-            logger.LogInformation($"{nameof(ExpressionPowerToolsEFCoreMiddleware)} processing path {path}.");
+            logger.LogInformation($"{nameof(ExpressionPowerToolsEFCoreMiddleware)} processing path {httpContext.Request.Path}.");
 
             var (context, collection) = routeProcessor.Value.ParseRoute(httpContext.Request.RouteValues);
 
