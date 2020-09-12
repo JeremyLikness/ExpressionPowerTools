@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '#skip_ci')"
 
     steps:
@@ -20,10 +20,5 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
-    - name: install versioning tool
-      run: dotnet tool install --tool-path . nbgv
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Test
-      run: dotnet test --no-restore --logger trx
-
+    - name: Run all tests
+      run: dotnet test ExpressionPowerTools.sln --logger trx

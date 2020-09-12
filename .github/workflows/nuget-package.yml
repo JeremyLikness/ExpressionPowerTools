@@ -30,7 +30,8 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-    - uses: brandedoutcast/publish-nuget@v2.5.5
+    - name: Core Package
+      uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/ExpressionPowerTools.Core/ExpressionPowerTools.Core.csproj
@@ -39,7 +40,8 @@ jobs:
         NUGET_KEY: ${{ secrets.NUGET_EXPRESSION }}
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
         INCLUDE_SYMBOLS: true
-    - uses: brandedoutcast/publish-nuget@v2.5.5
+    - name: Serialization Package
+      uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/ExpressionPowerTools.Serialization/ExpressionPowerTools.Serialization.csproj
@@ -48,10 +50,21 @@ jobs:
         NUGET_KEY: ${{ secrets.NUGET_EXPRESSION }}
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
         INCLUDE_SYMBOLS: true
-    - uses: brandedoutcast/publish-nuget@v2.5.5
+    - name: EF Core AspNet Core Middleware Package
+      uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/ExpressionPowerTools.Serialization.EFCore.AspNetCore/ExpressionPowerTools.Serialization.EFCore.AspNetCore.csproj
+        TAG_COMMIT: false
+        VERSION_STATIC: true
+        NUGET_KEY: ${{ secrets.NUGET_EXPRESSION }}
+        # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+        INCLUDE_SYMBOLS: true
+    - name: EF Core Http Client Package
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+        # Filepath of the project to be packaged, relative to root of repository
+        PROJECT_FILE_PATH: src/ExpressionPowerTools.Serialization.EFCore.Http/ExpressionPowerTools.Serialization.EFCore.Http.csproj
         TAG_COMMIT: false
         VERSION_STATIC: true
         NUGET_KEY: ${{ secrets.NUGET_EXPRESSION }}

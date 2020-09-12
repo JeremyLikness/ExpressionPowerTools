@@ -16,8 +16,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
         public IQueryable Query { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the query is a count operation.
+        /// Gets or sets a value indicating the type of query.
         /// </summary>
-        public bool IsCount { get; set; }
+        public PayloadType QueryType { get; set; }
     }
 }

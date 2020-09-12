@@ -208,12 +208,12 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
             Ensure.VariableNotNull(() => dbContext);
             var rootQuery = adapter.Value.CreateQuery(dbContext, handle.Collection);
             var result = await deserializer.Value.DeserializeAsync(
-                rootQuery, httpContext.Request.Body);
+                rootQuery, httpContext.Request.Body, (ILogger)provider.GetService(typeof(ILogger<IQueryDeserializer>)));
             Ensure.VariableNotNull(() => result);
             await serializer.Value.SerializeAsync(
                 httpContext.Response.Body,
                 result.Query,
-                result.IsCount);
+                result.QueryType);
         }
     }
 }

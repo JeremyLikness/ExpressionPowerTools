@@ -6,6 +6,7 @@
 
 ## 0.8 Alpha
 
+- [0.8.8-alpha](#088-alpha)
 - [0.8.7-alpha](#087-alpha)
 - [0.8.6-alpha](#086-alpha)
 - [0.8.5-alpha](#085-alpha)
@@ -14,6 +15,14 @@
 - [0.8.2-alpha](#082-alpha)
 - [0.8.1-alpha](#081-alpha)
 - [0.8.0-alpha](#080-alpha)
+
+### 0.8.8-alpha
+
+- Refactored serialization to support the option of a single result or count in addition to list.
+- Created classes to compress/compile expressions so that variables are resolved to constants before transport over the wire.
+- Added default rules for EF Core extensions.
+- Added client code for registering an HttpClient.
+- Added Blazor WebAssembly end-to-end sample.
 
 ### 0.8.7-alpha
 

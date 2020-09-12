@@ -29,6 +29,7 @@ namespace ExpressionPowerTools.Serialization
                 .RuleForType(typeof(Enumerable))
                 .RuleForType(typeof(Queryable))
                 .RuleForType<string>()
+                .RuleForType<DateTime>()
                 .RuleForMethod(
                     selector =>
                     selector.ByNameForType<MethodInfo, object>(

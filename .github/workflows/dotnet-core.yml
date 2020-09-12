@@ -34,4 +34,6 @@ jobs:
       run: dotnet build --configuration Release --no-restore src/ExpressionPowerTools.Serialization/ExpressionPowerTools.Serialization.csproj
     - name: Build AspNetCore EF Core Middleware
       run: dotnet build --configuration Release --no-restore src/ExpressionPowerTools.Serialization.EFCore.AspNetCore/ExpressionPowerTools.Serialization.EFCore.AspNetCore.csproj
+    - name: Build EF Core Http Client
+      run: dotnet build --configuration Release --no-restore src/ExpressionPowerTools.Serialization.EFCore.Http/ExpressionPowerTools.Serialization.EFCore.Http.csproj
   

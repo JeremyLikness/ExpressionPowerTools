@@ -26,6 +26,14 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
                 && m.GetParameters().Length == 1);
 
         /// <summary>
+        /// FirstOrDefault method.
+        /// </summary>
+        private readonly MethodInfo firstOrDefault = typeof(Queryable).GetMethods()
+            .First(m => m.Name == nameof(Queryable.FirstOrDefault)
+                && m.IsGenericMethodDefinition
+                && m.GetParameters().Length == 1);
+
+        /// <summary>
         /// ToArray() method.
         /// </summary>
         private readonly MethodInfo toArray = typeof(Enumerable).GetMethods()
@@ -38,12 +46,12 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
         /// </summary>
         /// <param name="response">The <see cref="Stream"/> for the response.</param>
         /// <param name="query">The <see cref="IQueryable"/> to resolve.</param>
-        /// <param name="isCount">A value indicating whether the result should be a count.</param>
+        /// <param name="type">A value indicating whether the result should be a count, single or array.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task SerializeAsync(
             Stream response,
             IQueryable query,
-            bool isCount = false)
+            PayloadType type = PayloadType.Array)
         {
             Ensure.NotNull(() => response);
             Ensure.NotNull(() => query);
@@ -52,10 +60,15 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
             var typeList = new[] { query.ElementType };
             var parameters = new object[] { query };
 
-            if (isCount)
+            if (type == PayloadType.Count)
             {
                 var countMethod = count.MakeGenericMethod(typeList);
                 result = countMethod.Invoke(null, parameters);
+            }
+            else if (type == PayloadType.Single)
+            {
+                var singleMethod = firstOrDefault.MakeGenericMethod(typeList);
+                result = singleMethod.Invoke(null, parameters);
             }
             else
             {
