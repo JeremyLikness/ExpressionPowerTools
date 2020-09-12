@@ -27,10 +27,9 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
 
         private string GetJson(bool isCount = false) =>
             JsonSerializer.Serialize(
-                new SerializationPayload
+                new SerializationPayload(isCount ? PayloadType.Count : PayloadType.Array)
                 {
                     Json = Serializer.Serialize(query),
-                    IsCount = isCount
                 });
 
         private readonly string EmptyJson = "{}";
@@ -74,7 +73,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         public async Task GivenValidInputsWhenDeserializeAsyncCalledThenShouldDeserializeQueryable()
         {
             var actual = await target.DeserializeAsync(queryable, GetStream(GetJson()));
-            Assert.False(actual.IsCount);
+            Assert.Equal(PayloadType.Array, actual.QueryType);
             Assert.True(query.IsEquivalentTo(actual.Query));
         }
 
@@ -82,7 +81,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         public async Task GivenIsCountTrueInPayloadWhenDeserializeAsyncCalledThenShouldReturnIsCountTrue()
         {
             var actual = await target.DeserializeAsync(queryable, GetStream(GetJson(true)));
-            Assert.True(actual.IsCount);
+            Assert.Equal(PayloadType.Count, actual.QueryType);
             Assert.True(query.IsEquivalentTo(actual.Query));
         }
     }

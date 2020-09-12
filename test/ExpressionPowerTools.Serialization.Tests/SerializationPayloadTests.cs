@@ -30,5 +30,26 @@ namespace ExpressionPowerTools.Serialization.Tests
             var deserialized = JsonSerializer.Deserialize<SerializationPayload>(serialized);
             Assert.Equal(Json, deserialized.Json);
         }
+
+        [Theory]
+        [InlineData(PayloadType.Array)]
+        [InlineData(PayloadType.Count)]
+        [InlineData(PayloadType.Single)]
+        public void GivenPayloadWhenInitializedThenSetsPayloadValue(PayloadType type)
+        {
+            var target = new SerializationPayload(type);
+            Assert.Equal((int)type, target.QueryType);
+        }
+
+        [Theory]
+        [InlineData(PayloadType.Array)]
+        [InlineData(PayloadType.Count)]
+        [InlineData(PayloadType.Single)]
+        public void GivenPayloadWhenInitializedThenGetQueryTypeGetsPayloadValue(PayloadType type)
+        {
+            var target = new SerializationPayload(type);
+            Assert.Equal(type, target.GetQueryType());
+        }
+
     }
 }

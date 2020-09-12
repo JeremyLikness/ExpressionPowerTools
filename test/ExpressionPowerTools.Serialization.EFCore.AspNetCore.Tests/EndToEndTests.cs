@@ -31,10 +31,10 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
 
         private string queryJson(
             bool isCount = false,
-            bool useProduct = false) => JsonSerializer.Serialize(
-            new SerializationPayload
+            bool useProduct = false,
+            bool isSingle = false) => JsonSerializer.Serialize(
+            new SerializationPayload(isCount ? PayloadType.Count : (isSingle ? PayloadType.Single : PayloadType.Array))
             {
-                IsCount = isCount,
                 Json = Serializer.Serialize(altQuery ?? (useProduct ? productsQuery : query))
             });
 
@@ -42,7 +42,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             HttpContext context,
             MemoryStream memoryStream = null,
             bool isCount = false,
-            bool useProduct = false)
+            bool useProduct = false,
+            bool isSingle = false)
         {
             var request = context.Features.Get<IHttpRequestFeature>();
             request.Method = HttpMethods.Post;
@@ -52,7 +53,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
                 nameof(TestWidgetsContext.Widgets);
             request.Path = $"/efcore/{contextName}/{collectionName}";
 
-            var bytes = Encoding.UTF8.GetBytes(queryJson(isCount, useProduct));
+            var bytes = Encoding.UTF8.GetBytes(queryJson(isCount, useProduct, isSingle));
             var requestStream = new MemoryStream(bytes);
             request.Body = requestStream;
 
@@ -148,6 +149,18 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             var parsed = ProcessResult<long>(result, stream);
             Assert.Equal((int)HttpStatusCode.OK, parsed.statusCode);
             Assert.Equal(5, parsed.result);
+        }
+
+        [Fact]
+        public async Task SingleRequestWorks()
+        {
+            var stream = new MemoryStream();
+            var testServer = CreateSimpleServer(
+                config => config.MapPowerToolsEFCore<TestWidgetsContext>());
+            var result = await testServer.SendAsync(context => DefaultHttpContext(context, stream, isSingle: true));
+            var parsed = ProcessResult<TestWidget>(result, stream);
+            Assert.Equal((int)HttpStatusCode.OK, parsed.statusCode);
+            Assert.NotNull(parsed.result);
 
         }
 

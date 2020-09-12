@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlazorWasm.Server", "SimpleBlazorWasm\Server\SimpleBlazorWasm.Server.csproj", "{AB4E8EF5-D1BD-43B5-B798-87360594FDF8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlazorWasm.Client", "SimpleBlazorWasm\Client\SimpleBlazorWasm.Client.csproj", "{FF411C32-2339-45FB-BF2D-B6F78D334929}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlazorWasm.Shared", "SimpleBlazorWasm\Shared\SimpleBlazorWasm.Shared.csproj", "{4F047C3C-715F-4A57-9511-FAA15DA3F9BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.AspNetCore", "..\..\..\src\ExpressionPowerTools.Serialization.EFCore.AspNetCore\ExpressionPowerTools.Serialization.EFCore.AspNetCore.csproj", "{4C9F423E-8C02-45AF-B6BE-85D822AF5810}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.Http", "..\..\..\src\ExpressionPowerTools.Serialization.EFCore.Http\ExpressionPowerTools.Serialization.EFCore.Http.csproj", "{FD3181DF-D278-40AD-AB9E-0946B02AE8E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB4E8EF5-D1BD-43B5-B798-87360594FDF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB4E8EF5-D1BD-43B5-B798-87360594FDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB4E8EF5-D1BD-43B5-B798-87360594FDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB4E8EF5-D1BD-43B5-B798-87360594FDF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF411C32-2339-45FB-BF2D-B6F78D334929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF411C32-2339-45FB-BF2D-B6F78D334929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF411C32-2339-45FB-BF2D-B6F78D334929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF411C32-2339-45FB-BF2D-B6F78D334929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F047C3C-715F-4A57-9511-FAA15DA3F9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F047C3C-715F-4A57-9511-FAA15DA3F9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F047C3C-715F-4A57-9511-FAA15DA3F9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F047C3C-715F-4A57-9511-FAA15DA3F9BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C9F423E-8C02-45AF-B6BE-85D822AF5810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C9F423E-8C02-45AF-B6BE-85D822AF5810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C9F423E-8C02-45AF-B6BE-85D822AF5810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C9F423E-8C02-45AF-B6BE-85D822AF5810}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3181DF-D278-40AD-AB9E-0946B02AE8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3181DF-D278-40AD-AB9E-0946B02AE8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3181DF-D278-40AD-AB9E-0946B02AE8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3181DF-D278-40AD-AB9E-0946B02AE8E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93E8CE22-952E-4FCB-8AB5-06D7C7AC8301}
+	EndGlobalSection
+EndGlobal

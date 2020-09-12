@@ -1,0 +1,114 @@
+﻿@page "/"
+@inject RemoteQueryService Service
+@using SimpleBlazorWasm.Shared;
+@using ExpressionPowerTools.Serialization.EFCore.Http.Extensions
+
+<h1>Hello, world!</h1>
+
+Let's have some fun.
+
+<p>
+    <b>Filter on active?</b> 
+    <button @onclick="async () => await Service.ToggleSwitchAsync(nameof(Service.UseActive))">@Service.UseActive</button>&nbsp;
+    Filter: <button @onclick="async () => await Service.ToggleSwitchAsync(nameof(Service.IsActive))" disabled="@(!Service.UseActive)">@Service.IsActive</button>
+</p>
+<p>
+    <b>Sort order:</b> <button @onclick="async () => await Service.ToggleSwitchAsync(nameof(Service.Ascending))">@Service.SortString</button>
+</p>
+<p>
+    <b>Filter on name?</b> 
+    <button @onclick="async () => await Service.ToggleSwitchAsync(nameof(Service.FilterOnName))">@Service.FilterOnName</button>
+    <input @bind-value="@Service.NameFilter" disabled="@(!Service.FilterOnName)"/>
+</p>
+<p>
+    <b>Created on ...</b> 
+    <button @onclick="async () => await Service.SetCreatedAsync(CreatedOptions.Anytime)" disabled="@(Service.CreatedOptions == CreatedOptions.Anytime)">Anytime</button>
+    <button @onclick="async () => await Service.SetCreatedAsync(CreatedOptions.WeekAgo)" disabled="@(Service.CreatedOptions == CreatedOptions.WeekAgo)">Over 1 Week Ago</button>
+    <button @onclick="async () => await Service.SetCreatedAsync(CreatedOptions.TwoWeeksAgo)" disabled="@(Service.CreatedOptions == CreatedOptions.TwoWeeksAgo)">Over 2 Weeks Ago</button>
+</p>
+<p>
+    <b>Sort field:</b> 
+    <button @onclick="async () => await Service.SetOrderByAsync(nameof(Thing.Id))" disabled="@(Service.OrderBy==nameof(Thing.Id))">@nameof(Thing.Id)</button>
+    <button @onclick="async () => await Service.SetOrderByAsync(nameof(Thing.Name))" disabled="@(Service.OrderBy==nameof(Thing.Name))">@nameof(Thing.Name)</button>
+    <button @onclick="async () => await Service.SetOrderByAsync(nameof(Thing.Value))" disabled="@(Service.OrderBy==nameof(Thing.Value))">@nameof(Thing.Value)</button>
+    <button @onclick="async () => await Service.SetOrderByAsync(nameof(Thing.Created))" disabled="@(Service.OrderBy==nameof(Thing.Created))">@nameof(Thing.Created)</button>
+</p>
+<p>
+    <b>Skip:</b>
+    <button @onclick="async () => await Service.SetSkipAsync(SkipOptions.None)" disabled="@(Service.Skip == SkipOptions.None)">None</button>
+    <button @onclick="async () => await Service.SetSkipAsync(SkipOptions.Skip5)" disabled="@(Service.Skip == SkipOptions.Skip5)">5</button>
+    <button @onclick="async () => await Service.SetSkipAsync(SkipOptions.Skip20)" disabled="@(Service.Skip == SkipOptions.Skip20)">20</button>
+
+</p>
+<p>
+    <b>Take:</b>
+    <button @onclick="async () => await Service.SetTakeAsync(TakeOptions.All)" disabled="@(Service.Take == TakeOptions.All)">All</button>
+    <button @onclick="async () => await Service.SetTakeAsync(TakeOptions.Take5)" disabled="@(Service.Take == TakeOptions.Take5)">5</button>
+    <button @onclick="async () => await Service.SetTakeAsync(TakeOptions.Take20)" disabled="@(Service.Take == TakeOptions.Take20)">20</button>
+</p>
+<p>
+    <button @onclick="Service.LoadAsync" disabled="@Service.Loading">Refresh</button>
+    <button @onclick="Service.CountAsync" disabled="@Service.Loading">Count</button>
+    <button @onclick="Service.SingleAsync" disabled="@Service.Loading">Single</button>
+</p>
+<p>
+    Your current query: 
+    <pre><code>@Service.Query</code></pre>
+</p>
+@if (Service.Error != null)
+{
+    <div class="alert alert-danger">@Service.Error</div>
+}
+@if (Service.Loading)
+{
+    <div class="alert alert-info">Loading...</div>
+}
+@if (!Service.Loading)
+{
+    @if (Service.IsCount)
+    {
+        @if (Service.Count > 0)
+        {
+            <b>Count: </b> @Service.Count
+        }
+        else
+        {
+            <p>Big ZERO.</p>
+        }
+    }
+    else
+    {
+        @if (Service.Things == null)
+        {
+            <p>Click the refresh button.</p>
+        }
+        else
+        {
+            @if (Service.Things.Count > 0)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>@nameof(Thing.Id)</th>
+                            <th>@nameof(Thing.Name)</th>
+                            <th>@nameof(Thing.IsActive)</th>
+                            <th>@nameof(Thing.Value)</th>
+                            <th>@nameof(Thing.Created)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var thing in Service.Things)
+                    {
+                        <tr @key="thing"><td>@thing.Id</td><td>@thing.Name</td><td>@thing.IsActive</td><td>@thing.Value</td><td>@thing.Created</td></tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-warning">No (thing) found.</div>
+            }
+        }
+    }
+}
+    

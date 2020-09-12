@@ -59,7 +59,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         public async Task GivenValidParametersWithIsCountTrueWhenSerializeAsyncCalledThenShouldSerializeToStream()
         {
             using var stream = new MemoryStream();
-            await target.SerializeAsync(stream, Widgets.AsQueryable(), true);
+            await target.SerializeAsync(stream, Widgets.AsQueryable(), PayloadType.Count);
             stream.Flush();
             stream.Position = 0;
             string json;
@@ -69,6 +69,23 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             }
             var widgets = JsonSerializer.Deserialize<long>(json);
             Assert.Equal(Widgets.Length, widgets);
+            stream.Dispose();
+        }
+
+        [Fact]
+        public async Task GivenValidParametersWithPayloadSingleWhenSerializeAsyncCalledThenShouldSerializeToStream()
+        {
+            using var stream = new MemoryStream();
+            await target.SerializeAsync(stream, Widgets.AsQueryable(), PayloadType.Single);
+            stream.Flush();
+            stream.Position = 0;
+            string json;
+            using (var reader = new StreamReader(stream))
+            {
+                json = reader.ReadToEnd();
+            }
+            var widget = JsonSerializer.Deserialize<TestWidget>(json);
+            Assert.NotNull(widget);
             stream.Dispose();
         }
     }

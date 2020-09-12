@@ -65,7 +65,6 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         private string queryJson() => JsonSerializer.Serialize(
             new SerializationPayload
             {
-                IsCount = false,
                 Json = Serializer.Serialize(query)
             });
 

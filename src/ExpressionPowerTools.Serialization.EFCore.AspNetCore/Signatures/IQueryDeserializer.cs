@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware;
+using Microsoft.Extensions.Logging;
 
 namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures
 {
@@ -18,7 +19,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures
         /// </summary>
         /// <param name="template">The template to use (built from a <c>DbSet</c>).</param>
         /// <param name="json">The serialized query.</param>
+        /// <param name="logger">The logger.</param>
         /// <returns>The functional <see cref="IQueryable"/>.</returns>
-        Task<QueryResult> DeserializeAsync(IQueryable template, Stream json);
+        Task<QueryResult> DeserializeAsync(IQueryable template, Stream json, ILogger logger = null);
     }
 }
