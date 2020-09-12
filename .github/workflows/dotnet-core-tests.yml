@@ -22,8 +22,5 @@ jobs:
         dotnet-version: 3.1.301
     - name: install versioning tool
       run: dotnet tool install --tool-path . nbgv
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Test
-      run: dotnet test --no-restore --logger trx
-
+    - name: Run all tests
+      run: dotnet test ExpressionPowerTools.sln --logger trx
