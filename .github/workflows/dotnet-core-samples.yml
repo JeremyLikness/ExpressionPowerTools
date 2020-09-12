@@ -23,6 +23,6 @@ jobs:
     - name: install versioning tool
       run: dotnet tool install --tool-path . nbgv
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore samples/Blazor/SimpleBlazorWasm/SimpleBlazorWasm.sln
     - name: Build Simple Blazor WebAssembly sample
       run: dotnet build --configuration Release --no-restore samples/Blazor/SimpleBlazorWasm/SimpleBlazorWasm.sln
