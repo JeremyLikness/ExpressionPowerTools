@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionRulesExtensions](ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.cs.md) > **AndMembersMustMatch**
 
-
+And match members.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AndMembersMustMatch&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Func&lt;T, Object> member)](#andmembersmustmatchtexpressionfunct-t-boolean-rule-funct-object-member) |  |
+| [AndMembersMustMatch&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Func&lt;T, Object> member)](#andmembersmustmatchtexpressionfunct-t-boolean-rule-funct-object-member) | And match members. |
 ## AndMembersMustMatch&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Func&lt;T, Object> member)
 
-
+And match members.
 
 ```csharp
 public static Expression<Func<T, T, Boolean>> AndMembersMustMatch<T>(Expression<Func<T, T, Boolean>> rule, Func<T, Object> member)
@@ -19,14 +19,14 @@ public static Expression<Func<T, T, Boolean>> AndMembersMustMatch<T>(Expression<
 
 ### Return Type
 
- [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
+ [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - An expression that evaluates whether the members match.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
-| `member` | [Func&lt;T, Object>](https://docs.microsoft.com/dotnet/api/system.func-2) |  |
+| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The exist rule to combine with. |
+| `member` | [Func&lt;T, Object>](https://docs.microsoft.com/dotnet/api/system.func-2) | Member access. |
 
 
 
@@ -34,4 +34,4 @@ public static Expression<Func<T, T, Boolean>> AndMembersMustMatch<T>(Expression<
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

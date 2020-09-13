@@ -2,17 +2,21 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Extensions](ExpressionPowerTools.Serialization.Extensions.n.md) > [SelectorExtensions](ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.cs.md) > **ByResolver**
 
-
+Gets the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) using a lambda expression
+            as a template. The lambda is never invoked and is inspected
+            to find the matching type.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Action&lt;TTarget>> resolver)](#byresolvert-ttargetmemberselectort-memberselector-expressionactionttarget-resolver) |  |
-| [ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Func&lt;TTarget, Object>> resolver)](#byresolvert-ttargetmemberselectort-memberselector-expressionfuncttarget-object-resolver) |  |
+| [ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Action&lt;TTarget>> resolver)](#byresolvert-ttargetmemberselectort-memberselector-expressionactionttarget-resolver) | Gets the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) using a lambda expression            as a template. The lambda is never invoked and is inspected            to find the matching type. |
+| [ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Func&lt;TTarget, Object>> resolver)](#byresolvert-ttargetmemberselectort-memberselector-expressionfuncttarget-object-resolver) | Gets the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) using a lambda expression            as a template. The lambda is never invoked and is inspected            to find the matching type. |
 ## ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Action&lt;TTarget>> resolver)
 
-
+Gets the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) using a lambda expression
+            as a template. The lambda is never invoked and is inspected
+            to find the matching type.
 
 ```csharp
 public static Void ByResolver<T, TTarget>(MemberSelector<T> memberSelector, Expression<Action<TTarget>> resolver)
@@ -26,13 +30,15 @@ public static Void ByResolver<T, TTarget>(MemberSelector<T> memberSelector, Expr
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `memberSelector` | [MemberSelector&lt;T>](ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) |  |
-| `resolver` | [Expression&lt;Action&lt;TTarget>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
+| `memberSelector` | [MemberSelector&lt;T>](ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) | The [MemberSelector&lt;T>](ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) . |
+| `resolver` | [Expression&lt;Action&lt;TTarget>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The  expression template. |
 
 
 ## ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Func&lt;TTarget, Object>> resolver)
 
-
+Gets the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) using a lambda expression
+            as a template. The lambda is never invoked and is inspected
+            to find the matching type.
 
 ```csharp
 public static Void ByResolver<T, TTarget>(MemberSelector<T> memberSelector, Expression<Func<TTarget, Object>> resolver)
@@ -46,8 +52,8 @@ public static Void ByResolver<T, TTarget>(MemberSelector<T> memberSelector, Expr
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `memberSelector` | [MemberSelector&lt;T>](ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) |  |
-| `resolver` | [Expression&lt;Func&lt;TTarget, Object>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
+| `memberSelector` | [MemberSelector&lt;T>](ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) | The [MemberSelector&lt;T>](ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) . |
+| `resolver` | [Expression&lt;Func&lt;TTarget, Object>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The  expression template. |
 
 
 
@@ -55,4 +61,4 @@ public static Void ByResolver<T, TTarget>(MemberSelector<T> memberSelector, Expr
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

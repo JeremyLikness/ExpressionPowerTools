@@ -1,0 +1,526 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExpressionPowerTools.Serialization.EFCore.Http</name>
+    </assembly>
+    <members>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Configuration.ClientHttpConfiguration">
+            <summary>
+            Class to handle configuration of the client.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Configuration.ClientHttpConfiguration.ContextKey">
+            <summary>
+            Context parameter.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Configuration.ClientHttpConfiguration.CollectionKey">
+            <summary>
+            Collection parameter.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Configuration.ClientHttpConfiguration.PathTemplate">
+            <summary>
+            Gets the template for the server path. Default is <c>/efcore/{context}/{collection}</c>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Configuration.ClientHttpConfiguration.ClientFactory">
+            <summary>
+            Gets the client factory to generate the <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Configuration.ClientHttpConfiguration.SetClientFactory(System.Func{ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryClient})">
+            <summary>
+            Set the factory to generate instances of <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+            <param name="factory">The factory to use.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Configuration.ClientHttpConfiguration.SetPathTemplate(System.String)">
+            <summary>
+            Set the path template.
+            </summary>
+            <remarks>
+            This is used to compose the URL for the query request. It must contain
+            a reference to <c>{context}</c> and <c>{collection}</c>. The default
+            is <c>/efcore/{context}/{collection}</c> so a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>
+            named ProductsContext with a list named Products will resolve to
+            <c>/efcore/ProductsContext/Products</c>.
+            </remarks>
+            <param name="pathTemplate">The path template.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration"/>.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when path template is null, empty, or does not contain the proper segments.</exception>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions">
+            <summary>
+            Client extensions for remote queries.
+            </summary>
+            <remarks>
+            There are a few steps involved to run and resolve a remote query. See examples for more information.
+            </remarks>
+            <example>
+            The first step is to register the client. The client uses <see cref="T:System.Net.Http.IHttpClientFactory"/> to register a
+            typed instance of <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryClient"/> for processing. This requires a base address to make calls.
+            <code lang="csharp"><![CDATA[
+            builder.Services.AddExpressionPowerToolsEFCore(new Uri(builder.HostEnvironment.BaseAddress));
+            ]]></code>
+            This is typically done in the <c>Program.cs</c> for Blazor WebAssembly. It should be part of initialization as it
+            configures the internal dependency injection service (<see cref="T:ExpressionPowerTools.Core.Dependencies.ServiceHost"/>). You must have a reference to the
+            <c>DbContext</c> (it is used for the shape of the query and never run on the client). Use the <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1"/>
+            to start your query by referencing a root collection to use.
+            <code lang="csharp"><![CDATA[
+            var query = DbClientContext<ThingContext>.Query(context => context.Things)
+                .Where(t => t.IsActive == ActiveFlag &&
+                    EF.Functions.Like(t.Name, $"%{nameFilter}%"))
+                .OrderBy(t => EF.Property<DateTime>(t, nameof(Thing.Created)));
+            ]]></code>
+            When you are ready to execute the query remotely, use the <c>ExecuteRemote</c> extension
+            and specify the collection type, a single item, or count.
+            <code lang="csharp"><![CDATA[
+            var result = await query.ExecuteRemote().ToListAsync();
+            ]]></code>
+            </example>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.AsRemoteQueryable``1(System.Collections.Generic.IEnumerable{``0},ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext)">
+            <summary>
+            Takes an enumerable and builds a host for remote processing.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="source">The source to parse.</param>
+            <param name="context">The context of the query.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQuery`2"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.AddExpressionPowerToolsEFCore(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Uri,System.Action{ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration})">
+            <summary>
+            Adds the client and provides the opportunity to configure it.
+            </summary>
+            <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to extend.</param>
+            <param name="baseAddress">The base address of the client. This should only incude the scheme, domain, and ports. Use
+            the "configure" option to modify the path to the server middleware.</param>
+            <param name="configure">The optional configuration.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ExecuteRemote``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Use this to indicate you are about to run a remote query.
+            </summary>
+            <param name="query">The query to run remotely.</param>
+            <returns>The remote query.</returns>
+            <typeparam name="T">The type of the query.</typeparam>
+            <exception cref="T:System.ArgumentNullException">Thrown when query is null.</exception>
+            <exception cref="T:System.NullReferenceException">Thrown when query is not a remote query.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.CountAsync``1(ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryable{``0})">
+            <summary>
+            Provides a count of the query.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The query.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.FirstOrSingleAsync``1(ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryable{``0})">
+            <summary>
+            Grabs the first item, or the single item, from the result.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The query.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ToArrayAsync``1(ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryable{``0})">
+            <summary>
+            Grabs the array.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The query.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ToListAsync``1(ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryable{``0})">
+            <summary>
+            Grabs the list.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The query.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ToHashSetAsync``1(ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryable{``0})">
+            <summary>
+            Grabs the hash set.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The query.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.AsEnumerableAsync``1(ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryable{``0})">
+            <summary>
+            Grabs the enumerable.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The query.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1">
+            <summary>
+            Provides a starting point for building remote queries.
+            </summary>
+            <typeparam name="TContext">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/> the query is based on.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1.Query``1(System.Linq.Expressions.Expression{System.Func{`0,Microsoft.EntityFrameworkCore.DbSet{``0}}})">
+            <summary>
+            Creates a trackable query based on the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/> reference.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
+            <param name="template">A template to access the property.</param>
+            <returns>A new <see cref="T:System.Linq.IQueryable"/> to usee.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when template is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when template does not refer to the right context.</exception>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext">
+            <summary>
+            Holds the remote context for the query.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext.#ctor(System.Type,System.Reflection.PropertyInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext"/> class with the
+            type of the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/> and the property info.
+            </summary>
+            <param name="context">The type of <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="collection">The property for the <c>DbSet</c>.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext.Context">
+            <summary>
+            Gets the type of the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext.Collection">
+            <summary>
+            Gets the <see cref="T:System.Reflection.PropertyInfo"/> for the collection.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQuery`2">
+            <summary>
+            Encapsulates query capabilities to build the template for remote submission.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
+            <typeparam name="TProvider">The <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/>.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQuery`2.#ctor(System.Linq.Expressions.Expression,`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQuery`2"/> class.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <param name="provider">The <see cref="T:ExpressionPowerTools.Core.Signatures.ICustomQueryProvider`1"/>.</param>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQuery`2.ExpressionPowerTools#Serialization#EFCore#Http#Signatures#IRemoteQuery#CustomProvider">
+            <summary>
+            Gets the explicit implementation that exposes the interface for the custom provider.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQuery`2.GetEnumerator">
+            <summary>
+            Gets the enumerator of the result. Overridden to prevent issues trying to execute
+            a database query directly.
+            </summary>
+            <returns>An empty enumerator.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQueryProvider`1">
+            <summary>
+            Custom provider for remote queries.
+            </summary>
+            <remarks>
+            The main purpose is to provide a query to build the filters and sorts, and capture
+            the original context for extension overloads that will fetch the remote results.
+            </remarks>
+            <typeparam name="T">The type of the query.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQueryProvider`1.#ctor(System.Linq.IQueryable,ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQueryProvider`1"/> class.
+            </summary>
+            <param name="sourceQuery">The source query.</param>
+            <param name="remoteContext">The <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext"/>.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when remote context is null.</exception>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQueryProvider`1.Context">
+            <summary>
+            Gets the <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQueryProvider`1.CreateQuery(System.Linq.Expressions.Expression)">
+            <summary>
+            Create a query.
+            </summary>
+            <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to parse.</param>
+            <returns>The new <see cref="T:System.Linq.IQueryable"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteQueryProvider`1.CreateQuery``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Create a typed query.
+            </summary>
+            <typeparam name="TElement">The query <see cref="T:System.Type"/>.</typeparam>
+            <param name="expression">The query <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable`1"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when expression is null.</exception>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Registration">
+            <summary>
+            Internal service registration.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Registration.AfterRegistered">
+            <summary>
+            Called after registration complete.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Registration.RegisterDefaultServices(ExpressionPowerTools.Core.Signatures.IServiceRegistration)">
+            <summary>
+            Register the services.
+            </summary>
+            <param name="registration">The <see cref="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration"/> provider.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration">
+            <summary>
+            Configuration for connecting to the remote services.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration.PathTemplate">
+            <summary>
+            Gets the template to use, defaults to <c>/efcore/{context}/{collection}</c>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration.ClientFactory">
+            <summary>
+            Gets the factory to generate the client. Defaults to a call from the service provider.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration.SetPathTemplate(System.String)">
+            <summary>
+            Sets the template for the path.
+            </summary>
+            <param name="path">The path tempate.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration.SetClientFactory(System.Func{ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryClient})">
+            <summary>
+            Set the client factory.
+            </summary>
+            <param name="factory">The factory to use.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IClientHttpConfiguration"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQuery">
+            <summary>
+            Remote query interface to capture the context.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQuery.CustomProvider">
+            <summary>
+            Gets the custom provider that tracks the context.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryable`1">
+            <summary>
+            Interface to retain generic type for extensions.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the remote query.</typeparam>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryClient">
+            <summary>
+            Typed <see cref="T:System.Net.Http.HttpClient"/> for queries.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryClient.FetchRemoteQueryAsync(System.String,System.Net.Http.HttpContent)">
+            <summary>
+            Fetches the remote content.
+            </summary>
+            <param name="path">The relative path.</param>
+            <param name="queryContent">The query.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryProvider">
+            <summary>
+            Custom provider for tracking context.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryProvider.Context">
+            <summary>
+            Gets the <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.RemoteContext"/>.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver">
+            <summary>
+            Responsible for resolving remote queries.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.FirstOrSingleAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Returns a single entity.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> to return.</typeparam>
+            <param name="query">The query.</param>
+            <returns>The entity.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.ToListAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Resolves to a list.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
+            <param name="query">The query to run remotely.</param>
+            <returns>The list.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.ToArrayAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Resolves to an array.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
+            <param name="query">The query to run remotely.</param>
+            <returns>The array.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.ToHashSetAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Resolves to a hash set.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
+            <param name="query">The query to run remotely.</param>
+            <returns>The <see cref="T:System.Collections.Generic.HashSet`1"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.AsEnumerableAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Resolves to an enumerable.
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
+            <param name="query">The query to run remotely.</param>
+            <returns>The enumerable.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.CountAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Resolves to a count..
+            </summary>
+            <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
+            <param name="query">The query to run remotely.</param>
+            <returns>The count.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver">
+            <summary>
+            Handles remote requests.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.compressor">
+            <summary>
+            Collapses the expression tree.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.clientHttpConfiguration">
+            <summary>
+            The client configuration.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.defaultConfiguration">
+            <summary>
+            The default settings for serialization.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.AsEnumerableAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Execute the remote query and materialize the results.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The base query to run.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.FirstOrSingleAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Execute the remote query and materialize the single item.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The base query to run.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.CountAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Execute the remote query and materialize the count.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The base query to run.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.ToArrayAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Execute the remote query and materialize the results.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The base query to run.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.ToHashSetAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Execute the remote query and materialize the results.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The base query to run.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.ToListAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Execute the remote query and materialize the results.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The base query to run.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.GetRemoteContentAsync``1(System.Linq.IQueryable{``0},ExpressionPowerTools.Serialization.PayloadType)">
+            <summary>
+            Main method to resolve remote content.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="query">The query.</param>
+            <param name="type">The type of payload.</param>
+            <returns>The remote content as Json.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when query is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when query is not <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQuery"/>.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.PathTransformer(ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQuery)">
+            <summary>
+            Transforms the path using the template.
+            </summary>
+            <param name="query">The <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQuery"/>.</param>
+            <returns>The transformed path.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.GetJsonSerializerOptions">
+            <summary>
+            Gets the <see cref="T:System.Text.Json.JsonSerializerOptions"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.GetHttpClient">
+            <summary>
+            Gets the client instance.
+            </summary>
+            <returns>The <see cref="T:System.Net.Http.HttpClient"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.Http.Transport.RemoteQueryClient">
+            <summary>
+            Configured for the query client.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Transport.RemoteQueryClient.httpClient">
+            <summary>
+            The client.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.RemoteQueryClient.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.EFCore.Http.Transport.RemoteQueryClient"/> class.
+            </summary>
+            <param name="client">The <see cref="T:System.Net.Http.HttpClient"/> to use.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.RemoteQueryClient.FetchRemoteQueryAsync(System.String,System.Net.Http.HttpContent)">
+            <summary>
+            Performs the remote fetch.
+            </summary>
+            <param name="path">The path to the query server.</param>
+            <param name="queryContent">The content to post.</param>
+            <returns>The result.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when path is empty.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when query content is null.</exception>
+        </member>
+    </members>
+</doc>

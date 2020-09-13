@@ -113,22 +113,16 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests
             QueryTestCase queryCase,
             IQueryable<T> query)
         {
-            switch(queryCase)
+            return queryCase switch
             {
-                case QueryTestCase.Array:
-                    return await target.ToArrayAsync(query);
-                case QueryTestCase.Count:
-                    return await target.CountAsync(query);
-                case QueryTestCase.Enumerable:
-                    return await target.AsEnumerableAsync(query);
-                case QueryTestCase.HashSet:
-                    return await target.ToHashSetAsync(query);
-                case QueryTestCase.List:
-                    return await target.ToListAsync(query);
-                case QueryTestCase.Single:
-                    return await target.FirstOrSingleAsync(query);
-            }
-            return null;
+                QueryTestCase.Array => await target.ToArrayAsync(query),
+                QueryTestCase.Count => await target.CountAsync(query),
+                QueryTestCase.Enumerable => await target.AsEnumerableAsync(query),
+                QueryTestCase.HashSet => await target.ToHashSetAsync(query),
+                QueryTestCase.List => await target.ToListAsync(query),
+                QueryTestCase.Single => await target.FirstOrSingleAsync(query),
+                _ => null,
+            };
         }
     }
 }

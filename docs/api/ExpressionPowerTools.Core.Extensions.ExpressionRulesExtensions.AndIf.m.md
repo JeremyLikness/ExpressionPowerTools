@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionRulesExtensions](ExpressionPowerTools.Core.Extensions.ExpressionRulesExtensions.cs.md) > **AndIf**
 
-
+Logical AND applied to rule and `If` condition.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [AndIf&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Expression&lt;Func&lt;T, T, Boolean>> condition, Expression&lt;Func&lt;T, T, Boolean>> ifTrue, Expression&lt;Func&lt;T, T, Boolean>> ifFalse)](#andiftexpressionfunct-t-boolean-rule-expressionfunct-t-boolean-condition-expressionfunct-t-boolean-iftrue-expressionfunct-t-boolean-iffalse) |  |
+| [AndIf&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Expression&lt;Func&lt;T, T, Boolean>> condition, Expression&lt;Func&lt;T, T, Boolean>> ifTrue, Expression&lt;Func&lt;T, T, Boolean>> ifFalse)](#andiftexpressionfunct-t-boolean-rule-expressionfunct-t-boolean-condition-expressionfunct-t-boolean-iftrue-expressionfunct-t-boolean-iffalse) | Logical AND applied to rule and `If` condition. |
 ## AndIf&lt;T>(Expression&lt;Func&lt;T, T, Boolean>> rule, Expression&lt;Func&lt;T, T, Boolean>> condition, Expression&lt;Func&lt;T, T, Boolean>> ifTrue, Expression&lt;Func&lt;T, T, Boolean>> ifFalse)
 
-
+Logical AND applied to rule and `If` condition.
 
 ```csharp
 public static Expression<Func<T, T, Boolean>> AndIf<T>(Expression<Func<T, T, Boolean>> rule, Expression<Func<T, T, Boolean>> condition, Expression<Func<T, T, Boolean>> ifTrue, Expression<Func<T, T, Boolean>> ifFalse)
@@ -19,16 +19,16 @@ public static Expression<Func<T, T, Boolean>> AndIf<T>(Expression<Func<T, T, Boo
 
 ### Return Type
 
- [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) 
+ [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1)  - The result of the `If` AND the result of the rule.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
-| `condition` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
-| `ifTrue` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
-| `ifFalse` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) |  |
+| `rule` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The rule that must pass. |
+| `condition` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The condition for if/then. |
+| `ifTrue` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The rule to evaluate for if/then. |
+| `ifFalse` | [Expression&lt;Func&lt;T, T, Boolean>>](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression-1) | The rule to evaluate for if/else. |
 
 
 
@@ -36,4 +36,4 @@ public static Expression<Func<T, T, Boolean>> AndIf<T>(Expression<Func<T, T, Boo
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

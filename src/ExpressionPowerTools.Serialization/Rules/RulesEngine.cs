@@ -146,6 +146,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             // easiest check
             var memberKey = ReflectionHelper.TranslateMemberInfo(member);
             var key = memberKey.CalculateKey();
+
             if (permissions.ContainsKey(key))
             {
                 return permissions[key];
@@ -171,7 +172,8 @@ namespace ExpressionPowerTools.Serialization.Rules
                 var genericKey = memberKey.CalculateKey();
                 if (permissions.ContainsKey(genericKey))
                 {
-                    var rule = rules.Where(s => s.TargetKey == genericKey).FirstOrDefault();
+                    var list = rules.ToList();
+                    var rule = list.Where(s => s.TargetKey == genericKey).FirstOrDefault();
                     if (rule != null)
                     {
                         var newRule = new SerializationRule(rule.Allow, type);
@@ -226,7 +228,8 @@ namespace ExpressionPowerTools.Serialization.Rules
                 BindingFlags.Static;
 
             // types
-            foreach (var rule in rules.Where(r =>
+            var list = rules.ToList();
+            foreach (var rule in list.Where(r =>
                 r.MemberType == MemberTypes.TypeInfo ||
                 r.MemberType == MemberTypes.NestedType))
             {
@@ -260,7 +263,8 @@ namespace ExpressionPowerTools.Serialization.Rules
             }
 
             // overrides
-            foreach (var rule in rules.Where(r => r.MemberType != MemberTypes.TypeInfo &&
+            var rulesList = rules.ToList();
+            foreach (var rule in rulesList.Where(r => r.MemberType != MemberTypes.TypeInfo &&
                 r.MemberType != MemberTypes.NestedType))
             {
                 if (compiledPermissions.ContainsKey(rule.TargetKey))
