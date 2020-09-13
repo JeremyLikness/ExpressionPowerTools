@@ -9,6 +9,7 @@ Initializes a new instance of the [SerializationPayload](ExpressionPowerTools.Se
 | Ctor | Description |
 | :-- | :-- |
 | [SerializationPayload()](#serializationpayload) | Initializes a new instance of the [SerializationPayload](ExpressionPowerTools.Serialization.SerializationPayload.cs.md) class. |
+| [SerializationPayload(PayloadType type)](#serializationpayloadpayloadtype-type) | Initializes a new instance of the [SerializationPayload](ExpressionPowerTools.Serialization.SerializationPayload.cs.md) class. |
 
 ## SerializationPayload()
 
@@ -20,8 +21,24 @@ public SerializationPayload()
 
 
 
+## SerializationPayload(PayloadType type)
+
+Initializes a new instance of the [SerializationPayload](ExpressionPowerTools.Serialization.SerializationPayload.cs.md) class.
+
+```csharp
+public SerializationPayload(PayloadType type)
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :-- | :-- | :-- |
+| `type` | [PayloadType](ExpressionPowerTools.Serialization.PayloadType.cs.md) | The type of the payload. |
+
+
+
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
+| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

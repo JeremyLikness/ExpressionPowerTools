@@ -3,9 +3,9 @@
 This library is designed to make it easier to work with expression trees and `IQueryable` in your .NET projects. The majority of capabilities are in the
 [ExpressionPowerTools.Core](./api/ExpressionPowerTools.Core.a.md) package.
 
-You can install it from:
+[Click here](./endtoend.md) for an end-to-end quickstart using Blazor WebAssembly.
 
-[![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Core)](https://www.nuget.org/packages/ExpressionPowerTools.Core/)
+[Click here](./index.md) for the API documentation.
 
 [Back to Main Documentation](../README.md)
 

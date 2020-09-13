@@ -14,10 +14,10 @@ Derived  [QueryResultSerializer](ExpressionPowerTools.Serialization.EFCore.AspNe
 
 | Method | Description |
 | :-- | :-- |
-| [Task SerializeAsync(Stream response, IQueryable query, Boolean isCount)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IQueryResultSerializer.SerializeAsync.m.md) | Serializes the query result. |
+| [Task SerializeAsync(Stream response, IQueryable query, PayloadType type)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IQueryResultSerializer.SerializeAsync.m.md) | Serializes the query result. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
+| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

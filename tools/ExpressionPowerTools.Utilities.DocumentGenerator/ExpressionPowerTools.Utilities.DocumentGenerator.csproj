@@ -13,10 +13,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\ExpressionPowerTools.Core\ExpressionPowerTools.Core.csproj" />
     <ProjectReference Include="..\..\src\ExpressionPowerTools.Serialization.EFCore.AspNetCore\ExpressionPowerTools.Serialization.EFCore.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\ExpressionPowerTools.Serialization.EFCore.Http\ExpressionPowerTools.Serialization.EFCore.Http.csproj" />
     <ProjectReference Include="..\..\src\ExpressionPowerTools.Serialization\ExpressionPowerTools.Serialization.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

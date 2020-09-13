@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -10,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +20,8 @@ using Microsoft.Extensions.Logging;
 namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
 {
     /// <summary>
-    /// Middleware for managing requests for Entity Framework Core queries.
+    /// Middleware for managing requests for Entity Framework Core queries. See
+    /// <see cref="MiddlewareExtensions"/> for documentation to get started.
     /// </summary>
     public class ExpressionPowerToolsEFCoreMiddleware
     {

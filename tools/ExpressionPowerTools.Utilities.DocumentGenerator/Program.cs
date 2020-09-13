@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore;
+using ExpressionPowerTools.Serialization.EFCore.Http.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 using ExpressionPowerTools.Utilities.DocumentGenerator.IO;
@@ -21,6 +23,14 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
     internal class Program
     {
         /// <summary>
+        /// Types to reference for linked documentation.
+        /// </summary>
+        public static readonly Type[] ReferenceTypes = new[]
+        {
+            typeof(IHttpClientFactory),
+        };
+
+        /// <summary>
         /// Example types that map to the assemblies to document.
         /// </summary>
         private static readonly Type[] ExampleTypes = new[]
@@ -28,6 +38,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
             typeof(DefaultComparisonRules),
             typeof(BaseSerializer<,>),
             typeof(ExpressionPowerToolsEFCoreMiddleware),
+            typeof(ClientExtensions),
             typeof(FileHelper),
         };
 

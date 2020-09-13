@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization.EFCore.AspNetCore](ExpressionPowerTools.Serialization.EFCore.AspNetCore.a.md) > [ExpressionPowerTools.Serialization.EFCore.AspNetCore](ExpressionPowerTools.Serialization.EFCore.AspNetCore.n.md) > **ExpressionPowerToolsEFCoreMiddleware**
 
-Middleware for managing requests for Entity Framework Core queries.
+Middleware for managing requests for Entity Framework Core queries. See [MiddlewareExtensions](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.cs.md) for documentation to get started.
 
 ```csharp
 public class ExpressionPowerToolsEFCoreMiddleware
@@ -25,4 +25,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
+| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

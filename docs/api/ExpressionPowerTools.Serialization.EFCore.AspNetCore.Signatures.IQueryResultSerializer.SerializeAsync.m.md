@@ -8,13 +8,13 @@ Serializes the query result.
 
 | Overload | Description |
 | :-- | :-- |
-| [SerializeAsync(Stream response, IQueryable query, Boolean isCount)](#serializeasyncstream-response-iqueryable-query-boolean-iscount) | Serializes the query result. |
-## SerializeAsync(Stream response, IQueryable query, Boolean isCount)
+| [SerializeAsync(Stream response, IQueryable query, PayloadType type)](#serializeasyncstream-response-iqueryable-query-payloadtype-type) | Serializes the query result. |
+## SerializeAsync(Stream response, IQueryable query, PayloadType type)
 
 Serializes the query result.
 
 ```csharp
-public virtual Task SerializeAsync(Stream response, IQueryable query, Boolean isCount)
+public virtual Task SerializeAsync(Stream response, IQueryable query, PayloadType type)
 ```
 
 ### Return Type
@@ -27,7 +27,7 @@ public virtual Task SerializeAsync(Stream response, IQueryable query, Boolean is
 | :-- | :-- | :-- |
 | `response` | [Stream](https://docs.microsoft.com/dotnet/api/system.io.stream) | The [Stream](https://docs.microsoft.com/dotnet/api/system.io.stream) to serialize to. |
 | `query` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) to execute. |
-| `isCount` | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | A value indicating whether a count should be run. |
+| `type` | [PayloadType](ExpressionPowerTools.Serialization.PayloadType.cs.md) | A value indicating whether a count or single should be run. |
 
 
 
@@ -35,4 +35,4 @@ public virtual Task SerializeAsync(Stream response, IQueryable query, Boolean is
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
+| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

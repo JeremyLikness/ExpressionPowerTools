@@ -16,13 +16,35 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
 {
     /// <summary>
-    /// Helper extensions for remote query capabilities.
+    /// Client extensions for remote queries.
     /// </summary>
+    /// <remarks>
+    /// There are a few steps involved to run and resolve a remote query. See examples for more information.
+    /// </remarks>
+    /// <example>
+    /// The first step is to register the client. The client uses <see cref="IHttpClientFactory"/> to register a
+    /// typed instance of <see cref="IRemoteQueryClient"/> for processing. This requires a base address to make calls.
+    /// <code lang="csharp"><![CDATA[
+    /// builder.Services.AddExpressionPowerToolsEFCore(new Uri(builder.HostEnvironment.BaseAddress));
+    /// ]]></code>
+    /// This is typically done in the <c>Program.cs</c> for Blazor WebAssembly. It should be part of initialization as it
+    /// configures the internal dependency injection service (<see cref="ServiceHost"/>). You must have a reference to the
+    /// <c>DbContext</c> (it is used for the shape of the query and never run on the client). Use the <see cref="DbClientContext{TContext}"/>
+    /// to start your query by referencing a root collection to use.
+    /// <code lang="csharp"><![CDATA[
+    /// var query = DbClientContext<ThingContext>.Query(context => context.Things)
+    ///     .Where(t => t.IsActive == ActiveFlag &&
+    ///         EF.Functions.Like(t.Name, $"%{nameFilter}%"))
+    ///     .OrderBy(t => EF.Property<DateTime>(t, nameof(Thing.Created)));
+    /// ]]></code>
+    /// When you are ready to execute the query remotely, use the <c>ExecuteRemote</c> extension
+    /// and specify the collection type, a single item, or count.
+    /// <code lang="csharp"><![CDATA[
+    /// var result = await query.ExecuteRemote().ToListAsync();
+    /// ]]></code>
+    /// </example>
     public static class ClientExtensions
     {
-        /// <summary>
-        /// Service to fetch the query.
-        /// </summary>
         private static Lazy<IRemoteQueryResolver> resolver =
             ServiceHost.GetLazyService<IRemoteQueryResolver>();
 

@@ -19,12 +19,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`IsCount`](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult.IsCount.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether the query is a count operation. |
 | [`Query`](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult.Query.prop.md) | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | Gets or sets the query. |
+| [`QueryType`](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult.QueryType.prop.md) | [PayloadType](ExpressionPowerTools.Serialization.PayloadType.cs.md) | Gets or sets a value indicating the type of query. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
+| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

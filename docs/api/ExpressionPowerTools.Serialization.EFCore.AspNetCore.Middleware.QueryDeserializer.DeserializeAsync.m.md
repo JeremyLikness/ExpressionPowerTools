@@ -8,13 +8,13 @@ Deserializes the query.
 
 | Overload | Description |
 | :-- | :-- |
-| [DeserializeAsync(IQueryable template, Stream json)](#deserializeasynciqueryable-template-stream-json) | Deserializes the query. |
-## DeserializeAsync(IQueryable template, Stream json)
+| [DeserializeAsync(IQueryable template, Stream json, ILogger logger)](#deserializeasynciqueryable-template-stream-json-ilogger-logger) | Deserializes the query. |
+## DeserializeAsync(IQueryable template, Stream json, ILogger logger)
 
 Deserializes the query.
 
 ```csharp
-public virtual Task<QueryResult> DeserializeAsync(IQueryable template, Stream json)
+public virtual Task<QueryResult> DeserializeAsync(IQueryable template, Stream json, ILogger logger)
 ```
 
 ### Return Type
@@ -27,6 +27,7 @@ public virtual Task<QueryResult> DeserializeAsync(IQueryable template, Stream js
 | :-- | :-- | :-- |
 | `template` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) to run. |
 | `json` | [Stream](https://docs.microsoft.com/dotnet/api/system.io.stream) | The stream with json info. |
+| `logger` | [ILogger](https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger) | The logger. |
 
 
 
@@ -34,4 +35,4 @@ public virtual Task<QueryResult> DeserializeAsync(IQueryable template, Stream js
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
+| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

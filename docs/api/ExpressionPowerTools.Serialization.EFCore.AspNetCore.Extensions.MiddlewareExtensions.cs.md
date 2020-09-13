@@ -10,6 +10,47 @@ public static class MiddlewareExtensions
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **MiddlewareExtensions**
 
+## Examples
+
+For example, to set up a default route for a `DbContext` named `ThingContext` your code should look like:
+
+```csharp
+
+app.UseEndpoints(endpoints =>
+{
+   endpoints.MapPowerToolsEFCore<ThingContext>();
+   endpoints.MapRazorPages();
+});
+            
+```
+
+Be sure the context is registered with dependency injection. This is how the tools instantiate the instance to
+            run queries against.
+            The example will listen on the path `/efcore/ThingContext/collection` where collection is the name of the `DbSet` property. You can customize the path:
+
+```csharp
+
+endpoints.MapPowerToolsEFCore<ThingContext>(pattern: "/queries/{context}/set/{collection}");
+            
+```
+
+It is also possible to customize rules. If you have a class named `MyClass` that has methods for the query
+            to run, you can add it:
+
+```csharp
+
+endpoints.MapPowerToolsEFCore<ThingContext>(rules: rule => rule.RuleForType<MyClass>().Allow());
+            
+```
+
+See documentation for the [RulesEngine](ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.md) to understand the rules engine.
+
+## Remarks
+
+After referencing the project or NuGet package, you can add the middleware using endpoint routing. This should happen
+            in the `Configure` method in `Startup.cs` . First, make sure you have `app.UseRouting()` . Next, use
+            the extension to set up the endpoint.
+
 ## Methods
 
 | Method | Description |
@@ -20,4 +61,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/10/2020 10:31:18 PM | (c) Copyright 2020 Jeremy Likness. | 0.8.7-alpha |
+| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

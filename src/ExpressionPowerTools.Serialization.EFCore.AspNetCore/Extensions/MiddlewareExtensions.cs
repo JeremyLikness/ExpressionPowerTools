@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Serialization.Rules;
 using ExpressionPowerTools.Serialization.Signatures;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -15,6 +16,34 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
     /// <summary>
     /// Extensions to configure the middleware.
     /// </summary>
+    /// <remarks>
+    /// After referencing the project or NuGet package, you can add the middleware using endpoint routing. This should happen
+    /// in the <c>Configure</c> method in <c>Startup.cs</c>. First, make sure you have <c>app.UseRouting()</c>. Next, use
+    /// the extension to set up the endpoint.
+    /// </remarks>
+    /// <example>
+    /// For example, to set up a default route for a <c>DbContext</c> named <c>ThingContext</c> your code should look like:
+    /// <code lang="csharp"><![CDATA[
+    /// app.UseEndpoints(endpoints =>
+    /// {
+    ///    endpoints.MapPowerToolsEFCore<ThingContext>();
+    ///    endpoints.MapRazorPages();
+    /// });
+    /// ]]></code>
+    /// Be sure the context is registered with dependency injection. This is how the tools instantiate the instance to
+    /// run queries against.
+    /// The example will listen on the path <c>/efcore/ThingContext/collection</c> where collection is the name of the
+    /// <c>DbSet</c> property. You can customize the path:
+    /// <code lang="csharp"><![CDATA[
+    /// endpoints.MapPowerToolsEFCore<ThingContext>(pattern: "/queries/{context}/set/{collection}");
+    /// ]]></code>
+    /// It is also possible to customize rules. If you have a class named <c>MyClass</c> that has methods for the query
+    /// to run, you can add it:
+    /// <code lang="csharp"><![CDATA[
+    /// endpoints.MapPowerToolsEFCore<ThingContext>(rules: rule => rule.RuleForType<MyClass>().Allow());
+    /// ]]></code>
+    /// See documentation for the <see cref="RulesEngine"/> to understand the rules engine.
+    /// </example>
     public static class MiddlewareExtensions
     {
         /// <summary>

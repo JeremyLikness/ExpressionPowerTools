@@ -16,6 +16,10 @@ User-friendly documentation is coming. Best way to explore now is to browse the 
 
 [![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Core)](https://www.nuget.org/packages/ExpressionPowerTools.Core/)
 
+```powershell
+Install-Package ExpressionPowerTools.Core -Version 0.8.8-alpha
+```
+
 Power tools for working with `IQueryable` and Expression trees. Enables enumeration of the tree, comparisons ("similar" and "equivalent") and interception to take snapshots and/or mutate expressions.  
 
 [API Documentation](docs/api/ExpressionPowerTools.Core.a.md)
@@ -23,6 +27,10 @@ Power tools for working with `IQueryable` and Expression trees. Enables enumerat
 ## Serialization
 
 [![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Serialization)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization/)
+
+```powershell
+Install-Package ExpressionPowerTools.Serialization -Version 0.8.8-alpha
+```
 
 Power tools for writing client-side queries that can be safely serialized to run on the server.
 
@@ -32,9 +40,26 @@ Power tools for writing client-side queries that can be safely serialized to run
 
 [![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Serialization.EFCore.AspNetCore)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization.EFCore.AspNetCore/)
 
+```powershell
+Install-Package ExpressionPowerTools.Serialization.EFCore.AspNetCore -Version 0.8.8-alpha
+```
+
 Power tools for deserializing queries initiated by remote clients.
 
 [API Documentation](docs/api/ExpressionPowerTools.Serialization.EFCore.AspNetCore.a.md)
+
+## Http Client
+
+[![NuGet Package](https://badgen.net/nuget/v/ExpressionPowerTools.Serialization.EFCore.Http)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization.EFCore.Http/)
+
+```poewrshell
+Install-Package ExpressionPowerTools.Serialization.EFCore.Http -Version 0.8.8-alpha
+```
+
+Power tools for running remote queries over HTTP, for example a Blazor WebAssembly client.
+
+[API Documentation](docs/api/ExpressionPowerTools.Serialization.EFCore.Http.a.md)
+
 
 ## Documentation Generator
 
