@@ -4,13 +4,21 @@
 ![.NET Core Tests](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/.NET%20Core%20Tests/badge.svg)
 ![Pack and Publish NuGet](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/Pack%20and%20Publish%20NuGet/badge.svg)
 
-User-friendly documentation is coming. Best way to explore now is to browse the tests and read the API documentation.
+There are a few options for documentation, including:
 
-[API Documentation](docs/index.md)
+- [API Documentation](docs/index.md)
+- [Quick Start](docs/quickstart.md)
+- [Release Notes](./Releases.md)
 
-[Quick Start](docs/quickstart.md)
+**Documentation Tip** Because the documentation is stored in this repo, you can use the GitHub "Go to file" feature to quickly find documentation for a type or member. Just click _Go to File_ and type the name of the method or type and look for the markdown file. You can infer the type of documentation from the extension:
 
-[Release Notes](./Releases.md)
+- `.a.md` - assemblies
+- `.ns.md` - namespaces
+- `.cs.md` - types (classes)
+- `.i.md` - types (interfaces)
+- `.ctor.md` - constructors
+- `.m.md` - methods
+- `.prop.md` - properties
 
 ## Core
 
