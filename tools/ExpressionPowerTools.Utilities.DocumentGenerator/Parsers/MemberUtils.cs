@@ -240,7 +240,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             bool isMethod,
             Type paramType)
         {
-            var genericMap = isMethod ? methodGenericMap : typeGenericMap;
             var param = string.Empty;
             var tick = isMethod ? "``" : "`";
             if (paramType.HasElementType)
@@ -278,7 +277,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     fullname = fullname.Substring(0, fullname.IndexOf('`')) + "{";
                     isGeneric = true;
                     var first = true;
-                    if (paramType.GenericTypeArguments.Any(t => genericMap.ContainsKey(t.Name)))
+                    if (paramType.GenericTypeArguments.Any(t => typeGenericMap.ContainsKey(t.Name) || methodGenericMap.ContainsKey(t.Name)))
                     {
                         foreach (var typeArg in paramType.GenericTypeArguments)
                         {
@@ -291,9 +290,13 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                                 fullname += ",";
                             }
 
-                            if (genericMap.ContainsKey(typeArg.Name))
+                            if (typeGenericMap.ContainsKey(typeArg.Name))
                             {
-                                fullname += $"{tick}{genericMap[typeArg.Name]}";
+                                fullname += $"`{typeGenericMap[typeArg.Name]}";
+                            }
+                            else if (methodGenericMap.ContainsKey(typeArg.Name))
+                            {
+                                fullname += $"``{methodGenericMap[typeArg.Name]}";
                             }
                             else
                             {
@@ -316,7 +319,9 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                                 fullname += ",";
                             }
 
-                            if (typeArg.FullName != null && typeArg.FullName.Contains("`"))
+                            var nameCheck = typeArg.FullName ?? $"{typeArg.Namespace}.{typeArg.Name}";
+
+                            if (nameCheck.Contains("`"))
                             {
                                 fullname +=
                                     ParseTypeParameters(methodGenericMap, typeGenericMap, false, typeArg);

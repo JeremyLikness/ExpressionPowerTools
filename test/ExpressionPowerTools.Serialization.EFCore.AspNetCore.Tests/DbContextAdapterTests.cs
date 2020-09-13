@@ -110,7 +110,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             Type[] typeList,
             string context)
         {
-            Assert.False(target.TryGetContext(typeList, context, out Type dbContextType));
+            Assert.False(target.TryGetContext(typeList, context, out _));
         }
 
         [Fact]

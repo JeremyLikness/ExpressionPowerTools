@@ -21,10 +21,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | :-- | :-- |
 | [Void ByMemberInfo&lt;T>(MemberSelector&lt;T> memberSelector, T member)](ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.ByMemberInfo.m.md) | Pass the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) directly. |
 | [Void ByNameForType&lt;T>(MemberSelector&lt;T> memberSelector, Type type, String memberName)](ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.ByNameForType.m.md) | Pass the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) using name on [Type](https://docs.microsoft.com/dotnet/api/system.type) . |
-| [Void ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Func&lt;TTarget, Object>> resolver)](ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.ByResolver.m.md) |  |
+| [Void ByResolver&lt;T, TTarget>(MemberSelector&lt;T> memberSelector, Expression&lt;Func&lt;TTarget, Object>> resolver)](ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.ByResolver.m.md) | Gets the [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) using a lambda expression            as a template. The lambda is never invoked and is inspected            to find the matching type. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

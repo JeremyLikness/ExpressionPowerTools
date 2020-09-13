@@ -22,4 +22,4 @@ The return types must be similar. Argument counts must match and all arguments m
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

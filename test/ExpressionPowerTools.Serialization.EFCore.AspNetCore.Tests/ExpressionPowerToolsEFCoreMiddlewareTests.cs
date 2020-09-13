@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             await Task.Run(() => nextInvoked = true);
         }
 
-        private TemplateMatcher matcher = new TemplateMatcher(
+        private readonly TemplateMatcher matcher = new TemplateMatcher(
             TemplateParser.Parse(MiddlewareExtensions.DefaultPattern),
             null);
         private bool nextInvoked = false;

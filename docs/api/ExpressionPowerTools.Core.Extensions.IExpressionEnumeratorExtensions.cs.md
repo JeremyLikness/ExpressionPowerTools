@@ -15,7 +15,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Method | Description |
 | :-- | :-- |
 | [IEnumerable&lt;ConstantExpression> ConstantsOfType&lt;T>(IExpressionEnumerator expressionEnumerator)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.ConstantsOfType.m.md) | Helper extension to extract constants from an expression tree. |
-| [IEnumerable&lt;MethodCallExpression> MethodsFromTemplate&lt;T>(IExpressionEnumerator expressionEnumerator, Expression&lt;Action&lt;T>> method)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsFromTemplate.m.md) |  |
+| [IEnumerable&lt;MethodCallExpression> MethodsFromTemplate&lt;T>(IExpressionEnumerator expressionEnumerator, Expression&lt;Action&lt;T>> method)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsFromTemplate.m.md) | Use a template to specify the method to search for. |
 | [IEnumerable&lt;MethodCallExpression> MethodsWithName(IExpressionEnumerator expressionEnumerator, String name)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithName.m.md) | Helper extension to extract methods with a particular name. |
 | [IEnumerable&lt;MethodCallExpression> MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithNameForType.m.md) | Extracts instances of expressions that represent a method            on a type. |
 | [IEnumerable&lt;Expression> OfExpressionType(IExpressionEnumerator expressionEnumerator, ExpressionType type)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.OfExpressionType.m.md) | Helper extension to extract nodes with a specific [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) value. |
@@ -24,4 +24,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |

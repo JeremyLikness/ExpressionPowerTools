@@ -21,10 +21,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [IQueryable&lt;T> Queryable&lt;T> Query&lt;T>(Expression&lt;Func&lt;TContext, DbSet&lt;T>>> template)](ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1.Query.m.md) |  |
+| [IQueryable&lt;T> Queryable&lt;T> Query&lt;T>(Expression&lt;Func&lt;TContext, DbSet&lt;T>>> template)](ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1.Query.m.md) | Creates a trackable query based on the [DbContext](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext) reference. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 12:41:49 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
