@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Hosts;
+using ExpressionPowerTools.Core.Members;
 using ExpressionPowerTools.Core.Providers;
 using ExpressionPowerTools.Core.Resources;
 using ExpressionPowerTools.Core.Signatures;
@@ -191,6 +192,7 @@ namespace ExpressionPowerTools.Core.Dependencies
             register.RegisterSingleton(Services)
                 .RegisterSingleton(DefaultRules)
                 .RegisterSingleton<IExpressionEvaluator>(evaluator)
+                .RegisterSingleton<IMemberAdapter>(new MemberAdapter())
                 .Register<IExpressionEnumerator, ExpressionEnumerator>()
                 .RegisterGeneric(typeof(IQuerySnapshotHost<>), typeof(QuerySnapshotHost<>))
                 .RegisterGeneric(typeof(IQueryHost<,>), typeof(QueryHost<,>))
