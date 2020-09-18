@@ -29,7 +29,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         {
             if (expression.Method != null)
             {
-                BinaryMethod = new Method(expression.Method);
+                BinaryMethod = GetKeyForMember(expression.Method);
             }
 
             LiftToNull = expression.IsLiftedToNull;
@@ -48,7 +48,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the related method.
         /// </summary>
-        public Method BinaryMethod { get; set; }
+        public string BinaryMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the left expression.

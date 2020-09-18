@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Text;
 using ExpressionPowerTools.Serialization.Rules;
-using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
@@ -27,7 +24,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.True(target.Allow);
             Assert.Equal(MemberTypes.Constructor, target.MemberType);
             Assert.Same(ctor, target.Target);
-            var checkKey = new Ctor(ctor).CalculateKey();
+            var checkKey = TestSerializer.MemberAdapter.GetKeyForMember(ctor);
             Assert.Equal(checkKey, target.TargetKey);
         }
 

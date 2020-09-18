@@ -8,6 +8,7 @@ using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using ExpressionPowerTools.Serialization.Extensions;
 using Xunit;
+using System.Reflection;
 
 namespace ExpressionPowerTools.Serialization.Tests
 {
@@ -18,6 +19,10 @@ namespace ExpressionPowerTools.Serialization.Tests
 
         public static IEnumerable<object[]> GetConstantExpressions()
         {
+            yield return new object[]
+            {
+                Expression.Constant(typeof(IComparable<>))
+            };
 
             yield return new object[]
             {
@@ -75,6 +80,10 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Assert.True(ExpressionEquivalency.ValuesAreEquivalent(
                     ((ConstantExpression)constant.Value).Value,
                     constantValue.Value));
+            }
+            else if (constant.Value is MemberInfo member)
+            {
+                Assert.Contains(member.Name, (string)target.Value);
             }
             else
             {

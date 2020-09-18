@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -22,9 +23,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         where TSerializable : SerializableExpression
     {
         /// <summary>
-        /// Instance of <see cref="IReflectionHelper"/>.
+        /// Instance of the member adapter.
         /// </summary>
-        private readonly IReflectionHelper reflectionHelper = ServiceHost.GetService<IReflectionHelper>();
+        private readonly Lazy<IMemberAdapter> memberAdapter =
+            ServiceHost.GetLazyService<IMemberAdapter>();
+
+        private readonly Lazy<IAnonymousTypeAdapter> typeAdapter =
+            ServiceHost.GetLazyService<IAnonymousTypeAdapter>();
 
         /// <summary>
         /// The <see cref="IRulesEngine"/> implementation.
@@ -47,6 +52,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Gets the default <see cref="IExpressionSerializer{T, TSerializable}"/>.
         /// </summary>
         protected IExpressionSerializer<Expression, SerializableExpression> Serializer { get; private set; }
+
+        /// <summary>
+        /// Gets the service with access to anonymous type manipulation.
+        /// </summary>
+        protected IAnonymousTypeAdapter AnonymousTypeAdapter => typeAdapter.Value;
 
         /// <summary>
         /// Deserialize a <see cref="JsonElement"/> to an <see cref="Expression"/>.
@@ -83,15 +93,29 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
-        /// Helper to get method info.
+        /// Gets the unique key for a member.
         /// </summary>
-        /// <typeparam name="TMemberInfo">The <see cref="MemberInfo"/> type to get.</typeparam>
-        /// <typeparam name="TMemberBase">The type of <see cref="MemberBase"/> that was deserialized.</typeparam>
-        /// <param name="member">The <see cref="MemberBase"/> to use as a template.</param>
-        /// <returns>The requested member info.</returns>
-        protected TMemberInfo GetMemberInfo<TMemberInfo, TMemberBase>(TMemberBase member)
-            where TMemberInfo : MemberInfo
-            where TMemberBase : MemberBase =>
-            reflectionHelper.GetMemberFromCache<TMemberInfo, TMemberBase>(member);
+        /// <param name="member">The member.</param>
+        /// <returns>The unique key.</returns>
+        protected string GetKeyForMember(MemberInfo member) =>
+            memberAdapter.Value.GetKeyForMember(member);
+
+        /// <summary>
+        /// Gets the member from a key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>The member info.</returns>
+        protected MemberInfo GetMemberFromKey(string key) =>
+            memberAdapter.Value.GetMemberForKey(key);
+
+        /// <summary>
+        /// Typed version of get member from a key.
+        /// </summary>
+        /// <typeparam name="TMemberInfo">The type of the member.</typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns>The member.</returns>
+        protected TMemberInfo GetMemberFromKey<TMemberInfo>(string key)
+            where TMemberInfo : MemberInfo =>
+            GetMemberFromKey(key) as TMemberInfo;
     }
 }

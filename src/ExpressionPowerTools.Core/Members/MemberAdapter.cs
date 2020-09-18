@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -171,9 +172,9 @@ namespace ExpressionPowerTools.Core.Members
                 }
             }
 
-            if (methodGenericMap.Count > 0)
+            if (genericArguments?.Length > 0)
             {
-                key.Append($"{MethodTick}{methodGenericMap.Count}");
+                key.Append($"{MethodTick}{genericArguments.Length}");
             }
 
             var parameters = ParseParameters(methodGenericMap, typeGenericMap, parameterInfos);
@@ -546,6 +547,11 @@ namespace ExpressionPowerTools.Core.Members
         {
             method = null;
             var parameterStart = key.IndexOf("(");
+            if (parameterStart < 0)
+            {
+                parameterStart = key.Length;
+            }
+
             var typeAndMethod = key.Substring(0, parameterStart);
             var methodPos = typeAndMethod.LastIndexOf('.');
             var typeKey = typeAndMethod.Substring(0, methodPos);
@@ -582,43 +588,37 @@ namespace ExpressionPowerTools.Core.Members
                         var parameterTypes = ProcessParameters(typeArgs, methodArgs, parameters);
                         var match = true;
 
-                        while (match)
+                        var methodTypes = methodCheck.GetParameters()
+                            .Select(p => p.ParameterType).ToArray();
+
+                        for (var idx = 0; idx < parameterTypes.Length && match; idx++)
                         {
-                            var methodTypes = methodCheck.GetParameters()
-                                .Select(p => p.ParameterType).ToArray();
-
-                            for (var idx = 0; idx < parameterTypes.Length && match; idx++)
+                            if (methodTypes[idx] != parameterTypes[idx])
                             {
-                                if (methodTypes[idx] != parameterTypes[idx])
-                                {
-                                    match = false;
-                                }
+                                match = false;
                             }
+                        }
 
-                            if (match)
-                            {
-                                method = methodCheck;
-                                break;
-                            }
-                            else
-                            {
-                                if (methodCheck.IsGenericMethod && methodCheck.IsGenericMethodDefinition)
-                                {
-                                    var genericArgs = methodCheck.GetGenericArguments();
-                                    var typeList = new Type[genericArgs.Length];
-                                    var methodParameters = methodCheck.GetParameters()
-                                        .Select(p => p.ParameterType)
-                                        .ToArray();
-                                    RecurseMethodArguments(
-                                        genericArgs,
-                                        methodParameters,
-                                        parameterTypes,
-                                        typeList);
+                        if (match)
+                        {
+                            method = methodCheck;
+                            break;
+                        }
+                        else if (methodCheck.IsGenericMethod && methodCheck.IsGenericMethodDefinition)
+                        {
+                            var genericArgs = methodCheck.GetGenericArguments();
+                            var typeList = new Type[genericArgs.Length];
+                            var methodParameters = methodCheck.GetParameters()
+                                .Select(p => p.ParameterType)
+                                .ToArray();
+                            RecurseMethodArguments(
+                                genericArgs,
+                                methodParameters,
+                                parameterTypes,
+                                typeList);
 
-                                    methodCheck = methodCheck.MakeGenericMethod(typeList);
-                                    match = true;
-                                }
-                            }
+                            method = methodCheck.MakeGenericMethod(typeList);
+                            break;
                         }
                     }
                 }
@@ -656,7 +656,7 @@ namespace ExpressionPowerTools.Core.Members
                     RecurseMethodArguments(
                         genericArgs,
                         methodParameters[idx].GetGenericArguments(),
-                        parameterTypes[idx].GetGenericArguments(),
+                        parameterTypes[idx].GenericTypeArguments,
                         typeList);
                 }
             }
@@ -705,6 +705,12 @@ namespace ExpressionPowerTools.Core.Members
                 return true;
             }
 
+            if (key.StartsWith("<>") && key.Contains("Anonymous"))
+            {
+                type = typeof(ExpandoObject);
+                return true;
+            }
+
             var closedGeneric = key.IndexOf("{");
 
             var typeName = closedGeneric > 0 ?
@@ -727,6 +733,15 @@ namespace ExpressionPowerTools.Core.Members
                 type = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(a => a.GetTypes())
                     .FirstOrDefault(t => t.FullName == typeName);
+            }
+
+            if (typeName.IndexOf('[') > 0)
+            {
+                var arrayTypeName = typeName.Substring(0, typeName.IndexOf('['));
+                if (TryGetType(arrayTypeName, out Type elementType))
+                {
+                    type = elementType.MakeArrayType();
+                }
             }
 
             if (closedGeneric > 0)
@@ -1020,6 +1035,17 @@ namespace ExpressionPowerTools.Core.Members
             var fullName = type.FullName;
             if (fullName != null)
             {
+                if (type.IsArray)
+                {
+                    var close = fullName.IndexOf(']');
+                    if (close == fullName.Length)
+                    {
+                        return fullName;
+                    }
+
+                    return fullName.Substring(0, close + 1);
+                }
+
                 return fullName.IndexOf('[') < 0 ?
                     fullName :
                     fullName.Substring(0, fullName.IndexOf('['));

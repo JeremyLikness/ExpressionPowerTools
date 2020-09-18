@@ -46,9 +46,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 obj = Serializer.Deserialize(jsonObj, state);
             }
 
-            var method = json.GetProperty(
-                nameof(MethodExpr.MethodInfo)).GetMethod(state);
-            var methodInfo = GetMemberInfo<MethodInfo, MemberBase>(method);
+            var methodInfo = GetMemberFromKey<MethodInfo>(
+                json.GetProperty(
+                nameof(MethodExpr.MethodInfoKey))
+                    .GetString());
 
             AuthorizeMembers(methodInfo);
 
@@ -82,17 +83,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 MethodObject = Serializer.Serialize(expression.Object, state),
             };
-
-            state.CompressMemberTypes(method.MethodInfo);
-
-            if (method.MethodInfo.GenericMethodDefinition != null)
-            {
-                state.CompressMemberTypes(method.MethodInfo.GenericMethodDefinition);
-                var compressed =
-                    method.MethodInfo.GenericArguments.Select(t => state.CompressType(t))
-                    .ToArray();
-                method.MethodInfo.GenericArguments = compressed;
-            }
 
             foreach (var arg in expression.Arguments)
             {

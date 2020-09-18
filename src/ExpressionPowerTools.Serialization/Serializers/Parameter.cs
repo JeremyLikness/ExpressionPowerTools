@@ -26,14 +26,14 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public Parameter(ParameterExpression expression)
             : base(expression)
         {
-            ParameterType = SerializeType(expression.Type);
+            ParameterTypeKey = GetKeyForMember(expression.Type);
             Name = expression.Name;
         }
 
         /// <summary>
         /// Gets or sets the parameter type.
         /// </summary>
-        public SerializableType ParameterType { get; set; }
+        public string ParameterTypeKey { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

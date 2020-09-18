@@ -18,36 +18,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
     public class SerializationState
     {
         /// <summary>
-        /// Designator for a compressed type.
-        /// </summary>
-        private const string CompressedType = "^";
-
-        /// <summary>
-        /// The comparer to use for types.
-        /// </summary>
-        private readonly IEqualityComparer<SerializableType> typeComparer =
-            new SerializableTypeComparer();
-
-        /// <summary>
-        /// The <see cref="IReflectionHelper"/> instance.
-        /// </summary>
-        private readonly IReflectionHelper reflectionHelper =
-            ServiceHost.GetService<IReflectionHelper>();
-
-        /// <summary>
         /// List of parameters to preserve across stack.
         /// </summary>
         private HashSet<ParameterExpression> parameters;
-
-        /// <summary>
-        /// A value that indicates whether the type index has been recursively decompressed.
-        /// </summary>
-        private bool decompressedTypes;
-
-        /// <summary>
-        /// A value that indicates whether the type index is being decompressed.
-        /// </summary>
-        private bool decompressingTypes;
 
         /// <summary>
         /// Gets or sets the query root to build the query from.
@@ -79,134 +52,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// referenced multiple times, the intial entry may be <c>System.String</c> and subsequent entries
         /// will reference <c>^0</c>.
         /// </remarks>
-        public List<SerializableType> TypeIndex { get; set; } = new List<SerializableType>();
-
-        /// <summary>
-        /// Decompress the types on a <see cref="MemberBase"/>.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberBase"/> to decompress.</param>
-        public void DecompressMemberTypes(MemberBase member)
-        {
-            member.DeclaringType = DecompressType(member.DeclaringType);
-            member.MemberValueType = DecompressType(member.MemberValueType);
-            member.ReflectedType = DecompressType(member.ReflectedType);
-        }
-
-        /// <summary>
-        /// Decompresses a type.
-        /// </summary>
-        /// <param name="type">The <see cref="SerializableType"/> to inspect.</param>
-        /// <returns>The decompressed type.</returns>
-        public SerializableType DecompressType(SerializableType type)
-        {
-            if (!decompressedTypes)
-            {
-                decompressedTypes = true;
-                decompressingTypes = true;
-                var typeIdx = TypeIndex.ToArray();
-                var newIdx = new List<SerializableType>();
-                foreach (var idxType in typeIdx)
-                {
-                    var args = new SerializableType[0];
-                    if (idxType.GenericTypeArguments?.Length > 0)
-                    {
-                        args = idxType.GenericTypeArguments.Select(
-                            t => DecompressType(t)).ToArray();
-                    }
-
-                    var newType = default(SerializableType);
-                    newType.FullTypeName = idxType.FullTypeName;
-                    newType.TypeName = idxType.TypeName;
-                    newType.TypeParamName = idxType.TypeParamName;
-                    newType.GenericTypeArguments = args;
-                    newIdx.Add(newType);
-                }
-
-                TypeIndex.Clear();
-                TypeIndex.AddRange(newIdx);
-                decompressingTypes = false;
-            }
-
-            if (!string.IsNullOrWhiteSpace(type.TypeName) &&
-                type.TypeName.StartsWith(CompressedType))
-            {
-                type = TypeIndex[int.Parse(type.TypeName.Substring(1))];
-
-                if (decompressingTypes && type.GenericTypeArguments?.Length > 0)
-                {
-                    var args = type.GenericTypeArguments.Select(arg => DecompressType(arg))
-                        .ToArray();
-                    type.GenericTypeArguments = args;
-                }
-            }
-
-            return type;
-        }
-
-        /// <summary>
-        /// Gets a type from the cache.
-        /// </summary>
-        /// <param name="type">The <see cref="SerializableType"/> to cache or retrieve.</param>
-        /// <returns>The full type for an indexed type, or an indexed type for a full type.</returns>
-        public Type GetType(SerializableType type) =>
-            reflectionHelper.DeserializeType(
-                DecompressType(type));
-
-        /// <summary>
-        /// Compresses a type to avoid repetition in the serialization payload.
-        /// </summary>
-        /// <param name="type">The <see cref="SerializableType"/>.</param>
-        /// <returns>The indexed <see cref="SerializableType"/>.</returns>
-        public SerializableType CompressType(SerializableType type)
-        {
-            if (!CompressTypes)
-            {
-                return type;
-            }
-
-            if (string.IsNullOrWhiteSpace(type.FullTypeName))
-            {
-                type.FullTypeName = reflectionHelper.GetFullTypeName(type);
-            }
-
-            if (!TypeIndex.Contains(type, typeComparer))
-            {
-                TypeIndex.Add(type);
-                var idx = TypeIndex.IndexOfType(type);
-
-                // compress sub-types
-                if (type.GenericTypeArguments?.Length > 0)
-                {
-                    type.GenericTypeArguments = type.GenericTypeArguments
-                        .Select(t => CompressType(t)).ToArray();
-                }
-
-                TypeIndex[idx] = type;
-            }
-
-            return GetIndexedType(type);
-        }
-
-        /// <summary>
-        /// Compresses a type to avoid repetition in the serialization payload.
-        /// </summary>
-        /// <param name="type">The <see cref="Type"/>.</param>
-        /// <returns>The indexed <see cref="SerializableType"/>.</returns>
-        public SerializableType CompressType(Type type)
-        {
-            return CompressType(reflectionHelper.SerializeType(type));
-        }
-
-        /// <summary>
-        /// Compresses the types on a <see cref="MemberBase"/>.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberBase"/>.</param>
-        public void CompressMemberTypes(MemberBase member)
-        {
-            member.DeclaringType = CompressType(member.DeclaringType);
-            member.MemberValueType = CompressType(member.MemberValueType);
-            member.ReflectedType = CompressType(member.ReflectedType);
-        }
+        public List<string> TypeIndex { get; set; } = new List<string>();
 
         /// <summary>
         /// Retrieves a <see cref="ParameterExpression"/> of the same type
@@ -229,16 +75,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
             parameters.Add(expr);
             return expr;
         }
-
-        /// <summary>
-        /// Gets the indexed type.
-        /// </summary>
-        /// <param name="type">The <see cref="SerializableType"/> to reference.</param>
-        /// <returns>The indexed type.</returns>
-        private SerializableType GetIndexedType(SerializableType type) =>
-            new SerializableType
-            {
-                TypeName = $"{CompressedType}{TypeIndex.IndexOfType(type)}",
-            };
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Serializers;
@@ -20,7 +21,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.Constant(1),
                 Expression.Constant(2));
             var target = serializer.Serialize(newArray, new SerializationState());
-            Assert.Equal(newArray.Type.GetElementType(), TestSerializer.ReflectionHelper.DeserializeType(target.ArrayType));
+            Assert.Equal(newArray.Type.GetElementType(), TestSerializer.MemberAdapter.GetMemberForKey<Type>(target.ArrayTypeKey));
             Assert.True(target.Expressions.OfType<Constant>().Any());
         }
 

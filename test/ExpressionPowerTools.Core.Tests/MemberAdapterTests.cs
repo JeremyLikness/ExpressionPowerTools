@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -10,6 +11,7 @@ using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Members;
 using ExpressionPowerTools.Core.Signatures;
+using ExpressionPowerTools.Core.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
@@ -78,7 +80,12 @@ namespace ExpressionPowerTools.Core.Tests
             var compare = typeof(IThing<,,>).GetMethods(BindingFlags.Public | BindingFlags.Instance).First(m => m.Name == "Compare");
             var compareClosed = typeof(ThingImplementation).GetMethods(BindingFlags.Public | BindingFlags.Instance).First(m => m.Name == "Compare");
             var valueGeneric = typeof(IThing<,,>).GetProperty("Value");
-            var queryHost = typeof(QueryHost<,>).GetConstructors().Where(c => c.GetParameters().Length == 2).Single(c => c.GetParameters()[0].ParameterType == typeof(Expression));            
+            var queryHost = typeof(QueryHost<,>).GetConstructors().Where(c => c.GetParameters().Length == 2).Single(c => c.GetParameters()[0].ParameterType == typeof(Expression));
+            var anon = new { Id = 2 };
+            var anonCtor = anon.GetType().GetConstructors()[0];
+            var query = IQueryableExtensions.CreateQueryTemplate<IdType>().Select(t => new IdType(t.Id, 2));
+            var method = query.AsEnumerableExpression().OfType<MethodCallExpression>()
+                .Select(m => m.Method).Where(m => m.Name == nameof(Queryable.Select)).Single();
 
             var matrix = new Dictionary<string, MemberInfo>
             {
@@ -90,6 +97,7 @@ namespace ExpressionPowerTools.Core.Tests
                 { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency``1(``0,System.Linq.Expressions.Expression)", checkEquivGeneric },
                 { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)", checkEquivNonGeneric },
                 { "T:System.Linq.IQueryable`1", typeof(IQueryable<>) },
+                { "T:System.Int32[]", typeof(int[]) },
                 { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency``1(System.Linq.Expressions.ConstantExpression,System.Linq.Expressions.Expression)", checkEquivGenericClosed },
                 { "T:ExpressionPowerTools.Core.Dependencies.ServiceHost", typeof(ServiceHost) },
                 { "M:ExpressionPowerTools.Core.Dependencies.ServiceHost.#cctor", typeof(ServiceHost).GetConstructors(BindingFlags.Static | BindingFlags.NonPublic).First() },
@@ -104,7 +112,8 @@ namespace ExpressionPowerTools.Core.Tests
                 { "T:ExpressionPowerTools.Core.Tests.MemberAdapterTests+IThing{ExpressionPowerTools.Core.Tests.MemberAdapterTests+ThingImplementation,System.IComparable{ExpressionPowerTools.Core.Tests.MemberAdapterTests+ThingImplementation},System.Char}", typeof( IThing<ThingImplementation, IComparable<ThingImplementation>, char>) },
                 { "P:ExpressionPowerTools.Core.Tests.MemberAdapterTests+IThing`3.Value", valueGeneric },
                 { "M:ExpressionPowerTools.Core.Hosts.QueryHost`2.#ctor(System.Linq.Expressions.Expression,`1)",  queryHost },
-                { "T:<>f__AnonymousType1{Id=System.Int32,Name=System.String}", new { Id = 1, Name = nameof(MemberAdapterTests) }.GetType() }
+                { "T:<>f__AnonymousType1{Id=System.Int32,Name=System.String}", new { Id = 1, Name = nameof(MemberAdapterTests) }.GetType() },
+                { "M:System.Linq.Queryable.Select``2(System.Linq.IQueryable{ExpressionPowerTools.Core.Tests.TestHelpers.IdType},System.Linq.Expressions.Expression{System.Func{ExpressionPowerTools.Core.Tests.TestHelpers.IdType,ExpressionPowerTools.Core.Tests.TestHelpers.IdType}})", method }
             };
 
             foreach (var test in matrix)
@@ -198,13 +207,15 @@ namespace ExpressionPowerTools.Core.Tests
         [MemberData(nameof(GetKeyAndMemberMatrix))]
         public void GivenKeyWhenGetMemberForKeyCalledThenShouldReturnKey(string key, MemberInfo expected)
         {
+            var actual = target.GetMemberForKey(key);
             if (expected is Type type && type.IsAnonymousType())
             {
-                return;
+                Assert.Equal(typeof(ExpandoObject), actual);
             }
-
-            var actual = target.GetMemberForKey(key);
-            Assert.Equal(expected, actual);
+            else
+            {
+                Assert.Equal(expected, actual);
+            }
         }
 
         [Theory]

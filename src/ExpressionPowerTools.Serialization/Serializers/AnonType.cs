@@ -70,7 +70,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Gets the value as a <see cref="DynamicObject"/>.
         /// </summary>
         /// <returns>The dynamic value.</returns>
-        public dynamic GetValue()
+        public ExpandoObject GetValue()
         {
             if (PropertyNames == null)
             {
@@ -85,7 +85,14 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var anon = (IDictionary<string, object>)new ExpandoObject();
             for (var idx = 0; idx < PropertyNames.Length; idx++)
             {
-                anon.Add(PropertyNames[idx], PropertyValues[idx].AnonVal);
+                if (PropertyValues[idx].AnonVal is AnonType nestedAnon)
+                {
+                    anon.Add(PropertyNames[idx], nestedAnon.GetValue());
+                }
+                else
+                {
+                    anon.Add(PropertyNames[idx], PropertyValues[idx].AnonVal);
+                }
             }
 
             dynamicValue = anon;

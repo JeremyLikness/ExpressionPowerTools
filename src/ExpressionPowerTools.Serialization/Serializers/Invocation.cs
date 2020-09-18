@@ -19,18 +19,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         public Invocation()
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Invocation"/> class
-        /// initialized with an <see cref="InvocationExpression"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="InvocationExpression"/>
-        /// to serialize.</param>
-        public Invocation(InvocationExpression expression)
-            : base(expression)
-        {
-            InvocationType = SerializeType(expression.Type);
+            Type = (int)ExpressionType.Invoke;
         }
 
         /// <summary>
@@ -44,10 +33,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
         [ExcludeFromCodeCoverage]
         public List<object> Arguments { get; set; }
             = new List<object>();
-
-        /// <summary>
-        /// Gets or sets the type of the invocation.
-        /// </summary>
-        public SerializableType InvocationType { get; set; }
     }
 }

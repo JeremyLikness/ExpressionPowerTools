@@ -30,8 +30,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
             : base(expression)
         {
             Name = expression.Name;
-            LambdaType = SerializeType(expression.Type);
-            ReturnType = SerializeType(expression.ReturnType);
+            LambdaTypeKey = GetKeyForMember(expression.Type);
+            ReturnTypeKey = GetKeyForMember(expression.ReturnType);
         }
 
         /// <summary>
@@ -54,11 +54,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the type of the lambda.
         /// </summary>
-        public SerializableType LambdaType { get; set; }
+        public string LambdaTypeKey { get; set; }
 
         /// <summary>
         /// Gets or sets the return type of the lambda.
         /// </summary>
-        public SerializableType ReturnType { get; set; }
+        public string ReturnTypeKey { get; set; }
     }
 }

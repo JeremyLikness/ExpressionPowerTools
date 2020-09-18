@@ -4,6 +4,7 @@
 using System;
 using System.Reflection;
 using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Rules
@@ -13,6 +14,8 @@ namespace ExpressionPowerTools.Serialization.Rules
     /// </summary>
     public class SerializationRule : ISerializationRule
     {
+        private readonly Lazy<IMemberAdapter> memberAdapter = ServiceHost.GetLazyService<IMemberAdapter>();
+
         private string targetKey = null;
 
         /// <summary>
@@ -57,9 +60,8 @@ namespace ExpressionPowerTools.Serialization.Rules
                     return targetKey;
                 }
 
-                var reflectionHelper = ServiceHost.GetService<IReflectionHelper>();
-                var member = reflectionHelper.TranslateMemberInfo(Target);
-                targetKey = member.CalculateKey();
+                targetKey = memberAdapter.Value.GetKeyForMember(Target);
+
                 return targetKey;
             }
         }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
+using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -39,62 +39,20 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var ctor = json.GetProperty(nameof(CtorExpr.CtorInfo))
-                .GetSerializedCtor(state);
+            var ctorDescriptor = json.GetProperty(nameof(CtorExpr.CtorInfo)).GetString();
 
-            var parms = ctor.Parameters;
-            ctor.Parameters = parms.Select(
-                p => new { p.Key, Value = state.DecompressType(p.Value) })
-                .ToDictionary(p => p.Key, p => p.Value);
+            var ctor = GetMemberFromKey<ConstructorInfo>(ctorDescriptor);
 
             var members = new List<MemberInfo>();
 
-            var properties = new List<Property>();
-
             if (json.TryGetProperty(
-                nameof(CtorExpr.Properties),
-                out JsonElement propertyList))
+                nameof(CtorExpr.MemberKeys),
+                out JsonElement memberList))
             {
-                foreach (var propertyElem in propertyList.EnumerateArray())
-                {
-                    var prop = propertyElem.GetSerializedProperty(state);
-                    properties.Add(prop);
-                }
-            }
-
-            var fields = new List<Field>();
-
-            if (json.TryGetProperty(
-                nameof(CtorExpr.Fields),
-                out JsonElement fieldList))
-            {
-                foreach (var fieldElem in fieldList.EnumerateArray())
-                {
-                    var prop = fieldElem.GetSerializedField(state);
-                    fields.Add(prop);
-                }
-            }
-
-            if (json.TryGetProperty(
-                nameof(CtorExpr.MemberTypeList),
-                out JsonElement jsonObj))
-            {
-                int pIdx = 0, fIdx = 0;
-                foreach (var memberElem in jsonObj.EnumerateArray())
-                {
-                    var memberType = (MemberTypes)memberElem
-                        .GetInt32();
-                    if (memberType == MemberTypes.Property)
-                    {
-                        var propInfo = GetMemberInfo<PropertyInfo, Property>(properties[pIdx++]);
-                        members.Add(propInfo);
-                    }
-                    else if (memberType == MemberTypes.Field)
-                    {
-                        var fieldInfo = GetMemberInfo<FieldInfo, Field>(fields[fIdx++]);
-                        members.Add(fieldInfo);
-                    }
-                }
+                members = memberList.EnumerateArray()
+                    .Select(memberJson => memberJson.GetString())
+                    .Select(memberKey => GetMemberFromKey(memberKey))
+                    .ToList();
             }
 
             var args = new List<Expression>();
@@ -110,25 +68,19 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 }
             }
 
-            var ctorInfo = GetMemberInfo<ConstructorInfo, Ctor>(ctor);
-            if (ctorInfo == null)
-            {
-                return null;
-            }
-
-            AuthorizeMembers(ctorInfo);
+            AuthorizeMembers(ctor);
 
             if (args.Count == 0)
             {
-                return Expression.New(ctorInfo);
+                return Expression.New(ctor);
             }
 
             if (members.Count == 0)
             {
-                return Expression.New(ctorInfo, args);
+                return Expression.New(ctor, args);
             }
 
-            return Expression.New(ctorInfo, args, members);
+            return Expression.New(ctor, args, members);
         }
 
         /// <summary>
@@ -146,6 +98,27 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
+            if (expression.Type.IsAnonymousType())
+            {
+                // rebuild expression to use anonymous type helpers
+                var ctor = typeof(AnonInitializer).GetConstructors()
+                    .First(c => c.GetParameters().Length == 3);
+                var valueCtor = typeof(AnonValue).GetConstructors()
+                    .First(c => c.GetParameters().Length == 2);
+                var name = Expression.Constant(expression.Type.FullName);
+                var properties = expression.Type.GetProperties()
+                    .Select(p => p.Name.AsConstantExpression())
+                    .ToArray();
+                var initProperties = Expression.NewArrayInit(typeof(string), properties);
+                var initValues = expression.Arguments.Select(
+                    a => Expression.New(
+                        valueCtor,
+                        new Expression[] { a.Type.AsConstantExpression(), Expression.Convert(a, typeof(object)) }));
+                var initExpr = Expression.NewArrayInit(typeof(AnonValue), initValues);
+                var newArgs = new Expression[] { name, initProperties, initExpr };
+                expression = Expression.New(ctor, newArgs);
+            }
+
             var ctorExpr = new CtorExpr(expression)
             {
                 Arguments = expression.Arguments
@@ -153,23 +126,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
                     .OfType<object>()
                     .ToList(),
             };
-
-            state.CompressMemberTypes(ctorExpr.CtorInfo);
-
-            var parms = ctorExpr.CtorInfo.Parameters;
-            ctorExpr.CtorInfo.Parameters = parms.Select(
-                p => new { p.Key, Value = state.CompressType(p.Value) })
-                .ToDictionary(p => p.Key, p => p.Value);
-
-            foreach (var member in ctorExpr.Properties)
-            {
-                state.CompressMemberTypes(member);
-            }
-
-            foreach (var member in ctorExpr.Fields)
-            {
-                state.CompressMemberTypes(member);
-            }
 
             return ctorExpr;
         }

@@ -3,8 +3,8 @@
 
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using ExpressionPowerTools.Core.Dependencies;
-using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -16,10 +16,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
     public class Constant : SerializableExpression
     {
         /// <summary>
-        /// Anonymous type for reference.
+        /// Transformer for anonymous types.
         /// </summary>
-        public static readonly SerializableType AnonType =
-            ServiceHost.GetService<IReflectionHelper>().SerializeType(typeof(AnonType));
+        public static readonly Lazy<IAnonymousTypeAdapter> AnonymousTypeAdapter =
+            ServiceHost.GetLazyService<IAnonymousTypeAdapter>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Constant"/> class.
@@ -35,27 +35,22 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public Constant(ConstantExpression expression)
             : base(expression)
         {
-            ConstantType = SerializeType(expression.Type);
-            ValueType = expression.Value == null ?
-                ConstantType : SerializeTypeOf(expression.Value);
-            var isAnonymous = expression.Value == null ?
-                expression.Type.IsAnonymousType() :
-                expression.Value.GetType().IsAnonymousType();
-            if (isAnonymous)
+            expression = AnonymousTypeAdapter.Value.TransformConstant(expression);
+            ConstantTypeKey = GetKeyForMember(expression.Type);
+            ValueTypeKey = expression.Value == null ?
+                null : GetKeyForMember(expression.Value.GetType());
+            Value = expression.Value;
+
+            if (Value is MemberInfo member)
             {
-                ValueType = AnonType;
-                Value = new AnonType(expression.Value);
-            }
-            else
-            {
-                Value = expression.Value;
+                Value = GetKeyForMember(member);
             }
         }
 
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
-        public SerializableType ConstantType { get; set; }
+        public string ConstantTypeKey { get; set; }
 
         /// <summary>
         /// Gets or sets the value.
@@ -65,6 +60,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
-        public SerializableType ValueType { get; set; }
+        public string ValueTypeKey { get; set; }
     }
 }

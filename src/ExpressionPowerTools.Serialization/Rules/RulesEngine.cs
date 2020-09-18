@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Threading;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Rules
@@ -38,6 +38,9 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// </summary>
         private readonly Lazy<IReflectionHelper> reflectionProvider =
             ServiceHost.GetLazyService<IReflectionHelper>();
+
+        private readonly Lazy<IMemberAdapter> memberAdapter =
+            ServiceHost.GetLazyService<IMemberAdapter>();
 
         /// <summary>
         /// The collection of rules.
@@ -96,7 +99,7 @@ namespace ExpressionPowerTools.Serialization.Rules
                 if (!(rule.Target is Type))
                 {
                     var parentRuleType = rule.Target.DeclaringType;
-                    var memberKey = new TypeBase(parentRuleType).CalculateKey();
+                    var memberKey = memberAdapter.Value.GetKeyForMember(parentRuleType);
                     HashSet<ISerializationRule> hierarchy;
                     if (typeHierarchy.ContainsKey(memberKey))
                     {
@@ -134,18 +137,13 @@ namespace ExpressionPowerTools.Serialization.Rules
                 Compile();
             }
 
-            // anonymous type
-            if (member is ConstructorInfo ctor)
+            if ((member is Type typeInfo && typeInfo.IsAnonymousType())
+                || (member.DeclaringType != null && member.DeclaringType.IsAnonymousType()))
             {
-                if (member.DeclaringType.IsAnonymousType())
-                {
-                    return AllowAnonymousTypes;
-                }
+                return AllowAnonymousTypes;
             }
 
-            // easiest check
-            var memberKey = ReflectionHelper.TranslateMemberInfo(member);
-            var key = memberKey.CalculateKey();
+            var key = memberAdapter.Value.GetKeyForMember(member);
 
             if (permissions.ContainsKey(key))
             {
@@ -155,7 +153,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             // look to generic
             var type = member is Type typeDef ?
                 typeDef : member.DeclaringType;
-            var typeKey = new TypeBase(type).CalculateKey();
+            var typeKey = memberAdapter.Value.GetKeyForMember(type);
 
             // is the type allowed or denied? This will inherit.
             if (permissions.ContainsKey(typeKey))
@@ -168,8 +166,8 @@ namespace ExpressionPowerTools.Serialization.Rules
             if (type.IsGenericType && !type.IsGenericTypeDefinition)
             {
                 var generic = type.GetGenericTypeDefinition();
-                memberKey = ReflectionHelper.TranslateMemberInfo(generic);
-                var genericKey = memberKey.CalculateKey();
+
+                var genericKey = memberAdapter.Value.GetKeyForMember(generic);
                 if (permissions.ContainsKey(genericKey))
                 {
                     var list = rules.ToList();
@@ -184,8 +182,8 @@ namespace ExpressionPowerTools.Serialization.Rules
                 var genericVersion = ReflectionHelper.FindGenericVersion(member, generic);
                 if (genericVersion != null)
                 {
-                    var genericVersionKey = ReflectionHelper.TranslateMemberInfo(genericVersion)
-                        .CalculateKey();
+                    var genericVersionKey = memberAdapter.Value.GetKeyForMember(genericVersion);
+
                     if (permissions.ContainsKey(genericVersionKey))
                     {
                         // add the rule for better efficiency with future cals
@@ -248,7 +246,8 @@ namespace ExpressionPowerTools.Serialization.Rules
                     .Union(type.GetProperties(allpublic))
                     .Union(type.GetFields(allpublic))
                     .Union(type.GetConstructors(allpublic))
-                    .Select(m => ReflectionHelper.TranslateMemberInfo(m).CalculateKey());
+                    .Select(m => memberAdapter.Value.GetKeyForMember(m));
+
                 foreach (var child in children)
                 {
                     if (!compiledPermissions.ContainsKey(child))

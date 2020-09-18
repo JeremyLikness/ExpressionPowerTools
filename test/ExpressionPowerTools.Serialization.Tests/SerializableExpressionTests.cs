@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Core.Members;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -30,54 +32,9 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.Constant(5);
             var target = new Constant(expr);
-            Assert.Equal(expr.Type.FullName, target.ConstantType.TypeName);
+            Assert.Contains(expr.Type.Name, target.ConstantTypeKey);
             Assert.Equal(expr.Value, target.Value);
-            Assert.Equal(expr.Value.GetType().FullName, target.ValueType.TypeName);
-        }
-
-        public static IEnumerable<object[]> GetMethods()
-        {
-            yield return new object[]
-            {
-                typeof(string).GetMethods(
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-                .FirstOrDefault(m => m.Name == nameof(string.Intern) && m.IsStatic)
-            };
-
-            yield return new object[]
-            {
-                typeof(SerializableExpressionTests)
-                .GetMethod(nameof(GivenMethodInfoWhenMethodCreatedThenShouldPopulateMethodProperties))
-            };
-        }
-
-        [Theory]
-        [MemberData(nameof(GetMethods))]
-        public void GivenMethodInfoWhenMethodCreatedThenShouldPopulateMethodProperties(MethodInfo method)
-        {
-            var serializerMethod = new Method(method);
-            Assert.Equal(method.IsStatic, serializerMethod.IsStatic);
-            Assert.Equal(method.Name, serializerMethod.Name);
-            Assert.Equal(method.DeclaringType, TestSerializer.ReflectionHelper.DeserializeType(serializerMethod.DeclaringType));
-            Assert.Equal(method.ReturnType, TestSerializer.ReflectionHelper.DeserializeType(serializerMethod.MemberValueType));
-            Assert.Equal(method.GetParameters().Select(p => new
-            {
-                p.Name,
-                Type = TestSerializer.ReflectionHelper.SerializeType(p.ParameterType)
-            }).ToDictionary(p => p.Name, p => p.Type),
-            serializerMethod.Parameters);
-        }
-
-        [Fact]
-        public void GivenMultipleMethodInfosWhenMethodCreatedThenShouldHaveUniqueHashCodes()
-        {
-            var listMayHaveDuplicates =
-                typeof(Expression).GetMethods().Union(
-                    typeof(Expression).GetMethods(
-                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
-                .Select(m => new Method(m).GetHashCode()).ToList();
-            var noDuplicates = new HashSet<int>(listMayHaveDuplicates);
-            Assert.Equal(listMayHaveDuplicates.Count, noDuplicates.Count);
+            Assert.Contains(expr.Value.GetType().Name, target.ValueTypeKey);
         }
 
         [Fact]
@@ -85,7 +42,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.NewArrayInit(typeof(int), Expression.Constant(1), Expression.Constant(2));
             var target = new NewArray(expr);
-            Assert.Equal(expr.Type.GetElementType(), TestSerializer.ReflectionHelper.DeserializeType(target.ArrayType));
+            Assert.Equal(expr.Type.GetElementType(), TestSerializer.MemberAdapter.GetMemberForKey<Type>(target.ArrayTypeKey));
         }
 
         [Fact]
@@ -101,7 +58,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = Expression.Parameter(typeof(int), nameof(GivenParameterExpressionWhenParameterCreatedThenShouldSetNameAndParameterType));
             var target = new Parameter(expr);
-            Assert.Equal(expr.Type, TestSerializer.ReflectionHelper.DeserializeType(target.ParameterType));
+            Assert.Equal(expr.Type, TestSerializer.MemberAdapter.GetMemberForKey<Type>(target.ParameterTypeKey));
             Assert.Equal(expr.Name, target.Name);
         }
 
@@ -132,9 +89,9 @@ namespace ExpressionPowerTools.Serialization.Tests
             var target = new Unary(unary);
             if (unary.Method != null)
             {
-                Assert.Equal(unary.Method.Name, target.UnaryMethod.Name);
+                Assert.Contains(unary.Method.Name, target.UnaryMethodKey);
             }
-            Assert.Equal(unary.Type, TestSerializer.ReflectionHelper.DeserializeType(target.UnaryType));
+            Assert.Equal(unary.Type, TestSerializer.MemberAdapter.GetMemberForKey<Type>(target.UnaryTypeKey));
         }
 
         [Fact]
@@ -146,20 +103,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             var target = new Lambda(lambda);
             Assert.NotNull(target.Parameters);
             Assert.Equal(lambda.Name, target.Name);
-            Assert.Equal(lambda.Type, TestSerializer.ReflectionHelper.DeserializeType(target.LambdaType));
-            Assert.Equal(lambda.ReturnType, TestSerializer.ReflectionHelper.DeserializeType(target.ReturnType));
-        }
-
-        [Fact]
-        public void GivenInvocationExpressionWhenInvocationCreatedThenShouldSetProperties()
-        {
-            Expression<Func<int>> template = () => 1;
-            var invocationExpr = Expression.Invoke(template);
-            var invocation = new Invocation(invocationExpr);
-            Assert.Equal(
-                invocationExpr.Type.FullName,
-                invocation.InvocationType.TypeName);
-            Assert.NotNull(invocation.Arguments);
+            Assert.Equal(lambda.Type, TestSerializer.MemberAdapter.GetMemberForKey<Type>(target.LambdaTypeKey));
+            Assert.Equal(lambda.ReturnType, TestSerializer.MemberAdapter.GetMemberForKey<Type>(target.ReturnTypeKey));
         }
 
         public long Double(int x) => x * 2;
@@ -174,9 +119,9 @@ namespace ExpressionPowerTools.Serialization.Tests
                 method,
                 Expression.Constant(int.MaxValue));
             var methodExpr = new MethodExpr(methodCall);
-            Assert.Equal(
+            Assert.Contains(
                 methodCall.Method.Name,
-                methodExpr.MethodInfo.Name);
+                methodExpr.MethodInfoKey);
             Assert.NotNull(methodExpr.Arguments);
         }
 
@@ -222,10 +167,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var target = new CtorExpr();
             Assert.NotNull(target.Arguments);
-            Assert.NotNull(target.MemberTypeList);
-            Assert.NotNull(target.Members);
-            Assert.NotNull(target.Properties);
-            Assert.NotNull(target.Fields);
+            Assert.NotNull(target.MemberKeys);
         }
 
         [Theory]
@@ -252,7 +194,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.NotNull(ctor.CtorInfo);
             if (member != null)
             {
-                Assert.Equal(member.Name, ctor.Properties[0].Name);
+                Assert.Contains(member.Name, ctor.MemberKeys[0]);
             }
         }
 
@@ -297,15 +239,8 @@ namespace ExpressionPowerTools.Serialization.Tests
                     typeof(FieldsAndProps).GetField(nameof(FieldsAndProps.fieldStr)),
                 });
             var ctor = new CtorExpr(expr);
-            Assert.Equal(2, ctor.Properties.Count);
-            Assert.Equal(2, ctor.Fields.Count);
-            Assert.Equal(new[]
-            {
-                (int)MemberTypes.Field,
-                (int)MemberTypes.Property,
-                (int)MemberTypes.Property,
-                (int)MemberTypes.Field
-            }, ctor.MemberTypeList);
+            Assert.Equal(2, ctor.MemberKeys.Count(m => m.StartsWith("P:")));
+            Assert.Equal(2, ctor.MemberKeys.Count(m => m.StartsWith("F:")));
         }
 
         public static IEnumerable<object[]> GetSerializableExpressionMatrix()
@@ -339,7 +274,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 method);
             var target = new Binary(expr);
             Assert.NotNull(target.BinaryMethod);
-            Assert.Equal(nameof(Divide), target.BinaryMethod.Name);
+            Assert.Contains(nameof(Divide), target.BinaryMethod);
             Assert.Equal(expr.IsLifted, target.LiftToNull);
         }
     }

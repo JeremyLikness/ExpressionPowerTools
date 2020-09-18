@@ -3,6 +3,7 @@
 
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.NetworkInformation;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -60,7 +61,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
-            var result = new Invocation(expression)
+            var result = new Invocation()
             {
                 Expression = Serializer.Serialize(expression.Expression, state),
             };

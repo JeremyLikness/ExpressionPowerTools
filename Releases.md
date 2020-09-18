@@ -2,7 +2,16 @@
 
 [Back to README](./README.md)
 
+- [0.9 Alpha](#09-Alpha)
 - [0.8 Alpha](#08-Alpha)
+
+## 0.9 Alpha
+
+- [0.9.0-alpha](#090-alpha)
+
+### 0.9.0-alpha
+
+- Completely ripped out and refactored the type system. No more `SerializableType`. 
 
 ## 0.8 Alpha
 

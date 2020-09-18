@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -36,8 +38,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
             SerializationState state)
         {
             var value = json.GetNullableProperty(nameof(Constant.Value)).GetRawText();
-            var type = json.GetProperty(nameof(Constant.ConstantType)).GetDeserializedType(state);
-            var valueType = json.GetProperty(nameof(Constant.ValueType)).GetDeserializedType(state);
+            var type = GetMemberFromKey<Type>(json.GetProperty(nameof(Constant.ConstantTypeKey)).GetString());
+            var valueNode = json.GetNullableProperty(nameof(Constant.ValueTypeKey));
+            var valueType = valueNode.ValueKind != JsonValueKind.Null ?
+                GetMemberFromKey<Type>(valueNode.GetString()) : type;
 
             if (typeof(SerializableExpression).IsAssignableFrom(valueType))
             {
@@ -59,21 +63,36 @@ namespace ExpressionPowerTools.Serialization.Serializers
                     Expression.Constant(state.QueryRoot) : Expression.Constant(null, valueType);
             }
 
+            if (typeof(MemberInfo).IsAssignableFrom(valueType))
+            {
+                var memberKey = JsonSerializer.Deserialize<string>(value, state.Options);
+                return Expression.Constant(GetMemberFromKey(memberKey));
+            }
+
             var constantVal = JsonSerializer.Deserialize(value, valueType, state.Options);
 
             if (constantVal is AnonType anonType)
             {
-                // normalize values
-                foreach (var propValue in anonType.PropertyValues)
-                {
-                    if (propValue.AnonVal == null)
-                    {
-                        continue;
-                    }
+                Normalize(anonType);
 
-                    var valuetype = state.GetType(propValue.AnonValueType);
-                    var jsonValue = (JsonElement)propValue.AnonVal;
-                    propValue.AnonVal = JsonSerializer.Deserialize(jsonValue.GetRawText(), valuetype, state.Options);
+                void Normalize(AnonType typeToProcess)
+                {
+                    // normalize values
+                    foreach (var propValue in anonType.PropertyValues)
+                    {
+                        if (propValue.AnonVal == null)
+                        {
+                            continue;
+                        }
+
+                        var valuetype = GetMemberFromKey<Type>(propValue.AnonValueType);
+                        var jsonValue = (JsonElement)propValue.AnonVal;
+                        propValue.AnonVal = JsonSerializer.Deserialize(jsonValue.GetRawText(), valuetype, state.Options);
+                        if (valuetype == typeof(AnonType))
+                        {
+                            Normalize(propValue.AnonVal as AnonType);
+                        }
+                    }
                 }
 
                 return Expression.Constant(anonType.GetValue());
@@ -97,15 +116,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var result = new Constant(expression);
-            result.ConstantType = state.CompressType(result.ConstantType);
             if (expression.Value is Expression expr)
             {
                 result.Value = Serializer.Serialize(expr, state);
-                result.ValueType = state.CompressType(result.Value.GetType());
-            }
-            else
-            {
-                result.ValueType = state.CompressType(result.ValueType);
+                result.ValueTypeKey = GetKeyForMember(result.Value.GetType());
             }
 
             return result;

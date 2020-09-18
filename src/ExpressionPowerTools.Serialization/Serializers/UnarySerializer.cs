@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
@@ -52,16 +53,24 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var method = json.GetNullableProperty(nameof(Unary.UnaryMethod));
-            var methodProp = method.GetMethod(state);
+            var methodKey = json.GetNullableProperty(nameof(Unary.UnaryMethodKey));
+            MethodInfo methodInfo = null;
+            if (methodKey.ValueKind != JsonValueKind.Null)
+            {
+                var key = methodKey.GetString();
+                if (!string.IsNullOrWhiteSpace(key))
+                {
+                    methodInfo = GetMemberFromKey<MethodInfo>(key);
+                }
+            }
+
             var expressionType = (ExpressionType)json.GetProperty(nameof(SerializableExpression.Type)).GetInt32();
             var operandElement = json.GetNullableProperty(nameof(UnaryExpression.Operand));
             var operand = Serializer.Deserialize(operandElement, state);
-            var unaryType = json.GetProperty(nameof(Unary.UnaryType)).GetDeserializedType(state);
+            var unaryType = GetMemberFromKey<Type>(json.GetProperty(nameof(Unary.UnaryTypeKey)).GetString());
 
-            if (methodProp != null)
+            if (methodInfo != null)
             {
-                var methodInfo = GetMemberInfo<MethodInfo, Method>(methodProp);
                 return Expression.MakeUnary(
                     expressionType,
                     operand,
@@ -91,12 +100,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Operand = Serializer.Serialize(expression.Operand, state),
             };
-
-            unary.UnaryType = state.CompressType(unary.UnaryType);
-            if (unary.UnaryMethod != null)
-            {
-                state.CompressMemberTypes(unary.UnaryMethod);
-            }
 
             return unary;
         }

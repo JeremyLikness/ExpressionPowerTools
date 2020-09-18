@@ -28,6 +28,9 @@ namespace ExpressionPowerTools.Serialization
             rules.RuleForType(typeof(Math))
                 .RuleForType(typeof(Enumerable))
                 .RuleForType(typeof(Queryable))
+                .RuleForType(typeof(AnonInitializer))
+                .RuleForType(typeof(AnonType))
+                .RuleForType(typeof(AnonValue))
                 .RuleForType<string>()
                 .RuleForType<DateTime>()
                 .RuleForMethod(
@@ -49,6 +52,7 @@ namespace ExpressionPowerTools.Serialization
             var rules = new RulesEngine();
             registration.RegisterSingleton<IRulesEngine>(rules);
             registration.RegisterSingleton<IRulesConfiguration>(rules);
+            registration.RegisterSingleton<IAnonymousTypeAdapter>(new AnonymousTypeAdapter());
         }
 
         /// <summary>

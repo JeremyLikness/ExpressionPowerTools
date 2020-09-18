@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -160,10 +161,19 @@ namespace ExpressionPowerTools.Core.Comparisons
                     !targetType.GenericTypeArguments.Except(type.GenericTypeArguments).Any();
             }
 
-            if (type.IsAnonymousType())
+            if (type.IsAnonymousType() || typeof(ExpandoObject).IsAssignableFrom(type))
             {
-                var src = type.GetProperties().Select(p => new { p.Name, Value = p.GetValue(source) })
+                IDictionary src = null;
+
+                if (source is IDictionary<string, object> expando)
+                {
+                    src = new Dictionary<string, object>(expando);
+                }
+
+                src = src ??
+                    type.GetProperties().Select(p => new { p.Name, Value = p.GetValue(source) })
                     .ToDictionary(p => p.Name, p => p.Value);
+
                 if (target is IDictionary tgt)
                 {
                     return DictionariesAreEquivalent(src, tgt);
