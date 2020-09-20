@@ -114,8 +114,8 @@ namespace ExpressionPowerTools.Serialization
             state.QueryRoot = queryRoot;
 
             var root = JsonSerializer.Deserialize<SerializationRoot>(json, state.Options);
-            state.TypeIndex = new List<SerializableType>(
-                root.TypeIndex ?? new SerializableType[0]);
+            state.TypeIndex = new List<string>(
+                root.TypeIndex ?? new string[0]);
             if (root.Expression is JsonElement jsonChild)
             {
                 return SerializerValue.Deserialize(jsonChild, state);
@@ -213,8 +213,6 @@ namespace ExpressionPowerTools.Serialization
             }
 
             rules?.Invoke(rulesConfig);
-
-            rulesEngine.Compile();
         }
     }
 }

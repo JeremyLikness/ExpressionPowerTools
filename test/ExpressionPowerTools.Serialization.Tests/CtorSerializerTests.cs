@@ -100,6 +100,15 @@ namespace ExpressionPowerTools.Serialization.Tests
                 tThing = ctor;
             }
 
+            var anon = new { Id = 2 };
+            var anonCtor = anon.GetType().GetConstructors()[0];
+            yield return new object[]
+            {
+                anonCtor,
+                new [] { 2.AsConstantExpression() },
+                null
+            };
+
             yield return new object[]
             {
                 noArgs, null, null
@@ -156,15 +165,6 @@ namespace ExpressionPowerTools.Serialization.Tests
                     nameof(intPropField).AsConstantExpression()
                 },
                 new MemberInfo[] { prop, field }
-            };
-
-            var anon = new { Id = 2 };
-            var anonCtor = anon.GetType().GetConstructors()[0];
-            yield return new object[]
-            {
-                anonCtor,
-                new [] { 2.AsConstantExpression() },
-                null
             };
         }
 

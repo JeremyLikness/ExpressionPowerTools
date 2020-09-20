@@ -73,17 +73,18 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var method = json.GetNullableProperty(nameof(Binary.BinaryMethod));
-            var methodProp = method.GetMethod(state);
+            var method = json.GetNullableProperty(nameof(Binary.BinaryMethod)).GetString();
+            var methodInfo = string.IsNullOrWhiteSpace(method) ?
+                null :
+                GetMemberFromKey<MethodInfo>(method);
             var expressionType = (ExpressionType)json.GetProperty(nameof(SerializableExpression.Type)).GetInt32();
             var conversionElement = json.GetNullableProperty(nameof(Binary.Conversion));
             var liftToNull = json.GetProperty(nameof(Binary.LiftToNull)).GetBoolean();
             var left = Serializer.Deserialize(json.GetProperty(nameof(Binary.Left)), state);
             var right = Serializer.Deserialize(json.GetProperty(nameof(Binary.Right)), state);
-            MethodInfo methodInfo = null;
-            if (methodProp != null)
+
+            if (methodInfo != null)
             {
-                methodInfo = GetMemberInfo<MethodInfo, Method>(methodProp);
                 AuthorizeMembers(methodInfo);
             }
 
@@ -135,11 +136,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             if (expression.Conversion != null)
             {
                 binary.Conversion = Serializer.Serialize(expression.Conversion, state);
-            }
-
-            if (binary.BinaryMethod != null)
-            {
-                state.CompressMemberTypes(binary.BinaryMethod);
             }
 
             return binary;

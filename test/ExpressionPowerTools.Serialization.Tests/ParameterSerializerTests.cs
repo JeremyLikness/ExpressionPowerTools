@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Extensions;
@@ -32,7 +33,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ParameterExpressionShouldSerialize(ParameterExpression parameter)
         {
             var serializable = serializer.Serialize(parameter, new SerializationState());
-            Assert.Equal(parameter.Type, TestSerializer.ReflectionHelper.DeserializeType(serializable.ParameterType));
+            Assert.Equal(parameter.Type, TestSerializer.MemberAdapter.GetMemberForKey<Type>(serializable.ParameterTypeKey));
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {
                 Assert.Equal(parameter.Name, serializable.Name);

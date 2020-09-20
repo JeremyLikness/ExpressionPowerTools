@@ -50,7 +50,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             var ctorSelector = new MemberSelector<ConstructorInfo>();
             selector(ctorSelector);
             memberInfo = ctorSelector.Member;
-            compiled = false;
+            rulePending = true;
             return this;
         }
 
@@ -65,7 +65,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             var fieldSelector = new MemberSelector<FieldInfo>();
             selector(fieldSelector);
             memberInfo = fieldSelector.Member;
-            compiled = false;
+            rulePending = true;
             return this;
         }
 
@@ -80,7 +80,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             var methodSelector = new MemberSelector<MethodInfo>();
             selector(methodSelector);
             memberInfo = methodSelector.Member;
-            compiled = false;
+            rulePending = true;
             return this;
         }
 
@@ -95,7 +95,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             var propSelector = new MemberSelector<PropertyInfo>();
             selector(propSelector);
             memberInfo = propSelector.Member;
-            compiled = false;
+            rulePending = true;
             return this;
         }
 
@@ -108,7 +108,7 @@ namespace ExpressionPowerTools.Serialization.Rules
         {
             CheckMemberInfo(shouldExist: false);
             memberInfo = new[] { type };
-            compiled = false;
+            rulePending = true;
             return this;
         }
 
@@ -164,6 +164,7 @@ namespace ExpressionPowerTools.Serialization.Rules
             }
 
             memberInfo = null;
+            rulePending = false;
         }
     }
 }

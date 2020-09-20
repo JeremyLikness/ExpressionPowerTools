@@ -1,5 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Members;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -13,6 +15,9 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 
         public static IReflectionHelper ReflectionHelper { get; private set; } =
             new ReflectionHelper();
+
+        public static IMemberAdapter MemberAdapter { get; private set; } =
+            new MemberAdapter();
         
         public static JsonElement GetSerializedFragment<TSerializer, TExpression>(
             TExpression expression,

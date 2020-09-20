@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using ExpressionPowerTools.Core.Members;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Utilities.DocumentGenerator.Hierarchy;
 
 namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
@@ -15,6 +17,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
     /// </summary>
     public static class MemberUtils
     {
+        /// <summary>
+        /// Member adapter instance to resolve tags.
+        /// </summary>
+        private static readonly IMemberAdapter MemberAdapter = new MemberAdapter();
+
         /// <summary>
         /// List of built-in constraints for a type.
         /// </summary>
@@ -35,121 +42,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         /// <returns>The selector.</returns>
         public static string GetSelector(MemberInfo member)
         {
-            var typeGenericMap = new Dictionary<string, int>();
-            var methodGenericMap = new Dictionary<string, int>();
-
-            char prefixCode;
-
-            string memberName = (member is Type mbr)
-                ? mbr.FullName ?? "${mbr.Namespace}.{mbr.Name}"
-                : (member.DeclaringType.FullName + "." + member.Name);
-
-            Type[] genericArguments = null;
-            var parameterInfos = new ParameterInfo[0];
-            var isMethod = member is MethodInfo;
-            var isStatic = false;
-
-            if (member.DeclaringType != null && member.DeclaringType.IsGenericType)
-            {
-                var tempTypeGeneric = 0;
-                foreach (var genericArg in member.DeclaringType.GetGenericArguments())
-                {
-                    typeGenericMap[genericArg.Name] = tempTypeGeneric++;
-                }
-            }
-
-            if (member is MethodInfo method)
-            {
-                isStatic = method.IsStatic;
-                if (method.IsGenericMethod)
-                {
-                    genericArguments = method.GetGenericArguments();
-                }
-
-                parameterInfos = method.GetParameters();
-            }
-            else if (member is ConstructorInfo ctor)
-            {
-                isStatic = ctor.IsStatic;
-                if (ctor.IsGenericMethod)
-                {
-                    genericArguments = ctor.GetGenericArguments();
-                }
-
-                parameterInfos = ctor.GetParameters();
-            }
-
-            if (genericArguments != null)
-            {
-                var tempMethodGeneric = 0;
-                foreach (var methodGenericArg in genericArguments)
-                {
-                    methodGenericMap[methodGenericArg.Name] = tempMethodGeneric++;
-                }
-            }
-
-            if (methodGenericMap.Count > 0)
-            {
-                memberName = $"{memberName}``{methodGenericMap.Count}";
-            }
-
-            var parameters = ParseParameters(methodGenericMap, typeGenericMap, parameterInfos, isMethod);
-
-            switch (member.MemberType)
-            {
-                case MemberTypes.Constructor:
-                    memberName = isStatic ?
-                        memberName.Replace(".cctor", "#cctor") :
-                        memberName.Replace(".ctor", "#ctor");
-                    goto case MemberTypes.Method;
-
-                case MemberTypes.Method:
-                    prefixCode = 'M';
-                    string paramTypesList = string.Join(
-                        ",",
-                        parameters.ToArray());
-                    if (!string.IsNullOrEmpty(paramTypesList))
-                    {
-                        memberName += "(" + paramTypesList + ")";
-                    }
-
-                    break;
-
-                case MemberTypes.Event: prefixCode = 'E'; break;
-
-                case MemberTypes.Field: prefixCode = 'F'; break;
-
-                case MemberTypes.NestedType:
-                    memberName = memberName.Replace('+', '.');
-                    goto case MemberTypes.TypeInfo;
-
-                case MemberTypes.TypeInfo:
-                    prefixCode = 'T';
-                    break;
-
-                case MemberTypes.Property:
-                    if ((member as PropertyInfo).GetIndexParameters().Any())
-                    {
-                        var prop = member as PropertyInfo;
-                        var empty = new Dictionary<string, int>();
-                        var indexerParms = ParseParameters(empty, empty, prop.GetIndexParameters(), false);
-                        var indexTypesList = string.Join(
-                            ",",
-                            indexerParms.ToArray());
-                        if (!string.IsNullOrEmpty(indexTypesList))
-                        {
-                            memberName += "(" + indexTypesList + ")";
-                        }
-                    }
-
-                    prefixCode = 'P';
-                    break;
-
-                default:
-                    throw new ArgumentException("Unknown member type", "member");
-            }
-
-            return string.Format("/doc/members/member[@name='{0}:{1}']", prefixCode, memberName);
+            return $"/doc/members/member[@name='{MemberAdapter.GetKeyForMember(member)}']";
         }
 
         /// <summary>
@@ -198,167 +91,6 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             {
                 docType.TypeConstraints.Add(TypeCache.Cache[constraint]);
             }
-        }
-
-        /// <summary>
-        /// Processes parameters and annotates based on the type map.
-        /// </summary>
-        /// <param name="methodGenericMap">The generic map for the method.</param>
-        /// <param name="typeGenericMap">The generic map for the type.</param>
-        /// <param name="parameters">The list of <see cref="ParameterInfo"/>.</param>
-        /// <param name="isMethod">Set to <c>true</c> for methods and <c>false</c> for types.</param>
-        private static IList<string> ParseParameters(
-            Dictionary<string, int> methodGenericMap,
-            Dictionary<string, int> typeGenericMap,
-            ParameterInfo[] parameters,
-            bool isMethod = false)
-        {
-            var result = new List<string>();
-
-            foreach (var parameter in parameters)
-            {
-                var paramType = parameter.ParameterType;
-                var param = ParseTypeParameters(methodGenericMap, typeGenericMap, isMethod, paramType);
-
-                result.Add(param);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Parse the type parameters.
-        /// </summary>
-        /// <param name="methodGenericMap">The method map of generics.</param>
-        /// <param name="typeGenericMap">The type map of generics.</param>
-        /// <param name="isMethod">A value that indicates whether the type is a method.</param>
-        /// <param name="paramType">The <see cref="Type"/> to parse.</param>
-        /// <returns>The qualified name with parameters.</returns>
-        private static string ParseTypeParameters(
-            Dictionary<string, int> methodGenericMap,
-            Dictionary<string, int> typeGenericMap,
-            bool isMethod,
-            Type paramType)
-        {
-            var param = string.Empty;
-            var tick = isMethod ? "``" : "`";
-            if (paramType.HasElementType)
-            {
-                if (paramType.IsArray)
-                {
-                    param = $"{paramType.FullName}";
-                }
-                else if (paramType.IsPointer)
-                {
-                    param = $"{paramType.FullName}*";
-                }
-                else if (paramType.IsByRef)
-                {
-                    param = $"{paramType.FullName}@";
-                }
-            }
-            else if (paramType.IsGenericParameter && paramType.FullName == null)
-            {
-                if (typeGenericMap.ContainsKey(paramType.Name))
-                {
-                    param = $"`{typeGenericMap[paramType.Name]}";
-                }
-                else if (methodGenericMap.ContainsKey(paramType.Name))
-                {
-                    param = $"``{methodGenericMap[paramType.Name]}";
-                }
-            }
-            else
-            {
-                var isGeneric = false;
-                var fullname = paramType.FullName ?? $"{paramType.Namespace}.{paramType.Name}";
-                if (fullname.IndexOf('`') > 0)
-                {
-                    fullname = fullname.Substring(0, fullname.IndexOf('`')) + "{";
-                    isGeneric = true;
-                    var first = true;
-                    if (paramType.GenericTypeArguments.Any(t => typeGenericMap.ContainsKey(t.Name) || methodGenericMap.ContainsKey(t.Name)))
-                    {
-                        foreach (var typeArg in paramType.GenericTypeArguments)
-                        {
-                            if (first)
-                            {
-                                first = false;
-                            }
-                            else
-                            {
-                                fullname += ",";
-                            }
-
-                            if (typeGenericMap.ContainsKey(typeArg.Name))
-                            {
-                                fullname += $"`{typeGenericMap[typeArg.Name]}";
-                            }
-                            else if (methodGenericMap.ContainsKey(typeArg.Name))
-                            {
-                                fullname += $"``{methodGenericMap[typeArg.Name]}";
-                            }
-                            else
-                            {
-                                fullname += typeArg.GenericTypeArguments.Length > 0 ?
-                                    ParseTypeParameters(methodGenericMap, typeGenericMap, false, typeArg) :
-                                    typeArg.FullName ?? $"{typeArg.Namespace}.{typeArg.Name}";
-                            }
-                        }
-                    }
-                    else if (paramType.GenericTypeArguments.Any())
-                    {
-                        foreach (var typeArg in paramType.GenericTypeArguments)
-                        {
-                            if (first)
-                            {
-                                first = false;
-                            }
-                            else
-                            {
-                                fullname += ",";
-                            }
-
-                            var nameCheck = typeArg.FullName ?? $"{typeArg.Namespace}.{typeArg.Name}";
-
-                            if (nameCheck.Contains("`"))
-                            {
-                                fullname +=
-                                    ParseTypeParameters(methodGenericMap, typeGenericMap, false, typeArg);
-                            }
-                            else
-                            {
-                                fullname += typeArg.FullName ?? $"{typeArg.Namespace}.{typeArg.Name}";
-                            }
-                        }
-                    }
-                    else if (paramType.ContainsGenericParameters)
-                    {
-                        foreach (var genericParam in paramType.GetGenericArguments())
-                        {
-                            if (typeGenericMap.ContainsKey(genericParam.Name))
-                            {
-                                if (first)
-                                {
-                                    first = false;
-                                }
-                                else
-                                {
-                                    fullname += ",";
-                                }
-
-                                fullname += $"`{typeGenericMap[genericParam.Name]}";
-                            }
-                        }
-                    }
-                }
-
-                param = isGeneric ? $"{fullname}}}" : fullname;
-            }
-
-            param ??= paramType.FullName ?? paramType.Name;
-
-            return param;
         }
 
         /// <summary>

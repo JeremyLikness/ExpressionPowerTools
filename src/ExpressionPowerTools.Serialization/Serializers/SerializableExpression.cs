@@ -3,8 +3,10 @@
 
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -16,10 +18,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
     public class SerializableExpression
     {
         /// <summary>
-        /// Reflection helper instance.
+        /// Member adapter.
         /// </summary>
-        private readonly IReflectionHelper reflectionHelper =
-            ServiceHost.GetService<IReflectionHelper>();
+        private readonly Lazy<IMemberAdapter> memberAdapter =
+            ServiceHost.GetLazyService<IMemberAdapter>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializableExpression"/> class.
@@ -46,19 +48,29 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public int Type { get; set; }
 
         /// <summary>
-        /// Helper for serializing types.
+        /// Gets the unique key for a member.
         /// </summary>
-        /// <param name="type">The <see cref="Type"/> to serialize.</param>
-        /// <returns>The <see cref="SerializableType"/>.</returns>
-        protected SerializableType SerializeType(Type type) =>
-            reflectionHelper.SerializeType(type);
+        /// <param name="member">The member.</param>
+        /// <returns>The unique key.</returns>
+        protected string GetKeyForMember(MemberInfo member) =>
+            memberAdapter.Value.GetKeyForMember(member);
 
         /// <summary>
-        /// Serialize the type of an object.
+        /// Gets the member from a key.
         /// </summary>
-        /// <param name="target">The target to inspect the type of.</param>
-        /// <returns>The <see cref="SerializableType"/>.</returns>
-        protected SerializableType SerializeTypeOf(object target) =>
-            reflectionHelper.SerializeType(target.GetType());
+        /// <param name="key">The key.</param>
+        /// <returns>The member info.</returns>
+        protected MemberInfo GetMemberFromKey(string key) =>
+            memberAdapter.Value.GetMemberForKey(key);
+
+        /// <summary>
+        /// Typed version of get member from a key.
+        /// </summary>
+        /// <typeparam name="TMemberInfo">The type of the member.</typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns>The member.</returns>
+        protected TMemberInfo GetMemberFromKey<TMemberInfo>(string key)
+            where TMemberInfo : MemberInfo =>
+            GetMemberFromKey(key) as TMemberInfo;
     }
 }

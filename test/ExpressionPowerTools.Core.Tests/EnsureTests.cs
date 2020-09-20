@@ -71,6 +71,13 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
+        public void GivenExpressionIsNotNullWhenVariableNotNullCalledThenShouldDoNothing()
+        {
+            string foo = nameof(foo);
+            Ensure.VariableNotNull(() => foo);
+        }
+
+        [Fact]
         public void GivenExpressionThatDoesNotResolveToNullWhenVariableNotNullCalledThenShouldReturn()
         {
             var foo = string.Empty;

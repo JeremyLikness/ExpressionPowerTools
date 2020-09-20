@@ -3,6 +3,8 @@
 
 using System;
 using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -28,14 +30,20 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="value">The value.</param>
         public AnonValue(Type type, object value)
         {
-            AnonValueType = ServiceHost.GetService<IReflectionHelper>().SerializeType(type);
+            if (type.IsAnonymousType())
+            {
+                type = typeof(AnonType);
+                value = new AnonType(value);
+            }
+
+            AnonValueType = ServiceHost.GetService<IMemberAdapter>().GetKeyForMember(type);
             AnonVal = value;
         }
 
         /// <summary>
         /// Gets or sets the defined type that may be an interface.
         /// </summary>
-        public SerializableType AnonValueType { get; set; }
+        public string AnonValueType { get; set; }
 
         /// <summary>
         /// Gets or sets the value.

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -38,10 +39,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var materializedType = json.GetProperty(nameof(Lambda.LambdaType))
-                .GetDeserializedType(state);
-            var materializedReturnType = json.GetProperty(nameof(Lambda.ReturnType))
-                .GetDeserializedType(state);
+            var materializedType = GetMemberFromKey<Type>(
+                json.GetProperty(nameof(Lambda.LambdaTypeKey))
+                .GetString());
+            var materializedReturnType = GetMemberFromKey<Type>(json.GetProperty(nameof(Lambda.ReturnTypeKey))
+                .GetString());
             var body = Serializer.Deserialize(json.GetProperty(nameof(Lambda.Body)), state);
             var name = json.GetNullableProperty(nameof(Lambda.Name)).GetString();
             var list = json.GetNullableProperty(nameof(Lambda.Parameters));
@@ -49,7 +51,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 list.EnumerateArray().Select(element =>
                     Serializer.Deserialize(element, state) as ParameterExpression).ToList() :
                 new List<ParameterExpression>();
-            return Expression.Lambda(materializedType, body, name, parameterList);
+            return
+                AnonymousTypeAdapter.TransformLambda(
+                    Expression.Lambda(materializedType, body, name, parameterList));
         }
 
         /// <summary>
@@ -67,13 +71,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
+            expression = AnonymousTypeAdapter.TransformLambda(expression);
+
             var result = new Lambda(expression)
             {
                 Body = Serializer.Serialize(expression.Body, state),
             };
 
-            result.ReturnType = state.CompressType(result.ReturnType);
-            result.LambdaType = state.CompressType(result.LambdaType);
             foreach (var parameter in expression.Parameters)
             {
                 result.Parameters.Add(Serializer.Serialize(parameter, state) as Parameter);

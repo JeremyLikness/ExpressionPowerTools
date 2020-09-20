@@ -29,21 +29,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         {
             if (expression.Method != null)
             {
-                UnaryMethod = new Method(expression.Method);
+                UnaryMethodKey = GetKeyForMember(expression.Method);
             }
 
-            UnaryType = SerializeType(expression.Type);
+            UnaryTypeKey = GetKeyForMember(expression.Type);
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Method"/> this expression uses.
+        /// Gets or sets the method this expression uses.
         /// </summary>
-        public Method UnaryMethod { get; set; }
+        public string UnaryMethodKey { get; set; }
 
         /// <summary>
         /// Gets or sets the full type of the <see cref="UnaryExpression"/>.
         /// </summary>
-        public SerializableType UnaryType { get; set; }
+        public string UnaryTypeKey { get; set; }
 
         /// <summary>
         /// Gets or sets the operand or main <see cref="Expression"/> for the operation.

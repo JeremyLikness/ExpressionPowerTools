@@ -40,7 +40,8 @@ namespace ExpressionPowerTools.Serialization.Compression
                 {
                     if (expression.NodeType != ExpressionType.Parameter)
                     {
-                        if (expression.Type.Namespace.StartsWith($"{nameof(System)}.{nameof(System.Linq)}"))
+                        if (expression.Type.Namespace != null
+                            && expression.Type.Namespace.StartsWith($"{nameof(System)}.{nameof(System.Linq)}"))
                         {
                             cannotBeEvaluated = true;
                         }

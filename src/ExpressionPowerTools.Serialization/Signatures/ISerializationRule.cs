@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System.Linq;
-using System.Reflection;
 
 namespace ExpressionPowerTools.Serialization.Signatures
 {
@@ -22,16 +21,6 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// Gets a value indicating whether the rule is an allow.
         /// </summary>
         bool Allow { get; }
-
-        /// <summary>
-        /// Gets the target for the rule.
-        /// </summary>
-        MemberInfo Target { get; }
-
-        /// <summary>
-        /// Gets the member type for the rule.
-        /// </summary>
-        MemberTypes MemberType { get; }
 
         /// <summary>
         /// Gets the unique key for the rule.

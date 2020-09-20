@@ -35,7 +35,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var type = json.GetProperty(nameof(Parameter.ParameterType)).GetDeserializedType(state);
+            var type = GetMemberFromKey<Type>(json.GetProperty(nameof(Parameter.ParameterTypeKey)).GetString());
             var name = json.GetNullableProperty(nameof(Parameter.Name)).GetString();
             var parameter = string.IsNullOrWhiteSpace(name) ? Expression.Parameter(type) :
                 Expression.Parameter(type, name);
@@ -58,7 +58,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var result = new Parameter(expression);
-            result.ParameterType = state.CompressType(result.ParameterType);
             return result;
         }
 

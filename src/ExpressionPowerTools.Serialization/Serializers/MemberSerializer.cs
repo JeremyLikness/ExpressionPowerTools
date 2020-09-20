@@ -45,23 +45,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 expr = Serializer.Deserialize(jsonObj, state);
             }
 
-            var membertype = (MemberTypes)json
-                .GetProperty(nameof(MemberExpr.MemberType)).GetInt32();
-
-            MemberInfo memberInfo = null;
-
-            if (membertype == MemberTypes.Property)
-            {
-                var property = json.GetProperty(nameof(MemberExpr.PropertyInfo))
-                    .GetSerializedProperty(state);
-                memberInfo = GetMemberInfo<PropertyInfo, Property>(property);
-            }
-            else if (membertype == MemberTypes.Field)
-            {
-                var field = json.GetProperty(nameof(MemberExpr.FieldInfo))
-                    .GetSerializedField(state);
-                memberInfo = GetMemberInfo<FieldInfo, Field>(field);
-            }
+            var memberInfo = GetMemberFromKey(json
+                .GetProperty(nameof(MemberExpr.MemberTypeKey)).GetString());
 
             AuthorizeMembers(new[] { memberInfo });
 
@@ -87,16 +72,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Expression = Serializer.Serialize(expression.Expression, state),
             };
-
-            if (member.FieldInfo != null)
-            {
-                state.CompressMemberTypes(member.FieldInfo);
-            }
-
-            if (member.PropertyInfo != null)
-            {
-                state.CompressMemberTypes(member.PropertyInfo);
-            }
 
             return member;
         }

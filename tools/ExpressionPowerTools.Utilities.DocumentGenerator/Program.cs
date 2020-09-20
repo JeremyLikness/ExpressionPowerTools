@@ -63,7 +63,49 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
                 rootDir = args[0];
             }
 
-            Parse();
+            try
+            {
+                Parse();
+            }
+            catch (Exception ex)
+            {
+                WriteError(ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Write a success message using green.
+        /// </summary>
+        /// <param name="text">The text to write.</param>
+        private static void WriteSuccess(string text) =>
+            WriteColor(ConsoleColor.Green, text);
+
+        /// <summary>
+        /// Write a warning message using green.
+        /// </summary>
+        /// <param name="text">The text to write.</param>
+        private static void WriteWarning(string text) =>
+            WriteColor(ConsoleColor.Yellow, text);
+
+        /// <summary>
+        /// Write an error message using green.
+        /// </summary>
+        /// <param name="text">The text to write.</param>
+        private static void WriteError(string text) =>
+            WriteColor(ConsoleColor.Red, text);
+
+        /// <summary>
+        /// Writes text with the specified color.
+        /// </summary>
+        /// <param name="color">The text color.</param>
+        /// <param name="text">The text to write.</param>
+        private static void WriteColor(ConsoleColor color, string text)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
 
         /// <summary>
@@ -94,7 +136,7 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
                 assemblies.Add((doc, parser));
             }
 
-            Console.WriteLine($"Parsed {ExampleTypes.Length} assemblies. Starting pass 2...");
+            WriteSuccess($"Parsed {ExampleTypes.Length} assemblies. Starting pass 2...");
 
             int fileCount = 0;
             long elapsed = 0;
@@ -107,8 +149,15 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
                 Console.WriteLine($"Checking {doc.Name}...");
                 var docName = $"{doc.Name}.xml";
                 Console.Write($"Documentation file: {docName} exists? ");
-                var hasDocs = fileChecker.FileExists(docName);
-                Console.WriteLine(hasDocs);
+                if (fileChecker.FileExists(docName))
+                {
+                    WriteSuccess("YES");
+                }
+                else
+                {
+                    WriteWarning("NO");
+                }
+
                 Console.WriteLine("Parsing XML documents...");
                 xmlParser.ParseComments(docName, doc);
                 Console.WriteLine("Transforming to markdown...");
@@ -125,10 +174,10 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator
                 stopwatch.Stop();
                 elapsed += stopwatch.ElapsedMilliseconds;
                 fileCount += docFile.FileCount;
-                Console.WriteLine("Success.");
+                WriteSuccess("Success.");
             }
 
-            Console.WriteLine($"Processed {TypeCache.Cache.TypeCount} types and generated {fileCount} files in {elapsed}ms.");
+            WriteSuccess($"Processed {TypeCache.Cache.TypeCount} types and generated {fileCount} files in {elapsed}ms.");
         }
     }
 }

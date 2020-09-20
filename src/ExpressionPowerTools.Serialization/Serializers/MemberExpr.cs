@@ -3,7 +3,6 @@
 
 using System;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -29,32 +28,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public MemberExpr(MemberExpression member)
             : base(member)
         {
-            if (member.Member is PropertyInfo property)
-            {
-                PropertyInfo = new Property(property);
-                MemberType = PropertyInfo.MemberType;
-            }
-            else if (member.Member is FieldInfo field)
-            {
-                FieldInfo = new Field(field);
-                MemberType = FieldInfo.MemberType;
-            }
+            MemberTypeKey = GetKeyForMember(member.Member);
         }
 
         /// <summary>
-        /// Gets or sets the member type.
+        /// Gets or sets the member type key.
         /// </summary>
-        public int MemberType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the serializable <see cref="PropertyInfo"/>.
-        /// </summary>
-        public Property PropertyInfo { get; set; }
-
-        /// <summary>
-        /// Gets or sets the serializable <see cref="FieldInfo"/>.
-        /// </summary>
-        public Field FieldInfo { get; set; }
+        public string MemberTypeKey { get; set; }
 
         /// <summary>
         /// Gets or sets the method's object.

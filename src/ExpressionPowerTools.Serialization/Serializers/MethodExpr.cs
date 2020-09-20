@@ -30,13 +30,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public MethodExpr(MethodCallExpression methodCall)
             : base(methodCall)
         {
-            MethodInfo = new Method(methodCall.Method);
+            MethodInfoKey = GetKeyForMember(methodCall.Method);
         }
 
         /// <summary>
-        /// Gets or sets the serializable <see cref="MethodInfo"/>.
+        /// Gets or sets the serializable <see cref="MethodInfoKey"/>.
         /// </summary>
-        public Method MethodInfo { get; set; }
+        public string MethodInfoKey { get; set; }
 
         /// <summary>
         /// Gets or sets the method's object.
