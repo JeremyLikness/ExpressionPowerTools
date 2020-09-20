@@ -7,8 +7,20 @@
 
 ## 0.9 Alpha
 
+- [0.9.2-alpha](#092-alpha)
 - [0.9.1-alpha](#091-alpha)
 - [0.9.0-alpha](#090-alpha)
+
+### 0.9.2-alpha
+
+**Core**
+
+- Enhanced member adapter to handle closed generic methods
+- Added reset to member adapter for end-to-end testing
+
+**ASP.NET Core Middelware**
+
+- Added additional logging
 
 ### 0.9.1-alpha
 
@@ -76,7 +88,7 @@ allow default configurations.
 to provide ability to match closed members by [finding generic counterparts](./docs/api/ExpressionPowerTools.Serialization.Serializers.ReflectionHelper.FindGenericVersion.m.md).
 - Added [`SerializationRule`](./docs/api/ExpressionPowerTools.Serialization.Rules.SerializationRule.cs.md) and 
 the [`RulesEngine`](./docs/api/ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.md) to build/host/analyze rules.
-- Added [`TypeBase`](./docs/api/ExpressionPowerTools.Serialization.Serializers.TypeBase.cs.md) for easy key calculation for types.
+- Added `TypeBase` for easy key calculation for types.
 - Added [`MemberSelector`](./docs/api/ExpressionPowerTools.Serialization.Rules.MemberSelector`1.cs.md) to provide 
 ways to specify members when configuring rules using [`SelectorExtensions`](./docs/api/ExpressionPowerTools.Serialization.Extensions.SelectorExtensions.cs.md)
 - Added lazy service requests to [`ServiceHost`](./docs/api/ExpressionPowerTools.Core.Dependencies.ServiceHost.cs.md)

@@ -12,6 +12,7 @@ using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Members;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
@@ -61,6 +62,13 @@ namespace ExpressionPowerTools.Core.Tests
             }
         }
 
+        public static TProperty Property<TProperty>(object entity, string name) =>
+                entity == null ? default :
+                (TProperty)entity.GetType().GetProperty(name).GetValue(entity);
+
+        public static TResult Result<T, TResult>(T entity, string name) =>
+            default;
+
         public class ThingImplementation : IThing<ThingImplementation, IComparable<ThingImplementation>, char>
         {
             public ThingImplementation()
@@ -72,7 +80,7 @@ namespace ExpressionPowerTools.Core.Tests
             {
                 get => this;
             }
-
+            
             public IComparable<ThingImplementation> Comparer { get; set; }
             public char Value { get; set; }
 
@@ -109,9 +117,33 @@ namespace ExpressionPowerTools.Core.Tests
             var method = query.AsEnumerableExpression().OfType<MethodCallExpression>()
                 .Select(m => m.Method).Where(m => m.Name == nameof(Queryable.Select)).Single();
             var indexer = typeof(IndexerHost).GetProperties().First(p => p.GetIndexParameters().Length > 0);
+            Expression<Func<string>> closedPropertyExpr = () => Property<string>(
+                new object(),
+                nameof(MemberAdapterTests));
+            Expression<Func<int>> closedResultExpr = () => Result<MemberAdapterTests, int>(
+                new MemberAdapterTests(),
+                nameof(indexer));
+            var closedMethod = closedPropertyExpr.AsEnumerable().OfType<MethodCallExpression>()
+                .Where(m => m.Method.Name == nameof(Property)).Select(m => m.Method).Single();
+            var openMethod = typeof(MemberAdapterTests).GetMethod(
+                nameof(Property),
+                BindingFlags.Static | BindingFlags.Public);
+            var closedTypedMethod = closedResultExpr.AsEnumerable().OfType<MethodCallExpression>()
+                .Where(m => m.Method.Name == nameof(Result)).Select(m => m.Method).Single();
+            var openTypeMethod = typeof(MemberAdapterTests).GetMethod(
+                nameof(Result),
+                BindingFlags.Static | BindingFlags.Public);
+
 
             var matrix = new Dictionary<string, MemberInfo>
             {
+                { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)", checkEquivNonGeneric },
+                { "M:ExpressionPowerTools.Core.Tests.MemberAdapterTests.Result{System.Int32}(ExpressionPowerTools.Core.Tests.MemberAdapterTests,System.String)", closedTypedMethod },
+                { "M:ExpressionPowerTools.Core.Tests.MemberAdapterTests.Result``2(``0,System.String)", openTypeMethod },
+                { "M:System.Linq.Queryable.Select``2(System.Linq.IQueryable{ExpressionPowerTools.Core.Tests.TestHelpers.IdType},System.Linq.Expressions.Expression{System.Func{ExpressionPowerTools.Core.Tests.TestHelpers.IdType,ExpressionPowerTools.Core.Tests.TestHelpers.IdType}})", method },
+                { "M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})", createParameterExpression },
+                { "M:ExpressionPowerTools.Core.Tests.MemberAdapterTests.Property{System.String}(System.Object,System.String)", closedMethod },
+                { "M:ExpressionPowerTools.Core.Tests.MemberAdapterTests.Property``1(System.Object,System.String)", openMethod },
                 { "P:ExpressionPowerTools.Core.Tests.MemberAdapterTests+IndexerHost.Item(System.String)", indexer },
                 { "T:System.String", typeof(string) },
                 { "T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules", typeof(DefaultComparisonRules) },
@@ -119,13 +151,11 @@ namespace ExpressionPowerTools.Core.Tests
                 { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.#ctor", defaultCtor },
                 { "P:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.DefaultConstantRules", defaultProperty },
                 { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency``1(``0,System.Linq.Expressions.Expression)", checkEquivGeneric },
-                { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)", checkEquivNonGeneric },
                 { "T:System.Linq.IQueryable`1", typeof(IQueryable<>) },
                 { "T:System.Int32[]", typeof(int[]) },
                 { "M:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.CheckEquivalency``1(System.Linq.Expressions.ConstantExpression,System.Linq.Expressions.Expression)", checkEquivGenericClosed },
                 { "T:ExpressionPowerTools.Core.Dependencies.ServiceHost", typeof(ServiceHost) },
                 { "M:ExpressionPowerTools.Core.Dependencies.ServiceHost.#cctor", typeof(ServiceHost).GetConstructors(BindingFlags.Static | BindingFlags.NonPublic).First() },
-                { "M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})", createParameterExpression },
                 { "M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression``2(System.Linq.Expressions.Expression{System.Func{System.Object,System.String}})", createParameterExpressionClosed },
                 { "M:ExpressionPowerTools.Core.Dependencies.ServiceHost.GetService``1(System.Object[])", typeof(ServiceHost).GetMethod("GetService", BindingFlags.Static | BindingFlags.Public) },
                 { "M:ExpressionPowerTools.Core.Members.MemberAdapter.TryGetMemberInfo(System.String,System.Reflection.MemberInfo@)", typeof(MemberAdapter).GetMethod("TryGetMemberInfo", BindingFlags.NonPublic | BindingFlags.Instance) },
@@ -137,7 +167,6 @@ namespace ExpressionPowerTools.Core.Tests
                 { "P:ExpressionPowerTools.Core.Tests.MemberAdapterTests+IThing`3.Value", valueGeneric },
                 { "M:ExpressionPowerTools.Core.Hosts.QueryHost`2.#ctor(System.Linq.Expressions.Expression,`1)",  queryHost },
                 { "T:<>f__AnonymousType1{Id=System.Int32,Name=System.String}", new { Id = 1, Name = nameof(MemberAdapterTests) }.GetType() },
-                { "M:System.Linq.Queryable.Select``2(System.Linq.IQueryable{ExpressionPowerTools.Core.Tests.TestHelpers.IdType},System.Linq.Expressions.Expression{System.Func{ExpressionPowerTools.Core.Tests.TestHelpers.IdType,ExpressionPowerTools.Core.Tests.TestHelpers.IdType}})", method }
             };
 
             foreach (var test in matrix)

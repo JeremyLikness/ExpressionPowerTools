@@ -9,6 +9,7 @@ using ExpressionPowerTools.Serialization.EFCore.Http.Queryable;
 using ExpressionPowerTools.Serialization.EFCore.Http.Signatures;
 using ExpressionPowerTools.Serialization.EFCore.Http.Tests.TestHelpers;
 using ExpressionPowerTools.Serialization.EFCore.Http.Transport;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests
@@ -106,7 +107,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests
             {
                 core = core.AsRemoteQueryable(context);
             }
-            return core.OrderBy(t => t.Id).Take(5);
+            return core.OrderBy(t => EF.Property<string>(t, nameof(TestThing.Id))).Take(5);
         }
 
         private async Task<object> CallMethodAsync<T>(

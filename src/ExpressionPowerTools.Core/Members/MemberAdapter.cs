@@ -159,25 +159,35 @@ namespace ExpressionPowerTools.Core.Members
                 }
 
                 parameterInfos = method.GetParameters();
+
+                if (genericArguments != null)
+                {
+                    var tempMethodGeneric = 0;
+                    foreach (var methodGenericArg in genericArguments)
+                    {
+                        methodGenericMap[methodGenericArg.Name] = tempMethodGeneric++;
+                    }
+
+                    if (method.IsGenericMethodDefinition ||
+                        !method.GetGenericMethodDefinition().ReturnParameter.ParameterType
+                        .IsGenericParameter)
+                    {
+                        key.Append($"{MethodTick}{genericArguments.Length}");
+                    }
+                    else
+                    {
+                        var closure = ParseTypeParameters(
+                                methodGenericMap,
+                                typeGenericMap,
+                                method.ReturnParameter.ParameterType);
+                        key.Append($"{{{closure}}}");
+                    }
+                }
             }
             else if (member is ConstructorInfo ctor)
             {
                 isStatic = ctor.IsStatic;
                 parameterInfos = ctor.GetParameters();
-            }
-
-            if (genericArguments != null)
-            {
-                var tempMethodGeneric = 0;
-                foreach (var methodGenericArg in genericArguments)
-                {
-                    methodGenericMap[methodGenericArg.Name] = tempMethodGeneric++;
-                }
-            }
-
-            if (genericArguments?.Length > 0)
-            {
-                key.Append($"{MethodTick}{genericArguments.Length}");
             }
 
             var parameters = ParseParameters(methodGenericMap, typeGenericMap, parameterInfos);
@@ -249,6 +259,15 @@ namespace ExpressionPowerTools.Core.Members
             }
 
             return memberName;
+        }
+
+        /// <summary>
+        /// Clears all caches. Primary for testing.
+        /// </summary>
+        public void Reset()
+        {
+            cache.Clear();
+            reverseCache.Clear();
         }
 
         /// <summary>
@@ -536,7 +555,17 @@ namespace ExpressionPowerTools.Core.Members
             }
 
             var typeAndMethod = key.Substring(0, parameterStart);
-            var methodPos = typeAndMethod.LastIndexOf('.');
+            var genericOpen = typeAndMethod.IndexOf('{');
+            int methodPos;
+            if (genericOpen < 0)
+            {
+                methodPos = typeAndMethod.LastIndexOf('.');
+            }
+            else
+            {
+                methodPos = typeAndMethod.Substring(0, genericOpen).LastIndexOf('.');
+            }
+
             var typeKey = typeAndMethod.Substring(0, methodPos);
 
             if (TryGetType(typeKey, out Type methodType))
@@ -544,11 +573,23 @@ namespace ExpressionPowerTools.Core.Members
                 var typeArgs = GenericArgs(methodType);
                 var methodName = typeAndMethod.Substring(methodPos + 1);
                 var tick = methodName.IndexOf(MethodTick);
+
                 var genericMethodArgsCount = 0;
+
+                if (genericOpen > 0)
+                {
+                    genericMethodArgsCount = ClosedGenericsCount(methodName);
+                    var methodOpen = methodName.IndexOf('{');
+                    if (methodOpen > 0)
+                    {
+                        methodName = methodName.Substring(0, methodOpen);
+                    }
+                }
+
                 if (tick > 0)
                 {
                     var ticks = methodName.Substring(tick);
-                    genericMethodArgsCount = int.Parse(ticks.Replace(MethodTick, string.Empty));
+                    genericMethodArgsCount += int.Parse(ticks.Replace(MethodTick, string.Empty));
                     methodName = methodName.Substring(0, tick);
                 }
 
@@ -557,18 +598,21 @@ namespace ExpressionPowerTools.Core.Members
                     var parameters = key.Substring(parameterStart);
                     var methods = methodType.GetMethods(all)
                         .Where(m =>
-                        m.Name == methodName &&
-                        ((genericMethodArgsCount == 0 && !m.IsGenericMethod)
-                            || (genericMethodArgsCount > 0
-                                && m.IsGenericMethod
-                                && m.GetGenericArguments().Length == genericMethodArgsCount)));
+                        m.Name == methodName).ToList();
 
                     foreach (var candidate in methods)
                     {
                         var methodCheck = candidate;
+
+                        if (methodCheck.IsGenericMethod && genericMethodArgsCount == 0)
+                        {
+                            continue;
+                        }
+
                         var methodArgs = candidate.IsGenericMethod ? candidate.GetGenericArguments()
                             : new Type[0];
                         var parameterTypes = ProcessParameters(typeArgs, methodArgs, parameters);
+
                         var match = true;
 
                         var methodTypes = methodCheck.GetParameters()
@@ -582,17 +626,48 @@ namespace ExpressionPowerTools.Core.Members
                             }
                         }
 
+                        Type[] methodClosingTypes = new Type[0];
+                        if (genericOpen > 0)
+                        {
+                            var methodParameters = key.Substring(genericOpen);
+                            methodParameters = methodParameters.Substring(
+                                0,
+                                methodParameters.IndexOf('('));
+                            methodClosingTypes = ProcessParameters(typeArgs, methodArgs, methodParameters);
+                        }
+
                         if (match)
                         {
-                            method = methodCheck;
+                            if (methodClosingTypes.Length > 0)
+                            {
+                                method = methodCheck.MakeGenericMethod(methodClosingTypes);
+                            }
+                            else
+                            {
+                                method = methodCheck;
+                            }
+
                             break;
                         }
                         else if (methodCheck.IsGenericMethod && methodCheck.IsGenericMethodDefinition)
                         {
+                            if (genericOpen > 0)
+                            {
+                                if (methodClosingTypes.Length == methodArgs.Length)
+                                {
+                                    method = methodCheck.MakeGenericMethod(methodClosingTypes);
+                                    match = true;
+                                    break;
+                                }
+                            }
+
+                            parameterTypes = parameterTypes.Union(methodClosingTypes).ToArray();
+
                             var genericArgs = methodCheck.GetGenericArguments();
                             var typeList = new Type[genericArgs.Length];
                             var methodParameters = methodCheck.GetParameters()
                                 .Select(p => p.ParameterType)
+                                .Union(new[] { methodCheck.ReturnParameter.ParameterType })
                                 .ToArray();
                             RecurseMethodArguments(
                                 genericArgs,
@@ -630,17 +705,25 @@ namespace ExpressionPowerTools.Core.Members
         {
             for (var idx = 0; idx < methodParameters.Length; idx += 1)
             {
-                if (genericArgs.Contains(methodParameters[idx]))
+                if (typeList.Any(t => t == null))
                 {
-                    typeList[idx] = parameterTypes[idx];
-                }
-                else if (methodParameters[idx].IsGenericType)
-                {
-                    RecurseMethodArguments(
-                        genericArgs,
-                        methodParameters[idx].GetGenericArguments(),
-                        parameterTypes[idx].GenericTypeArguments,
-                        typeList);
+                    if (genericArgs.Contains(methodParameters[idx]))
+                    {
+                        var genericIdx = Array.IndexOf(genericArgs, methodParameters[idx]);
+                        typeList[genericIdx] = parameterTypes[idx];
+                        if (!typeList.Any(t => t == null))
+                        {
+                            break;
+                        }
+                    }
+                    else if (methodParameters[idx].IsGenericType)
+                    {
+                        RecurseMethodArguments(
+                            genericArgs,
+                            methodParameters[idx].GetGenericArguments(),
+                            parameterTypes[idx].GenericTypeArguments,
+                            typeList);
+                    }
                 }
             }
         }

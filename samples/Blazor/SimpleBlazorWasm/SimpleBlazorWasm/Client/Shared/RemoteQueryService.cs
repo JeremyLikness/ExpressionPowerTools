@@ -248,6 +248,9 @@ namespace SimpleBlazorWasm.Client.Shared
                 case nameof(UseActive):
                     UseActive = !UseActive;
                     break;
+                case nameof(IsActive):
+                    IsActive = !IsActive;
+                    break;
                 case nameof(FilterOnName):
                     FilterOnName = !FilterOnName;
                     break;
