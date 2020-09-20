@@ -33,11 +33,5 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests
             var prop = typeof(TestThingContext).GetProperty(nameof(TestThingContext.Things));
             Assert.Same(prop, context.Collection);
         }
-
-
-        public void QueriesRunAsExpected()
-        {
-
-        }
     }
 }

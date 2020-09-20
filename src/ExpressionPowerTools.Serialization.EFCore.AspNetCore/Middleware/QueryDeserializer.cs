@@ -37,6 +37,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
             {
                 logger.LogInformation($"Query payload: {request.Json}");
             }
+
             var query = Serializer.DeserializeQuery(template, request.Json);
             if (logger != null)
             {
