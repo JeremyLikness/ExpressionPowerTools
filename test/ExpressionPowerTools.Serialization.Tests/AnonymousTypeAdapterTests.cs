@@ -278,6 +278,30 @@ namespace ExpressionPowerTools.Serialization.Tests
             }
 
             Assert.True(ExpressionEquivalency.ValuesAreEquivalent(source, target));
-        }       
+        }
+
+        [Fact]
+        public void GivenNullOrWhiteSpaceStringWhenMemberKeyTransformerCalledThenShouldThrowArgument()
+        {
+            Assert.Throws<ArgumentException>(
+                () => adapter.MemberKeyTransformer(string.Empty));
+        }
+
+        [Fact]
+        public void TransformsAnonymousToExpando()
+        {
+            var source = "M:System.Linq.Queryable.Select``2(System.Linq.IQueryable{ExpressionPowerTools.Serialization.Tests.TestHelpers.TestableThing},System.Linq.Expressions.Expression{System.Func{ExpressionPowerTools.Serialization.Tests.TestHelpers.TestableThing,<>f__AnonymousType3{System.String}}})";
+            var expected = "M:System.Linq.Queryable.Select``2(System.Linq.IQueryable{ExpressionPowerTools.Serialization.Tests.TestHelpers.TestableThing},System.Linq.Expressions.Expression{System.Func{ExpressionPowerTools.Serialization.Tests.TestHelpers.TestableThing,System.Dynamic.ExpandoObject}})";
+            var actual = adapter.MemberKeyTransformer(source);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DoesNothingWithNonAnonymous()
+        {
+            var source = "T:System.Object";
+            var actual = adapter.MemberKeyTransformer(source);
+            Assert.Equal(source, actual);
+        }
     }
 }

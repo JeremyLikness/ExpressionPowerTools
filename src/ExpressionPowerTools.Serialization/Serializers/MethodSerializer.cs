@@ -84,6 +84,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 MethodObject = Serializer.Serialize(expression.Object, state),
             };
 
+            method.MethodInfoKey = AnonymousTypeAdapter.MemberKeyTransformer(method.MethodInfoKey);
+
             foreach (var arg in expression.Arguments)
             {
                 method.Arguments.Add(Serializer.Serialize(arg, state));

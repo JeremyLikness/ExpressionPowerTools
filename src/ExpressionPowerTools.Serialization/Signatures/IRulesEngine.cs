@@ -29,11 +29,6 @@ namespace ExpressionPowerTools.Serialization.Signatures
         bool MemberIsAllowed(MemberInfo member);
 
         /// <summary>
-        /// Compiles the rules for efficiency.
-        /// </summary>
-        void Compile();
-
-        /// <summary>
         /// Clears the rules.
         /// </summary>
         void Reset();

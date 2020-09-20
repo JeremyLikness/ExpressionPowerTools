@@ -39,6 +39,28 @@ namespace ExpressionPowerTools.Core.Tests
                 where Z : TComparable;
         }
 
+        public class IndexerHost
+        {
+            private IDictionary<string, int> values =
+                new Dictionary<string, int>();
+
+            public int this[string key]
+            {
+                get => values[key];
+                set
+                {
+                    if (values.ContainsKey(key))
+                    {
+                        values[key] = value;
+                    }
+                    else
+                    {
+                        values.Add(key, value);
+                    }
+                }
+            }
+        }
+
         public class ThingImplementation : IThing<ThingImplementation, IComparable<ThingImplementation>, char>
         {
             public ThingImplementation()
@@ -86,9 +108,11 @@ namespace ExpressionPowerTools.Core.Tests
             var query = IQueryableExtensions.CreateQueryTemplate<IdType>().Select(t => new IdType(t.Id, 2));
             var method = query.AsEnumerableExpression().OfType<MethodCallExpression>()
                 .Select(m => m.Method).Where(m => m.Name == nameof(Queryable.Select)).Single();
+            var indexer = typeof(IndexerHost).GetProperties().First(p => p.GetIndexParameters().Length > 0);
 
             var matrix = new Dictionary<string, MemberInfo>
             {
+                { "P:ExpressionPowerTools.Core.Tests.MemberAdapterTests+IndexerHost.Item(System.String)", indexer },
                 { "T:System.String", typeof(string) },
                 { "T:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules", typeof(DefaultComparisonRules) },
                 { "F:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cache", cacheInfo },
@@ -226,6 +250,17 @@ namespace ExpressionPowerTools.Core.Tests
         {
             Assert.Throws<ArgumentException>(
                 () => target.GetMemberForKey(key));
+        }
+
+        [Fact]
+        public void GetMemberForKeyTypedReturnsCorrectResult()
+        {
+            var (key, expected) = GetKeyAndMemberMatrix().Where(
+                k => ((string)k[0]).StartsWith("F"))
+                .Select(k => ((string)k[0], (FieldInfo)k[1]))
+                .First();
+            var actual = target.GetMemberForKey<FieldInfo>(key);
+            Assert.Same(expected, actual);
         }
     }
 }

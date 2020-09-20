@@ -2,9 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Threading;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
@@ -43,20 +45,13 @@ namespace ExpressionPowerTools.Serialization.Rules
             ServiceHost.GetLazyService<IMemberAdapter>();
 
         /// <summary>
-        /// The collection of rules.
-        /// </summary>
-        private readonly HashSet<ISerializationRule> rules =
-            new HashSet<ISerializationRule>();
-
-        /// <summary>
-        /// Represents the rules that are owned by a type.
+        /// Permissions.
         /// </summary>
         /// <remarks>
-        /// When a derived type is found, we need this reference to copy the rules.
         /// Explicit types will override derived type defaults.
         /// </remarks>
-        private readonly IDictionary<string, HashSet<ISerializationRule>> typeHierarchy =
-            new Dictionary<string, HashSet<ISerializationRule>>();
+        private readonly ConcurrentDictionary<string, bool> rules
+            = new ConcurrentDictionary<string, bool>();
 
         /// <summary>
         /// Synchronization.
@@ -64,15 +59,9 @@ namespace ExpressionPowerTools.Serialization.Rules
         private readonly object objLock = new object();
 
         /// <summary>
-        /// Compiled permissions.
+        /// A rule is waiting to be queued using the fluent interface.
         /// </summary>
-        private readonly IDictionary<string, bool> permissions =
-            new Dictionary<string, bool>();
-
-        /// <summary>
-        /// A value that indicates whether the rules have been compiled or not.
-        /// </summary>
-        private bool compiled;
+        private bool rulePending = false;
 
         /// <summary>
         /// Gets a value indicating whether anonymous types are allowed.
@@ -91,39 +80,8 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// Will overwrite previous rules for the same type.
         /// </remarks>
         /// <param name="rule">The <see cref="ISerializationRule"/> to add.</param>
-        public void AddRule(ISerializationRule rule)
-        {
-            lock (objLock)
-            {
-                rules.Add(rule);
-                if (!(rule.Target is Type))
-                {
-                    var parentRuleType = rule.Target.DeclaringType;
-                    var memberKey = memberAdapter.Value.GetKeyForMember(parentRuleType);
-                    HashSet<ISerializationRule> hierarchy;
-                    if (typeHierarchy.ContainsKey(memberKey))
-                    {
-                        hierarchy = typeHierarchy[memberKey];
-                    }
-                    else
-                    {
-                        hierarchy = new HashSet<ISerializationRule>();
-                        typeHierarchy.Add(memberKey, hierarchy);
-                    }
-
-                    hierarchy.Add(rule);
-                }
-                else
-                {
-                    if (!typeHierarchy.ContainsKey(rule.TargetKey))
-                    {
-                        typeHierarchy.Add(rule.TargetKey, new HashSet<ISerializationRule>());
-                    }
-                }
-
-                compiled = false;
-            }
-        }
+        public void AddRule(ISerializationRule rule) =>
+            rules.AddOrUpdate(rule.TargetKey, rule.Allow, (_, __) => rule.Allow);
 
         /// <summary>
         /// Check if a member is allowed.
@@ -132,51 +90,50 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// <returns>A value indicating whether the member access is allowed.</returns>
         public bool MemberIsAllowed(MemberInfo member)
         {
-            if (!compiled)
-            {
-                Compile();
-            }
-
             if ((member is Type typeInfo && typeInfo.IsAnonymousType())
                 || (member.DeclaringType != null && member.DeclaringType.IsAnonymousType()))
             {
                 return AllowAnonymousTypes;
             }
 
-            var key = memberAdapter.Value.GetKeyForMember(member);
-
-            if (permissions.ContainsKey(key))
+            if (rulePending)
             {
-                return permissions[key];
+                AddRules(true);
             }
 
-            // look to generic
+            var key = memberAdapter.Value.GetKeyForMember(member);
+
+            if (rules.ContainsKey(key))
+            {
+                return rules[key];
+            }
+
+            // look to type
             var type = member is Type typeDef ?
                 typeDef : member.DeclaringType;
             var typeKey = memberAdapter.Value.GetKeyForMember(type);
 
             // is the type allowed or denied? This will inherit.
-            if (permissions.ContainsKey(typeKey))
+            if (rules.ContainsKey(typeKey))
             {
-                var permission = permissions[typeKey];
-                permissions.Add(key, permission);
+                var permission = rules[typeKey];
+                rules.TryAdd(key, permission);
                 return permission;
             }
+
+            var genericPermission = false;
+            var found = false;
 
             if (type.IsGenericType && !type.IsGenericTypeDefinition)
             {
                 var generic = type.GetGenericTypeDefinition();
 
                 var genericKey = memberAdapter.Value.GetKeyForMember(generic);
-                if (permissions.ContainsKey(genericKey))
+                if (rules.ContainsKey(genericKey))
                 {
-                    var list = rules.ToList();
-                    var rule = list.Where(s => s.TargetKey == genericKey).FirstOrDefault();
-                    if (rule != null)
-                    {
-                        var newRule = new SerializationRule(rule.Allow, type);
-                        AddRule(newRule);
-                    }
+                    genericPermission = rules[genericKey];
+                    rules.TryAdd(typeKey, genericPermission);
+                    found = true;
                 }
 
                 var genericVersion = ReflectionHelper.FindGenericVersion(member, generic);
@@ -184,108 +141,30 @@ namespace ExpressionPowerTools.Serialization.Rules
                 {
                     var genericVersionKey = memberAdapter.Value.GetKeyForMember(genericVersion);
 
-                    if (permissions.ContainsKey(genericVersionKey))
+                    if (rules.ContainsKey(genericVersionKey))
                     {
                         // add the rule for better efficiency with future cals
-                        AddRule(new SerializationRule(permissions[genericVersionKey], member));
-                        permissions.Add(key, permissions[genericVersionKey]);
-                        return permissions[key];
+                        genericPermission = rules[genericVersionKey];
+                        rules.TryAdd(key, genericPermission);
+                        found = true;
                     }
+                }
+
+                if (found)
+                {
+                    return genericPermission;
                 }
             }
 
             // nothing explicit found - default for property and field is true
             if (member is PropertyInfo || member is FieldInfo)
             {
-                permissions.Add(key, true);
+                rules.TryAdd(key, true);
                 return true;
             }
 
-            permissions.Add(key, false);
+            rules.TryAdd(key, false);
             return false;
-        }
-
-        /// <summary>
-        /// Compiles the rules into a set of allowed keys.
-        /// </summary>
-        public void Compile()
-        {
-            if (compiled)
-            {
-                return;
-            }
-
-            if (memberInfo != null)
-            {
-                AddRules(true);
-            }
-
-            var compiledPermissions = new Dictionary<string, bool>();
-            var allpublic = BindingFlags.Public |
-                BindingFlags.Instance |
-                BindingFlags.Static;
-
-            // types
-            var list = rules.ToList();
-            foreach (var rule in list.Where(r =>
-                r.MemberType == MemberTypes.TypeInfo ||
-                r.MemberType == MemberTypes.NestedType))
-            {
-                if (compiledPermissions.ContainsKey(rule.TargetKey))
-                {
-                    continue;
-                }
-
-                var permission = rule.Allow;
-                compiledPermissions.Add(rule.TargetKey, permission);
-
-                var type = rule.Target as Type;
-
-                // rule applies to all methods, properties, and types
-                var children = type.GetMethods(allpublic).OfType<MemberInfo>()
-                    .Union(type.GetProperties(allpublic))
-                    .Union(type.GetFields(allpublic))
-                    .Union(type.GetConstructors(allpublic))
-                    .Select(m => memberAdapter.Value.GetKeyForMember(m));
-
-                foreach (var child in children)
-                {
-                    if (!compiledPermissions.ContainsKey(child))
-                    {
-                        compiledPermissions.Add(child, permission);
-                    }
-                    else
-                    {
-                        compiledPermissions[child] = permission;
-                    }
-                }
-            }
-
-            // overrides
-            var rulesList = rules.ToList();
-            foreach (var rule in rulesList.Where(r => r.MemberType != MemberTypes.TypeInfo &&
-                r.MemberType != MemberTypes.NestedType))
-            {
-                if (compiledPermissions.ContainsKey(rule.TargetKey))
-                {
-                    compiledPermissions[rule.TargetKey] = rule.Allow;
-                }
-                else
-                {
-                    compiledPermissions.Add(rule.TargetKey, rule.Allow);
-                }
-            }
-
-            lock (objLock)
-            {
-                permissions.Clear();
-                foreach (var entry in compiledPermissions)
-                {
-                    permissions.Add(entry.Key, entry.Value);
-                }
-
-                compiled = true;
-            }
         }
 
         /// <summary>
@@ -294,11 +173,18 @@ namespace ExpressionPowerTools.Serialization.Rules
         public void Reset()
         {
             Monitor.Enter(objLock);
-            rules.Clear();
-            typeHierarchy.Clear();
-            permissions.Clear();
-            compiled = false;
-            Monitor.Exit(objLock);
+            try
+            {
+                rules.Clear();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                Monitor.Exit(objLock);
+            }
         }
     }
 }

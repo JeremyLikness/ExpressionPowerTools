@@ -11,7 +11,24 @@
 
 ### 0.9.0-alpha
 
-- Completely ripped out and refactored the type system. No more `SerializableType`. 
+**Core**
+
+- Added "member adapter" to manage members
+
+**Serialization**
+
+- Completely ripped out and refactored the type system. No more `SerializableType`.
+- Removed overhead of "compile" from rules engine, switched to "just-in time" approach and 
+improved performance several orders of magnitude
+- Added `AnonInitializer`
+- Added `AnonymousTypeAdapter` to handle round trip of anonymous types and convert to dynamic
+- Test coverage
+
+**Documentation**
+
+- Added errors/warnings code
+- Show when description is not found
+- Use `MemberAdapter` to resolve types
 
 ## 0.8 Alpha
 

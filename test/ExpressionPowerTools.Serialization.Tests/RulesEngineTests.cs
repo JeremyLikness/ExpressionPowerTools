@@ -132,7 +132,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             target.RuleForProperty(selector => selector.ByMemberInfo(GenericThing))
                 .Deny();
             Assert.False(target.MemberIsAllowed(GenericThing));
-            target.Compile();
             Assert.False(target.MemberIsAllowed(GenericThing));
         }
 

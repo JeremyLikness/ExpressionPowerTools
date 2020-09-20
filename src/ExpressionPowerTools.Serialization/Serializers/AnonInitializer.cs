@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Dynamic;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -12,6 +13,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// This type exists so that an existing anonymous type initialization can be intercepted for serialization. On deserialization
     /// it is turned into an <see cref="ExpandoObject"/>.
     /// </remarks>
+    [Serializable]
     public class AnonInitializer
     {
         /// <summary>

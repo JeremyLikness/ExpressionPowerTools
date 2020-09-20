@@ -213,8 +213,6 @@ namespace ExpressionPowerTools.Serialization
             }
 
             rules?.Invoke(rulesConfig);
-
-            rulesEngine.Compile();
         }
     }
 }

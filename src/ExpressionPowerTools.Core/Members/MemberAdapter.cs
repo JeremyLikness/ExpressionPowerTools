@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Signatures;
@@ -72,13 +72,14 @@ namespace ExpressionPowerTools.Core.Members
         /// <summary>
         /// Cache for mapping keys to members.
         /// </summary>
-        private readonly IDictionary<string, MemberInfo> cache =
-            new Dictionary<string, MemberInfo>();
+        private readonly ConcurrentDictionary<string, MemberInfo> cache =
+            new ConcurrentDictionary<string, MemberInfo>();
 
         /// <summary>
-        /// Synchronize dictionary access.
+        /// Maps the hash code of the member to its key.
         /// </summary>
-        private readonly object dictionaryLock = new object();
+        private readonly ConcurrentDictionary<int, string> reverseCache =
+            new ConcurrentDictionary<int, string>();
 
         /// <summary>
         /// Gets a unique string that identifies the member.
@@ -88,6 +89,13 @@ namespace ExpressionPowerTools.Core.Members
         public string GetKeyForMember(MemberInfo member)
         {
             Ensure.NotNull(() => member);
+
+            var hash = member.GetHashCode();
+            if (reverseCache.ContainsKey(hash) &&
+                reverseCache[hash].Contains(member.Name))
+            {
+                return reverseCache[hash];
+            }
 
             var typeGenericMap = new Dictionary<string, int>();
             var methodGenericMap = new Dictionary<string, int>();
@@ -155,11 +163,6 @@ namespace ExpressionPowerTools.Core.Members
             else if (member is ConstructorInfo ctor)
             {
                 isStatic = ctor.IsStatic;
-                if (ctor.IsGenericMethod)
-                {
-                    genericArguments = ctor.GetGenericArguments();
-                }
-
                 parameterInfos = ctor.GetParameters();
             }
 
@@ -238,14 +241,14 @@ namespace ExpressionPowerTools.Core.Members
                     throw new ArgumentException("Unknown member type", "member");
             }
 
-            var memberName = key.ToString();
+            var memberName = $"{prefixCode}:{key}";
 
             if (!cache.ContainsKey(memberName))
             {
                 SafeAdd(memberName, member);
             }
 
-            return $"{prefixCode}:{memberName}";
+            return memberName;
         }
 
         /// <summary>
@@ -257,12 +260,14 @@ namespace ExpressionPowerTools.Core.Members
         {
             Ensure.NotNullOrWhitespace(() => key);
 
+            var result = default(MemberInfo);
+
             if (TryGetMemberInfo(key, out MemberInfo member))
             {
-                return member;
+                result = member;
             }
 
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -429,29 +434,7 @@ namespace ExpressionPowerTools.Core.Members
                         }
                         else
                         {
-                            if (parameter.FullName == null)
-                            {
-                                if (typeGenericMap.ContainsKey(parameter.Name))
-                                {
-                                    paramBuilder.Append($"{TypeTick}{typeGenericMap[parameter.Name]}");
-                                }
-                                else if (methodGenericMap.ContainsKey(parameter.Name))
-                                {
-                                    paramBuilder.Append($"{MethodTick}{methodGenericMap[parameter.Name]}");
-                                }
-                            }
-                            else
-                            {
-                                if (parameter.ContainsGenericParameters)
-                                {
-                                    var parsed = ParseTypeParameters(methodGenericMap, typeGenericMap, parameter);
-                                    paramBuilder.Append(parsed);
-                                }
-                                else
-                                {
-                                    paramBuilder.Append(NameOfType(parameter));
-                                }
-                            }
+                            paramBuilder.Append(NameOfType(parameter));
                         }
                     }
 
@@ -663,26 +646,6 @@ namespace ExpressionPowerTools.Core.Members
         }
 
         /// <summary>
-        /// Recursively build closed type list.
-        /// </summary>
-        /// <param name="typeList">The list of types to parse.</param>
-        /// <returns>The flattened list of types.</returns>
-        private IEnumerable<Type> EnumerateTypes(Type[] typeList)
-        {
-            foreach (var type in typeList)
-            {
-                yield return type;
-                if (type.ContainsGenericParameters)
-                {
-                    foreach (var typeArg in EnumerateTypes(type.GetGenericArguments()))
-                    {
-                        yield return typeArg;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Parse generic arguments.
         /// </summary>
         /// <param name="type">The <see cref="Type"/>.</param>
@@ -785,18 +748,50 @@ namespace ExpressionPowerTools.Core.Members
             out TMemberInfo info)
             where TMemberInfo : MemberInfo
         {
-            info = null;
-            var pos = memberDefinition.LastIndexOf(".");
-            var typeKey = memberDefinition.Substring(0, pos);
-            var name = memberDefinition.Substring(pos + 1);
-            if (TryGetType(typeKey, out Type owningType))
+            if (typeof(TMemberInfo) == typeof(PropertyInfo)
+                && memberDefinition.IndexOf('(') > 0)
             {
-                info = (TMemberInfo)getList(
-                    owningType,
-                    all).Single(m => m.Name == name);
+                info = GetIndexerProperty(memberDefinition)
+                    as TMemberInfo;
+            }
+            else
+            {
+                info = null;
+                var pos = memberDefinition.LastIndexOf('.');
+                var typeKey = memberDefinition.Substring(0, pos);
+                var name = memberDefinition.Substring(pos + 1);
+                if (TryGetType(typeKey, out Type owningType))
+                {
+                    info = (TMemberInfo)getList(
+                        owningType,
+                        all).Single(m => m.Name == name);
+                }
             }
 
             return info != null;
+        }
+
+        /// <summary>
+        /// Gets the indexer property.
+        /// </summary>
+        /// <param name="memberDefinition">The member definition to parse.</param>
+        /// <returns>The <see cref="PropertyInfo"/> of the indexer.</returns>
+        private PropertyInfo GetIndexerProperty(string memberDefinition)
+        {
+            var result = default(PropertyInfo);
+            var typeAndProperty =
+                memberDefinition.Substring(
+                    0,
+                    memberDefinition.IndexOf('('));
+            var pos = typeAndProperty.LastIndexOf('.');
+            var typeKey = typeAndProperty.Substring(0, pos);
+            if (TryGetType(typeKey, out Type owningType))
+            {
+                result = owningType.GetProperties()
+                    .SingleOrDefault(p => p.GetIndexParameters().Length > 0);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -1071,14 +1066,8 @@ namespace ExpressionPowerTools.Core.Members
                 return;
             }
 
-            Monitor.Enter(dictionaryLock);
-
-            if (!cache.ContainsKey(key))
-            {
-                cache.Add(key, member);
-            }
-
-            Monitor.Exit(dictionaryLock);
+            reverseCache.TryAdd(member.GetHashCode(), key);
+            cache.TryAdd(key, member);
         }
     }
 }

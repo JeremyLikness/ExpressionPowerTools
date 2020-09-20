@@ -4,6 +4,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -100,6 +101,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Operand = Serializer.Serialize(expression.Operand, state),
             };
+
+            if (!string.IsNullOrWhiteSpace(unary.UnaryMethodKey))
+            {
+                unary.UnaryMethodKey = AnonymousTypeAdapter.MemberKeyTransformer(unary.UnaryMethodKey);
+            }
+
+            unary.UnaryTypeKey = AnonymousTypeAdapter.MemberKeyTransformer(unary.UnaryTypeKey);
 
             return unary;
         }

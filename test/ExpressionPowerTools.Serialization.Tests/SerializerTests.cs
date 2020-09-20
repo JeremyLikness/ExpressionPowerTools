@@ -114,35 +114,35 @@ namespace ExpressionPowerTools.Serialization.Tests
 
         public static IEnumerable<object[]> GetQueryMatrix()
         {
-            //yield return new object[]
-            //{
-            //    TestableThing.MakeQuery().Skip(1).Take(1),
-            //    Queries.Skip1Take1
-            //};
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Skip(1).Take(1),
+                Queries.Skip1Take1
+            };
 
-            //yield return new object[]
-            //{
-            //    TestableThing.MakeQuery().OrderBy(t => t.Created).ThenByDescending(t => t.Id),
-            //    Queries.OrderByCreatedThenByDescendingId
-            //};
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().OrderBy(t => t.Created).ThenByDescending(t => t.Id),
+                Queries.OrderByCreatedThenByDescendingId
+            };
 
-            //yield return new object[]
-            //{
-            //    TestableThing.MakeQuery().Where(t => t.Id.Contains("aa")),
-            //    Queries.WhereIdContainsAA
-            //};
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Where(t => t.Id.Contains("aa")),
+                Queries.WhereIdContainsAA
+            };
 
-            //yield return new object[]
-            //{
-            //    TestableThing.MakeQuery().Select(t => t.Id),
-            //    Queries.IdProjection
-            //};
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Select(t => t.Id),
+                Queries.IdProjection
+            };
 
-            //yield return new object[]
-            //{
-            //    TestableThing.MakeQuery().Select(t => new { t.Id }),
-            //    Queries.IdAnonymousType
-            //};
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Select(t => new { t.Id }),
+                Queries.IdAnonymousType
+            };
 
             yield return new object[]
             {
@@ -213,8 +213,10 @@ namespace ExpressionPowerTools.Serialization.Tests
             {
                 Assert.True(query.IsEquivalentTo(newQuery));
             }
+            var testRun = newQuery.AsObjectArray(); // ensure it runs
+            Assert.NotNull(testRun);
             if (newQuery is IQueryable<TestableThing> thingQuery)
-            { 
+            {
                 var list = thingQuery.ToList();
                 ValidateQuery(list, type);
             }

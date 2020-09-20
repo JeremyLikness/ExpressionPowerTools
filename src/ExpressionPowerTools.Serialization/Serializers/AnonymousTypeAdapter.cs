@@ -7,6 +7,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -232,6 +233,41 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             return lambda;
+        }
+
+        /// <summary>
+        /// Transforms members for serialization.
+        /// </summary>
+        /// <param name="memberToTransform">The member to translate.</param>
+        /// <returns>The transformed member.</returns>
+        public string MemberKeyTransformer(string memberToTransform)
+        {
+            Ensure.NotNullOrWhitespace(() => memberToTransform);
+
+            var posOfAnon = memberToTransform.IndexOf('<');
+            if (posOfAnon < 0)
+            {
+                return memberToTransform;
+            }
+
+            var anon = memberToTransform.Substring(posOfAnon);
+            var braceCount = 1;
+            var end = anon.IndexOf('{') + 1;
+            while (braceCount > 0 && end++ < anon.Length)
+            {
+                if (anon[end] == '{')
+                {
+                    braceCount++;
+                }
+
+                if (anon[end] == '}')
+                {
+                    braceCount--;
+                }
+            }
+
+            var anonType = anon.Substring(0, end + 1);
+            return memberToTransform.Replace(anonType, typeof(ExpandoObject).FullName);
         }
 
         /// <summary>

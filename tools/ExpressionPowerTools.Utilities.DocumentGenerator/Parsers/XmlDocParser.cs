@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,17 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
         }
 
         /// <summary>
+        /// Not found message.
+        /// </summary>
+        /// <param name="path">Path searched.</param>
+        private void NotFound(string path)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Path '{path}' was not found.");
+            Console.ResetColor();
+        }
+
+        /// <summary>
         /// Parses the XML comments.
         /// </summary>
         /// <param name="doc">The <see cref="XmlDocument"/> for XML comments.</param>
@@ -60,6 +72,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             foreach (var type in typeList)
             {
                 var typeNode = doc.SelectSingleNode(type.XPath);
+                if (typeNode == null)
+                {
+                    NotFound(type.XPath);
+                }
+
                 if (typeNode is XmlElement node)
                 {
                     type.Description = GetTextBlock(node, ParserUtils.Summary);
@@ -73,6 +90,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                     foreach (var overload in type.Constructor.Overloads)
                     {
                         var docNode = doc.SelectSingleNode(overload.XPath);
+
+                        if (docNode == null)
+                        {
+                            NotFound(overload.XPath);
+                        }
+
                         if (docNode is XmlElement ctorNode)
                         {
                             overload.Description = GetTextBlock(ctorNode, ParserUtils.Summary);
@@ -99,6 +122,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
                         foreach (var overload in method.MethodOverloads)
                         {
                             var oNode = doc.SelectSingleNode(overload.XPath);
+
+                            if (oNode == null)
+                            {
+                                NotFound(overload.XPath);
+                            }
+
                             if (oNode is XmlElement methodNode)
                             {
                                 overload.Description = GetTextBlock(methodNode, ParserUtils.Summary);
@@ -130,6 +159,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             foreach (var parameter in parameters)
             {
                 var parameterNode = ctorNode.SelectSingleNode($"param[@name='{parameter.Name}']");
+
+                if (parameterNode == null)
+                {
+                    NotFound(ctorNode.GetAttribute("name"));
+                }
+
                 if (parameterNode is XmlElement param)
                 {
                     var sb = new StringBuilder();
@@ -153,6 +188,12 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             foreach (var property in properties)
             {
                 var docNode = doc.SelectSingleNode(property.XPath);
+
+                if (docNode == null)
+                {
+                    NotFound(property.XPath);
+                }
+
                 if (docNode is XmlElement ctorNode)
                 {
                     property.Description = GetTextBlock(ctorNode, ParserUtils.Summary);
@@ -230,6 +271,11 @@ namespace ExpressionPowerTools.Utilities.DocumentGenerator.Parsers
             var node = typeNode.SelectSingleNode(name);
             if (node == null)
             {
+                if (name == ParserUtils.Summary)
+                {
+                    NotFound($"Description: {typeNode.GetAttribute("name")}");
+                }
+
                 return string.Empty;
             }
 
