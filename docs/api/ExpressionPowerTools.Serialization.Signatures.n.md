@@ -6,6 +6,7 @@
 
 | Interface | Description |
 | :-- | :-- |
+| [IAnonymousTypeAdapter](ExpressionPowerTools.Serialization.Signatures.IAnonymousTypeAdapter.i.md) | Interface to work with anonymous types. |
 | [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.i.md) | Non-generic interface for serializers. |
 | [IConfigurationBuilder](ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.i.md) | Configuration builder for [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) . |
 | [IDefaultConfiguration](ExpressionPowerTools.Serialization.Signatures.IDefaultConfiguration.i.md) | Holds the default configuration for serialization. |
@@ -20,4 +21,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

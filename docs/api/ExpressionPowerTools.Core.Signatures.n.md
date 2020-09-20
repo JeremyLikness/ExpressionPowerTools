@@ -11,6 +11,7 @@
 | [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signatures.IExpressionComparisonRuleProvider.i.md) | Interface for a class that provides rules for comparisons. |
 | [IExpressionEnumerator](ExpressionPowerTools.Core.Signatures.IExpressionEnumerator.i.md) | Enables recursing over an expression tree. |
 | [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.i.md) | Evaluator as facade to equivalency and similarity. |
+| [IMemberAdapter](ExpressionPowerTools.Core.Signatures.IMemberAdapter.i.md) | Adapter to convert members to text and vice versa. Uses the XML comments algorithm. |
 | [IQueryHost&lt;T, TProvider>](ExpressionPowerTools.Core.Signatures.IQueryHost`2.i.md) | Interface for custom query host. |
 | [IQueryInterceptingProvider&lt;T>](ExpressionPowerTools.Core.Signatures.IQueryInterceptingProvider`1.i.md) | Interface for provider that intercepts the [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) when run. |
 | [IQueryInterceptor](ExpressionPowerTools.Core.Signatures.IQueryInterceptor.i.md) | Exposes a method to register a transformation. |
@@ -25,4 +26,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

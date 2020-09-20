@@ -15,11 +15,11 @@ Derived  [DbContextAdapter](ExpressionPowerTools.Serialization.EFCore.AspNetCore
 | Method | Description |
 | :-- | :-- |
 | [IQueryable CreateQuery(DbContext context, PropertyInfo collection)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.CreateQuery.m.md) | Creates an [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) based on the context and collection. Takes an action for the            resolution of the context. This is typically `t => serviceProvider.GetService(t)` . |
-| [Boolean TryGetContext(Type[] eligibleTypes, String context, Type& dbContextType)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.TryGetContext.m.md) |  |
-| [Boolean TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.TryGetDbSet.m.md) |  |
+| [Boolean TryGetContext(Type[] eligibleTypes, String context, Type& dbContextType)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.TryGetContext.m.md) | Tries to match the text to the context. |
+| [Boolean TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.TryGetDbSet.m.md) | Tries to get the [PropertyInfo](https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo) to access the collection. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

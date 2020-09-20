@@ -21,12 +21,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Operand`](ExpressionPowerTools.Serialization.Serializers.Unary.Operand.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the operand or main [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) for the operation. |
-| [`UnaryMethod`](ExpressionPowerTools.Serialization.Serializers.Unary.UnaryMethod.prop.md) | [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) | Gets or sets the [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) this expression uses. |
-| [`UnaryType`](ExpressionPowerTools.Serialization.Serializers.Unary.UnaryType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the full type of the [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
+| [`UnaryMethodKey`](ExpressionPowerTools.Serialization.Serializers.Unary.UnaryMethodKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the method this expression uses. |
+| [`UnaryTypeKey`](ExpressionPowerTools.Serialization.Serializers.Unary.UnaryTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the full type of the [UnaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.unaryexpression) . |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

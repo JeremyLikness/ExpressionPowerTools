@@ -21,14 +21,14 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Body`](ExpressionPowerTools.Serialization.Serializers.Lambda.Body.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the body of the lambda. |
-| [`LambdaType`](ExpressionPowerTools.Serialization.Serializers.Lambda.LambdaType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the type of the lambda. |
+| [`LambdaTypeKey`](ExpressionPowerTools.Serialization.Serializers.Lambda.LambdaTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the type of the lambda. |
 | [`Name`](ExpressionPowerTools.Serialization.Serializers.Lambda.Name.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the name of the lambda. |
 | [`Parameters`](ExpressionPowerTools.Serialization.Serializers.Lambda.Parameters.prop.md) | [List&lt;Parameter>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets the list of parameters for the lambda. |
-| [`ReturnType`](ExpressionPowerTools.Serialization.Serializers.Lambda.ReturnType.prop.md) | [SerializableType](ExpressionPowerTools.Serialization.Serializers.SerializableType.cs.md) | Gets or sets the return type of the lambda. |
+| [`ReturnTypeKey`](ExpressionPowerTools.Serialization.Serializers.Lambda.ReturnTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the return type of the lambda. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

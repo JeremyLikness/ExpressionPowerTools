@@ -45,10 +45,10 @@ Derived  [SampleClass&lt;T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sa
 | [IEnumerator&lt;T1> GetEnumerableFor(T1 entity)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.GetEnumerableFor.m.md) | The abstract enumerator. |
 | [Boolean IsReady&lt;T5>(T5 test)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.IsReady.m.md) | Test for readiness. |
 | [T2 ProcessComparable&lt;T4>(T4 parameter)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.ProcessComparable.m.md) | Test for comparability. |
-| [Void SetInstance(SampleBaseClass&lt;T1, T2> instance)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.SetInstance.m.md) | Set the instance. |
+| [Void SetInstance(SampleBaseClass&lt;T1, T2> instance)](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleBaseClass`2.SetInstance.m.md) |  |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

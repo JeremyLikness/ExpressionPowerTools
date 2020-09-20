@@ -20,7 +20,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`BinaryMethod`](ExpressionPowerTools.Serialization.Serializers.Binary.BinaryMethod.prop.md) | [Method](ExpressionPowerTools.Serialization.Serializers.Method.cs.md) | Gets or sets the related method. |
+| [`BinaryMethod`](ExpressionPowerTools.Serialization.Serializers.Binary.BinaryMethod.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the related method. |
 | [`Conversion`](ExpressionPowerTools.Serialization.Serializers.Binary.Conversion.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) for conversion. |
 | [`Left`](ExpressionPowerTools.Serialization.Serializers.Binary.Left.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the left expression. |
 | [`LiftToNull`](ExpressionPowerTools.Serialization.Serializers.Binary.LiftToNull.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether it is lifted to null. |
@@ -31,4 +31,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

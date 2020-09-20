@@ -9,7 +9,6 @@ Initializes a new instance of the [Invocation](ExpressionPowerTools.Serializatio
 | Ctor | Description |
 | :-- | :-- |
 | [Invocation()](#invocation) | Initializes a new instance of the [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) class. |
-| [Invocation(InvocationExpression expression)](#invocationinvocationexpression-expression) | Initializes a new instance of the [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) class            initialized with an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
 
 ## Invocation()
 
@@ -21,25 +20,8 @@ public Invocation()
 
 
 
-## Invocation(InvocationExpression expression)
-
-Initializes a new instance of the [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) class
-            initialized with an [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) .
-
-```csharp
-public Invocation(InvocationExpression expression)
-```
-
-### Parameters
-
-| Parameter | Type | Description |
-| :-- | :-- | :-- |
-| `expression` | [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) | The [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) to serialize. |
-
-
-
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

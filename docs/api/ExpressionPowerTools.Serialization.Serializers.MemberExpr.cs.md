@@ -21,13 +21,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Expression`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.Expression.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the method's object. |
-| [`FieldInfo`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.FieldInfo.prop.md) | [Field](ExpressionPowerTools.Serialization.Serializers.Field.cs.md) | Gets or sets the serializable [FieldInfo](ExpressionPowerTools.Serialization.Serializers.MemberExpr.FieldInfo.prop.md) . |
-| [`MemberType`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.MemberType.prop.md) | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | Gets or sets the member type. |
-| [`PropertyInfo`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.PropertyInfo.prop.md) | [Property](ExpressionPowerTools.Serialization.Serializers.Property.cs.md) | Gets or sets the serializable [PropertyInfo](ExpressionPowerTools.Serialization.Serializers.MemberExpr.PropertyInfo.prop.md) . |
+| [`MemberTypeKey`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.MemberTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the member type key. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

@@ -28,10 +28,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
-| [Object GetValue()](ExpressionPowerTools.Serialization.Serializers.AnonType.GetValue.m.md) | Gets the value as a [DynamicObject](https://docs.microsoft.com/dotnet/api/system.dynamic.dynamicobject) . |
+| [ExpandoObject GetValue()](ExpressionPowerTools.Serialization.Serializers.AnonType.GetValue.m.md) | Gets the value as a [DynamicObject](https://docs.microsoft.com/dotnet/api/system.dynamic.dynamicobject) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

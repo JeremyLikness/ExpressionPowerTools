@@ -45,7 +45,6 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 | :-- | :-- |
 | [Void AddRule(ISerializationRule rule)](ExpressionPowerTools.Serialization.Rules.RulesEngine.AddRule.m.md) | Adds a rule to the engine. |
 | [IRulesConfiguration Allow()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Allow.m.md) | Allow the rule in queue. |
-| [Void Compile()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Compile.m.md) | Compiles the rules into a set of allowed keys. |
 | [IRulesConfiguration Deny()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Deny.m.md) | Deny the rule in queue. |
 | [IRulesConfiguration DenyAnonymousTypes()](ExpressionPowerTools.Serialization.Rules.RulesEngine.DenyAnonymousTypes.m.md) | Use this rule to disallow anonymous types. |
 | [Boolean MemberIsAllowed(MemberInfo member)](ExpressionPowerTools.Serialization.Rules.RulesEngine.MemberIsAllowed.m.md) | Check if a member is allowed. |
@@ -60,4 +59,4 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

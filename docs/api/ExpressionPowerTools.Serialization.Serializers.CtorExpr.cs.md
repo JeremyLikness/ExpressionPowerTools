@@ -21,15 +21,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Arguments`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.Arguments.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the method's object. |
-| [`CtorInfo`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.CtorInfo.prop.md) | [Ctor](ExpressionPowerTools.Serialization.Serializers.Ctor.cs.md) | Gets or sets the serializable [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
-| [`Fields`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.Fields.prop.md) | [List&lt;Field>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the field list. |
-| [`Members`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.Members.prop.md) | [List&lt;MemberBase>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the members. |
-| [`MemberTypeList`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.MemberTypeList.prop.md) | [List&lt;Int32>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the list of member types. |
-| [`Properties`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.Properties.prop.md) | [List&lt;Property>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the property list. |
+| [`CtorInfo`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.CtorInfo.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the serializable [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
+| [`MemberKeys`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.MemberKeys.prop.md) | [List&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the keys of members. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

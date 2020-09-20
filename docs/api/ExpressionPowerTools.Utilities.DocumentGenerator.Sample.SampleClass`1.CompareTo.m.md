@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Utilities.DocumentGenerator](ExpressionPowerTools.Utilities.DocumentGenerator.a.md) > [ExpressionPowerTools.Utilities.DocumentGenerator.Sample](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.n.md) > [SampleClass<T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) > **CompareTo**
 
-Compare to.
+
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [CompareTo(SampleClass&lt;T> other)](#comparetosampleclasst-other) | Compare to. |
+| [CompareTo(SampleClass&lt;T> other)](#comparetosampleclasst-other) |  |
 ## CompareTo(SampleClass&lt;T> other)
 
-Compare to.
+
 
 ```csharp
 public virtual Int32 CompareTo(SampleClass<T> other)
@@ -19,13 +19,13 @@ public virtual Int32 CompareTo(SampleClass<T> other)
 
 ### Return Type
 
- [Int32](https://docs.microsoft.com/dotnet/api/system.int32)  - A value for the comparison.
+ [Int32](https://docs.microsoft.com/dotnet/api/system.int32) 
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `other` | [SampleClass&lt;T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) | The other to compare to. |
+| `other` | [SampleClass&lt;T>](ExpressionPowerTools.Utilities.DocumentGenerator.Sample.SampleClass`1.cs.md) |  |
 
 
 
@@ -33,4 +33,4 @@ public virtual Int32 CompareTo(SampleClass<T> other)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

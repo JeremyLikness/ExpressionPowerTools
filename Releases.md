@@ -7,7 +7,12 @@
 
 ## 0.9 Alpha
 
+- [0.9.1-alpha](#091-alpha)
 - [0.9.0-alpha](#090-alpha)
+
+### 0.9.1-alpha
+
+Documentation-only release.
 
 ### 0.9.0-alpha
 

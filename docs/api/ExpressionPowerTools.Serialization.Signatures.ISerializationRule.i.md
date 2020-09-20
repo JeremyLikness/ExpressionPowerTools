@@ -22,8 +22,6 @@ The default for all methods is to not allow. The default configuration
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Allow`](ExpressionPowerTools.Serialization.Signatures.ISerializationRule.Allow.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets a value indicating whether the rule is an allow. |
-| [`MemberType`](ExpressionPowerTools.Serialization.Signatures.ISerializationRule.MemberType.prop.md) | [MemberTypes](https://docs.microsoft.com/dotnet/api/system.reflection.membertypes) | Gets the member type for the rule. |
-| [`Target`](ExpressionPowerTools.Serialization.Signatures.ISerializationRule.Target.prop.md) | [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) | Gets the target for the rule. |
 | [`TargetKey`](ExpressionPowerTools.Serialization.Signatures.ISerializationRule.TargetKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets the unique key for the rule. |
 
 
@@ -31,4 +29,4 @@ The default for all methods is to not allow. The default configuration
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

@@ -5,7 +5,7 @@
 Gets or sets the index of types.
 
 ```csharp
-public List<SerializableType> TypeIndex { get; set; }
+public List<String> TypeIndex { get; set; }
 ```
 
 ## Remarks
@@ -16,11 +16,11 @@ This table is used to build a master index of types. For example, if [String](ht
 
 ### Property Value
 
- [List&lt;SerializableType>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) 
+ [List&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) 
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

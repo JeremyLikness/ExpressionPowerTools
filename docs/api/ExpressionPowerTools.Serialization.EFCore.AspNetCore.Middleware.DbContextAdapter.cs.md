@@ -22,11 +22,11 @@ Implements  [IDbContextAdapter](ExpressionPowerTools.Serialization.EFCore.AspNet
 | Method | Description |
 | :-- | :-- |
 | [IQueryable CreateQuery(DbContext context, PropertyInfo collection)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.CreateQuery.m.md) | Creates a query with the provided [DbContext](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext) . |
-| [Boolean TryGetContext(Type[] eligibleTypes, String context, Type& dbContextType)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.TryGetContext.m.md) |  |
-| [Boolean TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.TryGetDbSet.m.md) |  |
+| [Boolean TryGetContext(Type[] eligibleTypes, String context, Type& dbContextType)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.TryGetContext.m.md) | Tries to match context name with the list of eligible types. |
+| [Boolean TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.TryGetDbSet.m.md) | Tries to match the collection to a property on the context. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

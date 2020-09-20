@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization.EFCore.AspNetCore](ExpressionPowerTools.Serialization.EFCore.AspNetCore.a.md) > [ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.n.md) > [DbContextAdapter](ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.cs.md) > **TryGetDbSet**
 
-
+Tries to match the collection to a property on the context.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)](#trygetdbsettype-context-string-collection-propertyinfo&-dbset) |  |
+| [TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)](#trygetdbsettype-context-string-collection-propertyinfo&-dbset) | Tries to match the collection to a property on the context. |
 ## TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)
 
-
+Tries to match the collection to a property on the context.
 
 ```csharp
 public virtual Boolean TryGetDbSet(Type context, String collection, PropertyInfo& dbSet)
@@ -19,15 +19,15 @@ public virtual Boolean TryGetDbSet(Type context, String collection, PropertyInfo
 
 ### Return Type
 
- [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) 
+ [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean)  - A value indicating whether the property matched.
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `context` | [Type](https://docs.microsoft.com/dotnet/api/system.type) |  |
-| `collection` | [String](https://docs.microsoft.com/dotnet/api/system.string) |  |
-| `dbSet` | [PropertyInfo&](https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo&) |  |
+| `context` | [Type](https://docs.microsoft.com/dotnet/api/system.type) | The type of the [DbContext](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext) . |
+| `collection` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The name of the collection. |
+| `dbSet` | [PropertyInfo&](https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo&) | The [PropertyInfo](https://docs.microsoft.com/dotnet/api/system.reflection.propertyinfo) for the collection. |
 
 
 
@@ -35,4 +35,4 @@ public virtual Boolean TryGetDbSet(Type context, String collection, PropertyInfo
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |

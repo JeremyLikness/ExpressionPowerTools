@@ -8,6 +8,7 @@
 - [ExpressionPowerTools.Core.Dependencies](ExpressionPowerTools.Core.Dependencies.n.md)
 - [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md)
 - [ExpressionPowerTools.Core.Hosts](ExpressionPowerTools.Core.Hosts.n.md)
+- [ExpressionPowerTools.Core.Members](ExpressionPowerTools.Core.Members.n.md)
 - [ExpressionPowerTools.Core.Providers](ExpressionPowerTools.Core.Providers.n.md)
 - [ExpressionPowerTools.Core.Resources](ExpressionPowerTools.Core.Resources.n.md)
 - [ExpressionPowerTools.Core.Signatures](ExpressionPowerTools.Core.Signatures.n.md)
@@ -16,4 +17,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/13/2020 7:35:36 AM | (c) Copyright 2020 Jeremy Likness. | 0.8.8-alpha |
+| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |
