@@ -12,6 +12,11 @@ namespace ExpressionPowerTools.Core.Signatures
     public interface IMemberAdapter
     {
         /// <summary>
+        /// Primarily for testing. Clears the cache.
+        /// </summary>
+        void Reset();
+
+        /// <summary>
         /// Gets a unique string that identifies the member.
         /// </summary>
         /// <param name="member">The <see cref="MemberInfo"/> to parse.</param>

@@ -47,9 +47,9 @@ Let's have some fun.
     <button @onclick="async () => await Service.SetTakeAsync(TakeOptions.Take20)" disabled="@(Service.Take == TakeOptions.Take20)">20</button>
 </p>
 <p>
-    <button @onclick="Service.LoadAsync" disabled="@Service.Loading">Refresh</button>
-    <button @onclick="Service.CountAsync" disabled="@Service.Loading">Count</button>
-    <button @onclick="Service.SingleAsync" disabled="@Service.Loading">Single</button>
+    <button @onclick="async () => await Service.LoadAsync()" disabled="@Service.Loading">Refresh</button>
+    <button @onclick="async () => await Service.CountAsync()" disabled="@Service.Loading">Count</button>
+    <button @onclick="async () => await Service.SingleAsync()" disabled="@Service.Loading">Single</button>
 </p>
 <p>
     Your current query: 

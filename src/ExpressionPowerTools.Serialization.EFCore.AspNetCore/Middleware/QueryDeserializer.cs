@@ -33,6 +33,10 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
             var request = await JsonSerializer.DeserializeAsync<SerializationPayload>(json);
             Ensure.VariableNotNull(() => request);
             Ensure.NotNullOrWhitespace(() => request.Json);
+            if (logger != null)
+            {
+                logger.LogInformation($"Query payload: {request.Json}");
+            }
             var query = Serializer.DeserializeQuery(template, request.Json);
             if (logger != null)
             {

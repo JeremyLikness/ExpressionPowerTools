@@ -7,8 +7,20 @@
 
 ## 0.9 Alpha
 
+- [0.9.2-alpha](#092-alpha)
 - [0.9.1-alpha](#091-alpha)
 - [0.9.0-alpha](#090-alpha)
+
+### 0.9.2-alpha
+
+**Core**
+
+- Enhanced member adapter to handle closed generic methods
+- Added reset to member adapter for end-to-end testing
+
+**ASP.NET Core Middelware**
+
+- Added additional logging
 
 ### 0.9.1-alpha
 
