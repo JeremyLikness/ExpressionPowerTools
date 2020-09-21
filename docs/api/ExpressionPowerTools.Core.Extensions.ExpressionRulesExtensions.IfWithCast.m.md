@@ -36,13 +36,12 @@ public static Expression<Func<T, T, Boolean>> IfWithCast<T, TOther>(Expression<F
 For example, if child is a constant and the constant type is integer, then it matches.
 
 ```csharp
-
 ExpressionRulesExtensions.IfWithCast<BinaryExpression, ConstantExpression>(
-    condition: (s, t) => s.Left is ConstantExpression,
-    conversion: e => e.Left as ConstantExpression,
-    ifTrue: (s, t) => ExpressionEquivalency.AreEquivalent(s, t), // runs as ConstantExpression
-    ifFalse: ExpressionRulesExtensions.False<ConstantExpression>()).Compile();
-);
+                condition: (s, t) => s.Left is ConstantExpression,
+                conversion: e => e.Left as ConstantExpression,
+                ifTrue: (s, t) => ExpressionEquivalency.AreEquivalent(s, t), // runs as ConstantExpression
+                ifFalse: ExpressionRulesExtensions.False<ConstantExpression>()).Compile();
+            );
             
 ```
 
@@ -57,4 +56,4 @@ This special version allows transitioning from a parent expression to a child. F
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |
+| 09/21/2020 19:07:57 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |

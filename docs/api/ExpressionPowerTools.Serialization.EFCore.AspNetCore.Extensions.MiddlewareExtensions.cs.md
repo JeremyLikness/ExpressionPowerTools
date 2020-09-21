@@ -15,12 +15,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 For example, to set up a default route for a `DbContext` named `ThingContext` your code should look like:
 
 ```csharp
-
 app.UseEndpoints(endpoints =>
-{
-   endpoints.MapPowerToolsEFCore<ThingContext>();
-   endpoints.MapRazorPages();
-});
+            {
+               endpoints.MapPowerToolsEFCore<ThingContext>();
+               endpoints.MapRazorPages();
+            });
             
 ```
 
@@ -29,7 +28,6 @@ Be sure the context is registered with dependency injection. This is how the too
             The example will listen on the path `/efcore/ThingContext/collection` where collection is the name of the `DbSet` property. You can customize the path:
 
 ```csharp
-
 endpoints.MapPowerToolsEFCore<ThingContext>(pattern: "/queries/{context}/set/{collection}");
             
 ```
@@ -38,7 +36,6 @@ It is also possible to customize rules. If you have a class named `MyClass` that
             to run, you can add it:
 
 ```csharp
-
 endpoints.MapPowerToolsEFCore<ThingContext>(rules: rule => rule.RuleForType<MyClass>().Allow());
             
 ```
@@ -61,4 +58,4 @@ After referencing the project or NuGet package, you can add the middleware using
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |
+| 09/21/2020 19:07:57 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |

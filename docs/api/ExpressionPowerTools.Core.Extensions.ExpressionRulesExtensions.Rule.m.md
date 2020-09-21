@@ -33,7 +33,6 @@ public static Expression<Func<T, T, Boolean>> Rule<T>(Expression<Func<T, T, Bool
 For example:
 
 ```csharp
-
 ExpressionRulesExtensions.Rule<ConstantExpression>((s, t) => s.Value == t.Vale);
             
 ```
@@ -43,4 +42,4 @@ ExpressionRulesExtensions.Rule<ConstantExpression>((s, t) => s.Value == t.Vale);
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |
+| 09/21/2020 19:07:57 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |

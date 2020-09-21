@@ -15,7 +15,6 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 To register a type `MyType` that implements `IMyType` :
 
 ```csharp
-
 ServiceHost.Initialize(register => register.Register<IMyType, MyType>());
             
 ```
@@ -23,25 +22,22 @@ ServiceHost.Initialize(register => register.Register<IMyType, MyType>());
 To register a singleton:
 
 ```csharp
-
 var singleton = new MyType();
-ServiceHost.Initialize(register => register.RegisterSingleton<IMyType>(singleton);
+            ServiceHost.Initialize(register => register.RegisterSingleton<IMyType>(singleton);
             
 ```
 
 To register a generic type `IGenericType<T>` that is implemented by `GenericType<T>` :
 
 ```csharp
-
 ServiceHost.Initialize(register =>
-    register.RegisterGeneric(typeof(IGenericType<>), typeof(GenericType<>)));
+                register.RegisterGeneric(typeof(IGenericType<>), typeof(GenericType<>)));
             
 ```
 
 To retrive a service:
 
 ```csharp
-
 var implementation = ServiceHost.GetService<IMyType>();
             
 ```
@@ -49,7 +45,6 @@ var implementation = ServiceHost.GetService<IMyType>();
 Retrieving a generic service (closed) with parameters:
 
 ```csharp
-
 var implementation = ServiceHost.GetService<IGenericType<string>>(5, 6);
             
 ```
@@ -83,4 +78,4 @@ The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistra
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 9/20/2020 6:32:02 AM | (c) Copyright 2020 Jeremy Likness. | 0.9.0-alpha |
+| 09/21/2020 19:07:57 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
