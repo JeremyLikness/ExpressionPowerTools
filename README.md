@@ -2,6 +2,7 @@
 
 ![.NET Core](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/.NET%20Core/badge.svg)
 ![.NET Core Tests](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/.NET%20Core%20Tests/badge.svg)
+![Generate and Publish Documentation](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/Generate%20and%20Publish%20Documentation/badge.svg)
 ![Pack and Publish NuGet](https://github.com/JeremyLikness/ExpressionPowerTools/workflows/Pack%20and%20Publish%20NuGet/badge.svg)
 
 There are a few options for documentation, including:
