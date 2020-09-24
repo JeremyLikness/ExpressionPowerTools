@@ -82,4 +82,4 @@ public virtual Boolean AreEquivalent<T>(IQueryable<T> source, IQueryable<T> targ
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/24/2020 22:47:20 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 09/24/2020 22:50:49 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
