@@ -42,4 +42,4 @@ ExpressionRulesExtensions.Rule<ConstantExpression>((s, t) => s.Value == t.Vale);
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/21/2020 19:07:57 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 09/24/2020 22:26:53 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
