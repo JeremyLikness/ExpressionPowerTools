@@ -74,4 +74,4 @@ public String WriteLink(ValueTuple<String, String> link)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/24/2020 22:29:42 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 09/24/2020 22:47:20 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
