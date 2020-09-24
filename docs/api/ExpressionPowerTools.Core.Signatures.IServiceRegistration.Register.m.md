@@ -27,4 +27,4 @@ public virtual IServiceRegistration Register<T, TImpl>()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/24/2020 22:50:49 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 09/24/2020 22:57:42 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
