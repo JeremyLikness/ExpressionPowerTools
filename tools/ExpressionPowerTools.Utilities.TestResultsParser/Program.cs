@@ -192,9 +192,7 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
                 {
                     markdown.Add($"# Summary of Code Coverage for {target}");
                     markdown.Add(string.Empty);
-                    TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                    DateTime newDateTime = TimeZoneInfo.ConvertTime(DateTime.UtcNow, timeZoneInfo);
-                    markdown.Add($"Report generated on {newDateTime}.");
+                    markdown.Add($"Report generated on {DateTime.UtcNow}.");
                     markdown.Add(string.Empty);
                     markdown.Add("## Report Summary");
                     markdown.Add(string.Empty);
