@@ -36,4 +36,4 @@ public static Expression<Func<T, T, Boolean>> OrIf<T>(Expression<Func<T, T, Bool
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/24/2020 22:57:42 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 09/24/2020 23:02:13 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
