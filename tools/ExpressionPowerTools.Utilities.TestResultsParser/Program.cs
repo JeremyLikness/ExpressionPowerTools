@@ -14,12 +14,12 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
     public class Program
     {
         private const string Trx = "trx";
-        private const string PathToTest = @"..\..\..\..\..\test";
-        private const string PathToTestDocs = @"..\..\..\..\..\docs\test";
+        private const string PathToTest = @"../../../../../test";
+        private const string PathToTestDocs = @"../../../../../docs/test";
         private const string TestsExtension = ".Tests";
-        private const string TestResults = @"TestResults\";
+        private const string TestResults = @"TestResults/";
         private const string UnitTestResult = nameof(UnitTestResult);
-        private const string Reports = @"reports\";
+        private const string Reports = @"reports/";
         private const string CoverageBadge = @"badge_combined.svg";
         private const string Summary = @"Summary.txt";
 
