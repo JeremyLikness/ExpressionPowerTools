@@ -54,8 +54,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
         /// <returns>A value indicating whether the match was successful.</returns>
         public bool TryGetContext(Type[] eligibleTypes, string context, out Type dbContextType)
         {
-            eligibleTypes = eligibleTypes ?? new Type[0];
-            context = context ?? string.Empty;
+            eligibleTypes ??= new Type[0];
+            context ??= string.Empty;
             var match = context.ToLowerInvariant().Trim();
             dbContextType = eligibleTypes.FirstOrDefault(t =>
                 typeof(DbContext).IsAssignableFrom(t) &&

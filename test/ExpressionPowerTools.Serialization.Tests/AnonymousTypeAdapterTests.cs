@@ -52,6 +52,109 @@ namespace ExpressionPowerTools.Serialization.Tests
                     }
                 }
             };
+
+            yield return new object[]
+            {
+                new
+                {
+                    Id1 = 1,
+                    Id2 = 2,
+                    Id3 = 3
+                }
+            };
+
+            yield return new object[]
+            {
+                new
+                {
+                    Id1 = 1,
+                    Id2 = 2,
+                    Id3 = 3,
+                    Id4 = 4
+                }
+            };
+
+            yield return new object[]
+            {
+                new
+                {
+                    Id1 = 1,
+                    Id2 = 2,
+                    Id3 = 3,
+                    Id4 = 4,
+                    Id5 = 5
+                }
+            };
+
+            yield return new object[]
+            {
+                new
+                {
+                    Id1 = 1,
+                    Id2 = 2,
+                    Id3 = 3,
+                    Id4 = 4,
+                    Id5 = 5,
+                    Id6 = 6
+                }
+            };
+
+            yield return new object[]
+            {
+                new
+                {
+                    Id1 = 1,
+                    Id2 = 2,
+                    Id3 = 3,
+                    Id4 = 4,
+                    Id5 = 5,
+                    Id6 = 6,
+                    Id7 = 7,
+                    Id8 = 8
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> GetParameterLambdaMatrix()
+        {
+            foreach(object[] anonymousType in GetAnonymousTypeMatrix())
+            {
+                var anonymous = anonymousType[0];
+                var anonType = anonymous.GetType();
+                var propCount = anonType.GetProperties().Length;
+                if (propCount < 3)
+                {
+                    continue;
+                }
+
+                var ctor = anonType.GetConstructors().Single();
+
+                var parameters = ctor.GetParameters()
+                    .Select(p =>
+                        Expression.Parameter(
+                            p.ParameterType,
+                            p.Name)).ToArray();
+
+                var init = Expression.New(
+                    ctor,
+                    parameters);
+
+                var delegateBase =
+                    Type.GetType($"System.Func`{propCount + 1}");
+
+                var closureTypes = parameters.Select(p => p.Type)
+                        .Append(anonymous.GetType());                        
+                var delegateType = delegateBase
+                    .MakeGenericType(closureTypes.ToArray());
+
+                yield return new object[]
+                {
+                    Expression.Lambda(
+                        delegateType,
+                        init,
+                        parameters.ToArray())
+                };
+            }
         }
 
         [Theory]
@@ -302,6 +405,18 @@ namespace ExpressionPowerTools.Serialization.Tests
             var source = "T:System.Object";
             var actual = adapter.MemberKeyTransformer(source);
             Assert.Equal(source, actual);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetParameterLambdaMatrix))]
+        public void TransformsUpToEightParameters(
+            LambdaExpression anonNew)
+        {
+            var actual = adapter.TransformLambda(anonNew);
+            Assert.NotNull(actual);
+            Assert.Equal(
+                anonNew.Parameters.Count,
+                actual.Parameters.Count);
         }
     }
 }

@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serial
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.Http", "src\ExpressionPowerTools.Serialization.EFCore.Http\ExpressionPowerTools.Serialization.EFCore.Http.csproj", "{C50586EC-0EFC-4369-A420-6C7C3C562F2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionPowerTools.Serialization.EFCore.Http.Tests", "test\ExpressionPowerTools.Serialization.EFCore.Http.Tests\ExpressionPowerTools.Serialization.EFCore.Http.Tests.csproj", "{32E25797-52B5-40F4-B759-1E669A3FEE8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.Http.Tests", "test\ExpressionPowerTools.Serialization.EFCore.Http.Tests\ExpressionPowerTools.Serialization.EFCore.Http.Tests.csproj", "{32E25797-52B5-40F4-B759-1E669A3FEE8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

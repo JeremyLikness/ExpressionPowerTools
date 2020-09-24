@@ -122,36 +122,24 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             NewArrayExpression initExpr = null;
 
-            if (expression.Members == null || expression.Members.Count < 1)
-            {
-                // build list of AnonValue => new [] { new AnonValue(typeof(int), (object)1), new AnonValue(typeof(string), (object)"two") }
-                var initValues = expression.Arguments.Select(
-                    a => Expression.New(
-                        anonValueCtor,
-                        new Expression[] { a.Type.AsConstantExpression(), Expression.Convert(a, typeof(object)) }));
-                initExpr = Expression.NewArrayInit(typeof(AnonValue), initValues);
-            }
-            else
-            {
-                // convert to member access
-                var initValueMembers = new List<Expression>();
+            // convert to member access
+            var initValueMembers = new List<Expression>();
 
-                for (var idx = 0; idx < expression.Arguments.Count; idx += 1)
+            for (var idx = 0; idx < expression.Arguments.Count; idx += 1)
+            {
+                var arg = expression.Arguments[idx];
+                var args = new Expression[]
                 {
-                    var arg = expression.Arguments[idx];
-                    var args = new Expression[]
-                    {
-                        arg.Type.AsConstantExpression(),
-                        Expression.Convert(arg, typeof(object)),
-                    };
-                    initValueMembers.Add(
-                        Expression.New(
-                            anonValueCtor,
-                            args));
-                }
-
-                initExpr = Expression.NewArrayInit(typeof(AnonValue), initValueMembers);
+                    arg.Type.AsConstantExpression(),
+                    Expression.Convert(arg, typeof(object)),
+                };
+                initValueMembers.Add(
+                    Expression.New(
+                        anonValueCtor,
+                        args));
             }
+
+            initExpr = Expression.NewArrayInit(typeof(AnonValue), initValueMembers);
 
             // new AnonInitializer(name, properties, values);
             var newArgs = new Expression[] { name, initProperties, initExpr };
@@ -191,6 +179,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var body = lambda.Body;
+            var transformedLambda = lambda;
 
             if (anonymous)
             {
@@ -198,8 +187,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 {
                     case ExpressionType.New:
                         var anonInitializer = TransformNew(body as NewExpression);
-                        var delegateType = GetDelegateType(lambda.Parameters, typeof(AnonInitializer));
-                        return Expression.Lambda(delegateType, anonInitializer, lambda.Parameters);
+                        var delegateType = GetDelegateType(
+                            lambda.Parameters,
+                            typeof(AnonInitializer));
+                        transformedLambda =
+                            Expression.Lambda(delegateType, anonInitializer, lambda.Parameters);
+                        break;
 
                     case ExpressionType.MemberAccess:
                         var access = body as MemberExpression;
@@ -208,9 +201,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
                         var anonConstant = TransformConstant(
                             Expression.Constant(fn.DynamicInvoke(null)));
                         var value = Expression.Call(anonConstant, getValue);
-                        return Expression.Lambda<Func<ExpandoObject>>(
+                        transformedLambda = Expression.Lambda<Func<ExpandoObject>>(
                             value,
                             lambda.Parameters);
+                        break;
                 }
             }
             else
@@ -228,11 +222,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
                         Expression.Label(label, Expression.Constant(null, typeof(AnonType))));
                     var outerAccess = Expression.Call(block, getValue);
                     var outerType = GetDelegateType(lambda.Parameters, typeof(ExpandoObject));
-                    return Expression.Lambda(outerType, outerAccess, lambda.Parameters);
+                    transformedLambda =
+                        Expression.Lambda(outerType, outerAccess, lambda.Parameters);
                 }
             }
 
-            return lambda;
+            return transformedLambda;
         }
 
         /// <summary>
@@ -278,41 +273,15 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <returns>The type of function to use.</returns>
         private Type GetDelegateType(ICollection<ParameterExpression> parameters, Type returnType)
         {
-            Type baseType = null;
+            var funcBase = $"{nameof(System)}.{typeof(Func<>).Name}";
+            var funcName =
+                $"{funcBase.Substring(0, funcBase.Length - 1)}{parameters.Count + 1}";
 
-            switch (parameters.Count)
-            {
-                case 0:
-                    baseType = typeof(Func<>);
-                    break;
-                case 1:
-                    baseType = typeof(Func<,>);
-                    break;
-                case 2:
-                    baseType = typeof(Func<,,>);
-                    break;
-                case 3:
-                    baseType = typeof(Func<,,,>);
-                    break;
-                case 4:
-                    baseType = typeof(Func<,,,,>);
-                    break;
-                case 5:
-                    baseType = typeof(Func<,,,,,>);
-                    break;
-                case 6:
-                    baseType = typeof(Func<,,,,,,>);
-                    break;
-                case 7:
-                    baseType = typeof(Func<,,,,,,,>);
-                    break;
-                default:
-                    throw new InvalidOperationException();
-            }
+            var baseType = Type.GetType(funcName);
 
             var typeParams = parameters
-                .Select(p => p.Type)
-                .Union(new[] { returnType })
+                .Select(p => p.Type).ToArray()
+                .Append(returnType)
                 .ToArray();
 
             return baseType.MakeGenericType(typeParams);

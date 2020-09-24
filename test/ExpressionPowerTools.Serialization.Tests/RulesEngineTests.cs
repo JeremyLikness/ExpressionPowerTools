@@ -255,7 +255,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             new Registration().AfterRegistered();
         }
 
-
         [Theory]
         [InlineData(true)]
         [InlineData(false)]

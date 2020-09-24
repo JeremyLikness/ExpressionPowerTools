@@ -148,6 +148,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             var compiled = target.Compress(node);
             var actual = compiled.AsEnumerable().Count(e => e is BinaryExpression);
             Assert.Equal(expectedBinaryCount, actual);
-        }
+        }       
     }
 }

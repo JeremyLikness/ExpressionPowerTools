@@ -78,17 +78,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 void Normalize(AnonType typeToProcess)
                 {
                     // normalize values
-                    foreach (var propValue in anonType.PropertyValues)
+                    foreach (var propValue in typeToProcess.PropertyValues)
                     {
                         if (propValue.AnonVal == null)
                         {
                             continue;
                         }
 
-                        var valuetype = GetMemberFromKey<Type>(propValue.AnonValueType);
-                        var jsonValue = (JsonElement)propValue.AnonVal;
-                        propValue.AnonVal = JsonSerializer.Deserialize(jsonValue.GetRawText(), valuetype, state.Options);
-                        if (valuetype == typeof(AnonType))
+                        var propValueType = GetMemberFromKey<Type>(propValue.AnonValueType);
+                        if (propValue.AnonVal.GetType() != propValueType)
+                        {
+                            var jsonText = ((JsonElement)propValue.AnonVal).GetRawText();
+                            propValue.AnonVal = JsonSerializer.Deserialize(jsonText, propValueType, state.Options);
+                        }
+
+                        if (propValueType == typeof(AnonType))
                         {
                             Normalize(propValue.AnonVal as AnonType);
                         }

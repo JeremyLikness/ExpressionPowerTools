@@ -10,9 +10,15 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests.TestHelpers
     {
         public string CapturedPath { get; private set; }
         public qt QueryType { get; set; }
+        public bool EmptyQuery { get; set; } = false;
 
         private string GetResult()
         {
+            if (EmptyQuery)
+            {
+                return string.Empty;
+            }
+
             object payload;
             switch (QueryType)
             {

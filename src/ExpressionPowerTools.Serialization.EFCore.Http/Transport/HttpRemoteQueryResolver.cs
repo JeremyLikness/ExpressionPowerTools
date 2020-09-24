@@ -27,12 +27,6 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
         private readonly TreeCompressionVisitor compressor = new TreeCompressionVisitor();
 
         /// <summary>
-        /// The client configuration.
-        /// </summary>
-        private readonly Lazy<IClientHttpConfiguration> clientHttpConfiguration =
-            ServiceHost.GetLazyService<IClientHttpConfiguration>();
-
-        /// <summary>
         /// The default settings for serialization.
         /// </summary>
         private readonly Lazy<IDefaultConfiguration> defaultConfiguration =
@@ -169,7 +163,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
         private string PathTransformer(IRemoteQuery query)
         {
             var context = query.CustomProvider.Context;
-            var template = clientHttpConfiguration.Value.PathTemplate;
+            var clientHttpConfiguration = ServiceHost.GetService<IClientHttpConfiguration>();
+            var template = clientHttpConfiguration.PathTemplate;
             return template
                 .Replace(ClientHttpConfiguration.ContextKey, context.Context.Name)
                 .Replace(ClientHttpConfiguration.CollectionKey, context.Collection.Name);
@@ -186,6 +181,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
         /// </summary>
         /// <returns>The <see cref="HttpClient"/>.</returns>
         private IRemoteQueryClient GetHttpClient() =>
-            clientHttpConfiguration.Value.ClientFactory();
+            ServiceHost.GetService<IClientHttpConfiguration>()
+            .ClientFactory();
     }
 }
