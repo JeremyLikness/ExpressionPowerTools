@@ -214,9 +214,15 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
                     }
 
                     var split = line.IndexOf(':');
-                    var label = line.Substring(0, split).Trim();
-                    var fact = line.Substring(split + 1).Trim();
-                    markdown.Add($"|**{label}**|{fact}");
+                    if (split > 0)
+                    {
+                        var label = line.Substring(0, split).Trim();
+                        if (split + 1 < line.Length)
+                        {
+                            var fact = line.Substring(split + 1).Trim();
+                            markdown.Add($"|**{label}**|{fact}");
+                        }
+                    }
                 }
 
                 if (idx > 1 && !header)
