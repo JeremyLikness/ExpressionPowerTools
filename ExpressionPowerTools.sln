@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		buildtestdocs.sh = buildtestdocs.sh
 		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
@@ -37,9 +38,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serial
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.Http", "src\ExpressionPowerTools.Serialization.EFCore.Http\ExpressionPowerTools.Serialization.EFCore.Http.csproj", "{C50586EC-0EFC-4369-A420-6C7C3C562F2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionPowerTools.Serialization.EFCore.Http.Tests", "test\ExpressionPowerTools.Serialization.EFCore.Http.Tests\ExpressionPowerTools.Serialization.EFCore.Http.Tests.csproj", "{32E25797-52B5-40F4-B759-1E669A3FEE8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.Http.Tests", "test\ExpressionPowerTools.Serialization.EFCore.Http.Tests\ExpressionPowerTools.Serialization.EFCore.Http.Tests.csproj", "{32E25797-52B5-40F4-B759-1E669A3FEE8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionPowerTools.Utilities.TestResultsParser", "tools\ExpressionPowerTools.Utilities.TestResultsParser\ExpressionPowerTools.Utilities.TestResultsParser.csproj", "{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Utilities.TestResultsParser", "tools\ExpressionPowerTools.Utilities.TestResultsParser\ExpressionPowerTools.Utilities.TestResultsParser.csproj", "{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

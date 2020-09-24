@@ -1,4 +1,9 @@
 # Summary of Code Coverage for ExpressionPowerTools.Serialization.EFCore.AspNetCore
+
+Report generated on 9/24/2020 11:54:58 PM.
+
+## Report Summary
+
 | | |
 |:--|:--|
 |**Parser**|MultiReportParser (2x CoberturaParser)
@@ -10,7 +15,9 @@
 |**Uncovered lines**|0
 |**Coverable lines**|314
 |**Total lines**|815
- 
+
+## Report Detail
+
 |Target|Coverage|
 |:--|--:|
 |[**ExpressionPowerTools.Serialization.EFCore.AspNetCore Summary**](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.n.md)|100.0%|

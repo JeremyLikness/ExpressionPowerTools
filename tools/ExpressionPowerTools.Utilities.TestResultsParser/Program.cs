@@ -192,7 +192,7 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
                 {
                     markdown.Add($"# Summary of Code Coverage for {target}");
                     markdown.Add(string.Empty);
-                    markdown.Add($"Report generated on {DateTime.UtcNow}.");
+                    markdown.Add($"Report generated on {DateTime.UtcNow} UTC.");
                     markdown.Add(string.Empty);
                     markdown.Add("## Report Summary");
                     markdown.Add(string.Empty);
