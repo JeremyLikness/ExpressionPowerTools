@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serial
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionPowerTools.Serialization.EFCore.Http.Tests", "test\ExpressionPowerTools.Serialization.EFCore.Http.Tests\ExpressionPowerTools.Serialization.EFCore.Http.Tests.csproj", "{32E25797-52B5-40F4-B759-1E669A3FEE8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionPowerTools.Utilities.TestResultsParser", "tools\ExpressionPowerTools.Utilities.TestResultsParser\ExpressionPowerTools.Utilities.TestResultsParser.csproj", "{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{32E25797-52B5-40F4-B759-1E669A3FEE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32E25797-52B5-40F4-B759-1E669A3FEE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32E25797-52B5-40F4-B759-1E669A3FEE8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{525A7B55-9108-4A89-AF90-5020D7AD6E57} = {23234061-56D5-42AC-ADE2-C853C8078F5A}
 		{C50586EC-0EFC-4369-A420-6C7C3C562F2F} = {8405940B-68E6-45E4-AD2A-670FA9C058D2}
 		{32E25797-52B5-40F4-B759-1E669A3FEE8D} = {23234061-56D5-42AC-ADE2-C853C8078F5A}
+		{6B0EAD6F-CDA8-42E9-9A6E-9FF65B9599A1} = {8BCF883B-B2DC-4F39-ABA6-3D9E2BE5096E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B28C42C5-B2A8-4475-8A0B-240DA8AEA906}

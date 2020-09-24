@@ -19,6 +19,68 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 3.1.401
     - name: Run all tests
       run: dotnet test ExpressionPowerTools.sln --logger trx
+
+  test-docs:
+    runs-on: ubuntu-latest
+    needs: test
+    continue-on-error: true
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false 
+        fetch-depth: 0
+    - name: Fetch
+      run: git fetch --unshallow
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.401
+    - name: Run all tests with code coverage
+      run: dotnet test ExpressionPowerTools.sln --logger trx --collect:"XPlat Code Coverage"
+    - name: Core reports
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.7
+      with:
+        reports: 'test/ExpressionPowerTools.Core.Tests/TestResults/**/*.xml' 
+        targetdir: 'test/ExpressionPowerTools.Core.Tests/TestResults/reports'
+        reporttypes: 'Badges;TextSummary'
+        assemblyfilters: '+ExpressionPowerTools.Core' 
+    - name: Serialization reports
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.7
+      with:
+        reports: 'test/ExpressionPowerTools.Serialization.Tests/TestResults/**/*.xml' 
+        targetdir: 'test/ExpressionPowerTools.Serialization.Tests/TestResults/reports'
+        reporttypes: 'Badges;TextSummary'
+        assemblyfilters: '+ExpressionPowerTools.Serialization' 
+    - name: EF Core AspNetCore reports
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.7
+      with:
+        reports: 'test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests/TestResults/**/*.xml' 
+        targetdir: 'test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests/TestResults/reports'
+        reporttypes: 'Badges;TextSummary'
+        assemblyfilters: '+ExpressionPowerTools.Serialization.EFCore.AspNetCore' 
+    - name: EF Core HTTP Client reports
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.7
+      with:
+        reports: 'test/ExpressionPowerTools.Serialization.EFCore.Http.Tests/TestResults/**/*.xml' 
+        targetdir: 'test/ExpressionPowerTools.Serialization.EFCore.Http.Tests/TestResults/reports'
+        reporttypes: 'Badges;TextSummary'
+        assemblyfilters: '+ExpressionPowerTools.Serialization.EFCore.AspNetCore' 
+    - name: Build test parser
+      run: dotnet build --configuration Release
+      working-directory: tools/ExpressionPowerTools.Utilities.TestResultsParser
+    - name: Generate reports
+      run: dotnet ExpressionPowerTools.Utilities.TestResultsParser.dll
+      working-directory: tools/ExpressionPowerTools.Utilities.TestResultsParser/bin/Release/netcoreapp3.1
+    - name: Commit files
+      run: |
+        git config --local user.email "expressionpowertools@gmail.com"
+        git config --local user.name "Documentation Generator"
+        git commit -m "Documentation (tests and test coverage) only #skip_ci" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.DOCUMENTATION_PUSH }}
+        force: true
