@@ -4,8 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Core.Members;
-using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -25,6 +23,17 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var target = new SerializableExpression(Expression.Constant(5));
             Assert.Equal(ExpressionType.Constant, (ExpressionType)target.Type);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GetMemberFromKeyResolves(bool typed)
+        {
+            var target = new TestSerializableExpression();
+            var key = "T:System.String";
+            var actual = target.GetType(key, typed);
+            Assert.Equal(typeof(string), actual);
         }
 
         [Fact]

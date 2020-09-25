@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Extensions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -45,6 +46,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 var prop = value.GetType().GetProperty(name);
                 var type = prop.PropertyType;
                 var val = prop.GetValue(value);
+                if (type.IsAnonymousType())
+                {
+                    val = new AnonType(val);
+                    type = typeof(AnonType);
+                }
+
                 values.Add(new AnonValue(type, val));
             }
 

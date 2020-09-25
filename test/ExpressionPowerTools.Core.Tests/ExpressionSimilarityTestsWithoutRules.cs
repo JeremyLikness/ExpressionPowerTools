@@ -1,4 +1,5 @@
-﻿using ExpressionPowerTools.Core.Tests.TestHelpers;
+﻿using System.Diagnostics.CodeAnalysis;
+using ExpressionPowerTools.Core.Tests.TestHelpers;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests

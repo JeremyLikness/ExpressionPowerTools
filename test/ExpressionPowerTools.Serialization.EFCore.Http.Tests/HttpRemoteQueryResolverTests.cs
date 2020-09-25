@@ -100,6 +100,41 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests
             }
         }
 
+        [Theory]
+        [MemberData(nameof(GetTestCases))]
+        public async Task EmptyResultReturnsDefaultOrNegative(QueryTestCase queryCase)
+        {
+            var query = GetQuery();
+            client.QueryType = queryCase;
+            client.EmptyQuery = true;
+            var result = await CallMethodAsync(queryCase, query);
+            switch (queryCase)
+            {
+                case QueryTestCase.Array:
+                    Assert.IsType<TestThing[]>(result);
+                    Assert.Empty(result as TestThing[]);
+                    break;
+                case QueryTestCase.Count:
+                    Assert.IsType<int>(result);
+                    Assert.Equal(-1, (int)result);
+                    break;
+                case QueryTestCase.Enumerable:
+                    Assert.IsAssignableFrom<IEnumerable<TestThing>>(result);
+                    break;
+                case QueryTestCase.HashSet:
+                    Assert.IsType<HashSet<TestThing>>(result);
+                    Assert.Empty((HashSet<TestThing>)result);
+                    break;
+                case QueryTestCase.List:
+                    Assert.IsType<List<TestThing>>(result);
+                    Assert.Empty((List<TestThing>)result);
+                    break;
+                case QueryTestCase.Single:
+                    Assert.Null(result);
+                    break;
+            }
+        }
+
         private IQueryable<TestThing> GetQuery(bool remote = true)
         {
             var core = IQueryableExtensions.CreateQueryTemplate<TestThing>();

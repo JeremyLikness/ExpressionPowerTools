@@ -21,6 +21,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             yield return new object[]
             {
+                Expression.Constant(new { foo = "bar", bar = new { bar = "foo" } })
+            };
+
+            yield return new object[]
+            {
                 Expression.Constant(typeof(IComparable<>))
             };
 

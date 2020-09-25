@@ -35,5 +35,11 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Contains(target.Allow.ToString(), str);
             Assert.Contains(target.TargetKey, str);
         }
+
+        [Fact]
+        public void GivenGetHashCodeWhenCalledThenShouldReturnHashOfTargetKey()
+        {
+            Assert.Equal(target.TargetKey.GetHashCode(), target.GetHashCode());
+        }
     }
 }

@@ -45,9 +45,6 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
     /// </example>
     public static class ClientExtensions
     {
-        private static Lazy<IRemoteQueryResolver> resolver =
-            ServiceHost.GetLazyService<IRemoteQueryResolver>();
-
         /// <summary>
         /// Takes an enumerable and builds a host for remote processing.
         /// </summary>
@@ -108,7 +105,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
         public static Task<int> CountAsync<T>(this IRemoteQueryable<T> query)
         {
             Ensure.NotNull(() => query);
-            return resolver.Value.CountAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
+            return ServiceHost.GetService<IRemoteQueryResolver>().CountAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
         }
 
         /// <summary>
@@ -120,7 +117,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
         public static Task<T> FirstOrSingleAsync<T>(this IRemoteQueryable<T> query)
         {
             Ensure.NotNull(() => query);
-            return resolver.Value.FirstOrSingleAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
+            return ServiceHost.GetService<IRemoteQueryResolver>().FirstOrSingleAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
         }
 
         /// <summary>
@@ -132,7 +129,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
         public static Task<T[]> ToArrayAsync<T>(this IRemoteQueryable<T> query)
         {
             Ensure.NotNull(() => query);
-            return resolver.Value.ToArrayAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
+            return ServiceHost.GetService<IRemoteQueryResolver>().ToArrayAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
         }
 
         /// <summary>
@@ -144,7 +141,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
         public static Task<IList<T>> ToListAsync<T>(this IRemoteQueryable<T> query)
         {
             Ensure.NotNull(() => query);
-            return resolver.Value.ToListAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
+            return ServiceHost.GetService<IRemoteQueryResolver>().ToListAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
         }
 
         /// <summary>
@@ -156,7 +153,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
         public static Task<HashSet<T>> ToHashSetAsync<T>(this IRemoteQueryable<T> query)
         {
             Ensure.NotNull(() => query);
-            return resolver.Value.ToHashSetAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
+            return ServiceHost.GetService<IRemoteQueryResolver>().ToHashSetAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
         }
 
         /// <summary>
@@ -168,7 +165,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
         public static Task<IEnumerable<T>> AsEnumerableAsync<T>(this IRemoteQueryable<T> query)
         {
             Ensure.NotNull(() => query);
-            return resolver.Value.AsEnumerableAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
+            return ServiceHost.GetService<IRemoteQueryResolver>().AsEnumerableAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);
         }
     }
 }

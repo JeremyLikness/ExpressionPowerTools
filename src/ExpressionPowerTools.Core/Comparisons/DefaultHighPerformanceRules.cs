@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Contract;
@@ -16,6 +17,7 @@ namespace ExpressionPowerTools.Core.Comparisons
     /// Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
     /// you should find the rules-based works fine for most scenarios and performs close to par with the programmed verssion.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
     {
         /// <summary>

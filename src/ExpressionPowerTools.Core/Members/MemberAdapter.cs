@@ -651,16 +651,6 @@ namespace ExpressionPowerTools.Core.Members
                         }
                         else if (methodCheck.IsGenericMethod && methodCheck.IsGenericMethodDefinition)
                         {
-                            if (genericOpen > 0)
-                            {
-                                if (methodClosingTypes.Length == methodArgs.Length)
-                                {
-                                    method = methodCheck.MakeGenericMethod(methodClosingTypes);
-                                    match = true;
-                                    break;
-                                }
-                            }
-
                             parameterTypes = parameterTypes.Union(methodClosingTypes).ToArray();
 
                             var genericArgs = methodCheck.GetGenericArguments();
@@ -679,12 +669,7 @@ namespace ExpressionPowerTools.Core.Members
                             break;
                         }
                     }
-                }
-                else
-                {
-                    method = methodType.GetMethods(all)
-                        .Single(c => c.GetParameters().Length == 0);
-                }
+                }                
             }
 
             return method != null;
