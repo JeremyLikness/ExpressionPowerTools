@@ -17,4 +17,4 @@ Implements  [IComparable](https://docs.microsoft.com/dotnet/api/system.icomparab
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/24/2020 23:59:31 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |

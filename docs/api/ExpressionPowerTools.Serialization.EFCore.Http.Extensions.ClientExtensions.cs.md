@@ -43,11 +43,6 @@ var result = await query.ExecuteRemote().ToListAsync();
 
 There are a few steps involved to run and resolve a remote query. See examples for more information.
 
-## Constructors
-
-| Ctor | Description |
-| :-- | :-- |
-| [static ClientExtensions()](ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ctor.md#static-clientextensions) | Initializes a new instance of the [ClientExtensions](ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.cs.md) class. |
 ## Methods
 
 | Method | Description |
@@ -66,4 +61,4 @@ There are a few steps involved to run and resolve a remote query. See examples f
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/24/2020 23:59:31 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
