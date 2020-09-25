@@ -54,7 +54,7 @@ Power tools for writing client-side queries that can be safely serialized to run
 
 [![NuGet Badge](https://buildstats.info/nuget/ExpressionPowerTools.Serialization.EFCore.AspNetCore?includePreReleases=true)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization.EFCore.AspNetCore)
 ![Tests](docs/test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests.svg)
-[![Coverage](docs/test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Coverage.svg)](docs/test//ExpressionPowerTools.EFCore.AspNetCore.coverage.md)
+[![Coverage](docs/test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Coverage.svg)](docs/test//ExpressionPowerTools.Serialization.EFCore.AspNetCore.coverage.md)
 
 ```powershell
 Install-Package ExpressionPowerTools.Serialization.EFCore.AspNetCore -Version 0.9.2-alpha
