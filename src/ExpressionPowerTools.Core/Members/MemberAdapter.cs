@@ -669,7 +669,7 @@ namespace ExpressionPowerTools.Core.Members
                             break;
                         }
                     }
-                }                
+                }
             }
 
             return method != null;
