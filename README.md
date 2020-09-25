@@ -79,7 +79,6 @@ Power tools for running remote queries over HTTP, for example a Blazor WebAssemb
 
 [API Documentation](docs/api/ExpressionPowerTools.Serialization.EFCore.Http.a.md)
 
-
 ## Documentation Generator
 
 Internal utility to auto-generate API documentation based on comments and reflection. Directly generates markdown. Also self-documents.
