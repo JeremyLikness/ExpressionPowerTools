@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core
@@ -21,7 +23,7 @@ namespace ExpressionPowerTools.Core
         /// <summary>
         /// A queue to track visited expressions.
         /// </summary>
-        private Queue<Expression> queue;
+        private Queue<(int level, Expression expression)> queue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionEnumerator"/> class.
@@ -34,23 +36,40 @@ namespace ExpressionPowerTools.Core
         }
 
         /// <summary>
+        /// String display of the tree.
+        /// </summary>
+        /// <returns>The entire tree display.</returns>
+        public override string ToString()
+        {
+            Enqueue();
+            var toStr = new StringBuilder();
+            while (queue.Count > 0)
+            {
+                var next = queue.Dequeue();
+                var indent = next.level == 0 ?
+                    string.Empty : new string(' ', next.level * 2);
+                toStr.Append(indent);
+                toStr.Append($"[{next.expression.GetType().Name}:{next.expression.NodeType}] : ");
+                toStr.Append($"{next.expression.Type.Name} => {next.expression}");
+                toStr.Append(Environment.NewLine);
+            }
+
+            return toStr.ToString();
+        }
+
+        /// <summary>
         /// Implements <see cref="IEnumerable{Expression}"/>.
         /// </summary>
         /// <returns>The <see cref="IEnumerator{Expression}"/>.</returns>
         public IEnumerator<Expression> GetEnumerator()
         {
             // reset the queue
-            queue = new Queue<Expression>();
-            if (expression != null)
-            {
-                // recurse
-                RecurseExpression(expression);
-            }
+            Enqueue();
 
             // now return results
             while (queue.Count > 0)
             {
-                yield return queue.Dequeue();
+                yield return queue.Dequeue().expression;
             }
         }
 
@@ -60,11 +79,23 @@ namespace ExpressionPowerTools.Core
         /// <returns>The generic version as a non-generic inteface.</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        private void Enqueue()
+        {
+            // reset the queue
+            queue = new Queue<(int level, Expression expression)>();
+            if (expression != null)
+            {
+                // recurse
+                RecurseExpression(expression, 0);
+            }
+        }
+
         /// <summary>
         /// Main entry, similar to "Visit" on <see cref="ExpressionVisitor"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> under consideration.</param>
-        private void RecurseExpression(Expression expression)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseExpression(Expression expression, int level)
         {
             if (expression == null)
             {
@@ -74,37 +105,37 @@ namespace ExpressionPowerTools.Core
             switch (expression)
             {
                 case BinaryExpression binary:
-                    RecurseBinaryExpression(binary);
+                    RecurseBinaryExpression(binary, level);
                     break;
                 case ConstantExpression constant:
-                    RecurseConstantExpression(constant);
+                    RecurseConstantExpression(constant, level);
                     break;
                 case InvocationExpression invocation:
-                    RecurseInvocationExpression(invocation);
+                    RecurseInvocationExpression(invocation, level);
                     break;
                 case LambdaExpression lambda:
-                    RecurseLambdaExpression(lambda);
+                    RecurseLambdaExpression(lambda, level);
                     break;
                 case MemberInitExpression init:
-                    RecurseMemberInitExpression(init);
+                    RecurseMemberInitExpression(init, level);
                     break;
                 case MemberExpression member:
-                    RecurseMemberExpression(member);
+                    RecurseMemberExpression(member, level);
                     break;
                 case MethodCallExpression method:
-                    RecurseMethodCallExpression(method);
+                    RecurseMethodCallExpression(method, level);
                     break;
                 case UnaryExpression unary:
-                    RecurseUnaryExpression(unary);
+                    RecurseUnaryExpression(unary, level);
                     break;
                 case NewExpression newExpr:
-                    RecurseNewExpression(newExpr);
+                    RecurseNewExpression(newExpr, level);
                     break;
                 case NewArrayExpression newArrayExpr:
-                    RecurseNewArrayExpression(newArrayExpr);
+                    RecurseNewArrayExpression(newArrayExpr, level);
                     break;
                 default:
-                    queue.Enqueue(expression);
+                    queue.Enqueue((level, expression));
                     break;
             }
         }
@@ -113,22 +144,24 @@ namespace ExpressionPowerTools.Core
         /// Recurse a member initialization.
         /// </summary>
         /// <param name="init">The <see cref="MemberInitExpression"/>.</param>
-        private void RecurseMemberInitExpression(MemberInitExpression init)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseMemberInitExpression(MemberInitExpression init, int level)
         {
-            queue.Enqueue(init);
-            RecurseExpression(init.NewExpression);
+            queue.Enqueue((level, init));
+            RecurseExpression(init.NewExpression, level + 1);
         }
 
         /// <summary>
         /// Recurse a new array.
         /// </summary>
         /// <param name="newArrayExpr">The <see cref="NewArrayExpression"/>.</param>
-        private void RecurseNewArrayExpression(NewArrayExpression newArrayExpr)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseNewArrayExpression(NewArrayExpression newArrayExpr, int level)
         {
-            queue.Enqueue(newArrayExpr);
+            queue.Enqueue((level, newArrayExpr));
             foreach (var expr in newArrayExpr.Expressions)
             {
-                RecurseExpression(expr);
+                RecurseExpression(expr, level + 1);
             }
         }
 
@@ -136,12 +169,13 @@ namespace ExpressionPowerTools.Core
         /// Recurse any expression in the new.
         /// </summary>
         /// <param name="newExpr">The <see cref="NewExpression"/>.</param>
-        private void RecurseNewExpression(NewExpression newExpr)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseNewExpression(NewExpression newExpr, int level)
         {
-            queue.Enqueue(newExpr);
+            queue.Enqueue((level, newExpr));
             foreach (var expr in newExpr.Arguments)
             {
-                RecurseExpression(expr);
+                RecurseExpression(expr, level + 1);
             }
         }
 
@@ -149,12 +183,13 @@ namespace ExpressionPowerTools.Core
         /// Recurse any expression in the constant.
         /// </summary>
         /// <param name="constant">The <see cref="ConstantExpression"/>.</param>
-        private void RecurseConstantExpression(ConstantExpression constant)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseConstantExpression(ConstantExpression constant, int level)
         {
-            queue.Enqueue(constant);
+            queue.Enqueue((level, constant));
             if (constant.Value is Expression value)
             {
-                RecurseExpression(value);
+                RecurseExpression(value, level + 1);
             }
         }
 
@@ -162,64 +197,78 @@ namespace ExpressionPowerTools.Core
         /// Recurse a binary expression.
         /// </summary>
         /// <param name="binary">The <see cref="BinaryExpression"/> to parse.</param>
-        private void RecurseBinaryExpression(BinaryExpression binary)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseBinaryExpression(BinaryExpression binary, int level)
         {
-            queue.Enqueue(binary);
-            RecurseExpression(binary.Left);
-            RecurseExpression(binary.Right);
+            queue.Enqueue((level, binary));
+            RecurseExpression(binary.Left, level + 1);
+            if (binary.Conversion != null)
+            {
+                RecurseExpression(binary.Conversion, level + 1);
+            }
+
+            RecurseExpression(binary.Right, level + 1);
         }
 
         /// <summary>
         /// Recurse a member expression.
         /// </summary>
         /// <param name="member">The <see cref="MemberExpression"/> to parse.</param>
-        private void RecurseMemberExpression(MemberExpression member)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseMemberExpression(MemberExpression member, int level)
         {
-            queue.Enqueue(member);
-            RecurseExpression(member.Expression);
+            queue.Enqueue((level, member));
+            RecurseExpression(member.Expression, level + 1);
         }
 
         /// <summary>
         /// Recurse a lambda expression.
         /// </summary>
         /// <param name="lambda">The <see cref="LambdaExpression"/> to parse.</param>
-        private void RecurseLambdaExpression(LambdaExpression lambda)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseLambdaExpression(LambdaExpression lambda, int level)
         {
-            queue.Enqueue(lambda);
+            queue.Enqueue((level, lambda));
             foreach (var parameter in lambda.Parameters)
             {
-                RecurseExpression(parameter);
+                RecurseExpression(parameter, level + 1);
             }
 
-            RecurseExpression(lambda.Body);
+            RecurseExpression(lambda.Body, level + 1);
         }
 
         /// <summary>
         /// Recurse an invocation expression.
         /// </summary>
         /// <param name="invocation">The <see cref="InvocationExpression"/> to parse.</param>
-        private void RecurseInvocationExpression(InvocationExpression invocation)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseInvocationExpression(InvocationExpression invocation, int level)
         {
-            queue.Enqueue(invocation);
+            queue.Enqueue((level, invocation));
             foreach (var arg in invocation.Arguments)
             {
-                RecurseExpression(arg);
+                RecurseExpression(arg, level + 1);
             }
 
-            RecurseExpression(invocation.Expression);
+            RecurseExpression(invocation.Expression, level + 1);
         }
 
         /// <summary>
         /// Recurse a method call expression.
         /// </summary>
         /// <param name="method">The <see cref="MethodCallExpression"/> to recurse.</param>
-        private void RecurseMethodCallExpression(MethodCallExpression method)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseMethodCallExpression(MethodCallExpression method, int level)
         {
-            queue.Enqueue(method);
-            RecurseExpression(method.Object);
+            queue.Enqueue((level, method));
+            if (method.Object != null)
+            {
+                RecurseExpression(method.Object, level + 1);
+            }
+
             foreach (var arg in method.Arguments)
             {
-                RecurseExpression(arg);
+                RecurseExpression(arg, level + 1);
             }
         }
 
@@ -227,10 +276,11 @@ namespace ExpressionPowerTools.Core
         /// Recurse a unary expression.
         /// </summary>
         /// <param name="unary">The <see cref="UnaryExpression"/> to parse.</param>
-        private void RecurseUnaryExpression(UnaryExpression unary)
+        /// <param name="level">The recursion level.</param>
+        private void RecurseUnaryExpression(UnaryExpression unary, int level)
         {
-            queue.Enqueue(unary);
-            RecurseExpression(unary.Operand);
+            queue.Enqueue((level, unary));
+            RecurseExpression(unary.Operand, level + 1);
         }
     }
 }

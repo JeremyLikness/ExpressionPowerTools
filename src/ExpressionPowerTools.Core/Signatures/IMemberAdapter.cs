@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System.Collections.Generic;
+using System;
 using System.Reflection;
 
 namespace ExpressionPowerTools.Core.Signatures
@@ -15,6 +15,13 @@ namespace ExpressionPowerTools.Core.Signatures
         /// Primarily for testing. Clears the cache.
         /// </summary>
         void Reset();
+
+        /// <summary>
+        /// Makes an anonymous type.
+        /// </summary>
+        /// <param name="types">The type list to use.</param>
+        /// <returns>The anonymous type.</returns>
+        Type MakeAnonymousType((string prop, Type propType)[] types);
 
         /// <summary>
         /// Gets a unique string that identifies the member.

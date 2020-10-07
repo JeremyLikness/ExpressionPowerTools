@@ -24,7 +24,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
         {
             ServiceHost.GetService<IRulesConfiguration>()
                 .RuleForType(typeof(Microsoft.EntityFrameworkCore.EF))
-                .RuleForType(typeof(Microsoft.EntityFrameworkCore.DbFunctionsExtensions));
+                .RuleForType(typeof(Microsoft.EntityFrameworkCore.DbFunctionsExtensions))
+                .RuleForType(typeof(Microsoft.EntityFrameworkCore.DbFunctions));
         }
 
         /// <summary>

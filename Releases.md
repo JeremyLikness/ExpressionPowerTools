@@ -11,6 +11,44 @@
 - [0.9.1-alpha](#091-alpha)
 - [0.9.0-alpha](#090-alpha)
 
+### 0.9.3-alpha
+
+**Core**
+
+- Simplified code and updated tests for test coverage
+- Added anonymous comparers to `ExpressionEquivalency`
+- Added `IsOrContainsAnonymousType` extension method
+- Added handling for events to `MemberAdapter`
+- Added tree view override for `EnumerableExpression`
+- Added comparison support for `ElementInit` types
+- Completely overhauled anonymous type handling (now expects anonymous types, will look at generating soon)
+- Fixed `RecurseTypes` in `MemberAdapter` to handle extremely complex method closures
+- Hopefully improved parsing speed by providing a method to parse out parameter counts
+
+**Serialization**
+
+- Fixed some test paths with constants and anonymous types
+- Fixed the typed deserialization to allow a differently typed host (in => out)
+- Added support for `MemberInitExpression`
+- Added primitives, guid to default ruleset
+- Removed compression of "new" expressions
+- Moved compression into the serializer and added the option to configuration
+- Added logic to capture default rules in the rules engine to easily capture and reset for tests
+- Added primitives and collection types to default rules
+
+**AspNetCore Middleware**
+
+- Added default registrations for more EF Core functions
+
+**Sample**
+
+- Refactored sample app to multiple collections
+- Added group by and select many examples
+
+**Test**
+
+- Added project and script to build test with code coverage and generated badges and reports. Manual (for now).
+
 ### 0.9.2-alpha
 
 **Core**

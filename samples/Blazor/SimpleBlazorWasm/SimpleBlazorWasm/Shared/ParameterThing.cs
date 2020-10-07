@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
-
 namespace SimpleBlazorWasm.Shared
 {
     /// <summary>
-    /// A thing.
+    /// A parameter of a <see cref="MethodThing"/>.
     /// </summary>
-    public class Thing
+    public class ParameterThing
     {
         /// <summary>
         /// Gets or sets the id.
@@ -16,23 +14,13 @@ namespace SimpleBlazorWasm.Shared
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets or sets a value.
-        /// </summary>
-        public int Value { get; set; }
-
-        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether it is active.
+        /// Gets or sets the method id.
         /// </summary>
-        public bool IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date is was created.
-        /// </summary>
-        public DateTime Created { get; set; }
+        public string MethodThingId { get; set; }
     }
 }

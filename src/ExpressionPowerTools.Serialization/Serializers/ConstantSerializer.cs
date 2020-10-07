@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -51,7 +52,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return Expression.Constant(innerValue, innerValue.GetType());
             }
 
-            if (valueType.IsGenericType && valueType.GetGenericTypeDefinition()
+            if (valueType.IsGenericType &&
+                valueType.GetGenericTypeDefinition()
                 == typeof(EnumerableQuery<>))
             {
                 if (state.QueryRoot is ConstantExpression ce)
@@ -69,40 +71,19 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return Expression.Constant(GetMemberFromKey(memberKey));
             }
 
-            var constantVal = JsonSerializer.Deserialize(value, valueType, state.Options);
+            var constantVal = JsonSerializer.Deserialize(
+                value,
+                valueType,
+                state.Options);
 
             if (constantVal is AnonType anonType)
             {
-                Normalize(anonType);
-
-                void Normalize(AnonType typeToProcess)
-                {
-                    // normalize values
-                    foreach (var propValue in typeToProcess.PropertyValues)
-                    {
-                        if (propValue.AnonVal == null)
-                        {
-                            continue;
-                        }
-
-                        var propValueType = GetMemberFromKey<Type>(propValue.AnonValueType);
-                        if (propValue.AnonVal.GetType() != propValueType)
-                        {
-                            var jsonText = ((JsonElement)propValue.AnonVal).GetRawText();
-                            propValue.AnonVal = JsonSerializer.Deserialize(jsonText, propValueType, state.Options);
-                        }
-
-                        if (propValueType == typeof(AnonType))
-                        {
-                            Normalize(propValue.AnonVal as AnonType);
-                        }
-                    }
-                }
-
-                return Expression.Constant(anonType.GetValue());
+                constantVal = ConvertAnonTypeToAnonymousType(
+                    anonType,
+                    state.Options);
             }
 
-            return type == valueType ? Expression.Constant(constantVal) :
+            return type == valueType && constantVal != null ? Expression.Constant(constantVal) :
                 Expression.Constant(constantVal, type);
         }
 
@@ -119,11 +100,24 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
+            if (expression.Type.IsAnonymousType())
+            {
+                expression = Expression.Constant(
+                    ConvertAnonymousTypeToAnonType(expression.Value),
+                    typeof(AnonType));
+            }
+
             var result = new Constant(expression);
+
             if (expression.Value is Expression expr)
             {
                 result.Value = Serializer.Serialize(expr, state);
                 result.ValueTypeKey = GetKeyForMember(result.Value.GetType());
+            }
+
+            if (result.ValueTypeKey == result.ConstantTypeKey)
+            {
+                result.ValueTypeKey = null;
             }
 
             return result;

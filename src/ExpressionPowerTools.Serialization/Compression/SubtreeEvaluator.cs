@@ -63,7 +63,8 @@ namespace ExpressionPowerTools.Serialization.Compression
         /// <returns>The evaluated expression.</returns>
         private Expression Evaluate(Expression e)
         {
-            if (e.NodeType == ExpressionType.Constant)
+            if (e.NodeType == ExpressionType.Constant
+                || e.NodeType == ExpressionType.New)
             {
                 return e;
             }
@@ -81,7 +82,8 @@ namespace ExpressionPowerTools.Serialization.Compression
 
             LambdaExpression lambda = Expression.Lambda(e);
             Delegate fn = lambda.Compile();
-            return Expression.Constant(fn.DynamicInvoke(null), e.Type);
+            var result = Expression.Constant(fn.DynamicInvoke(null), e.Type);
+            return result;
         }
     }
 }

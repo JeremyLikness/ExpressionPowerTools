@@ -16,12 +16,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
     public class Constant : SerializableExpression
     {
         /// <summary>
-        /// Transformer for anonymous types.
-        /// </summary>
-        public static readonly Lazy<IAnonymousTypeAdapter> AnonymousTypeAdapter =
-            ServiceHost.GetLazyService<IAnonymousTypeAdapter>();
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Constant"/> class.
         /// </summary>
         public Constant()
@@ -35,7 +29,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public Constant(ConstantExpression expression)
             : base(expression)
         {
-            expression = AnonymousTypeAdapter.Value.TransformConstant(expression);
             ConstantTypeKey = GetKeyForMember(expression.Type);
             ValueTypeKey = expression.Value == null ?
                 null : GetKeyForMember(expression.Value.GetType());

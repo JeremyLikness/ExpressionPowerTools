@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using ExpressionPowerTools.Core.Dependencies;
@@ -20,20 +21,67 @@ namespace ExpressionPowerTools.Serialization
     public class Registration : IDependentServiceRegistration
     {
         /// <summary>
+        /// The list of primitives.
+        /// </summary>
+        private static Type[] primitiveTypes = null;
+
+        /// <summary>
+        /// The list of collections.
+        /// </summary>
+        private static Type[] collectionTypes = null;
+
+        /// <summary>
         /// Registers the default rules.
         /// </summary>
         /// <param name="rules">The <see cref="IRulesConfiguration"/>.</param>
         public static void RegisterDefaultRules(IRulesConfiguration rules)
         {
-            rules.RuleForType(typeof(Math))
-                .RuleForType(typeof(Enumerable))
-                .RuleForType(typeof(Queryable))
-                .RuleForType(typeof(AnonInitializer))
-                .RuleForType(typeof(AnonType))
-                .RuleForType(typeof(AnonValue))
-                .RuleForType<string>()
-                .RuleForType<DateTime>()
-                .RuleForMethod(
+            if (primitiveTypes == null)
+            {
+                primitiveTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.Namespace != null &&
+                    t.Namespace.StartsWith(nameof(System)) &&
+                    t.IsPrimitive &&
+                    t != typeof(IntPtr) &&
+                    t != typeof(UIntPtr))
+                .ToArray();
+            }
+
+            if (collectionTypes == null)
+            {
+                var collectionNamespace = typeof(IEnumerable).Namespace;
+                collectionTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.Namespace != null &&
+                    t.Namespace.StartsWith(collectionNamespace) &&
+                    t.IsPublic &&
+                    t.IsSerializable &&
+                    !t.IsEnum &&
+                    !typeof(Exception).IsAssignableFrom(t))
+                .ToArray();
+            }
+
+            foreach (var primitive in primitiveTypes.Union(collectionTypes))
+            {
+                rules.RuleForType(primitive);
+            }
+
+            foreach (var common in new[]
+            {
+                typeof(Math),
+                typeof(Enumerable),
+                typeof(Queryable),
+                typeof(string),
+                typeof(DateTime),
+                typeof(TimeSpan),
+                typeof(Guid),
+            })
+            {
+                rules.RuleForType(common);
+            }
+
+            rules.RuleForMethod(
                     selector =>
                     selector.ByNameForType<MethodInfo, object>(
                         nameof(object.ToString)));
@@ -50,9 +98,11 @@ namespace ExpressionPowerTools.Serialization
             registration.Register<IConfigurationBuilder, ConfigurationBuilder>();
             registration.RegisterSingleton<IDefaultConfiguration>(new DefaultConfiguration());
             var rules = new RulesEngine();
+            rules.LoadingDefaults = true;
             registration.RegisterSingleton<IRulesEngine>(rules);
             registration.RegisterSingleton<IRulesConfiguration>(rules);
-            registration.RegisterSingleton<IAnonymousTypeAdapter>(new AnonymousTypeAdapter());
+            registration.RegisterSingleton<IAnonymousTypeAdapter>(
+                new AnonymousTypeAdapter());
         }
 
         /// <summary>

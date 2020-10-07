@@ -9,6 +9,8 @@ using System.Text.Json;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Compression;
+using ExpressionPowerTools.Serialization.Rules;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -26,6 +28,12 @@ namespace ExpressionPowerTools.Serialization
     /// </remarks>
     public static class Serializer
     {
+        /// <summary>
+        /// Used to resolve variables and other non-parameterized types.
+        /// </summary>
+        private static readonly TreeCompressionVisitor Compressor =
+            new TreeCompressionVisitor();
+
         /// <summary>
         /// The serializer for expressions.
         /// </summary>
@@ -60,6 +68,11 @@ namespace ExpressionPowerTools.Serialization
             else
             {
                 state = DefaultConfiguration.Value.GetDefaultState();
+            }
+
+            if (state.CompressExpression)
+            {
+                root = Compressor.EvalAndCompress(root);
             }
 
             var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, state))
@@ -116,12 +129,15 @@ namespace ExpressionPowerTools.Serialization
             var root = JsonSerializer.Deserialize<SerializationRoot>(json, state.Options);
             state.TypeIndex = new List<string>(
                 root.TypeIndex ?? new string[0]);
+
+            Expression result = null;
+
             if (root.Expression is JsonElement jsonChild)
             {
-                return SerializerValue.Deserialize(jsonChild, state);
+                result = SerializerValue.Deserialize(jsonChild, state);
             }
 
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -141,7 +157,9 @@ namespace ExpressionPowerTools.Serialization
             Ensure.NotNull(() => host);
             Ensure.NotNullOrWhitespace(() => json);
             var expression = Deserialize(json, host.Expression, config);
-            return host.Provider.CreateQuery(expression);
+            IQueryable result;
+            result = host.Provider.CreateQuery(expression);
+            return result;
         }
 
         /// <summary>
@@ -154,7 +172,7 @@ namespace ExpressionPowerTools.Serialization
         /// <returns>The deserialized <see cref="IQueryable{T}"/>.</returns>
         public static IQueryable<T> DeserializeQuery<T>(
             string json,
-            IQueryable<T> host = null,
+            IQueryable host = null,
             Action<IConfigurationBuilder> config = null)
         {
             host = host ?? IQueryableExtensions.CreateQueryTemplate<T>();
@@ -206,10 +224,16 @@ namespace ExpressionPowerTools.Serialization
         {
             var rulesEngine = ServiceHost.GetService<IRulesEngine>();
             var rulesConfig = ServiceHost.GetService<IRulesConfiguration>();
-            rulesEngine.Reset();
-            if (noDefaults == false)
+            if (rulesEngine is RulesEngine re)
             {
-                Registration.RegisterDefaultRules(rulesConfig);
+                if (noDefaults)
+                {
+                    re.Reset();
+                }
+                else
+                {
+                    re.ResetToDefaults();
+                }
             }
 
             rules?.Invoke(rulesConfig);

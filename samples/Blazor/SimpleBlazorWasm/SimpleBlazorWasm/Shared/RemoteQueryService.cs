@@ -1,18 +1,13 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Serialization.EFCore.Http.Extensions;
-using ExpressionPowerTools.Serialization.EFCore.Http.Queryable;
-using Microsoft.EntityFrameworkCore;
-using SimpleBlazorWasm.Shared;
 
-namespace SimpleBlazorWasm.Client.Shared
+namespace SimpleBlazorWasm.Shared
 {
     /// <summary>
     /// Options for take.
@@ -109,44 +104,41 @@ namespace SimpleBlazorWasm.Client.Shared
     public class RemoteQueryService
     {
         /// <summary>
-        /// Raw name filter.
+        /// Gets or sets the list of things.
         /// </summary>
-        private string nameFilterRaw;
+        public IList<TypeThing> Things { get; protected set; } = null;
 
         /// <summary>
-        /// Name filter stripped of non-alpha.
+        /// Gets or sets the grouped things.
         /// </summary>
-        private string nameFilterSafe;
+        public IList<GroupedThing> GroupedThings
+        { get; protected set; } = null;
 
         /// <summary>
-        /// The last call.
+        /// Gets or sets the related things.
         /// </summary>
-        private LastCall lastCall = LastCall.Refresh;
+        public IList<RelatedThing> RelatedThings
+        { get; protected set; } = null;
 
         /// <summary>
-        /// Gets the list of things.
+        /// Gets or sets the count from the last count operation.
         /// </summary>
-        public IList<Thing> Things { get; private set; } = null;
+        public int Count { get; protected set; }
 
         /// <summary>
-        /// Gets the count from the last count operation.
+        /// Gets or sets the error message.
         /// </summary>
-        public int Count { get; private set; }
+        public string Error { get; protected set; }
 
         /// <summary>
-        /// Gets the error message.
+        /// Gets or sets a value indicating whether or not it is currently loading.
         /// </summary>
-        public string Error { get; private set; }
+        public bool Loading { get; protected set; }
 
         /// <summary>
-        /// Gets a value indicating whether or not it is currently loading.
+        /// Gets or sets a value indicating whether the sort is up or down.
         /// </summary>
-        public bool Loading { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether the sort is up or down.
-        /// </summary>
-        public bool Ascending { get; private set; }
+        public bool Ascending { get; protected set; }
 
         /// <summary>
         /// Gets the current sort.
@@ -157,53 +149,53 @@ namespace SimpleBlazorWasm.Client.Shared
         }
 
         /// <summary>
-        /// Gets a value indicating whether the active flag should be filtered.
+        /// Gets or sets a value indicating whether the active flag should be filtered.
         /// </summary>
-        public bool UseActive { get; private set; }
+        public bool UseActive { get; protected set; }
 
         /// <summary>
-        /// Gets a value indicating whether the filter is for active or not.
+        /// Gets or sets a value indicating whether the filter is for active or not.
         /// </summary>
-        public bool IsActive { get; private set; }
+        public bool IsActive { get; protected set; }
 
         /// <summary>
-        /// Gets the field for the ordering.
+        /// Gets or sets the field for the ordering.
         /// </summary>
-        public string OrderBy { get; private set; }
+        public string OrderBy { get; protected set; }
 
         /// <summary>
-        /// Gets a value indicating whether the result is a count.
+        /// Gets or sets a value indicating whether the result is a count.
         /// </summary>
-        public bool IsCount { get; private set; }
+        public bool IsCount { get; protected set; }
 
         /// <summary>
-        /// Gets the take status.
+        /// Gets or sets the take status.
         /// </summary>
-        public TakeOptions Take { get; private set; }
+        public TakeOptions Take { get; protected set; }
 
         /// <summary>
-        /// Gets the skip status.
+        /// Gets or sets the skip status.
         /// </summary>
-        public SkipOptions Skip { get; private set; }
+        public SkipOptions Skip { get; protected set; }
 
         /// <summary>
-        /// Gets a value indicating whether the name should be filtered.
+        /// Gets or sets a value indicating whether the name should be filtered.
         /// </summary>
-        public bool FilterOnName { get; private set; }
+        public bool FilterOnName { get; protected set; }
 
         /// <summary>
         /// Gets or sets the name filter.
         /// </summary>
         public string NameFilter
         {
-            get => nameFilterRaw;
+            get => NameFilterRaw;
             set
             {
-                if (value != nameFilterRaw)
+                if (value != NameFilterRaw)
                 {
-                    nameFilterRaw = value;
+                    NameFilterRaw = value;
                     Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-                    nameFilterSafe = rgx.Replace(nameFilterRaw, string.Empty)
+                    NameFilterSafe = rgx.Replace(NameFilterRaw, string.Empty)
                         .Trim();
                 }
             }
@@ -215,12 +207,25 @@ namespace SimpleBlazorWasm.Client.Shared
         public CreatedOptions CreatedOptions { get; private set; }
 
         /// <summary>
-        /// Gets the query text.
+        /// Gets the root query.
         /// </summary>
-        public string Query
-        {
-            get => BuildQuery().Expression.ToString();
-        }
+        protected virtual IQueryable<TypeThing> RootQuery =>
+            new List<TypeThing>().AsQueryable();
+
+        /// <summary>
+        /// Gets or sets the last call type.
+        /// </summary>
+        protected LastCall LastCall { get; set; } = LastCall.Refresh;
+
+        /// <summary>
+        /// Gets or sets the raw name filter.
+        /// </summary>
+        protected string NameFilterRaw { get; set; }
+
+        /// <summary>
+        /// Gets or sets the safe name filter.
+        /// </summary>
+        protected string NameFilterSafe { get; set; }
 
         /// <summary>
         /// Method to change the order field.
@@ -293,117 +298,21 @@ namespace SimpleBlazorWasm.Client.Shared
         }
 
         /// <summary>
-        /// Auto-refresh logic.
+        /// Refresh.
         /// </summary>
-        /// <returns>A <see cref="Task"/> for asynchronous operations.</returns>
-        public Task RefreshAsync()
+        /// <returns>The asynchronous <see cref="Task"/>.</returns>
+        public virtual Task RefreshAsync()
         {
-            if (Loading)
-            {
-                return Task.CompletedTask;
-            }
-
-            if (lastCall == LastCall.Refresh)
-            {
-                return LoadAsync();
-            }
-
-            if (lastCall == LastCall.Count)
-            {
-                return CountAsync();
-            }
-
-            return SingleAsync();
-        }
-
-        /// <summary>
-        /// Loads a list.
-        /// </summary>
-        /// <returns>The <see cref="Task"/> for asynchronous operations.</returns>.
-        public async Task LoadAsync()
-        {
-            var query = BuildQueryForRefresh();
-            IsCount = false;
-            lastCall = LastCall.Refresh;
-
-            try
-            {
-                Things = await query.ExecuteRemote().ToListAsync();
-                Count = 0;
-            }
-            catch (Exception ex)
-            {
-                Error = ex.Message;
-            }
-            finally
-            {
-                Loading = false;
-            }
-        }
-
-        /// <summary>
-        /// Grabs the count.
-        /// </summary>
-        /// <returns>The <see cref="Task"/> for asynchronous operations.</returns>
-        public async Task CountAsync()
-        {
-            var query = BuildQueryForRefresh();
-            IsCount = true;
-            lastCall = LastCall.Count;
-
-            try
-            {
-                Count = await query.ExecuteRemote().CountAsync();
-            }
-            catch (Exception ex)
-            {
-                Error = ex.Message;
-            }
-            finally
-            {
-                Loading = false;
-            }
-        }
-
-        /// <summary>
-        /// Grabs a single item.
-        /// </summary>
-        /// <returns>The <see cref="Task"/> for asynchronous processing.</returns>
-        public async Task SingleAsync()
-        {
-            var query = BuildQueryForRefresh();
-            IsCount = false;
-            lastCall = LastCall.Single;
-
-            try
-            {
-                var thing = await query.ExecuteRemote().FirstOrSingleAsync();
-                if (thing != null)
-                {
-                    Things = new List<Thing>
-                    {
-                        thing,
-                    };
-                    Count = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Error = ex.Message;
-            }
-            finally
-            {
-                Loading = false;
-            }
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Builds the query and sets default flags.
         /// </summary>
         /// <returns>The query.</returns>
-        private IQueryable<Thing> BuildQueryForRefresh()
+        protected IQueryable<TypeThing> BuildQueryForRefresh()
         {
-            lastCall = LastCall.Loading;
+            LastCall = LastCall.Loading;
             Error = null;
             Loading = true;
             Things = null;
@@ -412,12 +321,80 @@ namespace SimpleBlazorWasm.Client.Shared
         }
 
         /// <summary>
+        /// Build the query for group by.
+        /// </summary>
+        /// <returns>The query.</returns>
+        protected IQueryable<GroupedThing> BuildQueryForGroupBy()
+        {
+            var query = BuildQuery();
+            var result = query
+                    .GroupBy(t => t.Name)
+                    .Select(g =>
+                    new GroupedThing
+                    {
+                        Name = g.Key,
+                        Count = g.Count(),
+                    })
+                    .OrderBy(group => group.Name);
+            return result;
+        }
+
+        /// <summary>
+        /// Build the query for related things.
+        /// </summary>
+        /// <returns>The query.</returns>
+        protected IQueryable<RelatedThing> BuildQueryForRelated()
+        {
+            var query = BuildQuery();
+            var result = query
+                    .Where(t => t.Name != null)
+                    .SelectMany(
+                        t =>
+                        t.Methods, (t, m) =>
+                        new
+                        {
+                            t.Name,
+                            MethodName = m.Name,
+                            m.Parameters,
+                        })
+                    .SelectMany(
+                        tm => tm.Parameters,
+                        (tm, p) =>
+                        new RelatedThing
+                        {
+                            TypeName = tm.Name,
+                            MethodName = tm.MethodName,
+                            ParameterName = p.Name,
+                        })
+                    .OrderBy(r => r.TypeName)
+                    .ThenBy(r => r.MethodName)
+                    .ThenBy(r => r.ParameterName);
+            return result;
+        }
+
+        /// <summary>
+        /// Query name.
+        /// </summary>
+        /// <param name="core">The core query.</param>
+        /// <returns>The queryable.</returns>
+        protected virtual IQueryable<TypeThing> QueryName(IQueryable<TypeThing> core) =>
+            core;
+
+        /// <summary>
+        /// The created query.
+        /// </summary>
+        /// <param name="core">The core of the query.</param>
+        /// <returns>The queryable.</returns>
+        protected virtual IQueryable<TypeThing> QueryCreated(IQueryable<TypeThing> core) =>
+            core;
+
+        /// <summary>
         /// Builds the query.
         /// </summary>
         /// <returns>The query.</returns>
-        private IQueryable<Thing> BuildQuery()
+        protected IQueryable<TypeThing> BuildQuery()
         {
-            var core = DbClientContext<ThingContext>.Query(context => context.Things);
+            var core = RootQuery;
             core = QueryActive(core);
             core = QueryName(core);
             core = QueryCreated(core);
@@ -432,47 +409,20 @@ namespace SimpleBlazorWasm.Client.Shared
         /// </summary>
         /// <param name="core">The query.</param>
         /// <returns>The modified query.</returns>
-        private IQueryable<Thing> QueryActive(IQueryable<Thing> core) =>
+        protected virtual IQueryable<TypeThing> QueryActive(IQueryable<TypeThing> core) =>
             UseActive ? core.Where(t => t.IsActive == IsActive) : core;
-
-        /// <summary>
-        /// Name portion.
-        /// </summary>
-        /// <remarks>
-        /// Shows using a database-specific extension from the client.
-        /// </remarks>
-        /// <param name="core">The query.</param>
-        /// <returns>The modified query.</returns>
-        private IQueryable<Thing> QueryName(IQueryable<Thing> core) =>
-            FilterOnName && !string.IsNullOrWhiteSpace(nameFilterSafe) ?
-            core.Where(t => EF.Functions.Like(t.Name, $"%{nameFilterSafe}%")) : core;
-
-        /// <summary>
-        /// Created portion.
-        /// </summary>
-        /// <remarks>
-        /// This uses the EF static method showing that even those queries
-        /// translate.
-        /// </remarks>
-        /// <param name="core">The query.</param>
-        /// <returns>The modified query.</returns>
-        private IQueryable<Thing> QueryCreated(IQueryable<Thing> core) =>
-            CreatedOptions == CreatedOptions.Anytime ?
-            core : core.Where(
-                t => EF.Property<DateTime>(t, nameof(Thing.Created)) < DateTime.Now.AddDays(
-                    -1 * (CreatedOptions == CreatedOptions.WeekAgo ? 7 : 14)));
 
         /// <summary>
         /// Sort ascending.
         /// </summary>
         /// <param name="core">The query.</param>
         /// <returns>The modified query.</returns>
-        private IQueryable<Thing> QueryAscending(IQueryable<Thing> core) =>
+        protected IQueryable<TypeThing> QueryAscending(IQueryable<TypeThing> core) =>
             OrderBy switch
             {
-                nameof(Thing.Id) => core.OrderBy(t => t.Id),
-                nameof(Thing.Created) => core.OrderBy(t => t.Created),
-                nameof(Thing.Value) => core.OrderBy(t => t.Value),
+                nameof(TypeThing.Id) => core.OrderBy(t => t.Id),
+                nameof(TypeThing.Created) => core.OrderBy(t => t.Created),
+                nameof(TypeThing.Value) => core.OrderBy(t => t.Value),
                 _ => core.OrderBy(t => t.Name),
             };
 
@@ -481,12 +431,12 @@ namespace SimpleBlazorWasm.Client.Shared
         /// </summary>
         /// <param name="core">The query.</param>
         /// <returns>The modified query.</returns>
-        private IQueryable<Thing> QueryDescending(IQueryable<Thing> core) =>
+        private IQueryable<TypeThing> QueryDescending(IQueryable<TypeThing> core) =>
             OrderBy switch
             {
-                nameof(Thing.Id) => core.OrderByDescending(t => t.Id),
-                nameof(Thing.Created) => core.OrderByDescending(t => t.Created),
-                nameof(Thing.Value) => core.OrderByDescending(t => t.Value),
+                nameof(TypeThing.Id) => core.OrderByDescending(t => t.Id),
+                nameof(TypeThing.Created) => core.OrderByDescending(t => t.Created),
+                nameof(TypeThing.Value) => core.OrderByDescending(t => t.Value),
                 _ => core.OrderBy(t => t.Name),
             };
 
@@ -495,7 +445,7 @@ namespace SimpleBlazorWasm.Client.Shared
         /// </summary>
         /// <param name="core">The query.</param>
         /// <returns>The modified query.</returns>
-        private IQueryable<Thing> QuerySkip(IQueryable<Thing> core) =>
+        private IQueryable<TypeThing> QuerySkip(IQueryable<TypeThing> core) =>
             Skip == SkipOptions.None ?
             core : core.Skip(Skip == SkipOptions.Skip5 ? 5 : 20);
 
@@ -504,7 +454,7 @@ namespace SimpleBlazorWasm.Client.Shared
         /// </summary>
         /// <param name="core">The query.</param>
         /// <returns>The modified query.</returns>
-        private IQueryable<Thing> QueryTake(IQueryable<Thing> core) =>
+        private IQueryable<TypeThing> QueryTake(IQueryable<TypeThing> core) =>
             Take == TakeOptions.All ?
             core : core.Take(Take == TakeOptions.Take5 ? 5 : 20);
     }

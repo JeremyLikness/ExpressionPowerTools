@@ -1,12 +1,10 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -47,16 +45,17 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 obj = Serializer.Deserialize(jsonObj, state);
             }
 
-            var methodInfo = GetMemberFromKey<MethodInfo>(
-                json.GetProperty(
-                nameof(MethodExpr.MethodInfoKey))
-                    .GetString());
+            var key = json.GetProperty(nameof(MethodExpr.MethodInfoKey))
+                .GetString();
+
+            var methodInfo = GetMemberFromKey<MethodInfo>(key);
 
             AuthorizeMembers(methodInfo);
 
             var list = json.GetProperty(nameof(MethodExpr.Arguments));
             var argumentList = list.EnumerateArray().Select(element =>
                 Serializer.Deserialize(element, state)).ToList();
+
             if (obj != null)
             {
                 return Expression.Call(obj, methodInfo, argumentList);
@@ -84,8 +83,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 MethodObject = Serializer.Serialize(expression.Object, state),
             };
-
-            method.MethodInfoKey = AnonymousTypeAdapter.MemberKeyTransformer(method.MethodInfoKey);
 
             foreach (var arg in expression.Arguments)
             {

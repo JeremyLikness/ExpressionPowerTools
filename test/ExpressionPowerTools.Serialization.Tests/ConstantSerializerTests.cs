@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Comparisons;
+using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using ExpressionPowerTools.Serialization.Extensions;
@@ -75,12 +76,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ConstantExpressionShouldSerialize(ConstantExpression constant)
         {
             var target = serializer.Serialize(constant, new SerializationState());
-            if (target.Value is AnonType anon)
-            {
-                Assert.True(ExpressionEquivalency.ValuesAreEquivalent(
-                    constant.Value, anon.GetValue()));
-            }
-            else if (target.Value is Constant constantValue)
+            if (target.Value is Constant constantValue)
             {
                 Assert.True(ExpressionEquivalency.ValuesAreEquivalent(
                     ((ConstantExpression)constant.Value).Value,
@@ -89,6 +85,10 @@ namespace ExpressionPowerTools.Serialization.Tests
             else if (constant.Value is MemberInfo member)
             {
                 Assert.Contains(member.Name, (string)target.Value);
+            }
+            else if (constant.Type.IsAnonymousType())
+            {
+                Assert.IsType<AnonType>(target.Value);
             }
             else
             {
@@ -148,23 +148,6 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.Constant(null), options);
             var deserialized = serializer.Deserialize(serialized, new SerializationState());
             Assert.NotNull(deserialized);
-        }
-
-        [Fact]
-        public void GivenNoParameterValuesWhenGetValueCalledThenShouldReturnNull()
-        {
-            var target = new AnonType
-            {
-                AnonymousTypeName = "test"
-            };
-            Assert.Null(target.GetValue());
-        }
-
-        [Fact]
-        public void GivenAnonTypeWhenGetValueCalledMultipleTimesThenShouldReturnSameInstance()
-        {
-            var target = new AnonType(new { Foo = 1, Bar = "two" });
-            Assert.Same(target.GetValue(), target.GetValue());
-        }
+        }        
     }
 }

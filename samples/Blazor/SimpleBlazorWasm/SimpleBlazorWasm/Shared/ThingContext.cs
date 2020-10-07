@@ -30,6 +30,16 @@ namespace SimpleBlazorWasm.Shared
         /// <summary>
         /// Gets or sets the collection of things.
         /// </summary>
-        public DbSet<Thing> Things { get; set; }
+        public DbSet<TypeThing> Types { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of widgets.
+        /// </summary>
+        public DbSet<MethodThing> Methods { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of features.
+        /// </summary>
+        public DbSet<ParameterThing> Parameters { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 # Summary of Code Coverage for ExpressionPowerTools.Serialization.EFCore.AspNetCore
 
-Report generated on 9/24/2020 11:54:58 PM.
+Report generated on 10/7/2020 11:54:05 PM UTC.
 
 ## Report Summary
 
@@ -11,24 +11,24 @@ Report generated on 9/24/2020 11:54:58 PM.
 |**Classes**|9
 |**Files**|9
 |**Line coverage**|100.0%
-|**Covered lines**|314
+|**Covered lines**|255
 |**Uncovered lines**|0
-|**Coverable lines**|314
-|**Total lines**|815
+|**Coverable lines**|255
+|**Total lines**|816
 
 ## Report Detail
 
 |Target|Coverage|
 |:--|--:|
-|[**ExpressionPowerTools.Serialization.EFCore.AspNetCore Summary**](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.n.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.RouteProcessor](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.RouteProcessor.cs.md)|100.0%|
-|[ExpressionPowerTools.Serialization.EFCore.AspNetCore.Registration](..\api\ExpressionPowerTools.Serialization.EFCore.AspNetCore.Registration.cs.md)|100.0%|
+|**✅ ExpressionPowerTools.Serialization.EFCore.AspNetCore Summary**|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.RouteProcessor|100.0%|
+|✅   ExpressionPowerTools.Serialization.EFCore.AspNetCore.Registration|100.0%|
 
 [Go Back](./index.md)

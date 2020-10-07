@@ -3,7 +3,9 @@
 
 using System;
 using System.Linq;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,7 +46,6 @@ namespace SimpleBlazorWasm.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbContext<ThingContext>(options => options.UseSqlite($"Data Source=things.db"));
-            CheckAndSeed(services);
         }
 
         /// <summary>
@@ -76,42 +77,76 @@ namespace SimpleBlazorWasm.Server
             app.UseEndpoints(endpoints =>
             {
                 // this is all that is needed to set up a route of /efcore/ThingContext/Things for remote queries.
-                endpoints.MapPowerToolsEFCore<ThingContext>();
+                endpoints.MapPowerToolsEFCore<ThingContext>(rules:
+                    rules => rules.RuleForType<GroupedThing>()
+                    .RuleForType<RelatedThing>());
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
+
+            CheckAndSeed(app.ApplicationServices.CreateScope().ServiceProvider);
         }
 
         /// <summary>
         /// Demo method for populating the database. You wouldn't do this in production.
         /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/>.</param>
-        private void CheckAndSeed(IServiceCollection services)
+        /// <param name="sp">The <see cref="IServiceProvider"/>.</param>
+        private void CheckAndSeed(IServiceProvider sp)
         {
-            var context = services.BuildServiceProvider().GetService<ThingContext>();
+            var context = sp.GetService<ThingContext>();
             if (!context.Database.EnsureCreated())
             {
                 return;
             }
 
+            var memberAdapter = ServiceHost.GetService<IMemberAdapter>();
             var random = new Random();
-            var types = GetType().Assembly.GetTypes()
+            Type[] types = GetType().Assembly.GetTypes()
                 .Where(t => !t.IsAnonymousType())
-                .Select(t => t.Name).Distinct().ToArray();
-            string GetTypeName() => types[random.Next(types.Length)];
-            var num = 100;
-            while (num-- > 0)
+                .Distinct().ToArray();
+            Type GetRandomType() => types[random.Next(types.Length)];
+            var num = 50;
+            TypeThing NewThing()
             {
-                var thing = new Thing
+                var type = GetRandomType();
+                var result = new TypeThing
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = GetTypeName(),
+                    Name = memberAdapter.GetKeyForMember(type),
                     Value = random.Next(),
                     IsActive = random.NextDouble() > 0.3,
                     Created = DateTime.Now.AddMinutes(-5 * random.Next(60 * 24 * 28)),
                 };
-                context.Things.Add(thing);
+
+                foreach (var method in type.GetMethods())
+                {
+                    var methodThing = new MethodThing
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Name = memberAdapter.GetKeyForMember(method),
+                    };
+                    result.Methods.Add(methodThing);
+                    foreach (var parameter in method.GetParameters())
+                    {
+                        var typeName = memberAdapter.GetKeyForMember(
+                            parameter.ParameterType);
+                        var parameterThing = new ParameterThing
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Name = $"{parameter.Name}:{typeName}",
+                        };
+                        methodThing.Parameters.Add(parameterThing);
+                    }
+                }
+
+                return result;
+            }
+
+            while (num-- > 0)
+            {
+                var thing = NewThing();
+                context.Types.Add(thing);
             }
 
             context.SaveChanges();

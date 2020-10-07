@@ -3,24 +3,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Extensions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
     /// <summary>
-    /// Helper for serializing and deserializing anonymous types.
+    /// Adapter for anonymous types.
     /// </summary>
     [Serializable]
     public class AnonType
     {
-        /// <summary>
-        /// Holds the dynamic value.
-        /// </summary>
-        private dynamic dynamicValue = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AnonType"/> class.
         /// </summary>
@@ -29,81 +22,56 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnonType"/> class with the
-        /// anonymous instance to serialize.
+        /// Initializes a new instance of the <see cref="AnonType"/> class
+        /// with an anonymous type.
         /// </summary>
-        /// <param name="value">The anonymous value.</param>
-        public AnonType(object value)
+        /// <param name="anonymous">The anonymous type.</param>
+        /// <param name="getKey">Function to get key for type.</param>
+        public AnonType(
+            object anonymous,
+            Func<Type, string> getKey)
         {
-            Ensure.NotNull(() => value);
-            AnonymousTypeName = value.GetType().ToString();
-            PropertyNames = value.GetType().GetProperties()
-                .Select(p => p.Name).ToArray();
-            List<AnonValue> values =
-                new List<AnonValue>();
-            foreach (var name in PropertyNames)
+            Ensure.NotNull(() => anonymous);
+            AnonymousTypeKey = getKey(anonymous.GetType());
+            foreach (var prop in anonymous.GetType().GetProperties())
             {
-                var prop = value.GetType().GetProperty(name);
                 var type = prop.PropertyType;
-                var val = prop.GetValue(value);
-                if (type.IsAnonymousType())
+                var value = prop.GetValue(anonymous);
+                var name = prop.Name;
+
+                if (prop.PropertyType.IsAnonymousType())
                 {
-                    val = new AnonType(val);
                     type = typeof(AnonType);
+                    value = new AnonType(
+                        value,
+                        getKey);
                 }
 
-                values.Add(new AnonValue(type, val));
+                var anonTypeKey = getKey(type);
+                Types.Add(anonTypeKey);
+                Names.Add(name);
+                Values.Add(value);
             }
-
-            PropertyValues = values.ToArray();
         }
 
         /// <summary>
-        /// Gets or sets the anonymous type name.
+        /// Gets or sets the anonymous type key.
         /// </summary>
-        public string AnonymousTypeName { get; set; }
+        public string AnonymousTypeKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the types.
+        /// </summary>
+        public List<string> Types { get; set; } = new List<string>();
 
         /// <summary>
         /// Gets or sets the property names.
         /// </summary>
-        public string[] PropertyNames { get; set; }
+        public List<string> Names { get; set; } = new List<string>();
 
         /// <summary>
-        /// Gets or sets the property values.
+        /// Gets or sets the values.
         /// </summary>
-        public AnonValue[] PropertyValues { get; set; }
-
-        /// <summary>
-        /// Gets the value as a <see cref="DynamicObject"/>.
-        /// </summary>
-        /// <returns>The dynamic value.</returns>
-        public ExpandoObject GetValue()
-        {
-            if (PropertyNames == null)
-            {
-                return null;
-            }
-
-            if (dynamicValue != null)
-            {
-                return dynamicValue;
-            }
-
-            var anon = (IDictionary<string, object>)new ExpandoObject();
-            for (var idx = 0; idx < PropertyNames.Length; idx++)
-            {
-                if (PropertyValues[idx].AnonVal is AnonType nestedAnon)
-                {
-                    anon.Add(PropertyNames[idx], nestedAnon.GetValue());
-                }
-                else
-                {
-                    anon.Add(PropertyNames[idx], PropertyValues[idx].AnonVal);
-                }
-            }
-
-            dynamicValue = anon;
-            return dynamicValue;
-        }
+        public List<object> Values { get; set; } = new List<object>();
     }
 }

@@ -27,6 +27,12 @@ namespace ExpressionPowerTools.Core.Comparisons
             ServiceHost.GetLazyService<IExpressionComparisonRuleProvider>();
 
         /// <summary>
+        /// Lazy proxy for member information.
+        /// </summary>
+        private static readonly Lazy<IMemberAdapter> MemberAdapter =
+            ServiceHost.GetLazyService<IMemberAdapter>();
+
+        /// <summary>
         /// Gets the configured rule set.
         /// </summary>
         private static IExpressionComparisonRuleProvider Rules =>
@@ -45,13 +51,33 @@ namespace ExpressionPowerTools.Core.Comparisons
         {
             if (source.IsAnonymousType())
             {
-                if (target.IsAnonymousType())
+                if (!target.IsAnonymousType())
                 {
-                    return source.ToString() == target.ToString();
+                    return false;
                 }
+                else
+                {
+                    var srcTypes = source.GetProperties()
+                        .Select(p => p.PropertyType).ToArray();
+                    var tgtTypes = target.GetProperties()
+                        .Select(p => p.PropertyType).ToArray();
+                    if (srcTypes.Length != tgtTypes.Length)
+                    {
+                        return false;
+                    }
 
-                return typeof(IDictionary).IsAssignableFrom(target) ||
-                    typeof(IDictionary<string, object>).IsAssignableFrom(target);
+                    for (var idx = 0; idx < srcTypes.Length; idx++)
+                    {
+                        if (!TypesAreEquivalent(
+                            srcTypes[idx],
+                            tgtTypes[idx]))
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
             }
 
             return source == target;
@@ -152,6 +178,21 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return MemberBindingsAreEquivalent(memberBinding, target as MemberBinding);
             }
 
+            if (source is ElementInit elemInit)
+            {
+                if (target is ElementInit tgtElemInit)
+                {
+                    if (!ReferenceEquals(elemInit.AddMethod, tgtElemInit.AddMethod))
+                    {
+                        return false;
+                    }
+
+                    return AreEquivalent(elemInit.Arguments, tgtElemInit.Arguments);
+                }
+
+                return false;
+            }
+
             var type = source.GetType();
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(EnumerableQuery<>))
             {
@@ -161,36 +202,9 @@ namespace ExpressionPowerTools.Core.Comparisons
                     !targetType.GenericTypeArguments.Except(type.GenericTypeArguments).Any();
             }
 
-            if (type.IsAnonymousType() || typeof(ExpandoObject).IsAssignableFrom(type))
+            if (type.IsAnonymousType())
             {
-                IDictionary src = null;
-
-                if (source is IDictionary<string, object> expando)
-                {
-                    src = new Dictionary<string, object>(expando);
-                }
-
-                src = src ??
-                    type.GetProperties().Select(p => new { p.Name, Value = p.GetValue(source) })
-                    .ToDictionary(p => p.Name, p => p.Value);
-
-                if (target is IDictionary tgt)
-                {
-                    return DictionariesAreEquivalent(src, tgt);
-                }
-
-                if (target is IDictionary<string, object> tgtExpando)
-                {
-                    return DictionariesAreEquivalent(
-                        src,
-                        tgtExpando.ToDictionary(t => t.Key, t => t.Value));
-                }
-
-                return DictionariesAreEquivalent(
-                    src,
-                    target.GetType().GetProperties().Select(
-                        p => new { p.Name, Value = p.GetValue(target) })
-                    .ToDictionary(p => p.Name, p => p.Value));
+                return AnonymousValuesAreEquivalent(source, target);
             }
 
             if (source is IDictionary dictionary)
@@ -215,6 +229,23 @@ namespace ExpressionPowerTools.Core.Comparisons
             if (typeof(IComparable).IsAssignableFrom(type))
             {
                 return ((IComparable)source).CompareTo(target) == 0;
+            }
+
+            if (source is ConstructorInfo info)
+            {
+                if (target is ConstructorInfo targetInfo)
+                {
+                    return TypesAreEquivalent(
+                        info.DeclaringType,
+                        targetInfo.DeclaringType) &&
+                        NonGenericEnumerablesAreEquivalent(
+                            info.GetParameters()
+                            .Select(p => p.ParameterType),
+                            targetInfo.GetParameters()
+                            .Select(p => p.ParameterType));
+                }
+
+                return false;
             }
 
             if (source is Exception ex)
@@ -360,6 +391,33 @@ namespace ExpressionPowerTools.Core.Comparisons
             if (other.GetType() != source.GetType())
             {
                 return false;
+            }
+
+            return true;
+        }
+
+        private static bool AnonymousValuesAreEquivalent(object source, object target)
+        {
+            var srcProps = source.GetType().GetProperties();
+            var tgtProps = target.GetType().GetProperties();
+
+            if (srcProps.Length != tgtProps.Length ||
+                srcProps.Select(p => p.PropertyType)
+                .Except(tgtProps.Select(p => p.PropertyType))
+                .Any())
+            {
+                return false;
+            }
+
+            for (var idx = 0; idx < srcProps.Length; idx++)
+            {
+                var srcVal = srcProps[idx].GetValue(source);
+                var tgtVal = tgtProps[idx].GetValue(target);
+
+                if (!ValuesAreEquivalent(srcVal, tgtVal))
+                {
+                    return false;
+                }
             }
 
             return true;

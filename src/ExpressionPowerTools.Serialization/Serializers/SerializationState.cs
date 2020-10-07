@@ -1,14 +1,11 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
-using ExpressionPowerTools.Core.Dependencies;
-using ExpressionPowerTools.Serialization.Extensions;
-using ExpressionPowerTools.Serialization.Signatures;
+using ExpressionPowerTools.Core.Extensions;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -28,6 +25,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public Expression QueryRoot { get; set; }
 
         /// <summary>
+        /// Gets or sets the last <see cref="Expression"/> serialized.
+        /// </summary>
+        public Expression LastExpression { get; set; }
+
+        /// <summary>
         /// Gets or sets the optional <see cref="JsonSerializerOptions"/>.
         /// </summary>
         public JsonSerializerOptions Options { get; set; }
@@ -45,6 +47,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public bool CompressTypes { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the expression should be
+        /// compressed. This will take anything not parameterized and invoke it
+        /// for transport over the wire.
+        /// </summary>
+        public bool CompressExpression { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets the index of types.
         /// </summary>
         /// <remarks>
@@ -53,6 +62,25 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// will reference <c>^0</c>.
         /// </remarks>
         public List<string> TypeIndex { get; set; } = new List<string>();
+
+        /// <summary>
+        /// Gets the expression tree that was deserialized.
+        /// </summary>
+        /// <remarks>
+        /// Used mainly for troubleshooting.
+        /// </remarks>
+        /// <returns>The expression tree.</returns>
+        public string GetExpressionTree()
+        {
+            if (LastExpression == null)
+            {
+                return string.Empty;
+            }
+
+            var result = LastExpression.AsEnumerable().ToString();
+            LastExpression = null;
+            return result;
+        }
 
         /// <summary>
         /// Retrieves a <see cref="ParameterExpression"/> of the same type
@@ -74,6 +102,15 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             parameters.Add(expr);
             return expr;
+        }
+
+        /// <summary>
+        /// Gets the parameters that were built.
+        /// </summary>
+        /// <returns>The parameter list.</returns>
+        public ParameterExpression[] GetParameters()
+        {
+            return parameters.ToArray();
         }
     }
 }

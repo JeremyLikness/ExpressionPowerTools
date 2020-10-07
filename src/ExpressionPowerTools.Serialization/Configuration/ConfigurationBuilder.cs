@@ -44,6 +44,20 @@ namespace ExpressionPowerTools.Serialization.Configuration
         }
 
         /// <summary>
+        /// Sets the flag to indicate whether expression trees should be partially
+        /// evaluated so that local variable references aren't serialized.
+        /// </summary>
+        /// <param name="compressExpressionTree">The flag indicating whether the tree
+        /// should be compressed.</param>
+        /// <returns>The chainable <see cref="IConfigurationBuilder"/>.</returns>
+        public IConfigurationBuilder CompressExpressionTree(bool compressExpressionTree)
+        {
+            CheckValidity();
+            state.CompressExpression = compressExpressionTree;
+            return this;
+        }
+
+        /// <summary>
         /// Configuration complete. Return the <see cref="SerializationState"/>.
         /// </summary>
         /// <returns>The <see cref="SerializationState"/>.</returns>
@@ -58,9 +72,10 @@ namespace ExpressionPowerTools.Serialization.Configuration
         /// </summary>
         /// <param name="options">The <see cref="JsonSerializerOptions"/> to use.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public IConfigurationBuilder WithJsonSerializerOptions(JsonSerializerOptions options)
+        public IConfigurationBuilder WithJsonSerializerOptions(
+            Action<JsonSerializerOptions> options)
         {
-            state.Options = options;
+            options(state.Options);
             return this;
         }
 

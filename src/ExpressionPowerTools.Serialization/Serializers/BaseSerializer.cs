@@ -28,7 +28,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
         private readonly Lazy<IMemberAdapter> memberAdapter =
             ServiceHost.GetLazyService<IMemberAdapter>();
 
-        private readonly Lazy<IAnonymousTypeAdapter> typeAdapter =
+        /// <summary>
+        /// Instance of the anonymous type adapter.
+        /// </summary>
+        private readonly Lazy<IAnonymousTypeAdapter> anonTypeAdapter =
             ServiceHost.GetLazyService<IAnonymousTypeAdapter>();
 
         /// <summary>
@@ -52,11 +55,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Gets the default <see cref="IExpressionSerializer{T, TSerializable}"/>.
         /// </summary>
         protected IExpressionSerializer<Expression, SerializableExpression> Serializer { get; private set; }
-
-        /// <summary>
-        /// Gets the service with access to anonymous type manipulation.
-        /// </summary>
-        protected IAnonymousTypeAdapter AnonymousTypeAdapter => typeAdapter.Value;
 
         /// <summary>
         /// Deserialize a <see cref="JsonElement"/> to an <see cref="Expression"/>.
@@ -117,5 +115,26 @@ namespace ExpressionPowerTools.Serialization.Serializers
         protected TMemberInfo GetMemberFromKey<TMemberInfo>(string key)
             where TMemberInfo : MemberInfo =>
             GetMemberFromKey(key) as TMemberInfo;
+
+        /// <summary>
+        /// Convert from anonymous type to <see cref="AnonType"/>.
+        /// </summary>
+        /// <param name="anonymousType">The anonymous type.</param>
+        /// <returns>The <see cref="AnonType"/> instance.</returns>
+        protected AnonType ConvertAnonymousTypeToAnonType(object anonymousType)
+            => anonTypeAdapter.Value.ConvertToAnonType(anonymousType);
+
+        /// <summary>
+        /// Convert from <see cref="AnonType"/> back to anonymous type instance.
+        /// </summary>
+        /// <param name="anonType">The <see cref="AnonType"/>.</param>
+        /// <param name="options">Serializer options.</param>
+        /// <returns>The anonymous object.</returns>
+        protected object ConvertAnonTypeToAnonymousType(
+            AnonType anonType,
+            JsonSerializerOptions options)
+            => anonTypeAdapter.Value.ConvertFromAnonType(
+                anonType,
+                options);
     }
 }

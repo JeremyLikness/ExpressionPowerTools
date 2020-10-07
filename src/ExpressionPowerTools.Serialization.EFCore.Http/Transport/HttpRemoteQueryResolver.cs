@@ -9,7 +9,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
-using ExpressionPowerTools.Serialization.Compression;
 using ExpressionPowerTools.Serialization.EFCore.Http.Configuration;
 using ExpressionPowerTools.Serialization.EFCore.Http.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -21,11 +20,6 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
     /// </summary>
     public class HttpRemoteQueryResolver : IRemoteQueryResolver
     {
-        /// <summary>
-        /// Collapses the expression tree.
-        /// </summary>
-        private readonly TreeCompressionVisitor compressor = new TreeCompressionVisitor();
-
         /// <summary>
         /// The default settings for serialization.
         /// </summary>
@@ -136,10 +130,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
                     nameof(query));
             }
 
-            var compressedQuery =
-                query.Provider.CreateQuery<T>(compressor.EvalAndCompress(query.Expression));
-
-            var json = Serializer.Serialize(compressedQuery);
+            var json = Serializer.Serialize(query);
             var payload = new SerializationPayload(type)
             {
                 Json = json,
