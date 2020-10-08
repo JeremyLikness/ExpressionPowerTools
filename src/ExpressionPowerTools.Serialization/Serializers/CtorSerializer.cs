@@ -6,7 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
-using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -96,27 +95,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             if (expression == null)
             {
                 return null;
-            }
-
-            if (expression.Type.IsAnonymousType())
-            {
-                // rebuild expression to use anonymous type helpers
-                var ctor = typeof(AnonInitializer).GetConstructors()
-                    .First(c => c.GetParameters().Length == 3);
-                var valueCtor = typeof(AnonValue).GetConstructors()
-                    .First(c => c.GetParameters().Length == 2);
-                var name = Expression.Constant(expression.Type.FullName);
-                var properties = expression.Type.GetProperties()
-                    .Select(p => p.Name.AsConstantExpression())
-                    .ToArray();
-                var initProperties = Expression.NewArrayInit(typeof(string), properties);
-                var initValues = expression.Arguments.Select(
-                    a => Expression.New(
-                        valueCtor,
-                        new Expression[] { a.Type.AsConstantExpression(), Expression.Convert(a, typeof(object)) }));
-                var initExpr = Expression.NewArrayInit(typeof(AnonValue), initValues);
-                var newArgs = new Expression[] { name, initProperties, initExpr };
-                expression = Expression.New(ctor, newArgs);
             }
 
             var ctorExpr = new CtorExpr(expression)

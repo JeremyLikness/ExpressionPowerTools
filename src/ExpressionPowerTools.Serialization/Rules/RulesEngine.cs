@@ -6,7 +6,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Security;
 using System.Threading;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
@@ -41,6 +40,9 @@ namespace ExpressionPowerTools.Serialization.Rules
         private readonly Lazy<IReflectionHelper> reflectionProvider =
             ServiceHost.GetLazyService<IReflectionHelper>();
 
+        /// <summary>
+        /// Member adapter.
+        /// </summary>
         private readonly Lazy<IMemberAdapter> memberAdapter =
             ServiceHost.GetLazyService<IMemberAdapter>();
 
@@ -51,6 +53,15 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// Explicit types will override derived type defaults.
         /// </remarks>
         private readonly ConcurrentDictionary<string, bool> rules
+            = new ConcurrentDictionary<string, bool>();
+
+        /// <summary>
+        /// Default permissions.
+        /// </summary>
+        /// <remarks>
+        /// Explicit types will override derived type defaults.
+        /// </remarks>
+        private readonly ConcurrentDictionary<string, bool> defaultRules
             = new ConcurrentDictionary<string, bool>();
 
         /// <summary>
@@ -69,6 +80,11 @@ namespace ExpressionPowerTools.Serialization.Rules
         public bool AllowAnonymousTypes { get; private set; } = true;
 
         /// <summary>
+        /// Gets or sets a value indicating whether defaults are being loaded.
+        /// </summary>
+        public bool LoadingDefaults { get; set; } = false;
+
+        /// <summary>
         /// Gets an instance of the <see cref="ReflectionHelper"/>.
         /// </summary>
         private IReflectionHelper ReflectionHelper => reflectionProvider.Value;
@@ -80,8 +96,33 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// Will overwrite previous rules for the same type.
         /// </remarks>
         /// <param name="rule">The <see cref="ISerializationRule"/> to add.</param>
-        public void AddRule(ISerializationRule rule) =>
+        public void AddRule(ISerializationRule rule)
+        {
             rules.AddOrUpdate(rule.TargetKey, rule.Allow, (_, __) => rule.Allow);
+
+            if (LoadingDefaults)
+            {
+                defaultRules.AddOrUpdate(
+                    rule.TargetKey,
+                    rule.Allow,
+                    (_, __) => rule.Allow);
+            }
+        }
+
+        /// <summary>
+        /// Reset to default rules.
+        /// </summary>
+        public void ResetToDefaults()
+        {
+            Reset();
+            foreach (var rule in defaultRules)
+            {
+                rules.AddOrUpdate(
+                    rule.Key,
+                    rule.Value,
+                    (_, __) => rule.Value);
+            }
+        }
 
         /// <summary>
         /// Check if a member is allowed.
@@ -90,15 +131,22 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// <returns>A value indicating whether the member access is allowed.</returns>
         public bool MemberIsAllowed(MemberInfo member)
         {
+            if (rulePending)
+            {
+                AddRules(true);
+            }
+
+            LoadingDefaults = false;
+
+            if (member == null)
+            {
+                return true;
+            }
+
             if ((member is Type typeInfo && typeInfo.IsAnonymousType())
                 || (member.DeclaringType != null && member.DeclaringType.IsAnonymousType()))
             {
                 return AllowAnonymousTypes;
-            }
-
-            if (rulePending)
-            {
-                AddRules(true);
             }
 
             var key = memberAdapter.Value.GetKeyForMember(member);
@@ -170,12 +218,53 @@ namespace ExpressionPowerTools.Serialization.Rules
         /// <summary>
         /// Clears the ruleset.
         /// </summary>
-        public void Reset()
+        /// <returns>The rule set.</returns>
+        public IList<(string rule, bool authorized)> Reset()
+        {
+            Monitor.Enter(objLock);
+
+            if (rulePending && LoadingDefaults)
+            {
+                AddRules(true);
+            }
+
+            LoadingDefaults = false;
+            rulePending = false;
+            memberInfo = null;
+            try
+            {
+                var result = rules.Select(r => (r.Key, r.Value)).ToList();
+                rules.Clear();
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                Monitor.Exit(objLock);
+            }
+        }
+
+        /// <summary>
+        /// Restores a rule set (used mainly for testing).
+        /// </summary>
+        /// <param name="ruleSet">The rule set.</param>
+        public void Restore(IList<(string rule, bool authorized)> ruleSet)
         {
             Monitor.Enter(objLock);
             try
             {
+                var result = rules.Select(r => (r.Key, r.Value)).ToList();
                 rules.Clear();
+                foreach (var rule in ruleSet)
+                {
+                    rules.AddOrUpdate(
+                        rule.rule,
+                        rule.authorized,
+                        (_, __) => rule.authorized);
+                }
             }
             catch
             {

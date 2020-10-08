@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Serialization;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -81,7 +82,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var type = (ExpressionType)typeElem.GetInt32();
             if (serializers.ContainsKey(type))
             {
-                return serializers[type].Deserialize(json, state);
+                var expression = serializers[type].Deserialize(json, state);
+                state.LastExpression = expression;
+                return expression;
             }
 
             return null;

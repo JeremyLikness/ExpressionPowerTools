@@ -1,6 +1,5 @@
-echo "Install the report generator tool? 1 to install"
-read answer
-if [ $answer -eq 1 ]
+read -p "Install the report generator tool? 1 to install, ENTER to skip:" answer
+if [ -n $answer ] && [ $answer -eq 1 ]
 then
     echo "Installing tool..."
     dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.6.7
@@ -8,18 +7,21 @@ else
     echo "Skipping installation."
 fi 
 echo Core prep ...
-targets=("ExpressionPowerTools.Core" "ExpressionPowerTools.Serialization")
+targets=("ExpressionPowerTools.Core" \
+    "ExpressionPowerTools.Serialization" \
+    "ExpressionPowerTools.Serialization.EFCore.AspNetCore" \
+    "ExpressionPowerTools.Serialization.EFCore.Http")
 for target in "${targets[@]}";
 do
 	echo $target
     cd "test/$target.Tests"
-    if [ -e "TestResults" ]
+    if [ -e "TestDocResults" ]
     then
-        rm -r "TestResults"
+        rm -r "TestDocResults"
     fi
-    dotnet test --logger trx --collect:"XPlat Code Coverage"
+    dotnet test --configuration Release --logger trx --collect:"XPlat Code Coverage" --results-directory TestDocResults
     echo "Generating reports..."
-    cd TestResults
+    cd TestDocResults
     reportgenerator -reports:**/*.xml --targetdir:reports -reporttypes:Badges\;TextSummary -assemblyfilters:+$target
     cd ../../..
 done

@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -82,6 +81,24 @@ namespace ExpressionPowerTools.Core.Members
             new ConcurrentDictionary<int, string>();
 
         /// <summary>
+        /// A cache of anonymous type templates.
+        /// </summary>
+        private readonly Type[] anonymousTypeCache;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemberAdapter"/> class.
+        /// </summary>
+        public MemberAdapter()
+        {
+            anonymousTypeCache = AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.IsAnonymousType())
+                .ToArray();
+        }
+
+        /// <summary>
         /// Gets a unique string that identifies the member.
         /// </summary>
         /// <param name="member">The <see cref="MemberInfo"/> to parse.</param>
@@ -116,6 +133,7 @@ namespace ExpressionPowerTools.Core.Members
                     if (mbr.IsGenericType && mbr.GenericTypeArguments.Length > 0)
                     {
                         var idx = 0;
+
                         foreach (var typeArg in mbr.GetGenericTypeDefinition().GetGenericArguments())
                         {
                             typeGenericMap[typeArg.Name] = idx++;
@@ -286,6 +304,11 @@ namespace ExpressionPowerTools.Core.Members
                 result = member;
             }
 
+            if (result == null)
+            {
+                throw new ArgumentException($"{key} not found", nameof(key));
+            }
+
             return result;
         }
 
@@ -298,6 +321,57 @@ namespace ExpressionPowerTools.Core.Members
         public TMemberInfo GetMemberForKey<TMemberInfo>(string key)
             where TMemberInfo : MemberInfo =>
             GetMemberForKey(key) as TMemberInfo;
+
+        /// <summary>
+        /// Makes an anonymous type.
+        /// </summary>
+        /// <param name="properties">The properties to match.</param>
+        /// <returns>The anonymous type.</returns>
+        public Type MakeAnonymousType((string prop, Type propType)[] properties)
+        {
+            Ensure.NotNull(() => properties);
+            if (properties.Length < 1)
+            {
+                throw new ArgumentException("!properties[0]", nameof(properties));
+            }
+
+            var candidates = anonymousTypeCache.Where(
+                a => a.GetProperties().Length == properties.Length);
+
+            bool PropMatch(
+                (string prop, Type type)[] template,
+                (string prop, Type type)[] target)
+            {
+                for (var idx = 0; idx < template.Length; idx++)
+                {
+                    if (template[idx].prop != target[idx].prop)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            var match = candidates.FirstOrDefault(
+                c => PropMatch(
+                    properties,
+                    c.GetProperties().Select(p => (p.Name, p.PropertyType))
+                        .ToArray()));
+
+            if (match == null)
+            {
+                return null;
+            }
+
+            if (!match.IsGenericTypeDefinition)
+            {
+                match = match.GetGenericTypeDefinition();
+            }
+
+            return match.MakeGenericType(properties.Select(p => p.propType)
+                .ToArray());
+        }
 
         /// <summary>
         /// Counts closed generics to provide a good type name.
@@ -392,6 +466,7 @@ namespace ExpressionPowerTools.Core.Members
             Type paramType)
         {
             var param = string.Empty;
+            var propNames = new string[0];
 
             if (paramType.HasElementType)
             {
@@ -434,6 +509,16 @@ namespace ExpressionPowerTools.Core.Members
                     paramBuilder.Append("{");
                     isGeneric = true;
                     var first = true;
+                    var anonymous = nameNoTicks.StartsWith("<>");
+                    var idx = 0;
+
+                    if (anonymous)
+                    {
+                        propNames = paramType.GetConstructors()
+                            .First()
+                            .GetParameters()
+                            .Select(p => p.Name).ToArray();
+                    }
 
                     foreach (var parameter in paramType.GetGenericArguments())
                     {
@@ -449,11 +534,18 @@ namespace ExpressionPowerTools.Core.Members
                         if (parameter.IsGenericParameter || parameter.GenericTypeArguments.Length > 0)
                         {
                             var parsed = ParseTypeParameters(methodGenericMap, typeGenericMap, parameter);
+                            if (anonymous)
+                            {
+                                parsed = $"{propNames[idx++]}={parsed}";
+                            }
+
                             paramBuilder.Append(parsed);
                         }
                         else
                         {
-                            paramBuilder.Append(NameOfType(parameter));
+                            paramBuilder.Append(anonymous ?
+                                $"{propNames[idx++]}={NameOfType(parameter)}" :
+                                NameOfType(parameter));
                         }
                     }
 
@@ -519,6 +611,11 @@ namespace ExpressionPowerTools.Core.Members
 
                         break;
 
+                    case EventCode:
+                        found = TryGetEvent(memberDefinition, out EventInfo eventInfo);
+                        member = eventInfo;
+                        break;
+
                     case PropertyCode:
                         found = TryGetProperty(memberDefinition, out PropertyInfo property);
                         member = property;
@@ -537,6 +634,26 @@ namespace ExpressionPowerTools.Core.Members
             }
 
             return found;
+        }
+
+        /// <summary>
+        /// Try to resolve an event.
+        /// </summary>
+        /// <param name="memberDefinition">The description of the event.</param>
+        /// <param name="eventInfo">The event info.</param>
+        /// <returns>A value indicating whether the event was found.</returns>
+        private bool TryGetEvent(string memberDefinition, out EventInfo eventInfo)
+        {
+            eventInfo = null;
+            var pos = memberDefinition.LastIndexOf('.');
+            var typeKey = memberDefinition.Substring(0, pos);
+            var name = memberDefinition.Substring(pos + 1);
+            if (TryGetType(typeKey, out Type owningType))
+            {
+                eventInfo = owningType.GetEvent(name);
+            }
+
+            return eventInfo != null;
         }
 
         /// <summary>
@@ -563,7 +680,16 @@ namespace ExpressionPowerTools.Core.Members
             }
             else
             {
-                methodPos = typeAndMethod.Substring(0, genericOpen).LastIndexOf('.');
+                var genericClose = typeAndMethod.IndexOf('}');
+                if (genericClose > 0 && genericClose != typeAndMethod.Length - 1)
+                {
+                    methodPos = typeAndMethod.LastIndexOf('.');
+                    genericOpen = typeAndMethod.IndexOf('{', typeAndMethod.IndexOf('}'));
+                }
+                else
+                {
+                    methodPos = typeAndMethod.Substring(0, genericOpen).LastIndexOf('.');
+                }
             }
 
             var typeKey = typeAndMethod.Substring(0, methodPos);
@@ -596,9 +722,13 @@ namespace ExpressionPowerTools.Core.Members
                 if (parameterStart > 0)
                 {
                     var parameters = key.Substring(parameterStart);
+                    var parameterCount = CountParameters(parameters);
                     var methods = methodType.GetMethods(all)
                         .Where(m =>
-                        m.Name == methodName).ToList();
+                        m.Name == methodName &&
+                        m.GetParameters().Length == parameterCount).ToList();
+
+                    var methodResults = new List<MethodInfo>();
 
                     foreach (var candidate in methods)
                     {
@@ -626,21 +756,22 @@ namespace ExpressionPowerTools.Core.Members
                             }
                         }
 
-                        Type[] methodClosingTypes = new Type[0];
+                        Type methodClosingType = null;
                         if (genericOpen > 0)
                         {
                             var methodParameters = key.Substring(genericOpen);
                             methodParameters = methodParameters.Substring(
                                 0,
                                 methodParameters.IndexOf('('));
-                            methodClosingTypes = ProcessParameters(typeArgs, methodArgs, methodParameters);
+                            methodClosingType = ProcessParameters(typeArgs, methodArgs, methodParameters)[0];
                         }
 
                         if (match)
                         {
-                            if (methodClosingTypes.Length > 0)
+                            if (methodClosingType != null)
                             {
-                                method = methodCheck.MakeGenericMethod(methodClosingTypes);
+                                method = methodCheck.MakeGenericMethod(
+                                    new[] { methodClosingType });
                             }
                             else
                             {
@@ -651,22 +782,49 @@ namespace ExpressionPowerTools.Core.Members
                         }
                         else if (methodCheck.IsGenericMethod && methodCheck.IsGenericMethodDefinition)
                         {
-                            parameterTypes = parameterTypes.Union(methodClosingTypes).ToArray();
-
                             var genericArgs = methodCheck.GetGenericArguments();
                             var typeList = new Type[genericArgs.Length];
-                            var methodParameters = methodCheck.GetParameters()
-                                .Select(p => p.ParameterType)
-                                .Union(new[] { methodCheck.ReturnParameter.ParameterType })
-                                .ToArray();
-                            RecurseMethodArguments(
-                                genericArgs,
-                                methodParameters,
+                            var generic = methodCheck.GetParameters().Select(
+                                p => p.ParameterType).ToArray();
+
+                            RecurseTypes(
                                 parameterTypes,
+                                generic,
+                                genericArgs,
                                 typeList);
 
-                            method = methodCheck.MakeGenericMethod(typeList);
-                            break;
+                            if (methodClosingType != null)
+                            {
+                                for (var gIdx = 0; gIdx < genericArgs.Length; gIdx++)
+                                {
+                                    if (typeList[gIdx] == null)
+                                    {
+                                        typeList[gIdx] = methodClosingType;
+                                    }
+                                }
+                            }
+
+                            if (!typeList.Any(t => t == null))
+                            {
+                                method = methodCheck.MakeGenericMethod(typeList);
+                                var methodParameters =
+                                    method.GetParameters().Select(p => p.ParameterType)
+                                    .ToList();
+                                var differences = parameterTypes
+                                    .Except(methodParameters);
+                                if (differences.Count() > 0)
+                                {
+                                    match = false;
+                                    method = null;
+                                    continue;
+                                }
+                                else
+                                {
+                                    match = true;
+                                }
+
+                                break;
+                            }
                         }
                     }
                 }
@@ -676,37 +834,120 @@ namespace ExpressionPowerTools.Core.Members
         }
 
         /// <summary>
-        /// Recurses the method to match the generic types.
+        /// Counts the parameters in a key.
         /// </summary>
-        /// <param name="genericArgs">Top-level map for method.</param>
-        /// <param name="methodParameters">Set of types to process.</param>
-        /// <param name="parameterTypes">Set of resolved types to match.</param>
-        /// <param name="typeList">The list of types to close the generic method.</param>
-        private void RecurseMethodArguments(
-            Type[] genericArgs,
-            Type[] methodParameters,
+        /// <param name="parameters">The parameter string.</param>
+        /// <returns>The parameter count.</returns>
+        private int CountParameters(string parameters)
+        {
+            var result = 0;
+            var braceCount = 0;
+
+            while (parameters.Length > 0)
+            {
+                int sub;
+
+                switch (parameters[0])
+                {
+                    case ')':
+                        sub = int.MaxValue;
+                        break;
+
+                    case '{':
+                        sub = 1;
+                        braceCount++;
+                        break;
+
+                    case '}':
+                        sub = 1;
+                        braceCount--;
+                        break;
+
+                    case ',':
+                        sub = -1;
+                        break;
+                    default:
+                        sub = -1;
+                        break;
+                }
+
+                if (sub == -1)
+                {
+                    if (braceCount == 0)
+                    {
+                        result++;
+                    }
+
+                    var openBrace = parameters.IndexOf('{', 1);
+                    var closeBrace = parameters.IndexOf('}', 1);
+                    var comma = parameters.IndexOf(',', 1);
+                    var closeParams = parameters.IndexOf(')', 1);
+                    openBrace = openBrace >= 0 ? openBrace : int.MaxValue;
+                    closeBrace = closeBrace >= 0 ? closeBrace : int.MaxValue;
+                    comma = comma >= 0 ? comma : int.MaxValue;
+                    closeParams = closeParams >= 0 ? closeParams : int.MaxValue;
+                    sub = openBrace;
+                    sub = closeBrace < sub ? closeBrace : sub;
+                    sub = comma < sub ? comma : sub;
+                    sub = closeParams < sub ? closeParams : sub;
+                }
+
+                if (sub >= parameters.Length)
+                {
+                    break;
+                }
+
+                parameters = parameters.Substring(sub);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Recursively iterate generic types and close them based on the deserialized parameter
+        /// list to resolve the type list needed to close the method definition.
+        /// </summary>
+        /// <param name="parameterTypes">The closed, deserialized types.</param>
+        /// <param name="generic">The open, generic types.</param>
+        /// <param name="genericArgs">The generic arg list.</param>
+        /// <param name="typeList">The close type list (same size as the generic args).</param>
+        private void RecurseTypes(
             Type[] parameterTypes,
+            Type[] generic,
+            Type[] genericArgs,
             Type[] typeList)
         {
-            for (var idx = 0; idx < methodParameters.Length; idx += 1)
+            // mismatch / fall out
+            if (parameterTypes.Length != generic.Length)
             {
-                if (typeList.Any(t => t == null))
+                return;
+            }
+
+            for (var idx = 0; idx < generic.Length; idx++)
+            {
+                // generic to consider
+                var genericParam = generic[idx];
+
+                // closed type to consider
+                var materializedParam = parameterTypes[idx];
+
+                for (var gIdx = 0; gIdx < genericArgs.Length; gIdx++)
                 {
-                    if (genericArgs.Contains(methodParameters[idx]))
+                    // if match ...
+                    if (genericParam == genericArgs[gIdx])
                     {
-                        var genericIdx = Array.IndexOf(genericArgs, methodParameters[idx]);
-                        typeList[genericIdx] = parameterTypes[idx];
-                        if (!typeList.Any(t => t == null))
-                        {
-                            break;
-                        }
+                        // should be closed type in same position
+                        typeList[gIdx] = materializedParam;
                     }
-                    else if (methodParameters[idx].IsGenericType)
+                    else if (genericParam.IsGenericType)
                     {
-                        RecurseMethodArguments(
+                        // need to dig deeper to close it
+                        var genericList = genericParam.GenericTypeArguments;
+                        var parameterList = materializedParam.GenericTypeArguments;
+                        RecurseTypes(
+                            parameterList,
+                            genericList,
                             genericArgs,
-                            methodParameters[idx].GetGenericArguments(),
-                            parameterTypes[idx].GenericTypeArguments,
                             typeList);
                     }
                 }
@@ -736,10 +977,14 @@ namespace ExpressionPowerTools.Core.Members
                 return true;
             }
 
-            if (key.StartsWith("<>") && key.Contains("Anonymous"))
+            if (key.StartsWith("<>"))
             {
-                type = typeof(ExpandoObject);
-                return true;
+                var genericStart = key.IndexOf("{");
+                var typeParams = ProcessAnonymous(
+                    key.Substring(genericStart));
+                var result = TryGetAnonymousType(typeParams, out Type anonType);
+                type = anonType;
+                return result;
             }
 
             var closedGeneric = key.IndexOf("{");
@@ -803,6 +1048,20 @@ namespace ExpressionPowerTools.Core.Members
         }
 
         /// <summary>
+        /// Tries to get an anonymous type.
+        /// </summary>
+        /// <param name="typeParms">The type parameters.</param>
+        /// <param name="type">The <see cref="Type"/>.</param>
+        /// <returns>A value indicating whether the type was found.</returns>
+        private bool TryGetAnonymousType(
+            (string prop, Type propType)[] typeParms,
+            out Type type)
+        {
+            type = MakeAnonymousType(typeParms);
+            return type != null;
+        }
+
+        /// <summary>
         /// Logic to get a field or property.
         /// </summary>
         /// <typeparam name="TMemberInfo">The type of info to get.</typeparam>
@@ -832,7 +1091,7 @@ namespace ExpressionPowerTools.Core.Members
                 {
                     info = (TMemberInfo)getList(
                         owningType,
-                        all).Single(m => m.Name == name);
+                        all).SingleOrDefault(m => m.Name == name);
                 }
             }
 
@@ -967,6 +1226,8 @@ namespace ExpressionPowerTools.Core.Members
         private int IndexOfGenericClosure(string str)
         {
             var braceCount = 0;
+            var result = str.Length;
+
             for (var idx = 0; idx < str.Length; idx++)
             {
                 if (str[idx] == '{')
@@ -981,11 +1242,12 @@ namespace ExpressionPowerTools.Core.Members
 
                 if (braceCount == 0)
                 {
-                    return idx;
+                    result = idx;
+                    break;
                 }
             }
 
-            return str.Length;
+            return result;
         }
 
         /// <summary>
@@ -1001,7 +1263,7 @@ namespace ExpressionPowerTools.Core.Members
 
             while (parameters.Length > 0)
             {
-                if ("}{(),".Contains(parameters[0]))
+                if ("=}{(),".Contains(parameters[0]))
                 {
                     parameters = parameters.Length > 1 ?
                         parameters.Substring(1) : string.Empty;
@@ -1014,6 +1276,7 @@ namespace ExpressionPowerTools.Core.Members
                     var end = next > 0 ? next - 2 : parameters.Length - 2;
                     var pos = parameters.Substring(2, end);
                     result.Add(methodArgs[int.Parse(pos)]);
+
                     parameters = next > 0 ?
                         parameters.Substring(next) : string.Empty;
                     continue;
@@ -1047,11 +1310,20 @@ namespace ExpressionPowerTools.Core.Members
                         next < 0 ? parameters.Length : next;
 
                     var type = parameters.Substring(0, pos);
+                    var anonymous = type.StartsWith("<>");
 
                     Type[] typeParams = new Type[0];
                     int closure = -1;
+                    var anonParams = new (string prop, Type propType)[0];
 
-                    if (isGeneric)
+                    if (anonymous)
+                    {
+                        parameters = parameters.Substring(generic);
+                        closure = IndexOfGenericClosure(parameters);
+                        var genericParameters = parameters.Substring(0, closure);
+                        anonParams = ProcessAnonymous(genericParameters);
+                    }
+                    else if (isGeneric)
                     {
                         parameters = parameters.Substring(generic);
                         closure = IndexOfGenericClosure(parameters);
@@ -1063,9 +1335,17 @@ namespace ExpressionPowerTools.Core.Members
                         }
                     }
 
-                    if (TryGetType(type, out Type typeParam))
+                    if (anonymous &&
+                        TryGetAnonymousType(anonParams, out Type anonType))
                     {
-                        if (isGeneric && typeParam.GetGenericArguments().Length == typeParams.Length)
+                        result.Add(anonType);
+                        next = closure;
+                    }
+                    else if (TryGetType(type, out Type typeParam))
+                    {
+                        if (isGeneric &&
+                            typeParam.GetGenericArguments().Length == typeParams.Length &&
+                            !typeParam.IsAnonymousType())
                         {
                             result.Add(typeParam.MakeGenericType(typeParams));
                             next = closure;
@@ -1073,6 +1353,10 @@ namespace ExpressionPowerTools.Core.Members
                         else
                         {
                             result.Add(typeParam);
+                            if (typeParam.IsAnonymousType())
+                            {
+                                next = closure;
+                            }
                         }
                     }
 
@@ -1083,6 +1367,122 @@ namespace ExpressionPowerTools.Core.Members
 
                     parameters = parameters.Substring(next);
                 }
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Processes name type parameters to anonymous types.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The list of types to close the generic.</returns>
+        private (string prop, Type propType)[] ProcessAnonymous(string parameters)
+        {
+            var result = new List<(string prop, Type propType)>();
+
+            var propName = string.Empty;
+            var parsingName = true;
+
+            while (parameters.Length > 0)
+            {
+                if ("=}{(),".Contains(parameters[0]))
+                {
+                    parameters = parameters.Length > 1 ?
+                        parameters.Substring(1) : string.Empty;
+                    continue;
+                }
+
+                if (parsingName)
+                {
+                    var split = parameters.IndexOf('=');
+                    propName = parameters.Substring(0, split);
+                    parsingName = false;
+                    parameters = parameters.Substring(split);
+                    continue;
+                }
+
+                var generic = parameters.IndexOf('{');
+                var next = parameters.IndexOf(',');
+                if (next < 0)
+                {
+                    next = parameters.IndexOf(")");
+                    if (next < 0)
+                    {
+                        next = parameters.IndexOf('}');
+                    }
+                }
+
+                var isGeneric = generic > 0 &&
+                    (next < 0 || generic < next);
+                var pos = isGeneric ? generic :
+                    next < 0 ? parameters.Length : next;
+
+                var type = parameters.Substring(0, pos);
+                var anonymous = type.StartsWith("<>");
+
+                Type[] typeParams = new Type[0];
+                int closure = -1;
+
+                if (isGeneric)
+                {
+                    parameters = parameters.Substring(generic);
+                    closure = IndexOfGenericClosure(parameters);
+                    var genericParameters = parameters.Substring(0, closure);
+
+                    if (anonymous)
+                    {
+                        var anonParameters = ProcessAnonymous(genericParameters);
+                        if (TryGetAnonymousType(anonParameters, out Type anonTypeParam))
+                        {
+                            result.Add((propName, anonTypeParam));
+                            parsingName = true;
+                            propName = string.Empty;
+                            next = closure;
+                        }
+                    }
+                    else
+                    {
+                        typeParams = ProcessParameters(
+                            new Type[0],
+                            new Type[0],
+                            genericParameters);
+                        if (typeParams.Length > 0)
+                        {
+                            type = $"{type}{TypeTick}{typeParams.Length}";
+                        }
+                    }
+                }
+
+                if (!anonymous && TryGetType(type, out Type typeParam))
+                {
+                    if (isGeneric &&
+                        typeParam.GetGenericArguments().Length == typeParams.Length &&
+                        !typeParam.IsAnonymousType())
+                    {
+                        result.Add((propName, typeParam.MakeGenericType(typeParams)));
+                        parsingName = true;
+                        propName = string.Empty;
+                        next = closure;
+                    }
+                    else
+                    {
+                        result.Add((propName, typeParam));
+                        parsingName = true;
+                        propName = string.Empty;
+                        if (typeParam.IsAnonymousType())
+                        {
+                            next = closure;
+                        }
+                    }
+                }
+
+                if (next < 0 || next > parameters.Length)
+                {
+                    break;
+                }
+
+                parameters = parameters.Substring(next);
             }
 
             return result.ToArray();

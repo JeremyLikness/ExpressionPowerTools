@@ -47,6 +47,7 @@ namespace ExpressionPowerTools.Serialization.Configuration
                 state = new SerializationState
                 {
                     CompressTypes = defaultState.CompressTypes,
+                    CompressExpression = defaultState.CompressExpression,
                     Options = defaultState.Options,
                 };
             }

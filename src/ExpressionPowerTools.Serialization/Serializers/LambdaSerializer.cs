@@ -42,18 +42,28 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var materializedType = GetMemberFromKey<Type>(
                 json.GetProperty(nameof(Lambda.LambdaTypeKey))
                 .GetString());
+
             var materializedReturnType = GetMemberFromKey<Type>(json.GetProperty(nameof(Lambda.ReturnTypeKey))
                 .GetString());
-            var body = Serializer.Deserialize(json.GetProperty(nameof(Lambda.Body)), state);
+
             var name = json.GetNullableProperty(nameof(Lambda.Name)).GetString();
+
             var list = json.GetNullableProperty(nameof(Lambda.Parameters));
+
             var parameterList = list.ValueKind == JsonValueKind.Array ?
                 list.EnumerateArray().Select(element =>
                     Serializer.Deserialize(element, state) as ParameterExpression).ToList() :
                 new List<ParameterExpression>();
-            return
-                AnonymousTypeAdapter.TransformLambda(
-                    Expression.Lambda(materializedType, body, name, parameterList));
+
+            var jsonBody = json.GetProperty(nameof(Lambda.Body));
+
+            Expression body = Serializer.Deserialize(jsonBody, state);
+
+            return Expression.Lambda(
+                materializedType,
+                body,
+                name,
+                parameterList);
         }
 
         /// <summary>
@@ -70,8 +80,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 return null;
             }
-
-            expression = AnonymousTypeAdapter.TransformLambda(expression);
 
             var result = new Lambda(expression)
             {

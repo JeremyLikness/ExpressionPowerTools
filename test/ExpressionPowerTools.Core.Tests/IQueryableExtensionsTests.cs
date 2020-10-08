@@ -176,31 +176,90 @@ namespace ExpressionPowerTools.Core.Tests
                 .Skip(2)
                 .Take(3)
                 .OrderBy(q => q.Created);
-        
-        [Fact]
-        public void GivenFragmentIsNotInQueryWhenHasFragmentCalledThenShouldReturnFalse()
+
+        public static IEnumerable<object[]> FragmentNotInQueryMatrix()
         {
-            var target = TestQuery();
-            Assert.False(target.HasFragment(
-                q => q.Where(qh => qh.Id == nameof(Queryable))));
-            Assert.False(target.HasFragment(
-                q => q.Where(qh => qh.Created > DateTime.Now.AddDays(1))));
-            Assert.False(target.HasFragment(q => q.Skip(3)));
-            Assert.False(target.HasFragment(q => q.Take(2)));
-            Assert.False(target.HasFragment(q => q.OrderBy(q => q.Id)));
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                    q => q.Where(qh => qh.Id == nameof(Queryable)))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                    q => q.Where(qh => qh.Created > DateTime.Now.AddDays(1)))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                    q => q.Skip(3))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                    q => q.Take(2))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                    q => q.OrderBy(q => q.Id))
+            };
         }
 
-        [Fact]
-        public void GivenFragmentIsInQueryWhenHasFragmentCalledThenShouldReturnTrue()
+        [Theory]
+        [MemberData(nameof(FragmentNotInQueryMatrix))]
+        public void GivenFragmentIsNotInQueryWhenHasFragmentCalledThenShouldReturnFalse(
+            Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>> query)
         {
             var target = TestQuery();
-            Assert.True(target.HasFragment(
-                q => q.Where(qh => qh.Id == nameof(QueryHelper))));
-            Assert.True(target.HasFragment(
-                q => q.Where(qh => qh.Created > DateTime.Now.AddDays(-1))));
-            Assert.True(target.HasFragment(q => q.Skip(2)));
-            Assert.True(target.HasFragment(q => q.Take(3)));
-            Assert.True(target.HasFragment(q => q.OrderBy(q => q.Created)));
+            Assert.False(target.HasFragment(query));
+        }
+
+        public static IEnumerable<object[]> FragmentInQueryMatrix()
+        {
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                q => q.Where(qh => qh.Id == nameof(QueryHelper)))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                q => q.Where(qh => qh.Created > DateTime.Now.AddDays(-1)))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                q => q.Skip(2))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                q => q.Take(3))
+            };
+
+            yield return new object[]
+            {
+                (Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>>)(
+                q => q.OrderBy(q => q.Created))
+            };
+
+        }
+
+        [Theory]
+        [MemberData(nameof(FragmentInQueryMatrix))]
+        public void GivenFragmentIsInQueryWhenHasFragmentCalledThenShouldReturnTrue(
+            Func<IQueryable<QueryHelper>, IQueryable<QueryHelper>> query)
+        {
+            var target = TestQuery();
+            Assert.True(target.HasFragment(query));
         }
 
         [Fact]
@@ -286,10 +345,3 @@ namespace ExpressionPowerTools.Core.Tests
 
     }
 }
-
-
-
-
-
-
-

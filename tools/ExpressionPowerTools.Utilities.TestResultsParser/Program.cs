@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 namespace ExpressionPowerTools.Utilities.TestResultsParser
@@ -17,7 +19,7 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
         private const string PathToTest = @"../../../../../test";
         private const string PathToTestDocs = @"../../../../../docs/test";
         private const string TestsExtension = ".Tests";
-        private const string TestResults = @"TestResults/";
+        private const string TestResults = @"TestDocResults/";
         private const string UnitTestResult = nameof(UnitTestResult);
         private const string Reports = @"reports/";
         private const string CoverageBadge = @"badge_combined.svg";
@@ -132,6 +134,7 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
             {
                 if (file.EndsWith(Trx))
                 {
+                    var rawResults = new List<TestResult>();
                     var doc = new XmlDocument();
                     doc.Load(file);
                     var tests = doc.DocumentElement.ChildNodes[2];
@@ -141,12 +144,198 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
                         if (child.Name == UnitTestResult)
                         {
                             count++;
+                            var result = new TestResult(
+                                TestNameParser(child.Attributes.GetNamedItem("testName").InnerText))
+                            {
+                                Duration = TimeSpan.Parse(child.Attributes.GetNamedItem("duration").InnerText),
+                            };
+                            rawResults.Add(result);
                         }
                     }
 
                     WriteBadge(target, count);
+                    WriteTestReport(target, rawResults);
                 }
             }
+        }
+
+        /// <summary>
+        /// Writes the test report from the last tests run.
+        /// </summary>
+        /// <param name="target">The target it was run for.</param>
+        /// <param name="rawResults">The raw results.</param>
+        private void WriteTestReport(string target, List<TestResult> rawResults)
+        {
+            var reportHierarchy = new List<TestResult>();
+
+            TestResult testHeader = null;
+            TestResult groupHeader = null;
+
+            foreach (var result in rawResults.OrderBy(r => r.Group).ThenBy(r => r.Test))
+            {
+                if (groupHeader == null || result.Group != groupHeader.Group)
+                {
+                    if (groupHeader != null)
+                    {
+                        reportHierarchy.Add(groupHeader);
+                    }
+
+                    groupHeader = new TestResult
+                    {
+                        Group = result.Group,
+                        GroupHeader = true,
+                        Duration = TimeSpan.FromSeconds(0),
+                    };
+                }
+
+                if (testHeader == null || result.Test != testHeader.Test)
+                {
+                    if (testHeader != null)
+                    {
+                        groupHeader.AddChild(testHeader);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(result.Iteration))
+                    {
+                        testHeader = new TestResult
+                        {
+                            Group = result.Group,
+                            TestHeader = true,
+                            Test = result.Test,
+                            Duration = TimeSpan.FromSeconds(0),
+                        };
+                    }
+                    else
+                    {
+                        result.TestHeader = true;
+                        testHeader = result;
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(result.Iteration))
+                {
+                    testHeader.AddChild(result);
+                }
+            }
+
+            groupHeader.AddChild(testHeader);
+            reportHierarchy.Add(groupHeader);
+
+            var markdown = new List<string>
+            {
+                $"# Summary of Test Runs for {target}",
+                string.Empty,
+                "Jump to group:",
+                string.Empty,
+            };
+
+            static string GroupName(TestResult group) => $"{group.Group} ({group.DurationString})";
+
+            static string GroupLink(TestResult group) => GroupName(group).Replace(' ', '-')
+                .Replace(".", string.Empty)
+                .Replace("(", string.Empty)
+                .Replace(")", string.Empty)
+                .ToLowerInvariant();
+
+            foreach (var group in reportHierarchy.OrderBy(g => g.Group))
+            {
+                markdown.Add($"- [{group.Group}](#{GroupLink(group)})");
+            }
+
+            markdown.Add(string.Empty);
+
+            var slowestTest = reportHierarchy.SelectMany(g => g.ChildTests).Where(c => c.ChildTests.Count == 0)
+                .Union(reportHierarchy.SelectMany(g => g.ChildTests).SelectMany(c => c.ChildTests))
+                .OrderByDescending(c => c.Duration)
+                .First();
+
+            markdown.Add($"The slowest test was '{slowestTest}' at {slowestTest.DurationString}.");
+            markdown.Add(string.Empty);
+
+            foreach (var group in reportHierarchy
+                .OrderByDescending(
+                g => g.ChildTests.Max(t => t.Duration)))
+            {
+                var groupHasIterations = group.ChildTests.Any(t => t.ChildTests.Count > 0);
+                markdown.Add($"## {GroupName(group)}");
+                markdown.Add(string.Empty);
+                markdown.Add(groupHasIterations ? "|Test Name|Test Iteration|Duration|"
+                    : "|Test Name|Duration|");
+                markdown.Add(groupHasIterations ? "|:--|:--|--:|" : "|:--|--:|");
+                foreach (var test in group.ChildTests.OrderByDescending(
+                    t => t.ChildTests.Count > 0 ?
+                    t.ChildTests.Max(c => c.Duration) : t.Duration))
+                {
+                    var testHasIterations = test.ChildTests.Count > 0;
+                    var testName = testHasIterations ?
+                        $"**{test.Test}**" : test.Test;
+                    var duration = testHasIterations ?
+                        $"**{test.DurationString}**" : test.DurationString;
+                    markdown.Add(groupHasIterations ? $"|{testName}| |{duration}|"
+                        : $"|{testName}|{duration}|");
+                    if (test.ChildTests.Count > 0)
+                    {
+                        foreach (var iteration in test.ChildTests.OrderByDescending(i => i.Duration))
+                        {
+                            markdown.Add($"| |{iteration.Iteration}|{iteration.DurationString}|");
+                        }
+                    }
+                }
+            }
+
+            markdown.Add(string.Empty);
+            markdown.Add("[Go Back](./index.md)");
+
+            var testDoc = $"{target}.test.md";
+            var testPath = Path.Combine(docsDir, testDoc);
+            File.WriteAllLines(testPath, markdown);
+            Console.WriteLine($"Successed parsed tests for {target} to {testDoc}.");
+        }
+
+        /// <summary>
+        /// Parse out to human readable test name.
+        /// </summary>
+        /// <param name="fullTest">The full test identifier.</param>
+        /// <returns>The parts of the test display.</returns>
+        private IList<string> TestNameParser(string fullTest)
+        {
+            var parsed = fullTest.AsSpan();
+            var sentence = new List<string>();
+            var iteration = string.Empty;
+            var methodPos = parsed.IndexOf('(');
+            if (methodPos > 0)
+            {
+                iteration = new string(parsed.Slice(methodPos));
+                parsed = parsed.Slice(0, methodPos);
+            }
+
+            var pos = parsed.LastIndexOf('.');
+            var frontSegment = parsed.Slice(0, pos - 1);
+            var testGroupPos = frontSegment.LastIndexOf('.');
+            var testGroup = frontSegment.Slice(testGroupPos + 1);
+            sentence.Add(new string(testGroup));
+            var wordPos = ++pos;
+            pos += 1;
+            while (pos > 0 && pos < parsed.Length)
+            {
+                if (parsed[pos] >= 'A' && parsed[pos] <= 'Z')
+                {
+                    var length = pos - wordPos;
+                    var word = new string(parsed.Slice(wordPos, length));
+                    sentence.Add(word);
+                    wordPos = pos;
+                }
+
+                pos++;
+            }
+
+            sentence.Add(new string(parsed[wordPos..]));
+            if (!string.IsNullOrWhiteSpace(iteration))
+            {
+                sentence.Add(iteration);
+            }
+
+            return sentence;
         }
 
         /// <summary>
@@ -182,8 +371,10 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
             var summary = Path.Combine(reportsDir, Summary);
             var summaryContent = File.ReadAllLines(summary);
             var markdown = new List<string>();
+
             bool header = true;
             bool firstCoverage = true;
+
             for (var idx = 0; idx < summaryContent.Length; idx++)
             {
                 var line = summaryContent[idx];
@@ -237,14 +428,31 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
                     }
 
                     var coverage = line.Substring(split + 1).Replace("\t", string.Empty).Trim();
+                    string icon = string.Empty;
+                    if (double.TryParse(coverage.Replace("%", string.Empty), out double pct))
+                    {
+                        if (pct >= 100)
+                        {
+                            icon = "✅";
+                        }
+                        else if (pct >= 90)
+                        {
+                            icon = "⚠";
+                        }
+                        else
+                        {
+                            icon = "🛑";
+                        }
+                    }
+
                     if (firstCoverage)
                     {
                         firstCoverage = false;
-                        markdown.Add($"|[**{friendly} Summary**](..\\api\\{target}.n.md)|{coverage}|");
+                        markdown.Add($"|**{icon} {friendly} Summary**|{coverage}|");
                     }
                     else
                     {
-                        markdown.Add($"|[{friendly}](..\\api\\{label}.cs.md)|{coverage}|");
+                        markdown.Add($"|{icon}   {friendly}|{coverage}|");
                     }
                 }
             }
@@ -253,9 +461,10 @@ namespace ExpressionPowerTools.Utilities.TestResultsParser
             markdown.Add("[Go Back](./index.md)");
 
             var coverageDoc = $"{target}.coverage.md";
+
             var coveragePath = Path.Combine(docsDir, coverageDoc);
             File.WriteAllLines(coveragePath, markdown);
-            Console.WriteLine($"Successed parsed coverage for {target} to {coverageDoc}.");
+            Console.WriteLine($"Successfully parsed coverage for {target} to {coverageDoc}.");
         }
     }
 }

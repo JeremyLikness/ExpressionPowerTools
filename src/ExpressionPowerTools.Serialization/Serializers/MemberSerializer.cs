@@ -4,7 +4,6 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -47,6 +46,14 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var memberInfo = GetMemberFromKey(json
                 .GetProperty(nameof(MemberExpr.MemberTypeKey)).GetString());
+
+            if (json.TryGetProperty(nameof(MemberExpr.Indexer), out JsonElement indexer))
+            {
+                if (!string.IsNullOrWhiteSpace(indexer.GetString()))
+                {
+                    return null;
+                }
+            }
 
             AuthorizeMembers(new[] { memberInfo });
 

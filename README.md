@@ -25,7 +25,7 @@ There are a few options for documentation, including:
 ## Core
 
 [![NuGet Badge](https://buildstats.info/nuget/ExpressionPowerTools.Core?includePreReleases=true)](https://www.nuget.org/packages/ExpressionPowerTools.Core)
-![Tests](docs/test/ExpressionPowerTools.Core.Tests.svg)
+[![Tests](docs/test/ExpressionPowerTools.Core.Tests.svg)](docs/test//ExpressionPowerTools.Core.test.md)
 [![Coverage](docs/test/ExpressionPowerTools.Core.Coverage.svg)](docs/test//ExpressionPowerTools.Core.coverage.md)
 
 ```powershell
@@ -39,7 +39,7 @@ Power tools for working with `IQueryable` and Expression trees. Enables enumerat
 ## Serialization
 
 [![NuGet Badge](https://buildstats.info/nuget/ExpressionPowerTools.Serialization?includePreReleases=true)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization)
-![Tests](docs/test/ExpressionPowerTools.Serialization.Tests.svg)
+[![Tests](docs/test/ExpressionPowerTools.Serialization.Tests.svg)](docs/test//ExpressionPowerTools.Serialization.test.md)
 [![Coverage](docs/test/ExpressionPowerTools.Serialization.Coverage.svg)](docs/test//ExpressionPowerTools.Serialization.coverage.md)
 
 ```powershell
@@ -53,7 +53,7 @@ Power tools for writing client-side queries that can be safely serialized to run
 ## ASP.NET Core Middleware for EF Core
 
 [![NuGet Badge](https://buildstats.info/nuget/ExpressionPowerTools.Serialization.EFCore.AspNetCore?includePreReleases=true)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization.EFCore.AspNetCore)
-![Tests](docs/test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests.svg)
+[![Tests](docs/test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests.svg)](docs/test//ExpressionPowerTools.Serialization.EFCore.AspNetCore.test.md)
 [![Coverage](docs/test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Coverage.svg)](docs/test//ExpressionPowerTools.Serialization.EFCore.AspNetCore.coverage.md)
 
 ```powershell
@@ -67,7 +67,7 @@ Power tools for deserializing queries initiated by remote clients.
 ## Http Client
 
 [![NuGet Badge](https://buildstats.info/nuget/ExpressionPowerTools.Serialization.EFCore.Http?includePreReleases=true)](https://www.nuget.org/packages/ExpressionPowerTools.Serialization.EFCore.Http)
-![Tests](docs/test/ExpressionPowerTools.Serialization.EFCore.Http.Tests.svg)
+[![Tests](docs/test/ExpressionPowerTools.Serialization.EFCore.Http.Tests.svg)](docs/test//ExpressionPowerTools.Serialization.EFCore.Http.test.md)
 [![Coverage](docs/test/ExpressionPowerTools.Serialization.EFCore.Http.Coverage.svg)](docs/test//ExpressionPowerTools.Serialization.EFCore.Http.coverage.md)
 
 

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace ExpressionPowerTools.Serialization.Signatures
@@ -29,8 +30,14 @@ namespace ExpressionPowerTools.Serialization.Signatures
         bool MemberIsAllowed(MemberInfo member);
 
         /// <summary>
-        /// Clears the rules.
+        /// Clears the rules, returning a snapshot.
         /// </summary>
-        void Reset();
+        IList<(string rule, bool authorized)> Reset();
+
+        /// <summary>
+        /// Restores the rules.
+        /// </summary>
+        /// <param name="rules">The rule set.</param>
+        void Restore(IList<(string rule, bool authorized)> rules);
     }
 }

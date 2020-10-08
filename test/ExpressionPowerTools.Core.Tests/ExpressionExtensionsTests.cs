@@ -19,6 +19,34 @@ namespace ExpressionPowerTools.Core.Tests
         }
 
         [Fact]
+        public void GivenTypeIsAnonymousWhenIsAnonymousTypeCalledThenShouldReturnTrue()
+        {
+            var anonType = new { Id = 1 };
+            Assert.True(anonType.GetType().IsAnonymousType());
+        }
+
+        [Fact]
+        public void GivenTypeIsNotAnonymousWhenIsAnonymousTypeCalledThenShouldReturnFalse()
+        {
+            Assert.False(GetType().IsAnonymousType());
+        }
+
+        [Fact]
+        public void GivenGenericTypeWithNoAnonymousClosuresWhenIsOrContainsAnonymousTypeCalledThenShouldReturnFalse()
+        {
+            Assert.False(typeof(Func<,>).IsOrContainsAnonymousType());
+        }
+
+        [Fact]
+        public void GivenGenericTypeWithAnonymousClosuresWhenIsOrContainsAnonymousTypeCalledThenShouldReturnTrue()
+        {
+            var anonType = new { Id = 1 };
+            var func = typeof(Func<>).MakeGenericType(anonType.GetType());
+            Assert.False(func.IsAnonymousType());
+            Assert.True(func.IsOrContainsAnonymousType());
+        }
+
+        [Fact]
         public void GivenExpressionsAreNotEquivalentWhenIsEquivalentToCalledThenShouldReturnFalse()
         {
             Assert.False(1.AsConstantExpression().IsEquivalentTo(0.AsConstantExpression()));

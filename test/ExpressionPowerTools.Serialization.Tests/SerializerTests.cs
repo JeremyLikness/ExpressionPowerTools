@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Signatures;
@@ -21,9 +21,20 @@ namespace ExpressionPowerTools.Serialization.Tests
         private readonly Lazy<IRulesConfiguration> rulesConfig =
             ServiceHost.GetLazyService<IRulesConfiguration>();
 
+        public SerializerTests()
+        {
+            Serializer.ConfigureDefaults(
+                config => config.CompressExpressionTree(false));
+        }
+
         private void Reset()
         {
             ServiceHost.GetService<IMemberAdapter>().Reset();
+            Serializer.ConfigureRules(
+                rules => rules.RuleForType<SerializerTests>()
+                    .RuleForType<TestableThing>()
+                    .RuleForType(typeof(KeyValuePair))
+                    .RuleForType(typeof(Tuple)));
         }
 
         public static TPropertyType Property<TPropertyType>(object entity, string name) =>
@@ -119,11 +130,38 @@ namespace ExpressionPowerTools.Serialization.Tests
             IdProjection,
             IdAnonymousType,
             IdOnly,
-            Filtered
+            Filtered,
+            MemberInit,
+            SelectMany
         }
 
         public static IEnumerable<object[]> GetQueryMatrix()
         {
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Select(t => new { t.Id }),
+                Queries.IdAnonymousType
+            };
+
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().SelectMany(t => t.ChildThings),
+                Queries.SelectMany
+            };
+
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Where(t => t.ChildThings.Count > 2).Select(t => new TestableThing(t.Id)
+                {
+                    ChildThings =
+                    {
+                        new TestableThing { Id = Guid.NewGuid().ToString() },
+                        new TestableThing { Id = t.ChildThings[0].Id }
+                    }
+                }),
+                Queries.MemberInit
+            };
+
             yield return new object[]
             {
                 TestableThing.MakeQuery().Skip(1).Take(1),
@@ -156,12 +194,6 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             yield return new object[]
             {
-                TestableThing.MakeQuery().Select(t => new { t.Id }),
-                Queries.IdAnonymousType
-            };
-
-            yield return new object[]
-            {
                 TestableThing.MakeQuery().OrderBy(t => t.Id).Select(t => new TestableThing(t.Id)),
                 Queries.IdOnly
             };
@@ -171,14 +203,27 @@ namespace ExpressionPowerTools.Serialization.Tests
                 TestableThing.MakeQuery().Where(t => t.Id.Contains("aa") && (t.IsActive || t.Value < int.MaxValue/2)),
                 Queries.Filtered
             };
+
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Where(t => t.Id.Contains("aa")).Select(t => new TestableThing { Id = t.Id }),
+                Queries.MemberInit
+            };
+
+            yield return new object[]
+            {
+                TestableThing.MakeQuery().Select(t => new TestableThing(t.Id) { Data = { Data = t.ChildThings.Count.ToString() } }),
+                Queries.MemberInit
+            };
         }
 
         public static IEnumerable<object[]> GetTypedQueryMatrix()
         {
-            foreach(object[] pair in GetQueryMatrix())
+            foreach (object[] pair in GetQueryMatrix())
             {
-                if ((Queries)pair[1] == Queries.IdProjection ||
-                    (Queries)pair[1] == Queries.IdAnonymousType)
+                var queryType = (Queries)pair[1];
+                if (queryType == Queries.IdProjection ||
+                    queryType == Queries.IdAnonymousType)
                 {
                     continue;
                 }
@@ -189,7 +234,7 @@ namespace ExpressionPowerTools.Serialization.Tests
 
         public bool ValidateQuery(IList<TestableThing> list, Queries type)
         {
-            switch(type)
+            switch (type)
             {
                 case Queries.Skip1Take1:
                     return list.Count() == 1;
@@ -219,26 +264,29 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenQueryWhenSerializeCalledThenShouldDeserialize(
             IQueryable query,
             Queries type)
-        {            
+        {
             var json = Serializer.Serialize(query);
 
             // make sure we're not just pulling from the cache
             Reset();
 
-            rulesConfig.Value.RuleForType<TestableThing>()
-                .RuleForType<SerializerTests>();
-
-            IQueryable queryHost = TestableThing.MakeQuery(100);
+            IQueryable queryHost = TestableThing.MakeQuery(10);
 
             var newQuery = Serializer.DeserializeQuery(queryHost, json);
+
             // can't do equivalency check for anonymous types
-            if (!query.AsEnumerableExpression().OfType<NewExpression>().Any(t => t.Type.IsAnonymousType()))
+            if (!query.AsEnumerableExpression().OfType<NewExpression>()
+                .Any(t => t.Type.IsAnonymousType()))
             {
                 Assert.True(query.IsEquivalentTo(newQuery));
             }
-            var testRun = newQuery.AsObjectArray(); // ensure it runs
-            Assert.NotNull(testRun);
-            if (newQuery is IQueryable<TestableThing> thingQuery)
+
+            if (newQuery is IQueryable<ExpandoObject> anonymousQuery)
+            {
+                var list = anonymousQuery.ToList();
+                Assert.NotNull(list);
+            }
+            else if (newQuery is IQueryable<TestableThing> thingQuery)
             {
                 var list = thingQuery.ToList();
                 ValidateQuery(list, type);
@@ -255,13 +303,118 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             Reset();
 
-            rulesConfig.Value.RuleForType<TestableThing>()
-                .RuleForType<SerializerTests>();
-
             var queryHost = TestableThing.MakeQuery(100);
-            var newQuery = Serializer.DeserializeQuery(json, queryHost);
+            var newQuery = Serializer.DeserializeQuery<TestableThing>(json, queryHost);
             Assert.True(query.IsEquivalentTo(newQuery));
             ValidateQuery(newQuery.ToList(), type);
+        }
+
+        [Fact]
+        public void MultipleSelectManyProjectionWorks()
+        {
+            Reset();
+
+            var dataQuery = TestableThing.MakeQuery(5);
+
+            IQueryable<Tuple<string, string, string>> SelectMany(IQueryable<TestableThing> query) =>
+             query.SelectMany(t => t.ChildThings, (t, c) => new
+                {
+                    parentId = t.Id,
+                    childId = c.Id,
+                    children = c.ChildThings
+                }).SelectMany(tc => tc.children, (tc, tcc) => new
+                {
+                    tc.parentId,
+                    tc.childId,
+                    grandChildId = tcc.Id
+                }).Select( t => Tuple.Create(t.parentId, t.childId, t.grandChildId));
+
+            var query = SelectMany(IQueryableExtensions.CreateQueryTemplate<TestableThing>());
+
+            var json = Serializer.Serialize(query);
+
+            // make sure we're not just pulling from the cache
+            Reset();
+
+            var newQuery = Serializer.DeserializeQuery<Tuple<string, string, string>>(json, dataQuery);
+
+            var expected = SelectMany(dataQuery).ToList();
+            var actual = newQuery.ToList();
+
+            Assert.NotNull(actual);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void GroupByWorks()
+        {
+            Reset();
+
+            var dataQuery = TestableThing.MakeQuery(10);
+
+            static IQueryable<KeyValuePair<int,int>> GroupBy(IQueryable<TestableThing> query)
+                => query
+                .GroupBy(
+                t => t.Value,
+                t => t.ChildThings,
+                (t, tc) => KeyValuePair.Create(t, tc.Count()));
+
+            var query = GroupBy(IQueryableExtensions.CreateQueryTemplate<TestableThing>());
+
+            var json = Serializer.Serialize(query);
+
+            // make sure we're not just pulling from the cache
+            Reset();
+
+            var expected = GroupBy(dataQuery).ToList();
+
+            var newQuery = Serializer.DeserializeQuery(dataQuery, json);
+            var actual = AsTypedQueryable(newQuery, expected).ToList();
+            Assert.NotNull(actual);
+            Assert.Equal(expected, actual);
+        }
+
+        /// <summary>
+        /// Hack to close generic for anonymous type.
+        /// </summary>
+        /// <typeparam name="T">The anonymous type.</typeparam>
+        /// <param name="query">The query to cast.</param>
+        /// <param name="_">The template to extract the anonymous type from.</param>
+        /// <returns></returns>
+        private IQueryable<T> AsTypedQueryable<T>(IQueryable query, IList<T> _)
+            => query as IQueryable<T>;
+
+        [Fact]
+        public void StateCapturesParameters()
+        {
+            SerializationState state = null;
+            var query = TestableThing.MakeQuery(10)
+                .Select(t => new { t.Id, t.IsActive })
+                .OrderBy(anonT => anonT.Id);
+            var json = Serializer.Serialize(query);
+            var newQuery = Serializer.DeserializeQuery(
+                TestableThing.MakeQuery(),
+                json,
+                stateCallback: s => state = s);
+            var parms = state.GetParameters();
+            Assert.NotNull(parms);
+            Assert.True(parms.Length > 0);
+        }
+
+        [Fact]
+        public void StateCapturesExpressionTree()
+        {
+            SerializationState state = null;
+            var query = TestableThing.MakeQuery(10)
+                .Select(t => new { t.Id, t.IsActive })
+                .OrderBy(anonT => anonT.Id);
+            var json = Serializer.Serialize(query);
+            var newQuery = Serializer.DeserializeQuery(
+                TestableThing.MakeQuery(),
+                json,
+                stateCallback: s => state = s);
+            var tree = state.GetExpressionTree();
+            Assert.NotEmpty(tree);
         }
 
         [Theory]
@@ -393,6 +546,9 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             Reset();
 
+            Serializer.ConfigureRules(rule => rule.RuleForMethod(
+                s => s.ByMemberInfo(method.Method)));
+
             var target = Serializer.Deserialize<MethodCallExpression>(json);
             Assert.True(method.IsEquivalentTo(target));
         }
@@ -430,14 +586,7 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             rulesConfig.Value.RuleForConstructor(selector => selector.ByMemberInfo(info));
             var target = Serializer.Deserialize<NewExpression>(json);
-            if (info.DeclaringType.IsAnonymousType())
-            {
-                Assert.Equal(typeof(AnonInitializer), target.Type);
-            }
-            else
-            {
-                Assert.True(ctor.IsEquivalentTo(target));
-            }
+            Assert.True(ctor.IsEquivalentTo(target));
         }
 
         public static IEnumerable<object[]> GetBinaryExpressions =
@@ -448,13 +597,14 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenBinaryExpressionWhenSerializedThenShouldDeserialize(
             BinaryExpression binary)
         {
+            var json = Serializer.Serialize(binary);
+
+            Reset();
+
             if (binary.Method != null)
             {
                 rulesConfig.Value.RuleForMethod(selector => selector.ByMemberInfo(binary.Method));
             }
-            var json = Serializer.Serialize(binary);
-
-            Reset();
 
             var target = Serializer.Deserialize<BinaryExpression>(json);
             Assert.True(binary.IsEquivalentTo(target));
@@ -468,10 +618,10 @@ namespace ExpressionPowerTools.Serialization.Tests
             var query = TestableThing.MakeQuery().Where(t => t.Id.Contains("aa") && (t.IsActive || t.Value < int.MaxValue / 2));
 
             Serializer.ConfigureDefaults(config => config.WithJsonSerializerOptions(
-                new JsonSerializerOptions
+                options =>
                 {
-                    IgnoreNullValues = false,
-                    IgnoreReadOnlyProperties = true
+                    options.IgnoreNullValues = false;
+                    options.IgnoreReadOnlyProperties = true;
                 }).Configure());
 
             if (configOverride)
@@ -498,12 +648,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         [Fact]
         public void GivenRulesConfigThenReplacesExistingRules()
         {
+            var engine = ServiceHost.GetService<IRulesEngine>();
+            var rules = engine.Reset();
             var method = GetType().GetMethod(nameof(GivenRulesConfigThenReplacesExistingRules));
             var expr = Expression.Call(this.AsConstantExpression(), method);
             var json = Serializer.Serialize(expr);
-
-            Reset();
-
             Serializer.ConfigureRules(
                 rules => rules.RuleForMethod(selector => selector.ByResolver<MethodInfo, SerializerTests>(
                 test => test.GivenRulesConfigThenReplacesExistingRules())));
@@ -512,6 +661,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Serializer.ConfigureRules();
             Assert.Throws<UnauthorizedAccessException>(() =>
                 Serializer.Deserialize<MethodCallExpression>(json));
+            engine.Restore(rules);
         }
 
         [Fact]
@@ -530,16 +680,18 @@ namespace ExpressionPowerTools.Serialization.Tests
         [Fact]
         public void GivenConfigureRulesNoDefaultsThenShouldConfigureNoDefaultRule()
         {
+
             Expression<Func<string, bool>> expr = str => str.Contains("aa");
             var json = Serializer.Serialize(expr);
 
             Reset();
 
             Serializer.ConfigureRules(noDefaults: true);
+
             Assert.Throws<UnauthorizedAccessException>(
                 () => Serializer.Deserialize<LambdaExpression>(json));
-            Serializer.ConfigureRules();
 
+            Reset();
         }
     }
 }

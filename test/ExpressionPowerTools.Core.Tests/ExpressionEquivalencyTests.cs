@@ -958,13 +958,122 @@ namespace ExpressionPowerTools.Core.Tests
             Assert.True(eq.ValuesAreEquivalent(source, target));
         }
 
+        [Fact]
+        public void GivenTwoMethodsThatAreDifferentThenValuesAreEquivalentShouldReturnFalse()
+        {
+            var method1 = GetType().GetMethod(nameof(GivenTwoMethodsThatAreDifferentThenValuesAreEquivalentShouldReturnFalse));
+            var method2 = GetType().GetMethod(nameof(GivenTwoElementInitsThatAreDifferentMethodsThenValuesAreEquivalentShouldReturnFalse));
+            Assert.False(eq.ValuesAreEquivalent(method1, method2));
+        }
+
+        public class DataElem
+        {
+            public string Name { get; set; }
+        }
+
+        public class DataElemToo
+        {
+            public string Name { get; set; }
+        }
+
+        public class DataHost
+        {
+            public List<DataElem> Elems { get; set; } = new List<DataElem>();
+            public List<DataElemToo> ElemsToo { get; set; } = new List<DataElemToo>();
+        }
+
+        public Expression<Func<DataHost>> elemInit => () => new DataHost { Elems = { new DataElem() } };
+        public Expression<Func<DataHost>> elemInitAlt =>
+            () => new DataHost { Elems = { new DataElem { Name = nameof(elemInit) } } };
+
+        public Expression<Func<DataHost>> elemInitToo => () => new DataHost { ElemsToo = { new DataElemToo() } };
+ 
+        [Fact]
+        public void GivenTwoElementInitsThatAreSameThenValuesAreEquivalentShouldReturnTrue()
+        {
+            var elem1 = elemInit.AsEnumerable().OfType<MemberInitExpression>()
+                .SelectMany(
+                    m => m.Bindings.OfType<MemberListBinding>())
+                .SelectMany(
+                    ml => ml.Initializers).FirstOrDefault();
+            var elem2 = elemInit.AsEnumerable().OfType<MemberInitExpression>()
+                .SelectMany(
+                    m => m.Bindings.OfType<MemberListBinding>())
+                .SelectMany(
+                    ml => ml.Initializers).FirstOrDefault();
+            Assert.True(eq.ValuesAreEquivalent(elem1, elem2));
+        }
+
+        [Fact]
+        public void GivenOneElementInitsAndOneNotElementInitThenValuesAreEquivalentShouldReturnFalse()
+        {
+            var elem1 = elemInit.AsEnumerable().OfType<MemberInitExpression>()
+                .SelectMany(
+                    m => m.Bindings.OfType<MemberListBinding>())
+                .SelectMany(
+                    ml => ml.Initializers).FirstOrDefault();
+            Assert.False(eq.ValuesAreEquivalent(elem1, elem1.GetType()));
+        }
+
+        [Fact]
+        public void GivenTwoElementInitsThatAreDifferentValuesThenValuesAreEquivalentShouldReturnFalse()
+        {
+            var elem1 = elemInit.AsEnumerable().OfType<MemberInitExpression>()
+            .SelectMany(
+                m => m.Bindings.OfType<MemberListBinding>())
+            .SelectMany(
+                ml => ml.Initializers).FirstOrDefault();
+            var elem2 = elemInitAlt.AsEnumerable().OfType<MemberInitExpression>()
+                .SelectMany(
+                    m => m.Bindings.OfType<MemberListBinding>())
+                .SelectMany(
+                    ml => ml.Initializers).FirstOrDefault();
+            Assert.False(eq.ValuesAreEquivalent(elem1, elem2));
+        }
+
+        [Fact]
+        public void GivenTwoElementInitsThatAreDifferentMethodsThenValuesAreEquivalentShouldReturnFalse()
+        {
+            var elem1 = elemInit.AsEnumerable().OfType<MemberInitExpression>()
+            .SelectMany(
+                m => m.Bindings.OfType<MemberListBinding>())
+            .SelectMany(
+                ml => ml.Initializers).FirstOrDefault();
+            var elem2 = elemInitToo.AsEnumerable().OfType<MemberInitExpression>()
+                .SelectMany(
+                    m => m.Bindings.OfType<MemberListBinding>())
+                .SelectMany(
+                    ml => ml.Initializers).FirstOrDefault();
+            Assert.False(eq.ValuesAreEquivalent(elem1, elem2));
+        }
+
         public static IEnumerable<object[]> SpecialTypesMatrix()
         {
             var anonymousType = new { Foo = 1 }.GetType();
+            var sameAnonymousType = new { Foo = 2 }.GetType(); 
+            var anonymousTypeDiffLength = new { Foo = 1, Bar = 1 }.GetType();
+            var anonymousTypeDiffName = new { Fooo = 1 }.GetType();
+            var anonymousOtherType = new { Bar = 1 }.GetType();
+            var differentSignature = new { Foo = "1" }.GetType();
+
+            yield return new object[]
+            {
+                anonymousType, anonymousOtherType, false
+            };
 
             yield return new object[]
             {
                 anonymousType, typeof(object), false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousTypeDiffLength, false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousTypeDiffName, false
             };
 
             yield return new object[]
@@ -974,17 +1083,12 @@ namespace ExpressionPowerTools.Core.Tests
 
             yield return new object[]
             {
-                anonymousType, typeof(IDictionary), true
+                anonymousType, sameAnonymousType, true
             };
 
             yield return new object[]
             {
-                anonymousType, typeof(IDictionary<string, object>), true
-            };
-
-            yield return new object[]
-            {
-                anonymousType, typeof(Dictionary<int, Type>), true
+                anonymousType, differentSignature, false
             };
         }
 
@@ -1082,18 +1186,7 @@ namespace ExpressionPowerTools.Core.Tests
             var anonymousType = new { Foo = 1, Bar = "hello" };
             var otherType = new { Foo = 1, Bar = "hello" };
             var differentType = new { Foo = 1, Bar = "goodbye" };
-            Dictionary<string, object> anonymousDictionary = new Dictionary<string, object>
-            {
-                { nameof(anonymousType.Foo), anonymousType.Foo },
-                { nameof(anonymousType.Bar), anonymousType.Bar }
-            };
-            IDictionary anonymousNonGenericDictionary = anonymousDictionary;
-            ExpandoObject anonymousExpando = new ExpandoObject();
-            ((IDictionary<string, object>)anonymousExpando).Add(
-                nameof(anonymousType.Foo), anonymousType.Foo);
-            ((IDictionary<string, object>)anonymousExpando).Add(
-                nameof(anonymousType.Bar), anonymousType.Bar);
-
+         
             yield return new object[]
             {
                 anonymousType, anonymousType, true
@@ -1107,42 +1200,12 @@ namespace ExpressionPowerTools.Core.Tests
             yield return new object[]
             {
                 anonymousType, differentType, false
-            };
-
-            yield return new object[]
-            {
-                anonymousType, anonymousDictionary, true
-            };
-
-            yield return new object[]
-            {
-                differentType, anonymousDictionary, false
-            };
-
-            yield return new object[]
-            {
-                anonymousType, anonymousNonGenericDictionary, true
-            };
-
-            yield return new object[]
-            {
-                differentType, anonymousNonGenericDictionary, false
-            };
-
-            yield return new object[]
-            {
-                anonymousType, anonymousExpando, true
-            };
-
-            yield return new object[]
-            {
-                differentType, anonymousExpando, false
-            };
+            };            
         }
 
         [Theory]
         [MemberData(nameof(GetAnonymousTypesMatrix))]
-        public void GivenAnonymousTypeWhenComparedToDictionaryThenValuesAreEquivalentShouldReturnResult(
+        public void GivenAnonymousTypeWhenComparedToAnonymousThenValuesAreEquivalentShouldReturnResult(
             object source, object target, bool areEquivalent)
         {
             Assert.Equal(areEquivalent, eq.ValuesAreEquivalent(source, target));

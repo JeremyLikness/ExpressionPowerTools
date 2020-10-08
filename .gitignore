@@ -12,8 +12,16 @@ packages/
 # Build assets
 bin/
 
+# User settings
+*.user
+
 # Test results
 TestResults/
+TestDocResults/
 
-# Docs log
+# Logs
 log.txt
+debug.log
+
+# Publishing
+PublishProfiles/

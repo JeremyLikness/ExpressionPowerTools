@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
@@ -31,6 +33,14 @@ namespace ExpressionPowerTools.Core.Extensions
             type.IsSealed &&
             !type.IsPublic &&
             type.FullName.Contains(AnonymousType);
+
+        /// <summary>
+        /// Helper for determining anonymous types.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> to check.</param>
+        /// <returns>A value indicating whether the type or any type closures are anonymous.</returns>
+        public static bool IsOrContainsAnonymousType(this Type type) =>
+            RecurseTypes(type).Any(t => t.IsAnonymousType());
 
         /// <summary>
         /// Extracts the name of the target of an expression.
@@ -218,5 +228,25 @@ namespace ExpressionPowerTools.Core.Extensions
             this Expression source,
             Expression target) =>
                 ExpressionSimilarity.IsPartOf(source, target);
+
+        /// <summary>
+        /// Recurse types that make up types.
+        /// </summary>
+        /// <param name="types">The top-level types.</param>
+        /// <returns>The traversed types.</returns>
+        private static IEnumerable<Type> RecurseTypes(params Type[] types)
+        {
+            foreach (var type in types)
+            {
+                yield return type;
+                if (type.IsGenericType)
+                {
+                    foreach (var subType in RecurseTypes(type.GetGenericArguments()))
+                    {
+                        yield return subType;
+                    }
+                }
+            }
+        }
     }
 }

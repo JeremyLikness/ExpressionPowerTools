@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System.Linq.Expressions;
-using ExpressionPowerTools.Core.Extensions;
 
 namespace ExpressionPowerTools.Serialization.Compression
 {

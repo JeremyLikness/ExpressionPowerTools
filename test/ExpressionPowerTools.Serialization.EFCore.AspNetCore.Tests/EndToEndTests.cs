@@ -6,9 +6,11 @@ using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests.TestHelpers;
 using ExpressionPowerTools.Serialization.Extensions;
+using ExpressionPowerTools.Serialization.Signatures;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Xunit;
@@ -207,10 +209,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             var testServer = CreateSimpleServer(
                 config => config.MapPowerToolsEFCore<TestWidgetsContext>(
                     options: options => options.WithJsonSerializerOptions(
-                        new JsonSerializerOptions
-                        {
-                            IgnoreNullValues = false
-                        })));
+                        options => options.IgnoreNullValues = false)));
             var result = await testServer.SendAsync(context => DefaultHttpContext(context, stream));
             Assert.Equal((int)HttpStatusCode.OK, result.Response.StatusCode);
             stream.Flush();
@@ -236,13 +235,14 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         [Fact]
         public async Task NoDefaultRulesHonored()
         {
+            var rules = ServiceHost.GetService<IRulesEngine>().Reset();
             var stream = new MemoryStream();
             var testServer = CreateSimpleServer(
                 config => config.MapPowerToolsEFCore<TestWidgetsContext>(noDefaultRules: true));
             var result = await testServer.SendAsync(context => DefaultHttpContext(context, stream));
             var parsed = ProcessResult<TestWidget[]>(result, stream);
             Assert.Equal((int)HttpStatusCode.Unauthorized, parsed.statusCode);
-            Serializer.ConfigureRules(); // reset to default
+            ServiceHost.GetService<IRulesEngine>().Restore(rules);
         }
 
         [Fact]

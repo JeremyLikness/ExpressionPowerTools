@@ -30,12 +30,9 @@ namespace ExpressionPowerTools.Serialization.Tests
         [Fact]
         public void GivenConfigurationBuilderWhenJsonOptionsSetThenShouldConfigureOptions()
         {
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = false
-            };
-            var state = new ConfigurationBuilder().WithJsonSerializerOptions(options).Configure();
-            Assert.Same(options, state.Options);
+            var state = new ConfigurationBuilder().WithJsonSerializerOptions(
+                options => options.IgnoreNullValues = false).Configure();
+            Assert.False(state.Options.IgnoreNullValues);
         }
 
         [Theory]
@@ -43,17 +40,12 @@ namespace ExpressionPowerTools.Serialization.Tests
         [InlineData(false)]
         public void GivenConfigurationBuilderThenOptionsCanBeChainedConfigurable(bool setting)
         {
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = false
-            };
-
             var state = new ConfigurationBuilder()
-                .WithJsonSerializerOptions(options)
+                .WithJsonSerializerOptions(options => options.IgnoreNullValues = false)
                 .CompressTypes(setting)
                 .Configure();
 
-            Assert.Same(options, state.Options);
+            Assert.False(state.Options.IgnoreNullValues);
             Assert.Equal(setting, state.CompressTypes);
         }
 
