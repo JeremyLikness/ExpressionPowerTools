@@ -21,13 +21,11 @@ Install-Package ExpressionPowerTools.Serialization.EFCore.AspNetCore -Version 0.
 In `Startup.cs` add the middleware. This examle expects a `DbContext` named `ThingContext`:
 
 ```csharp
-
 app.UseEndpoints(endpoints =>
 {
    endpoints.MapPowerToolsEFCore<ThingContext>();
    endpoints.MapRazorPages();
-});
-            
+})
 ```
 
 See [MiddlewareExtensions](api/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.cs.md) for more details.

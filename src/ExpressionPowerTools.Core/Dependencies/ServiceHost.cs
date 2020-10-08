@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Hosts;
@@ -48,7 +49,7 @@ namespace ExpressionPowerTools.Core.Dependencies
     /// ServiceHost.Initialize(register =>
     ///     register.RegisterGeneric(typeof(IGenericType<>), typeof(GenericType<>)));
     /// ]]></code>
-    /// To retrive a service:
+    /// To retrieve a service:
     /// <code lang="csharp"><![CDATA[
     /// var implementation = ServiceHost.GetService<IMyType>();
     /// ]]></code>
@@ -206,15 +207,31 @@ namespace ExpressionPowerTools.Core.Dependencies
         /// <param name="register">The <see cref="IServiceRegistration"/>.</param>
         private static void RegisterSatellites(IServiceRegistration register)
         {
-            // now satellite assemblies
-            foreach (var dependent in AppDomain.CurrentDomain.GetAssemblies().SelectMany(
-                a => a.GetTypes()
-                .Where(t => typeof(IDependentServiceRegistration).IsAssignableFrom(t) &&
-                !t.IsInterface)))
+            var registration = typeof(IDependentServiceRegistration);
+
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var satelliteRegistration = Activator.CreateInstance(dependent) as IDependentServiceRegistration;
-                satelliteRegistration.RegisterDefaultServices(register);
-                Satellites.Push(satelliteRegistration);
+                try
+                {
+                    foreach (var type in assembly.GetTypes())
+                    {
+                        try
+                        {
+                            if (registration.IsAssignableFrom(type) && !type.IsInterface)
+                            {
+                                var satelliteRegistration = Activator.CreateInstance(type) as IDependentServiceRegistration;
+                                satelliteRegistration.RegisterDefaultServices(register);
+                                Satellites.Push(satelliteRegistration);
+                            }
+                        }
+                        catch (TypeInitializationException)
+                        {
+                        }
+                    }
+                }
+                catch (ReflectionTypeLoadException)
+                {
+                }
             }
         }
     }
