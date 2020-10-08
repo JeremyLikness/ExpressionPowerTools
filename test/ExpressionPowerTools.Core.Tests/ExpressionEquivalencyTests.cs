@@ -1050,11 +1050,30 @@ namespace ExpressionPowerTools.Core.Tests
         public static IEnumerable<object[]> SpecialTypesMatrix()
         {
             var anonymousType = new { Foo = 1 }.GetType();
+            var sameAnonymousType = new { Foo = 2 }.GetType(); 
+            var anonymousTypeDiffLength = new { Foo = 1, Bar = 1 }.GetType();
+            var anonymousTypeDiffName = new { Fooo = 1 }.GetType();
             var anonymousOtherType = new { Bar = 1 }.GetType();
             var differentSignature = new { Foo = "1" }.GetType();
+
+            yield return new object[]
+            {
+                anonymousType, anonymousOtherType, false
+            };
+
             yield return new object[]
             {
                 anonymousType, typeof(object), false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousTypeDiffLength, false
+            };
+
+            yield return new object[]
+            {
+                anonymousType, anonymousTypeDiffName, false
             };
 
             yield return new object[]
@@ -1064,7 +1083,7 @@ namespace ExpressionPowerTools.Core.Tests
 
             yield return new object[]
             {
-                anonymousType, anonymousOtherType, true
+                anonymousType, sameAnonymousType, true
             };
 
             yield return new object[]

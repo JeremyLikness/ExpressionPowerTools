@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Dynamic;
-using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
@@ -14,7 +11,6 @@ using ExpressionPowerTools.Core.Hosts;
 using ExpressionPowerTools.Core.Members;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Serialization;
 using Xunit;
 
 namespace ExpressionPowerTools.Core.Tests
@@ -189,8 +185,19 @@ namespace ExpressionPowerTools.Core.Tests
                 .OfType<MethodCallExpression>()
                 .FirstOrDefault().Method;
 
+            var anonWithAnon = new
+            {
+                Id = 1,
+                SubAnon = new
+                {
+                    SubId = 1,
+                    Name = nameof(MemberAdapterTests)
+                }
+            };
+
             var matrix = new Dictionary<string, MemberInfo>
             {
+                { "T:<>f__AnonymousType9{Id=System.Int32,SubAnon=<>f__AnonymousType10{SubId=System.Int32,Name=System.String}}", anonWithAnon.GetType() },
                 { "M:ExpressionPowerTools.Core.Tests.MemberAdapterTests.Result{System.Int32}(ExpressionPowerTools.Core.Tests.MemberAdapterTests,System.String)", closedTypedMethod },
                 { "M:System.Linq.Queryable.SelectMany``3(System.Linq.IQueryable{<>f__AnonymousType7{Name=System.String,Id1=System.String,Id2=System.String}},System.Linq.Expressions.Expression{System.Func{<>f__AnonymousType7{Name=System.String,Id1=System.String,Id2=System.String},System.Collections.Generic.IEnumerable{ExpressionPowerTools.Core.Tests.MemberAdapterTests+SimpleThing}}},System.Linq.Expressions.Expression{System.Func{<>f__AnonymousType7{Name=System.String,Id1=System.String,Id2=System.String},ExpressionPowerTools.Core.Tests.MemberAdapterTests+SimpleThing,ExpressionPowerTools.Core.Tests.MemberAdapterTests+RelatedThing}})", selectManyMethod },
                 { "M:System.Collections.Generic.List{ExpressionPowerTools.Core.Tests.MemberAdapterTests}.Add(ExpressionPowerTools.Core.Tests.MemberAdapterTests)", typeof(List<MemberAdapterTests>).GetMethod(nameof(List<MemberAdapterTests>.Add)) },
@@ -269,6 +276,67 @@ namespace ExpressionPowerTools.Core.Tests
                     (m.DeclaringType != null && m.DeclaringType.ToString().StartsWith("System")))
                 .ToArray();
             return result;
+        }
+
+        [Fact]
+        public void GivenBadKeyTypeWhenGetMemberForKeyCalledThenShouldThrowArgument()
+        {
+            var keys = GetKeyAndMemberMatrix().Select(m =>
+                m[0] as string).ToList();
+            var goodKey = keys.First(k => k.StartsWith("T"));
+            var badKey = string.Join(
+                ":", new string[]
+                {
+                    "Z",
+                    goodKey.Split(':')[1]
+                });
+            Assert.Throws<ArgumentException>(
+                () => target.GetMemberForKey(badKey));
+        }
+
+        [Fact]
+        public void GivenNullPropertiesWhenMakeAnonymousTypeCalledThenShouldThroughArgumentNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => target.MakeAnonymousType(null));
+        }
+
+        [Fact]
+        public void GivenEmptyPropertiesWhenMakeAnonymousTypeCalledThenShouldThrowArgument()
+        {
+            Assert.Throws<ArgumentException>(
+            () => target.MakeAnonymousType(new (string prop, Type propType)[0]));
+        }
+
+        [Fact]
+        public void GivenBadPropertiesWhenMakeAnonymousTypeCalledThenShouldReturnNull()
+        {
+            var anonType = target.MakeAnonymousType(new[]
+            {
+                (Guid.NewGuid().ToString(), typeof(int)),
+                (Guid.NewGuid().ToString(), typeof(string)),
+            });
+            Assert.Null(anonType);
+        }
+
+        [Fact]
+        public void GivenAnonymousTypeSignatureWhenMakeAnonymousTypeCalledThenShouldReturnAnonymousType()
+        {
+            var template = new { Id = "one", Name = "two" };
+            var anonType = target.MakeAnonymousType(new[]
+            {
+                (nameof(template.Id), typeof(string)),
+                (nameof(template.Name), typeof(string)),
+            });
+            Assert.Same(template.GetType(), anonType);
+        }
+
+        [Fact]
+        public void GivenBadKeyWhenGetMemberNotFoundThenShouldThrowArgumentException()
+        {
+            var badKey = "M:System.Fantasy.Island``1(System.Int32)";
+            Assert.Throws<ArgumentException>(
+                () => target.GetMemberForKey(badKey));
         }
 
         [Fact]

@@ -1,6 +1,6 @@
 # Summary of Code Coverage for ExpressionPowerTools.Serialization
 
-Report generated on 10/7/2020 11:54:05 PM UTC.
+Report generated on 10/8/2020 5:12:45 AM UTC.
 
 ## Report Summary
 
@@ -10,17 +10,17 @@ Report generated on 10/7/2020 11:54:05 PM UTC.
 |**Assemblies**|1
 |**Classes**|48
 |**Files**|49
-|**Line coverage**|97.6%
-|**Covered lines**|1146
-|**Uncovered lines**|28
-|**Coverable lines**|1174
-|**Total lines**|4787
+|**Line coverage**|98.1%
+|**Covered lines**|1157
+|**Uncovered lines**|22
+|**Coverable lines**|1179
+|**Total lines**|4801
 
 ## Report Detail
 
 |Target|Coverage|
 |:--|--:|
-|**⚠ ExpressionPowerTools.Serialization Summary**|97.6%|
+|**⚠ ExpressionPowerTools.Serialization Summary**|98.1%|
 |✅   ExpressionPowerTools.Serialization.Compression.ExpressionNominator|100.0%|
 |⚠   ExpressionPowerTools.Serialization.Compression.SubtreeEvaluator|95.4%|
 |✅   ExpressionPowerTools.Serialization.Compression.TreeCompressionVisitor|100.0%|
@@ -66,7 +66,7 @@ Report generated on 10/7/2020 11:54:05 PM UTC.
 |⚠   ExpressionPowerTools.Serialization.Serializers.ReflectionHelper|94.2%|
 |✅   ExpressionPowerTools.Serialization.Serializers.SerializableExpression|100.0%|
 |✅   ExpressionPowerTools.Serialization.Serializers.SerializationRoot|100.0%|
-|🛑   ExpressionPowerTools.Serialization.Serializers.SerializationState|66.6%|
+|⚠   ExpressionPowerTools.Serialization.Serializers.SerializationState|95.2%|
 |✅   ExpressionPowerTools.Serialization.Serializers.Unary|100.0%|
 |✅   ExpressionPowerTools.Serialization.Serializers.UnarySerializer|100.0%|
 

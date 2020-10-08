@@ -792,6 +792,14 @@
             <returns>A flag indicating whether the types are
             equal and the values are both not null.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.AnonymousValuesAreEquivalent(System.Object,System.Object)">
+            <summary>
+            Compares two anonymous values.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="target">The target.</param>
+            <returns>A value indicating whether the anonymous values are equivalent.</returns>
+        </member>
         <member name="T:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator">
             <summary>
             Implementation of <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/> for advanced

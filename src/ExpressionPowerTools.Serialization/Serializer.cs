@@ -103,12 +103,14 @@ namespace ExpressionPowerTools.Serialization
         /// <param name="json">The json text.</param>
         /// <param name="queryRoot">The root of the query to apply.</param>
         /// <param name="config">Optional configuration.</param>
+        /// <param name="stateCallback">Register a callback to inspect the state.</param>
         /// <returns>The deserialized <see cref="Expression"/> or <c>null</c>.</returns>
         /// <exception cref="ArgumentException">Thrown when the json is <c>null</c> or whitespace.</exception>
         public static Expression Deserialize(
             string json,
             Expression queryRoot = null,
-            Action<IConfigurationBuilder> config = null)
+            Action<IConfigurationBuilder> config = null,
+            Action<SerializationState> stateCallback = null)
         {
             Ensure.NotNullOrWhitespace(() => json);
 
@@ -137,6 +139,8 @@ namespace ExpressionPowerTools.Serialization
                 result = SerializerValue.Deserialize(jsonChild, state);
             }
 
+            stateCallback?.Invoke(state);
+
             return result;
         }
 
@@ -147,16 +151,18 @@ namespace ExpressionPowerTools.Serialization
         /// <param name="json">The json text.</param>
         /// <param name="config">Optional configuratoin.</param>
         /// <returns>The deserialized <see cref="IQueryable"/>.</returns>
+        /// <param name="stateCallback">Register a callback to inspect the state.</param>
         /// <exception cref="ArgumentNullException">Throws when host is null.</exception>
         /// <exception cref="ArgumentException">Throws when the json is empty or whitespace.</exception>
         public static IQueryable DeserializeQuery(
             IQueryable host,
             string json,
-            Action<IConfigurationBuilder> config = null)
+            Action<IConfigurationBuilder> config = null,
+            Action<SerializationState> stateCallback = null)
         {
             Ensure.NotNull(() => host);
             Ensure.NotNullOrWhitespace(() => json);
-            var expression = Deserialize(json, host.Expression, config);
+            var expression = Deserialize(json, host.Expression, config, stateCallback);
             IQueryable result;
             result = host.Provider.CreateQuery(expression);
             return result;
@@ -169,14 +175,16 @@ namespace ExpressionPowerTools.Serialization
         /// <param name="json">The json text.</param>
         /// <param name="host">The <see cref="IQueryable{T}"/> host to create the query.</param>
         /// <param name="config">The optional configuration.</param>
+        /// <param name="stateCallback">Register a callback to inspect the state.</param>
         /// <returns>The deserialized <see cref="IQueryable{T}"/>.</returns>
         public static IQueryable<T> DeserializeQuery<T>(
             string json,
             IQueryable host = null,
-            Action<IConfigurationBuilder> config = null)
+            Action<IConfigurationBuilder> config = null,
+            Action<SerializationState> stateCallback = null)
         {
             host = host ?? IQueryableExtensions.CreateQueryTemplate<T>();
-            return DeserializeQuery(host, json, config) as IQueryable<T>;
+            return DeserializeQuery(host, json, config, stateCallback) as IQueryable<T>;
         }
 
         /// <summary>
@@ -184,18 +192,24 @@ namespace ExpressionPowerTools.Serialization
         /// </summary>
         /// <remarks>
         /// Do not use this method to deserialize <see cref="IQueryable"/> or <see cref="IQueryable{T}"/>.
-        /// The <see cref="DeserializeQuery(IQueryable, string, Action{IConfigurationBuilder})"/> method is provided for this.
+        /// The <see cref="DeserializeQuery(IQueryable, string, Action{IConfigurationBuilder}, Action{SerializationState})"/> method is provided for this.
         /// </remarks>
         /// <typeparam name="T">The type of the <see cref="Expression"/> root.</typeparam>
         /// <param name="json">The json.</param>
         /// <param name="queryRoot">The root of the query to apply.</param>
         /// <param name="config">Optional configuration.</param>
+        /// <param name="stateCallback">Register a callback to inspect the state.</param>
         /// <returns>The <see cref="Expression"/> or <c>null</c>.</returns>
         public static T Deserialize<T>(
             string json,
             Expression queryRoot = null,
-            Action<IConfigurationBuilder> config = null)
-            where T : Expression => (T)Deserialize(json, queryRoot, config);
+            Action<IConfigurationBuilder> config = null,
+            Action<SerializationState> stateCallback = null)
+            where T : Expression => (T)Deserialize(
+                json,
+                queryRoot,
+                config,
+                stateCallback);
 
         /// <summary>
         /// Configure default settings.

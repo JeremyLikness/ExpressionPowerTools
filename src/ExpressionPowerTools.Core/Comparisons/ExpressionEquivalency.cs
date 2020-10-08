@@ -76,6 +76,13 @@ namespace ExpressionPowerTools.Core.Comparisons
                         }
                     }
 
+                    if (source.GetProperties().Select(p => p.Name)
+                        .Except(target.GetProperties().Select(p => p.Name))
+                        .Any())
+                    {
+                        return false;
+                    }
+
                     return true;
                 }
             }
@@ -396,18 +403,16 @@ namespace ExpressionPowerTools.Core.Comparisons
             return true;
         }
 
+        /// <summary>
+        /// Compares two anonymous values.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>A value indicating whether the anonymous values are equivalent.</returns>
         private static bool AnonymousValuesAreEquivalent(object source, object target)
         {
             var srcProps = source.GetType().GetProperties();
             var tgtProps = target.GetType().GetProperties();
-
-            if (srcProps.Length != tgtProps.Length ||
-                srcProps.Select(p => p.PropertyType)
-                .Except(tgtProps.Select(p => p.PropertyType))
-                .Any())
-            {
-                return false;
-            }
 
             for (var idx = 0; idx < srcProps.Length; idx++)
             {

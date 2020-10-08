@@ -699,17 +699,18 @@
             <returns>The serialized <see cref="T:System.Linq.IQueryable"/>.</returns>
             <exception cref="T:System.ArgumentNullException">Throws when the query is null.</exception>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.Deserialize(System.String,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+        <member name="M:ExpressionPowerTools.Serialization.Serializer.Deserialize(System.String,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
             <summary>
             Deserialize to an <see cref="T:System.Linq.Expressions.Expression"/> tree.
             </summary>
             <param name="json">The json text.</param>
             <param name="queryRoot">The root of the query to apply.</param>
             <param name="config">Optional configuration.</param>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
             <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/> or <c>null</c>.</returns>
             <exception cref="T:System.ArgumentException">Thrown when the json is <c>null</c> or whitespace.</exception>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery(System.Linq.IQueryable,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+        <member name="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery(System.Linq.IQueryable,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
             <summary>
             Deserializes a query from the raw json.
             </summary>
@@ -717,10 +718,11 @@
             <param name="json">The json text.</param>
             <param name="config">Optional configuratoin.</param>
             <returns>The deserialized <see cref="T:System.Linq.IQueryable"/>.</returns>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
             <exception cref="T:System.ArgumentNullException">Throws when host is null.</exception>
             <exception cref="T:System.ArgumentException">Throws when the json is empty or whitespace.</exception>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery``1(System.String,System.Linq.IQueryable,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+        <member name="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery``1(System.String,System.Linq.IQueryable,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
             <summary>
             Deserializes a query from the raw json.
             </summary>
@@ -728,20 +730,22 @@
             <param name="json">The json text.</param>
             <param name="host">The <see cref="T:System.Linq.IQueryable`1"/> host to create the query.</param>
             <param name="config">The optional configuration.</param>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
             <returns>The deserialized <see cref="T:System.Linq.IQueryable`1"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.Deserialize``1(System.String,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+        <member name="M:ExpressionPowerTools.Serialization.Serializer.Deserialize``1(System.String,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
             <summary>
             Overload to return a specific type.
             </summary>
             <remarks>
             Do not use this method to deserialize <see cref="T:System.Linq.IQueryable"/> or <see cref="T:System.Linq.IQueryable`1"/>.
-            The <see cref="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery(System.Linq.IQueryable,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})"/> method is provided for this.
+            The <see cref="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery(System.Linq.IQueryable,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})"/> method is provided for this.
             </remarks>
             <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/> root.</typeparam>
             <param name="json">The json.</param>
             <param name="queryRoot">The root of the query to apply.</param>
             <param name="config">Optional configuration.</param>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
             <returns>The <see cref="T:System.Linq.Expressions.Expression"/> or <c>null</c>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializer.ConfigureDefaults(System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">

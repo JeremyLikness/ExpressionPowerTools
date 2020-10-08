@@ -9,6 +9,7 @@ using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Extensions;
+using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
 using Xunit;
@@ -382,6 +383,39 @@ namespace ExpressionPowerTools.Serialization.Tests
         /// <returns></returns>
         private IQueryable<T> AsTypedQueryable<T>(IQueryable query, IList<T> _)
             => query as IQueryable<T>;
+
+        [Fact]
+        public void StateCapturesParameters()
+        {
+            SerializationState state = null;
+            var query = TestableThing.MakeQuery(10)
+                .Select(t => new { t.Id, t.IsActive })
+                .OrderBy(anonT => anonT.Id);
+            var json = Serializer.Serialize(query);
+            var newQuery = Serializer.DeserializeQuery(
+                TestableThing.MakeQuery(),
+                json,
+                stateCallback: s => state = s);
+            var parms = state.GetParameters();
+            Assert.NotNull(parms);
+            Assert.True(parms.Length > 0);
+        }
+
+        [Fact]
+        public void StateCapturesExpressionTree()
+        {
+            SerializationState state = null;
+            var query = TestableThing.MakeQuery(10)
+                .Select(t => new { t.Id, t.IsActive })
+                .OrderBy(anonT => anonT.Id);
+            var json = Serializer.Serialize(query);
+            var newQuery = Serializer.DeserializeQuery(
+                TestableThing.MakeQuery(),
+                json,
+                stateCallback: s => state = s);
+            var tree = state.GetExpressionTree();
+            Assert.NotEmpty(tree);
+        }
 
         [Theory]
         [InlineData(null)]
