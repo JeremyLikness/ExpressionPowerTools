@@ -7,6 +7,7 @@
 
 ## 0.9 Alpha
 
+- [0.9.3-alpha](#093-alpha)
 - [0.9.2-alpha](#092-alpha)
 - [0.9.1-alpha](#091-alpha)
 - [0.9.0-alpha](#090-alpha)
