@@ -125,7 +125,7 @@ var query2eq = query2.IsEquivalentTo(query); // false: StartsWith("b") != Starts
 var query3eq = query3.IsEquivalentTo(query); // true
 ```
 
-[See these examples in a Jupyter notebook](.docs/notebooks/displayiqueryable.ipynb)
+[See these examples in a Jupyter notebook](./docs/notebooks/displayiqueryable.ipynb)
 
 There are many more features so be sure to check out the documentation!
 
