@@ -38,4 +38,4 @@ Logic borrowed from https://docs.microsoft.com/en-us/archive/blogs/mattwar/linq-
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 14:35:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |
+| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
