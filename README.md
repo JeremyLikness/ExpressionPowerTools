@@ -40,7 +40,7 @@ The example sets `treeDisplay` to:
   [ConstantExpression:Constant] : Int32 => 2
 ```
 
-[See the Jupyter notebook example](docs/displayexpressiontree.ipynb)
+[See the Jupyter notebook example](./docs/notebooks/displayexpressiontree.ipynb)
 
 A more involved example uses queries. Here is a query and its tree display:
 
@@ -125,7 +125,7 @@ var query2eq = query2.IsEquivalentTo(query); // false: StartsWith("b") != Starts
 var query3eq = query3.IsEquivalentTo(query); // true
 ```
 
-[See these examples in a Jupyter notebook](./displayiqueryable.ipynb)
+[See these examples in a Jupyter notebook](.docs/notebooks/displayiqueryable.ipynb)
 
 There are many more features so be sure to check out the documentation!
 
