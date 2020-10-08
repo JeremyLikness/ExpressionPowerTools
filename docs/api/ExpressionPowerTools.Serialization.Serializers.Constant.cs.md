@@ -16,7 +16,6 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | :-- | :-- |
 | [Constant()](ExpressionPowerTools.Serialization.Serializers.Constant.ctor.md#constant) | Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) class. |
 | [Constant(ConstantExpression expression)](ExpressionPowerTools.Serialization.Serializers.Constant.ctor.md#constantconstantexpression-expression) | Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) class. |
-| [static Constant()](ExpressionPowerTools.Serialization.Serializers.Constant.ctor.md#static-constant) | Initializes a new instance of the [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) class. |
 ## Properties
 
 | Property | Type | Description |
@@ -30,4 +29,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

@@ -9,7 +9,7 @@ Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.
 | Ctor | Description |
 | :-- | :-- |
 | [AnonType()](#anontype) | Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class. |
-| [AnonType(Object value)](#anontypeobject-value) | Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class with the            anonymous instance to serialize. |
+| [AnonType(Object anonymous, Func&lt;Type, String> getKey)](#anontypeobject-anonymous-functype-string-getkey) | Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class            with an anonymous type. |
 
 ## AnonType()
 
@@ -21,20 +21,21 @@ public AnonType()
 
 
 
-## AnonType(Object value)
+## AnonType(Object anonymous, Func&lt;Type, String> getKey)
 
-Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class with the
-            anonymous instance to serialize.
+Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class
+            with an anonymous type.
 
 ```csharp
-public AnonType(Object value)
+public AnonType(Object anonymous, Func<Type, String> getKey)
 ```
 
 ### Parameters
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `value` | [Object](https://docs.microsoft.com/dotnet/api/system.object) | The anonymous value. |
+| `anonymous` | [Object](https://docs.microsoft.com/dotnet/api/system.object) | The anonymous type. |
+| `getKey` | [Func&lt;Type, String>](https://docs.microsoft.com/dotnet/api/system.func-2) | Function to get key for type. |
 
 
 
@@ -42,4 +43,4 @@ public AnonType(Object value)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

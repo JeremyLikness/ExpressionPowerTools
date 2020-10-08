@@ -22,10 +22,11 @@ Derived  [RulesEngine](ExpressionPowerTools.Serialization.Rules.RulesEngine.cs.m
 | :-- | :-- |
 | [Void AddRule(ISerializationRule rule)](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.AddRule.m.md) | Add a rule to the engine. |
 | [Boolean MemberIsAllowed(MemberInfo member)](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.MemberIsAllowed.m.md) | Checks if a member is allowed. |
-| [Void Reset()](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.Reset.m.md) | Clears the rules. |
+| [IList&lt;ValueTuple&lt;String, Boolean>> Reset()](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.Reset.m.md) | Clears the rules, returning a snapshot. |
+| [Void Restore(IList&lt;ValueTuple&lt;String, Boolean>> rules)](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.Restore.m.md) | Restores the rules. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

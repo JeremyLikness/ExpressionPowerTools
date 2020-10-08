@@ -8,13 +8,13 @@ Adds the [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.te
 
 | Overload | Description |
 | :-- | :-- |
-| [WithJsonSerializerOptions(JsonSerializerOptions options)](#withjsonserializeroptionsjsonserializeroptions-options) | Adds the [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) to the options. |
-## WithJsonSerializerOptions(JsonSerializerOptions options)
+| [WithJsonSerializerOptions(Action&lt;JsonSerializerOptions> options)](#withjsonserializeroptionsactionjsonserializeroptions-options) | Adds the [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) to the options. |
+## WithJsonSerializerOptions(Action&lt;JsonSerializerOptions> options)
 
 Adds the [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) to the options.
 
 ```csharp
-public virtual IConfigurationBuilder WithJsonSerializerOptions(JsonSerializerOptions options)
+public virtual IConfigurationBuilder WithJsonSerializerOptions(Action<JsonSerializerOptions> options)
 ```
 
 ### Return Type
@@ -25,7 +25,7 @@ public virtual IConfigurationBuilder WithJsonSerializerOptions(JsonSerializerOpt
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `options` | [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) | The [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
+| `options` | [Action&lt;JsonSerializerOptions>](https://docs.microsoft.com/dotnet/api/system.action-1) | The default [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) . |
 
 
 
@@ -33,4 +33,4 @@ public virtual IConfigurationBuilder WithJsonSerializerOptions(JsonSerializerOpt
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

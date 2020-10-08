@@ -38,6 +38,7 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`AllowAnonymousTypes`](ExpressionPowerTools.Serialization.Rules.RulesEngine.AllowAnonymousTypes.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets a value indicating whether anonymous types are allowed. |
+| [`LoadingDefaults`](ExpressionPowerTools.Serialization.Rules.RulesEngine.LoadingDefaults.prop.md) | [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean) | Gets or sets a value indicating whether defaults are being loaded. |
 
 ## Methods
 
@@ -48,7 +49,9 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 | [IRulesConfiguration Deny()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Deny.m.md) | Deny the rule in queue. |
 | [IRulesConfiguration DenyAnonymousTypes()](ExpressionPowerTools.Serialization.Rules.RulesEngine.DenyAnonymousTypes.m.md) | Use this rule to disallow anonymous types. |
 | [Boolean MemberIsAllowed(MemberInfo member)](ExpressionPowerTools.Serialization.Rules.RulesEngine.MemberIsAllowed.m.md) | Check if a member is allowed. |
-| [Void Reset()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Reset.m.md) | Clears the ruleset. |
+| [IList&lt;ValueTuple&lt;String, Boolean>> Reset()](ExpressionPowerTools.Serialization.Rules.RulesEngine.Reset.m.md) | Clears the ruleset. |
+| [Void ResetToDefaults()](ExpressionPowerTools.Serialization.Rules.RulesEngine.ResetToDefaults.m.md) | Reset to default rules. |
+| [Void Restore(IList&lt;ValueTuple&lt;String, Boolean>> ruleSet)](ExpressionPowerTools.Serialization.Rules.RulesEngine.Restore.m.md) | Restores a rule set (used mainly for testing). |
 | [IRulesConfiguration RuleForConstructor(Action&lt;MemberSelector&lt;ConstructorInfo>> selector)](ExpressionPowerTools.Serialization.Rules.RulesEngine.RuleForConstructor.m.md) | Sets up a constructor rule. |
 | [IRulesConfiguration RuleForField(Action&lt;MemberSelector&lt;FieldInfo>> selector)](ExpressionPowerTools.Serialization.Rules.RulesEngine.RuleForField.m.md) | Sets up a field rule. |
 | [IRulesConfiguration RuleForMethod(Action&lt;MemberSelector&lt;MethodInfo>> selector)](ExpressionPowerTools.Serialization.Rules.RulesEngine.RuleForMethod.m.md) | Sets up a method rule. |
@@ -59,4 +62,4 @@ Use the chainable [IRulesConfiguration](ExpressionPowerTools.Serialization.Signa
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

@@ -2,24 +2,24 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Signatures](ExpressionPowerTools.Serialization.Signatures.n.md) > [IRulesEngine](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.i.md) > **Reset**
 
-Clears the rules.
+Clears the rules, returning a snapshot.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Reset()](#reset) | Clears the rules. |
+| [Reset()](#reset) | Clears the rules, returning a snapshot. |
 ## Reset()
 
-Clears the rules.
+Clears the rules, returning a snapshot.
 
 ```csharp
-public virtual Void Reset()
+public virtual IList<ValueTuple<String, Boolean>> Reset()
 ```
 
 ### Return Type
 
- [Void](https://docs.microsoft.com/dotnet/api/system.void) 
+ [IList&lt;ValueTuple&lt;String, Boolean>>](https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1) 
 
 
 
@@ -27,4 +27,4 @@ public virtual Void Reset()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

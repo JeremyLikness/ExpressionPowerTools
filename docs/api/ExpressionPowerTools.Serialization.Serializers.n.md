@@ -6,10 +6,8 @@
 
 | Class | Description |
 | :-- | :-- |
-| [AnonInitializer](ExpressionPowerTools.Serialization.Serializers.AnonInitializer.cs.md) | Wrapper for newing an anonymous expression. |
-| [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) | Helper for serializing and deserializing anonymous types. |
-| [AnonValue](ExpressionPowerTools.Serialization.Serializers.AnonValue.cs.md) | Represents the combination of a type and value. |
-| [AnonymousTypeAdapter](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.cs.md) | Class to work with anonymous types. |
+| [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) | Adapter for anonymous types. |
+| [AnonymousTypeAdapter](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.cs.md) | Adapter to serialize and deserialize anonymous types. |
 | [BaseSerializer&lt;TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) | Base class for serializers. |
 | [Binary](ExpressionPowerTools.Serialization.Serializers.Binary.cs.md) | Represents a serializable [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) . |
 | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) | Serialization services for [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) . |
@@ -23,7 +21,13 @@
 | [InvocationSerializer](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.cs.md) | Serialization logic for expressions of type [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
 | [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) | Serializable version of [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
 | [LambdaSerializer](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.cs.md) | Serialization logic for expressions of type [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
+| [MemberBindingAssignment](ExpressionPowerTools.Serialization.Serializers.MemberBindingAssignment.cs.md) | Serializable [MemberAssignment](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberassignment) . |
+| [MemberBindingInitializer](ExpressionPowerTools.Serialization.Serializers.MemberBindingInitializer.cs.md) | Serializable version of [ElementInit](https://docs.microsoft.com/dotnet/api/system.linq.expressions.elementinit) . |
+| [MemberBindingList](ExpressionPowerTools.Serialization.Serializers.MemberBindingList.cs.md) | Serializable version of the [MemberListBinding](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberlistbinding) class. |
+| [MemberBindingMember](ExpressionPowerTools.Serialization.Serializers.MemberBindingMember.cs.md) | Serializable version of the [MemberMemberBinding](https://docs.microsoft.com/dotnet/api/system.linq.expressions.membermemberbinding) class. |
 | [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) | Helper to serialize a [MemberExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberexpression) . |
+| [MemberInit](ExpressionPowerTools.Serialization.Serializers.MemberInit.cs.md) | Serializable representation of [MemberInitExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberinitexpression) . |
+| [MemberInitSerializer](ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.cs.md) | Serialization services for [MemberExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberexpression) . |
 | [MemberSerializer](ExpressionPowerTools.Serialization.Serializers.MemberSerializer.cs.md) | Serialization services for [MemberExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberexpression) . |
 | [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) | Serializable container for [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
 | [MethodSerializer](ExpressionPowerTools.Serialization.Serializers.MethodSerializer.cs.md) | Serializer for [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
@@ -43,4 +47,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

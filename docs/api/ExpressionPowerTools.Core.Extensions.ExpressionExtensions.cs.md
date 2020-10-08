@@ -26,6 +26,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | [ParameterExpression CreateParameterExpression&lt;T, TValue>(Expression&lt;Func&lt;T, TValue>> value)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.CreateParameterExpression.m.md) | Extracts the parameter from a member expression. |
 | [Boolean IsAnonymousType(Type type)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsAnonymousType.m.md) | Helper for determing anonymous types, with a pessimistic algorithm. |
 | [Boolean IsEquivalentTo(Expression source, Expression target)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsEquivalentTo.m.md) | Uses [ExpressionEquivalency](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.cs.md) to determine equivalency. |
+| [Boolean IsOrContainsAnonymousType(Type type)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsOrContainsAnonymousType.m.md) | Helper for determining anonymous types. |
 | [Boolean IsPartOf(Expression source, Expression target)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsPartOf.m.md) | Uses [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) to determine if an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) is part of another. |
 | [Boolean IsSimilarTo(Expression source, Expression target)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsSimilarTo.m.md) | Uses [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) to determine similarity. |
 | [String MemberName&lt;T>(Expression&lt;Func&lt;T>> expr)](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.MemberName.m.md) | Extracts the name of the target of an expression. |
@@ -34,4 +35,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

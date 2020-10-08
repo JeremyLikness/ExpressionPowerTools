@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > **AnonType**
 
-Helper for serializing and deserializing anonymous types.
+Adapter for anonymous types.
 
 ```csharp
 public class AnonType
@@ -15,23 +15,19 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Ctor | Description |
 | :-- | :-- |
 | [AnonType()](ExpressionPowerTools.Serialization.Serializers.AnonType.ctor.md#anontype) | Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class. |
-| [AnonType(Object value)](ExpressionPowerTools.Serialization.Serializers.AnonType.ctor.md#anontypeobject-value) | Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class with the            anonymous instance to serialize. |
+| [AnonType(Object anonymous, Func&lt;Type, String> getKey)](ExpressionPowerTools.Serialization.Serializers.AnonType.ctor.md#anontypeobject-anonymous-functype-string-getkey) | Initializes a new instance of the [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) class            with an anonymous type. |
 ## Properties
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`AnonymousTypeName`](ExpressionPowerTools.Serialization.Serializers.AnonType.AnonymousTypeName.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the anonymous type name. |
-| [`PropertyNames`](ExpressionPowerTools.Serialization.Serializers.AnonType.PropertyNames.prop.md) | [String[]](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the property names. |
-| [`PropertyValues`](ExpressionPowerTools.Serialization.Serializers.AnonType.PropertyValues.prop.md) | [AnonValue[]](ExpressionPowerTools.Serialization.Serializers.AnonValue.cs.md) | Gets or sets the property values. |
+| [`AnonymousTypeKey`](ExpressionPowerTools.Serialization.Serializers.AnonType.AnonymousTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the anonymous type key. |
+| [`Names`](ExpressionPowerTools.Serialization.Serializers.AnonType.Names.prop.md) | [List&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the property names. |
+| [`Types`](ExpressionPowerTools.Serialization.Serializers.AnonType.Types.prop.md) | [List&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the types. |
+| [`Values`](ExpressionPowerTools.Serialization.Serializers.AnonType.Values.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the values. |
 
-## Methods
-
-| Method | Description |
-| :-- | :-- |
-| [ExpandoObject GetValue()](ExpressionPowerTools.Serialization.Serializers.AnonType.GetValue.m.md) | Gets the value as a [DynamicObject](https://docs.microsoft.com/dotnet/api/system.dynamic.dynamicobject) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

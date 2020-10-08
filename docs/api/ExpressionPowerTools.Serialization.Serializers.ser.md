@@ -28,7 +28,7 @@
 | LessThanOrEqual | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
 | ListInit | _Not Supported_ |
 | MemberAccess | [MemberSerializer](ExpressionPowerTools.Serialization.Serializers.MemberSerializer.cs.md) |
-| MemberInit | _Not Supported_ |
+| MemberInit | [MemberInitSerializer](ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.cs.md) |
 | Modulo | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
 | Multiply | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
 | MultiplyChecked | [BinarySerializer](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.cs.md) |
@@ -94,4 +94,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

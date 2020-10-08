@@ -8,14 +8,14 @@ Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)](#deserializestring-json-expression-queryroot-actioniconfigurationbuilder-config) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
-| [Deserialize&lt;T>(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)](#deserializetstring-json-expression-queryroot-actioniconfigurationbuilder-config) | Overload to return a specific type. |
-## Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)
+| [Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)](#deserializestring-json-expression-queryroot-actioniconfigurationbuilder-config-actionserializationstate-statecallback) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
+| [Deserialize&lt;T>(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)](#deserializetstring-json-expression-queryroot-actioniconfigurationbuilder-config-actionserializationstate-statecallback) | Overload to return a specific type. |
+## Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)
 
 Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree.
 
 ```csharp
-public static Expression Deserialize(String json, Expression queryRoot, Action<IConfigurationBuilder> config)
+public static Expression Deserialize(String json, Expression queryRoot, Action<IConfigurationBuilder> config, Action<SerializationState> stateCallback)
 ```
 
 ### Return Type
@@ -29,6 +29,7 @@ public static Expression Deserialize(String json, Expression queryRoot, Action<I
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json text. |
 | `queryRoot` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root of the query to apply. |
 | `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | Optional configuration. |
+| `stateCallback` | [Action&lt;SerializationState>](https://docs.microsoft.com/dotnet/api/system.action-1) | Register a callback to inspect the state. |
 
 ### Exceptions
 
@@ -36,12 +37,12 @@ public static Expression Deserialize(String json, Expression queryRoot, Action<I
 | :-- | :-- |
 | [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) | Thrown when the json is `null` or whitespace. |
 
-## Deserialize&lt;T>(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)
+## Deserialize&lt;T>(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)
 
 Overload to return a specific type.
 
 ```csharp
-public static T Deserialize<T>(String json, Expression queryRoot, Action<IConfigurationBuilder> config)
+public static T Deserialize<T>(String json, Expression queryRoot, Action<IConfigurationBuilder> config, Action<SerializationState> stateCallback)
 ```
 
 ### Return Type
@@ -55,6 +56,7 @@ public static T Deserialize<T>(String json, Expression queryRoot, Action<IConfig
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json. |
 | `queryRoot` | [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) | The root of the query to apply. |
 | `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | Optional configuration. |
+| `stateCallback` | [Action&lt;SerializationState>](https://docs.microsoft.com/dotnet/api/system.action-1) | Register a callback to inspect the state. |
 
 
 ## Remarks
@@ -67,4 +69,4 @@ Do not use this method to deserialize [IQueryable](https://docs.microsoft.com/do
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

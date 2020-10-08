@@ -8,14 +8,14 @@ Deserializes a query from the raw json.
 
 | Overload | Description |
 | :-- | :-- |
-| [DeserializeQuery(IQueryable host, String json, Action&lt;IConfigurationBuilder> config)](#deserializequeryiqueryable-host-string-json-actioniconfigurationbuilder-config) | Deserializes a query from the raw json. |
-| [DeserializeQuery&lt;T>(String json, IQueryable&lt;T> host, Action&lt;IConfigurationBuilder> config)](#deserializequerytstring-json-iqueryablet-host-actioniconfigurationbuilder-config) | Deserializes a query from the raw json. |
-## DeserializeQuery(IQueryable host, String json, Action&lt;IConfigurationBuilder> config)
+| [DeserializeQuery(IQueryable host, String json, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)](#deserializequeryiqueryable-host-string-json-actioniconfigurationbuilder-config-actionserializationstate-statecallback) | Deserializes a query from the raw json. |
+| [DeserializeQuery&lt;T>(String json, IQueryable host, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)](#deserializequerytstring-json-iqueryable-host-actioniconfigurationbuilder-config-actionserializationstate-statecallback) | Deserializes a query from the raw json. |
+## DeserializeQuery(IQueryable host, String json, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)
 
 Deserializes a query from the raw json.
 
 ```csharp
-public static IQueryable DeserializeQuery(IQueryable host, String json, Action<IConfigurationBuilder> config)
+public static IQueryable DeserializeQuery(IQueryable host, String json, Action<IConfigurationBuilder> config, Action<SerializationState> stateCallback)
 ```
 
 ### Return Type
@@ -29,6 +29,7 @@ public static IQueryable DeserializeQuery(IQueryable host, String json, Action<I
 | `host` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The host to create the [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) . |
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json text. |
 | `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | Optional configuratoin. |
+| `stateCallback` | [Action&lt;SerializationState>](https://docs.microsoft.com/dotnet/api/system.action-1) | Register a callback to inspect the state. |
 
 ### Exceptions
 
@@ -37,12 +38,12 @@ public static IQueryable DeserializeQuery(IQueryable host, String json, Action<I
 | [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Throws when host is null. |
 | [ArgumentException](https://docs.microsoft.com/dotnet/api/system.argumentexception) | Throws when the json is empty or whitespace. |
 
-## DeserializeQuery&lt;T>(String json, IQueryable&lt;T> host, Action&lt;IConfigurationBuilder> config)
+## DeserializeQuery&lt;T>(String json, IQueryable host, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)
 
 Deserializes a query from the raw json.
 
 ```csharp
-public static IQueryable<T> DeserializeQuery<T>(String json, IQueryable<T> host, Action<IConfigurationBuilder> config)
+public static IQueryable<T> DeserializeQuery<T>(String json, IQueryable host, Action<IConfigurationBuilder> config, Action<SerializationState> stateCallback)
 ```
 
 ### Return Type
@@ -54,8 +55,9 @@ public static IQueryable<T> DeserializeQuery<T>(String json, IQueryable<T> host,
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `json` | [String](https://docs.microsoft.com/dotnet/api/system.string) | The json text. |
-| `host` | [IQueryable&lt;T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) | The [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) host to create the query. |
+| `host` | [IQueryable](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable) | The [IQueryable&lt;out T>](https://docs.microsoft.com/dotnet/api/system.linq.iqueryable-1) host to create the query. |
 | `config` | [Action&lt;IConfigurationBuilder>](https://docs.microsoft.com/dotnet/api/system.action-1) | The optional configuration. |
+| `stateCallback` | [Action&lt;SerializationState>](https://docs.microsoft.com/dotnet/api/system.action-1) | Register a callback to inspect the state. |
 
 
 
@@ -63,4 +65,4 @@ public static IQueryable<T> DeserializeQuery<T>(String json, IQueryable<T> host,
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

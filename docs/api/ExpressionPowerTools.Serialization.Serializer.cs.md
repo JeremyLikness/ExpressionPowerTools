@@ -28,12 +28,12 @@ By default, the serializer will compress types and ignore null and readonly valu
 | :-- | :-- |
 | [Void ConfigureDefaults(Action&lt;IConfigurationBuilder> config)](ExpressionPowerTools.Serialization.Serializer.ConfigureDefaults.m.md) | Configure default settings. |
 | [Void ConfigureRules(Action&lt;IRulesConfiguration> rules, Boolean noDefaults)](ExpressionPowerTools.Serialization.Serializer.ConfigureRules.m.md) | Configures the rule set for serialization. |
-| [Expression Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config)](ExpressionPowerTools.Serialization.Serializer.Deserialize.m.md) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
-| [IQueryable DeserializeQuery(IQueryable host, String json, Action&lt;IConfigurationBuilder> config)](ExpressionPowerTools.Serialization.Serializer.DeserializeQuery.m.md) | Deserializes a query from the raw json. |
+| [Expression Deserialize(String json, Expression queryRoot, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)](ExpressionPowerTools.Serialization.Serializer.Deserialize.m.md) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) tree. |
+| [IQueryable DeserializeQuery(IQueryable host, String json, Action&lt;IConfigurationBuilder> config, Action&lt;SerializationState> stateCallback)](ExpressionPowerTools.Serialization.Serializer.DeserializeQuery.m.md) | Deserializes a query from the raw json. |
 | [String Serialize(Expression root, Action&lt;IConfigurationBuilder> config)](ExpressionPowerTools.Serialization.Serializer.Serialize.m.md) | Serialize an expression tree. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

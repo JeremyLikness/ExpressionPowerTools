@@ -2,7 +2,7 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > **AnonymousTypeAdapter**
 
-Class to work with anonymous types.
+Adapter to serialize and deserialize anonymous types.
 
 ```csharp
 public class AnonymousTypeAdapter : IAnonymousTypeAdapter
@@ -21,14 +21,11 @@ Implements  [IAnonymousTypeAdapter](ExpressionPowerTools.Serialization.Signature
 
 | Method | Description |
 | :-- | :-- |
-| [String MemberKeyTransformer(String memberToTransform)](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.MemberKeyTransformer.m.md) | Transforms members for serialization. |
-| [AnonType TransformAnonymousObject(Object anonymous)](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.TransformAnonymousObject.m.md) | Transforms the object to an anonymous type. |
-| [ConstantExpression TransformConstant(ConstantExpression expression)](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.TransformConstant.m.md) | Transform a [ConstantExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.constantexpression) . |
-| [LambdaExpression TransformLambda(LambdaExpression lambda)](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.TransformLambda.m.md) | Transform a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) that returns an anonymous type. |
-| [NewExpression TransformNew(NewExpression expression)](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.TransformNew.m.md) | Transform anonymous initializer. |
+| [Object ConvertFromAnonType(AnonType anonType, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.ConvertFromAnonType.m.md) | Reconstructs an anonymous type from [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) . |
+| [AnonType ConvertToAnonType(Object anonymousInstance)](ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.ConvertToAnonType.m.md) | Encapsulates an anonymous type for serialization. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

@@ -10,7 +10,7 @@ public class SerializableExpression
 
 Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **SerializableExpression**
 
-Derived  [Binary](ExpressionPowerTools.Serialization.Serializers.Binary.cs.md) ,  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) ,  [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) ,  [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
+Derived  [Binary](ExpressionPowerTools.Serialization.Serializers.Binary.cs.md) ,  [Constant](ExpressionPowerTools.Serialization.Serializers.Constant.cs.md) ,  [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) ,  [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) ,  [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) ,  [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) ,  [MemberInit](ExpressionPowerTools.Serialization.Serializers.MemberInit.cs.md) ,  [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) ,  [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) ,  [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) ,  [Unary](ExpressionPowerTools.Serialization.Serializers.Unary.cs.md) 
 
 ## Constructors
 
@@ -29,4 +29,4 @@ Derived  [Binary](ExpressionPowerTools.Serialization.Serializers.Binary.cs.md) ,
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

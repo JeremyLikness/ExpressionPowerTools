@@ -17,10 +17,11 @@ Derived  [MemberAdapter](ExpressionPowerTools.Core.Members.MemberAdapter.cs.md)
 | [Int32 ClosedGenericsCount(String key)](ExpressionPowerTools.Core.Signatures.IMemberAdapter.ClosedGenericsCount.m.md) | Counts closed generics to provide a good type name. |
 | [String GetKeyForMember(MemberInfo member)](ExpressionPowerTools.Core.Signatures.IMemberAdapter.GetKeyForMember.m.md) | Gets a unique string that identifies the member. |
 | [MemberInfo GetMemberForKey(String key)](ExpressionPowerTools.Core.Signatures.IMemberAdapter.GetMemberForKey.m.md) | Uses the key to build the proper [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) reference. |
+| [Type MakeAnonymousType(ValueTuple types)](ExpressionPowerTools.Core.Signatures.IMemberAdapter.MakeAnonymousType.m.md) |  |
 | [Void Reset()](ExpressionPowerTools.Core.Signatures.IMemberAdapter.Reset.m.md) | Primarily for testing. Clears the cache. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |

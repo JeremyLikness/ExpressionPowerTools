@@ -21,6 +21,8 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`Expression`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.Expression.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the method's object. |
+| [`Indexer`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.Indexer.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the indexer property. |
+| [`IndexerTypeKey`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.IndexerTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the indexer type key. |
 | [`MemberTypeKey`](ExpressionPowerTools.Serialization.Serializers.MemberExpr.MemberTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the member type key. |
 
 
@@ -28,4 +30,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 09/25/2020 00:25:51 | (c) Copyright 2020 Jeremy Likness. | 0.9.2-alpha |
+| 10/08/2020 05:23:03 | (c) Copyright 2020 Jeremy Likness. | 0.9.3-alpha |
