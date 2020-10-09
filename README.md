@@ -159,7 +159,7 @@ The following libraries are available to use.
 [![Coverage](docs/test/ExpressionPowerTools.Core.Coverage.svg)](docs/test//ExpressionPowerTools.Core.coverage.md)
 
 ```powershell
-Install-Package ExpressionPowerTools.Core -Version 0.9.2-alpha
+Install-Package ExpressionPowerTools.Core -Version 0.9.4-alpha
 ```
 
 Power tools for working with `IQueryable` and Expression trees. Enables enumeration of the tree, comparisons ("similar" and "equivalent") and interception to take snapshots and/or mutate expressions.  
@@ -173,7 +173,7 @@ Power tools for working with `IQueryable` and Expression trees. Enables enumerat
 [![Coverage](docs/test/ExpressionPowerTools.Serialization.Coverage.svg)](docs/test//ExpressionPowerTools.Serialization.coverage.md)
 
 ```powershell
-Install-Package ExpressionPowerTools.Serialization -Version 0.9.2-alpha
+Install-Package ExpressionPowerTools.Serialization -Version 0.9.4-alpha
 ```
 
 Power tools for writing client-side queries that can be safely serialized to run on the server.
@@ -187,7 +187,7 @@ Power tools for writing client-side queries that can be safely serialized to run
 [![Coverage](docs/test/ExpressionPowerTools.Serialization.EFCore.AspNetCore.Coverage.svg)](docs/test//ExpressionPowerTools.Serialization.EFCore.AspNetCore.coverage.md)
 
 ```powershell
-Install-Package ExpressionPowerTools.Serialization.EFCore.AspNetCore -Version 0.9.2-alpha
+Install-Package ExpressionPowerTools.Serialization.EFCore.AspNetCore -Version 0.9.4-alpha
 ```
 
 Power tools for deserializing queries initiated by remote clients.
@@ -202,7 +202,7 @@ Power tools for deserializing queries initiated by remote clients.
 
 
 ```powershell
-Install-Package ExpressionPowerTools.Serialization.EFCore.Http -Version 0.9.2-alpha
+Install-Package ExpressionPowerTools.Serialization.EFCore.Http -Version 0.9.4-alpha
 ```
 
 Power tools for running remote queries over HTTP, for example a Blazor WebAssembly client.
