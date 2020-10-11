@@ -48,6 +48,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the related method.
         /// </summary>
+        [CompressableKey]
         public string BinaryMethod { get; set; }
 
         /// <summary>

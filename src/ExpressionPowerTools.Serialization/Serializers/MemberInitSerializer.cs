@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -18,6 +20,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         BaseSerializer<MemberInitExpression, MemberInit>,
         IBaseSerializer
     {
+        /// <summary>
+        /// Types compressor service.
+        /// </summary>
+        private readonly Lazy<ITypesCompressor> typesCompressor =
+            ServiceHost.GetLazyService<ITypesCompressor>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MemberInitSerializer"/> class.
         /// </summary>
@@ -151,9 +159,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
                     nameof(MemberBindingList.Initializers))
                 .EnumerateArray())
             {
-                var addMethod = GetMemberFromKey<MethodInfo>(
-                    init.GetProperty(nameof(MemberBindingInitializer.AddMethodKey))
-                    .GetString());
+                var addMethodKey = init.GetProperty(nameof(MemberBindingInitializer.AddMethodKey))
+                    .GetString();
+                typesCompressor.Value.DecompressTypes(
+                    state.TypeIndex,
+                    (addMethodKey, newKey => addMethodKey = newKey));
+                var addMethod = GetMemberFromKey<MethodInfo>(addMethodKey);
                 auth.Add(addMethod);
                 initializers.Add(Expression.ElementInit(
                     addMethod,
@@ -177,9 +188,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement element,
             SerializationState state)
         {
-            var member = GetMemberFromKey(
-                element.GetProperty(nameof(MemberBindingMember.MemberKey))
-                .GetString());
+            var memberKey = element.GetProperty(
+                nameof(MemberBindingMember.MemberKey)).GetString();
+            typesCompressor.Value.DecompressTypes(
+                state.TypeIndex,
+                (memberKey, newKey => memberKey = newKey));
+            var member = GetMemberFromKey(memberKey);
 
             AuthorizeMembers(member);
 
@@ -197,9 +211,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <returns>The <see cref="MemberAssignment"/>.</returns>
         private MemberBinding DeserializeAssignment(JsonElement element, SerializationState state)
         {
-            var member = GetMemberFromKey(
-                element.GetProperty(nameof(MemberBindingAssignment.MemberInfoKey))
-                .GetString());
+            var key = element.GetProperty(
+                nameof(MemberBindingAssignment.MemberInfoKey)).GetString();
+            typesCompressor.Value.DecompressTypes(
+                state.TypeIndex,
+                (key, newKey => key = newKey));
+            var member = GetMemberFromKey(key);
 
             AuthorizeMembers(member);
 
@@ -229,6 +246,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
                             Serializer.Serialize(assignment.Expression, state),
                             MemberInfoKey = GetKeyForMember(assignment.Member),
                         };
+                        typesCompressor.Value.CompressTypes(
+                            state.TypeIndex,
+                            (serializableBinding.MemberInfoKey, key => serializableBinding.MemberInfoKey = key));
                         result.Add(serializableBinding);
                         break;
 
@@ -237,6 +257,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
                         {
                             MemberKey = GetKeyForMember(memberBinding.Member),
                         };
+                        typesCompressor.Value.CompressTypes(
+                            state.TypeIndex,
+                            (memberBindingSerializable.MemberKey, key => memberBindingSerializable.MemberKey = key));
                         memberBindingSerializable.Bindings.AddRange(
                             SerializeBindings(memberBinding.Bindings, state));
                         result.Add(memberBindingSerializable);

@@ -2,8 +2,26 @@
 
 [Back to README](./README.md)
 
+- [0.9 Beta](#09-Beta)
 - [0.9 Alpha](#09-Alpha)
 - [0.8 Alpha](#08-Alpha)
+
+## 0.9 Beta
+
+- [0.9.5-beta](#095-beta)
+
+### 0.9.5-beta 
+
+**Breaking Changes**
+
+- The call to `Deserialize` will now throw a `NotSupportedException` when the expression type is not supported
+
+**Core**
+
+- Improved performance of `ParameterCount` in `MemberAdapter`
+- Fixed equivalency of `NewExpression` to include members
+- Added `SafeGetTypes` to `ServiceHost`
+- Re-introduced compressed types
 
 ## 0.9 Alpha
 
@@ -17,7 +35,7 @@
 
 **Serialization**
 
-Quick fix to catch `TypeLoadInitializationException` when scanning for repositories to register.
+- Quick fix to catch `TypeLoadInitializationException` when scanning for repositories to register.
 
 ### 0.9.3-alpha
 

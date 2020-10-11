@@ -100,7 +100,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetMethodCallMatrix))]
         public void MethodCallExpressionShouldSerialize(MethodCallExpression method)
         {
-            var target = methodSerializer.Serialize(method, new SerializationState());
+            var target = methodSerializer.Serialize(method, TestSerializer.State);
             Assert.Equal((ExpressionType)target.Type, method.NodeType);
         }
 
@@ -110,7 +110,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
-            var deserialized = methodSerializer.Deserialize(serialized, new SerializationState());
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(method.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
         }
@@ -131,7 +131,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method, options);
             rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
-            var deserialized = methodSerializer.Deserialize(serialized, options.ToSerializationState());
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }
 
@@ -145,8 +145,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
             rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
-            var deserialized = methodSerializer.Deserialize(serialized,
-                ServiceHost.GetService<IDefaultConfiguration>().GetDefaultState());
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }
 

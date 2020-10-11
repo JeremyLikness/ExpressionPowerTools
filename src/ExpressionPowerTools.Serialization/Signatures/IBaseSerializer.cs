@@ -29,5 +29,14 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         SerializableExpression Serialize(Expression expression, SerializationState state);
+
+        /// <summary>
+        /// Compress the types on the serializable class.
+        /// </summary>
+        /// <param name="serializable">The serializable entity.</param>
+        /// <param name="state">The <see cref="SerializationState"/>.</param>
+        void CompressTypes(
+            SerializableExpression serializable,
+            SerializationState state);
     }
 }

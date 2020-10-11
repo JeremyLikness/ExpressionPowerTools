@@ -68,7 +68,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetMemberMatrix))]
         public void MemberExpressionShouldSerialize(MemberExpression member)
         {
-            var target = memberSerializer.Serialize(member, new SerializationState());
+            var target = memberSerializer.Serialize(member, TestSerializer.State);
             Assert.Equal((ExpressionType)target.Type, member.NodeType);
         }
 
@@ -78,7 +78,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer
                 .GetSerializedFragment<MemberExpr, MemberExpression>(member);
-            var deserialized = memberSerializer.Deserialize(serialized, new SerializationState());
+            var deserialized = memberSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(member.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
         }

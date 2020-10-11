@@ -77,9 +77,9 @@ namespace SimpleBlazorWasm.Server
             app.UseEndpoints(endpoints =>
             {
                 // this is all that is needed to set up a route of /efcore/ThingContext/Things for remote queries.
-                endpoints.MapPowerToolsEFCore<ThingContext>(rules:
-                    rules => rules.RuleForType<GroupedThing>()
-                    .RuleForType<RelatedThing>());
+                endpoints.MapPowerToolsEFCore<ThingContext>(
+                    rules: rules => rules.RuleForType<GroupedThing>().RuleForType<RelatedThing>(),
+                    options: options => options.CompressTypes(!env.IsDevelopment()));
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");

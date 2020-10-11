@@ -173,6 +173,41 @@ namespace ExpressionPowerTools.Core.Dependencies
         }
 
         /// <summary>
+        /// Safely enumerate types across loaded assemblies.
+        /// </summary>
+        /// <param name="filter">Filter for types to return.</param>
+        /// <returns>The list of types.</returns>
+        public static IList<Type> SafeGetTypes(Predicate<Type> filter = null)
+        {
+            var returnTypes = new List<Type>();
+
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try
+                {
+                    foreach (var type in assembly.GetTypes())
+                    {
+                        try
+                        {
+                            if (filter == null || filter(type))
+                            {
+                                returnTypes.Add(type);
+                            }
+                        }
+                        catch (TypeInitializationException)
+                        {
+                        }
+                    }
+                }
+                catch (ReflectionTypeLoadException)
+                {
+                }
+            }
+
+            return returnTypes;
+        }
+
+        /// <summary>
         /// Notifies satellite assemblies registation is done.
         /// </summary>
         private static void AfterRegistered()
@@ -207,31 +242,14 @@ namespace ExpressionPowerTools.Core.Dependencies
         /// <param name="register">The <see cref="IServiceRegistration"/>.</param>
         private static void RegisterSatellites(IServiceRegistration register)
         {
-            var registration = typeof(IDependentServiceRegistration);
-
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            var registrationType = typeof(IDependentServiceRegistration);
+            foreach (var registration in SafeGetTypes(
+                t => t.IsClass && registrationType.IsAssignableFrom(t)))
             {
-                try
-                {
-                    foreach (var type in assembly.GetTypes())
-                    {
-                        try
-                        {
-                            if (registration.IsAssignableFrom(type) && !type.IsInterface)
-                            {
-                                var satelliteRegistration = Activator.CreateInstance(type) as IDependentServiceRegistration;
-                                satelliteRegistration.RegisterDefaultServices(register);
-                                Satellites.Push(satelliteRegistration);
-                            }
-                        }
-                        catch (TypeInitializationException)
-                        {
-                        }
-                    }
-                }
-                catch (ReflectionTypeLoadException)
-                {
-                }
+                var satelliteRegistration = Activator.CreateInstance(registration)
+                    as IDependentServiceRegistration;
+                satelliteRegistration.RegisterDefaultServices(register);
+                Satellites.Push(satelliteRegistration);
             }
         }
     }

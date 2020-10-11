@@ -39,12 +39,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
+            var template = DecompressTypes(json, state);
             var materializedType = GetMemberFromKey<Type>(
-                json.GetProperty(nameof(Lambda.LambdaTypeKey))
-                .GetString());
+                template.LambdaTypeKey);
 
-            var materializedReturnType = GetMemberFromKey<Type>(json.GetProperty(nameof(Lambda.ReturnTypeKey))
-                .GetString());
+            var materializedReturnType = GetMemberFromKey<Type>(template.ReturnTypeKey);
 
             var name = json.GetNullableProperty(nameof(Lambda.Name)).GetString();
 

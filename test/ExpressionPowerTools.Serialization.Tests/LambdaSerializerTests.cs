@@ -46,7 +46,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetLambdaExpressions))]
         public void LambdaExpressionShouldSerialize(LambdaExpression lambda)
         {
-            var target = lambdaSerializer.Serialize(lambda, new SerializationState());
+            var target = lambdaSerializer.Serialize(lambda, TestSerializer.State);
             Assert.Equal((ExpressionType)target.Type, lambda.NodeType);
         }
 
@@ -55,7 +55,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void LambdaExpressionShouldDeserialize(LambdaExpression lambda)
         {
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda);
-            var deserialized = lambdaSerializer.Deserialize(serialized, new SerializationState());
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(lambda.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -78,7 +78,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 IgnoreReadOnlyProperties = true
             };
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda, options);
-            var deserialized = lambdaSerializer.Deserialize(serialized, options.ToSerializationState());
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }
 
@@ -89,7 +89,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Expression<Func<List<TestableThing>, string>> firstId =
                 list => list.First().Id;
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(firstId);
-            var deserialized = lambdaSerializer.Deserialize(serialized, new SerializationState());
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
             var expected = firstId.Compile()(things);
             var actual = deserialized.Compile().DynamicInvoke(things);
             Assert.Equal(expected, actual);

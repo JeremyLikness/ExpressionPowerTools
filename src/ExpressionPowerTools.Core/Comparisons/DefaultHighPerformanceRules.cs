@@ -470,7 +470,10 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return false;
             }
 
-            return eq.AreEquivalent(source.Arguments, target.Arguments);
+            return
+                ((source.Members == null && target.Members == null) ||
+                    eq.NonGenericEnumerablesAreEquivalent(source.Members, target.Members)) &&
+                eq.AreEquivalent(source.Arguments, target.Arguments);
         }
 
         /// <summary>

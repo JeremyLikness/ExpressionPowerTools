@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
@@ -23,7 +24,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var json = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>
                 (Expression.Constant(5));
-            var deserialized = target.Deserialize(json, new SerializationState());
+            var deserialized = target.Deserialize(json, TestSerializer.State);
             Assert.IsType<ConstantExpression>(deserialized);
             Assert.Equal(5, ((ConstantExpression)deserialized).Value);
         }
@@ -37,12 +38,12 @@ namespace ExpressionPowerTools.Serialization.Tests
         }
 
         [Fact]
-        public void GivenExpressionHasNoSerializerWhenDeserializeCalledThenShouldReturnNull()
+        public void GivenExpressionHasNoSerializerWhenDeserializeCalledThenShouldThrowNotSupported()
         {
             var gotoNum = (int)ExpressionType.Goto;
             var json = JsonDocument.Parse($"{{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": {gotoNum}}}");
-            var deserialized = target.Deserialize(json.RootElement, new SerializationState());
-            Assert.Null(deserialized);
+            Assert.Throws<NotSupportedException>(
+                () => target.Deserialize(json.RootElement, new SerializationState()));
         }
 
         [Fact]

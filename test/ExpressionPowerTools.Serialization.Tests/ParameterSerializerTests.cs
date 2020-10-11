@@ -45,7 +45,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ParameterExpressionShouldDeserialize(ParameterExpression parameter)
         {
             var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter);
-            var deserialized = serializer.Deserialize(serialized, new SerializationState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(parameter.Type, deserialized.Type);
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {
@@ -64,7 +64,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
 
             var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter, options);
-            var deserialized = serializer.Deserialize(serialized, options.ToSerializationState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(parameter.Type, deserialized.Type);
         }
     }

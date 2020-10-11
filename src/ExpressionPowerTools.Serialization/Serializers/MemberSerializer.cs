@@ -44,8 +44,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 expr = Serializer.Deserialize(jsonObj, state);
             }
 
-            var memberInfo = GetMemberFromKey(json
-                .GetProperty(nameof(MemberExpr.MemberTypeKey)).GetString());
+            var template = DecompressTypes(json, state);
+            var memberInfo = GetMemberFromKey(template.MemberTypeKey);
 
             if (json.TryGetProperty(nameof(MemberExpr.Indexer), out JsonElement indexer))
             {

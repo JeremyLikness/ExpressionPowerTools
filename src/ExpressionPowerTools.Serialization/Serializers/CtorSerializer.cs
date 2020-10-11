@@ -38,18 +38,14 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var ctorDescriptor = json.GetProperty(nameof(CtorExpr.CtorInfo)).GetString();
-
-            var ctor = GetMemberFromKey<ConstructorInfo>(ctorDescriptor);
+            var template = DecompressTypes(json, state);
+            var ctor = GetMemberFromKey<ConstructorInfo>(template.CtorInfo);
 
             var members = new List<MemberInfo>();
 
-            if (json.TryGetProperty(
-                nameof(CtorExpr.MemberKeys),
-                out JsonElement memberList))
+            if (template.MemberKeys != null)
             {
-                members = memberList.EnumerateArray()
-                    .Select(memberJson => memberJson.GetString())
+                members = template.MemberKeys
                     .Select(memberKey => GetMemberFromKey(memberKey))
                     .ToList();
             }

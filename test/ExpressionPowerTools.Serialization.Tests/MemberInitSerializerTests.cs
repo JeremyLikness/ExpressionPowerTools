@@ -102,7 +102,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetMemberInitMatrix))]
         public void GivenMemberInitExpressionThenShouldSerialize(MemberInitExpression expression)
         {
-            var target = memberInitSerializer.Serialize(expression, new SerializationState());
+            var target = memberInitSerializer.Serialize(expression, TestSerializer.State);
             Assert.Equal((ExpressionType)target.Type, expression.NodeType);
         }
 
@@ -115,7 +115,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             ServiceHost.GetService<IRulesConfiguration>().RuleForType<TestData>()
                 .RuleForType<MemberInitSerializerTests>()
                 .RuleForType(typeof(List<>));
-            var deserialized = memberInitSerializer.Deserialize(serialized, new SerializationState());
+            var deserialized = memberInitSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(expression.Type.FullName, deserialized.Type.FullName);
             Assert.True(expression.IsEquivalentTo(deserialized));
         }

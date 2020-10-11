@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -38,7 +37,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var materializedType = GetMemberFromKey<Type>(json.GetProperty(nameof(NewArray.ArrayTypeKey)).GetString());
+            var template = DecompressTypes(json, state);
+            var materializedType = GetMemberFromKey<Type>(template.ArrayTypeKey);
             var list = json.GetProperty(nameof(NewArray.Expressions));
             var expressionList = list.EnumerateArray().Select(element => Serializer.Deserialize(
                 element, state)).ToList();

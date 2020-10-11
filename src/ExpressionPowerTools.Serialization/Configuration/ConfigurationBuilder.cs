@@ -11,6 +11,9 @@ namespace ExpressionPowerTools.Serialization.Configuration
     /// <summary>
     /// Configuration builder for wiring up configuration fluently.
     /// </summary>
+    /// <remarks>
+    /// Used to build up state for a given serialization pass. Also can build the <see cref="DefaultConfiguration"/>.
+    /// </remarks>
     public class ConfigurationBuilder : IConfigurationBuilder
     {
         /// <summary>

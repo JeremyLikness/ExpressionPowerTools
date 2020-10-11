@@ -43,6 +43,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
+        [CompressableKey]
         public string ConstantTypeKey { get; set; }
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
+        [CompressableKey]
         public string ValueTypeKey { get; set; }
     }
 }

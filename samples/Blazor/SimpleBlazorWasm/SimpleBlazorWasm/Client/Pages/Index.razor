@@ -53,8 +53,31 @@ Let's have some fun.
     <button @onclick="async () => await Service.RelatedThingsAsync()" disabled="@Service.Loading">Select Many</button>
 </p>
 <p>
-    Your current query:
-    <pre><code>@Service.Query</code></pre>
+    <button @onclick="() => HideQuery = !HideQuery">@(HideQuery ? "Show" : "Hide")</button> your current query:
+    @if (!HideQuery)
+    {
+        <button @onclick="() => Service.SetQueryMode(RemoteQueryClientService.DisplayType.Query)"
+                disabled="@(Service.QueryMode == RemoteQueryClientService.DisplayType.Query)">
+            Query
+        </button>
+        <button @onclick="() => Service.SetQueryMode(RemoteQueryClientService.DisplayType.CompiledQuery)"
+                disabled="@(Service.QueryMode == RemoteQueryClientService.DisplayType.CompiledQuery)">
+            Compiled Query
+        </button>
+        <button @onclick="() => Service.SetQueryMode(RemoteQueryClientService.DisplayType.QueryTree)"
+                disabled="@(Service.QueryMode == RemoteQueryClientService.DisplayType.QueryTree)">
+            Query Tree
+        </button>
+        <button @onclick="() => Service.SetQueryMode(RemoteQueryClientService.DisplayType.SerializedQuery)"
+                disabled="@(Service.QueryMode == RemoteQueryClientService.DisplayType.SerializedQuery)">
+            Serialized Query
+        </button>
+        <button @onclick="() => Service.SetQueryMode(RemoteQueryClientService.DisplayType.TypeCompressQuery)"
+                disabled="@(Service.QueryMode == RemoteQueryClientService.DisplayType.TypeCompressQuery)">
+            Type Compressed Query
+        </button>
+        <pre><code>@Service.QueryForMode</code></pre>
+    }
 </p>
 @if (Service.Error != null)
 {
@@ -156,3 +179,6 @@ Let's have some fun.
     }
 }
 
+@code {
+    public bool HideQuery;
+}

@@ -4,6 +4,8 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Serialization;
 using ExpressionPowerTools.Serialization.EFCore.Http.Extensions;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,8 +33,13 @@ namespace SimpleBlazorWasm.Client
             // this adds the client with the base address to post to /efcore/{context}/{collection}
             builder.Services.AddExpressionPowerToolsEFCore(new Uri(builder.HostEnvironment.BaseAddress));
 
+            if (builder.HostEnvironment.IsDevelopment())
+            {
+                Serializer.ConfigureDefaults(config => config.CompressTypes(false));
+            }
+
             // this adds a helper class for composing the query
-            builder.Services.AddScoped<RemoteQueryClientService>(
+            builder.Services.AddScoped(
                 sp => new RemoteQueryClientService());
 
             await builder.Build().RunAsync();

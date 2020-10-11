@@ -12,6 +12,10 @@ namespace ExpressionPowerTools.Serialization.Rules
     /// <summary>
     /// A rule for serialization.
     /// </summary>
+    /// <remarks>
+    /// This is a container for the rule and ultimately gets resolved to a key for a <see cref="MemberInfo"/>
+    /// and a boolean (authorized or not).
+    /// </remarks>
     public class SerializationRule : ISerializationRule
     {
         private readonly Lazy<IMemberAdapter> memberAdapter = ServiceHost.GetLazyService<IMemberAdapter>();

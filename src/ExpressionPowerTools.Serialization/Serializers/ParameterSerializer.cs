@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
-using System.Dynamic;
 using System.Linq.Expressions;
 using System.Text.Json;
 using ExpressionPowerTools.Serialization.Extensions;
@@ -36,8 +35,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var typeKey = json.GetProperty(nameof(Parameter.ParameterTypeKey)).GetString();
-            Type type = GetMemberFromKey<Type>(typeKey);
+            var template = DecompressTypes(json, state);
+            Type type = GetMemberFromKey<Type>(template.ParameterTypeKey);
             var name = json.GetNullableProperty(nameof(Parameter.Name)).GetString();
             var parameter = string.IsNullOrWhiteSpace(name) ? Expression.Parameter(type) :
                 Expression.Parameter(type, name);

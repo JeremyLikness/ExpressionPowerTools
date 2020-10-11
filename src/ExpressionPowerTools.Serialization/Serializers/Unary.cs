@@ -38,11 +38,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the method this expression uses.
         /// </summary>
+        [CompressableKey]
         public string UnaryMethodKey { get; set; }
 
         /// <summary>
         /// Gets or sets the full type of the <see cref="UnaryExpression"/>.
         /// </summary>
+        [CompressableKey]
         public string UnaryTypeKey { get; set; }
 
         /// <summary>

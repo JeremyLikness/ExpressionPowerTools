@@ -39,10 +39,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
             SerializationState state)
         {
             var value = json.GetNullableProperty(nameof(Constant.Value)).GetRawText();
-            var type = GetMemberFromKey<Type>(json.GetProperty(nameof(Constant.ConstantTypeKey)).GetString());
-            var valueNode = json.GetNullableProperty(nameof(Constant.ValueTypeKey));
-            var valueType = valueNode.ValueKind != JsonValueKind.Null ?
-                GetMemberFromKey<Type>(valueNode.GetString()) : type;
+            var template = DecompressTypes(json, state);
+            var type = GetMemberFromKey<Type>(template.ConstantTypeKey);
+            var valueType = string.IsNullOrWhiteSpace(template.ValueTypeKey) ?
+                type :
+                GetMemberFromKey<Type>(template.ValueTypeKey);
 
             if (typeof(SerializableExpression).IsAssignableFrom(valueType))
             {

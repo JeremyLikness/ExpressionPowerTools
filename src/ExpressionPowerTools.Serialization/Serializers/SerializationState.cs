@@ -1,11 +1,14 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
+using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -14,6 +17,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// </summary>
     public class SerializationState
     {
+        /// <summary>
+        /// The compressor.
+        /// </summary>
+        private ITypesCompressor compressor;
+
         /// <summary>
         /// List of parameters to preserve across stack.
         /// </summary>
@@ -64,13 +72,97 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public List<string> TypeIndex { get; set; } = new List<string>();
 
         /// <summary>
+        /// Gets the compressor.
+        /// </summary>
+        private ITypesCompressor Compressor
+        {
+            get
+            {
+                if (compressor == null)
+                {
+                    compressor = ServiceHost.GetService<ITypesCompressor>();
+                }
+
+                return compressor;
+            }
+        }
+
+        /// <summary>
+        /// Called at the end of serialization.
+        /// </summary>
+        public void Done()
+        {
+            if (CompressTypes)
+            {
+                Compressor.CompressTypeIndex(TypeIndex);
+            }
+        }
+
+        /// <summary>
+        /// Method to compress types for the key.
+        /// </summary>
+        /// <param name="keys">The list of keys and callbacks.</param>
+        public void CompressTypesForKeys(params (string key, Action<string> keyFn)[] keys)
+        {
+            if (CompressTypes)
+            {
+                Compressor.CompressTypes(TypeIndex, keys);
+            }
+        }
+
+        /// <summary>
+        /// Compress a single key.
+        /// </summary>
+        /// <param name="keyToCompress">The key to compress.</param>
+        /// <returns>The compressed key.</returns>
+        public string CompressTypesforKey(string keyToCompress)
+        {
+            var result = keyToCompress;
+            if (CompressTypes)
+            {
+                Compressor.CompressTypes(TypeIndex, (keyToCompress, key => result = key));
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Method to decompress types for the key.
+        /// </summary>
+        /// <param name="keys">The list of keys and callbacks.</param>
+        public void DecompressTypesForKeys(params (string key, Action<string> keyFn)[] keys)
+        {
+            if (CompressTypes)
+            {
+                Compressor.DecompressTypes(TypeIndex, keys);
+            }
+        }
+
+        /// <summary>
+        /// Decompress a single key.
+        /// </summary>
+        /// <param name="keyToDecompress">The key to decompress.</param>
+        /// <returns>The decompressed key.</returns>
+        public string DecompressTypesForKey(string keyToDecompress)
+        {
+            var result = keyToDecompress;
+            if (CompressTypes)
+            {
+                Compressor.DecompressTypes(TypeIndex, (keyToDecompress, key => result = key));
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Gets the expression tree that was deserialized.
         /// </summary>
         /// <remarks>
         /// Used mainly for troubleshooting.
         /// </remarks>
+        /// <param name="preventReset">A value indicating whether the expression should be reset or ont.</param>
         /// <returns>The expression tree.</returns>
-        public string GetExpressionTree()
+        public string GetExpressionTree(bool preventReset = false)
         {
             if (LastExpression == null)
             {
@@ -78,7 +170,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
             }
 
             var result = LastExpression.AsEnumerable().ToString();
-            LastExpression = null;
+
+            if (!preventReset)
+            {
+                LastExpression = null;
+            }
+
             return result;
         }
 

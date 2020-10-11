@@ -34,6 +34,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the type of the array.
         /// </summary>
+        [CompressableKey]
         public string ArrayTypeKey { get; set; }
 
         /// <summary>

@@ -75,7 +75,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetConstantExpressions))]
         public void ConstantExpressionShouldSerialize(ConstantExpression constant)
         {
-            var target = serializer.Serialize(constant, new SerializationState());
+            var target = serializer.Serialize(constant, TestSerializer.State);
             if (target.Value is Constant constantValue)
             {
                 Assert.True(ExpressionEquivalency.ValuesAreEquivalent(
@@ -101,7 +101,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void ConstantExpressionShouldDeserialize(ConstantExpression constant)
         {
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(constant);
-            var deserialized = serializer.Deserialize(serialized, new SerializationState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.True(ExpressionEquivalency.ValuesAreEquivalent(constant.Value, deserialized.Value));
         }
 
@@ -111,7 +111,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[0]));
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
             var root = Expression.Constant(2);
-            var deserialized = serializer.Deserialize(serialized, root.ToSerializationState());
+            TestSerializer.State.QueryRoot = root;
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.Same(deserialized, root);
         }
 
@@ -122,7 +123,9 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
             Expression<Func<int[]>> one = () => new[] { 1 };
             var root = Expression.Invoke(one, one.Parameters);
-            var deserialized = serializer.Deserialize(serialized, root.ToSerializationState());
+            var state = TestSerializer.State;
+            state.QueryRoot = root;
+            var deserialized = serializer.Deserialize(serialized, state);
             Assert.IsAssignableFrom<InvocationExpression>(deserialized.Value);
             Assert.Same(deserialized.Value, root);
         }
@@ -132,7 +135,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[2]));
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
-            var deserialized = serializer.Deserialize(serialized, new SerializationState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.Null(deserialized.Value);
         }
 
@@ -146,7 +149,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(
                 Expression.Constant(null), options);
-            var deserialized = serializer.Deserialize(serialized, new SerializationState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }        
     }

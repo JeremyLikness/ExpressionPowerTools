@@ -4,7 +4,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace ExpressionPowerTools.Serialization.Serializers
+namespace ExpressionPowerTools.Serialization
 {
     /// <summary>
     /// Attribute to tag a serializer.

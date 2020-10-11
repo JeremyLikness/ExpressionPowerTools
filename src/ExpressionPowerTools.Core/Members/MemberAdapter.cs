@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Signatures;
 
@@ -680,15 +681,39 @@ namespace ExpressionPowerTools.Core.Members
             }
             else
             {
-                var genericClose = typeAndMethod.IndexOf('}');
-                if (genericClose > 0 && genericClose != typeAndMethod.Length - 1)
+                var returnTypeClosed = typeAndMethod[typeAndMethod.Length - 1] == '}';
+                if (returnTypeClosed)
                 {
-                    methodPos = typeAndMethod.LastIndexOf('.');
-                    genericOpen = typeAndMethod.IndexOf('{', typeAndMethod.IndexOf('}'));
+                    var idx = typeAndMethod.Length - 2;
+                    var braceCount = 1;
+                    while (braceCount != 0)
+                    {
+                        if (typeAndMethod[idx] == '}')
+                        {
+                            braceCount++;
+                        }
+                        else if (typeAndMethod[idx] == '{')
+                        {
+                            braceCount--;
+                        }
+
+                        idx--;
+                    }
+
+                    methodPos = typeAndMethod.LastIndexOf('.', idx);
                 }
                 else
                 {
-                    methodPos = typeAndMethod.Substring(0, genericOpen).LastIndexOf('.');
+                    var genericClose = typeAndMethod.IndexOf('}');
+                    if (genericClose > 0 && genericClose != typeAndMethod.Length - 1)
+                    {
+                        methodPos = typeAndMethod.LastIndexOf('.');
+                        genericOpen = typeAndMethod.IndexOf('{', typeAndMethod.IndexOf('}'));
+                    }
+                    else
+                    {
+                        methodPos = typeAndMethod.Substring(0, genericOpen).LastIndexOf('.');
+                    }
                 }
             }
 
@@ -842,62 +867,63 @@ namespace ExpressionPowerTools.Core.Members
         {
             var result = 0;
             var braceCount = 0;
+            var idx = 0;
 
-            while (parameters.Length > 0)
+            while (idx < parameters.Length)
             {
-                int sub;
+                var symbolHit = false;
 
-                switch (parameters[0])
+                switch (parameters[idx])
                 {
                     case ')':
-                        sub = int.MaxValue;
+                        symbolHit = true;
+                        idx = parameters.Length;
                         break;
 
                     case '{':
-                        sub = 1;
+                        symbolHit = true;
                         braceCount++;
                         break;
 
                     case '}':
-                        sub = 1;
+                        symbolHit = true;
                         braceCount--;
                         break;
 
                     case ',':
-                        sub = -1;
-                        break;
                     default:
-                        sub = -1;
                         break;
                 }
 
-                if (sub == -1)
+                if (symbolHit)
+                {
+                    idx++;
+                }
+                else
                 {
                     if (braceCount == 0)
                     {
                         result++;
                     }
 
-                    var openBrace = parameters.IndexOf('{', 1);
-                    var closeBrace = parameters.IndexOf('}', 1);
-                    var comma = parameters.IndexOf(',', 1);
-                    var closeParams = parameters.IndexOf(')', 1);
+                    var openBrace = parameters.IndexOf('{', idx + 1);
+                    var closeBrace = parameters.IndexOf('}', idx + 1);
+                    var comma = parameters.IndexOf(',', idx + 1);
+                    var closeParams = parameters.IndexOf(')', idx + 1);
                     openBrace = openBrace >= 0 ? openBrace : int.MaxValue;
                     closeBrace = closeBrace >= 0 ? closeBrace : int.MaxValue;
                     comma = comma >= 0 ? comma : int.MaxValue;
                     closeParams = closeParams >= 0 ? closeParams : int.MaxValue;
-                    sub = openBrace;
-                    sub = closeBrace < sub ? closeBrace : sub;
-                    sub = comma < sub ? comma : sub;
-                    sub = closeParams < sub ? closeParams : sub;
+                    idx = openBrace;
+                    idx = closeBrace < idx ? closeBrace : idx;
+                    idx = comma < idx ? comma : idx;
+                    idx = closeParams < idx ? closeParams : idx;
                 }
 
-                if (sub >= parameters.Length)
+                if (idx >= parameters.Length)
                 {
                     break;
                 }
-
-                parameters = parameters.Substring(sub);
             }
 
             return result;
@@ -1006,8 +1032,7 @@ namespace ExpressionPowerTools.Core.Members
 
             if (type == null)
             {
-                type = AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(a => a.GetTypes())
+                type = ServiceHost.SafeGetTypes(t => t.FullName == typeName)
                     .FirstOrDefault(t => t.FullName == typeName);
             }
 

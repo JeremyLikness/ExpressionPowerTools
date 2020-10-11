@@ -53,21 +53,17 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var methodKey = json.GetNullableProperty(nameof(Unary.UnaryMethodKey));
+            var template = DecompressTypes(json, state);
             MethodInfo methodInfo = null;
-            if (methodKey.ValueKind != JsonValueKind.Null)
+            if (!string.IsNullOrWhiteSpace(template.UnaryMethodKey))
             {
-                var key = methodKey.GetString();
-                if (!string.IsNullOrWhiteSpace(key))
-                {
-                    methodInfo = GetMemberFromKey<MethodInfo>(key);
-                }
+                methodInfo = GetMemberFromKey<MethodInfo>(template.UnaryMethodKey);
             }
 
             var expressionType = (ExpressionType)json.GetProperty(nameof(SerializableExpression.Type)).GetInt32();
             var operandElement = json.GetNullableProperty(nameof(UnaryExpression.Operand));
             var operand = Serializer.Deserialize(operandElement, state);
-            var unaryType = GetMemberFromKey<Type>(json.GetProperty(nameof(Unary.UnaryTypeKey)).GetString());
+            var unaryType = GetMemberFromKey<Type>(template.UnaryTypeKey);
 
             if (methodInfo != null)
             {

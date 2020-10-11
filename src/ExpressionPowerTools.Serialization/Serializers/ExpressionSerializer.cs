@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.Serialization;
 using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -34,8 +34,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         public ExpressionSerializer()
         {
-            var types = GetType().Assembly.GetTypes()
-                .Where(t => t.Namespace == typeof(BaseSerializer<,>).Namespace
+            var types = ServiceHost.SafeGetTypes(
+                t => t.Namespace == typeof(BaseSerializer<,>).Namespace
                     && t.GetCustomAttributes(false)
                     .Any(c => c is ExpressionSerializerAttribute))
                 .SelectMany(t => t.GetCustomAttributes(false).OfType<ExpressionSerializerAttribute>()
@@ -87,7 +87,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return expression;
             }
 
-            return null;
+            throw new NotSupportedException(type.ToString());
         }
 
         /// <summary>
@@ -105,13 +105,17 @@ namespace ExpressionPowerTools.Serialization.Serializers
                 return null;
             }
 
+            SerializableExpression result = null;
+
             var type = expression.NodeType;
             if (serializers.ContainsKey(type))
             {
-                return serializers[type].Serialize(expression, state);
+                var serializer = serializers[type];
+                result = serializer.Serialize(expression, state);
+                serializer.CompressTypes(result, state);
             }
 
-            return new SerializableExpression(expression);
+            return result ?? new SerializableExpression(expression);
         }
     }
 }

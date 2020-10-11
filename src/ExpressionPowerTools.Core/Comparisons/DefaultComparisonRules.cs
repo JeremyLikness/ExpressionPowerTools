@@ -409,7 +409,10 @@ namespace ExpressionPowerTools.Core.Comparisons
         { get; } =
             rules.TypesMustMatch<NewExpression>()
             .AndMembersMustMatch(e => e.Constructor)
-            .AndEnumerableExpressionsMustBeEquivalent(e => e.Arguments);
+            .AndEnumerableExpressionsMustBeEquivalent(e => e.Arguments)
+            .AndIf(
+                condition: (s, t) => s.Members != null,
+                ifTrue: rules.NonGenericEnumerablesMustBeEquivalent<NewExpression>(e => e.Members));
 
         /// <summary>
         /// Gets the default rules for object initializer similarities.

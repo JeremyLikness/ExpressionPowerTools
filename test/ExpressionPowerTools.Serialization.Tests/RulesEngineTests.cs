@@ -83,7 +83,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             yield return new object[] { ClosedThing, true };
             yield return new object[] { ClosedField, true };
             yield return new object[] { GenericCtor, false };
-            yield return new object[] { ClosedCtor, false };
+            yield return new object[] { ClosedCtor, false };            
         }
 
         [Theory]
@@ -93,6 +93,12 @@ namespace ExpressionPowerTools.Serialization.Tests
             bool allowed)
         {
             Assert.Equal(allowed, target.MemberIsAllowed(memberInfo));
+        }
+
+        [Fact]
+        public void NullMemberIsAllowed()
+        {
+            Assert.True(target.MemberIsAllowed(null));
         }
 
         [Fact]

@@ -75,10 +75,9 @@ namespace ExpressionPowerTools.Serialization
                 root = Compressor.EvalAndCompress(root);
             }
 
-            var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, state))
-            {
-                TypeIndex = state.TypeIndex.ToArray(),
-            };
+            var serializeRoot = new SerializationRoot(SerializerValue.Serialize(root, state));
+            state.Done();
+            serializeRoot.TypeIndex = state.TypeIndex.ToArray();
             return JsonSerializer.Serialize(serializeRoot, state.Options);
         }
 
@@ -136,7 +135,7 @@ namespace ExpressionPowerTools.Serialization
 
             if (root.Expression is JsonElement jsonChild)
             {
-                result = SerializerValue.Deserialize(jsonChild, state);
+                result = SerializerValue.Deserialize(jsonChild.Clone(), state);
             }
 
             stateCallback?.Invoke(state);

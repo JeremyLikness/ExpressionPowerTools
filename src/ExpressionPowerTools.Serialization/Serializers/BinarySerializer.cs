@@ -73,7 +73,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
             JsonElement json,
             SerializationState state)
         {
-            var method = json.GetNullableProperty(nameof(Binary.BinaryMethod)).GetString();
+            var template = DecompressTypes(json, state);
+            var method = template.BinaryMethod;
             var methodInfo = string.IsNullOrWhiteSpace(method) ?
                 null :
                 GetMemberFromKey<MethodInfo>(method);

@@ -191,7 +191,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             MemberInfo[] members)
         {
             var expr = MakeNew(info, args, members);
-            var target = ctorSerializer.Serialize(expr, new SerializationState());
+            var target = ctorSerializer.Serialize(expr, TestSerializer.State);
             Assert.Equal((ExpressionType)target.Type, expr.NodeType);
         }
 
@@ -206,8 +206,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(info));
             var serialized = TestSerializer
                 .GetSerializedFragment<CtorExpr, NewExpression>(expr);
-            var deserialized = ctorSerializer.Deserialize(serialized, new SerializationState());
-            Assert.True(deserialized.IsEquivalentTo(deserialized));
+            var deserialized = ctorSerializer.Deserialize(serialized, TestSerializer.State);
+            Assert.True(expr.IsEquivalentTo(deserialized));
         }
 
         [Fact]
@@ -219,7 +219,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var expr = MakeNew(noArgs, null, null);
             var serialized = TestSerializer
                 .GetSerializedFragment<CtorExpr, NewExpression>(expr);
-            var deserialized = ctorSerializer.Deserialize(serialized, new SerializationState());
+            var deserialized = ctorSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }
 
@@ -233,7 +233,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer
                 .GetSerializedFragment<CtorExpr, NewExpression>(expr);
             Assert.Throws<UnauthorizedAccessException>(() =>
-                ctorSerializer.Deserialize(serialized, new SerializationState()));
+                ctorSerializer.Deserialize(serialized, TestSerializer.State));
         }
 
         public override bool Equals(object obj) => obj is CtorSerializerTests;

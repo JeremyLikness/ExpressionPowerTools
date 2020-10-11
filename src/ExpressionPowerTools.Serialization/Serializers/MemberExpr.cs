@@ -37,13 +37,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public string Indexer { get; set; }
 
         /// <summary>
-        /// Gets or sets the indexer type key.
-        /// </summary>
-        public string IndexerTypeKey { get; set; }
-
-        /// <summary>
         /// Gets or sets the member type key.
         /// </summary>
+        [CompressableKey]
         public string MemberTypeKey { get; set; }
 
         /// <summary>

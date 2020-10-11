@@ -54,11 +54,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the type of the lambda.
         /// </summary>
+        [CompressableKey]
         public string LambdaTypeKey { get; set; }
 
         /// <summary>
         /// Gets or sets the return type of the lambda.
         /// </summary>
+        [CompressableKey]
         public string ReturnTypeKey { get; set; }
     }
 }
