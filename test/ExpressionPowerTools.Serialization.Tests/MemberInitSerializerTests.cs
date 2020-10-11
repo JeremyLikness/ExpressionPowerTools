@@ -115,7 +115,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             ServiceHost.GetService<IRulesConfiguration>().RuleForType<TestData>()
                 .RuleForType<MemberInitSerializerTests>()
                 .RuleForType(typeof(List<>));
-            var deserialized = memberInitSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = memberInitSerializer.Deserialize(serialized, TestSerializer.State, expression.NodeType);
             Assert.Equal(expression.Type.FullName, deserialized.Type.FullName);
             Assert.True(expression.IsEquivalentTo(deserialized));
         }

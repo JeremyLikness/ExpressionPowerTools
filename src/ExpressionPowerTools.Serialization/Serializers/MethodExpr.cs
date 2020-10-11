@@ -36,6 +36,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the serializable <see cref="MethodInfoKey"/>.
         /// </summary>
+        [CompressableKey]
         public string MethodInfoKey { get; set; }
 
         /// <summary>

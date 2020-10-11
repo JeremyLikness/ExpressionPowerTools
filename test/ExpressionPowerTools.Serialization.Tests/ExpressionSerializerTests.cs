@@ -24,7 +24,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var json = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>
                 (Expression.Constant(5));
-            var deserialized = target.Deserialize(json, TestSerializer.State);
+            var deserialized = target.Deserialize(json, TestSerializer.State, ExpressionType.Constant);
             Assert.IsType<ConstantExpression>(deserialized);
             Assert.Equal(5, ((ConstantExpression)deserialized).Value);
         }
@@ -43,14 +43,14 @@ namespace ExpressionPowerTools.Serialization.Tests
             var gotoNum = (int)ExpressionType.Goto;
             var json = JsonDocument.Parse($"{{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": {gotoNum}}}");
             Assert.Throws<NotSupportedException>(
-                () => target.Deserialize(json.RootElement, new SerializationState()));
+                () => target.Deserialize(json.RootElement, new SerializationState(), ExpressionType.Goto));
         }
 
         [Fact]
         public void GivenExpressionHasNoTypeWhenDeserializeCalledThenShouldReturnNull()
         {
             var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5 }");
-            var deserialized = target.Deserialize(json.RootElement, new SerializationState());
+            var deserialized = target.Deserialize(json.RootElement, new SerializationState(), ExpressionType.Label);
             Assert.Null(deserialized);
         }
 
@@ -58,7 +58,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenExpressionHasNullTypeWhenDeserializeCalledThenShouldReturnNull()
         {
             var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": null }");
-            var deserialized = target.Deserialize(json.RootElement, new SerializationState());
+            var deserialized = target.Deserialize(json.RootElement, new SerializationState(), ExpressionType.Constant);
             Assert.Null(deserialized);
         }
     }

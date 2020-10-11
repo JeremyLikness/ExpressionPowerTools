@@ -59,10 +59,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The fragment to deserialize.</param>
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="expressionType">The expression type.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public Expression Deserialize(
             JsonElement json,
-            SerializationState state)
+            SerializationState state,
+            ExpressionType expressionType)
         {
             if (json.ValueKind == JsonValueKind.Null)
             {
@@ -82,7 +84,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var type = (ExpressionType)typeElem.GetInt32();
             if (serializers.ContainsKey(type))
             {
-                var expression = serializers[type].Deserialize(json, state);
+                var expression = serializers[type].Deserialize(json, state, type);
                 state.LastExpression = expression;
                 return expression;
             }

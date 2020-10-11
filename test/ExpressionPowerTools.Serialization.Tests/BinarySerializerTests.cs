@@ -365,7 +365,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void BinaryExpressionShouldDeserialize(BinaryExpression binary)
         {
             var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(binary);
-            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State);          
+            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State, binary.NodeType);          
             Assert.Equal(binary.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -383,7 +383,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
 
             var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(binary, options);
-            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State, binary.NodeType);
             Assert.Equal(binary.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -398,7 +398,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(expr);
             ServiceHost.GetService<IRulesConfiguration>().RuleForMethod(
                 selector => selector.ByMemberInfo(method)).Allow();
-            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State, expr.NodeType);
             Assert.NotNull(deserialized);
         }
 
@@ -414,7 +414,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             ServiceHost.GetService<IRulesConfiguration>().RuleForMethod(
                 selector => selector.ByMemberInfo(method)).Deny();
             Assert.Throws<UnauthorizedAccessException>(() =>
-                binarySerializer.Deserialize(serialized, TestSerializer.State));
+                binarySerializer.Deserialize(serialized, TestSerializer.State, expr.NodeType));
         }
 
         public override bool Equals(object obj) => obj is BinarySerializerTests;

@@ -110,7 +110,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
-            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType);
             Assert.Equal(method.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
         }
@@ -131,7 +131,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method, options);
             rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
-            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType);
             Assert.NotNull(deserialized);
         }
 
@@ -145,7 +145,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = TestSerializer
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
             rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
-            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType);
             Assert.NotNull(deserialized);
         }
 
@@ -160,8 +160,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
             rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter)).Deny();
             Assert.Throws<UnauthorizedAccessException>(() =>
-            methodSerializer.Deserialize(serialized,
-                ServiceHost.GetService<IDefaultConfiguration>().GetDefaultState()));
+            methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType));
         }
 
         public override bool Equals(object obj) =>

@@ -68,28 +68,35 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="template">The template for type management.</param>
+        /// <param name="expressionType">The type of the expression.</param>
         /// <returns>The <see cref="BinaryExpression"/>.</returns>
         public override BinaryExpression Deserialize(
             JsonElement json,
-            SerializationState state)
+            SerializationState state,
+            SerializableExpression template,
+            ExpressionType expressionType)
         {
-            var template = DecompressTypes(json, state);
-            var method = template.BinaryMethod;
+            var method = string.Empty;
+            if (template is Binary binary && binary != null)
+            {
+                method = binary.BinaryMethod;
+            }
+
             var methodInfo = string.IsNullOrWhiteSpace(method) ?
                 null :
                 GetMemberFromKey<MethodInfo>(method);
-            var expressionType = (ExpressionType)json.GetProperty(nameof(SerializableExpression.Type)).GetInt32();
             var conversionElement = json.GetNullableProperty(nameof(Binary.Conversion));
             var liftToNull = json.GetProperty(nameof(Binary.LiftToNull)).GetBoolean();
-            var left = Serializer.Deserialize(json.GetProperty(nameof(Binary.Left)), state);
-            var right = Serializer.Deserialize(json.GetProperty(nameof(Binary.Right)), state);
+            var left = Serializer.Deserialize(json.GetProperty(nameof(Binary.Left)), state, Default);
+            var right = Serializer.Deserialize(json.GetProperty(nameof(Binary.Right)), state, Default);
 
             if (methodInfo != null)
             {
                 AuthorizeMembers(methodInfo);
             }
 
-            if (Serializer.Deserialize(conversionElement, state) is LambdaExpression conversion)
+            if (Serializer.Deserialize(conversionElement, state, Default) is LambdaExpression conversion)
             {
                 return Expression.MakeBinary(
                     expressionType,
@@ -141,26 +148,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return binary;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as BinaryExpression, state);
     }
 }

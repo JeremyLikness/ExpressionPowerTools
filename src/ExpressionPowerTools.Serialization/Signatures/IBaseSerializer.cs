@@ -17,10 +17,12 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// </summary>
         /// <param name="json">The fragment to deserialize.</param>
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="expressionType">The type of the expression being serialized.</param>
         /// <returns>The <see cref="Expression"/>, or <c>null</c>.</returns>
         Expression Deserialize(
             JsonElement json,
-            SerializationState state);
+            SerializationState state,
+            ExpressionType expressionType);
 
         /// <summary>
         /// Serialize to a <see cref="SerializableExpression"/>.

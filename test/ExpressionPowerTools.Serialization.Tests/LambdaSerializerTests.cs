@@ -55,7 +55,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void LambdaExpressionShouldDeserialize(LambdaExpression lambda)
         {
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda);
-            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State, lambda.NodeType);
             Assert.Equal(lambda.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -78,7 +78,7 @@ namespace ExpressionPowerTools.Serialization.Tests
                 IgnoreReadOnlyProperties = true
             };
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda, options);
-            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State, lambda.NodeType);
             Assert.NotNull(deserialized);
         }
 
@@ -89,7 +89,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             Expression<Func<List<TestableThing>, string>> firstId =
                 list => list.First().Id;
             var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(firstId);
-            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State, firstId.NodeType);
             var expected = firstId.Compile()(things);
             var actual = deserialized.Compile().DynamicInvoke(things);
             Assert.Equal(expected, actual);

@@ -78,7 +78,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer
                 .GetSerializedFragment<MemberExpr, MemberExpression>(member);
-            var deserialized = memberSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = memberSerializer.Deserialize(serialized, TestSerializer.State, member.NodeType);
             Assert.Equal(member.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
         }

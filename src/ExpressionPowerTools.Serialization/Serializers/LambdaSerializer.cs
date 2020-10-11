@@ -34,16 +34,20 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The serialized fragment.</param>
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="template">The template to work with types.</param>
+        /// <param name="expressionType">The type of the expression.</param>
         /// <returns>The <see cref="LambdaExpression"/>.</returns>
         public override LambdaExpression Deserialize(
             JsonElement json,
-            SerializationState state)
+            SerializationState state,
+            SerializableExpression template,
+            ExpressionType expressionType)
         {
-            var template = DecompressTypes(json, state);
+            var lambda = template as Lambda;
             var materializedType = GetMemberFromKey<Type>(
-                template.LambdaTypeKey);
+                lambda.LambdaTypeKey);
 
-            var materializedReturnType = GetMemberFromKey<Type>(template.ReturnTypeKey);
+            var materializedReturnType = GetMemberFromKey<Type>(lambda.ReturnTypeKey);
 
             var name = json.GetNullableProperty(nameof(Lambda.Name)).GetString();
 
@@ -51,12 +55,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var parameterList = list.ValueKind == JsonValueKind.Array ?
                 list.EnumerateArray().Select(element =>
-                    Serializer.Deserialize(element, state) as ParameterExpression).ToList() :
+                    Serializer.Deserialize(element, state, Default) as ParameterExpression).ToList() :
                 new List<ParameterExpression>();
 
             var jsonBody = json.GetProperty(nameof(Lambda.Body));
 
-            Expression body = Serializer.Deserialize(jsonBody, state);
+            Expression body = Serializer.Deserialize(jsonBody, state, Default);
 
             return Expression.Lambda(
                 materializedType,
@@ -92,26 +96,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return result;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as LambdaExpression, state);
     }
 }

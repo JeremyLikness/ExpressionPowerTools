@@ -21,7 +21,18 @@
 - Improved performance of `ParameterCount` in `MemberAdapter`
 - Fixed equivalency of `NewExpression` to include members
 - Added `SafeGetTypes` to `ServiceHost`
+
+**Serialization**
+
 - Re-introduced compressed types
+- Simplified the serializers
+- Added attribute to tag compressable key and logic to compress and decompress
+- Modified Deserialize to tag an `ExpressionType` because that is already parsed anyway
+- Implemented `IBaseSerializer` in `BaseSerializer` so that derived classes no longer require a redundant implementation
+
+**Samples**
+
+- Updated sample to show compiled and serialized query text, compressed types, and updated the UI
 
 ## 0.9 Alpha
 

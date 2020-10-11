@@ -135,7 +135,8 @@ namespace ExpressionPowerTools.Serialization
 
             if (root.Expression is JsonElement jsonChild)
             {
-                result = SerializerValue.Deserialize(jsonChild.Clone(), state);
+                // the type here is just a placeholder
+                result = SerializerValue.Deserialize(jsonChild.Clone(), state, ExpressionType.Label);
             }
 
             stateCallback?.Invoke(state);

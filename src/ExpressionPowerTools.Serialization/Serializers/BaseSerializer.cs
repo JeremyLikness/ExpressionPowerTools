@@ -21,7 +21,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// <typeparam name="TExpression">The <see cref="Expression"/> supported by the serialize.</typeparam>
     /// <typeparam name="TSerializable">The serializer component it targets.</typeparam>
     public abstract class BaseSerializer<TExpression, TSerializable>
-        : IExpressionSerializer<TExpression, TSerializable>
+        : IExpressionSerializer<TExpression, TSerializable>, IBaseSerializer
         where TExpression : Expression
         where TSerializable : SerializableExpression, new()
     {
@@ -109,6 +109,14 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
+        /// Gets a placeholder <see cref="ExpressionType"/>.
+        /// </summary>
+        protected ExpressionType Default
+        {
+            get => ExpressionType.Label;
+        }
+
+        /// <summary>
         /// Gets the default <see cref="IExpressionSerializer{T, TSerializable}"/>.
         /// </summary>
         protected IExpressionSerializer<Expression, SerializableExpression> Serializer { get; private set; }
@@ -118,10 +126,30 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="template">The template for dealing with types.</param>
+        /// <param name="expressionType">The type of the expression.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public abstract TExpression Deserialize(
             JsonElement json,
-            SerializationState state);
+            SerializationState state,
+            SerializableExpression template,
+            ExpressionType expressionType);
+
+        /// <summary>
+        /// Deserialize a <see cref="JsonElement"/> to an <see cref="Expression"/>.
+        /// </summary>
+        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="expressionType">The type of the expression.</param>
+        /// <returns>The deserialized <see cref="Expression"/>.</returns>
+        public virtual TExpression Deserialize(
+            JsonElement json,
+            SerializationState state,
+            ExpressionType expressionType)
+        {
+            TSerializable template = KeyCache.Count > 0 ? DecompressTypes(json, state) : null;
+            return Deserialize(json, state, template, expressionType);
+        }
 
         /// <summary>
         /// Serialize an <see cref="Expression"/> to a <see cref="SerializableExpression"/>.
@@ -130,6 +158,25 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         public abstract TSerializable Serialize(TExpression expression, SerializationState state);
+
+        /// <summary>
+        /// Deserialize to an <see cref="Expression"/>.
+        /// </summary>
+        /// <param name="json">The fragment to deserialize.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="expressionType">The type of the expression being serialized.</param>
+        /// <returns>The <see cref="Expression"/>, or <c>null</c>.</returns>
+        Expression IBaseSerializer.Deserialize(JsonElement json, SerializationState state, ExpressionType expressionType)
+            => Deserialize(json, state, expressionType);
+
+        /// <summary>
+        /// Serialize to a <see cref="SerializableExpression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
+        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <returns>The <see cref="SerializableExpression"/>.</returns>
+        SerializableExpression IBaseSerializer.Serialize(Expression expression, SerializationState state)
+            => Serialize(expression as TExpression, state);
 
         /// <summary>
         /// Compress the types on the serializable class.

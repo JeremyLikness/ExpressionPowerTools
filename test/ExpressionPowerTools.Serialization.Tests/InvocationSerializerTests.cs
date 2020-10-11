@@ -58,7 +58,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer.GetSerializedFragment<Invocation,
                 InvocationExpression>(invocation);
-            var deserialized = invocationSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = invocationSerializer.Deserialize(serialized, TestSerializer.State, invocation.NodeType);
             Assert.Equal(invocation.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -73,7 +73,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
             var serialized = TestSerializer.GetSerializedFragment<Invocation,
                 InvocationExpression>(expr, options);
-            var deserialized = invocationSerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = invocationSerializer.Deserialize(serialized, TestSerializer.State, expr.NodeType);
             Assert.NotNull(deserialized);
         }
     }

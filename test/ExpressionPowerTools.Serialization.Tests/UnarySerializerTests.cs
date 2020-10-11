@@ -226,7 +226,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void UnaryExpressionShouldDeserialize(UnaryExpression unary)
         {
             var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary);
-            var deserialized = unarySerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = unarySerializer.Deserialize(serialized, TestSerializer.State, unary.NodeType);
             Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -241,7 +241,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             };
 
             var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary, options);
-            var deserialized = unarySerializer.Deserialize(serialized, TestSerializer.State);
+            var deserialized = unarySerializer.Deserialize(serialized, TestSerializer.State, unary.NodeType);
             Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
         }
     }

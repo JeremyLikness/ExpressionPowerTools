@@ -8,6 +8,16 @@ a, .btn-link {
     color: #0366d6;
 }
 
+pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
+    font-family: Consolas;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

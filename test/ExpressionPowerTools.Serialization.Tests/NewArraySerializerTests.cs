@@ -45,7 +45,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var state = config(ServiceHost.GetService<IConfigurationBuilder>()).Configure();
 
             var deserialized = serializer.Deserialize(
-                doc.RootElement.GetProperty(nameof(Expression)), state);
+                doc.RootElement.GetProperty(nameof(Expression)), state, newArray.NodeType);
 
             Assert.Equal(newArray.Type, deserialized.Type);
             Assert.Equal(

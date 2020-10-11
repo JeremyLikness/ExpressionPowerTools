@@ -33,19 +33,23 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// </summary>
         /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
         /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="template">The template for handling types.</param>
+        /// <param name="expressionType">The type of the expression.</param>
         /// <returns>The <see cref="NewExpression"/>.</returns>
         public override NewExpression Deserialize(
             JsonElement json,
-            SerializationState state)
+            SerializationState state,
+            SerializableExpression template,
+            ExpressionType expressionType)
         {
-            var template = DecompressTypes(json, state);
-            var ctor = GetMemberFromKey<ConstructorInfo>(template.CtorInfo);
+            var ctorExpr = template as CtorExpr;
+            var ctor = GetMemberFromKey<ConstructorInfo>(ctorExpr.CtorInfo);
 
             var members = new List<MemberInfo>();
 
-            if (template.MemberKeys != null)
+            if (ctorExpr.MemberKeys != null)
             {
-                members = template.MemberKeys
+                members = ctorExpr.MemberKeys
                     .Select(memberKey => GetMemberFromKey(memberKey))
                     .ToList();
             }
@@ -58,7 +62,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 foreach (var argElem in arguments.EnumerateArray())
                 {
-                    var arg = Serializer.Deserialize(argElem, state);
+                    var arg = Serializer.Deserialize(argElem, state, Default);
                     args.Add(arg);
                 }
             }
@@ -103,26 +107,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return ctorExpr;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as NewExpression, state);
     }
 }
