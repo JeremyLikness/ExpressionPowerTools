@@ -107,7 +107,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
         /// <typeparam name="T">The type of the query.</typeparam>
         /// <param name="query">The base query to run.</param>
         /// <returns>The result.</returns>
-        public async Task<IList<T>> ToListAsync<T>(IQueryable<T> query) =>
+        public async Task<List<T>> ToListAsync<T>(IQueryable<T> query) =>
             new List<T>(await ToArrayAsync(query));
 
         /// <summary>

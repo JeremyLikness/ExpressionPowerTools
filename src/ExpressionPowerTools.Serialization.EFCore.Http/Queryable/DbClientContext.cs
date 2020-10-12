@@ -40,27 +40,6 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Queryable
         }
 
         /// <summary>
-        /// Query that spans multiple tables.
-        /// </summary>
-        /// <typeparam name="T1">The first type.</typeparam>
-        /// <typeparam name="T2">The second type.</typeparam>
-        /// <param name="template1">The template to consume.</param>
-        /// <param name="template2">The alternate template to consume.</param>
-        /// <returns>The query.</returns>
-        public static IQueryable<T1> Query<T1, T2>(
-            Expression<Func<TContext, DbSet<T1>>> template1,
-            Expression<Func<TContext, DbSet<T1>>> template2)
-            where T1 : class
-            where T2 : class
-        {
-            var member = VerifyTemplate(template1);
-            VerifyTemplate(template2);
-            return IQueryableExtensions.CreateQueryTemplate<T1>().AsRemoteQueryable(new RemoteContext(
-                    typeof(TContext),
-                    member));
-        }
-
-        /// <summary>
         /// Verify that the template references a collection.
         /// </summary>
         /// <typeparam name="TType">The type of the query.</typeparam>

@@ -30,6 +30,10 @@
 - Modified Deserialize to tag an `ExpressionType` because that is already parsed anyway
 - Implemented `IBaseSerializer` in `BaseSerializer` so that derived classes no longer require a redundant implementation
 
+**EF Core HTTP Client**
+
+- Changed to return `List<T>` instead of `IList<T>`
+
 **Samples**
 
 - Updated sample to show compiled and serialized query text, compressed types, and updated the UI

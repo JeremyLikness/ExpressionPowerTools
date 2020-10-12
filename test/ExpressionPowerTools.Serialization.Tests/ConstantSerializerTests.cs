@@ -7,10 +7,10 @@ using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Tests.TestHelpers;
-using ExpressionPowerTools.Serialization.Extensions;
 using Xunit;
 using System.Reflection;
-using System.Net.NetworkInformation;
+using ExpressionPowerTools.Core.Signatures;
+using ExpressionPowerTools.Core.Dependencies;
 
 namespace ExpressionPowerTools.Serialization.Tests
 {
@@ -18,6 +18,9 @@ namespace ExpressionPowerTools.Serialization.Tests
     {
         private readonly ConstantSerializer serializer =
             new ConstantSerializer(TestSerializer.ExpressionSerializer);
+
+        private readonly IExpressionEvaluator evaluator =
+            ServiceHost.GetService<IExpressionEvaluator>();
 
         public static IEnumerable<object[]> GetConstantExpressions()
         {
@@ -79,7 +82,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             var target = serializer.Serialize(constant, TestSerializer.State);
             if (target.Value is Constant constantValue)
             {
-                Assert.True(ExpressionEquivalency.ValuesAreEquivalent(
+                Assert.True(evaluator.ValuesAreEquivalent(
                     ((ConstantExpression)constant.Value).Value,
                     constantValue.Value));
             }
@@ -93,7 +96,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             }
             else
             {
-                Assert.True(ExpressionEquivalency.ValuesAreEquivalent(constant.Value, target.Value));
+                Assert.True(evaluator.ValuesAreEquivalent(constant.Value, target.Value));
             }
         }
 
@@ -103,7 +106,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(constant);
             var deserialized = serializer.Deserialize(serialized, TestSerializer.State, ExpressionType.Constant);
-            Assert.True(ExpressionEquivalency.ValuesAreEquivalent(constant.Value, deserialized.Value));
+            Assert.True(evaluator.ValuesAreEquivalent(constant.Value, deserialized.Value));
         }
 
         [Fact]

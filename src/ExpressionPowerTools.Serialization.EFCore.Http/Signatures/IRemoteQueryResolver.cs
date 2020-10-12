@@ -27,7 +27,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Signatures
         /// <typeparam name="T">The <see cref="Type"/> of the query.</typeparam>
         /// <param name="query">The query to run remotely.</param>
         /// <returns>The list.</returns>
-        Task<IList<T>> ToListAsync<T>(IQueryable<T> query);
+        Task<List<T>> ToListAsync<T>(IQueryable<T> query);
 
         /// <summary>
         /// Resolves to an array.
@@ -54,7 +54,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Signatures
         Task<IEnumerable<T>> AsEnumerableAsync<T>(IQueryable<T> query);
 
         /// <summary>
-        /// Resolves to a count..
+        /// Resolves to a count.
         /// </summary>
         /// <typeparam name="T">The <see cref="Type"/> of the query.</typeparam>
         /// <param name="query">The query to run remotely.</param>

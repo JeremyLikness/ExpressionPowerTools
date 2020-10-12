@@ -173,16 +173,6 @@
             <exception cref="T:System.ArgumentNullException">Thrown when template is null.</exception>
             <exception cref="T:System.ArgumentException">Thrown when template does not refer to the right context.</exception>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1.Query``2(System.Linq.Expressions.Expression{System.Func{`0,Microsoft.EntityFrameworkCore.DbSet{``0}}},System.Linq.Expressions.Expression{System.Func{`0,Microsoft.EntityFrameworkCore.DbSet{``0}}})">
-            <summary>
-            Query that spans multiple tables.
-            </summary>
-            <typeparam name="T1">The first type.</typeparam>
-            <typeparam name="T2">The second type.</typeparam>
-            <param name="template1">The template to consume.</param>
-            <param name="template2">The alternate template to consume.</param>
-            <returns>The query.</returns>
-        </member>
         <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1.VerifyTemplate``1(System.Linq.Expressions.Expression{System.Func{`0,Microsoft.EntityFrameworkCore.DbSet{``0}}})">
             <summary>
             Verify that the template references a collection.
@@ -411,7 +401,7 @@
         </member>
         <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.CountAsync``1(System.Linq.IQueryable{``0})">
             <summary>
-            Resolves to a count..
+            Resolves to a count.
             </summary>
             <typeparam name="T">The <see cref="T:System.Type"/> of the query.</typeparam>
             <param name="query">The query to run remotely.</param>

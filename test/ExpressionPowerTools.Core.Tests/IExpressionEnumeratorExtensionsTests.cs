@@ -148,6 +148,49 @@ namespace ExpressionPowerTools.Core.Tests
                     ExpressionType.Add));
         }
 
+        public int X;
+
+        [Fact]
+        public void GivenNullExpressionEnumeratorWhenMembersWithNameOnTypeCalledThenShouldThrowNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => IExpressionEnumeratorExtensions.MembersWithNameOnType<IExpressionEnumeratorExtensionsTests>(
+                    null,
+                    nameof(X)));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void GivenNullOrEmptyNameWhenMembersWithNameOnTypeCalledThenShouldThrowArgument(string name)
+        {
+            var enumerator = Expression.Constant(42).AsEnumerable();
+            Assert.Throws<ArgumentException>(
+                () => IExpressionEnumeratorExtensions.MembersWithNameOnType<IExpressionEnumeratorExtensionsTests>(
+                    enumerator,
+                    name));
+        }
+
+        [Fact]
+        public void WhenMemberPassedForTypeThenShouldReturnMemberExpressionsForThatMember()
+        {
+            Expression<Func<IExpressionEnumeratorExtensionsTests, int>> fn = test => test.X;
+            var member = fn.AsEnumerable().MembersWithNameOnType<IExpressionEnumeratorExtensionsTests>(
+                nameof(X)).First();
+            Assert.NotNull(member);
+            Assert.Equal(nameof(X), member.Member.Name);
+        }
+
+        [Fact]
+        public void WhenMemberPassedForWrongTypeThenShouldReturnNothing()
+        {
+            Expression<Func<IExpressionEnumeratorExtensionsTests, int>> fn = test => test.X;
+            var member = fn.AsEnumerable().MembersWithNameOnType<string>(
+                nameof(X)).FirstOrDefault();
+            Assert.Null(member);
+        }
+
         [Theory]
         [InlineData(ExpressionType.Constant)]
         [InlineData(ExpressionType.Call)]

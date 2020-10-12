@@ -19,8 +19,8 @@ namespace ExpressionPowerTools.Core.Comparisons
     /// <para>The documentation for each rule has remarks that detail the application of the rule.</para>
     /// <para>When documentation refers to "are similar" it means the similarity rules are applied to the child expressions.
     /// Types are similar if one is assignable to the other.</para>
-    /// <para>Is a part of refers to the expression tree. For example, a take might be buried inside an include, but a top level
-    /// take will pass "is part of" an expression with a nest take.</para>
+    /// <para>"Is a part of" refers to the expression tree. For example, a take might be buried inside an include, but a top level
+    /// take will pass "is part of" an expression with a nested take.</para>
     /// </remarks>
     public class DefaultComparisonRules : IExpressionComparisonRuleProvider
     {

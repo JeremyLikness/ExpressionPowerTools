@@ -15,7 +15,10 @@ using ExpressionPowerTools.Core.Signatures;
 namespace ExpressionPowerTools.Core.Members
 {
     /// <summary>
-    /// Handles translation and comparison of members.
+    /// Handles translation and comparison of members. Responsible for composing a unique
+    /// <see cref="MethodInfo"/> into a string with enough information to re-build the
+    /// member. Uses the XML Docs algorithm as a baseline, but extends it for closures.
+    /// Also handles anonymous types.
     /// </summary>
     public class MemberAdapter : IMemberAdapter
     {

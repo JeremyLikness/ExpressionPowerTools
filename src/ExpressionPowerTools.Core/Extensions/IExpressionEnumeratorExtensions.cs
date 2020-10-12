@@ -123,6 +123,25 @@ namespace ExpressionPowerTools.Core.Extensions
         }
 
         /// <summary>
+        /// Helper method to extract members with a name.
+        /// </summary>
+        /// <typeparam name="T">The type the member belongs to.</typeparam>
+        /// <param name="expressionEnumerator">The <see cref="IExpressionEnumerator"/>.</param>
+        /// <param name="name">The name of the member.</param>
+        /// <returns>The instances of <see cref="MemberExpression"/> that refer to it.</returns>
+        public static IEnumerable<MemberExpression> MembersWithNameOnType<T>(
+            this IExpressionEnumerator expressionEnumerator,
+            string name)
+        {
+            Ensure.NotNull(() => expressionEnumerator);
+            Ensure.NotNullOrWhitespace(() => name);
+            return expressionEnumerator
+                .OfType<MemberExpression>()
+                .Where(me => me.Member.DeclaringType == typeof(T) &&
+                me.Member.Name == name);
+        }
+
+        /// <summary>
         /// Helper extension to extract nodes with a specific
         /// <see cref="ExpressionType"/> value.
         /// </summary>

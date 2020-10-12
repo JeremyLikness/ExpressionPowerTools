@@ -27,7 +27,8 @@ namespace ExpressionPowerTools.Core.Dependencies
     /// </para>
     /// <para>
     /// Satellite assemblies can hook into the registration by implementing <see cref="IDependentServiceRegistration"/>. This is
-    /// scanned and loaded before user overridees.
+    /// scanned and loaded before user overridees. Services can be lazy-loaded by using the <see cref="GetLazyService{T}(object[])"/>
+    /// method.
     /// </para>
     /// <para>
     /// The <see cref="IServiceRegistration"/> provided by initialization is chainable (each call returns itself).

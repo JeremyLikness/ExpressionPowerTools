@@ -12,8 +12,8 @@
             <para>The documentation for each rule has remarks that detail the application of the rule.</para>
             <para>When documentation refers to "are similar" it means the similarity rules are applied to the child expressions.
             Types are similar if one is assignable to the other.</para>
-            <para>Is a part of refers to the expression tree. For example, a take might be buried inside an include, but a top level
-            take will pass "is part of" an expression with a nest take.</para>
+            <para>"Is a part of" refers to the expression tree. For example, a take might be buried inside an include, but a top level
+            take will pass "is part of" an expression with a nested take.</para>
             </remarks>
         </member>
         <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultComparisonRules.cache">
@@ -356,6 +356,7 @@
             This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
             Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
             you should find the rules-based works fine for most scenarios and performs close to par with the programmed verssion.
+            So far the tests for this run slightly slower than the expression-based version.
             </summary>
         </member>
         <member name="F:ExpressionPowerTools.Core.Comparisons.DefaultHighPerformanceRules.equivalencyRules">
@@ -749,11 +750,13 @@
             Attempts to compare values in various ways.
             </summary>
             <remarks>
-            If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
+            <para>If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
             returns <c>true</c>. If the type implements <see cref="T:System.IEquatable`1"/> then the result of <see cref="M:System.IEquatable`1.Equals(`0)"/>
             is returned. If the type implements <see cref="T:System.IComparable"/> then the result is <c>true</c> if
             <see cref="M:System.IComparable.CompareTo(System.Object)"/> is <c>0</c>. Otherwise, the result of <see cref="M:System.Object.Equals(System.Object)"/> from
-            the source to the target is returned.
+            the source to the target is returned.</para>
+            <para>Exceptions are compared by the `Message` property. The comparison is also recursive: if a type is found that has an
+            existing comparison method, the method is called for further validation.</para>
             </remarks>
             <param name="source">The source value.</param>
             <param name="target">The target value.</param>
@@ -835,6 +838,75 @@
             <param name="target">The target expressions.</param>
             <returns>A flag indicating whether the two sets of
             expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.TypesAreEquivalent(System.Type,System.Type)">
+            <summary>
+            Determine if a <see cref="T:System.Type"/> is equivalent to another type.
+            </summary>
+            <remarks>
+            Handles anonymous types converted to dynamic dictionary.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Type"/>.</param>
+            <param name="target">The target <see cref="T:System.Type"/>.</param>
+            <returns>A value indicating whether the types are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.ValuesAreEquivalent(System.Object,System.Object)">
+            <summary>
+            Attempts to compare values in various ways.
+            </summary>
+            <remarks>
+            <para>If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
+            returns <c>true</c>. If the type implements <see cref="T:System.IEquatable`1"/> then the result of <see cref="M:System.IEquatable`1.Equals(`0)"/>
+            is returned. If the type implements <see cref="T:System.IComparable"/> then the result is <c>true</c> if
+            <see cref="M:System.IComparable.CompareTo(System.Object)"/> is <c>0</c>. Otherwise, the result of <see cref="M:System.Object.Equals(System.Object)"/> from
+            the source to the target is returned.</para>
+            <para>Exceptions are compared by the `Message` property. The comparison is also recursive: if a type is found that has an
+            existing comparison method, the method is called for further validation.</para>
+            </remarks>
+            <param name="source">The source value.</param>
+            <param name="target">The target value.</param>
+            <returns>A flag indicating equivalency.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.MemberBindingsAreEquivalent(System.Linq.Expressions.MemberBinding,System.Linq.Expressions.MemberBinding)">
+            <summary>
+            Ensures that two <see cref="T:System.Linq.Expressions.MemberBinding"/> instances are equivalent.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MemberBinding"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MemberBinding"/>.</param>
+            <returns>A value that indicates whether the bindings are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.DictionariesAreEquivalent(System.Collections.IDictionary,System.Collections.IDictionary)">
+            <summary>
+            Ensures two dictionaries are equivalent.
+            </summary>
+            <param name="source">The source <see cref="T:System.Collections.IDictionary"/>.</param>
+            <param name="target">The target <see cref="T:System.Collections.IDictionary"/>.</param>
+            <returns>A value indicating whether the dictionaries are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.NonGenericEnumerablesAreEquivalent(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+            <summary>
+            Ensures two enumerables are same length an each value is equivalent.
+            </summary>
+            <param name="srcEnumerable">The source <see cref="T:System.Collections.IEnumerable"/>.</param>
+            <param name="tgtEnumerable">The target <see cref="T:System.Collections.IEnumerable"/>.</param>
+            <returns>A flag indicating whether the two are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.NullAndTypeCheck(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Comparison matrix for types and nulls.
+            </summary>
+            <param name="source">The source to compare.</param>
+            <param name="other">The target to compare to.</param>
+            <returns>A flag indicating whether the types are
+            equal and the values are both not null.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AnonymousValuesAreEquivalent(System.Object,System.Object)">
+            <summary>
+            Compares two anonymous values.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="target">The target.</param>
+            <returns>A value indicating whether the anonymous values are equivalent.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Core.Comparisons.ExpressionEvaluator.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
             <summary>
@@ -1367,6 +1439,16 @@
             Anonymous type name.
             </summary>
         </member>
+        <member name="F:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.evaluator">
+            <summary>
+            The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.Evaluator">
+            <summary>
+            Gets the <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/> when needed.
+            </summary>
+        </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsAnonymousType(System.Type)">
             <summary>
             Helper for determing anonymous types, with a pessimistic algorithm.
@@ -1497,7 +1579,7 @@
         </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsEquivalentTo(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
             <summary>
-            Uses <see cref="T:ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency"/> to determine equivalency.
+            Uses <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/> to determine equivalency.
             </summary>
             <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
             <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
@@ -1505,7 +1587,7 @@
         </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsSimilarTo(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
             <summary>
-            Uses <see cref="T:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity"/> to determine similarity.
+            Uses <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/> to determine similarity.
             </summary>
             <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
             <param name="target">The target <see cref="T:System.Linq.Expressions.Expression"/>.</param>
@@ -1513,7 +1595,7 @@
         </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.ExpressionExtensions.IsPartOf(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
             <summary>
-            Uses <see cref="T:ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity"/> to determine if an <see cref="T:System.Linq.Expressions.Expression"/>
+            Uses <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/> to determine if an <see cref="T:System.Linq.Expressions.Expression"/>
             is part of another.
             </summary>
             <param name="source">The source <see cref="T:System.Linq.Expressions.Expression"/>.</param>
@@ -2009,6 +2091,15 @@
             <param name="name">The method name to extract.</param>
             <returns>The <see cref="T:System.Collections.Generic.IEnumerable`1"/> result.</returns>
         </member>
+        <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MembersWithNameOnType``1(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.String)">
+            <summary>
+            Helper method to extract members with a name.
+            </summary>
+            <typeparam name="T">The type the member belongs to.</typeparam>
+            <param name="expressionEnumerator">The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEnumerator"/>.</param>
+            <param name="name">The name of the member.</param>
+            <returns>The instances of <see cref="T:System.Linq.Expressions.MemberExpression"/> that refer to it.</returns>
+        </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.OfExpressionType(ExpressionPowerTools.Core.Signatures.IExpressionEnumerator,System.Linq.Expressions.ExpressionType)">
             <summary>
             Helper extension to extract nodes with a specific
@@ -2021,6 +2112,16 @@
         <member name="T:ExpressionPowerTools.Core.Extensions.IQueryableExtensions">
             <summary>
             Extensions over the <see cref="T:System.Linq.IQueryable"/> interface.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.evaluator">
+            <summary>
+            The <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.Evaluator">
+            <summary>
+            Gets the <see cref="T:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator"/> when needed.
             </summary>
         </member>
         <member name="M:ExpressionPowerTools.Core.Extensions.IQueryableExtensions.AsEnumerableExpression(System.Linq.IQueryable)">
@@ -2982,6 +3083,75 @@
             <param name="target">The target expressions.</param>
             <returns>A flag indicating whether the two sets of
             expressions are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.TypesAreEquivalent(System.Type,System.Type)">
+            <summary>
+            Determine if a <see cref="T:System.Type"/> is equivalent to another type.
+            </summary>
+            <remarks>
+            Handles anonymous types converted to dynamic dictionary.
+            </remarks>
+            <param name="source">The source <see cref="T:System.Type"/>.</param>
+            <param name="target">The target <see cref="T:System.Type"/>.</param>
+            <returns>A value indicating whether the types are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.ValuesAreEquivalent(System.Object,System.Object)">
+            <summary>
+            Attempts to compare values in various ways.
+            </summary>
+            <remarks>
+            <para>If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
+            returns <c>true</c>. If the type implements <see cref="T:System.IEquatable`1"/> then the result of <see cref="M:System.IEquatable`1.Equals(`0)"/>
+            is returned. If the type implements <see cref="T:System.IComparable"/> then the result is <c>true</c> if
+            <see cref="M:System.IComparable.CompareTo(System.Object)"/> is <c>0</c>. Otherwise, the result of <see cref="M:System.Object.Equals(System.Object)"/> from
+            the source to the target is returned.</para>
+            <para>Exceptions are compared by the `Message` property. The comparison is also recursive: if a type is found that has an
+            existing comparison method, the method is called for further validation.</para>
+            </remarks>
+            <param name="source">The source value.</param>
+            <param name="target">The target value.</param>
+            <returns>A flag indicating equivalency.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.MemberBindingsAreEquivalent(System.Linq.Expressions.MemberBinding,System.Linq.Expressions.MemberBinding)">
+            <summary>
+            Ensures that two <see cref="T:System.Linq.Expressions.MemberBinding"/> instances are equivalent.
+            </summary>
+            <param name="source">The source <see cref="T:System.Linq.Expressions.MemberBinding"/>.</param>
+            <param name="target">The target <see cref="T:System.Linq.Expressions.MemberBinding"/>.</param>
+            <returns>A value that indicates whether the bindings are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.DictionariesAreEquivalent(System.Collections.IDictionary,System.Collections.IDictionary)">
+            <summary>
+            Ensures two dictionaries are equivalent.
+            </summary>
+            <param name="source">The source <see cref="T:System.Collections.IDictionary"/>.</param>
+            <param name="target">The target <see cref="T:System.Collections.IDictionary"/>.</param>
+            <returns>A value indicating whether the dictionaries are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.NonGenericEnumerablesAreEquivalent(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+            <summary>
+            Ensures two enumerables are same length an each value is equivalent.
+            </summary>
+            <param name="srcEnumerable">The source <see cref="T:System.Collections.IEnumerable"/>.</param>
+            <param name="tgtEnumerable">The target <see cref="T:System.Collections.IEnumerable"/>.</param>
+            <returns>A flag indicating whether the two are equivalent.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.NullAndTypeCheck(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Comparison matrix for types and nulls.
+            </summary>
+            <param name="source">The source to compare.</param>
+            <param name="other">The target to compare to.</param>
+            <returns>A flag indicating whether the types are
+            equal and the values are both not null.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AnonymousValuesAreEquivalent(System.Object,System.Object)">
+            <summary>
+            Compares two anonymous values.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="target">The target.</param>
+            <returns>A value indicating whether the anonymous values are equivalent.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.AreSimilar(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
             <summary>

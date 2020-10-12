@@ -169,6 +169,15 @@ namespace ExpressionPowerTools.Serialization.Tests
         }
 
         [Fact]
+        public void GivenEmptyKeyWhenDecompressTypesCalledThenReturnsKey()
+        {
+            var key = string.Empty;
+            var transformed = nameof(TypesCompressorTests);
+            compressor.DecompressTypes(new List<string>(), (key, newKey => transformed = newKey));
+            Assert.Equal(key, transformed);
+        }
+
+        [Fact]
         public void GivenKeysWhenCompressTypesCalledThenShouldCompressTypesInKeys()
         {
             var memberAdapter = new MemberAdapter();

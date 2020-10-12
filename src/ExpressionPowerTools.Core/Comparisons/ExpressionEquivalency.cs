@@ -4,7 +4,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -147,11 +146,13 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// Attempts to compare values in various ways.
         /// </summary>
         /// <remarks>
-        /// If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
+        /// <para>If one side is <c>null</c> and other is not <c>null</c>, returns <c>false</c>. If the objects are the same reference,
         /// returns <c>true</c>. If the type implements <see cref="IEquatable{T}"/> then the result of <see cref="IEquatable{T}.Equals(T)"/>
         /// is returned. If the type implements <see cref="IComparable"/> then the result is <c>true</c> if
         /// <see cref="IComparable.CompareTo(object)"/> is <c>0</c>. Otherwise, the result of <see cref="object.Equals(object)"/> from
-        /// the source to the target is returned.
+        /// the source to the target is returned.</para>
+        /// <para>Exceptions are compared by the `Message` property. The comparison is also recursive: if a type is found that has an
+        /// existing comparison method, the method is called for further validation.</para>
         /// </remarks>
         /// <param name="source">The source value.</param>
         /// <param name="target">The target value.</param>
@@ -409,7 +410,7 @@ namespace ExpressionPowerTools.Core.Comparisons
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <returns>A value indicating whether the anonymous values are equivalent.</returns>
-        private static bool AnonymousValuesAreEquivalent(object source, object target)
+        public static bool AnonymousValuesAreEquivalent(object source, object target)
         {
             var srcProps = source.GetType().GetProperties();
             var tgtProps = target.GetType().GetProperties();

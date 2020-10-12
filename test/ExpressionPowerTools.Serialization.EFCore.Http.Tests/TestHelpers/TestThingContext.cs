@@ -14,5 +14,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests.TestHelpers
         }
 
         public DbSet<TestThing> Things { get; set; }
+
+        public string NotThings { get; set; }
     }
 }

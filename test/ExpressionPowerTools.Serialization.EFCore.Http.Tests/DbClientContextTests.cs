@@ -2,6 +2,7 @@
 using ExpressionPowerTools.Serialization.EFCore.Http.Queryable;
 using ExpressionPowerTools.Serialization.EFCore.Http.Signatures;
 using ExpressionPowerTools.Serialization.EFCore.Http.Tests.TestHelpers;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests
@@ -13,6 +14,13 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Tests
         {
             Assert.Throws<ArgumentNullException>(
                 () => DbClientContext<TestThingContext>.Query<TestThingContext>(null));
+        }
+
+        [Fact]
+        public void GivenExpressionReferencesNonDbSetWenQueryCalledThenShouldThrowArgument()
+        {
+            Assert.Throws<ArgumentException>(
+                () => DbClientContext<TestThingContext>.Query(q => (object)q.NotThings as DbSet<object>));
         }
 
         [Fact]

@@ -2,11 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using ExpressionPowerTools.Core.Comparisons;
-using eq = ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency;
 
 namespace ExpressionPowerTools.Core.Extensions
 {

@@ -5,12 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
-using ExpressionPowerTools.Core.Hosts;
-using ExpressionPowerTools.Core.Providers;
 using ExpressionPowerTools.Core.Signatures;
 
 namespace ExpressionPowerTools.Core.Extensions
@@ -20,6 +16,28 @@ namespace ExpressionPowerTools.Core.Extensions
     /// </summary>
     public static class IQueryableExtensions
     {
+        /// <summary>
+        /// The <see cref="IExpressionEvaluator"/>.
+        /// </summary>
+        private static IExpressionEvaluator evaluator = null;
+
+        /// <summary>
+        /// Gets the <see cref="IExpressionEvaluator"/> when needed.
+        /// </summary>
+        private static IExpressionEvaluator Evaluator
+        {
+            get
+            {
+                if (evaluator != null)
+                {
+                    return evaluator;
+                }
+
+                evaluator = ServiceHost.GetService<IExpressionEvaluator>();
+                return evaluator;
+            }
+        }
+
         /// <summary>
         /// Providers a way to enumerate the expression behind a query.
         /// </summary>
@@ -51,7 +69,7 @@ namespace ExpressionPowerTools.Core.Extensions
         public static bool IsEquivalentTo(
             this IQueryable source,
             IQueryable target) =>
-            ExpressionEquivalency.AreEquivalent(
+            Evaluator.AreEquivalent(
                 source.Expression, target?.Expression);
 
         /// <summary>
@@ -76,7 +94,7 @@ namespace ExpressionPowerTools.Core.Extensions
         public static bool IsSimilarTo(
             this IQueryable source,
             IQueryable target) =>
-            ExpressionSimilarity.AreSimilar(
+            Evaluator.AreSimilar(
                 source.Expression, target?.Expression);
 
         /// <summary>

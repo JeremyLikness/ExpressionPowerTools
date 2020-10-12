@@ -2,6 +2,7 @@
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Core.Tests.TestHelpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -181,6 +182,61 @@ namespace ExpressionPowerTools.Core.Tests
             var source = new List<QueryHelper>().AsQueryable().Take(4);
             var target = QueryHelper.QuerySkip2Take3;
             Assert.False(evaluator.IsPartOf(source, target));
+        }
+
+        public int Prop { get; set; }
+
+        [Fact]
+        public void HandlesMemberBindingsAreEquivalent()
+        {
+            Expression<Func<ExpressionEvaluatorTests>> makeTest =
+                () => new ExpressionEvaluatorTests
+                {
+                    Prop = 1
+                };
+            var members = new ExpressionEnumerator(makeTest)
+                .OfType<MemberInitExpression>()
+                .First()
+                .Bindings;
+            Assert.True(evaluator.MemberBindingsAreEquivalent(
+                members[0], members[0]));
+        }
+
+        [Fact]
+        public void HandlesDictionariesAreEquivalent()
+        {
+            var test = new Dictionary<int, string>
+            {
+                { 1, 1.ToString() }
+            };
+            Assert.True(evaluator.DictionariesAreEquivalent(test, test));
+        }
+
+        [Fact]
+        public void HandlesNonGenericEnumerablesAreEquivalent()
+        {
+            var one = new[] { 1, 2, 3 };
+            var oneplus = new[] { 1, 2, 3, 4 };
+            Assert.False(evaluator.NonGenericEnumerablesAreEquivalent(
+                one, oneplus));
+        }
+
+        [Fact]
+        public void HandleNullAndTypeCheck()
+        {
+            var constant = 1.AsConstantExpression();
+            var parameter = 1.AsParameterExpression();
+            Assert.False(evaluator.NullAndTypeCheck(
+                constant, parameter));
+        }
+
+        [Fact]
+        public void HandlesAnonymousValuesAreEquivalent()
+        {
+            var one = new { Id = 1 };
+            var two = new { Id = 1 };
+            Assert.True(evaluator.AnonymousValuesAreEquivalent(
+                one, two));
         }
     }
 }
