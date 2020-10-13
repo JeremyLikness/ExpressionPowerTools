@@ -25,13 +25,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the target <see cref="Expression"/>.
         /// </summary>
-        public object Expression { get; set; }
+        public SerializableExpression Expression { get; set; }
 
         /// <summary>
         /// Gets or sets the arguments list.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public List<object> Arguments { get; set; }
-            = new List<object>();
+        public List<SerializableExpression> Arguments { get; set; }
+            = new List<SerializableExpression>();
     }
 }

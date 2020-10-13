@@ -9,7 +9,7 @@ namespace ExpressionPowerTools.Serialization.Tests
 {
     public class ExpressionSerializerTests
     {
-        private readonly ExpressionSerializer target = new ExpressionSerializer();
+        private readonly Serializers.ExpressionSerializer target = new Serializers.ExpressionSerializer();
 
         [Fact]
         public void GivenExpressionHasSerializerWhenSerializeCalledThenShouldSerialize()
@@ -22,9 +22,9 @@ namespace ExpressionPowerTools.Serialization.Tests
         [Fact]
         public void GivenExpressionHasSerializerWhenDeserializeCalledThenShouldDeserialize()
         {
-            var json = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>
-                (Expression.Constant(5));
-            var deserialized = target.Deserialize(json, TestSerializer.State, ExpressionType.Constant);
+            var serialized = TestSerializer.ExpressionSerializer.Serialize(
+                Expression.Constant(5), TestSerializer.GetDefaultState());
+            var deserialized = target.Deserialize(serialized, TestSerializer.State);
             Assert.IsType<ConstantExpression>(deserialized);
             Assert.Equal(5, ((ConstantExpression)deserialized).Value);
         }
@@ -35,31 +35,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             var serialized = target.Serialize(Expression.Goto(Expression.Label()), null);
             Assert.IsType<SerializableExpression>(serialized);
             Assert.Equal(ExpressionType.Goto, (ExpressionType)serialized.Type);
-        }
-
-        [Fact]
-        public void GivenExpressionHasNoSerializerWhenDeserializeCalledThenShouldThrowNotSupported()
-        {
-            var gotoNum = (int)ExpressionType.Goto;
-            var json = JsonDocument.Parse($"{{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": {gotoNum}}}");
-            Assert.Throws<NotSupportedException>(
-                () => target.Deserialize(json.RootElement, new SerializationState(), ExpressionType.Goto));
-        }
-
-        [Fact]
-        public void GivenExpressionHasNoTypeWhenDeserializeCalledThenShouldReturnNull()
-        {
-            var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5 }");
-            var deserialized = target.Deserialize(json.RootElement, new SerializationState(), ExpressionType.Label);
-            Assert.Null(deserialized);
-        }
-
-        [Fact]
-        public void GivenExpressionHasNullTypeWhenDeserializeCalledThenShouldReturnNull()
-        {
-            var json = JsonDocument.Parse("{\"ConstantType\":\"System.Int32\",\"Value\":5,\"Type\": null }");
-            var deserialized = target.Deserialize(json.RootElement, new SerializationState(), ExpressionType.Constant);
-            Assert.Null(deserialized);
         }
     }
 }

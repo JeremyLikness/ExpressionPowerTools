@@ -33,12 +33,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the expression to initialize.
         /// </summary>
-        public object NewExpression { get; set; }
+        public CtorExpr NewExpression { get; set; }
 
         /// <summary>
         /// Gets or sets the list of bindings.
         /// </summary>
-        public List<object> Bindings { get; set; } =
-            new List<object>();
+        public List<MemberBindingExpr> Bindings { get; set; } =
+            new List<MemberBindingExpr>();
     }
 }

@@ -50,7 +50,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the method's object.
         /// </summary>
-        public List<object> Arguments { get; set; } = new List<object>();
+        public List<SerializableExpression> Arguments { get; set; } = new List<SerializableExpression>();
 
         /// <summary>
         /// Gets or sets the keys of members.

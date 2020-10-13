@@ -412,9 +412,14 @@
             Handles remote requests.
             </summary>
         </member>
-        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.defaultConfiguration">
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.jsonOptions">
             <summary>
-            The default settings for serialization.
+            Delegate to retrieve the default options. Register your own to override.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.jsonSerializer">
+            <summary>
+            The JSON serializer.
             </summary>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.AsEnumerableAsync``1(System.Linq.IQueryable{``0})">

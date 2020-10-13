@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -18,7 +17,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// The constructor for this class scans the assembly for serializers tagged with
     /// <see cref="ExpressionSerializerAttribute"/>. These are loaded based on the
     /// <see cref="ExpressionType"/> they represent and stored as <see cref="IBaseSerializer"/>.
-    /// The serializers should be accessed through the static <see cref="Serializer"/> class,
+    /// The serializers should be accessed through the static <see cref="Serialization.QueryExprSerializer"/> class,
     /// which takes the serializable classes and serializes them to and from JSON.
     /// </remarks>
     public class ExpressionSerializer : IExpressionSerializer<Expression, SerializableExpression>
@@ -57,34 +56,19 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize an <see cref="Expression"/>.
         /// </summary>
-        /// <param name="json">The fragment to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="expressionType">The expression type.</param>
+        /// <param name="root">The fragment to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public Expression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            ExpressionType expressionType)
+            SerializableExpression root,
+            SerializationState state)
         {
-            if (json.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-
-            if (!json.TryGetProperty(nameof(Type), out JsonElement typeElem))
-            {
-                return null;
-            }
-
-            if (typeElem.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-
-            var type = (ExpressionType)typeElem.GetInt32();
+            var type = (ExpressionType)root.Type;
             if (serializers.ContainsKey(type))
             {
-                var expression = serializers[type].Deserialize(json, state, type);
+                var serializer = serializers[type];
+                serializer.DecompressTypes(root, state);
+                var expression = serializer.Deserialize(root, state);
                 state.LastExpression = expression;
                 return expression;
             }
@@ -96,7 +80,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize an <see cref="Expression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serialized <see cref="SerializableExpression"/>.</returns>
         public SerializableExpression Serialize(
             Expression expression,

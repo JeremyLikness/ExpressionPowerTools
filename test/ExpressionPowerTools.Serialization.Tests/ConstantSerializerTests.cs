@@ -104,8 +104,8 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetConstantExpressions))]
         public void ConstantExpressionShouldDeserialize(ConstantExpression constant)
         {
-            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(constant);
-            var deserialized = serializer.Deserialize(serialized, TestSerializer.State, ExpressionType.Constant);
+            var serialized = serializer.Serialize(constant, TestSerializer.GetDefaultState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.True(evaluator.ValuesAreEquivalent(constant.Value, deserialized.Value));
         }
 
@@ -113,10 +113,10 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenEnumerableQueryWhenQueryRootIsConstantExpressionThenShouldBeSet()
         {
             EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[0]));
-            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
+            var serialized = serializer.Serialize(Expression.Constant(query), TestSerializer.GetDefaultState());
             var root = Expression.Constant(2);
             TestSerializer.State.QueryRoot = root;
-            var deserialized = serializer.Deserialize(serialized, TestSerializer.State, ExpressionType.Constant);
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.Same(deserialized, root);
         }
 
@@ -124,12 +124,12 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenEnumerableQueryWhenQueryRootIsNonConstantExpressionThenShouldBeSet()
         {
             EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[] { 1, 2 }));
-            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
+            var serialized = serializer.Serialize(Expression.Constant(query), TestSerializer.GetDefaultState());
             Expression<Func<int[]>> one = () => new[] { 1 };
             var root = Expression.Invoke(one, one.Parameters);
             var state = TestSerializer.State;
             state.QueryRoot = root;
-            var deserialized = serializer.Deserialize(serialized, state, ExpressionType.Constant);
+            var deserialized = serializer.Deserialize(serialized, state);
             Assert.IsAssignableFrom<InvocationExpression>(deserialized.Value);
             Assert.Same(deserialized.Value, root);
         }
@@ -138,23 +138,9 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenEnumerableQueryWhenQueryRootIsNullThenShouldReturnNullConstant()
         {
             EnumerableQuery<int> query = new EnumerableQuery<int>(Expression.Constant(new int[2]));
-            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(Expression.Constant(query));
-            var deserialized = serializer.Deserialize(serialized, TestSerializer.State, ExpressionType.Constant);
+            var serialized = serializer.Serialize(Expression.Constant(query), TestSerializer.GetDefaultState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.Null(deserialized.Value);
         }
-
-        [Fact]
-        public void GivenOptionIgnoreNullValuesWhenConstantExpressionSerializedThenShouldDeserialize()
-        {
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true
-            };
-            var serialized = TestSerializer.GetSerializedFragment<Constant, ConstantExpression>(
-                Expression.Constant(null), options);
-            var deserialized = serializer.Deserialize(serialized, TestSerializer.State, ExpressionType.Constant);
-            Assert.NotNull(deserialized);
-        }        
     }
 }

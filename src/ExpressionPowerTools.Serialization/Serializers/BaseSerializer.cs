@@ -6,11 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -109,71 +107,33 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
-        /// Gets a placeholder <see cref="ExpressionType"/>.
-        /// </summary>
-        protected ExpressionType Default
-        {
-            get => ExpressionType.Label;
-        }
-
-        /// <summary>
         /// Gets the default <see cref="IExpressionSerializer{T, TSerializable}"/>.
         /// </summary>
         protected IExpressionSerializer<Expression, SerializableExpression> Serializer { get; private set; }
 
         /// <summary>
-        /// Deserialize a <see cref="JsonElement"/> to an <see cref="Expression"/>.
+        /// Deserialize a <see cref="SerializableExpression"/> to an <see cref="Expression"/>.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template for dealing with types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="root">The <see cref="SerializableExpression"/> to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public abstract TExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType);
-
-        /// <summary>
-        /// Deserialize a <see cref="JsonElement"/> to an <see cref="Expression"/>.
-        /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="expressionType">The type of the expression.</param>
-        /// <returns>The deserialized <see cref="Expression"/>.</returns>
-        public virtual TExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            ExpressionType expressionType)
-        {
-            TSerializable template = KeyCache.Count > 0 ? DecompressTypes(json, state) : null;
-            return Deserialize(json, state, template, expressionType);
-        }
+            TSerializable root,
+            SerializationState state);
 
         /// <summary>
         /// Serialize an <see cref="Expression"/> to a <see cref="SerializableExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         public abstract TSerializable Serialize(TExpression expression, SerializationState state);
-
-        /// <summary>
-        /// Deserialize to an <see cref="Expression"/>.
-        /// </summary>
-        /// <param name="json">The fragment to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="expressionType">The type of the expression being serialized.</param>
-        /// <returns>The <see cref="Expression"/>, or <c>null</c>.</returns>
-        Expression IBaseSerializer.Deserialize(JsonElement json, SerializationState state, ExpressionType expressionType)
-            => Deserialize(json, state, expressionType);
 
         /// <summary>
         /// Serialize to a <see cref="SerializableExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization.</param>
         /// <returns>The <see cref="SerializableExpression"/>.</returns>
         SerializableExpression IBaseSerializer.Serialize(Expression expression, SerializationState state)
             => Serialize(expression as TExpression, state);
@@ -216,47 +176,61 @@ namespace ExpressionPowerTools.Serialization.Serializers
         }
 
         /// <summary>
+        /// Explicit implementation.
+        /// </summary>
+        /// <param name="root">The root expression.</param>
+        /// <param name="state">The <see cref="SerializationState"/>.</param>
+        /// <returns>The deserialized <see cref="Expression"/>.</returns>
+        Expression IBaseSerializer.Deserialize(SerializableExpression root, SerializationState state) =>
+            Deserialize((TSerializable)root, state);
+
+        /// <summary>
+        /// Compress the types on the expression.
+        /// </summary>
+        /// <param name="serializable">The <see cref="SerializableExpression"/>.</param>
+        /// <param name="state">The <see cref="SerializationState"/>.</param>
+        void IBaseSerializer.CompressTypes(SerializableExpression serializable, SerializationState state) =>
+            CompressTypes((TSerializable)serializable, state);
+
+        /// <summary>
+        /// Decompress the types on the expression.
+        /// </summary>
+        /// <param name="serializable">The <see cref="SerializableExpression"/>.</param>
+        /// <param name="state">The <see cref="SerializationState"/>.</param>
+        void IBaseSerializer.DecompressTypes(SerializableExpression serializable, SerializationState state) =>
+            DecompressTypes((TSerializable)serializable, state);
+
+        /// <summary>
         /// Creates a template of the serializable type with keys decompressed.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/>.</param>
+        /// <param name="expression">The <see cref="SerializableExpression"/>.</param>
         /// <param name="state">The <see cref="SerializationState"/>.</param>
         /// <returns>The <see cref="SerializableExpression"/> instance.</returns>
         protected TSerializable DecompressTypes(
-            JsonElement json,
+            TSerializable expression,
             SerializationState state)
         {
-            var template = new TSerializable();
+            // single props
+            var parameters = KeyCache
+                .Where(entry => !entry.IsCollection)
+                .Select(
+                    cache =>
+                        (cache.GetKeys(expression)[0],
+                        (Action<string>)(
+                            s => cache.SetKeys(expression, new[] { s }))))
+                .ToArray();
 
-            foreach (var cacheEntry in KeyCache)
+            state.DecompressTypesForKeys(parameters);
+
+            // lists
+            foreach (var parameter in KeyCache.Where(entry => entry.IsCollection))
             {
-                var (propName, isCollection, setKeys) =
-                    (cacheEntry.PropName, cacheEntry.IsCollection, cacheEntry.SetKeys);
-
-                var typeNode = json.GetNullableProperty(propName);
-
-                if (isCollection && typeNode.ValueKind != JsonValueKind.Null)
-                {
-                    var keys = new List<string>();
-                    foreach (JsonElement elem in typeNode.EnumerateArray())
-                    {
-                        keys.Add(state.DecompressTypesForKey(elem.GetString()));
-                    }
-
-                    setKeys(template, keys.ToArray());
-                }
-                else
-                {
-                    var typeKey = typeNode.ValueKind != JsonValueKind.Null ?
-                        typeNode.GetString() : null;
-                    if (!string.IsNullOrWhiteSpace(typeKey))
-                    {
-                        typeKey = state.DecompressTypesForKey(typeKey);
-                        setKeys(template, new[] { typeKey });
-                    }
-                }
+                var keys = parameter.GetKeys(expression).Select(
+                    k => state.DecompressTypesForKey(k)).ToArray();
+                parameter.SetKeys(expression, keys);
             }
 
-            return template;
+            return expression;
         }
 
         /// <summary>
@@ -313,14 +287,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Convert from <see cref="AnonType"/> back to anonymous type instance.
         /// </summary>
         /// <param name="anonType">The <see cref="AnonType"/>.</param>
-        /// <param name="options">Serializer options.</param>
         /// <returns>The anonymous object.</returns>
         protected object ConvertAnonTypeToAnonymousType(
-            AnonType anonType,
-            JsonSerializerOptions options)
-            => anonTypeAdapter.Value.ConvertFromAnonType(
-                anonType,
-                options);
+            AnonType anonType)
+            => anonTypeAdapter.Value.ConvertFromAnonType(anonType);
 
         /// <summary>
         /// Entry for accessing properties to compress/decompress.

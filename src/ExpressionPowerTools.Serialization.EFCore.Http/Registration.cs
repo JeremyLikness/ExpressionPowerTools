@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
+using System.Text.Json;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.EFCore.Http.Configuration;
 using ExpressionPowerTools.Serialization.EFCore.Http.Signatures;
@@ -28,6 +30,12 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http
         {
             registration.RegisterSingleton<IClientHttpConfiguration>(new ClientHttpConfiguration());
             registration.RegisterSingleton<IRemoteQueryResolver>(new HttpRemoteQueryResolver());
+            registration.RegisterSingleton<Func<JsonSerializerOptions>>(
+                () => new JsonSerializerOptions
+                {
+                    IgnoreNullValues = true,
+                    IgnoreReadOnlyProperties = true,
+                });
         }
     }
 }

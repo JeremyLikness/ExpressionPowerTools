@@ -27,6 +27,10 @@ namespace ExpressionPowerTools.Serialization.Tests
 
         public static IEnumerable<object[]> GetUnaryExpressions()
         {
+            yield return new object[]
+            {
+                Expression.Rethrow()
+            };
 
             yield return new object[]
             {
@@ -172,11 +176,6 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             yield return new object[]
             {
-                Expression.Rethrow()
-            };
-
-            yield return new object[]
-            {
                 Expression.Rethrow(typeof(InvalidCastException))
             };
 
@@ -225,23 +224,8 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetUnaryExpressions))]
         public void UnaryExpressionShouldDeserialize(UnaryExpression unary)
         {
-            var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary);
-            var deserialized = unarySerializer.Deserialize(serialized, TestSerializer.State, unary.NodeType);
-            Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
-        }
-
-        [Fact]
-        public void GivenOptionsIgnoreNullWhenUnarySerializedThenShouldDeserialize()
-        {
-            var unary = Expression.Throw(Expression.Constant(null));
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true
-            };
-
-            var serialized = TestSerializer.GetSerializedFragment<Unary, UnaryExpression>(unary, options);
-            var deserialized = unarySerializer.Deserialize(serialized, TestSerializer.State, unary.NodeType);
+            var serialized = unarySerializer.Serialize(unary, TestSerializer.GetDefaultState());
+            var deserialized = unarySerializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(unary.Type.FullName, deserialized.Type.FullName);
         }
     }

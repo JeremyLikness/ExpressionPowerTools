@@ -5,11 +5,13 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Compression;
 using ExpressionPowerTools.Serialization.Configuration;
 using ExpressionPowerTools.Serialization.Extensions;
+using ExpressionPowerTools.Serialization.Json;
 using ExpressionPowerTools.Serialization.Rules;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -105,6 +107,8 @@ namespace ExpressionPowerTools.Serialization
                 new AnonymousTypeAdapter());
             registration.RegisterSingleton<ITypesCompressor>(
                 new TypesCompressor());
+            registration.RegisterSingleton<ISerializationWrapper<string, JsonSerializerOptions, JsonSerializerOptions>>(
+                new JsonWrapper());
         }
 
         /// <summary>

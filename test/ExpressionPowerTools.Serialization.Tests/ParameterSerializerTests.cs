@@ -44,28 +44,13 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetParameterExpressions))]
         public void ParameterExpressionShouldDeserialize(ParameterExpression parameter)
         {
-            var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter);
-            var deserialized = serializer.Deserialize(serialized, TestSerializer.State, parameter.NodeType);
+            var serialized = serializer.Serialize(parameter, TestSerializer.GetDefaultState());
+            var deserialized = serializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(parameter.Type, deserialized.Type);
             if (!string.IsNullOrWhiteSpace(parameter.Name))
             {
                 Assert.Equal(parameter.Name, deserialized.Name);
             }
-        }
-
-        [Fact]
-        public void GivenOptionsIgnoreNullWhenParameterSerializedThenShouldDeserialize()
-        {
-            var parameter = Expression.Parameter(typeof(long));
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true
-            };
-
-            var serialized = TestSerializer.GetSerializedFragment<Parameter, ParameterExpression>(parameter, options);
-            var deserialized = serializer.Deserialize(serialized, TestSerializer.State, parameter.NodeType);
-            Assert.Equal(parameter.Type, deserialized.Type);
         }
     }
 }

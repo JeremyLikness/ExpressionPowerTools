@@ -1106,7 +1106,8 @@
             </para>
             <para>
             Satellite assemblies can hook into the registration by implementing <see cref="T:ExpressionPowerTools.Core.Signatures.IDependentServiceRegistration"/>. This is
-            scanned and loaded before user overridees.
+            scanned and loaded before user overridees. Services can be lazy-loaded by using the <see cref="M:ExpressionPowerTools.Core.Dependencies.ServiceHost.GetLazyService``1(System.Object[])"/>
+            method.
             </para>
             <para>
             The <see cref="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration"/> provided by initialization is chainable (each call returns itself).
@@ -2328,7 +2329,10 @@
         </member>
         <member name="T:ExpressionPowerTools.Core.Members.MemberAdapter">
             <summary>
-            Handles translation and comparison of members.
+            Handles translation and comparison of members. Responsible for composing a unique
+            <see cref="T:System.Reflection.MethodInfo"/> into a string with enough information to re-build the
+            member. Uses the XML Docs algorithm as a baseline, but extends it for closures.
+            Also handles anonymous types.
             </summary>
         </member>
         <member name="F:ExpressionPowerTools.Core.Members.MemberAdapter.Ctor">

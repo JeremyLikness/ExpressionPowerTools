@@ -4,8 +4,6 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using ExpressionPowerTools.Core.Dependencies;
-using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {

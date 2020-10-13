@@ -2,8 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text.Json;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -29,34 +27,24 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a <see cref="MemberExpr"/> to a <see cref="MemberExpression"/>.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template for handling types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="member">The <see cref="MemberExpr"/> to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="MemberExpression"/>.</returns>
         public override MemberExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            MemberExpr member,
+            SerializationState state)
         {
             Expression expr = null;
-            if (json.TryGetProperty(
-                nameof(MemberExpr.Expression),
-                out JsonElement jsonObj))
+            if (member.Expression != null)
             {
-                expr = Serializer.Deserialize(jsonObj, state, Default);
+                expr = Serializer.Deserialize(member.Expression, state);
             }
 
-            var member = template as MemberExpr;
             var memberInfo = GetMemberFromKey(member.MemberTypeKey);
 
-            if (json.TryGetProperty(nameof(MemberExpr.Indexer), out JsonElement indexer))
+            if (!string.IsNullOrWhiteSpace(member.Indexer))
             {
-                if (!string.IsNullOrWhiteSpace(indexer.GetString()))
-                {
-                    return null;
-                }
+                return null;
             }
 
             AuthorizeMembers(new[] { memberInfo });
@@ -68,7 +56,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="MemberExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="MemberExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="MemberExpr"/>.</returns>
         public override MemberExpr Serialize(
             MemberExpression expression,

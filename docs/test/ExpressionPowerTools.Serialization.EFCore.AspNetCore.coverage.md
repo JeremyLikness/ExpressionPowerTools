@@ -1,6 +1,6 @@
 # Summary of Code Coverage for ExpressionPowerTools.Serialization.EFCore.AspNetCore
 
-Report generated on 10/8/2020 5:12:45 AM UTC.
+Report generated on 10/13/2020 4:49:56 PM UTC.
 
 ## Report Summary
 
@@ -11,10 +11,10 @@ Report generated on 10/8/2020 5:12:45 AM UTC.
 |**Classes**|9
 |**Files**|9
 |**Line coverage**|100.0%
-|**Covered lines**|255
+|**Covered lines**|267
 |**Uncovered lines**|0
-|**Coverable lines**|255
-|**Total lines**|816
+|**Coverable lines**|267
+|**Total lines**|844
 
 ## Report Detail
 

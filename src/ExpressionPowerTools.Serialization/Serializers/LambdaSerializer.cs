@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -32,40 +30,30 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a <see cref="LambdaExpression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template to work with types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="lambda">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="LambdaExpression"/>.</returns>
         public override LambdaExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            Lambda lambda,
+            SerializationState state)
         {
-            var lambda = template as Lambda;
             var materializedType = GetMemberFromKey<Type>(
                 lambda.LambdaTypeKey);
 
             var materializedReturnType = GetMemberFromKey<Type>(lambda.ReturnTypeKey);
 
-            var name = json.GetNullableProperty(nameof(Lambda.Name)).GetString();
-
-            var list = json.GetNullableProperty(nameof(Lambda.Parameters));
-
-            var parameterList = list.ValueKind == JsonValueKind.Array ?
-                list.EnumerateArray().Select(element =>
-                    Serializer.Deserialize(element, state, Default) as ParameterExpression).ToList() :
+            var parameterList =
+                lambda.Parameters != null ?
+                lambda.Parameters.Select(element =>
+                    Serializer.Deserialize(element, state) as ParameterExpression).ToList() :
                 new List<ParameterExpression>();
 
-            var jsonBody = json.GetProperty(nameof(Lambda.Body));
-
-            Expression body = Serializer.Deserialize(jsonBody, state, Default);
+            Expression body = Serializer.Deserialize(lambda.Body, state);
 
             return Expression.Lambda(
                 materializedType,
                 body,
-                name,
+                lambda.Name,
                 parameterList);
         }
 
@@ -73,7 +61,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="LambdaExpression"/> to a <see cref="Lambda"/>.
         /// </summary>
         /// <param name="expression">The <see cref="LambdaExpression"/>.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="Lambda"/>.</returns>
         public override Lambda Serialize(
             LambdaExpression expression,

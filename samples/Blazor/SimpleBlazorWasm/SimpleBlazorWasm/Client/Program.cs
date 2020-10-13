@@ -35,7 +35,7 @@ namespace SimpleBlazorWasm.Client
 
             if (builder.HostEnvironment.IsDevelopment())
             {
-                Serializer.ConfigureDefaults(config => config.CompressTypes(false));
+                QueryExprSerializer.ConfigureDefaults(config => config.CompressTypes(false));
             }
 
             // this adds a helper class for composing the query

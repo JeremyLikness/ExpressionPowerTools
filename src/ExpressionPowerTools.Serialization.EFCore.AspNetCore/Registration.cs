@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
+using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware;
@@ -42,6 +44,12 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
                 new QueryDeserializer());
             registration.RegisterSingleton<IQueryResultSerializer>(
                 new QueryResultSerializer());
+            registration.RegisterSingleton<Func<JsonSerializerOptions>>(
+                () => new JsonSerializerOptions
+                {
+                    IgnoreNullValues = true,
+                    IgnoreReadOnlyProperties = true,
+                });
         }
     }
 }

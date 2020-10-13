@@ -3,8 +3,6 @@
 
 using System;
 using System.Linq.Expressions;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -28,22 +26,16 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a serializable class to an actionable <see cref="Expression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template for handling types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="param">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public override ParameterExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            Parameter param,
+            SerializationState state)
         {
-            var param = template as Parameter;
             Type type = GetMemberFromKey<Type>(param.ParameterTypeKey);
-            var name = json.GetNullableProperty(nameof(Parameter.Name)).GetString();
-            var parameter = string.IsNullOrWhiteSpace(name) ? Expression.Parameter(type) :
-                Expression.Parameter(type, name);
+            var parameter = string.IsNullOrWhiteSpace(param.Name) ? Expression.Parameter(type) :
+                Expression.Parameter(type, param.Name);
             return state.GetOrCacheParameter(parameter);
         }
 
@@ -51,7 +43,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serializes the expression.
         /// </summary>
         /// <param name="expression">The <see cref="ConstantExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="Constant"/>.</returns>
         public override Parameter Serialize(
             ParameterExpression expression,

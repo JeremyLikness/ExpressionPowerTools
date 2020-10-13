@@ -3,8 +3,6 @@
 
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -30,22 +28,16 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a <see cref="InvocationExpression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template to decompress types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="expr">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="InvocationExpression"/>.</returns>
         public override InvocationExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            Invocation expr,
+            SerializationState state)
         {
-            var expr = json.GetProperty(nameof(Invocation.Expression));
-            var expression = Serializer.Deserialize(expr, state, Default);
-            var list = json.GetNullableProperty(nameof(Invocation.Arguments));
-            var argumentList = list.EnumerateArray().Select(element =>
-                Serializer.Deserialize(element, state, Default)).ToList();
+            var expression = Serializer.Deserialize(expr.Expression, state);
+            var argumentList = expr.Arguments.Select(element =>
+                Serializer.Deserialize(element, state)).ToList();
             return Expression.Invoke(expression, argumentList);
         }
 
@@ -53,7 +45,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize an <see cref="InvocationExpression"/> to an <see cref="Invocation"/>.
         /// </summary>
         /// <param name="expression">The <see cref="InvocationExpression"/>.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="Invocation"/>.</returns>
         public override Invocation Serialize(
             InvocationExpression expression,

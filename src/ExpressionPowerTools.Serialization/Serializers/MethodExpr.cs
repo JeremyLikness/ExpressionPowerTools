@@ -42,13 +42,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the method's object.
         /// </summary>
-        public object MethodObject { get; set; }
+        public SerializableExpression MethodObject { get; set; }
 
         /// <summary>
         /// Gets or sets the list of arguments.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public List<object> Arguments { get; set; } =
-            new List<object>();
+        public List<SerializableExpression> Arguments { get; set; } =
+            new List<SerializableExpression>();
     }
 }

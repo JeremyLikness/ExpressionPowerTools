@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ExpressionPowerTools.Serialization.Configuration;
+﻿using ExpressionPowerTools.Serialization.Configuration;
 using ExpressionPowerTools.Serialization.Signatures;
 using Xunit;
 
@@ -15,9 +12,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             IDefaultConfiguration target = new DefaultConfiguration();
             var state = target.GetDefaultState();
             Assert.True(state.CompressTypes);
-            Assert.NotNull(state.Options);
-            Assert.True(state.Options.IgnoreNullValues);
-            Assert.True(state.Options.IgnoreReadOnlyProperties);
+            Assert.True(state.CompressExpression);            
         }
 
         [Fact]

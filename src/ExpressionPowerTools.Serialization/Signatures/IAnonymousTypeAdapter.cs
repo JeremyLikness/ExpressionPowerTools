@@ -22,8 +22,7 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// Reconstructs an anonymous type from <see cref="AnonType"/>.
         /// </summary>
         /// <param name="anonType">The <see cref="AnonType"/>.</param>
-        /// <param name="options">Serializer options.</param>
         /// <returns>The anonymous type instance.</returns>
-        object ConvertFromAnonType(AnonType anonType, JsonSerializerOptions options);
+        object ConvertFromAnonType(AnonType anonType);
     }
 }

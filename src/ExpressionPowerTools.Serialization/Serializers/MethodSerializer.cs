@@ -4,7 +4,6 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -30,35 +29,26 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a <see cref="MethodExpr"/> to a <see cref="MethodCallExpression"/>.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template for handling types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="method">The <see cref="MethodExpr"/> to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="MethodCallExpression"/>.</returns>
         public override MethodCallExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            MethodExpr method,
+            SerializationState state)
         {
             Expression obj = null;
 
-            var method = template as MethodExpr;
-
-            if (json.TryGetProperty(
-                nameof(MethodExpr.MethodObject),
-                out JsonElement jsonObj))
+            if (method.MethodObject != null)
             {
-                obj = Serializer.Deserialize(jsonObj, state, Default);
+                obj = Serializer.Deserialize(method.MethodObject, state);
             }
 
             var methodInfo = GetMemberFromKey<MethodInfo>(method.MethodInfoKey);
 
             AuthorizeMembers(methodInfo);
 
-            var list = json.GetProperty(nameof(MethodExpr.Arguments));
-            var argumentList = list.EnumerateArray().Select(element =>
-                Serializer.Deserialize(element, state, Default)).ToList();
+            var argumentList = method.Arguments.Select(element =>
+                Serializer.Deserialize(element, state)).ToList();
 
             if (obj != null)
             {
@@ -72,7 +62,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="MethodCallExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="MethodCallExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="MethodExpr"/>.</returns>
         public override MethodExpr Serialize(
             MethodCallExpression expression,

@@ -15,6 +15,9 @@
 **Breaking Changes**
 
 - The call to `Deserialize` will now throw a `NotSupportedException` when the expression type is not supported
+- The `Serializer` has been renamed to `QueryExprSerializer`
+- Serialization is now decoupled from transport - the main serializers simply translate between expressions and serializable
+classes that hold the data to recreate the expressions
 
 **Core**
 
@@ -30,9 +33,15 @@
 - Modified Deserialize to tag an `ExpressionType` because that is already parsed anyway
 - Implemented `IBaseSerializer` in `BaseSerializer` so that derived classes no longer require a redundant implementation
 
+**EF Core AspNETCore Middleware**
+
+- Changed to use new `JsonWrapper` service
+- Added a registration for `Func<JsonSerializerOptions>` that can be overridden to provide defaults
+
 **EF Core HTTP Client**
 
 - Changed to return `List<T>` instead of `IList<T>`
+- Modified to use new serializer
 
 **Samples**
 

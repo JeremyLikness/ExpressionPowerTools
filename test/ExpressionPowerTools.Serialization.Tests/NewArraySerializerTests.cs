@@ -39,13 +39,11 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             Func<IConfigurationBuilder, IConfigurationBuilder> config = builder =>
                 builder.CompressTypes(false).CompressExpressionTree(false);
-            var json = Serializer.Serialize(newArray, cfg => config(cfg));
-            var doc = JsonDocument.Parse(json);
-
+            var expr = QueryExprSerializer.Serialize(newArray, cfg => config(cfg));
+            
             var state = config(ServiceHost.GetService<IConfigurationBuilder>()).Configure();
 
-            var deserialized = serializer.Deserialize(
-                doc.RootElement.GetProperty(nameof(Expression)), state, newArray.NodeType);
+            var deserialized = serializer.Deserialize(expr.Expression as NewArray, state);
 
             Assert.Equal(newArray.Type, deserialized.Type);
             Assert.Equal(

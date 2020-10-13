@@ -50,6 +50,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the operand or main <see cref="Expression"/> for the operation.
         /// </summary>
-        public object Operand { get; set; }
+        public SerializableExpression Operand { get; set; }
     }
 }

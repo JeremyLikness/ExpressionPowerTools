@@ -4,8 +4,6 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -46,45 +44,39 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a <see cref="UnaryExpression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template for handling types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="unary">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="UnaryExpression"/>.</returns>
         public override UnaryExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            Unary unary,
+            SerializationState state)
         {
-            var unary = template as Unary;
             MethodInfo methodInfo = null;
             if (!string.IsNullOrWhiteSpace(unary.UnaryMethodKey))
             {
                 methodInfo = GetMemberFromKey<MethodInfo>(unary.UnaryMethodKey);
             }
 
-            var operandElement = json.GetNullableProperty(nameof(UnaryExpression.Operand));
-            var operand = Serializer.Deserialize(operandElement, state, Default);
+            var operand = unary.Operand == null ? null : Serializer.Deserialize(unary.Operand, state);
             var unaryType = GetMemberFromKey<Type>(unary.UnaryTypeKey);
 
             if (methodInfo != null)
             {
                 return Expression.MakeUnary(
-                    expressionType,
+                    (ExpressionType)unary.Type,
                     operand,
                     unaryType,
                     methodInfo);
             }
 
-            return Expression.MakeUnary(expressionType, operand, unaryType);
+            return Expression.MakeUnary((ExpressionType)unary.Type, operand, unaryType);
         }
 
         /// <summary>
         /// Serialize a <see cref="UnaryExpression"/> to a <see cref="Unary"/>.
         /// </summary>
         /// <param name="expression">The <see cref="UnaryExpression"/>.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="Unary"/>.</returns>
         public override Unary Serialize(
             UnaryExpression expression,

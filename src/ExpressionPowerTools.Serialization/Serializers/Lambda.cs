@@ -37,7 +37,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the body of the lambda.
         /// </summary>
-        public object Body { get; set; }
+        public SerializableExpression Body { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the lambda.
@@ -45,10 +45,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the list of parameters for the lambda.
+        /// Gets or sets the list of parameters for the lambda.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public List<Parameter> Parameters { get; private set; } =
+        public List<Parameter> Parameters { get; set; } =
             new List<Parameter>();
 
         /// <summary>

@@ -108,31 +108,10 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetMethodCallMatrix))]
         public void MethodCallExpressionShouldDeserialize(MethodCallExpression method)
         {
-            var serialized = TestSerializer
-                .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
-            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType);
+            var serialized = methodSerializer.Serialize(method, TestSerializer.GetDefaultState());
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(method.Type.FullName, deserialized.Type.FullName);
             Assert.True(deserialized.IsEquivalentTo(deserialized));
-        }
-
-        [Fact]
-        public void GivenOptionsIgnoreNullWhenMethodCallSerializedThenShouldDeserialize()
-        {
-            var nullableParameter = GetType().GetMethod(
-                nameof(NullableParameter),
-                BindingFlags.Public | BindingFlags.Static);
-            var method = Expression.Call(nullableParameter, Expression.Constant(null));
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true
-            };
-
-            var serialized = TestSerializer
-                .GetSerializedFragment<MethodExpr, MethodCallExpression>(method, options);
-            rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
-            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType);
-            Assert.NotNull(deserialized);
         }
 
         [Fact]
@@ -142,10 +121,9 @@ namespace ExpressionPowerTools.Serialization.Tests
                             nameof(NullableParameter),
                             BindingFlags.Public | BindingFlags.Static);
             var method = Expression.Call(nullableParameter, Expression.Constant(null));
-            var serialized = TestSerializer
-                .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
+            var serialized = methodSerializer.Serialize(method, TestSerializer.GetDefaultState());
             rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter));
-            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType);
+            var deserialized = methodSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }
 
@@ -156,11 +134,10 @@ namespace ExpressionPowerTools.Serialization.Tests
                             nameof(NullableParameter),
                             BindingFlags.Public | BindingFlags.Static);
             var method = Expression.Call(nullableParameter, Expression.Constant(null));
-            var serialized = TestSerializer
-                .GetSerializedFragment<MethodExpr, MethodCallExpression>(method);
+            var serialized = methodSerializer.Serialize(method, TestSerializer.GetDefaultState());
             rulesConfig.RuleForMethod(selector => selector.ByMemberInfo(nullableParameter)).Deny();
             Assert.Throws<UnauthorizedAccessException>(() =>
-            methodSerializer.Deserialize(serialized, TestSerializer.State, method.NodeType));
+            methodSerializer.Deserialize(serialized, TestSerializer.State));
         }
 
         public override bool Equals(object obj) =>

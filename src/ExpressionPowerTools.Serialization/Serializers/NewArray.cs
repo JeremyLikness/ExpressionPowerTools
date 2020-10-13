@@ -41,7 +41,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Gets the list of expressions.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public List<object> Expressions { get; private set; } =
-            new List<object>();
+        public List<SerializableExpression> Expressions { get; private set; } =
+            new List<SerializableExpression>();
     }
 }

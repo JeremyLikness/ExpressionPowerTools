@@ -3,8 +3,6 @@
 
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -66,43 +64,33 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a <see cref="BinaryExpression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template for type management.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="root">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="BinaryExpression"/>.</returns>
         public override BinaryExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            Binary root,
+            SerializationState state)
         {
-            var method = string.Empty;
-            if (template is Binary binary && binary != null)
-            {
-                method = binary.BinaryMethod;
-            }
-
-            var methodInfo = string.IsNullOrWhiteSpace(method) ?
+            var methodInfo = string.IsNullOrWhiteSpace(root.BinaryMethod) ?
                 null :
-                GetMemberFromKey<MethodInfo>(method);
-            var conversionElement = json.GetNullableProperty(nameof(Binary.Conversion));
-            var liftToNull = json.GetProperty(nameof(Binary.LiftToNull)).GetBoolean();
-            var left = Serializer.Deserialize(json.GetProperty(nameof(Binary.Left)), state, Default);
-            var right = Serializer.Deserialize(json.GetProperty(nameof(Binary.Right)), state, Default);
+                GetMemberFromKey<MethodInfo>(root.BinaryMethod);
 
             if (methodInfo != null)
             {
                 AuthorizeMembers(methodInfo);
             }
 
-            if (Serializer.Deserialize(conversionElement, state, Default) is LambdaExpression conversion)
+            var left = Serializer.Deserialize(root.Left, state);
+            var right = Serializer.Deserialize(root.Right, state);
+            var type = (ExpressionType)root.Type;
+
+            if (root.Conversion != null && Serializer.Deserialize(root.Conversion, state) is LambdaExpression conversion)
             {
                 return Expression.MakeBinary(
-                    expressionType,
+                    type,
                     left,
                     right,
-                    liftToNull,
+                    root.LiftToNull,
                     methodInfo,
                     conversion);
             }
@@ -110,21 +98,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
             if (methodInfo != null)
             {
                 return Expression.MakeBinary(
-                    expressionType,
+                    type,
                     left,
                     right,
-                    liftToNull,
+                    root.LiftToNull,
                     methodInfo);
             }
 
-            return Expression.MakeBinary(expressionType, left, right);
+            return Expression.MakeBinary(type, left, right);
         }
 
         /// <summary>
         /// Serialize a <see cref="BinaryExpression"/> to a <see cref="Binary"/>.
         /// </summary>
         /// <param name="expression">The <see cref="BinaryExpression"/>.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization.</param>
         /// <returns>The <see cref="Binary"/>.</returns>
         public override Binary Serialize(
             BinaryExpression expression,
@@ -143,7 +131,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             if (expression.Conversion != null)
             {
-                binary.Conversion = Serializer.Serialize(expression.Conversion, state);
+                binary.Conversion = (Lambda)Serializer.Serialize(expression.Conversion, state);
             }
 
             return binary;

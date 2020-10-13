@@ -31,18 +31,13 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a <see cref="CtorExpr"/> to a <see cref="NewExpression"/>.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <param name="template">The template for handling types.</param>
-        /// <param name="expressionType">The type of the expression.</param>
+        /// <param name="ctorExpr">The <see cref="JsonElement"/> to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="NewExpression"/>.</returns>
         public override NewExpression Deserialize(
-            JsonElement json,
-            SerializationState state,
-            SerializableExpression template,
-            ExpressionType expressionType)
+            CtorExpr ctorExpr,
+            SerializationState state)
         {
-            var ctorExpr = template as CtorExpr;
             var ctor = GetMemberFromKey<ConstructorInfo>(ctorExpr.CtorInfo);
 
             var members = new List<MemberInfo>();
@@ -56,15 +51,10 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var args = new List<Expression>();
 
-            if (json.TryGetProperty(
-                nameof(CtorExpr.Arguments),
-                out JsonElement arguments))
+            foreach (var argElem in ctorExpr.Arguments)
             {
-                foreach (var argElem in arguments.EnumerateArray())
-                {
-                    var arg = Serializer.Deserialize(argElem, state, Default);
-                    args.Add(arg);
-                }
+                var arg = Serializer.Deserialize(argElem, state);
+                args.Add(arg);
             }
 
             AuthorizeMembers(ctor);
@@ -86,7 +76,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="NewExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="NewExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="CtorExpr"/>.</returns>
         public override CtorExpr Serialize(
             NewExpression expression,
@@ -101,7 +91,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Arguments = expression.Arguments
                     .Select(a => Serializer.Serialize(a, state))
-                    .OfType<object>()
+                    .OfType<SerializableExpression>()
                     .ToList(),
             };
 

@@ -31,7 +31,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Queryable
             Expression<Func<TContext, DbSet<T>>> template)
             where T : class
         {
-            var member = VerifyTemplate(template);
+            VerifyTemplate(template);
             var memberExpression = template.AsEnumerable().OfType<MemberExpression>().First();
             return IQueryableExtensions.CreateQueryTemplate<T>()
                 .AsRemoteQueryable(new RemoteContext(

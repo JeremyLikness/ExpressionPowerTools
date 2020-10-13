@@ -43,8 +43,8 @@ namespace ExpressionPowerTools.Serialization.Serializers
         public string MemberTypeKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the method's object.
+        /// Gets or sets the member's object.
         /// </summary>
-        public object Expression { get; set; }
+        public SerializableExpression Expression { get; set; }
     }
 }

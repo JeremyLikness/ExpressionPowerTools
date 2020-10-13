@@ -170,12 +170,12 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
             // passed tests, check configuration
             if (options != null)
             {
-                Serializer.ConfigureDefaults(options);
+                QueryExprSerializer.ConfigureDefaults(options);
             }
 
             if (rules != null || noDefaultRules == true)
             {
-                Serializer.ConfigureRules(rules, noDefaultRules);
+                QueryExprSerializer.ConfigureRules(rules, noDefaultRules);
             }
 
             var appBuilder = endpointRouteBuilder.CreateApplicationBuilder();

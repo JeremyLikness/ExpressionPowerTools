@@ -16,23 +16,24 @@ using Xunit;
 
 namespace ExpressionPowerTools.Serialization.Tests
 {
-    public class SerializerTests
+    public class QueryExprSerializerTests
     {
         private readonly Lazy<IRulesConfiguration> rulesConfig =
             ServiceHost.GetLazyService<IRulesConfiguration>();
 
-        public SerializerTests()
+        public QueryExprSerializerTests()
         {
-            Serializer.ConfigureDefaults(
+            QueryExprSerializer.ConfigureDefaults(
                 config => config.CompressExpressionTree(false));
         }
 
         private void Reset()
         {
             ServiceHost.GetService<IMemberAdapter>().Reset();
-            Serializer.ConfigureRules(
-                rules => rules.RuleForType<SerializerTests>()
+            QueryExprSerializer.ConfigureRules(
+                rules => rules.RuleForType<QueryExprSerializerTests>()
                     .RuleForType<TestableThing>()
+                    .RuleForType<BinarySerializerTests>()
                     .RuleForType(typeof(KeyValuePair))
                     .RuleForType(typeof(Tuple)));
         }
@@ -46,7 +47,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             Expression expression = null;
             Assert.Throws<ArgumentNullException>(() =>
-                Serializer.Serialize(expression));
+                QueryExprSerializer.Serialize(expression));
         }
 
         [Fact]
@@ -54,7 +55,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             IQueryable query = null;
             Assert.Throws<ArgumentNullException>(() =>
-                Serializer.Serialize(query));
+                QueryExprSerializer.Serialize(query));
         }
 
         public static IEnumerable<object[]> GetSerializers()
@@ -79,46 +80,6 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenSerializerWhenSerializeCalledWithNullThenShouldReturnNull(IBaseSerializer serializer)
         {
             Assert.Null(serializer.Serialize(null, null));
-        }
-
-        [Fact]
-        public void WhenDeserializeCalledWithEmptyJsonThenShouldReturnNull()
-        {
-            Assert.Null(Serializer.Deserialize("{}"));
-        }
-
-        [Fact]
-        public void WhenDeserializeQueryCalledWithNullHostThenShouldThrowArgumentNull()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                Serializer.DeserializeQuery(null, "{}"));
-        }
-
-        [Fact]
-        public void WhenDeserializeQueryForTypeCalledWithNullHostThenShouldThrowArgumentNull()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                Serializer.DeserializeQuery<TestableThing>("{}", null));
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("  ")]
-        public void WhenDeserializeQueryCalledWithEmptyOrNullJsonThenShouldThrowArgument(string json)
-        {
-            Assert.Throws<ArgumentException>(() =>
-                Serializer.DeserializeQuery((IQueryable)TestableThing.MakeQuery(), json));
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("  ")]
-        public void WhenDeserializeQueryForTypeCalledWithEmptyOrNullJsonThenShouldThrowArgument(string json)
-        {
-            Assert.Throws<ArgumentException>(() =>
-                Serializer.DeserializeQuery(TestableThing.MakeQuery(), json));
         }
 
         public enum Queries
@@ -259,20 +220,33 @@ namespace ExpressionPowerTools.Serialization.Tests
             return false;
         }
 
+        [Fact]
+        public void DeserializeWithConfigurationUsesConfiguration()
+        {
+            var expr = 42.AsConstantExpression();
+            var serialized = QueryExprSerializer.Serialize(expr);
+            var deserialized = QueryExprSerializer.Deserialize(
+                serialized,
+                null,
+                config => config.CompressExpressionTree(false),
+                null);
+            Assert.NotNull(deserialized);
+        }
+
         [Theory]
         [MemberData(nameof(GetQueryMatrix))]
         public void GivenQueryWhenSerializeCalledThenShouldDeserialize(
             IQueryable query,
             Queries type)
         {
-            var json = Serializer.Serialize(query);
+            var json = QueryExprSerializer.Serialize(query);
 
             // make sure we're not just pulling from the cache
             Reset();
 
             IQueryable queryHost = TestableThing.MakeQuery(10);
 
-            var newQuery = Serializer.DeserializeQuery(queryHost, json);
+            var newQuery = QueryExprSerializer.DeserializeQuery(queryHost, json);
 
             // can't do equivalency check for anonymous types
             if (!query.AsEnumerableExpression().OfType<NewExpression>()
@@ -299,12 +273,12 @@ namespace ExpressionPowerTools.Serialization.Tests
             IQueryable<TestableThing> query,
             Queries type)
         {
-            var json = Serializer.Serialize(query);
+            var json = QueryExprSerializer.Serialize(query);
 
             Reset();
 
             var queryHost = TestableThing.MakeQuery(100);
-            var newQuery = Serializer.DeserializeQuery<TestableThing>(json, queryHost);
+            var newQuery = QueryExprSerializer.DeserializeQuery<TestableThing>(json, queryHost);
             Assert.True(query.IsEquivalentTo(newQuery));
             ValidateQuery(newQuery.ToList(), type);
         }
@@ -331,12 +305,12 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             var query = SelectMany(IQueryableExtensions.CreateQueryTemplate<TestableThing>());
 
-            var json = Serializer.Serialize(query);
+            var json = QueryExprSerializer.Serialize(query);
 
             // make sure we're not just pulling from the cache
             Reset();
 
-            var newQuery = Serializer.DeserializeQuery<Tuple<string, string, string>>(json, dataQuery);
+            var newQuery = QueryExprSerializer.DeserializeQuery<Tuple<string, string, string>>(json, dataQuery);
 
             var expected = SelectMany(dataQuery).ToList();
             var actual = newQuery.ToList();
@@ -361,14 +335,14 @@ namespace ExpressionPowerTools.Serialization.Tests
 
             var query = GroupBy(IQueryableExtensions.CreateQueryTemplate<TestableThing>());
 
-            var json = Serializer.Serialize(query);
+            var json = QueryExprSerializer.Serialize(query);
 
             // make sure we're not just pulling from the cache
             Reset();
 
             var expected = GroupBy(dataQuery).ToList();
 
-            var newQuery = Serializer.DeserializeQuery(dataQuery, json);
+            var newQuery = QueryExprSerializer.DeserializeQuery(dataQuery, json);
             var actual = AsTypedQueryable(newQuery, expected).ToList();
             Assert.NotNull(actual);
             Assert.Equal(expected, actual);
@@ -391,8 +365,8 @@ namespace ExpressionPowerTools.Serialization.Tests
             var query = TestableThing.MakeQuery(10)
                 .Select(t => new { t.Id, t.IsActive })
                 .OrderBy(anonT => anonT.Id);
-            var json = Serializer.Serialize(query);
-            var newQuery = Serializer.DeserializeQuery(
+            var json = QueryExprSerializer.Serialize(query);
+            var newQuery = QueryExprSerializer.DeserializeQuery(
                 TestableThing.MakeQuery(),
                 json,
                 stateCallback: s => state = s);
@@ -408,23 +382,13 @@ namespace ExpressionPowerTools.Serialization.Tests
             var query = TestableThing.MakeQuery(10)
                 .Select(t => new { t.Id, t.IsActive })
                 .OrderBy(anonT => anonT.Id);
-            var json = Serializer.Serialize(query);
-            var newQuery = Serializer.DeserializeQuery(
+            var json = QueryExprSerializer.Serialize(query);
+            var newQuery = QueryExprSerializer.DeserializeQuery(
                 TestableThing.MakeQuery(),
                 json,
                 stateCallback: s => state = s);
             var tree = state.GetExpressionTree();
             Assert.NotEmpty(tree);
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void GivenDeserializeWhenCalledWithNullOrEmptyStringThenShouldThrowArgument(string json)
-        {
-            Assert.Throws<ArgumentException>(() =>
-                Serializer.Deserialize(json));
         }
 
         public static IEnumerable<object[]> GetConstantExpressions =
@@ -434,11 +398,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetConstantExpressions))]
         public void GivenExpressionWhenSerializedThenShouldDeserialize(ConstantExpression constant)
         {
-            var json = Serializer.Serialize(constant);
+            var json = QueryExprSerializer.Serialize(constant);
 
             Reset();
 
-            var target = Serializer.Deserialize<ConstantExpression>(json);
+            var target = QueryExprSerializer.Deserialize<ConstantExpression>(json);
 
             Assert.True(constant.IsEquivalentTo(target));
         }
@@ -451,11 +415,11 @@ namespace ExpressionPowerTools.Serialization.Tests
                 Expression.Constant(1),
                 Expression.Constant(2),
                 Expression.Constant(3));
-            var json = Serializer.Serialize(array);
+            var json = QueryExprSerializer.Serialize(array);
 
             Reset();
 
-            var target = Serializer.Deserialize<NewArrayExpression>(json);
+            var target = QueryExprSerializer.Deserialize<NewArrayExpression>(json);
             Assert.NotNull(target);
             Assert.Equal(typeof(int[]), target.Type);
             Assert.Equal(
@@ -471,11 +435,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetParameterExpressions))]
         public void GivenParameterExpressionWhenSerializedThenShouldDeserialize(ParameterExpression parameter)
         {
-            var json = Serializer.Serialize(parameter);
+            var json = QueryExprSerializer.Serialize(parameter);
 
             Reset();
 
-            var target = Serializer.Deserialize<ParameterExpression>(json);
+            var target = QueryExprSerializer.Deserialize<ParameterExpression>(json);
             Assert.Equal(parameter.Type, target.Type);
             Assert.Equal(parameter.Name, target.Name);
         }
@@ -487,11 +451,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetUnaryExpressions))]
         public void GivenUnaryExpressionWhenSerializedThenShouldDeserialize(UnaryExpression unary)
         {
-            var json = Serializer.Serialize(unary);
+            var json = QueryExprSerializer.Serialize(unary);
 
             Reset();
 
-            var target = Serializer.Deserialize<UnaryExpression>(json);
+            var target = QueryExprSerializer.Deserialize<UnaryExpression>(json);
             Assert.Equal(unary.Type, target.Type);
             Assert.Equal(unary.Operand?.NodeType, target.Operand?.NodeType);
 
@@ -510,11 +474,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetLambdaExpressions))]
         public void GivenLambdaExpressionWhenSerializedThenShouldDeserialize(LambdaExpression lambda)
         {
-            var json = Serializer.Serialize(lambda);
+            var json = QueryExprSerializer.Serialize(lambda);
 
             Reset();
 
-            var target = Serializer.Deserialize<LambdaExpression>(json);
+            var target = QueryExprSerializer.Deserialize<LambdaExpression>(json);
             Assert.True(lambda.IsEquivalentTo(target));
         }
 
@@ -525,11 +489,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetInvocationExpressions))]
         public void GivenInvocationExpressionWhenSerializedThenShouldDeserialize(InvocationExpression invocation)
         {
-            var json = Serializer.Serialize(invocation);
+            var json = QueryExprSerializer.Serialize(invocation);
 
             Reset();
 
-            var target = Serializer.Deserialize<InvocationExpression>(json);
+            var target = QueryExprSerializer.Deserialize<InvocationExpression>(json);
             Assert.Equal(invocation.Type, target.Type);
             Assert.True(invocation.IsEquivalentTo(target));
         }
@@ -542,14 +506,14 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenMethodCallExpressionWhenSerializedThenShouldDeserialize(
             MethodCallExpression method)
         {
-            var json = Serializer.Serialize(method);
+            var json = QueryExprSerializer.Serialize(method);
 
             Reset();
 
-            Serializer.ConfigureRules(rule => rule.RuleForMethod(
+            QueryExprSerializer.ConfigureRules(rule => rule.RuleForMethod(
                 s => s.ByMemberInfo(method.Method)));
 
-            var target = Serializer.Deserialize<MethodCallExpression>(json);
+            var target = QueryExprSerializer.Deserialize<MethodCallExpression>(json);
             Assert.True(method.IsEquivalentTo(target));
         }
 
@@ -561,11 +525,11 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenMemberExpressionWhenSerializedThenShouldDeserialize(
             MemberExpression member)
         {
-            var json = Serializer.Serialize(member);
+            var json = QueryExprSerializer.Serialize(member);
 
             Reset();
 
-            var target = Serializer.Deserialize<MemberExpression>(json);
+            var target = QueryExprSerializer.Deserialize<MemberExpression>(json);
             Assert.True(member.IsEquivalentTo(target));
         }
 
@@ -580,12 +544,12 @@ namespace ExpressionPowerTools.Serialization.Tests
             MemberInfo[] members)
         {
             var ctor = CtorSerializerTests.MakeNew(info, args, members);
-            var json = Serializer.Serialize(ctor);
+            var json = QueryExprSerializer.Serialize(ctor);
 
             Reset();
 
             rulesConfig.Value.RuleForConstructor(selector => selector.ByMemberInfo(info));
-            var target = Serializer.Deserialize<NewExpression>(json);
+            var target = QueryExprSerializer.Deserialize<NewExpression>(json);
             Assert.True(ctor.IsEquivalentTo(target));
         }
 
@@ -597,7 +561,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenBinaryExpressionWhenSerializedThenShouldDeserialize(
             BinaryExpression binary)
         {
-            var json = Serializer.Serialize(binary);
+            var json = QueryExprSerializer.Serialize(binary);
 
             Reset();
 
@@ -606,45 +570,10 @@ namespace ExpressionPowerTools.Serialization.Tests
                 rulesConfig.Value.RuleForMethod(selector => selector.ByMemberInfo(binary.Method));
             }
 
-            var target = Serializer.Deserialize<BinaryExpression>(json);
+            var target = QueryExprSerializer.Deserialize<BinaryExpression>(json);
             Assert.True(binary.IsEquivalentTo(target));
         }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void GivenDefaultConfigurationWhenNoConfigProvidedThenShouldUseDefault(bool configOverride)
-        {
-            var query = TestableThing.MakeQuery().Where(t => t.Id.Contains("aa") && (t.IsActive || t.Value < int.MaxValue / 2));
-
-            Serializer.ConfigureDefaults(config => config.WithJsonSerializerOptions(
-                options =>
-                {
-                    options.IgnoreNullValues = false;
-                    options.IgnoreReadOnlyProperties = true;
-                }).Configure());
-
-            if (configOverride)
-            {
-                var json = Serializer.Serialize(query, config => config.CompressTypes(false).Configure());
-                Assert.DoesNotContain("null", json);
-                Assert.DoesNotContain("^", json);
-
-                Reset();
-
-                var expr = Serializer.DeserializeQuery<TestableThing>(json, config: config => config.CompressTypes(false).Configure());
-                Assert.True(query.IsEquivalentTo(expr));
-            }
-            else
-            {
-                var json = Serializer.Serialize(query);
-                Assert.Contains("null", json);
-                // Assert.Contains("^", json);
-            }
-
-            Serializer.ConfigureDefaults(config => config.Configure());
-        }
-
+        
         [Fact]
         public void GivenRulesConfigThenReplacesExistingRules()
         {
@@ -652,15 +581,15 @@ namespace ExpressionPowerTools.Serialization.Tests
             var rules = engine.Reset();
             var method = GetType().GetMethod(nameof(GivenRulesConfigThenReplacesExistingRules));
             var expr = Expression.Call(this.AsConstantExpression(), method);
-            var json = Serializer.Serialize(expr);
-            Serializer.ConfigureRules(
-                rules => rules.RuleForMethod(selector => selector.ByResolver<MethodInfo, SerializerTests>(
+            var json = QueryExprSerializer.Serialize(expr);
+            QueryExprSerializer.ConfigureRules(
+                rules => rules.RuleForMethod(selector => selector.ByResolver<MethodInfo, QueryExprSerializerTests>(
                 test => test.GivenRulesConfigThenReplacesExistingRules())));
-            var target = Serializer.Deserialize<MethodCallExpression>(json);
+            var target = QueryExprSerializer.Deserialize<MethodCallExpression>(json);
             Assert.NotNull(target);
-            Serializer.ConfigureRules();
+            QueryExprSerializer.ConfigureRules();
             Assert.Throws<UnauthorizedAccessException>(() =>
-                Serializer.Deserialize<MethodCallExpression>(json));
+                QueryExprSerializer.Deserialize<MethodCallExpression>(json));
             engine.Restore(rules);
         }
 
@@ -668,12 +597,12 @@ namespace ExpressionPowerTools.Serialization.Tests
         public void GivenConfigureRulesThenShouldConfigureDefaults()
         {
             Expression<Func<string, bool>> expr = str => str.Contains("aa");
-            var json = Serializer.Serialize(expr);
+            var json = QueryExprSerializer.Serialize(expr);
 
             Reset();
 
-            Serializer.ConfigureRules();
-            var target = Serializer.Deserialize<LambdaExpression>(json);
+            QueryExprSerializer.ConfigureRules();
+            var target = QueryExprSerializer.Deserialize<LambdaExpression>(json);
             Assert.NotNull(target);
         }
 
@@ -682,14 +611,14 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
 
             Expression<Func<string, bool>> expr = str => str.Contains("aa");
-            var json = Serializer.Serialize(expr);
+            var json = QueryExprSerializer.Serialize(expr);
 
             Reset();
 
-            Serializer.ConfigureRules(noDefaults: true);
+            QueryExprSerializer.ConfigureRules(noDefaults: true);
 
             Assert.Throws<UnauthorizedAccessException>(
-                () => Serializer.Deserialize<LambdaExpression>(json));
+                () => QueryExprSerializer.Deserialize<LambdaExpression>(json));
 
             Reset();
         }

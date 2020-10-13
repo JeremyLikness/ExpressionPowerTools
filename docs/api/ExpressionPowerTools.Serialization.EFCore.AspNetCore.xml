@@ -229,6 +229,16 @@
             Resonsible for deserializing the query to run.
             </summary>
         </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer.jsonOptions">
+            <summary>
+            Delegate to retrieve the default options. Register your own to override.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer.jsonSerializer">
+            <summary>
+            The JSON serializer.
+            </summary>
+        </member>
         <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer.DeserializeAsync(System.Linq.IQueryable,System.IO.Stream,Microsoft.Extensions.Logging.ILogger)">
             <summary>
             Deserializes the query.

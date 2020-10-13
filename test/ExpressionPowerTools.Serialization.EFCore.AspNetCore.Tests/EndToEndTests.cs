@@ -10,6 +10,7 @@ using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests.TestHelpers;
 using ExpressionPowerTools.Serialization.Extensions;
+using ExpressionPowerTools.Serialization.Json;
 using ExpressionPowerTools.Serialization.Signatures;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -19,6 +20,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
 {
     public class EndToEndTests : TestServerBase
     {
+        private readonly JsonWrapper jsonWrapper = new JsonWrapper();
+
         public EndToEndTests(TestServerFactory factory) : base(factory)
         {
         }
@@ -37,7 +40,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             bool isSingle = false) => JsonSerializer.Serialize(
             new SerializationPayload(isCount ? PayloadType.Count : (isSingle ? PayloadType.Single : PayloadType.Array))
             {
-                Json = Serializer.Serialize(altQuery ?? (useProduct ? productsQuery : query))
+                Json = jsonWrapper.FromSerializationRoot(
+                    QueryExprSerializer.Serialize(altQuery ?? (useProduct ? productsQuery : query)))
             });
 
         private void DefaultHttpContext(
@@ -200,23 +204,6 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             Assert.Equal((int)HttpStatusCode.OK, parsed.statusCode);
             Assert.NotNull(parsed.result);
             Assert.Equal(5, parsed.result.Length);
-        }
-
-        [Fact]
-        public async Task JsonOptionsAreApplied()
-        {
-            var stream = new MemoryStream();
-            var testServer = CreateSimpleServer(
-                config => config.MapPowerToolsEFCore<TestWidgetsContext>(
-                    options: options => options.WithJsonSerializerOptions(
-                        options => options.IgnoreNullValues = false)));
-            var result = await testServer.SendAsync(context => DefaultHttpContext(context, stream));
-            Assert.Equal((int)HttpStatusCode.OK, result.Response.StatusCode);
-            stream.Flush();
-            stream.Position = 0;
-            using var reader = new StreamReader(stream);
-            var json = reader.ReadToEnd();
-            Assert.Contains("null", json);
         }
 
         [Fact]

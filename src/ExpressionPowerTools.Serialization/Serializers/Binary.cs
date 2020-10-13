@@ -43,7 +43,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the <see cref="LambdaExpression"/> for conversion.
         /// </summary>
-        public object Conversion { get; set; }
+        public Lambda Conversion { get; set; }
 
         /// <summary>
         /// Gets or sets the related method.
@@ -54,11 +54,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the left expression.
         /// </summary>
-        public object Left { get; set; }
+        public SerializableExpression Left { get; set; }
 
         /// <summary>
         /// Gets or sets the right expression.
         /// </summary>
-        public object Right { get; set; }
+        public SerializableExpression Right { get; set; }
     }
 }

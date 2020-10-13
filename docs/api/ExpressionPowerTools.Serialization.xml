@@ -279,13 +279,6 @@
             </summary>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Configuration.ConfigurationBuilder.WithJsonSerializerOptions(System.Action{System.Text.Json.JsonSerializerOptions})">
-            <summary>
-            Sets the <see cref="T:System.Text.Json.JsonSerializerOptions"/>.
-            </summary>
-            <param name="options">The <see cref="T:System.Text.Json.JsonSerializerOptions"/> to use.</param>
-            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/>.</returns>
-        </member>
         <member name="M:ExpressionPowerTools.Serialization.Configuration.ConfigurationBuilder.CheckValidity">
             <summary>
             Checks whether configuration is still valid.
@@ -322,39 +315,6 @@
             Uses the configuration builder to configure the default state.
             </summary>
             <param name="builder">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/>.</param>
-        </member>
-        <member name="T:ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions">
-            <summary>
-            Extensions for serialization/deserialization.
-            </summary>
-        </member>
-        <member name="F:ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.NullDoc">
-            <summary>
-            A null document.
-            </summary>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.GetNullableProperty(System.Text.Json.JsonElement,System.String)">
-            <summary>
-            Safe way to access a property. Returns an element that evaluates to <c>null</c>
-            when the underlying property doesn't exist.
-            </summary>
-            <param name="element">The <see cref="T:System.Text.Json.JsonElement"/> to inspect.</param>
-            <param name="propertyName">The name of the property.</param>
-            <returns>The property node, or a <c>null</c> node.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.ToSerializationState(System.Text.Json.JsonSerializerOptions)">
-            <summary>
-            Cast <see cref="T:System.Text.Json.JsonSerializerOptions"/> into the <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/> the APIs expect.
-            </summary>
-            <param name="options">The <see cref="T:System.Text.Json.JsonSerializerOptions"/>.</param>
-            <returns>The initialized <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/> instance.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Extensions.JsonSerializerExtensions.ToSerializationState(System.Linq.Expressions.Expression)">
-            <summary>
-            Cast an <see cref="T:System.Linq.Expressions.Expression"/> into the <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/> the APIs expect.
-            </summary>
-            <param name="queryRoot">The <see cref="T:System.Linq.Expressions.Expression"/> that is the root fo the query..</param>
-            <returns>The initialized <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/> instance.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Extensions.SelectorExtensions">
             <summary>
@@ -423,6 +383,321 @@
             <typeparam name="TTarget">The <see cref="T:System.Type"/> to extract from.</typeparam>
             <param name="memberSelector">The <see cref="T:ExpressionPowerTools.Serialization.Rules.MemberSelector`1"/>.</param>
             <param name="expr">The <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Json.AnonTypeConverter">
+            <summary>
+            Json handler for <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Json.AnonTypeConverter.typesCompressor">
+            <summary>
+            Types compressor.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Json.AnonTypeConverter.memberAdapter">
+            <summary>
+            Member adapter.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Json.AnonTypeConverter.TypeIndex">
+            <summary>
+            Gets or sets the type index.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Json.AnonTypeConverter.Compressor">
+            <summary>
+            Gets the types compressor.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Json.AnonTypeConverter.Adapter">
+            <summary>
+            Gets the member adapter.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.AnonTypeConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Reads to deserialize.
+            </summary>
+            <param name="reader">The reader.</param>
+            <param name="typeToConvert">The type of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.</param>
+            <param name="options">The options.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.AnonTypeConverter.Write(System.Text.Json.Utf8JsonWriter,ExpressionPowerTools.Serialization.Serializers.AnonType,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Writes the <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.
+            </summary>
+            <param name="writer">The writer.</param>
+            <param name="value">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/> to serialize.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Json.JsonWrapper">
+            <summary>
+            Wrapper for serializing/deserializing to Json using <see cref="T:System.Text.Json.JsonSerializer"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.JsonWrapper.FromSerializationRoot(ExpressionPowerTools.Serialization.Serializers.SerializationRoot,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Serialize the <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.
+            </summary>
+            <param name="root">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.</param>
+            <param name="options">The serialization options.</param>
+            <returns>The serialized json in text.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.JsonWrapper.ToSerializationRoot(System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Deserialize to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.
+            </summary>
+            <param name="serialized">The serialized json.</param>
+            <param name="options">The deserialization options.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.JsonWrapper.PrepareOptions(System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Prepares the options with the converter.
+            </summary>
+            <param name="options">The options.</param>
+            <returns>The options with the converter added.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Json.MemberBindingExprConverter">
+            <summary>
+            Converter for member bindings.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.MemberBindingExprConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Read the <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr"/>.
+            </summary>
+            <param name="reader">The reader.</param>
+            <param name="typeToConvert">The type.</param>
+            <param name="options">The options.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.MemberBindingExprConverter.Write(System.Text.Json.Utf8JsonWriter,ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Write the <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr"/>.
+            </summary>
+            <param name="writer">The writer.</param>
+            <param name="value">The value to write.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter">
+            <summary>
+            Converter writes the type so it can deserialize the derived type.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.memberAdapter">
+            <summary>
+            Reference for <see cref="T:ExpressionPowerTools.Core.Signatures.IMemberAdapter"/>.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.compressor">
+            <summary>
+            Reference for <see cref="T:ExpressionPowerTools.Serialization.Signatures.ITypesCompressor"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.TypeIndex">
+            <summary>
+            Gets or sets the type index to decompress types.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.MemberAdapter">
+            <summary>
+            Gets the <see cref="T:ExpressionPowerTools.Core.Signatures.IMemberAdapter"/> instance.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.Compressor">
+            <summary>
+            Gets the <see cref="T:ExpressionPowerTools.Serialization.Signatures.ITypesCompressor"/> instance.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Read a <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.
+            </summary>
+            <param name="reader">The reader.</param>
+            <param name="typeToConvert">The type.</param>
+            <param name="options">The options.</param>
+            <returns>The serializable expression.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.Write(System.Text.Json.Utf8JsonWriter,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Write the <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.
+            </summary>
+            <param name="writer">The writer.</param>
+            <param name="value">The value to write.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.SerializeConstant(System.Text.Json.Utf8JsonWriter,ExpressionPowerTools.Serialization.Serializers.Constant,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Writes a constant with type info to deserialize the value.
+            </summary>
+            <param name="writer">The writer.</param>
+            <param name="constant">The constant.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter.DeserializeConstant(System.Text.Json.Utf8JsonReader@,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Deserialize a constant.
+            </summary>
+            <param name="reader">The reader.</param>
+            <param name="options">The options.</param>
+            <returns>The constant.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Json.SerializationRootConverter">
+            <summary>
+            Converter for overall <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Json.SerializationRootConverter.converter">
+            <summary>
+            References the expression converter so it can pass types.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Json.SerializationRootConverter.anonTypeConverter">
+            <summary>
+            References to pass types.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.SerializationRootConverter.#ctor(ExpressionPowerTools.Serialization.Json.SerializableExpressionConverter,ExpressionPowerTools.Serialization.Json.AnonTypeConverter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Json.SerializationRootConverter"/> class.
+            </summary>
+            <param name="converter">The expression converter (to set types).</param>
+            <param name="anonTypeConverter">The anonymous type converter.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.SerializationRootConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Reads to deserialize.
+            </summary>
+            <param name="reader">The reader.</param>
+            <param name="typeToConvert">The type of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.</param>
+            <param name="options">The options.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Json.SerializationRootConverter.Write(System.Text.Json.Utf8JsonWriter,ExpressionPowerTools.Serialization.Serializers.SerializationRoot,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Writes the <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.
+            </summary>
+            <param name="writer">The writer.</param>
+            <param name="value">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/> to serialize.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.QueryExprSerializer">
+            <summary>
+            Class for serialization and de-deserialization of <see cref="T:System.Linq.Expressions.Expression"/> trees.
+            </summary>
+            <remarks>
+            By default, the serializer will compress types and ignore null and readonly values. You can override the configuration for a session
+            by using the <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/>. You can also set defaults for all sessions using <see cref="M:ExpressionPowerTools.Serialization.QueryExprSerializer.ConfigureDefaults(System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})"/>.
+            For permissions, use the <see cref="M:ExpressionPowerTools.Serialization.QueryExprSerializer.ConfigureRules(System.Action{ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration},System.Boolean)"/> option. By default, perimssions are given for:
+            <see cref="T:System.Math"/>, <see cref="T:System.Linq.Enumerable"/>, <see cref="T:System.Linq.Queryable"/> and <see cref="T:System.String"/> types (all methods and properties are allowed).
+            See the <see cref="T:ExpressionPowerTools.Serialization.Rules.RulesEngine"/> documentation for more on rules.
+            </remarks>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.QueryExprSerializer.Compressor">
+            <summary>
+            Used to resolve variables and other non-parameterized types.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.QueryExprSerializer.SerializerValue">
+            <summary>
+            The serializer for expressions.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.QueryExprSerializer.DefaultConfiguration">
+            <summary>
+            The default configuration when not specified.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.Serialize(System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+            <summary>
+            Serialize an expression tree.
+            </summary>
+            <param name="root">The root <see cref="T:System.Linq.Expressions.Expression"/>.</param>
+            <param name="config">Optional configuration.</param>
+            <returns>The serialized <see cref="T:System.Linq.Expressions.Expression"/> tree.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when the <see cref="T:System.Linq.Expressions.Expression"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.Serialize(System.Linq.IQueryable,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+            <summary>
+            Serialize an <see cref="T:System.Linq.IQueryable"/>.
+            </summary>
+            <param name="query">The <see cref="T:System.Linq.IQueryable"/> to serialize.</param>
+            <param name="config">Option configuration.</param>
+            <returns>The serialized <see cref="T:System.Linq.IQueryable"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when the query is null.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.SerializationRoot,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
+            <summary>
+            Deserialize to an <see cref="T:System.Linq.Expressions.Expression"/> tree.
+            </summary>
+            <param name="root">The root expression.</param>
+            <param name="queryRoot">The root of the query to apply.</param>
+            <param name="config">Optional configuration.</param>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
+            <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/> or <c>null</c>.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when the json is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.DeserializeQuery(System.Linq.IQueryable,ExpressionPowerTools.Serialization.Serializers.SerializationRoot,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
+            <summary>
+            Deserializes a query from the raw json.
+            </summary>
+            <param name="host">The host to create the <see cref="T:System.Linq.IQueryable"/>.</param>
+            <param name="root">The root that was serialized.</param>
+            <param name="config">Optional configuratoin.</param>
+            <returns>The deserialized <see cref="T:System.Linq.IQueryable"/>.</returns>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
+            <exception cref="T:System.ArgumentNullException">Throws when host is null.</exception>
+            <exception cref="T:System.ArgumentException">Throws when the json is empty or whitespace.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.DeserializeQuery``1(ExpressionPowerTools.Serialization.Serializers.SerializationRoot,System.Linq.IQueryable,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
+            <summary>
+            Deserializes a query from the raw json.
+            </summary>
+            <typeparam name="T">The type of the query.</typeparam>
+            <param name="root">The serialization root.</param>
+            <param name="host">The <see cref="T:System.Linq.IQueryable`1"/> host to create the query.</param>
+            <param name="config">The optional configuration.</param>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
+            <returns>The deserialized <see cref="T:System.Linq.IQueryable`1"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.Deserialize``1(ExpressionPowerTools.Serialization.Serializers.SerializationRoot,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
+            <summary>
+            Overload to return a specific type.
+            </summary>
+            <remarks>
+            Do not use this method to deserialize <see cref="T:System.Linq.IQueryable"/> or <see cref="T:System.Linq.IQueryable`1"/>.
+            The <see cref="M:ExpressionPowerTools.Serialization.QueryExprSerializer.DeserializeQuery(System.Linq.IQueryable,ExpressionPowerTools.Serialization.Serializers.SerializationRoot,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})"/> method is provided for this.
+            </remarks>
+            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/> root.</typeparam>
+            <param name="root">The root for serialization.</param>
+            <param name="queryRoot">The root of the query to apply.</param>
+            <param name="config">Optional configuration.</param>
+            <param name="stateCallback">Register a callback to inspect the state.</param>
+            <returns>The <see cref="T:System.Linq.Expressions.Expression"/> or <c>null</c>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.ConfigureDefaults(System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+            <summary>
+            Configure default settings.
+            </summary>
+            <param name="config">The configuration builder.</param>
+            <remarks>
+            Will set the global defaults moving forward. Can be called multiple times.
+            </remarks>
+            <example>
+            For example:
+            <code lang="csharp">
+            Serializer.ConfigureDefaults(config => config.CompressTypes(false).Configure());
+            </code>
+            </example>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.QueryExprSerializer.ConfigureRules(System.Action{ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration},System.Boolean)">
+            <summary>
+            Configures the rule set for serialization.
+            </summary>
+            <param name="rules">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration"/> to configure rules.</param>
+            <param name="noDefaults">A value that indicates whether the default type permissions can be applied.</param>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Registration">
             <summary>
@@ -759,122 +1034,6 @@
             </summary>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.PayloadType"/>.</returns>
         </member>
-        <member name="T:ExpressionPowerTools.Serialization.Serializer">
-            <summary>
-            Class for serialization and de-deserialization of <see cref="T:System.Linq.Expressions.Expression"/> trees.
-            </summary>
-            <remarks>
-            By default, the serializer will compress types and ignore null and readonly values. You can override the configuration for a session
-            by using the <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/>. You can also set defaults for all sessions using <see cref="M:ExpressionPowerTools.Serialization.Serializer.ConfigureDefaults(System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})"/>.
-            For permissions, use the <see cref="M:ExpressionPowerTools.Serialization.Serializer.ConfigureRules(System.Action{ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration},System.Boolean)"/> option. By default, perimssions are given for:
-            <see cref="T:System.Math"/>, <see cref="T:System.Linq.Enumerable"/>, <see cref="T:System.Linq.Queryable"/> and <see cref="T:System.String"/> types (all methods and properties are allowed).
-            See the <see cref="T:ExpressionPowerTools.Serialization.Rules.RulesEngine"/> documentation for more on rules.
-            </remarks>
-        </member>
-        <member name="F:ExpressionPowerTools.Serialization.Serializer.Compressor">
-            <summary>
-            Used to resolve variables and other non-parameterized types.
-            </summary>
-        </member>
-        <member name="F:ExpressionPowerTools.Serialization.Serializer.SerializerValue">
-            <summary>
-            The serializer for expressions.
-            </summary>
-        </member>
-        <member name="F:ExpressionPowerTools.Serialization.Serializer.DefaultConfiguration">
-            <summary>
-            The default configuration when not specified.
-            </summary>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.Serialize(System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
-            <summary>
-            Serialize an expression tree.
-            </summary>
-            <param name="root">The root <see cref="T:System.Linq.Expressions.Expression"/>.</param>
-            <param name="config">Optional configuration.</param>
-            <returns>The serialized <see cref="T:System.Linq.Expressions.Expression"/> tree.</returns>
-            <exception cref="T:System.ArgumentNullException">Thrown when the <see cref="T:System.Linq.Expressions.Expression"/> is <c>null</c>.</exception>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.Serialize(System.Linq.IQueryable,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
-            <summary>
-            Serialize an <see cref="T:System.Linq.IQueryable"/>.
-            </summary>
-            <param name="query">The <see cref="T:System.Linq.IQueryable"/> to serialize.</param>
-            <param name="config">Option configuration.</param>
-            <returns>The serialized <see cref="T:System.Linq.IQueryable"/>.</returns>
-            <exception cref="T:System.ArgumentNullException">Throws when the query is null.</exception>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.Deserialize(System.String,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
-            <summary>
-            Deserialize to an <see cref="T:System.Linq.Expressions.Expression"/> tree.
-            </summary>
-            <param name="json">The json text.</param>
-            <param name="queryRoot">The root of the query to apply.</param>
-            <param name="config">Optional configuration.</param>
-            <param name="stateCallback">Register a callback to inspect the state.</param>
-            <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/> or <c>null</c>.</returns>
-            <exception cref="T:System.ArgumentException">Thrown when the json is <c>null</c> or whitespace.</exception>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery(System.Linq.IQueryable,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
-            <summary>
-            Deserializes a query from the raw json.
-            </summary>
-            <param name="host">The host to create the <see cref="T:System.Linq.IQueryable"/>.</param>
-            <param name="json">The json text.</param>
-            <param name="config">Optional configuratoin.</param>
-            <returns>The deserialized <see cref="T:System.Linq.IQueryable"/>.</returns>
-            <param name="stateCallback">Register a callback to inspect the state.</param>
-            <exception cref="T:System.ArgumentNullException">Throws when host is null.</exception>
-            <exception cref="T:System.ArgumentException">Throws when the json is empty or whitespace.</exception>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery``1(System.String,System.Linq.IQueryable,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
-            <summary>
-            Deserializes a query from the raw json.
-            </summary>
-            <typeparam name="T">The type of the query.</typeparam>
-            <param name="json">The json text.</param>
-            <param name="host">The <see cref="T:System.Linq.IQueryable`1"/> host to create the query.</param>
-            <param name="config">The optional configuration.</param>
-            <param name="stateCallback">Register a callback to inspect the state.</param>
-            <returns>The deserialized <see cref="T:System.Linq.IQueryable`1"/>.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.Deserialize``1(System.String,System.Linq.Expressions.Expression,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})">
-            <summary>
-            Overload to return a specific type.
-            </summary>
-            <remarks>
-            Do not use this method to deserialize <see cref="T:System.Linq.IQueryable"/> or <see cref="T:System.Linq.IQueryable`1"/>.
-            The <see cref="M:ExpressionPowerTools.Serialization.Serializer.DeserializeQuery(System.Linq.IQueryable,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder},System.Action{ExpressionPowerTools.Serialization.Serializers.SerializationState})"/> method is provided for this.
-            </remarks>
-            <typeparam name="T">The type of the <see cref="T:System.Linq.Expressions.Expression"/> root.</typeparam>
-            <param name="json">The json.</param>
-            <param name="queryRoot">The root of the query to apply.</param>
-            <param name="config">Optional configuration.</param>
-            <param name="stateCallback">Register a callback to inspect the state.</param>
-            <returns>The <see cref="T:System.Linq.Expressions.Expression"/> or <c>null</c>.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.ConfigureDefaults(System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
-            <summary>
-            Configure default settings.
-            </summary>
-            <param name="config">The configuration builder.</param>
-            <remarks>
-            Will set the global defaults moving forward. Can be called multiple times.
-            </remarks>
-            <example>
-            For example:
-            <code lang="csharp">
-            Serializer.ConfigureDefaults(config => config.CompressTypes(false).Configure());
-            </code>
-            </example>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializer.ConfigureRules(System.Action{ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration},System.Boolean)">
-            <summary>
-            Configures the rule set for serialization.
-            </summary>
-            <param name="rules">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration"/> to configure rules.</param>
-            <param name="noDefaults">A value that indicates whether the default type permissions can be applied.</param>
-        </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.AnonType">
             <summary>
             Adapter for anonymous types.
@@ -930,20 +1089,18 @@
             <param name="anonymousInstance">The instance to convert.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.ConvertFromAnonType(ExpressionPowerTools.Serialization.Serializers.AnonType,System.Text.Json.JsonSerializerOptions)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.ConvertFromAnonType(ExpressionPowerTools.Serialization.Serializers.AnonType)">
             <summary>
             Reconstructs an anonymous type from <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.
             </summary>
             <param name="anonType">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.</param>
-            <param name="options">Serialization options.</param>
             <returns>The anonymous type instance.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.UnrollAnonymous(ExpressionPowerTools.Serialization.Serializers.AnonType,System.Text.Json.JsonSerializerOptions)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.AnonymousTypeAdapter.UnrollAnonymous(ExpressionPowerTools.Serialization.Serializers.AnonType)">
             <summary>
             Unrolls anonymous types.
             </summary>
             <param name="valueType">The anonymous value type.</param>
-            <param name="options">The serializer options.</param>
             <returns>The anonymous type.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2">
@@ -986,33 +1143,17 @@
             <param name="serializer">The default serializer.</param>
             <exception cref="T:System.ArgumentNullException">Thrown when serializer is null.</exception>
         </member>
-        <member name="P:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.Default">
-            <summary>
-            Gets a placeholder <see cref="T:System.Linq.Expressions.ExpressionType"/>.
-            </summary>
-        </member>
         <member name="P:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.Serializer">
             <summary>
             Gets the default <see cref="T:ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2"/>.
             </summary>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.Deserialize(`1,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
-            Deserialize a <see cref="T:System.Text.Json.JsonElement"/> to an <see cref="T:System.Linq.Expressions.Expression"/>.
+            Deserialize a <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/> to an <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
-            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for dealing with types.</param>
-            <param name="expressionType">The type of the expression.</param>
-            <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,System.Linq.Expressions.ExpressionType)">
-            <summary>
-            Deserialize a <see cref="T:System.Text.Json.JsonElement"/> to an <see cref="T:System.Linq.Expressions.Expression"/>.
-            </summary>
-            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="root">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/> to deserialize.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.Serialize(`0,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1020,24 +1161,15 @@
             Serialize an <see cref="T:System.Linq.Expressions.Expression"/> to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,System.Linq.Expressions.ExpressionType)">
-            <summary>
-            Deserialize to an <see cref="T:System.Linq.Expressions.Expression"/>.
-            </summary>
-            <param name="json">The fragment to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="expressionType">The type of the expression being serialized.</param>
-            <returns>The <see cref="T:System.Linq.Expressions.Expression"/>, or <c>null</c>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Serialize(System.Linq.Expressions.Expression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Serialize to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.CompressTypes(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1047,11 +1179,33 @@
             <param name="serializable">The serializable entity.</param>
             <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.DecompressTypes(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#Deserialize(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Explicit implementation.
+            </summary>
+            <param name="root">The root expression.</param>
+            <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
+            <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#CompressTypes(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Compress the types on the expression.
+            </summary>
+            <param name="serializable">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</param>
+            <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.ExpressionPowerTools#Serialization#Signatures#IBaseSerializer#DecompressTypes(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Decompress the types on the expression.
+            </summary>
+            <param name="serializable">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</param>
+            <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.DecompressTypes(`1,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Creates a template of the serializable type with keys decompressed.
             </summary>
-            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/>.</param>
+            <param name="expression">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</param>
             <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/> instance.</returns>
         </member>
@@ -1091,12 +1245,11 @@
             <param name="anonymousType">The anonymous type.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/> instance.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.ConvertAnonTypeToAnonymousType(ExpressionPowerTools.Serialization.Serializers.AnonType,System.Text.Json.JsonSerializerOptions)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.ConvertAnonTypeToAnonymousType(ExpressionPowerTools.Serialization.Serializers.AnonType)">
             <summary>
             Convert from <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/> back to anonymous type instance.
             </summary>
             <param name="anonType">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.</param>
-            <param name="options">Serializer options.</param>
             <returns>The anonymous object.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.KeyCacheEntry">
@@ -1158,14 +1311,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.BinarySerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.BinarySerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.Binary,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes a <see cref="T:System.Linq.Expressions.BinaryExpression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for type management.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="root">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.BinaryExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.BinarySerializer.Serialize(System.Linq.Expressions.BinaryExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1173,7 +1324,7 @@
             Serialize a <see cref="T:System.Linq.Expressions.BinaryExpression"/> to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.Binary"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.BinaryExpression"/>.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Binary"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.Constant">
@@ -1218,14 +1369,12 @@
             </summary>
             <param name="serializer">The serializer to use.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.Constant,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize a serializable class to an actionable <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">Template for handling types.</param>
-            <param name="expressionType">The expression type.</param>
+            <param name="constant">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.ConstantSerializer.Serialize(System.Linq.Expressions.ConstantExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1233,7 +1382,7 @@
             Serializes the expression.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.ConstantExpression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.Constant"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr">
@@ -1280,14 +1429,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.CtorExpr,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize a <see cref="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr"/> to a <see cref="T:System.Linq.Expressions.NewExpression"/>.
             </summary>
-            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for handling types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="ctorExpr">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.NewExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Serialize(System.Linq.Expressions.NewExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1295,7 +1442,7 @@
             Serialize a <see cref="T:System.Linq.Expressions.NewExpression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.NewExpression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.CtorExpr"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer">
@@ -1306,7 +1453,7 @@
             The constructor for this class scans the assembly for serializers tagged with
             <see cref="T:ExpressionPowerTools.Serialization.ExpressionSerializerAttribute"/>. These are loaded based on the
             <see cref="T:System.Linq.Expressions.ExpressionType"/> they represent and stored as <see cref="T:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer"/>.
-            The serializers should be accessed through the static <see cref="T:ExpressionPowerTools.Serialization.Serializer"/> class,
+            The serializers should be accessed through the static <see cref="T:ExpressionPowerTools.Serialization.QueryExprSerializer"/> class,
             which takes the serializable classes and serializes them to and from JSON.
             </remarks>
         </member>
@@ -1320,13 +1467,12 @@
             Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer"/> class.
             </summary>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize an <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
-            <param name="json">The fragment to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="expressionType">The expression type.</param>
+            <param name="root">The fragment to deserialize.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Serialize(System.Linq.Expressions.Expression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1334,7 +1480,7 @@
             Serialize an <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serialized <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.Invocation">
@@ -1369,14 +1515,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.Invocation,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes a <see cref="T:System.Linq.Expressions.InvocationExpression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template to decompress types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="expr">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.InvocationExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.Serialize(System.Linq.Expressions.InvocationExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1384,7 +1528,7 @@
             Serialize an <see cref="T:System.Linq.Expressions.InvocationExpression"/> to an <see cref="T:ExpressionPowerTools.Serialization.Serializers.Invocation"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.InvocationExpression"/>.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Invocation"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.Lambda">
@@ -1416,7 +1560,7 @@
         </member>
         <member name="P:ExpressionPowerTools.Serialization.Serializers.Lambda.Parameters">
             <summary>
-            Gets the list of parameters for the lambda.
+            Gets or sets the list of parameters for the lambda.
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Serialization.Serializers.Lambda.LambdaTypeKey">
@@ -1441,14 +1585,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.Lambda,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes a <see cref="T:System.Linq.Expressions.LambdaExpression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template to work with types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="lambda">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.LambdaExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.Serialize(System.Linq.Expressions.LambdaExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1456,7 +1598,7 @@
             Serialize a <see cref="T:System.Linq.Expressions.LambdaExpression"/> to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.Lambda"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.LambdaExpression"/>.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Lambda"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingAssignment">
@@ -1482,6 +1624,16 @@
         <member name="P:ExpressionPowerTools.Serialization.Serializers.MemberBindingAssignment.MemberInfoKey">
             <summary>
             Gets or sets the key of the member.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr">
+            <summary>
+            Base for a member binding expression.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr.BindingType">
+            <summary>
+            Gets or sets the type of the binding.
             </summary>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingInitializer">
@@ -1584,7 +1736,7 @@
         </member>
         <member name="P:ExpressionPowerTools.Serialization.Serializers.MemberExpr.Expression">
             <summary>
-            Gets or sets the method's object.
+            Gets or sets the member's object.
             </summary>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.MemberInit">
@@ -1630,14 +1782,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.MemberInit,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize a <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberInit"/> to a <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.
             </summary>
-            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for working with types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="memberInit">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberInit"/> to deserialize.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.Serialize(System.Linq.Expressions.MemberInitExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1645,10 +1795,10 @@
             Serialize a <see cref="T:System.Linq.Expressions.MemberInitExpression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.MemberInitExpression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberInit"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeBindings(System.Collections.Generic.IEnumerable{System.Text.Json.JsonElement},ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeBindings(System.Collections.Generic.IEnumerable{ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr},ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize the list of <see cref="T:System.Linq.Expressions.MemberBinding"/>.
             </summary>
@@ -1656,27 +1806,27 @@
             <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
             <returns>The list of member bindings.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeList(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeList(ExpressionPowerTools.Serialization.Serializers.MemberBindingList,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes a list.
             </summary>
-            <param name="element">The <see cref="T:System.Text.Json.JsonElement"/> to parse.</param>
+            <param name="element">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingList"/> to parse.</param>
             <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
             <returns>The <see cref="T:System.Linq.Expressions.MemberListBinding"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeMember(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeMember(ExpressionPowerTools.Serialization.Serializers.MemberBindingMember,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes a member binding.
             </summary>
-            <param name="element">The <see cref="T:System.Text.Json.JsonElement"/> to parse.</param>
+            <param name="element">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingMember"/> to parse.</param>
             <param name="state">The <seealso cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
             <returns>The <see cref="T:System.Linq.Expressions.MemberMemberBinding"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeAssignment(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberInitSerializer.DeserializeAssignment(ExpressionPowerTools.Serialization.Serializers.MemberBindingAssignment,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes an assignment.
             </summary>
-            <param name="element">The <see cref="T:System.Text.Json.JsonElement"/> to parse.</param>
+            <param name="element">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberBindingAssignment"/> to parse.</param>
             <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
             <returns>The <see cref="T:System.Linq.Expressions.MemberAssignment"/>.</returns>
         </member>
@@ -1699,14 +1849,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.MemberExpr,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize a <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberExpr"/> to a <see cref="T:System.Linq.Expressions.MemberExpression"/>.
             </summary>
-            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for handling types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="member">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberExpr"/> to deserialize.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.MemberExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.MemberSerializer.Serialize(System.Linq.Expressions.MemberExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1714,7 +1862,7 @@
             Serialize a <see cref="T:System.Linq.Expressions.MemberExpression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.MemberExpression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.MemberExpr"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.MethodExpr">
@@ -1761,14 +1909,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.MethodExpr,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize a <see cref="T:ExpressionPowerTools.Serialization.Serializers.MethodExpr"/> to a <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.
             </summary>
-            <param name="json">The <see cref="T:System.Text.Json.JsonElement"/> to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for handling types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="method">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.MethodExpr"/> to deserialize.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.MethodSerializer.Serialize(System.Linq.Expressions.MethodCallExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1776,7 +1922,7 @@
             Serialize a <see cref="T:System.Linq.Expressions.MethodCallExpression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.MethodCallExpression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.MethodExpr"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.NewArray">
@@ -1817,14 +1963,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.NewArray,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes a <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for handling types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="newArray">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.NewArraySerializer.Serialize(System.Linq.Expressions.NewArrayExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1832,7 +1976,7 @@
             Serialize a <see cref="T:System.Linq.Expressions.NewArrayExpression"/> to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.NewArray"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.NewArrayExpression"/>.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.NewArray"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.Parameter">
@@ -1872,14 +2016,12 @@
             </summary>
             <param name="serializer">The serializer to use.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.Parameter,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize a serializable class to an actionable <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for handling types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="param">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.ParameterSerializer.Serialize(System.Linq.Expressions.ParameterExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -1887,7 +2029,7 @@
             Serializes the expression.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.ConstantExpression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serializable <see cref="T:ExpressionPowerTools.Serialization.Serializers.Constant"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Serializers.ReflectionHelper">
@@ -2012,11 +2154,6 @@
         <member name="P:ExpressionPowerTools.Serialization.Serializers.SerializationState.LastExpression">
             <summary>
             Gets or sets the last <see cref="T:System.Linq.Expressions.Expression"/> serialized.
-            </summary>
-        </member>
-        <member name="P:ExpressionPowerTools.Serialization.Serializers.SerializationState.Options">
-            <summary>
-            Gets or sets the optional <see cref="T:System.Text.Json.JsonSerializerOptions"/>.
             </summary>
         </member>
         <member name="P:ExpressionPowerTools.Serialization.Serializers.SerializationState.CompressTypes">
@@ -2152,14 +2289,12 @@
             </summary>
             <param name="serializer">The base serializer.</param>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,ExpressionPowerTools.Serialization.Serializers.SerializableExpression,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.Unary,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserializes a <see cref="T:System.Linq.Expressions.UnaryExpression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="template">The template for handling types.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="unary">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Serializers.UnarySerializer.Serialize(System.Linq.Expressions.UnaryExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -2167,7 +2302,7 @@
             Serialize a <see cref="T:System.Linq.Expressions.UnaryExpression"/> to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.Unary"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.UnaryExpression"/>.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.Unary"/>.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Signatures.IAnonymousTypeAdapter">
@@ -2182,12 +2317,11 @@
             <param name="anonymousInstance">The instance to convert.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.</returns>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Signatures.IAnonymousTypeAdapter.ConvertFromAnonType(ExpressionPowerTools.Serialization.Serializers.AnonType,System.Text.Json.JsonSerializerOptions)">
+        <member name="M:ExpressionPowerTools.Serialization.Signatures.IAnonymousTypeAdapter.ConvertFromAnonType(ExpressionPowerTools.Serialization.Serializers.AnonType)">
             <summary>
             Reconstructs an anonymous type from <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.
             </summary>
             <param name="anonType">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.AnonType"/>.</param>
-            <param name="options">Serializer options.</param>
             <returns>The anonymous type instance.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer">
@@ -2195,13 +2329,12 @@
             Non-generic interface for serializers.
             </summary>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.Deserialize(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize to an <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
-            <param name="json">The fragment to deserialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="expressionType">The type of the expression being serialized.</param>
+            <param name="root">The fragment to deserialize.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:System.Linq.Expressions.Expression"/>, or <c>null</c>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.Serialize(System.Linq.Expressions.Expression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -2209,7 +2342,7 @@
             Serialize to a <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.CompressTypes(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -2219,17 +2352,17 @@
             <param name="serializable">The serializable entity.</param>
             <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
         </member>
+        <member name="M:ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.DecompressTypes(ExpressionPowerTools.Serialization.Serializers.SerializableExpression,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
+            <summary>
+            Deompress the types on the serializable class.
+            </summary>
+            <param name="serializable">The serializable entity.</param>
+            <param name="state">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.</param>
+        </member>
         <member name="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder">
             <summary>
             Configuration builder for <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationState"/>.
             </summary>
-        </member>
-        <member name="M:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.WithJsonSerializerOptions(System.Action{System.Text.Json.JsonSerializerOptions})">
-            <summary>
-            Adds the <see cref="T:System.Text.Json.JsonSerializerOptions"/> to the options.
-            </summary>
-            <param name="options">The default <see cref="T:System.Text.Json.JsonSerializerOptions"/>.</param>
-            <returns>The chainable <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.CompressTypes(System.Boolean)">
             <summary>
@@ -2275,13 +2408,12 @@
             <typeparam name="T">The type of the expression.</typeparam>
             <typeparam name="TSerializable">The type of the serializable expression.</typeparam>
         </member>
-        <member name="M:ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.Deserialize(System.Text.Json.JsonElement,ExpressionPowerTools.Serialization.Serializers.SerializationState,System.Linq.Expressions.ExpressionType)">
+        <member name="M:ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.Deserialize(`1,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
             <summary>
             Deserialize an <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
-            <param name="json">The serialized fragment.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the deserialization.</param>
-            <param name="expressionType">The type of the expression.</param>
+            <param name="root">The serialized fragment.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The deserialized <see cref="T:System.Linq.Expressions.Expression"/>.</returns>
         </member>
         <member name="M:ExpressionPowerTools.Serialization.Signatures.IExpressionSerializer`2.Serialize(`0,ExpressionPowerTools.Serialization.Serializers.SerializationState)">
@@ -2289,7 +2421,7 @@
             Serializes an <see cref="T:System.Linq.Expressions.Expression"/> to a serializable class.
             </summary>
             <param name="expression">The <see cref="T:System.Linq.Expressions.Expression"/> to serialize.</param>
-            <param name="state">State, such as <see cref="T:System.Text.Json.JsonSerializerOptions"/>, for the serialization.</param>
+            <param name="state">State for the serialization or deserialization.</param>
             <returns>The serializeable class.</returns>
         </member>
         <member name="T:ExpressionPowerTools.Serialization.Signatures.IReflectionHelper">
@@ -2430,6 +2562,45 @@
             <summary>
             Gets the unique key for the rule.
             </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Signatures.SerializationType">
+            <summary>
+            The type of serialization.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Signatures.SerializationType.Base">
+            <summary>
+            Base serialization returns a <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializableExpression"/>.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.Signatures.SerializationType.SystemTextJson">
+            <summary>
+            Uses <see cref="T:System.Text.Json.JsonSerializer"/>.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.Signatures.ISerializationWrapper`3">
+            <summary>
+            Wrapper for serialization of a specific type.
+            </summary>
+            <typeparam name="T">The type that the serializer deals with.</typeparam>
+            <typeparam name="TSerializeOptions">Any options needed for the serializer.</typeparam>
+            <typeparam name="TDeserializeOptions">Any options needed for the deserializer.</typeparam>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Signatures.ISerializationWrapper`3.FromSerializationRoot(ExpressionPowerTools.Serialization.Serializers.SerializationRoot,`1)">
+            <summary>
+            Serialize the root.
+            </summary>
+            <param name="root">The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.</param>
+            <param name="options">The options.</param>
+            <returns>The target type for the serializer.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.Signatures.ISerializationWrapper`3.ToSerializationRoot(`0,`2)">
+            <summary>
+            Deserialize the root.
+            </summary>
+            <param name="serialized">The serialized expression.</param>
+            <param name="options">The options.</param>
+            <returns>The <see cref="T:ExpressionPowerTools.Serialization.Serializers.SerializationRoot"/>.</returns>
         </member>
     </members>
 </doc>

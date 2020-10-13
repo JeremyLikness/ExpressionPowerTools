@@ -54,8 +54,8 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetLambdaExpressions))]
         public void LambdaExpressionShouldDeserialize(LambdaExpression lambda)
         {
-            var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda);
-            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State, lambda.NodeType);
+            var serialized = lambdaSerializer.Serialize(lambda, TestSerializer.GetDefaultState());
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.Equal(lambda.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -68,28 +68,13 @@ namespace ExpressionPowerTools.Serialization.Tests
         }
 
         [Fact]
-        public void GivenNullOptionsWhenLambdaSerializedThenShouldDeserialize()
-        {
-            Expression<Action> empty = () => DoNothing();
-            var lambda = Expression.Lambda(empty.Body, empty.Parameters);
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true
-            };
-            var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(lambda, options);
-            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State, lambda.NodeType);
-            Assert.NotNull(deserialized);
-        }
-
-        [Fact]
         public void GivenObjectWhenLambdaExpressionThatReferencesPropertyIsDeserializedThenShouldResolveProperty()
         {
             var things = TestableThing.MakeQuery(2).ToList();
             Expression<Func<List<TestableThing>, string>> firstId =
                 list => list.First().Id;
-            var serialized = TestSerializer.GetSerializedFragment<Lambda, LambdaExpression>(firstId);
-            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State, firstId.NodeType);
+            var serialized = lambdaSerializer.Serialize(firstId, TestSerializer.GetDefaultState());
+            var deserialized = lambdaSerializer.Deserialize(serialized, TestSerializer.State);
             var expected = firstId.Compile()(things);
             var actual = deserialized.Compile().DynamicInvoke(things);
             Assert.Equal(expected, actual);

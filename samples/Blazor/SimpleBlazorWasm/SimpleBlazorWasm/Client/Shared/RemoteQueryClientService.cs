@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization;
 using ExpressionPowerTools.Serialization.Compression;
 using ExpressionPowerTools.Serialization.EFCore.Http.Extensions;
 using ExpressionPowerTools.Serialization.EFCore.Http.Queryable;
+using ExpressionPowerTools.Serialization.Signatures;
 using Microsoft.EntityFrameworkCore;
 using SimpleBlazorWasm.Shared;
 
@@ -21,6 +23,12 @@ namespace SimpleBlazorWasm.Client.Shared
     /// </summary>
     public class RemoteQueryClientService : RemoteQueryService
     {
+        /// <summary>
+        /// Json wrapper.
+        /// </summary>
+        private readonly Lazy<ISerializationWrapper<string, JsonSerializerOptions, JsonSerializerOptions>>
+            jsonWrapper = ServiceHost.GetLazyService<ISerializationWrapper<string, JsonSerializerOptions, JsonSerializerOptions>>();
+
         /// <summary>
         /// Toggle for display.
         /// </summary>
@@ -305,18 +313,18 @@ namespace SimpleBlazorWasm.Client.Shared
             Query = ParseForDisplay(query.Expression.ToString());
             QueryTree = query.AsEnumerableExpression().ToString();
             SerializedQuery = ParseForDisplay(
-                Serializer.Serialize(
+                jsonWrapper.Value.FromSerializationRoot(QueryExprSerializer.Serialize(
                     query,
                     config =>
-                    config.CompressExpressionTree(true).CompressTypes(false)), true);
+                    config.CompressExpressionTree(true).CompressTypes(false))), true);
             CompiledQuery = ParseForDisplay(
                 new TreeCompressionVisitor()
                 .EvalAndCompress(query.Expression).ToString());
             TypeCompressedQuery = ParseForDisplay(
-                Serializer.Serialize(
+                jsonWrapper.Value.FromSerializationRoot(QueryExprSerializer.Serialize(
                     query,
                     config =>
-                        config.CompressExpressionTree(true).CompressTypes(true)), true);
+                        config.CompressExpressionTree(true).CompressTypes(true))), true);
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests.TestHelpers;
+using ExpressionPowerTools.Serialization.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Routing;
@@ -28,6 +29,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         private readonly TemplateMatcher matcher = new TemplateMatcher(
             TemplateParser.Parse(MiddlewareExtensions.DefaultPattern),
             null);
+        private readonly JsonWrapper jsonWrapper = new JsonWrapper();
+
         private bool nextInvoked = false;
         private readonly RequestDelegate next;
         private readonly string path = "/efcore";
@@ -64,7 +67,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         private string queryJson() => JsonSerializer.Serialize(
             new SerializationPayload
             {
-                Json = Serializer.Serialize(query)
+                Json = jsonWrapper.FromSerializationRoot(QueryExprSerializer.Serialize(query))
             });
 
         [Fact]

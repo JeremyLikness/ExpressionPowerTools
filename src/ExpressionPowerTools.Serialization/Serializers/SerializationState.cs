@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -36,11 +35,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Gets or sets the last <see cref="Expression"/> serialized.
         /// </summary>
         public Expression LastExpression { get; set; }
-
-        /// <summary>
-        /// Gets or sets the optional <see cref="JsonSerializerOptions"/>.
-        /// </summary>
-        public JsonSerializerOptions Options { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether or not types are compressed. Default is <c>true</c>.
