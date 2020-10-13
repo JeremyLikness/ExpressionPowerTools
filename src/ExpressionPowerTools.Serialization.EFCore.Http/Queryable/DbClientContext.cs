@@ -31,6 +31,23 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Queryable
             Expression<Func<TContext, DbSet<T>>> template)
             where T : class
         {
+            VerifyTemplate(template);
+            var memberExpression = template.AsEnumerable().OfType<MemberExpression>().First();
+            return IQueryableExtensions.CreateQueryTemplate<T>()
+                .AsRemoteQueryable(new RemoteContext(
+                    typeof(TContext),
+                    memberExpression.Member as PropertyInfo));
+        }
+
+        /// <summary>
+        /// Verify that the template references a collection.
+        /// </summary>
+        /// <typeparam name="TType">The type of the query.</typeparam>
+        /// <param name="template">The template to access the additional property.</param>
+        /// <returns>The <see cref="PropertyInfo"/> of the property found.</returns>
+        private static PropertyInfo VerifyTemplate<TType>(Expression<Func<TContext, DbSet<TType>>> template)
+            where TType : class
+        {
             Ensure.NotNull(() => template);
             var memberExpression = template.AsEnumerable().OfType<MemberExpression>().First();
             if (memberExpression.Member.DeclaringType != typeof(TContext))
@@ -38,10 +55,17 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Queryable
                 throw new ArgumentException($"{typeof(DbContext)} <> {template}", nameof(template));
             }
 
-            return IQueryableExtensions.CreateQueryTemplate<T>()
-                .AsRemoteQueryable(new RemoteContext(
-                    typeof(TContext),
-                    memberExpression.Member as PropertyInfo));
+            if (memberExpression.Member is PropertyInfo property)
+            {
+                if (!typeof(DbSet<TType>).IsAssignableFrom(property.PropertyType))
+                {
+                    throw new ArgumentException(
+                        $"{typeof(TType)} <> {typeof(DbSet<TType>)}",
+                        nameof(template));
+                }
+            }
+
+            return memberExpression.Member as PropertyInfo;
         }
     }
 }

@@ -5,9 +5,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
 using ExpressionPowerTools.Core.Extensions;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -31,24 +29,21 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a serializable class to an actionable <see cref="Expression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="constant">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The deserialized <see cref="Expression"/>.</returns>
         public override ConstantExpression Deserialize(
-            JsonElement json,
+            Constant constant,
             SerializationState state)
         {
-            var value = json.GetNullableProperty(nameof(Constant.Value)).GetRawText();
-            var type = GetMemberFromKey<Type>(json.GetProperty(nameof(Constant.ConstantTypeKey)).GetString());
-            var valueNode = json.GetNullableProperty(nameof(Constant.ValueTypeKey));
-            var valueType = valueNode.ValueKind != JsonValueKind.Null ?
-                GetMemberFromKey<Type>(valueNode.GetString()) : type;
+            var type = GetMemberFromKey<Type>(constant.ConstantTypeKey);
+            var valueType = string.IsNullOrWhiteSpace(constant.ValueTypeKey) ?
+                type :
+                GetMemberFromKey<Type>(constant.ValueTypeKey);
 
             if (typeof(SerializableExpression).IsAssignableFrom(valueType))
             {
-                var innerValue = Serializer.Deserialize(
-                    json.GetProperty(nameof(Constant.Value)),
-                    state);
+                var innerValue = Serializer.Deserialize(constant.Value as SerializableExpression, state);
                 return Expression.Constant(innerValue, innerValue.GetType());
             }
 
@@ -67,31 +62,24 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             if (typeof(MemberInfo).IsAssignableFrom(valueType))
             {
-                var memberKey = JsonSerializer.Deserialize<string>(value, state.Options);
+                var memberKey = constant.Value as string;
                 return Expression.Constant(GetMemberFromKey(memberKey));
             }
 
-            var constantVal = JsonSerializer.Deserialize(
-                value,
-                valueType,
-                state.Options);
-
-            if (constantVal is AnonType anonType)
+            if (constant.Value is AnonType anonType)
             {
-                constantVal = ConvertAnonTypeToAnonymousType(
-                    anonType,
-                    state.Options);
+                constant.Value = ConvertAnonTypeToAnonymousType(anonType);
             }
 
-            return type == valueType && constantVal != null ? Expression.Constant(constantVal) :
-                Expression.Constant(constantVal, type);
+            return type == valueType && constant.Value != null ? Expression.Constant(constant.Value) :
+                Expression.Constant(constant.Value, type);
         }
 
         /// <summary>
         /// Serializes the expression.
         /// </summary>
         /// <param name="expression">The <see cref="ConstantExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="Constant"/>.</returns>
         public override Constant Serialize(ConstantExpression expression, SerializationState state)
         {
@@ -122,26 +110,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return result;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as ConstantExpression, state);
     }
 }

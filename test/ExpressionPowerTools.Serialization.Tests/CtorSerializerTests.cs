@@ -191,7 +191,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             MemberInfo[] members)
         {
             var expr = MakeNew(info, args, members);
-            var target = ctorSerializer.Serialize(expr, new SerializationState());
+            var target = ctorSerializer.Serialize(expr, TestSerializer.State);
             Assert.Equal((ExpressionType)target.Type, expr.NodeType);
         }
 
@@ -204,10 +204,9 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var expr = MakeNew(info, args, members);
             rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(info));
-            var serialized = TestSerializer
-                .GetSerializedFragment<CtorExpr, NewExpression>(expr);
-            var deserialized = ctorSerializer.Deserialize(serialized, new SerializationState());
-            Assert.True(deserialized.IsEquivalentTo(deserialized));
+            var serialized = ctorSerializer.Serialize(expr, TestSerializer.GetDefaultState());
+            var deserialized = ctorSerializer.Deserialize(serialized, TestSerializer.State);
+            Assert.True(expr.IsEquivalentTo(deserialized));
         }
 
         [Fact]
@@ -217,9 +216,8 @@ namespace ExpressionPowerTools.Serialization.Tests
                 c => c.GetParameters().Length == 0);
             rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(noArgs));
             var expr = MakeNew(noArgs, null, null);
-            var serialized = TestSerializer
-                .GetSerializedFragment<CtorExpr, NewExpression>(expr);
-            var deserialized = ctorSerializer.Deserialize(serialized, new SerializationState());
+            var serialized = ctorSerializer.Serialize(expr, TestSerializer.GetDefaultState());
+            var deserialized = ctorSerializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }
 
@@ -230,10 +228,9 @@ namespace ExpressionPowerTools.Serialization.Tests
             c => c.GetParameters().Length == 0);
             rulesConfig.RuleForConstructor(selector => selector.ByMemberInfo(noArgs)).Deny();
             var expr = MakeNew(noArgs, null, null);
-            var serialized = TestSerializer
-                .GetSerializedFragment<CtorExpr, NewExpression>(expr);
+            var serialized = ctorSerializer.Serialize(expr, TestSerializer.GetDefaultState());
             Assert.Throws<UnauthorizedAccessException>(() =>
-                ctorSerializer.Deserialize(serialized, new SerializationState()));
+                ctorSerializer.Deserialize(serialized, TestSerializer.State));
         }
 
         public override bool Equals(object obj) => obj is CtorSerializerTests;

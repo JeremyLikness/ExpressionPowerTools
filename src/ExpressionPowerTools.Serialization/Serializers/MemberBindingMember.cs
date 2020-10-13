@@ -12,7 +12,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// Serializable version of the <see cref="MemberMemberBinding"/> class.
     /// </summary>
     [Serializable]
-    public class MemberBindingMember
+    public class MemberBindingMember : MemberBindingExpr
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MemberBindingMember"/> class.
@@ -29,7 +29,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the binding type.
         /// </summary>
-        public int BindingType
+        public override int BindingType
         {
             get;
 
@@ -42,7 +42,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the bindings for the member.
         /// </summary>
-        public List<object> Bindings
+        public List<MemberBindingExpr> Bindings
         {
             get;
 
@@ -50,6 +50,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
             set;
         }
 
-            = new List<object>();
+            = new List<MemberBindingExpr>();
     }
 }

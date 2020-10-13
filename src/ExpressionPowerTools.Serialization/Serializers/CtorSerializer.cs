@@ -31,40 +31,30 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a <see cref="CtorExpr"/> to a <see cref="NewExpression"/>.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="ctorExpr">The <see cref="JsonElement"/> to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="NewExpression"/>.</returns>
         public override NewExpression Deserialize(
-            JsonElement json,
+            CtorExpr ctorExpr,
             SerializationState state)
         {
-            var ctorDescriptor = json.GetProperty(nameof(CtorExpr.CtorInfo)).GetString();
-
-            var ctor = GetMemberFromKey<ConstructorInfo>(ctorDescriptor);
+            var ctor = GetMemberFromKey<ConstructorInfo>(ctorExpr.CtorInfo);
 
             var members = new List<MemberInfo>();
 
-            if (json.TryGetProperty(
-                nameof(CtorExpr.MemberKeys),
-                out JsonElement memberList))
+            if (ctorExpr.MemberKeys != null)
             {
-                members = memberList.EnumerateArray()
-                    .Select(memberJson => memberJson.GetString())
+                members = ctorExpr.MemberKeys
                     .Select(memberKey => GetMemberFromKey(memberKey))
                     .ToList();
             }
 
             var args = new List<Expression>();
 
-            if (json.TryGetProperty(
-                nameof(CtorExpr.Arguments),
-                out JsonElement arguments))
+            foreach (var argElem in ctorExpr.Arguments)
             {
-                foreach (var argElem in arguments.EnumerateArray())
-                {
-                    var arg = Serializer.Deserialize(argElem, state);
-                    args.Add(arg);
-                }
+                var arg = Serializer.Deserialize(argElem, state);
+                args.Add(arg);
             }
 
             AuthorizeMembers(ctor);
@@ -86,7 +76,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="NewExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="NewExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="CtorExpr"/>.</returns>
         public override CtorExpr Serialize(
             NewExpression expression,
@@ -101,32 +91,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 Arguments = expression.Arguments
                     .Select(a => Serializer.Serialize(a, state))
-                    .OfType<object>()
+                    .OfType<SerializableExpression>()
                     .ToList(),
             };
 
             return ctorExpr;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as NewExpression, state);
     }
 }

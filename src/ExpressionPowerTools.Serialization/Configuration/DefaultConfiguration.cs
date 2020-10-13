@@ -26,6 +26,10 @@ namespace ExpressionPowerTools.Serialization.Configuration
         /// <summary>
         /// Gets a new <see cref="SerializationState"/> with default options.
         /// </summary>
+        /// <remarks>
+        /// The default configuration is transferred to a new instance of <see cref="SerializationState"/>
+        /// to prevent side effects (i.e. manipulation of the state affecting the default).
+        /// </remarks>
         /// <returns>The <see cref="SerializationState"/>.</returns>
         public SerializationState GetDefaultState()
         {
@@ -48,7 +52,6 @@ namespace ExpressionPowerTools.Serialization.Configuration
                 {
                     CompressTypes = defaultState.CompressTypes,
                     CompressExpression = defaultState.CompressExpression,
-                    Options = defaultState.Options,
                 };
             }
 

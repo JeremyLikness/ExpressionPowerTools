@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Core", "..\src\ExpressionPowerTools.Core\ExpressionPowerTools.Core.csproj", "{423D2D42-E490-4316-8361-1479D1C38ED2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Core.Tests", "..\test\ExpressionPowerTools.Core.Tests\ExpressionPowerTools.Core.Tests.csproj", "{6B9EA11C-97EB-42B5-A4CD-B258DC70E047}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DFD2966-2A38-4333-8C36-3C78B3648FFC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		buildtestdocs.sh = buildtestdocs.sh
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+		Releases.md = Releases.md
+		stylecop.json = stylecop.json
+		version.json = version.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization", "..\src\ExpressionPowerTools.Serialization\ExpressionPowerTools.Serialization.csproj", "{E8653B62-2341-4CDE-B056-7EFA2638E437}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.Tests", "..\test\ExpressionPowerTools.Serialization.Tests\ExpressionPowerTools.Serialization.Tests.csproj", "{0F6E6849-9B64-457E-B728-4C5E38ABEB70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{0B60577A-2F17-473B-873D-D0DAE9A28296}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{FAC7F9FD-5CBD-4133-81BF-EB420795920B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{423D2D42-E490-4316-8361-1479D1C38ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{423D2D42-E490-4316-8361-1479D1C38ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{423D2D42-E490-4316-8361-1479D1C38ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{423D2D42-E490-4316-8361-1479D1C38ED2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9EA11C-97EB-42B5-A4CD-B258DC70E047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9EA11C-97EB-42B5-A4CD-B258DC70E047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9EA11C-97EB-42B5-A4CD-B258DC70E047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9EA11C-97EB-42B5-A4CD-B258DC70E047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8653B62-2341-4CDE-B056-7EFA2638E437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8653B62-2341-4CDE-B056-7EFA2638E437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8653B62-2341-4CDE-B056-7EFA2638E437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8653B62-2341-4CDE-B056-7EFA2638E437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F6E6849-9B64-457E-B728-4C5E38ABEB70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F6E6849-9B64-457E-B728-4C5E38ABEB70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F6E6849-9B64-457E-B728-4C5E38ABEB70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F6E6849-9B64-457E-B728-4C5E38ABEB70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{423D2D42-E490-4316-8361-1479D1C38ED2} = {0B60577A-2F17-473B-873D-D0DAE9A28296}
+		{6B9EA11C-97EB-42B5-A4CD-B258DC70E047} = {FAC7F9FD-5CBD-4133-81BF-EB420795920B}
+		{E8653B62-2341-4CDE-B056-7EFA2638E437} = {0B60577A-2F17-473B-873D-D0DAE9A28296}
+		{0F6E6849-9B64-457E-B728-4C5E38ABEB70} = {FAC7F9FD-5CBD-4133-81BF-EB420795920B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {093EEDEF-D114-44F3-A4C1-A990893C6EAC}
+	EndGlobalSection
+EndGlobal

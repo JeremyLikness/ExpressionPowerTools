@@ -1,16 +1,142 @@
 ﻿using System.Linq.Expressions;
 using ExpressionPowerTools.Serialization.Serializers;
+using ExpressionPowerTools.Core.Extensions;
 using Xunit;
+using System.Linq;
 
 namespace ExpressionPowerTools.Serialization.Tests
 {
     public class SerializationStateTests
     {
+        private readonly string[] keys = new[]
+        {
+            "T:System.String",
+            "T:System.Collections.Generic.IEnumerable{System.String}",
+            "T:System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.String}}",
+        };
+
+        private readonly string[] compressedKeys = new[]
+        {
+            "T:^0",
+            "T:^1",
+            "T:^2",
+        };
+
+        private readonly string[] typeIndex = new[]
+        {
+            "T:System.String",
+            "T:System.Collections.Generic.IEnumerable{^0}",
+            "T:System.Collections.Generic.IEnumerable{^1}"
+        };
+
+        private readonly SerializationState state = new SerializationState
+        {
+            CompressTypes = true
+        };
+
         [Fact]
         public void GivenSerializationStateWhenInstantiatedThenShouldInitializeTypeIndex()
         {
             var target = new SerializationState();
             Assert.NotNull(target.TypeIndex);
+        }
+
+        [Fact]        
+        public void ToGetExpressionTreeReturnsLastExpression()
+        {
+            var expr = Expression.Constant(nameof(SerializationStateTests));
+            state.LastExpression = expr;
+            Assert.Equal(state.GetExpressionTree(), expr.AsEnumerable().ToString());
+        }
+
+        [Fact]
+        public void GetExpressionTreeResetsExpression()
+        {
+            var expr = Expression.Constant(nameof(SerializationStateTests));
+            state.LastExpression = expr;
+            state.GetExpressionTree();
+            Assert.Null(state.LastExpression);
+        }
+
+        [Fact]
+        public void GivenOverrideWhenToStringCalledThenShouldKeepExpression()
+        {
+            var expr = Expression.Constant(nameof(SerializationStateTests));
+            state.LastExpression = expr;
+            state.GetExpressionTree(preventReset: true);
+            Assert.Same(expr, state.LastExpression);
+        }
+
+        [Fact]
+        public void CompressTypesCompressesTypes()
+        {
+            var (str, enumStr, enumEnumStr) = (keys[0], keys[1], keys[2]);
+            state.CompressTypesForKeys(
+                (str, key => str = key),
+                (enumStr, key => enumStr = key),
+                (enumEnumStr, key => enumEnumStr = key));
+            Assert.Equal(new[]
+            {
+                str, enumStr, enumEnumStr
+            }, compressedKeys);
+        }
+
+        [Fact]
+        public void DecompressTypesDecompressesTypes()
+        {
+            var (str, enumStr, enumEnumStr) = (keys[0], keys[1], keys[2]);
+            state.CompressTypesForKeys(
+                (str, key => str = key),
+                (enumStr, key => enumStr = key),
+                (enumEnumStr, key => enumEnumStr = key));
+            state.DecompressTypesForKeys(
+                (str, key => str = key),
+                (enumStr, key => enumStr = key),
+                (enumEnumStr, key => enumEnumStr = key));
+            Assert.Equal(new[]
+            {
+                str, enumStr, enumEnumStr
+            }, keys);
+        }
+
+        [Fact]
+        public void DoneCompressesTypeIndex()
+        {
+            var (str, enumStr, enumEnumStr) = (keys[0], keys[1], keys[2]);
+            state.CompressTypesForKeys(
+                (str, key => str = key),
+                (enumStr, key => enumStr = key),
+                (enumEnumStr, key => enumEnumStr = key));
+            state.Done();
+            Assert.Equal(typeIndex, state.TypeIndex.ToArray());
+        }
+
+        [Fact]
+        public void GivenCompressTypesFalseWhenCompressTypesCalledThenDoesNothing()
+        {
+            state.CompressTypes = false;
+            var (str, enumStr, enumEnumStr) = (keys[0], keys[1], keys[2]);
+            state.CompressTypesForKeys(
+                (str, key => str = key),
+                (enumStr, key => enumStr = key),
+                (enumEnumStr, key => enumEnumStr = key));
+            Assert.Equal(new[]
+            {
+                str, enumStr, enumEnumStr
+            }, keys);
+        }
+
+        [Fact]
+        public void GivenCompressTypesFalseWhenCompressTypeIndexCalledThenDoesNothing()
+        {
+            state.CompressTypes = false;
+            var (str, enumStr, enumEnumStr) = (keys[0], keys[1], keys[2]);
+            state.CompressTypesForKeys(
+                (str, key => str = key),
+                (enumStr, key => enumStr = key),
+                (enumEnumStr, key => enumEnumStr = key));
+            state.Done();
+            Assert.DoesNotContain(state.TypeIndex, t => t.Contains("^"));
         }
 
         [Fact]

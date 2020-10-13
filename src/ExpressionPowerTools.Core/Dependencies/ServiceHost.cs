@@ -27,7 +27,8 @@ namespace ExpressionPowerTools.Core.Dependencies
     /// </para>
     /// <para>
     /// Satellite assemblies can hook into the registration by implementing <see cref="IDependentServiceRegistration"/>. This is
-    /// scanned and loaded before user overridees.
+    /// scanned and loaded before user overridees. Services can be lazy-loaded by using the <see cref="GetLazyService{T}(object[])"/>
+    /// method.
     /// </para>
     /// <para>
     /// The <see cref="IServiceRegistration"/> provided by initialization is chainable (each call returns itself).
@@ -173,6 +174,41 @@ namespace ExpressionPowerTools.Core.Dependencies
         }
 
         /// <summary>
+        /// Safely enumerate types across loaded assemblies.
+        /// </summary>
+        /// <param name="filter">Filter for types to return.</param>
+        /// <returns>The list of types.</returns>
+        public static IList<Type> SafeGetTypes(Predicate<Type> filter = null)
+        {
+            var returnTypes = new List<Type>();
+
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try
+                {
+                    foreach (var type in assembly.GetTypes())
+                    {
+                        try
+                        {
+                            if (filter == null || filter(type))
+                            {
+                                returnTypes.Add(type);
+                            }
+                        }
+                        catch (TypeInitializationException)
+                        {
+                        }
+                    }
+                }
+                catch (ReflectionTypeLoadException)
+                {
+                }
+            }
+
+            return returnTypes;
+        }
+
+        /// <summary>
         /// Notifies satellite assemblies registation is done.
         /// </summary>
         private static void AfterRegistered()
@@ -207,31 +243,14 @@ namespace ExpressionPowerTools.Core.Dependencies
         /// <param name="register">The <see cref="IServiceRegistration"/>.</param>
         private static void RegisterSatellites(IServiceRegistration register)
         {
-            var registration = typeof(IDependentServiceRegistration);
-
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            var registrationType = typeof(IDependentServiceRegistration);
+            foreach (var registration in SafeGetTypes(
+                t => t.IsClass && registrationType.IsAssignableFrom(t)))
             {
-                try
-                {
-                    foreach (var type in assembly.GetTypes())
-                    {
-                        try
-                        {
-                            if (registration.IsAssignableFrom(type) && !type.IsInterface)
-                            {
-                                var satelliteRegistration = Activator.CreateInstance(type) as IDependentServiceRegistration;
-                                satelliteRegistration.RegisterDefaultServices(register);
-                                Satellites.Push(satelliteRegistration);
-                            }
-                        }
-                        catch (TypeInitializationException)
-                        {
-                        }
-                    }
-                }
-                catch (ReflectionTypeLoadException)
-                {
-                }
+                var satelliteRegistration = Activator.CreateInstance(registration)
+                    as IDependentServiceRegistration;
+                satelliteRegistration.RegisterDefaultServices(register);
+                Satellites.Push(satelliteRegistration);
             }
         }
     }

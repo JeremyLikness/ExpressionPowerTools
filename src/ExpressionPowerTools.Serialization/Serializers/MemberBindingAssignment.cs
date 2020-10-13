@@ -11,7 +11,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// Serializable <see cref="MemberAssignment"/>.
     /// </summary>
     [Serializable]
-    public class MemberBindingAssignment
+    public class MemberBindingAssignment : MemberBindingExpr
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MemberBindingAssignment"/> class.
@@ -23,12 +23,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the initialization expression.
         /// </summary>
-        public object Expression { get; set; }
+        public SerializableExpression Expression { get; set; }
 
         /// <summary>
         /// Gets or sets the binding type.
         /// </summary>
-        public int BindingType
+        public override int BindingType
         {
             get;
 

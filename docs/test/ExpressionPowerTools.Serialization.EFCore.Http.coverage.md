@@ -1,6 +1,6 @@
 # Summary of Code Coverage for ExpressionPowerTools.Serialization.EFCore.Http
 
-Report generated on 10/8/2020 5:12:45 AM UTC.
+Report generated on 10/13/2020 4:49:56 PM UTC.
 
 ## Report Summary
 
@@ -11,10 +11,10 @@ Report generated on 10/8/2020 5:12:45 AM UTC.
 |**Classes**|9
 |**Files**|9
 |**Line coverage**|100.0%
-|**Covered lines**|142
+|**Covered lines**|159
 |**Uncovered lines**|0
-|**Coverable lines**|142
-|**Total lines**|728
+|**Coverable lines**|159
+|**Total lines**|767
 
 ## Report Detail
 

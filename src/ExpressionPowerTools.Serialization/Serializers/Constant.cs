@@ -4,8 +4,6 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using ExpressionPowerTools.Core.Dependencies;
-using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
 {
@@ -43,6 +41,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
+        [CompressableKey]
         public string ConstantTypeKey { get; set; }
 
         /// <summary>
@@ -53,6 +52,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the value type.
         /// </summary>
+        [CompressableKey]
         public string ValueTypeKey { get; set; }
     }
 }

@@ -2,8 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text.Json;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -29,30 +27,24 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a <see cref="MemberExpr"/> to a <see cref="MemberExpression"/>.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="member">The <see cref="MemberExpr"/> to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="MemberExpression"/>.</returns>
         public override MemberExpression Deserialize(
-            JsonElement json,
+            MemberExpr member,
             SerializationState state)
         {
             Expression expr = null;
-            if (json.TryGetProperty(
-                nameof(MemberExpr.Expression),
-                out JsonElement jsonObj))
+            if (member.Expression != null)
             {
-                expr = Serializer.Deserialize(jsonObj, state);
+                expr = Serializer.Deserialize(member.Expression, state);
             }
 
-            var memberInfo = GetMemberFromKey(json
-                .GetProperty(nameof(MemberExpr.MemberTypeKey)).GetString());
+            var memberInfo = GetMemberFromKey(member.MemberTypeKey);
 
-            if (json.TryGetProperty(nameof(MemberExpr.Indexer), out JsonElement indexer))
+            if (!string.IsNullOrWhiteSpace(member.Indexer))
             {
-                if (!string.IsNullOrWhiteSpace(indexer.GetString()))
-                {
-                    return null;
-                }
+                return null;
             }
 
             AuthorizeMembers(new[] { memberInfo });
@@ -64,7 +56,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="MemberExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="MemberExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="MemberExpr"/>.</returns>
         public override MemberExpr Serialize(
             MemberExpression expression,
@@ -82,26 +74,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return member;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as MemberExpression, state);
     }
 }

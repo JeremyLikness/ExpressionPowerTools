@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -41,22 +40,19 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Reconstructs an anonymous type from <see cref="AnonType"/>.
         /// </summary>
         /// <param name="anonType">The <see cref="AnonType"/>.</param>
-        /// <param name="options">Serialization options.</param>
         /// <returns>The anonymous type instance.</returns>
         public object ConvertFromAnonType(
-            AnonType anonType,
-            JsonSerializerOptions options)
+            AnonType anonType)
         {
-            return UnrollAnonymous(anonType, options);
+            return UnrollAnonymous(anonType);
         }
 
         /// <summary>
         /// Unrolls anonymous types.
         /// </summary>
         /// <param name="valueType">The anonymous value type.</param>
-        /// <param name="options">The serializer options.</param>
         /// <returns>The anonymous type.</returns>
-        private object UnrollAnonymous(AnonType valueType, JsonSerializerOptions options)
+        private object UnrollAnonymous(AnonType valueType)
         {
             var types = valueType.Types.Select(t =>
                 memberAdapter.Value.GetMemberForKey<Type>(t)).ToArray();
@@ -69,15 +65,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
             {
                 var obj = valueType.Values[idx];
 
-                if (obj is JsonElement json)
-                {
-                    obj = JsonSerializer.Deserialize(
-                        json.GetRawText(), types[idx], options);
-                }
-
                 if (types[idx] == typeof(AnonType))
                 {
-                    obj = UnrollAnonymous(obj as AnonType, options);
+                    obj = UnrollAnonymous(obj as AnonType);
                     newTypes.Add(obj.GetType());
                 }
                 else

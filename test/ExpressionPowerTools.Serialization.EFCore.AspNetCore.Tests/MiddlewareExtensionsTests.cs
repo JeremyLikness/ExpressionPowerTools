@@ -106,6 +106,23 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
         }
 
         [Fact]
+        public void GivenConfigPassedWhenMapPowerToolsEFCoreBaseCalledThenShouldConfigureDefaults()
+        {
+            IEndpointRouteBuilder builder = null;
+            CreateSimpleServer(config => builder = config);
+
+            builder.MapPowerToolsEFCore(
+                routePattern,
+                defaultTypes,
+                options: options => options.CompressExpressionTree(false));
+
+            var defaultConfig = ServiceHost.GetService<IDefaultConfiguration>();
+            var state = defaultConfig.GetDefaultState();
+            Assert.True(state.CompressTypes);
+            Assert.False(state.CompressExpression);
+        }
+
+        [Fact]
         public void GivenRulesPassedWhenMapPowerToolsEFCoreBaseCalledThenShouldConfigureRules()
         {
             IEndpointRouteBuilder builder = null;
@@ -120,7 +137,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             Assert.True(engine.MemberIsAllowed(typeof(MiddlewareExtensionsTests)));
 
             // reset rules
-            Serializer.ConfigureRules();
+            QueryExprSerializer.ConfigureRules();
         }
     }
 }

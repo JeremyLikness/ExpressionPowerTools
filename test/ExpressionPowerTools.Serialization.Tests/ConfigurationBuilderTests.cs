@@ -13,9 +13,6 @@ namespace ExpressionPowerTools.Serialization.Tests
         {
             var state = new ConfigurationBuilder().Configure();
             Assert.True(state.CompressTypes);
-            Assert.NotNull(state.Options);
-            Assert.True(state.Options.IgnoreNullValues);
-            Assert.True(state.Options.IgnoreReadOnlyProperties);
         }
 
         [Theory]
@@ -27,25 +24,17 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(setting, state.CompressTypes);
         }
 
-        [Fact]
-        public void GivenConfigurationBuilderWhenJsonOptionsSetThenShouldConfigureOptions()
-        {
-            var state = new ConfigurationBuilder().WithJsonSerializerOptions(
-                options => options.IgnoreNullValues = false).Configure();
-            Assert.False(state.Options.IgnoreNullValues);
-        }
-
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
         public void GivenConfigurationBuilderThenOptionsCanBeChainedConfigurable(bool setting)
         {
             var state = new ConfigurationBuilder()
-                .WithJsonSerializerOptions(options => options.IgnoreNullValues = false)
                 .CompressTypes(setting)
+                .CompressExpressionTree(false)
                 .Configure();
 
-            Assert.False(state.Options.IgnoreNullValues);
+            Assert.False(state.CompressExpression);
             Assert.Equal(setting, state.CompressTypes);
         }
 

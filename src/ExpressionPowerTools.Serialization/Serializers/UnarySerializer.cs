@@ -4,8 +4,6 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -46,46 +44,39 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a <see cref="UnaryExpression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="unary">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="UnaryExpression"/>.</returns>
         public override UnaryExpression Deserialize(
-            JsonElement json,
+            Unary unary,
             SerializationState state)
         {
-            var methodKey = json.GetNullableProperty(nameof(Unary.UnaryMethodKey));
             MethodInfo methodInfo = null;
-            if (methodKey.ValueKind != JsonValueKind.Null)
+            if (!string.IsNullOrWhiteSpace(unary.UnaryMethodKey))
             {
-                var key = methodKey.GetString();
-                if (!string.IsNullOrWhiteSpace(key))
-                {
-                    methodInfo = GetMemberFromKey<MethodInfo>(key);
-                }
+                methodInfo = GetMemberFromKey<MethodInfo>(unary.UnaryMethodKey);
             }
 
-            var expressionType = (ExpressionType)json.GetProperty(nameof(SerializableExpression.Type)).GetInt32();
-            var operandElement = json.GetNullableProperty(nameof(UnaryExpression.Operand));
-            var operand = Serializer.Deserialize(operandElement, state);
-            var unaryType = GetMemberFromKey<Type>(json.GetProperty(nameof(Unary.UnaryTypeKey)).GetString());
+            var operand = unary.Operand == null ? null : Serializer.Deserialize(unary.Operand, state);
+            var unaryType = GetMemberFromKey<Type>(unary.UnaryTypeKey);
 
             if (methodInfo != null)
             {
                 return Expression.MakeUnary(
-                    expressionType,
+                    (ExpressionType)unary.Type,
                     operand,
                     unaryType,
                     methodInfo);
             }
 
-            return Expression.MakeUnary(expressionType, operand, unaryType);
+            return Expression.MakeUnary((ExpressionType)unary.Type, operand, unaryType);
         }
 
         /// <summary>
         /// Serialize a <see cref="UnaryExpression"/> to a <see cref="Unary"/>.
         /// </summary>
         /// <param name="expression">The <see cref="UnaryExpression"/>.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="Unary"/>.</returns>
         public override Unary Serialize(
             UnaryExpression expression,
@@ -103,26 +94,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return unary;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as UnaryExpression, state);
     }
 }

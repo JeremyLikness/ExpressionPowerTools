@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
-using System;
-using System.Text.Json;
 using ExpressionPowerTools.Serialization.Serializers;
 
 namespace ExpressionPowerTools.Serialization.Signatures
@@ -12,14 +10,6 @@ namespace ExpressionPowerTools.Serialization.Signatures
     /// </summary>
     public interface IConfigurationBuilder
     {
-        /// <summary>
-        /// Adds the <see cref="JsonSerializerOptions"/> to the options.
-        /// </summary>
-        /// <param name="options">The default <see cref="JsonSerializerOptions"/>.</param>
-        /// <returns>The chainable <see cref="IConfigurationBuilder"/>.</returns>
-        IConfigurationBuilder WithJsonSerializerOptions(
-            Action<JsonSerializerOptions> options);
-
         /// <summary>
         /// Sets the flag to indicate whether types should be compressed.
         /// </summary>

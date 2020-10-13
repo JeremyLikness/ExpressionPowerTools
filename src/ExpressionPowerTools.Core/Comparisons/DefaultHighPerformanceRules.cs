@@ -16,6 +16,7 @@ namespace ExpressionPowerTools.Core.Comparisons
     /// This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
     /// Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
     /// you should find the rules-based works fine for most scenarios and performs close to par with the programmed verssion.
+    /// So far the tests for this run slightly slower than the expression-based version.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
@@ -470,7 +471,10 @@ namespace ExpressionPowerTools.Core.Comparisons
                 return false;
             }
 
-            return eq.AreEquivalent(source.Arguments, target.Arguments);
+            return
+                ((source.Members == null && target.Members == null) ||
+                    eq.NonGenericEnumerablesAreEquivalent(source.Members, target.Members)) &&
+                eq.AreEquivalent(source.Arguments, target.Arguments);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
     /// Serializable version of the <see cref="MemberListBinding"/> class.
     /// </summary>
     [Serializable]
-    public class MemberBindingList
+    public class MemberBindingList : MemberBindingExpr
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MemberBindingList"/> class.
@@ -29,7 +29,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the binding type.
         /// </summary>
-        public int BindingType
+        public override int BindingType
         {
             get;
             [ExcludeFromCodeCoverage]

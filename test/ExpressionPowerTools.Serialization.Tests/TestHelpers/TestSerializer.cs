@@ -1,8 +1,6 @@
-﻿using System.Linq.Expressions;
-using System.Text.Json;
+﻿using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Members;
 using ExpressionPowerTools.Core.Signatures;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -18,20 +16,14 @@ namespace ExpressionPowerTools.Serialization.Tests.TestHelpers
 
         public static IMemberAdapter MemberAdapter { get; private set; } =
             new MemberAdapter();
-        
-        public static JsonElement GetSerializedFragment<TSerializer, TExpression>(
-            TExpression expression,
-            JsonSerializerOptions options = null)
-            where TExpression : Expression
-            where TSerializer : SerializableExpression
+
+        public static SerializationState GetDefaultState()
         {
-            var state = options == null ?
-                new SerializationState() : options.ToSerializationState();
-            var json = JsonSerializer.Serialize(
-                ExpressionSerializer.Serialize(expression, state) as TSerializer,
-                options);
-            return JsonDocument.Parse(json).RootElement;
+            State = ServiceHost.GetService<IDefaultConfiguration>().GetDefaultState();
+            return State;
         }
+
+        public static SerializationState State { get; private set; }
 
         public static object[] AsObjectArray(this object source) => new object[] { source };
     }

@@ -44,16 +44,18 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the serializable <see cref="ConstructorInfo"/>.
         /// </summary>
+        [CompressableKey]
         public string CtorInfo { get; set; }
 
         /// <summary>
         /// Gets or sets the method's object.
         /// </summary>
-        public List<object> Arguments { get; set; } = new List<object>();
+        public List<SerializableExpression> Arguments { get; set; } = new List<SerializableExpression>();
 
         /// <summary>
         /// Gets or sets the keys of members.
         /// </summary>
+        [CompressableKey]
         public List<string> MemberKeys { get; set; } = new List<string>();
     }
 }

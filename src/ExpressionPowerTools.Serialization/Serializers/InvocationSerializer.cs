@@ -3,8 +3,6 @@
 
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -30,17 +28,15 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a <see cref="InvocationExpression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="expr">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="InvocationExpression"/>.</returns>
         public override InvocationExpression Deserialize(
-            JsonElement json,
+            Invocation expr,
             SerializationState state)
         {
-            var expr = json.GetProperty(nameof(Invocation.Expression));
-            var expression = Serializer.Deserialize(expr, state);
-            var list = json.GetNullableProperty(nameof(Invocation.Arguments));
-            var argumentList = list.EnumerateArray().Select(element =>
+            var expression = Serializer.Deserialize(expr.Expression, state);
+            var argumentList = expr.Arguments.Select(element =>
                 Serializer.Deserialize(element, state)).ToList();
             return Expression.Invoke(expression, argumentList);
         }
@@ -49,7 +45,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize an <see cref="InvocationExpression"/> to an <see cref="Invocation"/>.
         /// </summary>
         /// <param name="expression">The <see cref="InvocationExpression"/>.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="Invocation"/>.</returns>
         public override Invocation Serialize(
             InvocationExpression expression,
@@ -72,26 +68,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return result;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as InvocationExpression, state);
     }
 }

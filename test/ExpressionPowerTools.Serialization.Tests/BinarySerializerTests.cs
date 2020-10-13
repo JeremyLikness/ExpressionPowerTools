@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.Extensions;
@@ -17,12 +16,15 @@ namespace ExpressionPowerTools.Serialization.Tests
     {
         public BinarySerializerTests()
         {
-            Serializer.ConfigureRules(config => config.RuleForType<BinarySerializerTests>());            
+            QueryExprSerializer.ConfigureRules(config => config.RuleForType<BinarySerializerTests>());            
         }
 
         private readonly BinarySerializer binarySerializer =
             new BinarySerializer(TestSerializer.ExpressionSerializer);
 
+        private SerializationState NewSerializationState =>
+            ServiceHost.GetService<IDefaultConfiguration>().GetDefaultState();
+       
         public static int DoMath(int x, int y) => x + y;
 
         public static double Pow(double x, double y) => Math.Pow(x, y);
@@ -353,7 +355,7 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetBinaryExpressions))]
         public void BinaryExpressionShouldSerialize(BinaryExpression binary)
         {
-            var target = binarySerializer.Serialize(binary, new SerializationState());
+            var target = binarySerializer.Serialize(binary, NewSerializationState);
             Assert.Equal((ExpressionType)target.Type, binary.NodeType);
         }
 
@@ -361,26 +363,8 @@ namespace ExpressionPowerTools.Serialization.Tests
         [MemberData(nameof(GetBinaryExpressions))]
         public void BinaryExpressionShouldDeserialize(BinaryExpression binary)
         {
-            var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(binary);
-            var deserialized = binarySerializer.Deserialize(serialized, new SerializationState());
-            Assert.Equal(binary.Type.FullName, deserialized.Type.FullName);
-        }
-
-        [Fact]
-        public void GivenOptionsIgnoreNullWhenBinarySerializedThenShouldDeserialize()
-        {
-            var binary = Expression.LessThan(
-                1.AsConstantExpression(),
-                2.AsConstantExpression());
-
-            var options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true
-            };
-
-            var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(binary, options);
-            var deserialized = binarySerializer.Deserialize(serialized, options.ToSerializationState());
+            var serialized = binarySerializer.Serialize(binary, TestSerializer.GetDefaultState());
+            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State);          
             Assert.Equal(binary.Type.FullName, deserialized.Type.FullName);
         }
 
@@ -392,10 +376,10 @@ namespace ExpressionPowerTools.Serialization.Tests
                 1.AsConstantExpression(),
                 2.AsConstantExpression(),
                 method);
-            var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(expr);
+            var serialized = binarySerializer.Serialize(expr, TestSerializer.GetDefaultState());
             ServiceHost.GetService<IRulesConfiguration>().RuleForMethod(
                 selector => selector.ByMemberInfo(method)).Allow();
-            var deserialized = binarySerializer.Deserialize(serialized, new SerializationState());
+            var deserialized = binarySerializer.Deserialize(serialized, TestSerializer.State);
             Assert.NotNull(deserialized);
         }
 
@@ -407,11 +391,11 @@ namespace ExpressionPowerTools.Serialization.Tests
                 1.AsConstantExpression(),
                 2.AsConstantExpression(),
                 method);
-            var serialized = TestSerializer.GetSerializedFragment<Binary, BinaryExpression>(expr);
+            var serialized = binarySerializer.Serialize(expr, TestSerializer.GetDefaultState());
             ServiceHost.GetService<IRulesConfiguration>().RuleForMethod(
                 selector => selector.ByMemberInfo(method)).Deny();
             Assert.Throws<UnauthorizedAccessException>(() =>
-                binarySerializer.Deserialize(serialized, new SerializationState()));
+                binarySerializer.Deserialize(serialized, TestSerializer.State));
         }
 
         public override bool Equals(object obj) => obj is BinarySerializerTests;

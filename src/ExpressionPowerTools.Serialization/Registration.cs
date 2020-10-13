@@ -5,10 +5,13 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
+using ExpressionPowerTools.Serialization.Compression;
 using ExpressionPowerTools.Serialization.Configuration;
 using ExpressionPowerTools.Serialization.Extensions;
+using ExpressionPowerTools.Serialization.Json;
 using ExpressionPowerTools.Serialization.Rules;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
@@ -38,9 +41,7 @@ namespace ExpressionPowerTools.Serialization
         {
             if (primitiveTypes == null)
             {
-                primitiveTypes = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(a => a.GetTypes())
-                .Where(t => t.Namespace != null &&
+                primitiveTypes = ServiceHost.SafeGetTypes(t => t.Namespace != null &&
                     t.Namespace.StartsWith(nameof(System)) &&
                     t.IsPrimitive &&
                     t != typeof(IntPtr) &&
@@ -51,9 +52,8 @@ namespace ExpressionPowerTools.Serialization
             if (collectionTypes == null)
             {
                 var collectionNamespace = typeof(IEnumerable).Namespace;
-                collectionTypes = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(a => a.GetTypes())
-                .Where(t => t.Namespace != null &&
+                collectionTypes = ServiceHost.SafeGetTypes(
+                    t => t.Namespace != null &&
                     t.Namespace.StartsWith(collectionNamespace) &&
                     t.IsPublic &&
                     t.IsSerializable &&
@@ -97,12 +97,18 @@ namespace ExpressionPowerTools.Serialization
                 new ReflectionHelper());
             registration.Register<IConfigurationBuilder, ConfigurationBuilder>();
             registration.RegisterSingleton<IDefaultConfiguration>(new DefaultConfiguration());
-            var rules = new RulesEngine();
-            rules.LoadingDefaults = true;
+            var rules = new RulesEngine
+            {
+                LoadingDefaults = true,
+            };
             registration.RegisterSingleton<IRulesEngine>(rules);
             registration.RegisterSingleton<IRulesConfiguration>(rules);
             registration.RegisterSingleton<IAnonymousTypeAdapter>(
                 new AnonymousTypeAdapter());
+            registration.RegisterSingleton<ITypesCompressor>(
+                new TypesCompressor());
+            registration.RegisterSingleton<ISerializationWrapper<string, JsonSerializerOptions, JsonSerializerOptions>>(
+                new JsonWrapper());
         }
 
         /// <summary>

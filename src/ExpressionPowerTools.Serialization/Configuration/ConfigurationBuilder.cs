@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
-using System.Text.Json;
 using ExpressionPowerTools.Serialization.Serializers;
 using ExpressionPowerTools.Serialization.Signatures;
 
@@ -11,6 +10,9 @@ namespace ExpressionPowerTools.Serialization.Configuration
     /// <summary>
     /// Configuration builder for wiring up configuration fluently.
     /// </summary>
+    /// <remarks>
+    /// Used to build up state for a given serialization pass. Also can build the <see cref="DefaultConfiguration"/>.
+    /// </remarks>
     public class ConfigurationBuilder : IConfigurationBuilder
     {
         /// <summary>
@@ -18,12 +20,8 @@ namespace ExpressionPowerTools.Serialization.Configuration
         /// </summary>
         private readonly SerializationState state = new SerializationState
         {
-            Options = new JsonSerializerOptions
-            {
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true,
-            },
             CompressTypes = true,
+            CompressExpression = true,
         };
 
         /// <summary>
@@ -65,18 +63,6 @@ namespace ExpressionPowerTools.Serialization.Configuration
         {
             isValid = false;
             return state;
-        }
-
-        /// <summary>
-        /// Sets the <see cref="JsonSerializerOptions"/>.
-        /// </summary>
-        /// <param name="options">The <see cref="JsonSerializerOptions"/> to use.</param>
-        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public IConfigurationBuilder WithJsonSerializerOptions(
-            Action<JsonSerializerOptions> options)
-        {
-            options(state.Options);
-            return this;
         }
 
         /// <summary>

@@ -28,7 +28,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the arguments.
         /// </summary>
-        public List<object> Arguments { get; set; }
-            = new List<object>();
+        public List<SerializableExpression> Arguments { get; set; }
+            = new List<SerializableExpression>();
     }
 }

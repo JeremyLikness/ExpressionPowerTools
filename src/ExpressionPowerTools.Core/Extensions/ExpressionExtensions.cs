@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using ExpressionPowerTools.Core.Comparisons;
 using ExpressionPowerTools.Core.Contract;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
@@ -21,6 +20,28 @@ namespace ExpressionPowerTools.Core.Extensions
         /// Anonymous type name.
         /// </summary>
         public static readonly string AnonymousType = nameof(AnonymousType);
+
+        /// <summary>
+        /// The <see cref="IExpressionEvaluator"/>.
+        /// </summary>
+        private static IExpressionEvaluator evaluator = null;
+
+        /// <summary>
+        /// Gets the <see cref="IExpressionEvaluator"/> when needed.
+        /// </summary>
+        private static IExpressionEvaluator Evaluator
+        {
+            get
+            {
+                if (evaluator != null)
+                {
+                    return evaluator;
+                }
+
+                evaluator = ServiceHost.GetService<IExpressionEvaluator>();
+                return evaluator;
+            }
+        }
 
         /// <summary>
         /// Helper for determing anonymous types, with a pessimistic algorithm.
@@ -196,7 +217,7 @@ namespace ExpressionPowerTools.Core.Extensions
         }
 
         /// <summary>
-        /// Uses <see cref="ExpressionEquivalency"/> to determine equivalency.
+        /// Uses <see cref="IExpressionEvaluator"/> to determine equivalency.
         /// </summary>
         /// <param name="source">The source <see cref="Expression"/>.</param>
         /// <param name="target">The target <see cref="Expression"/>.</param>
@@ -204,10 +225,10 @@ namespace ExpressionPowerTools.Core.Extensions
         public static bool IsEquivalentTo(
             this Expression source,
             Expression target) =>
-                ExpressionEquivalency.AreEquivalent(source, target);
+                Evaluator.AreEquivalent(source, target);
 
         /// <summary>
-        /// Uses <see cref="ExpressionSimilarity"/> to determine similarity.
+        /// Uses <see cref="IExpressionEvaluator"/> to determine similarity.
         /// </summary>
         /// <param name="source">The source <see cref="Expression"/>.</param>
         /// <param name="target">The target <see cref="Expression"/>.</param>
@@ -215,10 +236,10 @@ namespace ExpressionPowerTools.Core.Extensions
         public static bool IsSimilarTo(
             this Expression source,
             Expression target) =>
-                ExpressionSimilarity.AreSimilar(source, target);
+                Evaluator.AreSimilar(source, target);
 
         /// <summary>
-        /// Uses <see cref="ExpressionSimilarity"/> to determine if an <see cref="Expression"/>
+        /// Uses <see cref="IExpressionEvaluator"/> to determine if an <see cref="Expression"/>
         /// is part of another.
         /// </summary>
         /// <param name="source">The source <see cref="Expression"/>.</param>
@@ -227,7 +248,7 @@ namespace ExpressionPowerTools.Core.Extensions
         public static bool IsPartOf(
             this Expression source,
             Expression target) =>
-                ExpressionSimilarity.IsPartOf(source, target);
+                Evaluator.IsPartOf(source, target);
 
         /// <summary>
         /// Recurse types that make up types.

@@ -42,6 +42,6 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <remarks>
         /// For deserialization, this will be a <see cref="System.Text.Json.JsonElement"/>.
         /// </remarks>
-        public object Expression { get; set; }
+        public SerializableExpression Expression { get; set; }
     }
 }

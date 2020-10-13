@@ -34,13 +34,14 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the type of the array.
         /// </summary>
+        [CompressableKey]
         public string ArrayTypeKey { get; set; }
 
         /// <summary>
         /// Gets the list of expressions.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public List<object> Expressions { get; private set; } =
-            new List<object>();
+        public List<SerializableExpression> Expressions { get; private set; } =
+            new List<SerializableExpression>();
     }
 }

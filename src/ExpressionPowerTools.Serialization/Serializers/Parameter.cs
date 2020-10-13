@@ -33,6 +33,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Gets or sets the parameter type.
         /// </summary>
+        [CompressableKey]
         public string ParameterTypeKey { get; set; }
 
         /// <summary>

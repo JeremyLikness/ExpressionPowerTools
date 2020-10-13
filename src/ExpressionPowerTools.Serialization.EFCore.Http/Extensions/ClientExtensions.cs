@@ -138,7 +138,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Extensions
         /// <typeparam name="T">The type of the query.</typeparam>
         /// <param name="query">The query.</param>
         /// <returns>The result.</returns>
-        public static Task<IList<T>> ToListAsync<T>(this IRemoteQueryable<T> query)
+        public static Task<List<T>> ToListAsync<T>(this IRemoteQueryable<T> query)
         {
             Ensure.NotNull(() => query);
             return ServiceHost.GetService<IRemoteQueryResolver>().ToListAsync(query as RemoteQuery<T, RemoteQueryProvider<T>>);

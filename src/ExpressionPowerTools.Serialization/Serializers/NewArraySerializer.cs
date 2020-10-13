@@ -4,8 +4,6 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.Json;
-using ExpressionPowerTools.Serialization.Extensions;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -31,16 +29,15 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a <see cref="NewArrayExpression"/>.
         /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="newArray">The serialized fragment.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="NewArrayExpression"/>.</returns>
         public override NewArrayExpression Deserialize(
-            JsonElement json,
+            NewArray newArray,
             SerializationState state)
         {
-            var materializedType = GetMemberFromKey<Type>(json.GetProperty(nameof(NewArray.ArrayTypeKey)).GetString());
-            var list = json.GetProperty(nameof(NewArray.Expressions));
-            var expressionList = list.EnumerateArray().Select(element => Serializer.Deserialize(
+            var materializedType = GetMemberFromKey<Type>(newArray.ArrayTypeKey);
+            var expressionList = newArray.Expressions.Select(element => Serializer.Deserialize(
                 element, state)).ToList();
             return Expression.NewArrayInit(materializedType, expressionList);
         }
@@ -49,7 +46,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="NewArrayExpression"/> to a <see cref="NewArray"/>.
         /// </summary>
         /// <param name="expression">The <see cref="NewArrayExpression"/>.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="NewArray"/>.</returns>
         public override NewArray Serialize(
             NewArrayExpression expression,
@@ -68,26 +65,5 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             return result;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as NewArrayExpression, state);
     }
 }

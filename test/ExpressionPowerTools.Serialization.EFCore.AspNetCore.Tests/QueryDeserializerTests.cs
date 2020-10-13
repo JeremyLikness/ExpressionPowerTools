@@ -9,6 +9,7 @@ using ExpressionPowerTools.Core.Extensions;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests.TestHelpers;
+using ExpressionPowerTools.Serialization.Json;
 using Xunit;
 
 namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
@@ -16,6 +17,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
     public class QueryDeserializerTests
     {
         private readonly IQueryDeserializer target = new QueryDeserializer();
+
+        private readonly JsonWrapper jsonWrapper = new JsonWrapper();
 
         private readonly IQueryable queryable = new List<TestWidget>()
             .AsQueryable();
@@ -29,7 +32,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Tests
             JsonSerializer.Serialize(
                 new SerializationPayload(isCount ? PayloadType.Count : PayloadType.Array)
                 {
-                    Json = Serializer.Serialize(query),
+                    Json = jsonWrapper.FromSerializationRoot(QueryExprSerializer.Serialize(query)),
                 });
 
         private readonly string EmptyJson = "{}";

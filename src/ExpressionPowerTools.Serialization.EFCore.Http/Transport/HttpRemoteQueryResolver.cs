@@ -21,10 +21,16 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
     public class HttpRemoteQueryResolver : IRemoteQueryResolver
     {
         /// <summary>
-        /// The default settings for serialization.
+        /// Delegate to retrieve the default options. Register your own to override.
         /// </summary>
-        private readonly Lazy<IDefaultConfiguration> defaultConfiguration =
-            ServiceHost.GetLazyService<IDefaultConfiguration>();
+        private readonly Lazy<Func<JsonSerializerOptions>> jsonOptions =
+            ServiceHost.GetLazyService<Func<JsonSerializerOptions>>();
+
+        /// <summary>
+        /// The JSON serializer.
+        /// </summary>
+        private readonly Lazy<ISerializationWrapper<string, JsonSerializerOptions, JsonSerializerOptions>>
+            jsonSerializer = ServiceHost.GetLazyService<ISerializationWrapper<string, JsonSerializerOptions, JsonSerializerOptions>>();
 
         /// <summary>
         /// Execute the remote query and materialize the results.
@@ -107,7 +113,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
         /// <typeparam name="T">The type of the query.</typeparam>
         /// <param name="query">The base query to run.</param>
         /// <returns>The result.</returns>
-        public async Task<IList<T>> ToListAsync<T>(IQueryable<T> query) =>
+        public async Task<List<T>> ToListAsync<T>(IQueryable<T> query) =>
             new List<T>(await ToArrayAsync(query));
 
         /// <summary>
@@ -130,13 +136,14 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
                     nameof(query));
             }
 
-            var json = Serializer.Serialize(query);
+            var serializationRoot = QueryExprSerializer.Serialize(query);
+            var options = GetJsonSerializerOptions();
+            var json = jsonSerializer.Value.FromSerializationRoot(serializationRoot, options);
             var payload = new SerializationPayload(type)
             {
                 Json = json,
             };
 
-            var options = GetJsonSerializerOptions();
             var transportPayload = JsonSerializer.Serialize(payload, options);
             var requestContent = new StringContent(transportPayload);
             var path = PathTransformer(remoteQuery);
@@ -165,7 +172,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.Http.Transport
         /// Gets the <see cref="JsonSerializerOptions"/>.
         /// </summary>
         private JsonSerializerOptions GetJsonSerializerOptions() =>
-            defaultConfiguration.Value.GetDefaultState().Options;
+            jsonOptions.Value();
 
         /// <summary>
         /// Gets the client instance.

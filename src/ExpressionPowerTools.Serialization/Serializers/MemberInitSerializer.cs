@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Jeremy Likness. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.Json;
+using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Serialization.Signatures;
 
 namespace ExpressionPowerTools.Serialization.Serializers
@@ -19,6 +20,12 @@ namespace ExpressionPowerTools.Serialization.Serializers
         IBaseSerializer
     {
         /// <summary>
+        /// Types compressor service.
+        /// </summary>
+        private readonly Lazy<ITypesCompressor> typesCompressor =
+            ServiceHost.GetLazyService<ITypesCompressor>();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MemberInitSerializer"/> class.
         /// </summary>
         /// <param name="serializer">The base serializer.</param>
@@ -31,23 +38,20 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserialize a <see cref="MemberInit"/> to a <see cref="MemberInitExpression"/>.
         /// </summary>
-        /// <param name="json">The <see cref="JsonElement"/> to deserialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
+        /// <param name="memberInit">The <see cref="MemberInit"/> to deserialize.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The <see cref="MemberInitExpression"/>.</returns>
         public override MemberInitExpression Deserialize(
-            JsonElement json,
+            MemberInit memberInit,
             SerializationState state)
         {
             NewExpression expr = null;
-            if (json.TryGetProperty(
-                nameof(MemberInit.NewExpression),
-                out JsonElement jsonObj))
+            if (memberInit.NewExpression != null)
             {
-                expr = Serializer.Deserialize(jsonObj, state) as NewExpression;
+                expr = Serializer.Deserialize(memberInit.NewExpression, state) as NewExpression;
             }
 
-            var bindings = json.GetProperty(nameof(MemberInit.Bindings)).EnumerateArray();
-            var memberBindings = DeserializeBindings(bindings, state);
+            var memberBindings = DeserializeBindings(memberInit.Bindings, state);
             return Expression.MemberInit(expr, memberBindings.ToArray());
         }
 
@@ -55,7 +59,7 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// Serialize a <see cref="MemberInitExpression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="MemberInitExpression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
+        /// <param name="state">State for the serialization or deserialization.</param>
         /// <returns>The serializable <see cref="MemberInit"/>.</returns>
         public override MemberInit Serialize(
             MemberInitExpression expression,
@@ -68,32 +72,11 @@ namespace ExpressionPowerTools.Serialization.Serializers
 
             var memberInit = new MemberInit(expression)
             {
-                NewExpression = Serializer.Serialize(expression.NewExpression, state),
+                NewExpression = (CtorExpr)Serializer.Serialize(expression.NewExpression, state),
             };
             memberInit.Bindings.AddRange(SerializeBindings(expression.Bindings, state));
             return memberInit;
         }
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="json">The serialized fragment.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the deserialization.</param>
-        /// <returns>The <see cref="Expression"/>.</returns>
-        Expression IBaseSerializer.Deserialize(
-            JsonElement json,
-            SerializationState state) => Deserialize(json, state);
-
-        /// <summary>
-        /// Implements <see cref="IBaseSerializer"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="Expression"/> to serialize.</param>
-        /// <param name="state">State, such as <see cref="JsonSerializerOptions"/>, for the serialization.</param>
-        /// <returns>The <see cref="SerializableExpression"/>.</returns>
-        SerializableExpression IBaseSerializer.Serialize(
-            Expression expression,
-            SerializationState state) =>
-            Serialize(expression as MemberInitExpression, state);
 
         /// <summary>
         /// Deserialize the list of <see cref="MemberBinding"/>.
@@ -102,25 +85,22 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="state">The <see cref="SerializationState"/>.</param>
         /// <returns>The list of member bindings.</returns>
         private IEnumerable<MemberBinding> DeserializeBindings(
-            IEnumerable<JsonElement> list, SerializationState state)
+            IEnumerable<MemberBindingExpr> list, SerializationState state)
         {
             var result = new List<MemberBinding>();
             foreach (var element in list)
             {
-                var type = (MemberBindingType)element
-                    .GetProperty(nameof(MemberBinding.BindingType))
-                    .GetInt32();
-
+                var type = (MemberBindingType)element.BindingType;
                 switch (type)
                 {
                     case MemberBindingType.Assignment:
-                        result.Add(DeserializeAssignment(element, state));
+                        result.Add(DeserializeAssignment((MemberBindingAssignment)element, state));
                         break;
                     case MemberBindingType.MemberBinding:
-                        result.Add(DeserializeMember(element, state));
+                        result.Add(DeserializeMember((MemberBindingMember)element, state));
                         break;
                     case MemberBindingType.ListBinding:
-                        result.Add(DeserializeList(element, state));
+                        result.Add(DeserializeList((MemberBindingList)element, state));
                         break;
                 }
             }
@@ -131,34 +111,30 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a list.
         /// </summary>
-        /// <param name="element">The <see cref="JsonElement"/> to parse.</param>
+        /// <param name="element">The <see cref="MemberBindingList"/> to parse.</param>
         /// <param name="state">The <see cref="SerializationState"/>.</param>
         /// <returns>The <see cref="MemberListBinding"/>.</returns>
         private MemberBinding DeserializeList(
-            JsonElement element,
+            MemberBindingList element,
             SerializationState state)
         {
-            var member = GetMemberFromKey(
-                element.GetProperty(nameof(MemberBindingList.MemberKey))
-                .GetString());
+            var member = GetMemberFromKey(element.MemberKey);
             var auth = new List<MemberInfo>
             {
                 member,
             };
             var initializers = new List<ElementInit>();
-            foreach (var init in
-                element.GetProperty(
-                    nameof(MemberBindingList.Initializers))
-                .EnumerateArray())
+            foreach (var init in element.Initializers)
             {
-                var addMethod = GetMemberFromKey<MethodInfo>(
-                    init.GetProperty(nameof(MemberBindingInitializer.AddMethodKey))
-                    .GetString());
+                var addMethodKey = init.AddMethodKey;
+                typesCompressor.Value.DecompressTypes(
+                    state.TypeIndex,
+                    (addMethodKey, newKey => addMethodKey = newKey));
+                var addMethod = GetMemberFromKey<MethodInfo>(addMethodKey);
                 auth.Add(addMethod);
                 initializers.Add(Expression.ElementInit(
                     addMethod,
-                    init.GetProperty(nameof(MemberBindingInitializer.Arguments))
-                    .EnumerateArray().Select(json => Serializer.Deserialize(json, state))
+                    init.Arguments.Select(arg => Serializer.Deserialize(arg, state))
                     .ToArray()));
             }
 
@@ -170,41 +146,44 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <summary>
         /// Deserializes a member binding.
         /// </summary>
-        /// <param name="element">The <see cref="JsonElement"/> to parse.</param>
+        /// <param name="element">The <see cref="MemberBindingMember"/> to parse.</param>
         /// <param name="state">The <seealso cref="SerializationState"/>.</param>
         /// <returns>The <see cref="MemberMemberBinding"/>.</returns>
         private MemberBinding DeserializeMember(
-            JsonElement element,
+            MemberBindingMember element,
             SerializationState state)
         {
-            var member = GetMemberFromKey(
-                element.GetProperty(nameof(MemberBindingMember.MemberKey))
-                .GetString());
+            var memberKey = element.MemberKey;
+            typesCompressor.Value.DecompressTypes(
+                state.TypeIndex,
+                (memberKey, newKey => memberKey = newKey));
+            var member = GetMemberFromKey(memberKey);
 
             AuthorizeMembers(member);
 
             var bindings = DeserializeBindings(
-                element.GetProperty(nameof(MemberBindingMember.Bindings))
-                .EnumerateArray(), state).ToArray();
+                element.Bindings, state).ToArray();
             return Expression.MemberBind(member, bindings);
         }
 
         /// <summary>
         /// Deserializes an assignment.
         /// </summary>
-        /// <param name="element">The <see cref="JsonElement"/> to parse.</param>
+        /// <param name="element">The <see cref="MemberBindingAssignment"/> to parse.</param>
         /// <param name="state">The <see cref="SerializationState"/>.</param>
         /// <returns>The <see cref="MemberAssignment"/>.</returns>
-        private MemberBinding DeserializeAssignment(JsonElement element, SerializationState state)
+        private MemberBinding DeserializeAssignment(MemberBindingAssignment element, SerializationState state)
         {
-            var member = GetMemberFromKey(
-                element.GetProperty(nameof(MemberBindingAssignment.MemberInfoKey))
-                .GetString());
+            var key = element.MemberInfoKey;
+            typesCompressor.Value.DecompressTypes(
+                state.TypeIndex,
+                (key, newKey => key = newKey));
+            var member = GetMemberFromKey(key);
 
             AuthorizeMembers(member);
 
             var expression = Serializer.Deserialize(
-                element.GetProperty(nameof(MemberBindingAssignment.Expression)),
+                element.Expression,
                 state);
             return Expression.Bind(member, expression);
         }
@@ -215,9 +194,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
         /// <param name="list">The list of <see cref="MemberBinding"/>.</param>
         /// <param name="state">The <see cref="SerializationState"/>.</param>
         /// <returns>The list of serialized bindings.</returns>
-        private IEnumerable<object> SerializeBindings(IEnumerable<MemberBinding> list, SerializationState state)
+        private IEnumerable<MemberBindingExpr> SerializeBindings(IEnumerable<MemberBinding> list, SerializationState state)
         {
-            var result = new List<object>();
+            var result = new List<MemberBindingExpr>();
             foreach (var binding in list)
             {
                 switch (binding)
@@ -229,6 +208,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
                             Serializer.Serialize(assignment.Expression, state),
                             MemberInfoKey = GetKeyForMember(assignment.Member),
                         };
+                        typesCompressor.Value.CompressTypes(
+                            state.TypeIndex,
+                            (serializableBinding.MemberInfoKey, key => serializableBinding.MemberInfoKey = key));
                         result.Add(serializableBinding);
                         break;
 
@@ -237,6 +219,9 @@ namespace ExpressionPowerTools.Serialization.Serializers
                         {
                             MemberKey = GetKeyForMember(memberBinding.Member),
                         };
+                        typesCompressor.Value.CompressTypes(
+                            state.TypeIndex,
+                            (memberBindingSerializable.MemberKey, key => memberBindingSerializable.MemberKey = key));
                         memberBindingSerializable.Bindings.AddRange(
                             SerializeBindings(memberBinding.Bindings, state));
                         result.Add(memberBindingSerializable);

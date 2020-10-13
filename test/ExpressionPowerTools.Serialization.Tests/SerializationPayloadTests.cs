@@ -19,18 +19,6 @@ namespace ExpressionPowerTools.Serialization.Tests
             .Skip(2)
             .Take(10);
 
-        private string Json => Serializer.Serialize(query);
-        
-        [Fact]
-        public void GivenSerializationPayloadWhenSerializedThenShouldDeserialize()
-        {
-            var target = new SerializationPayload { Json = Json };
-            var serialized = JsonSerializer.Serialize(target);
-            Assert.True(!string.IsNullOrWhiteSpace(serialized));
-            var deserialized = JsonSerializer.Deserialize<SerializationPayload>(serialized);
-            Assert.Equal(Json, deserialized.Json);
-        }
-
         [Theory]
         [InlineData(PayloadType.Array)]
         [InlineData(PayloadType.Count)]

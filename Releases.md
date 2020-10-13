@@ -2,8 +2,50 @@
 
 [Back to README](./README.md)
 
+- [0.9 Beta](#09-Beta)
 - [0.9 Alpha](#09-Alpha)
 - [0.8 Alpha](#08-Alpha)
+
+## 0.9 Beta
+
+- [0.9.5-beta](#095-beta)
+
+### 0.9.5-beta 
+
+**Breaking Changes**
+
+- The call to `Deserialize` will now throw a `NotSupportedException` when the expression type is not supported
+- The `Serializer` has been renamed to `QueryExprSerializer`
+- Serialization is now decoupled from transport - the main serializers simply translate between expressions and serializable
+classes that hold the data to recreate the expressions
+
+**Core**
+
+- Improved performance of `ParameterCount` in `MemberAdapter`
+- Fixed equivalency of `NewExpression` to include members
+- Added `SafeGetTypes` to `ServiceHost`
+
+**Serialization**
+
+- Re-introduced compressed types
+- Simplified the serializers
+- Added attribute to tag compressable key and logic to compress and decompress
+- Modified Deserialize to tag an `ExpressionType` because that is already parsed anyway
+- Implemented `IBaseSerializer` in `BaseSerializer` so that derived classes no longer require a redundant implementation
+
+**EF Core AspNETCore Middleware**
+
+- Changed to use new `JsonWrapper` service
+- Added a registration for `Func<JsonSerializerOptions>` that can be overridden to provide defaults
+
+**EF Core HTTP Client**
+
+- Changed to return `List<T>` instead of `IList<T>`
+- Modified to use new serializer
+
+**Samples**
+
+- Updated sample to show compiled and serialized query text, compressed types, and updated the UI
 
 ## 0.9 Alpha
 
@@ -17,7 +59,7 @@
 
 **Serialization**
 
-Quick fix to catch `TypeLoadInitializationException` when scanning for repositories to register.
+- Quick fix to catch `TypeLoadInitializationException` when scanning for repositories to register.
 
 ### 0.9.3-alpha
 
