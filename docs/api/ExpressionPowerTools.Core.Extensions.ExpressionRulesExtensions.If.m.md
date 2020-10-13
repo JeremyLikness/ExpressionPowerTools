@@ -35,11 +35,12 @@ public static Expression<Func<T, T, Boolean>> If<T>(Expression<Func<T, T, Boolea
 For example, if first name matches and *if* last name isn't `null` , then it matches.
 
 ```csharp
+
 ExpressionRulesExtension.Rule((s, t) => s.FirstName == t.FirstName)
-                .And(If(
-                        condition: (s, t) => s.LastName != null,
-                        ifTrue: (s, t) => s.LastName == t.LastName
-                        ));
+    .And(If(
+            condition: (s, t) => s.LastName != null,
+            ifTrue: (s, t) => s.LastName == t.LastName
+            ));
             
 ```
 
@@ -47,12 +48,13 @@ In another example, if first name matches *or* if last name is not null and matc
             For last name to "light up" requires that both condition and `ifTrue` pass.
 
 ```csharp
+
 ExpressionRulesExtension.Rule((s, t) => s.FirstName == t.FirstName)
-                .Or(If(
-                        condition: (s, t) => s.LastName != null,
-                        ifTrue: (s, t) => s.LastName == t.LastName,
-                        ifFalse: ExpressionRuleExtension.False()
-                        ));
+    .Or(If(
+            condition: (s, t) => s.LastName != null,
+            ifTrue: (s, t) => s.LastName == t.LastName,
+            ifFalse: ExpressionRuleExtension.False()
+            ));
             
 ```
 
@@ -68,4 +70,4 @@ Since the logic is Boolean, the statement always returns a `bool` . If the condi
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

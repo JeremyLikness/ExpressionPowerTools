@@ -16,6 +16,7 @@ The first step is to register the client. The client uses [IHttpClientFactory](h
             typed instance of [IRemoteQueryClient](ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryClient.i.md) for processing. This requires a base address to make calls.
 
 ```csharp
+
 builder.Services.AddExpressionPowerToolsEFCore(new Uri(builder.HostEnvironment.BaseAddress));
             
 ```
@@ -24,10 +25,11 @@ This is typically done in the `Program.cs` for Blazor WebAssembly. It should be 
             configures the internal dependency injection service ( [ServiceHost](ExpressionPowerTools.Core.Dependencies.ServiceHost.cs.md) ). You must have a reference to the `DbContext` (it is used for the shape of the query and never run on the client). Use the [DbClientContext&lt;TContext>](ExpressionPowerTools.Serialization.EFCore.Http.Queryable.DbClientContext`1.cs.md) to start your query by referencing a root collection to use.
 
 ```csharp
+
 var query = DbClientContext<ThingContext>.Query(context => context.Things)
-                .Where(t => t.IsActive == ActiveFlag &&
-                    EF.Functions.Like(t.Name, $"%{nameFilter}%"))
-                .OrderBy(t => EF.Property<DateTime>(t, nameof(Thing.Created)));
+    .Where(t => t.IsActive == ActiveFlag &&
+        EF.Functions.Like(t.Name, $"%{nameFilter}%"))
+    .OrderBy(t => EF.Property<DateTime>(t, nameof(Thing.Created)));
             
 ```
 
@@ -35,6 +37,7 @@ When you are ready to execute the query remotely, use the `ExecuteRemote` extens
             and specify the collection type, a single item, or count.
 
 ```csharp
+
 var result = await query.ExecuteRemote().ToListAsync();
             
 ```
@@ -61,4 +64,4 @@ There are a few steps involved to run and resolve a remote query. See examples f
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

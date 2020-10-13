@@ -33,6 +33,7 @@ public static Void VariableNotNull<T>(Expression<Func<T>> value)
 For example:
 
 ```csharp
+
 Ensure.VariableNotNull(() => localVariable);
             
 ```
@@ -42,4 +43,4 @@ Ensure.VariableNotNull(() => localVariable);
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

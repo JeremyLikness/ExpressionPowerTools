@@ -43,8 +43,9 @@ public static ParameterExpression AsParameterExpression(Object obj, String name,
 For example:
 
 ```csharp
+
 var target = this.AsParameterExpression(nameof(parameter));
-            // target.Type == this.GetType(), target.Name == "parameter"
+// target.Type == this.GetType(), target.Name == "parameter"
             
 ```
 
@@ -79,8 +80,9 @@ public static ParameterExpression AsParameterExpression(Type type, String name, 
 For example:
 
 ```csharp
+
 var target = GetType().AsParameterExpression();
-            // target.Type == GetType()
+// target.Type == GetType()
             
 ```
 
@@ -89,4 +91,4 @@ var target = GetType().AsParameterExpression();
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

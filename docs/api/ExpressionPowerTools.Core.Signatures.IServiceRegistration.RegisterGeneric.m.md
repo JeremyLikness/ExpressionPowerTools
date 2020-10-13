@@ -34,9 +34,10 @@ public virtual IServiceRegistration RegisterGeneric(Type signature, Type impleme
 For example:
 
 ```csharp
+
 registration.RegisterGeneric(typeof(IQueryHost<,>), typeof(QueryHost<,>));
-            var target = source.GetService<IQueryHost<IdType, ICustomQueryProvider<IdType>>>(
-                query.Expression, provider);
+var target = source.GetService<IQueryHost<IdType, ICustomQueryProvider<IdType>>>(
+    query.Expression, provider);
             
 ```
 
@@ -50,4 +51,4 @@ To register a generic type, register the open type descriptor and the open
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

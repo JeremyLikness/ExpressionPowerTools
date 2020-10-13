@@ -15,12 +15,13 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 For example:
 
 ```csharp
+
 var list = new MarkdownList();
-            foreach(var item in items)
-            {
-                list.AddItem(item);
-            }
-            ICollection<string> result = list.CloseList();
+foreach(var item in items)
+{
+    list.AddItem(item);
+}
+ICollection<string> result = list.CloseList();
             
 ```
 
@@ -40,4 +41,4 @@ var list = new MarkdownList();
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

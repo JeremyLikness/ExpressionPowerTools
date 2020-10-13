@@ -17,7 +17,6 @@ Implements  [IDependentServiceRegistration](ExpressionPowerTools.Core.Signatures
 | Ctor | Description |
 | :-- | :-- |
 | [Registration()](ExpressionPowerTools.Serialization.Registration.ctor.md#registration) | Initializes a new instance of the [Registration](ExpressionPowerTools.Serialization.Registration.cs.md) class. |
-| [static Registration()](ExpressionPowerTools.Serialization.Registration.ctor.md#static-registration) | Initializes a new instance of the [Registration](ExpressionPowerTools.Serialization.Registration.cs.md) class. |
 ## Methods
 
 | Method | Description |
@@ -30,4 +29,4 @@ Implements  [IDependentServiceRegistration](ExpressionPowerTools.Core.Signatures
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

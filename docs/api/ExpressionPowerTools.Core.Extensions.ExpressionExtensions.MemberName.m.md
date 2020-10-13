@@ -33,8 +33,9 @@ public static String MemberName<T>(Expression<Func<T>> expr)
 For example:
 
 ```csharp
+
 Expression<Func<string>> expr = () => foo;
-            expr.MemberName(); // "foo"
+expr.MemberName(); // "foo"
             
 ```
 
@@ -43,4 +44,4 @@ Expression<Func<string>> expr = () => foo;
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

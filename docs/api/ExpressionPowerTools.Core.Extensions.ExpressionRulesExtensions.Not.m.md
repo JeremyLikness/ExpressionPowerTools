@@ -33,11 +33,12 @@ public static Expression<Func<T, T, Boolean>> Not<T>(Expression<Func<T, T, Boole
 For example:
 
 ```csharp
+
 var source = Expression.Constant(true);
-             var target = Expression.Constant(true);
-             var rule = rules.Not<ConstantExpression>(
-                (s, t) => (bool)s.Value);
-             var result = rule.Compile())source, target);
+var target = Expression.Constant(true);
+var rule = rules.Not<ConstantExpression>(
+   (s, t) => (bool)s.Value);
+var result = rule.Compile())source, target);
              
 ```
 
@@ -48,4 +49,4 @@ Because of the call to `Not` , the result is `false` .
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

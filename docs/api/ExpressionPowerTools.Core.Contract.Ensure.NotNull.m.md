@@ -33,6 +33,7 @@ public static Void NotNull<T>(Expression<Func<T>> value)
 ## Examples
 
 ```csharp
+
 Ensure.NotNull(() => parameter);
             
 ```
@@ -42,4 +43,4 @@ Ensure.NotNull(() => parameter);
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
