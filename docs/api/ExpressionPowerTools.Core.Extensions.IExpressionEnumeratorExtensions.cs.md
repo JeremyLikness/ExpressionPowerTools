@@ -15,6 +15,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 | Method | Description |
 | :-- | :-- |
 | [IEnumerable&lt;ConstantExpression> ConstantsOfType&lt;T>(IExpressionEnumerator expressionEnumerator)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.ConstantsOfType.m.md) | Helper extension to extract constants from an expression tree. |
+| [IEnumerable&lt;MemberExpression> MembersWithNameOnType&lt;T>(IExpressionEnumerator expressionEnumerator, String name)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MembersWithNameOnType.m.md) | Helper method to extract members with a name. |
 | [IEnumerable&lt;MethodCallExpression> MethodsFromTemplate&lt;T>(IExpressionEnumerator expressionEnumerator, Expression&lt;Action&lt;T>> method)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsFromTemplate.m.md) | Use a template to specify the method to search for. |
 | [IEnumerable&lt;MethodCallExpression> MethodsWithName(IExpressionEnumerator expressionEnumerator, String name)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithName.m.md) | Helper extension to extract methods with a particular name. |
 | [IEnumerable&lt;MethodCallExpression> MethodsWithNameForType(IExpressionEnumerator expressionEnumerator, Type type, String name)](ExpressionPowerTools.Core.Extensions.IExpressionEnumeratorExtensions.MethodsWithNameForType.m.md) | Extracts instances of expressions that represent a method            on a type. |
@@ -24,4 +25,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

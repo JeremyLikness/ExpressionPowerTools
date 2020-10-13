@@ -21,11 +21,11 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 | Property | Type | Description |
 | :-- | :-- | :-- |
 | [`ArrayTypeKey`](ExpressionPowerTools.Serialization.Serializers.NewArray.ArrayTypeKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the type of the array. |
-| [`Expressions`](ExpressionPowerTools.Serialization.Serializers.NewArray.Expressions.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets the list of expressions. |
+| [`Expressions`](ExpressionPowerTools.Serialization.Serializers.NewArray.Expressions.prop.md) | [List&lt;SerializableExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets the list of expressions. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

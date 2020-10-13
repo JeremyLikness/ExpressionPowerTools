@@ -8,13 +8,13 @@ Deserialize a [MethodExpr](ExpressionPowerTools.Serialization.Serializers.Method
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize a [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) to a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(MethodExpr method, SerializationState state)](#deserializemethodexpr-method-serializationstate-state) | Deserialize a [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) to a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) . |
+## Deserialize(MethodExpr method, SerializationState state)
 
 Deserialize a [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) to a [MethodCallExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.methodcallexpression) .
 
 ```csharp
-public virtual MethodCallExpression Deserialize(JsonElement json, SerializationState state)
+public virtual MethodCallExpression Deserialize(MethodExpr method, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual MethodCallExpression Deserialize(JsonElement json, SerializationS
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to deserialize. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `method` | [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) | The [MethodExpr](ExpressionPowerTools.Serialization.Serializers.MethodExpr.cs.md) to deserialize. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual MethodCallExpression Deserialize(JsonElement json, SerializationS
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

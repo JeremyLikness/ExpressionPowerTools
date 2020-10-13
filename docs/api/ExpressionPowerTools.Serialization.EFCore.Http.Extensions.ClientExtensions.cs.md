@@ -55,10 +55,10 @@ There are a few steps involved to run and resolve a remote query. See examples f
 | [Task&lt;T> FirstOrSingleAsync&lt;T>(IRemoteQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.FirstOrSingleAsync.m.md) | Grabs the first item, or the single item, from the result. |
 | [Task&lt;T[]> ToArrayAsync&lt;T>(IRemoteQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ToArrayAsync.m.md) | Grabs the array. |
 | [Task&lt;HashSet&lt;T>> ToHashSetAsync&lt;T>(IRemoteQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ToHashSetAsync.m.md) | Grabs the hash set. |
-| [Task&lt;IList&lt;T>> ToListAsync&lt;T>(IRemoteQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ToListAsync.m.md) | Grabs the list. |
+| [Task&lt;List&lt;T>> ToListAsync&lt;T>(IRemoteQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Extensions.ClientExtensions.ToListAsync.m.md) | Grabs the list. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

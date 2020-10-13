@@ -8,13 +8,13 @@ Deserialize a [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize a [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) to a [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(CtorExpr ctorExpr, SerializationState state)](#deserializectorexpr-ctorexpr-serializationstate-state) | Deserialize a [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) to a [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
+## Deserialize(CtorExpr ctorExpr, SerializationState state)
 
 Deserialize a [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) to a [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) .
 
 ```csharp
-public virtual NewExpression Deserialize(JsonElement json, SerializationState state)
+public virtual NewExpression Deserialize(CtorExpr ctorExpr, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual NewExpression Deserialize(JsonElement json, SerializationState st
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to deserialize. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `ctorExpr` | [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) | The [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to deserialize. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual NewExpression Deserialize(JsonElement json, SerializationState st
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

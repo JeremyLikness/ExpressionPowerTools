@@ -14,8 +14,8 @@ Implements  [IExpressionSerializer&lt;T, TSerializable>](ExpressionPowerTools.Se
 
 ## Remarks
 
-The constructor for this class scans the assembly for serializers tagged with [ExpressionSerializerAttribute](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.cs.md) . These are loaded based on the [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) they represent and stored as [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.i.md) .
-            The serializers should be accessed through the static [Serializer](ExpressionPowerTools.Serialization.Serializer.cs.md) class,
+The constructor for this class scans the assembly for serializers tagged with [ExpressionSerializerAttribute](ExpressionPowerTools.Serialization.ExpressionSerializerAttribute.cs.md) . These are loaded based on the [ExpressionType](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expressiontype) they represent and stored as [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBaseSerializer.i.md) .
+            The serializers should be accessed through the static [QueryExprSerializer](ExpressionPowerTools.Serialization.QueryExprSerializer.cs.md) class,
             which takes the serializable classes and serializes them to and from JSON.
 
 ## Constructors
@@ -27,11 +27,11 @@ The constructor for this class scans the assembly for serializers tagged with [E
 
 | Method | Description |
 | :-- | :-- |
-| [Expression Deserialize(JsonElement json, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Deserialize.m.md) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+| [Expression Deserialize(SerializableExpression root, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Deserialize.m.md) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
 | [SerializableExpression Serialize(Expression expression, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.Serialize.m.md) | Serialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

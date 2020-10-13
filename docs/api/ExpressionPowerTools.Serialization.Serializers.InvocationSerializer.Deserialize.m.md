@@ -8,13 +8,13 @@ Deserializes a [InvocationExpression](https://docs.microsoft.com/dotnet/api/syst
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserializes a [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(Invocation expr, SerializationState state)](#deserializeinvocation-expr-serializationstate-state) | Deserializes a [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
+## Deserialize(Invocation expr, SerializationState state)
 
 Deserializes a [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) .
 
 ```csharp
-public virtual InvocationExpression Deserialize(JsonElement json, SerializationState state)
+public virtual InvocationExpression Deserialize(Invocation expr, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual InvocationExpression Deserialize(JsonElement json, SerializationS
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The serialized fragment. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `expr` | [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) | The serialized fragment. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual InvocationExpression Deserialize(JsonElement json, SerializationS
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

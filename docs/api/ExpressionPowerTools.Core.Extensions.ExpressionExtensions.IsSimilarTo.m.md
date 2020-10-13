@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Extensions](ExpressionPowerTools.Core.Extensions.n.md) > [ExpressionExtensions](ExpressionPowerTools.Core.Extensions.ExpressionExtensions.cs.md) > **IsSimilarTo**
 
-Uses [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) to determine similarity.
+Uses [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.i.md) to determine similarity.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [IsSimilarTo(Expression source, Expression target)](#issimilartoexpression-source-expression-target) | Uses [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) to determine similarity. |
+| [IsSimilarTo(Expression source, Expression target)](#issimilartoexpression-source-expression-target) | Uses [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.i.md) to determine similarity. |
 ## IsSimilarTo(Expression source, Expression target)
 
-Uses [ExpressionSimilarity](ExpressionPowerTools.Core.Comparisons.ExpressionSimilarity.cs.md) to determine similarity.
+Uses [IExpressionEvaluator](ExpressionPowerTools.Core.Signatures.IExpressionEvaluator.i.md) to determine similarity.
 
 ```csharp
 public static Boolean IsSimilarTo(Expression source, Expression target)
@@ -34,4 +34,4 @@ public static Boolean IsSimilarTo(Expression source, Expression target)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

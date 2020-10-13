@@ -26,10 +26,10 @@ Implements  [IRemoteQueryResolver](ExpressionPowerTools.Serialization.EFCore.Htt
 | [Task&lt;T> FirstOrSingleAsync&lt;T>(IQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.FirstOrSingleAsync.m.md) | Execute the remote query and materialize the single item. |
 | [Task&lt;T[]> ToArrayAsync&lt;T>(IQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.ToArrayAsync.m.md) | Execute the remote query and materialize the results. |
 | [Task&lt;HashSet&lt;T>> ToHashSetAsync&lt;T>(IQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.ToHashSetAsync.m.md) | Execute the remote query and materialize the results. |
-| [Task&lt;IList&lt;T>> ToListAsync&lt;T>(IQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.ToListAsync.m.md) | Execute the remote query and materialize the results. |
+| [Task&lt;List&lt;T>> ToListAsync&lt;T>(IQueryable&lt;T> query)](ExpressionPowerTools.Serialization.EFCore.Http.Transport.HttpRemoteQueryResolver.ToListAsync.m.md) | Execute the remote query and materialize the results. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

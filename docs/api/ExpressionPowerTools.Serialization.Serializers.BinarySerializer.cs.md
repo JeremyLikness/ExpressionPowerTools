@@ -21,11 +21,11 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Method | Description |
 | :-- | :-- |
-| [BinaryExpression Deserialize(JsonElement json, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.Deserialize.m.md) | Deserializes a [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) . |
+| [BinaryExpression Deserialize(Binary root, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.Deserialize.m.md) | Deserializes a [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) . |
 | [Binary Serialize(BinaryExpression expression, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.BinarySerializer.Serialize.m.md) | Serialize a [BinaryExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.binaryexpression) to a [Binary](ExpressionPowerTools.Serialization.Serializers.Binary.cs.md) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

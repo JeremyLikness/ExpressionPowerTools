@@ -8,13 +8,13 @@ Deserializes a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.l
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserializes a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(Lambda lambda, SerializationState state)](#deserializelambda-lambda-serializationstate-state) | Deserializes a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
+## Deserialize(Lambda lambda, SerializationState state)
 
 Deserializes a [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) .
 
 ```csharp
-public virtual LambdaExpression Deserialize(JsonElement json, SerializationState state)
+public virtual LambdaExpression Deserialize(Lambda lambda, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual LambdaExpression Deserialize(JsonElement json, SerializationState
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The serialized fragment. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `lambda` | [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) | The serialized fragment. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual LambdaExpression Deserialize(JsonElement json, SerializationState
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

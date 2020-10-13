@@ -56,7 +56,7 @@ This is a very simple dependency injection container. It allows registration
             recursively resolve dependencies. Registration happens in the call toand can only be done once.is provided mainly for testing purposes.
 
 Satellite assemblies can hook into the registration by implementing [IDependentServiceRegistration](ExpressionPowerTools.Core.Signatures.IDependentServiceRegistration.i.md) . This is
-            scanned and loaded before user overridees.
+            scanned and loaded before user overridees. Services can be lazy-loaded by using themethod.
 
 The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistration.i.md) provided by initialization is chainable (each call returns itself).
 
@@ -73,9 +73,10 @@ The [IServiceRegistration](ExpressionPowerTools.Core.Signatures.IServiceRegistra
 | [T GetService&lt;T>(Object[] parameters)](ExpressionPowerTools.Core.Dependencies.ServiceHost.GetService.m.md) | Get the service implementation. |
 | [Void Initialize(Action&lt;IServiceRegistration> registration)](ExpressionPowerTools.Core.Dependencies.ServiceHost.Initialize.m.md) | Initialize the container. Can only be done once unlessis called. |
 | [Void Reset()](ExpressionPowerTools.Core.Dependencies.ServiceHost.Reset.m.md) | Reset to new services instance. |
+| [IList&lt;Type> SafeGetTypes(Predicate&lt;Type> filter)](ExpressionPowerTools.Core.Dependencies.ServiceHost.SafeGetTypes.m.md) | Safely enumerate types across loaded assemblies. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

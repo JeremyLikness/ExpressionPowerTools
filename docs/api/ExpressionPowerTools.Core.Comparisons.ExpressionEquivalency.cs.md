@@ -19,6 +19,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Method | Description |
 | :-- | :-- |
+| [Boolean AnonymousValuesAreEquivalent(Object source, Object target)](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.AnonymousValuesAreEquivalent.m.md) | Compares two anonymous values. |
 | [Boolean AreEquivalent(Expression source, Expression target)](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.AreEquivalent.m.md) | Entry for equivalency comparisons. Will cast to            known types and compare. |
 | [Boolean DictionariesAreEquivalent(IDictionary source, IDictionary target)](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.DictionariesAreEquivalent.m.md) | Ensures two dictionaries are equivalent. |
 | [Boolean MemberBindingsAreEquivalent(MemberBinding source, MemberBinding target)](ExpressionPowerTools.Core.Comparisons.ExpressionEquivalency.MemberBindingsAreEquivalent.m.md) | Ensures that two [MemberBinding](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberbinding) instances are equivalent. |
@@ -31,4 +32,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

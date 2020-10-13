@@ -5,6 +5,7 @@
 This version is named "tongue-in-cheek" due to the assumption that code will outperform compiled expressions.
             Although that can be true, and this is included for testing as well as referencing if it helps with application scale,
             you should find the rules-based works fine for most scenarios and performs close to par with the programmed verssion.
+            So far the tests for this run slightly slower than the expression-based version.
 
 ```csharp
 public class DefaultHighPerformanceRules : IExpressionComparisonRuleProvider
@@ -32,4 +33,4 @@ Implements  [IExpressionComparisonRuleProvider](ExpressionPowerTools.Core.Signat
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

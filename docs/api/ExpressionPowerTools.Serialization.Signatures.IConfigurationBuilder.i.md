@@ -17,10 +17,9 @@ Derived  [ConfigurationBuilder](ExpressionPowerTools.Serialization.Configuration
 | [IConfigurationBuilder CompressExpressionTree(Boolean compressExpressionTree)](ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.CompressExpressionTree.m.md) | Sets the flag to indicate whether expression trees should be partially            evaluated so that local variable references aren't serialized. |
 | [IConfigurationBuilder CompressTypes(Boolean compressTypes)](ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.CompressTypes.m.md) | Sets the flag to indicate whether types should be compressed. |
 | [SerializationState Configure()](ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.Configure.m.md) | Takes the configuration and returns the serialization state. |
-| [IConfigurationBuilder WithJsonSerializerOptions(Action&lt;JsonSerializerOptions> options)](ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder.WithJsonSerializerOptions.m.md) | Adds the [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) to the options. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

@@ -8,13 +8,13 @@ Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(SerializableExpression root, SerializationState state)](#deserializeserializableexpression-root-serializationstate-state) | Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+## Deserialize(SerializableExpression root, SerializationState state)
 
 Deserialize to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
 
 ```csharp
-public virtual Expression Deserialize(JsonElement json, SerializationState state)
+public virtual Expression Deserialize(SerializableExpression root, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual Expression Deserialize(JsonElement json, SerializationState state
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The fragment to deserialize. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `root` | [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) | The fragment to deserialize. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual Expression Deserialize(JsonElement json, SerializationState state
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

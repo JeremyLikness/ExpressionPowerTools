@@ -22,9 +22,13 @@ public virtual SerializationState GetDefaultState()
  [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md)  - The [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) .
 
 
+## Remarks
+
+The default configuration is transferred to a new instance of [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) to prevent side effects (i.e. manipulation of the state affecting the default).
+
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

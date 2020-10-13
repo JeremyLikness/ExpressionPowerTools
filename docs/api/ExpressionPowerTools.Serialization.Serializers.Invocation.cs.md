@@ -19,12 +19,12 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Arguments`](ExpressionPowerTools.Serialization.Serializers.Invocation.Arguments.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the arguments list. |
-| [`Expression`](ExpressionPowerTools.Serialization.Serializers.Invocation.Expression.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the target [Expression](ExpressionPowerTools.Serialization.Serializers.Invocation.Expression.prop.md) . |
+| [`Arguments`](ExpressionPowerTools.Serialization.Serializers.Invocation.Arguments.prop.md) | [List&lt;SerializableExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the arguments list. |
+| [`Expression`](ExpressionPowerTools.Serialization.Serializers.Invocation.Expression.prop.md) | [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) | Gets or sets the target [Expression](ExpressionPowerTools.Serialization.Serializers.Invocation.Expression.prop.md) . |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

@@ -14,11 +14,11 @@ Derived  [AnonymousTypeAdapter](ExpressionPowerTools.Serialization.Serializers.A
 
 | Method | Description |
 | :-- | :-- |
-| [Object ConvertFromAnonType(AnonType anonType, JsonSerializerOptions options)](ExpressionPowerTools.Serialization.Signatures.IAnonymousTypeAdapter.ConvertFromAnonType.m.md) | Reconstructs an anonymous type from [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) . |
+| [Object ConvertFromAnonType(AnonType anonType)](ExpressionPowerTools.Serialization.Signatures.IAnonymousTypeAdapter.ConvertFromAnonType.m.md) | Reconstructs an anonymous type from [AnonType](ExpressionPowerTools.Serialization.Serializers.AnonType.cs.md) . |
 | [AnonType ConvertToAnonType(Object anonymousInstance)](ExpressionPowerTools.Serialization.Signatures.IAnonymousTypeAdapter.ConvertToAnonType.m.md) | Encapsulates an anonymous type for serialization. |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

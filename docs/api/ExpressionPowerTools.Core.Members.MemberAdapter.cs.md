@@ -2,7 +2,9 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Core](ExpressionPowerTools.Core.a.md) > [ExpressionPowerTools.Core.Members](ExpressionPowerTools.Core.Members.n.md) > **MemberAdapter**
 
-Handles translation and comparison of members.
+Handles translation and comparison of members. Responsible for composing a unique [MethodInfo](https://docs.microsoft.com/dotnet/api/system.reflection.methodinfo) into a string with enough information to re-build the
+            member. Uses the XML Docs algorithm as a baseline, but extends it for closures.
+            Also handles anonymous types.
 
 ```csharp
 public class MemberAdapter : IMemberAdapter
@@ -31,4 +33,4 @@ Implements  [IMemberAdapter](ExpressionPowerTools.Core.Signatures.IMemberAdapter
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

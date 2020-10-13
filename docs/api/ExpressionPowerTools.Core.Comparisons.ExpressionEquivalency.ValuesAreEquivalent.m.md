@@ -35,9 +35,12 @@ If one side is `null` and other is not `null` , returns `false` . If the objects
             returns `true` . If the type implements [IEquatable&lt;T>](https://docs.microsoft.com/dotnet/api/system.iequatable-1) then the result of [System.IEquatable&lt;T1>.Equals](https://docs.microsoft.com/dotnet/api/System.IEquatable-1.Equals) is returned. If the type implements [IComparable](https://docs.microsoft.com/dotnet/api/system.icomparable) then the result is `true` if [System.IComparable.CompareTo](https://docs.microsoft.com/dotnet/api/System.IComparable.CompareTo) is `0` . Otherwise, the result of [System.Object.Equals](https://docs.microsoft.com/dotnet/api/System.Object.Equals) from
             the source to the target is returned.
 
+Exceptions are compared by the `Message` property. The comparison is also recursive: if a type is found that has an
+            existing comparison method, the method is called for further validation.
+
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

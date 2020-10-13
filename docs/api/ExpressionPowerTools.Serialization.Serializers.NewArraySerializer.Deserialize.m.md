@@ -8,13 +8,13 @@ Deserializes a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserializes a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(NewArray newArray, SerializationState state)](#deserializenewarray-newarray-serializationstate-state) | Deserializes a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) . |
+## Deserialize(NewArray newArray, SerializationState state)
 
 Deserializes a [NewArrayExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newarrayexpression) .
 
 ```csharp
-public virtual NewArrayExpression Deserialize(JsonElement json, SerializationState state)
+public virtual NewArrayExpression Deserialize(NewArray newArray, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual NewArrayExpression Deserialize(JsonElement json, SerializationSta
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The serialized fragment. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `newArray` | [NewArray](ExpressionPowerTools.Serialization.Serializers.NewArray.cs.md) | The serialized fragment. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual NewArrayExpression Deserialize(JsonElement json, SerializationSta
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

@@ -20,7 +20,7 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Arguments`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.Arguments.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the method's object. |
+| [`Arguments`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.Arguments.prop.md) | [List&lt;SerializableExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the method's object. |
 | [`CtorInfo`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.CtorInfo.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the serializable [ConstructorInfo](https://docs.microsoft.com/dotnet/api/system.reflection.constructorinfo) . |
 | [`MemberKeys`](ExpressionPowerTools.Serialization.Serializers.CtorExpr.MemberKeys.prop.md) | [List&lt;String>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the keys of members. |
 
@@ -29,4 +29,4 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

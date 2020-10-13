@@ -2,16 +2,16 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization.EFCore.Http](ExpressionPowerTools.Serialization.EFCore.Http.a.md) > [ExpressionPowerTools.Serialization.EFCore.Http.Signatures](ExpressionPowerTools.Serialization.EFCore.Http.Signatures.n.md) > [IRemoteQueryResolver](ExpressionPowerTools.Serialization.EFCore.Http.Signatures.IRemoteQueryResolver.i.md) > **CountAsync**
 
-Resolves to a count..
+Resolves to a count.
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [CountAsync&lt;T>(IQueryable&lt;T> query)](#countasynctiqueryablet-query) | Resolves to a count.. |
+| [CountAsync&lt;T>(IQueryable&lt;T> query)](#countasynctiqueryablet-query) | Resolves to a count. |
 ## CountAsync&lt;T>(IQueryable&lt;T> query)
 
-Resolves to a count..
+Resolves to a count.
 
 ```csharp
 public virtual Task<Int32> CountAsync<T>(IQueryable<T> query)
@@ -33,4 +33,4 @@ public virtual Task<Int32> CountAsync<T>(IQueryable<T> query)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

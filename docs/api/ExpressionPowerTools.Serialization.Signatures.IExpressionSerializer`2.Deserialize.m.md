@@ -8,13 +8,13 @@ Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.ex
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(TSerializable root, SerializationState state)](#deserializetserializable-root-serializationstate-state) | Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+## Deserialize(TSerializable root, SerializationState state)
 
 Deserialize an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
 
 ```csharp
-public virtual T Deserialize(JsonElement json, SerializationState state)
+public virtual T Deserialize(TSerializable root, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ T - The deserialized [Expression](https://docs.microsoft.com/dotnet/api/system.l
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The serialized fragment. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `root` | TSerializable | The serialized fragment. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ T - The deserialized [Expression](https://docs.microsoft.com/dotnet/api/system.l
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

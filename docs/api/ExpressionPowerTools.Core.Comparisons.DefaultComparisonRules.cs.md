@@ -19,8 +19,8 @@ The documentation for each rule has remarks that detail the application of the r
 When documentation refers to "are similar" it means the similarity rules are applied to the child expressions.
             Types are similar if one is assignable to the other.
 
-Is a part of refers to the expression tree. For example, a take might be buried inside an include, but a top level
-            take will pass "is part of" an expression with a nest take.
+"Is a part of" refers to the expression tree. For example, a take might be buried inside an include, but a top level
+            take will pass "is part of" an expression with a nested take.
 
 ## Constructors
 
@@ -68,4 +68,4 @@ Is a part of refers to the expression tree. For example, a take might be buried 
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

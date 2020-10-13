@@ -6,9 +6,11 @@
 
 | Class | Description |
 | :-- | :-- |
+| [CompressableKeyAttribute](ExpressionPowerTools.Serialization.CompressableKeyAttribute.cs.md) | Attribute to tag a key that can be compressed. |
+| [ExpressionSerializerAttribute](ExpressionPowerTools.Serialization.ExpressionSerializerAttribute.cs.md) | Attribute to tag a serializer. |
+| [QueryExprSerializer](ExpressionPowerTools.Serialization.QueryExprSerializer.cs.md) | Class for serialization and de-deserialization of [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) trees. |
 | [Registration](ExpressionPowerTools.Serialization.Registration.cs.md) | Registration of services for serialization. |
 | [SerializationPayload](ExpressionPowerTools.Serialization.SerializationPayload.cs.md) | The serialization payload. |
-| [Serializer](ExpressionPowerTools.Serialization.Serializer.cs.md) | Class for serialization and de-deserialization of [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) trees. |
 
 ## Enumerations
 
@@ -21,4 +23,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

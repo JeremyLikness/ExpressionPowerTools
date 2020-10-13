@@ -5,7 +5,7 @@
 Gets or sets the root [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) .
 
 ```csharp
-public Object Expression { get; set; }
+public SerializableExpression Expression { get; set; }
 ```
 
 ## Remarks
@@ -14,11 +14,11 @@ For deserialization, this will be a [JsonElement](https://docs.microsoft.com/dot
 
 ### Property Value
 
- [Object](https://docs.microsoft.com/dotnet/api/system.object) 
+ [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) 
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

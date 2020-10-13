@@ -8,13 +8,13 @@ Deserialize a serializable class to an actionable [Expression](https://docs.micr
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize a serializable class to an actionable [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(Parameter param, SerializationState state)](#deserializeparameter-param-serializationstate-state) | Deserialize a serializable class to an actionable [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+## Deserialize(Parameter param, SerializationState state)
 
 Deserialize a serializable class to an actionable [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
 
 ```csharp
-public virtual ParameterExpression Deserialize(JsonElement json, SerializationState state)
+public virtual ParameterExpression Deserialize(Parameter param, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual ParameterExpression Deserialize(JsonElement json, SerializationSt
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The serialized fragment. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `param` | [Parameter](ExpressionPowerTools.Serialization.Serializers.Parameter.cs.md) | The serialized fragment. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual ParameterExpression Deserialize(JsonElement json, SerializationSt
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

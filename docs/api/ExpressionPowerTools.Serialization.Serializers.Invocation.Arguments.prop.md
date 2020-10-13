@@ -5,16 +5,16 @@
 Gets or sets the arguments list.
 
 ```csharp
-public List<Object> Arguments { get; set; }
+public List<SerializableExpression> Arguments { get; set; }
 ```
 
 ### Property Value
 
- [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) 
+ [List&lt;SerializableExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) 
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

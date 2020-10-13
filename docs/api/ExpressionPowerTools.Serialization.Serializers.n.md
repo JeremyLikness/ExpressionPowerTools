@@ -16,12 +16,12 @@
 | [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) | Represents a serializable [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
 | [CtorSerializer](ExpressionPowerTools.Serialization.Serializers.CtorSerializer.cs.md) | Serialization services for [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
 | [ExpressionSerializer](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializer.cs.md) | Top-level serializer that passes work off to specific types. |
-| [ExpressionSerializerAttribute](ExpressionPowerTools.Serialization.Serializers.ExpressionSerializerAttribute.cs.md) | Attribute to tag a serializer. |
 | [Invocation](ExpressionPowerTools.Serialization.Serializers.Invocation.cs.md) | A serializable version of [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
 | [InvocationSerializer](ExpressionPowerTools.Serialization.Serializers.InvocationSerializer.cs.md) | Serialization logic for expressions of type [InvocationExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.invocationexpression) . |
 | [Lambda](ExpressionPowerTools.Serialization.Serializers.Lambda.cs.md) | Serializable version of [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
 | [LambdaSerializer](ExpressionPowerTools.Serialization.Serializers.LambdaSerializer.cs.md) | Serialization logic for expressions of type [LambdaExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.lambdaexpression) . |
 | [MemberBindingAssignment](ExpressionPowerTools.Serialization.Serializers.MemberBindingAssignment.cs.md) | Serializable [MemberAssignment](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberassignment) . |
+| [MemberBindingExpr](ExpressionPowerTools.Serialization.Serializers.MemberBindingExpr.cs.md) | Base for a member binding expression. |
 | [MemberBindingInitializer](ExpressionPowerTools.Serialization.Serializers.MemberBindingInitializer.cs.md) | Serializable version of [ElementInit](https://docs.microsoft.com/dotnet/api/system.linq.expressions.elementinit) . |
 | [MemberBindingList](ExpressionPowerTools.Serialization.Serializers.MemberBindingList.cs.md) | Serializable version of the [MemberListBinding](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberlistbinding) class. |
 | [MemberBindingMember](ExpressionPowerTools.Serialization.Serializers.MemberBindingMember.cs.md) | Serializable version of the [MemberMemberBinding](https://docs.microsoft.com/dotnet/api/system.linq.expressions.membermemberbinding) class. |
@@ -47,4 +47,4 @@
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

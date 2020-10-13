@@ -9,6 +9,7 @@ Initializes a new instance of the [BaseSerializer&lt;TExpression, TSerializable>
 | Ctor | Description |
 | :-- | :-- |
 | [BaseSerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)](#baseserializeriexpressionserializerexpression-serializableexpression-serializer) | Initializes a new instance of the [BaseSerializer&lt;TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) class with a default serializer. |
+| [static BaseSerializer()](#static-baseserializer) | Initializes static members of the [BaseSerializer&lt;TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) class.            Captures the key delegates for compression. |
 
 ## BaseSerializer(IExpressionSerializer&lt;Expression, SerializableExpression> serializer)
 
@@ -31,8 +32,19 @@ public BaseSerializer(IExpressionSerializer<Expression, SerializableExpression> 
 | [ArgumentNullException](https://docs.microsoft.com/dotnet/api/system.argumentnullexception) | Thrown when serializer is null. |
 
 
+## static BaseSerializer()
+
+Initializes static members of the [BaseSerializer&lt;TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) class.
+            Captures the key delegates for compression.
+
+```csharp
+public static BaseSerializer()
+```
+
+
+
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

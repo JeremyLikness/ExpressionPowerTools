@@ -14,12 +14,12 @@ Resolves to a list.
 Resolves to a list.
 
 ```csharp
-public virtual Task<IList<T>> ToListAsync<T>(IQueryable<T> query)
+public virtual Task<List<T>> ToListAsync<T>(IQueryable<T> query)
 ```
 
 ### Return Type
 
- [Task&lt;IList&lt;T>>](https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1)  - The list.
+ [Task&lt;List&lt;T>>](https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1)  - The list.
 
 ### Parameters
 
@@ -33,4 +33,4 @@ public virtual Task<IList<T>> ToListAsync<T>(IQueryable<T> query)
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

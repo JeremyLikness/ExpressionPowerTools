@@ -21,11 +21,11 @@ Implements  [IBaseSerializer](ExpressionPowerTools.Serialization.Signatures.IBas
 
 | Method | Description |
 | :-- | :-- |
-| [NewExpression Deserialize(JsonElement json, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Deserialize.m.md) | Deserialize a [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) to a [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
+| [NewExpression Deserialize(CtorExpr ctorExpr, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Deserialize.m.md) | Deserialize a [CtorExpr](ExpressionPowerTools.Serialization.Serializers.CtorExpr.cs.md) to a [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
 | [CtorExpr Serialize(NewExpression expression, SerializationState state)](ExpressionPowerTools.Serialization.Serializers.CtorSerializer.Serialize.m.md) | Serialize a [NewExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.newexpression) . |
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

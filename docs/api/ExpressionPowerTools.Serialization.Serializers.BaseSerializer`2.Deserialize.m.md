@@ -2,19 +2,19 @@
 
 [Index](../index.md) > [ExpressionPowerTools.Serialization](ExpressionPowerTools.Serialization.a.md) > [ExpressionPowerTools.Serialization.Serializers](ExpressionPowerTools.Serialization.Serializers.n.md) > [BaseSerializer<TExpression, TSerializable>](ExpressionPowerTools.Serialization.Serializers.BaseSerializer`2.cs.md) > **Deserialize**
 
-Deserialize a [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
+Deserialize a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
 
 ## Overloads
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize a [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(TSerializable root, SerializationState state)](#deserializetserializable-root-serializationstate-state) | Deserialize a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) . |
+## Deserialize(TSerializable root, SerializationState state)
 
-Deserialize a [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
+Deserialize a [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) to an [Expression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.expression) .
 
 ```csharp
-public virtual TExpression Deserialize(JsonElement json, SerializationState state)
+public virtual TExpression Deserialize(TSerializable root, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ TExpression - The deserialized [Expression](https://docs.microsoft.com/dotnet/ap
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to deserialize. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `root` | TSerializable | The [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) to deserialize. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ TExpression - The deserialized [Expression](https://docs.microsoft.com/dotnet/ap
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

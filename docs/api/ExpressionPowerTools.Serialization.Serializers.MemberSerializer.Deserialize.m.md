@@ -8,13 +8,13 @@ Deserialize a [MemberExpr](ExpressionPowerTools.Serialization.Serializers.Member
 
 | Overload | Description |
 | :-- | :-- |
-| [Deserialize(JsonElement json, SerializationState state)](#deserializejsonelement-json-serializationstate-state) | Deserialize a [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) to a [MemberExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberexpression) . |
-## Deserialize(JsonElement json, SerializationState state)
+| [Deserialize(MemberExpr member, SerializationState state)](#deserializememberexpr-member-serializationstate-state) | Deserialize a [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) to a [MemberExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberexpression) . |
+## Deserialize(MemberExpr member, SerializationState state)
 
 Deserialize a [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) to a [MemberExpression](https://docs.microsoft.com/dotnet/api/system.linq.expressions.memberexpression) .
 
 ```csharp
-public virtual MemberExpression Deserialize(JsonElement json, SerializationState state)
+public virtual MemberExpression Deserialize(MemberExpr member, SerializationState state)
 ```
 
 ### Return Type
@@ -25,8 +25,8 @@ public virtual MemberExpression Deserialize(JsonElement json, SerializationState
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| `json` | [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) | The [JsonElement](https://docs.microsoft.com/dotnet/api/system.text.json.jsonelement) to deserialize. |
-| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State, such as [JsonSerializerOptions](https://docs.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions) , for the deserialization. |
+| `member` | [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) | The [MemberExpr](ExpressionPowerTools.Serialization.Serializers.MemberExpr.cs.md) to deserialize. |
+| `state` | [SerializationState](ExpressionPowerTools.Serialization.Serializers.SerializationState.cs.md) | State for the serialization or deserialization. |
 
 
 
@@ -34,4 +34,4 @@ public virtual MemberExpression Deserialize(JsonElement json, SerializationState
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

@@ -20,13 +20,13 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → [S
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| [`Arguments`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.Arguments.prop.md) | [List&lt;Object>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the list of arguments. |
+| [`Arguments`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.Arguments.prop.md) | [List&lt;SerializableExpression>](https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1) | Gets or sets the list of arguments. |
 | [`MethodInfoKey`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodInfoKey.prop.md) | [String](https://docs.microsoft.com/dotnet/api/system.string) | Gets or sets the serializable [MethodInfoKey](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodInfoKey.prop.md) . |
-| [`MethodObject`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodObject.prop.md) | [Object](https://docs.microsoft.com/dotnet/api/system.object) | Gets or sets the method's object. |
+| [`MethodObject`](ExpressionPowerTools.Serialization.Serializers.MethodExpr.MethodObject.prop.md) | [SerializableExpression](ExpressionPowerTools.Serialization.Serializers.SerializableExpression.cs.md) | Gets or sets the method's object. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

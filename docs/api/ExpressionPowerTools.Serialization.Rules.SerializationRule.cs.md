@@ -12,6 +12,10 @@ Inheritance [Object](https://docs.microsoft.com/dotnet/api/system.object) → **
 
 Implements  [ISerializationRule](ExpressionPowerTools.Serialization.Signatures.ISerializationRule.i.md) 
 
+## Remarks
+
+This is a container for the rule and ultimately gets resolved to a key for a [MemberInfo](https://docs.microsoft.com/dotnet/api/system.reflection.memberinfo) and a boolean (authorized or not).
+
 ## Constructors
 
 | Ctor | Description |
@@ -37,4 +41,4 @@ Implements  [ISerializationRule](ExpressionPowerTools.Serialization.Signatures.I
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |

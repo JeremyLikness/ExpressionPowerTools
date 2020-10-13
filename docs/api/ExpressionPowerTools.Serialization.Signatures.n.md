@@ -15,10 +15,17 @@
 | [IRulesConfiguration](ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration.i.md) | Interface for configuring rules. |
 | [IRulesEngine](ExpressionPowerTools.Serialization.Signatures.IRulesEngine.i.md) | The rules engine. |
 | [ISerializationRule](ExpressionPowerTools.Serialization.Signatures.ISerializationRule.i.md) | Represents a rule to allow or disallow a serialization. |
+| [ISerializationWrapper&lt;T, TSerializeOptions, TDeserializeOptions>](ExpressionPowerTools.Serialization.Signatures.ISerializationWrapper`3.i.md) | Wrapper for serialization of a specific type. |
+
+## Enumerations
+
+| Enumeration | Description |
+| :-- | :-- |
+| [SerializationType](ExpressionPowerTools.Serialization.Signatures.SerializationType.cs.md) | The type of serialization. |
 
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/08/2020 17:35:59 | (c) Copyright 2020 Jeremy Likness. | 0.9.4-alpha |
+| 10/13/2020 17:10:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
