@@ -61,4 +61,4 @@ public static Void ByResolver<T, TTarget>(MemberSelector<T> memberSelector, Expr
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/19/2020 16:18:15 | (c) Copyright 2020 Jeremy Likness. | 0.9.6-beta |
+| 10/19/2020 18:50:36 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
