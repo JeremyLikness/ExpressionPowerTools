@@ -8,27 +8,8 @@ Is it ready test.
 
 | Overload | Description |
 | :-- | :-- |
-| [IsReady&lt;T5>(T5 test)](#isreadyt5t5-test) | Is it ready test. |
 | [IsReady&lt;T5>(T5 test, Int32 number)](#isreadyt5t5-test-int32-number) | Is it ready test overload. |
-## IsReady&lt;T5>(T5 test)
-
-Is it ready test.
-
-```csharp
-public virtual Boolean IsReady<T5>(T5 test)
-```
-
-### Return Type
-
- [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean)  - A value that indicates whether it is ready.
-
-### Parameters
-
-| Parameter | Type | Description |
-| :-- | :-- | :-- |
-| `test` | T5 | The value to test. |
-
-
+| [IsReady&lt;T5>(T5 test)](#isreadyt5t5-test) | Is it ready test. |
 ## IsReady&lt;T5>(T5 test, Int32 number)
 
 Is it ready test overload.
@@ -49,9 +30,28 @@ public Boolean IsReady<T5>(T5 test, Int32 number)
 | `number` | [Int32](https://docs.microsoft.com/dotnet/api/system.int32) | The number. |
 
 
+## IsReady&lt;T5>(T5 test)
+
+Is it ready test.
+
+```csharp
+public virtual Boolean IsReady<T5>(T5 test)
+```
+
+### Return Type
+
+ [Boolean](https://docs.microsoft.com/dotnet/api/system.boolean)  - A value that indicates whether it is ready.
+
+### Parameters
+
+| Parameter | Type | Description |
+| :-- | :-- | :-- |
+| `test` | T5 | The value to test. |
+
+
 
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/19/2020 16:18:15 | (c) Copyright 2020 Jeremy Likness. | 0.9.6-beta |
