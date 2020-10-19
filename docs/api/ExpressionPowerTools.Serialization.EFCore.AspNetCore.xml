@@ -1,0 +1,404 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExpressionPowerTools.Serialization.EFCore.AspNetCore</name>
+    </assembly>
+    <members>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware">
+            <summary>
+            Middleware for managing requests for Entity Framework Core queries. See
+            <see cref="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions"/> for documentation to get started.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.next">
+            <summary>
+            Tracks the next step in the pipeline.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.contextTypes">
+            <summary>
+            The registered <c>DbContext</c> types.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.endpointPath">
+            <summary>
+            The root path for the routing endpoint.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.routeProcessor">
+            <summary>
+            The path processing service.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.adapter">
+            <summary>
+            The adapter to map to the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.deserializer">
+            <summary>
+            The process to deserialize the query to run.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.serializer">
+            <summary>
+            The process to serialize the query results.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,System.String,System.Type[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware"/> class.
+            </summary>
+            <param name="next">The next middleware in the processing pipeline.</param>
+            <param name="path">The path configured for the endpoint.</param>
+            <param name="dbContextTypes">The list of eligible context types.</param>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext,System.IServiceProvider)">
+            <summary>
+            The main invocation of the middleware component.
+            </summary>
+            <param name="httpContext">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> in the pipeline.</param>
+            <param name="provider">The <see cref="T:System.IServiceProvider"/>.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous operation.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.FilterPipelineAsync(Microsoft.AspNetCore.Http.HttpContext,System.IServiceProvider)">
+            <summary>
+            Pipeline to filter properly structured requests.
+            </summary>
+            <param name="httpContext">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="provider">The <see cref="T:System.IServiceProvider"/>.</param>
+            <returns>A value indicating whether or not the pipeline was processed.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.ExpressionPowerToolsEFCoreMiddleware.ProcessQueryAsync(Microsoft.AspNetCore.Http.HttpContext,ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle,System.IServiceProvider)">
+            <summary>
+            Task to process the query.
+            </summary>
+            <param name="httpContext">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="handle">The handle to the set to process.</param>
+            <param name="provider">The service provider.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> for asynchronous processing.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions">
+            <summary>
+            Extensions to configure the middleware.
+            </summary>
+            <remarks>
+            After referencing the project or NuGet package, you can add the middleware using endpoint routing. This should happen
+            in the <c>Configure</c> method in <c>Startup.cs</c>. First, make sure you have <c>app.UseRouting()</c>. Next, use
+            the extension to set up the endpoint.
+            </remarks>
+            <example>
+            For example, to set up a default route for a <c>DbContext</c> named <c>ThingContext</c> your code should look like:
+            <code lang="csharp"><![CDATA[
+            app.UseEndpoints(endpoints =>
+            {
+               endpoints.MapPowerToolsEFCore<ThingContext>();
+               endpoints.MapRazorPages();
+            });
+            ]]></code>
+            Be sure the context is registered with dependency injection. This is how the tools instantiate the instance to
+            run queries against.
+            The example will listen on the path <c>/efcore/ThingContext/collection</c> where collection is the name of the
+            <c>DbSet</c> property. You can customize the path:
+            <code lang="csharp"><![CDATA[
+            endpoints.MapPowerToolsEFCore<ThingContext>(pattern: "/queries/{context}/set/{collection}");
+            ]]></code>
+            It is also possible to customize rules. If you have a class named <c>MyClass</c> that has methods for the query
+            to run, you can add it:
+            <code lang="csharp"><![CDATA[
+            endpoints.MapPowerToolsEFCore<ThingContext>(rules: rule => rule.RuleForType<MyClass>().Allow());
+            ]]></code>
+            See documentation for the <see cref="T:ExpressionPowerTools.Serialization.Rules.RulesEngine"/> to understand the rules engine.
+            </example>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.Context">
+            <summary>
+            Context parameter of route.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.Collection">
+            <summary>
+            Collection parameter of route.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.DefaultPattern">
+            <summary>
+            The default base route pattern.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.MapPowerToolsEFCore``2(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration},System.Boolean,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+            <summary>
+            Map a route and allow two <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/> instances.
+            </summary>
+            <typeparam name="T1Context">The type of the first <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</typeparam>
+            <typeparam name="T2Context">The type of the second <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</typeparam>
+            <param name="endpointRouteBuilder">The <see cref="T:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder"/>.</param>
+            <param name="pattern">The root path. The context and controller will be appended.</param>
+            <param name="rules">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration"/> to configure serialization rules.</param>
+            <param name="noDefaultRules">Determines whether the default rule set should be applied.</param>
+            <param name="options">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/> to configure options.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IEndpointConventionBuilder"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.MapPowerToolsEFCore``1(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.Action{ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration},System.Boolean,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+            <summary>
+            Map a route and allow a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
+            </summary>
+            <typeparam name="TContext">The type of the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</typeparam>
+            <param name="endpointRouteBuilder">The <see cref="T:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder"/>.</param>
+            <param name="pattern">The path pattern.</param>
+            <param name="rules">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration"/> to configure serialization rules.</param>
+            <param name="noDefaultRules">Determines whether the default rule set should be applied.</param>
+            <param name="options">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/> to configure options.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IEndpointConventionBuilder"/>.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions.MiddlewareExtensions.MapPowerToolsEFCore(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,Microsoft.AspNetCore.Routing.Patterns.RoutePattern,System.Type[],System.Action{ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration},System.Boolean,System.Action{ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder})">
+            <summary>
+            Main configuration method for Power Tools EF Core middleware.
+            </summary>
+            <param name="endpointRouteBuilder">The <see cref="T:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder"/>.</param>
+            <param name="pattern">The pattern for the route (defaults to <c>/efcore</c>).</param>
+            <param name="dbContextTypes">The list of <c>DbContext</c> types to support.</param>
+            <param name="rules">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IRulesConfiguration"/> to configure serialization rules.</param>
+            <param name="noDefaultRules">Determines whether the default rule set should be applied.</param>
+            <param name="options">The <see cref="T:ExpressionPowerTools.Serialization.Signatures.IConfigurationBuilder"/> to configure options.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IEndpointConventionBuilder"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle">
+            <summary>
+            A handle that points to a context type and the property for the collection.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle.#ctor(System.Type,System.Reflection.PropertyInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle"/> class with
+            a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/> type and <see cref="T:System.Reflection.PropertyInfo"/> for the collection.
+            </summary>
+            <param name="dbContext">The type of the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="collection">The <see cref="T:System.Reflection.PropertyInfo"/> of the collection.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when the context or collection are null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the type is not a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</exception>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle.DbContextType">
+            <summary>
+            Gets the type of the context.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.CollectionHandle.Collection">
+            <summary>
+            Gets the <see cref="T:System.Reflection.PropertyInfo"/> of the collection.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter">
+            <summary>
+            Adapter to <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.CreateQuery(Microsoft.EntityFrameworkCore.DbContext,System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a query with the provided <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
+            </summary>
+            <remarks>
+            This is the same as doing <c>Context.Products.AsQueryable()</c>.
+            </remarks>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="collection">The <see cref="T:System.Reflection.PropertyInfo"/> for the collection.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when the context or collection are null.</exception>.
+            <exception cref="T:System.NullReferenceException">Thrown when the collection or queryable won't resolve.</exception>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.TryGetContext(System.Type[],System.String,System.Type@)">
+            <summary>
+            Tries to match context name with the list of eligible types.
+            </summary>
+            <param name="eligibleTypes">The list of potential <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/> types.</param>
+            <param name="context">The context name.</param>
+            <param name="dbContextType">The type of the matched <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <returns>A value indicating whether the match was successful.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.DbContextAdapter.TryGetDbSet(System.Type,System.String,System.Reflection.PropertyInfo@)">
+            <summary>
+            Tries to match the collection to a property on the context.
+            </summary>
+            <param name="context">The type of the <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="collection">The name of the collection.</param>
+            <param name="dbSet">The <see cref="T:System.Reflection.PropertyInfo"/> for the collection.</param>
+            <returns>A value indicating whether the property matched.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer">
+            <summary>
+            Resonsible for deserializing the query to run.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer.jsonOptions">
+            <summary>
+            Delegate to retrieve the default options. Register your own to override.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer.jsonSerializer">
+            <summary>
+            The JSON serializer.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryDeserializer.DeserializeAsync(System.Linq.IQueryable,System.IO.Stream,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Deserializes the query.
+            </summary>
+            <param name="template">The <see cref="T:System.Linq.IQueryable"/> to run.</param>
+            <param name="json">The stream with json info.</param>
+            <param name="logger">The logger.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable"/> result.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult">
+            <summary>
+            Represents the result of deserializing a query payload.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult.Query">
+            <summary>
+            Gets or sets the query.
+            </summary>
+        </member>
+        <member name="P:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResult.QueryType">
+            <summary>
+            Gets or sets a value indicating the type of query.
+            </summary>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer">
+            <summary>
+            Responsible for serializing the result to send back.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer.count">
+            <summary>
+            Count method.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer.firstOrDefault">
+            <summary>
+            FirstOrDefault method.
+            </summary>
+        </member>
+        <member name="F:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer.toArray">
+            <summary>
+            ToArray() method.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.QueryResultSerializer.SerializeAsync(System.IO.Stream,System.Linq.IQueryable,ExpressionPowerTools.Serialization.PayloadType)">
+            <summary>
+            Serializes the result of a query to the stream.
+            </summary>
+            <param name="response">The <see cref="T:System.IO.Stream"/> for the response.</param>
+            <param name="query">The <see cref="T:System.Linq.IQueryable"/> to resolve.</param>
+            <param name="type">A value indicating whether the result should be a count, single or array.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.RouteProcessor">
+            <summary>
+            Parses the path for context and collection.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware.RouteProcessor.ParseRoute(Microsoft.AspNetCore.Routing.RouteValueDictionary)">
+            <summary>
+            Parses the required segments from the path.
+            </summary>
+            <remarks>
+            Expected is <c>/root/contextName/collectionName</c>.
+            </remarks>
+            <param name="values">The route values.</param>
+            <returns>The parsed portions.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Registration">
+            <summary>
+            Register internal middleware services.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Registration.AfterRegistered">
+            <summary>
+            Called after registration is complete.
+            </summary>
+            <remarks>
+            Registers some useful EF Core types.
+            </remarks>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Registration.RegisterDefaultServices(ExpressionPowerTools.Core.Signatures.IServiceRegistration)">
+            <summary>
+            Register defaults for project.
+            </summary>
+            <param name="registration">The <see cref="T:ExpressionPowerTools.Core.Signatures.IServiceRegistration"/>.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter">
+            <summary>
+            Services to interface with a configured <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.TryGetDbSet(System.Type,System.String,System.Reflection.PropertyInfo@)">
+            <summary>
+            Tries to get the <see cref="T:System.Reflection.PropertyInfo"/> to access the collection.
+            </summary>
+            <param name="context">The type of the <c>DbContext</c>.</param>
+            <param name="collection">The name of the collection. This is the <c>DbSet&lt;T></c> property name.</param>
+            <param name="dbSet">The resolved <see cref="T:System.Reflection.PropertyInfo"/> for the collection.</param>
+            <returns>A value indicating whether nor not the collection on the context is valid.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.TryGetContext(System.Type[],System.String,System.Type@)">
+            <summary>
+            Tries to match the text to the context.
+            </summary>
+            <param name="eligibleTypes">The list of registered <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/> types.</param>
+            <param name="context">The name of the <c>DbContext</c>.</param>
+            <param name="dbContextType">The resolved type.</param>
+            <returns>A value indicating whether nor not the collection on the context is valid.</returns>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IDbContextAdapter.CreateQuery(Microsoft.EntityFrameworkCore.DbContext,System.Reflection.PropertyInfo)">
+            <summary>
+            Creates an <see cref="T:System.Linq.IQueryable"/> based on the context and collection. Takes an action for the
+            resolution of the context. This is typically <c>t => serviceProvider.GetService(t)</c>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="collection">The name of the collection used as the basis for the query.</param>
+            <returns>The <see cref="T:System.Linq.IQueryable"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IQueryDeserializer">
+            <summary>
+            Deserializes the query.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IQueryDeserializer.DeserializeAsync(System.Linq.IQueryable,System.IO.Stream,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Performs the deserialization.
+            </summary>
+            <param name="template">The template to use (built from a <c>DbSet</c>).</param>
+            <param name="json">The serialized query.</param>
+            <param name="logger">The logger.</param>
+            <returns>The functional <see cref="T:System.Linq.IQueryable"/>.</returns>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IQueryResultSerializer">
+            <summary>
+            Executes the query and serializes the result.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IQueryResultSerializer.SerializeAsync(System.IO.Stream,System.Linq.IQueryable,ExpressionPowerTools.Serialization.PayloadType)">
+            <summary>
+            Serializes the query result.
+            </summary>
+            <param name="response">The <see cref="T:System.IO.Stream"/> to serialize to.</param>
+            <param name="query">The <see cref="T:System.Linq.IQueryable"/> to execute.</param>
+            <param name="type">A value indicating whether a count or single should be run.</param>
+        </member>
+        <member name="T:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IRouteProcessor">
+            <summary>
+            Interface for extracting information from the route.
+            </summary>
+        </member>
+        <member name="M:ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures.IRouteProcessor.ParseRoute(Microsoft.AspNetCore.Routing.RouteValueDictionary)">
+            <summary>
+            Parse the path for segments.
+            </summary>
+            <remarks>
+            Expects it in the format <c>/root/contextName/collectionName</c>.
+            </remarks>
+            <param name="route">The route.</param>
+            <returns>A tuple with the name of the <c>DbContext</c> and the collection.</returns>
+        </member>
+    </members>
+</doc>
