@@ -116,7 +116,7 @@ namespace ExpressionPowerTools.Serialization.Tests
             QueryExprSerializer.ConfigureRules(
                 rules => rules.RuleForType<RelatedThing>());
 
-            var db = ServiceHost.SafeGetTypes()
+            var db = typeof(JsonWrapperTests).Assembly.GetTypes()
                 .Select(t => new MockType
                 {
                     Id = t.ToString(),
