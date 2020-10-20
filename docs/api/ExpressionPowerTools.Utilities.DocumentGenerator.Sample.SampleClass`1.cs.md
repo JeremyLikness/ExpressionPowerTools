@@ -45,4 +45,4 @@ Implements  [IComparable&lt;in T>](https://docs.microsoft.com/dotnet/api/system.
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/19/2020 18:50:36 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
+| 10/20/2020 22:35:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
