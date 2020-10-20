@@ -27,4 +27,4 @@ public virtual IEnumerator<Expression> GetEnumerator()
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/20/2020 22:35:06 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
+| 10/20/2020 22:39:56 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
