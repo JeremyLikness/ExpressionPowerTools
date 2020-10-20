@@ -50,6 +50,20 @@ namespace ExpressionPowerTools.Serialization.Serializers
             var argumentList = method.Arguments.Select(element =>
                 Serializer.Deserialize(element, state)).ToList();
 
+            // check to unwind expression for query host
+            var type = methodInfo.GetParameters().Select(p => p.ParameterType).FirstOrDefault();
+
+            if (type != null &&
+                type.IsGenericType &&
+                !type.IsGenericTypeDefinition &&
+                typeof(IQueryable<>).IsAssignableFrom(type.GetGenericTypeDefinition()))
+            {
+                if (argumentList[0] is ConstantExpression ce && ce.Value is Expression e)
+                {
+                    argumentList[0] = e;
+                }
+            }
+
             if (obj != null)
             {
                 return Expression.Call(obj, methodInfo, argumentList);

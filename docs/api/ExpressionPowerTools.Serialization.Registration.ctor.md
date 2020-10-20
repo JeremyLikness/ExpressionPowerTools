@@ -9,6 +9,7 @@ Initializes a new instance of the [Registration](ExpressionPowerTools.Serializat
 | Ctor | Description |
 | :-- | :-- |
 | [Registration()](#registration) | Initializes a new instance of the [Registration](ExpressionPowerTools.Serialization.Registration.cs.md) class. |
+| [static Registration()](#static-registration) | Initializes a new instance of the [Registration](ExpressionPowerTools.Serialization.Registration.cs.md) class. |
 
 ## Registration()
 
@@ -20,8 +21,18 @@ public Registration()
 
 
 
+## static Registration()
+
+Initializes a new instance of the [Registration](ExpressionPowerTools.Serialization.Registration.cs.md) class.
+
+```csharp
+public static Registration()
+```
+
+
+
 ---
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/19/2020 18:50:36 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
