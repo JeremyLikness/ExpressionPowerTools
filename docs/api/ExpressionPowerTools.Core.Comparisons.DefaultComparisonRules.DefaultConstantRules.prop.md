@@ -23,4 +23,4 @@ Must be of same type. Both must be null or not null. If the value is an expressi
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/13/2020 5:26:52 PM | (c) Copyright 2020 Jeremy Likness. | 0.9.5-beta |
+| 10/19/2020 18:50:36 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
