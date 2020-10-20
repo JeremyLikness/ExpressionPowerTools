@@ -81,6 +81,101 @@ namespace ExpressionPowerTools.Serialization.Tests
             Assert.Equal(expected, actual);
         }
 
+        public class MockType
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public List<MockMethod> Methods { get; set; } = new
+                List<MockMethod>();
+        }
+
+        public class MockMethod
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public List<MockParameter> Parameters { get; set; } =
+                new List<MockParameter>();
+        }
+
+        public class MockParameter
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+        }
+
+        public class RelatedThing
+        {
+            public string TypeName { get; set; }
+            public string MethodName { get; set; }
+            public string ParameterName { get; set; }
+        }
+
+        [Fact]
+        public void AlternateSelectManyWorks()
+        {
+            QueryExprSerializer.ConfigureRules(
+                rules => rules.RuleForType<RelatedThing>());
+
+            var db = typeof(JsonWrapperTests).Assembly.GetTypes()
+                .Select(t => new MockType
+                {
+                    Id = t.ToString(),
+                    Name = t.FullName,
+                    Methods = t.GetMethods().Select(
+                        m => new MockMethod
+                        {
+                            Id = m.ToString(),
+                            Name = m.Name,
+                            Parameters = m.GetParameters()
+                            .Select(p => new MockParameter
+                            {
+                                Id = $"{p.Position}-{p.ParameterType}",
+                                Name = p.Name,
+                            }).ToList()
+                        }).ToList()
+                });
+
+            Func<IQueryable<MockType>, IQueryable<RelatedThing>> makeQuery = q =>
+                    q
+                    .Where(t => t.Name != null)
+                    .SelectMany(
+                        t =>
+                        t.Methods, (t, m) =>
+                        new
+                        {
+                            t.Name,
+                            MethodName = m.Name,
+                            m.Parameters,
+                        })
+                    .SelectMany(
+                        tm => tm.Parameters,
+                        (tm, p) =>
+                        new RelatedThing
+                        {
+                            TypeName = tm.Name,
+                            MethodName = tm.MethodName,
+                            ParameterName = p.Name,
+                        })
+                    .OrderBy(r => r.TypeName)
+                    .ThenBy(r => r.MethodName)
+                    .ThenBy(r => r.ParameterName);
+
+            var queryToSerialize = makeQuery(new List<MockType>().AsQueryable());
+
+            var root = QueryExprSerializer.Serialize(queryToSerialize);
+            var json = wrapper.FromSerializationRoot(root);
+
+            var deserializedRoot = wrapper.ToSerializationRoot(json);
+            var newQuery = QueryExprSerializer.DeserializeQuery<RelatedThing>(deserializedRoot, db.AsQueryable());
+
+            var result = makeQuery(db.AsQueryable());
+            var expected = result.ToList();
+            var actual = newQuery.ToList();
+
+            Assert.NotNull(actual);
+            Assert.Equal(expected.Count(), actual.Count());
+        }
+
         [Fact]
         public void SerializesAndDeserializesAnonymousTypes()
         {

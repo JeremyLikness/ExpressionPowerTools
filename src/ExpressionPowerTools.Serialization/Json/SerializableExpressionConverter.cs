@@ -97,7 +97,7 @@ namespace ExpressionPowerTools.Serialization.Json
                 result = JsonSerializer.Deserialize(ref reader, type, options) as SerializableExpression;
             }
 
-            reader.Read(); // end object
+            reader.Read();
             return result;
         }
 
@@ -212,9 +212,9 @@ namespace ExpressionPowerTools.Serialization.Json
                 }
 
                 constant.Value = JsonSerializer.Deserialize(ref reader, type, options);
+                reader.Read(); // end object
             }
 
-            reader.Read(); // end object
             return constant;
         }
     }
