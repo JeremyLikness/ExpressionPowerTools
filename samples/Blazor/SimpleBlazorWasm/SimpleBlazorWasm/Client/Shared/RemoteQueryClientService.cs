@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ExpressionPowerTools.Core.Dependencies;
@@ -310,21 +311,30 @@ namespace SimpleBlazorWasm.Client.Shared
         /// <param name="query">The query.</param>
         protected void WireUpQueryData(IQueryable query)
         {
+            Func<JsonSerializerOptions> options = () => new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true,
+                WriteIndented = true,
+            };
+
             Query = ParseForDisplay(query.Expression.ToString());
             QueryTree = query.AsEnumerableExpression().ToString();
             SerializedQuery = ParseForDisplay(
-                jsonWrapper.Value.FromSerializationRoot(QueryExprSerializer.Serialize(
+                jsonWrapper.Value.FromSerializationRoot(
+                    QueryExprSerializer.Serialize(
                     query,
                     config =>
-                    config.CompressExpressionTree(true).CompressTypes(false))), true);
+                    config.CompressExpressionTree(true).CompressTypes(false)), options()), true);
             CompiledQuery = ParseForDisplay(
                 new TreeCompressionVisitor()
                 .EvalAndCompress(query.Expression).ToString());
             TypeCompressedQuery = ParseForDisplay(
-                jsonWrapper.Value.FromSerializationRoot(QueryExprSerializer.Serialize(
+                jsonWrapper.Value.FromSerializationRoot(
+                    QueryExprSerializer.Serialize(
                     query,
                     config =>
-                        config.CompressExpressionTree(true).CompressTypes(true))), true);
+                        config.CompressExpressionTree(true).CompressTypes(true)), options()), true);
         }
 
         /// <summary>
@@ -335,16 +345,11 @@ namespace SimpleBlazorWasm.Client.Shared
         /// <returns>The parsed text.</returns>
         private string ParseForDisplay(string query, bool json = false)
         {
-            query = query.Replace(@"\u0060", "`")
-                .Replace(@"\u00601", "`")
-                .Replace(@"\u00602", "`");
-
             if (json)
             {
-                var jsonParts = query.Split(":{");
-                var firstSplit = string.Join(":{\r\n", jsonParts);
-                jsonParts = firstSplit.Split("\":[");
-                return string.Join("\":[\r\n", jsonParts);
+                return query.Replace(@"\u0060", "`")
+                    .Replace(@"\u00601", "`")
+                    .Replace(@"\u00602", "`");
             }
 
             var parts = query.Split(")");
