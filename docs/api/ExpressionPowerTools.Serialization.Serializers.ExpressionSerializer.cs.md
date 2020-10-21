@@ -34,4 +34,4 @@ The constructor for this class scans the assembly for serializers tagged with [E
 
 | Generated | Copyright | Version |
 | :-- | :-: | --: |
-| 10/20/2020 22:39:56 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
+| 10/21/2020 18:58:20 | (c) Copyright 2020 Jeremy Likness. | 0.9.7-beta |
