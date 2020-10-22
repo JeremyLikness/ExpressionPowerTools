@@ -1,0 +1,6 @@
+﻿@typeparam TViewModel
+@implements IDisposable
+
+<CascadingValue Value="@VM" IsFixed="true">
+    @ChildContent
+</CascadingValue>

@@ -1,0 +1,5 @@
+# SQLite database
+*.db
+
+# Logs
+*.log

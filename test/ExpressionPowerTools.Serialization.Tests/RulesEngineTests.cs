@@ -261,6 +261,82 @@ namespace ExpressionPowerTools.Serialization.Tests
             new Registration().AfterRegistered();
         }
 
+        [Fact]
+        public void GivenOrdinaryCustomRulesAppliedThenRulesAreEvaluated()
+        {
+            var ruleOne = false;
+            var ruleTwo = false;
+            target.AddCustomRule(member => ruleOne = true, false);
+            target.AddCustomRule(member => ruleTwo = true, false);
+            target.MemberIsAllowed(GenericCtor);
+            Assert.True(ruleOne && ruleTwo);
+            target.ResetToDefaults();
+        }
+
+        [Fact]
+        public void OrdinaryCustomRulesTakePrecedenceWhenFalse()
+        {
+            target.RuleForType(GenericType).Allow();
+            target.AddCustomRule(member => false, false);
+            Assert.False(target.MemberIsAllowed(GenericCtor));
+            target.ResetToDefaults();
+        }
+
+        [Fact]
+        public void AllOrdinaryCustomRulesMustBeTrue()
+        {
+            target.AddCustomRule(member => true, false);
+            target.AddCustomRule(member => false, false);
+            var anonymous = new { Id = 1 };
+            var memberInfo = anonymous.GetType().GetConstructors().Single();
+            Assert.False(target.MemberIsAllowed(memberInfo));
+            target.ResetToDefaults();
+        }
+
+        [Fact]
+        public void GivenOverridingCustomRulesAppliedThenRulesAreEvaluated()
+        {
+            var ruleOne = false;
+            var ruleTwo = false;
+            target.AddCustomRule(member => ruleOne = true, true);
+            target.AddCustomRule(member => ruleTwo = true, true);
+            target.MemberIsAllowed(GenericCtor);
+            Assert.True(ruleOne && ruleTwo);
+            target.ResetToDefaults();
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void OrdinaryCustomRulesTakePrecedenceWhenTrueOrFalse(bool allowed)
+        {
+            // set up the opposite rule to show precedence
+            if (allowed)
+            {
+                target.RuleForType(GenericType).Deny();
+            }
+            else
+            {
+                target.RuleForType(GenericType).Allow();
+            }
+
+            target.AddCustomRule(member => allowed, true);
+            Assert.Equal(allowed, target.MemberIsAllowed(GenericCtor));
+            target.ResetToDefaults();
+        }
+
+        [Fact]
+        public void AllOverridingCustomRulesMustBeTrue()
+        {
+            target.AddCustomRule(member => true, true);
+            target.AddCustomRule(member => false, true);
+            var anonymous = new { Id = 1 };
+            var memberInfo = anonymous.GetType().GetConstructors().Single();
+            Assert.False(target.MemberIsAllowed(memberInfo));
+            target.ResetToDefaults();
+        }
+
+
         [Theory]
         [InlineData(true)]
         [InlineData(false)]

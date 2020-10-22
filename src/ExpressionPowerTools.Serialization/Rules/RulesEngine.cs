@@ -56,6 +56,17 @@ namespace ExpressionPowerTools.Serialization.Rules
             = new ConcurrentDictionary<string, bool>();
 
         /// <summary>
+        /// The list of custom rules registered.
+        /// </summary>
+        private readonly ConcurrentDictionary<bool, List<Predicate<MemberInfo>>> customRules
+            = new ConcurrentDictionary<bool, List<Predicate<MemberInfo>>>(
+            new KeyValuePair<bool, List<Predicate<MemberInfo>>>[]
+            {
+                new KeyValuePair<bool, List<Predicate<MemberInfo>>>(false, new List<Predicate<MemberInfo>>()),
+                new KeyValuePair<bool, List<Predicate<MemberInfo>>>(true, new List<Predicate<MemberInfo>>()),
+            });
+
+        /// <summary>
         /// Default permissions.
         /// </summary>
         /// <remarks>
@@ -110,6 +121,16 @@ namespace ExpressionPowerTools.Serialization.Rules
         }
 
         /// <summary>
+        /// Add a custom rule to the engine.
+        /// </summary>
+        /// <param name="rule">The rule to execute.</param>
+        /// <param name="isOverride">A value indicating whether this rule overrides other rules.</param>
+        public void AddCustomRule(Predicate<MemberInfo> rule, bool isOverride)
+        {
+            customRules[isOverride].Add(rule);
+        }
+
+        /// <summary>
         /// Reset to default rules.
         /// </summary>
         public void ResetToDefaults()
@@ -141,6 +162,19 @@ namespace ExpressionPowerTools.Serialization.Rules
             if (member == null)
             {
                 return true;
+            }
+
+            // Overriding custom rules short circuit other rules
+            if (customRules[true].Count > 0)
+            {
+                return customRules[true].All(r => r.Invoke(member) == true);
+            }
+
+            // Ordinary custom rules only short circuit when false
+            if (customRules[false].Count > 0 &&
+                customRules[false].Any(r => r.Invoke(member) == false))
+            {
+                return false;
             }
 
             if ((member is Type typeInfo && typeInfo.IsAnonymousType())
@@ -216,9 +250,10 @@ namespace ExpressionPowerTools.Serialization.Rules
         }
 
         /// <summary>
-        /// Clears the ruleset.
+        /// Clears the ruleset. Although this returns the existing rules for
+        /// restoration, it does not provide a way to restore custom rules.
         /// </summary>
-        /// <returns>The rule set.</returns>
+        /// <returns>The rule set for restoration.</returns>
         public IList<(string rule, bool authorized)> Reset()
         {
             Monitor.Enter(objLock);
@@ -235,6 +270,11 @@ namespace ExpressionPowerTools.Serialization.Rules
             {
                 var result = rules.Select(r => (r.Key, r.Value)).ToList();
                 rules.Clear();
+                customRules.Clear();
+                var customRuleSet = new List<Predicate<MemberInfo>>();
+                var overridingRuleSet = new List<Predicate<MemberInfo>>();
+                customRules.AddOrUpdate(false, customRuleSet, (_, __) => customRuleSet);
+                customRules.AddOrUpdate(true, overridingRuleSet, (_, __) => overridingRuleSet);
                 return result;
             }
             catch

@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using ExpressionPowerTools.Core.Contract;
@@ -97,6 +98,9 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public async Task Invoke(HttpContext httpContext, IServiceProvider provider)
         {
+            // force initialization of the auth provider, if configured
+            var principal = provider.GetService(typeof(IPrincipal));
+
             int errorCode = default;
             string errorMessage = string.Empty;
             Exception capturedException = null;
@@ -188,6 +192,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
             }
 
             var handle = new CollectionHandle(dbContextType, dbSet);
+            httpContext.Items.Add(nameof(CollectionHandle), handle);
             await ProcessQueryAsync(httpContext, handle, provider);
 
             return true;

@@ -11,7 +11,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
     /// <summary>
     /// A handle that points to a context type and the property for the collection.
     /// </summary>
-    public class CollectionHandle
+    public class CollectionHandle : IEquatable<CollectionHandle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CollectionHandle"/> class with
@@ -61,5 +61,47 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware
         /// Gets the <see cref="PropertyInfo"/> of the collection.
         /// </summary>
         public PropertyInfo Collection { get; private set; }
+
+        /// <summary>
+        /// String view of collection handle.
+        /// </summary>
+        /// <returns>The string representation.</returns>
+        public override string ToString()
+        {
+            if (DbContextType == null)
+            {
+                return "<empty>";
+            }
+
+            if (Collection == null)
+            {
+                return $"{DbContextType.Name}:??";
+            }
+
+            var type = Collection.PropertyType.GenericTypeArguments[0];
+            return $"${DbContextType.Name}: {Collection.Name}<{type}>";
+        }
+
+        /// <summary>
+        /// Hash code for comparisons.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode() => HashCode.Combine(DbContextType, Collection);
+
+        /// <summary>
+        /// Determine equality in collection handles.
+        /// </summary>
+        /// <param name="other">The <see cref="CollectionHandle"/> to compare to.</param>
+        /// <returns>A value indicating whether the two are equal.</returns>
+        public bool Equals(CollectionHandle other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            return DbContextType == other.DbContextType &&
+                ReferenceEquals(Collection, other.Collection);
+        }
     }
 }

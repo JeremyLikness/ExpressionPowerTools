@@ -1,0 +1,69 @@
+﻿@using System.Timers
+@implements IDisposable
+
+@if (show)
+{
+    <div class="row">
+        <div class="col-12 alert alert-info">Loading... 🔃</div>
+    </div>
+}
+@code {
+    private Timer timer = null;
+
+    private bool show = false;
+    private bool loading = false;
+
+    [Parameter]
+    public int DelayMilliseconds { get; set; } = 300;
+
+    [Parameter]
+    public bool Loading
+    {
+        get => loading;
+        set => ToggleLoad(value);
+    }
+
+    public void Dispose() => UnhookTimer();
+
+    private void ToggleLoad(bool loadingFlag)
+    {
+        if (loadingFlag == loading)
+        {
+            return;
+        }
+
+        if (loadingFlag == false)
+        {
+            UnhookTimer();
+            loading = show = false;
+            return;
+        }
+
+        if (timer != null)
+        {
+            UnhookTimer();
+        }
+
+        loading = true;
+        timer = new Timer(DelayMilliseconds);
+        timer.Elapsed += TimerElapsed;
+        timer.Enabled = true;
+    }
+
+    private void TimerElapsed(object sender, ElapsedEventArgs arg)
+    {
+        show = true;
+        InvokeAsync(() => StateHasChanged());
+        UnhookTimer();
+    }
+
+    private void UnhookTimer()
+    {
+        if (timer != null)
+        {
+            timer.Elapsed -= TimerElapsed;
+            timer.Dispose();
+            timer = null;
+        }
+    }
+}

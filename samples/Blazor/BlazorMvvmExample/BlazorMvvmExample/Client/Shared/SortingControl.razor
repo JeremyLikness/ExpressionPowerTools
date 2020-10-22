@@ -1,0 +1,62 @@
+﻿<MVVMWrapper VM="@VM" TViewModel="SortingViewModel">
+    <StringCommand  TargetCommand="VM.SortCommand"
+                    TargetParameter="@ColumnName"
+                    EnabledClasses="clickable btn-link"
+                    DisabledClasses=""
+                    ElementRef="() => sortSpan">
+        <span @ref="sortSpan">@Text @SortIndicator</span>
+    </StringCommand>
+    <StringCommand  TargetCommand="VM.ThenByCommand"
+                    TargetParameter="@ColumnName"
+                    EnabledClasses="clickable btn-link"
+                    DisabledClasses="hidden"
+                    ElementRef="() => thenBySpan">
+        <span @ref="thenBySpan" class="hidden" alt="Then By" title="Then By">[+]</span>        
+    </StringCommand>
+    <StringCommand TargetCommand="VM.ClearCommand"
+                   TargetParameter="@ColumnName"
+                   EnabledClasses="clickable btn-link"
+                   DisabledClasses="hidden"
+                   ElementRef="() => clearSpan">
+        <span @ref="clearSpan" class="hidden" alt="Clear Then By" title="Clear Then By">
+            [-]
+        </span>
+    </StringCommand>
+</MVVMWrapper>
+@code {
+    [Parameter]
+    public SortingViewModel VM { get; set; }
+
+    [Parameter]
+    public string ColumnName { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    private ElementReference sortSpan;
+    private ElementReference thenBySpan;
+    private ElementReference clearSpan;
+
+    private string SortIndicator
+    {
+        get
+        {
+            if (VM.SortColumn == ColumnName)
+            {
+                return VM.SortAscending ? "🔼" : "🔽";
+            }
+
+            if (VM.ThenByColumn == ColumnName)
+            {
+                return VM.ThenByAscending ? "🔼" : "🔽";
+            }
+
+            return string.Empty;
+        }
+    }
+
+    private void ClearSecondary()
+    {
+        VM.ClearSecondarySort();
+    }
+}

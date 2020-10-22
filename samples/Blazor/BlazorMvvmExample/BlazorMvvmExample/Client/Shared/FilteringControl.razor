@@ -1,0 +1,11 @@
+﻿<MVVMWrapper VM="@FilteringVm" TViewModel="FilteringViewModel">
+<div class="row">
+    <div class="col-12">
+        <input type="checkbox" @bind-value="FilteringVm.ShowFilter" /> Show Filter
+    </div>
+</div>
+</MVVMWrapper>
+@code {
+    [Parameter]
+    public FilteringViewModel FilteringVm { get; set; }
+}

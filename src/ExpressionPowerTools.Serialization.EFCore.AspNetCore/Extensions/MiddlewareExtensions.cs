@@ -2,14 +2,20 @@
 // Licensed under the MIT License. See LICENSE in the repository root for license information.
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using ExpressionPowerTools.Core.Contract;
+using ExpressionPowerTools.Core.Dependencies;
+using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures;
 using ExpressionPowerTools.Serialization.Rules;
 using ExpressionPowerTools.Serialization.Signatures;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Patterns;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
 {
@@ -62,6 +68,28 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
         public const string DefaultPattern = "/efcore/{context}/{collection}";
 
         /// <summary>
+        /// Configure services for dependency injection.
+        /// </summary>
+        /// <remarks>
+        /// The <see cref="IPrincipal"/> setup is used to pass the DI context to the
+        /// <see cref="IAuthorizationRules"/> service for context resolution.
+        /// </remarks>
+        /// <param name="sc">The service collection to extend.</param>
+        /// <returns>The service collection.</returns>
+        public static IServiceCollection AddExpressionPowerToolsEFCoreAuth(this IServiceCollection sc)
+        {
+            sc.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            sc.AddTransient<IPrincipal>(
+                sp =>
+                {
+                    ServiceHost.GetService<IAuthorizationRules>().SetContextGetter(
+                        () => sp.GetService<IHttpContextAccessor>().HttpContext);
+                    return sp.GetService<IHttpContextAccessor>().HttpContext.User;
+                });
+            return sc;
+        }
+
+        /// <summary>
         /// Map a route and allow two <see cref="DbContext"/> instances.
         /// </summary>
         /// <typeparam name="T1Context">The type of the first <see cref="DbContext"/>.</typeparam>
@@ -71,13 +99,15 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
         /// <param name="rules">The <see cref="IRulesConfiguration"/> to configure serialization rules.</param>
         /// <param name="noDefaultRules">Determines whether the default rule set should be applied.</param>
         /// <param name="options">The <see cref="IConfigurationBuilder"/> to configure options.</param>
+        /// <param name="auth">The setup for authorization.</param>
         /// <returns>The <see cref="IEndpointConventionBuilder"/>.</returns>
         public static IEndpointConventionBuilder MapPowerToolsEFCore<T1Context, T2Context>(
             this IEndpointRouteBuilder endpointRouteBuilder,
             string pattern = DefaultPattern,
             Action<IRulesConfiguration> rules = null,
             bool noDefaultRules = false,
-            Action<IConfigurationBuilder> options = null)
+            Action<IConfigurationBuilder> options = null,
+            Action<IAuthorizationRulesBuilder> auth = null)
             where T1Context : DbContext
             where T2Context : DbContext => MapPowerToolsEFCore(
                 endpointRouteBuilder,
@@ -85,7 +115,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
                 new Type[] { typeof(T1Context), typeof(T2Context) },
                 rules,
                 noDefaultRules,
-                options);
+                options,
+                auth);
 
         /// <summary>
         /// Map a route and allow a <see cref="DbContext"/>.
@@ -96,20 +127,23 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
         /// <param name="rules">The <see cref="IRulesConfiguration"/> to configure serialization rules.</param>
         /// <param name="noDefaultRules">Determines whether the default rule set should be applied.</param>
         /// <param name="options">The <see cref="IConfigurationBuilder"/> to configure options.</param>
+        /// <param name="auth">The setup for authorization.</param>
         /// <returns>The <see cref="IEndpointConventionBuilder"/>.</returns>
         public static IEndpointConventionBuilder MapPowerToolsEFCore<TContext>(
             this IEndpointRouteBuilder endpointRouteBuilder,
             string pattern = DefaultPattern,
             Action<IRulesConfiguration> rules = null,
             bool noDefaultRules = false,
-            Action<IConfigurationBuilder> options = null)
+            Action<IConfigurationBuilder> options = null,
+            Action<IAuthorizationRulesBuilder> auth = null)
             where TContext : DbContext => MapPowerToolsEFCore(
                 endpointRouteBuilder,
                 RoutePatternFactory.Parse(pattern),
                 new Type[] { typeof(TContext) },
                 rules,
                 noDefaultRules,
-                options);
+                options,
+                auth);
 
         /// <summary>
         /// Main configuration method for Power Tools EF Core middleware.
@@ -120,6 +154,7 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
         /// <param name="rules">The <see cref="IRulesConfiguration"/> to configure serialization rules.</param>
         /// <param name="noDefaultRules">Determines whether the default rule set should be applied.</param>
         /// <param name="options">The <see cref="IConfigurationBuilder"/> to configure options.</param>
+        /// <param name="auth">The setup for authorization.</param>
         /// <returns>The <see cref="IEndpointConventionBuilder"/>.</returns>
         public static IEndpointConventionBuilder MapPowerToolsEFCore(
             this IEndpointRouteBuilder endpointRouteBuilder,
@@ -127,7 +162,8 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
             Type[] dbContextTypes,
             Action<IRulesConfiguration> rules = null,
             bool noDefaultRules = false,
-            Action<IConfigurationBuilder> options = null)
+            Action<IConfigurationBuilder> options = null,
+            Action<IAuthorizationRulesBuilder> auth = null)
         {
             Ensure.NotNull(() => endpointRouteBuilder);
             Ensure.NotNull(() => pattern);
@@ -171,6 +207,28 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore.Extensions
             if (options != null)
             {
                 QueryExprSerializer.ConfigureDefaults(options);
+            }
+
+            if (auth != null)
+            {
+                var authRules = ServiceHost.GetService<IAuthorizationRules>();
+                auth(ServiceHost.GetService<IAuthorizationRulesBuilder>());
+                if (rules == null)
+                {
+                    rules = r => r.CustomRule(m => authRules.IsAuthorized());
+                }
+                else
+                {
+                    var oldRules = rules;
+
+                    void ComposedRule(IRulesConfiguration r)
+                    {
+                        r.CustomRule(m => authRules.IsAuthorized());
+                        oldRules(r);
+                    }
+
+                    rules = ComposedRule;
+                }
             }
 
             if (rules != null || noDefaultRules == true)

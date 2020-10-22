@@ -1,0 +1,178 @@
+﻿@page "/"
+@page "/{Page:int}"
+@inject ContactsViewModel VM
+@inject NavigationManager Navigation
+@implements IDisposable
+@using System.ComponentModel 
+
+<MVVMWrapper @bind-VM="@VM" TViewModel="ContactsViewModel">
+    <h1>Contacts</h1>
+    <div class="container-fluid contacts-grid">
+        <div class="row">
+            <div class="col">
+                <input type="checkbox" @bind-value="@VM.Preview" /> Preview (Name only)
+            </div>
+        </div>
+        @if (VM.Contacts != null && VM.Contacts.Count > 0)
+        {
+            <PagingControl PagingVm="@VM.Pager" />
+        }
+        <div class="row">&nbsp;</div>
+        <FilteringControl FilteringVm="@VM.FilterVm"/>
+        <div class="row">&nbsp;</div>
+        <div class="row contact-header">
+            <div class="col">
+                <SortingControl ColumnName="@(nameof(Contact.LastName))"
+                                Text="Last Name"
+                                VM="@VM.SortingVm" />
+            </div>
+            <div class="col">
+                <SortingControl ColumnName="@(nameof(Contact.FirstName))"
+                                Text="First Name"
+                                VM="@VM.SortingVm" />
+            </div>
+            @if (!VM.Preview)
+            {
+                <div class="col">
+                    <SortingControl ColumnName="@(nameof(Contact.Phone))"
+                                    Text="📞 Phone"
+                                    VM="@VM.SortingVm" />
+                </div>
+                <div class="col">
+                    <SortingControl ColumnName="@(nameof(Contact.Street))"
+                                    Text="🏠 Street Address"
+                                    VM="@VM.SortingVm" />
+                </div>
+                <div class="col">
+                    <SortingControl ColumnName="@(nameof(Contact.City))"
+                                    Text="🏙 City"
+                                    VM="@VM.SortingVm" />
+                </div>
+                <div class="col">
+                    <SortingControl ColumnName="@(nameof(Contact.State))"
+                                    Text="State"
+                                    VM="@VM.SortingVm" />
+                </div>
+                <div class="col">
+                    <SortingControl ColumnName="@(nameof(Contact.ZipCode))"
+                                    Text="🗺 Zip Code"
+                                    VM="@VM.SortingVm" />
+                </div>
+            }
+        </div>
+
+        <LoadingControl Loading="VM.Loading" />
+
+        @if (!string.IsNullOrWhiteSpace(VM.ErrorMessage))
+        {
+            <div class="row">
+                <div class="col-12 alert alert-danger">@VM.ErrorMessage</div>
+            </div>
+        }
+
+        @if (VM.Contacts != null && VM.Contacts.Count == 0)
+        {
+            <div class="row">
+                <div class="col-12 alert alert-warning">
+                    No contacts were found for the selected criteria.
+                </div>
+            </div>
+        }
+
+        @if (VM.Contacts != null && VM.Contacts.Count > 0)
+        {
+            @foreach (var contact in VM.Contacts)
+            {
+                <div class="row contact-detail" @key="contact">
+                    <div class="col">@contact.LastName</div>
+                    <div class="col">@contact.FirstName</div>
+                    @if (!VM.Preview)
+                    {
+                        <div class="col">@contact.Phone</div>
+                        <div class="col">@contact.Street</div>
+                        <div class="col">@contact.City</div>
+                        <div class="col">@contact.State</div>
+                        <div class="col">@contact.ZipCode</div>
+                    }
+                </div>
+            }
+            <PagingControl PagingVm="@VM.Pager" />
+        }
+    </div>
+
+</MVVMWrapper>
+
+@code {
+    /// <summary>
+    /// Last page navigated.
+    /// </summary>
+    private int _lastPage = -1;
+
+    /// <summary>
+    /// Has the page been hooked for navigation?
+    /// </summary>
+    private bool pageHooked = false;
+
+    /// <summary>
+    /// Current page.
+    /// </summary>
+    [Parameter]
+    public int Page
+    {
+        get => VM.Pager.Page;
+        set
+        {
+            if (_lastPage != value)
+            {
+                _lastPage = value;
+                VM.Pager.Page = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Implement <see cref="IDisposable"/>.
+    /// </summary>
+    public void Dispose()
+    {
+        if (pageHooked)
+        {
+            VM.Pager.PropertyChanged -= PageChangedHandler;
+            pageHooked = false;
+        }
+    }
+
+    /// <summary>
+    /// When the component is initialized.
+    /// </summary>
+    /// <returns>The asynchronous <see cref="Task"/>.</returns>
+    protected override Task OnInitializedAsync()
+    {
+        if (Page < 1)
+        {
+            Navigation.NavigateTo("/1");
+        }
+
+        if (VM.Pager.PageCount > 0 && Page > VM.Pager.PageCount)
+        {
+            Navigation.NavigateTo($"/{VM.Pager.PageCount}");
+        }
+
+        if (pageHooked == false)
+        {
+            pageHooked = true;
+            VM.Pager.PropertyChanged += PageChangedHandler;
+        }
+
+        return base.OnInitializedAsync();
+    }
+
+    private void PageChangedHandler(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(PagingViewModel.Page) &&
+            VM.Pager.Page != _lastPage)
+        {
+            Navigation.NavigateTo($"/{VM.Pager.Page}");
+        }
+    }
+}

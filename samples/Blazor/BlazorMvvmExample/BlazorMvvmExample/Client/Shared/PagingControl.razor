@@ -1,0 +1,50 @@
+﻿<MVVMWrapper @bind-VM="@PagingVm" TViewModel="PagingViewModel">
+    <div class="row">
+        <div class="col-12">
+            Page @PagingVm.Page of @PagingVm.PageCount: showing @PagingVm.PageItems of
+            @PagingVm.TotalItemCount items.
+            <SimpleCommand DisabledClasses=""
+                           ElementRef="() => prevLink"
+                           EnabledClasses="btn-link clickable"
+                           TargetCommand="PagingVm.PagingPrevCommand">
+                <span @ref="prevLink">Previous</span>
+            </SimpleCommand>
+            <SimpleCommand DisabledClasses=""
+                           ElementRef="() => nextLink"
+                           EnabledClasses="btn-link clickable"
+                           TargetCommand="PagingVm.PagingNextCommand">
+                <span @ref="nextLink">Next</span>
+            </SimpleCommand>
+            Page Size:
+            <button class="btn btn-link"
+                    @onclick="() => PagingVm.PageSize=10"
+                    disabled="@(PagingVm.Disabled || PagingVm.PageSize == 10)">
+                10
+            </button>
+            <button class="btn btn-link"
+                    @onclick="() => PagingVm.PageSize=20"
+                    disabled="@(PagingVm.Disabled || PagingVm.PageSize == 20)">
+                20
+            </button>
+            <button class="btn btn-link"
+                    @onclick="() => PagingVm.PageSize=50"
+                    disabled="@(PagingVm.Disabled || PagingVm.PageSize == 50)">
+                50
+            </button>
+        </div>
+    </div>
+</MVVMWrapper>
+
+@code {
+    /// <summary>
+    /// Gets the paging view model
+    /// </summary>
+    [Parameter]
+    public PagingViewModel PagingVm { get; set; }
+
+    private string GetClasses(bool canExecute) =>
+        canExecute ? "btn btn-link" : "disabled";
+
+    private ElementReference prevLink;
+    private ElementReference nextLink;
+}

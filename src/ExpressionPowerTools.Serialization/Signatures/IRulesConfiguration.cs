@@ -71,5 +71,18 @@ namespace ExpressionPowerTools.Serialization.Signatures
         /// </summary>
         /// <returns>The chainable <see cref="IRulesConfiguration"/>.</returns>
         IRulesConfiguration DenyAnonymousTypes();
+
+        /// <summary>
+        /// Adds a predicate for custom evaluation.
+        /// </summary>
+        /// <remarks>
+        /// If false, the access is unauthorized. If true, the member is evaluated
+        /// based on the override flag. If override is true, the member is allowed.
+        /// If override is false, the remaining rules are evaluated.
+        /// </remarks>
+        /// <param name="allowed">A predicate that returns true if allowed.</param>
+        /// <param name="isOverride">A value indicating whether this rule overrides other rules.</param>
+        /// <returns>The <see cref="IRulesConfiguration"/>.</returns>
+        IRulesConfiguration CustomRule(Predicate<MemberInfo> allowed, bool isOverride = false);
     }
 }

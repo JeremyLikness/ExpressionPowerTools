@@ -8,7 +8,32 @@
 
 ## 0.9 Beta
 
+- [0.9.8-beta](#098-beta)
+- [0.9.7-beta](#097-beta)
+- [0.9.6-beta](#096-beta)
 - [0.9.5-beta](#095-beta)
+
+### 0.9.8-beta
+
+**Serialization**
+
+- Added custom rules, both "ordinary" that act as gateways (short circuit on failure, otherwise run other rules) and overrides that immediately set the result
+
+**Samples**
+
+- Added MVVM example that shows how to use a query pattern to test and apply queries
+
+### 0.9.7-beta
+
+**Serialization**
+
+- Fixed bug when attaching query root: expressions should be directly applied and not wrapped in constant expressions 
+
+### 0.9.6-beta
+
+**Serialization**
+
+- Fixed a bug when dealing with `null` constant expressions
 
 ### 0.9.5-beta 
 

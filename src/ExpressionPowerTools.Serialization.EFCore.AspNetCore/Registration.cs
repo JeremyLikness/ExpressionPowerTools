@@ -5,9 +5,12 @@ using System;
 using System.Text.Json;
 using ExpressionPowerTools.Core.Dependencies;
 using ExpressionPowerTools.Core.Signatures;
+using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Authorization;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Middleware;
 using ExpressionPowerTools.Serialization.EFCore.AspNetCore.Signatures;
 using ExpressionPowerTools.Serialization.Signatures;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 
 namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
 {
@@ -50,6 +53,9 @@ namespace ExpressionPowerTools.Serialization.EFCore.AspNetCore
                     IgnoreNullValues = true,
                     IgnoreReadOnlyProperties = true,
                 });
+            var authorizationRules = new AuthorizationRules();
+            registration.RegisterSingleton<IAuthorizationRules>(authorizationRules);
+            registration.RegisterSingleton<IAuthorizationRulesBuilder>(authorizationRules);
         }
     }
 }

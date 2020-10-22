@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMvvmExample.Server", "BlazorMvvmExample\Server\BlazorMvvmExample.Server.csproj", "{5A373CA9-E1E2-4646-ADA6-3106A4B97259}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMvvmExample.Client", "BlazorMvvmExample\Client\BlazorMvvmExample.Client.csproj", "{06BDD5C2-9ADB-4D8C-96F7-1A60516C0E7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMvvmExample.Shared", "BlazorMvvmExample\Shared\BlazorMvvmExample.Shared.csproj", "{0D5C375B-5CB8-40E7-B7C5-02AEF769E6F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExpressionPowerTools", "ExpressionPowerTools", "{8C0A711B-20B8-4A2D-BB07-DA45BA230943}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Core", "..\..\..\src\ExpressionPowerTools.Core\ExpressionPowerTools.Core.csproj", "{BBC2A5D8-86FA-44EE-9A27-FCA36D490CC1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization", "..\..\..\src\ExpressionPowerTools.Serialization\ExpressionPowerTools.Serialization.csproj", "{F43DE9B1-83D7-4040-958B-9A86F23923EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.AspNetCore", "..\..\..\src\ExpressionPowerTools.Serialization.EFCore.AspNetCore\ExpressionPowerTools.Serialization.EFCore.AspNetCore.csproj", "{FBE616D5-C46E-45CE-954D-2EE3E900888F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionPowerTools.Serialization.EFCore.Http", "..\..\..\src\ExpressionPowerTools.Serialization.EFCore.Http\ExpressionPowerTools.Serialization.EFCore.Http.csproj", "{7990F540-89F8-46C7-837D-1FD0FBF4FB7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DD40850-6800-4E97-9A82-C84AB4DE2ADE}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2F771B28-CC48-4A31-87DD-2C9FDA38F1AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMVVMExample.Shared.Tests", "BlazorMVVMExample.Shared.Tests\BlazorMVVMExample.Shared.Tests.csproj", "{8C91C7BD-1886-47AA-9951-FC804402050D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A373CA9-E1E2-4646-ADA6-3106A4B97259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A373CA9-E1E2-4646-ADA6-3106A4B97259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A373CA9-E1E2-4646-ADA6-3106A4B97259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A373CA9-E1E2-4646-ADA6-3106A4B97259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06BDD5C2-9ADB-4D8C-96F7-1A60516C0E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06BDD5C2-9ADB-4D8C-96F7-1A60516C0E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06BDD5C2-9ADB-4D8C-96F7-1A60516C0E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06BDD5C2-9ADB-4D8C-96F7-1A60516C0E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D5C375B-5CB8-40E7-B7C5-02AEF769E6F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D5C375B-5CB8-40E7-B7C5-02AEF769E6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D5C375B-5CB8-40E7-B7C5-02AEF769E6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D5C375B-5CB8-40E7-B7C5-02AEF769E6F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC2A5D8-86FA-44EE-9A27-FCA36D490CC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC2A5D8-86FA-44EE-9A27-FCA36D490CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC2A5D8-86FA-44EE-9A27-FCA36D490CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC2A5D8-86FA-44EE-9A27-FCA36D490CC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43DE9B1-83D7-4040-958B-9A86F23923EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43DE9B1-83D7-4040-958B-9A86F23923EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43DE9B1-83D7-4040-958B-9A86F23923EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43DE9B1-83D7-4040-958B-9A86F23923EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE616D5-C46E-45CE-954D-2EE3E900888F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE616D5-C46E-45CE-954D-2EE3E900888F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE616D5-C46E-45CE-954D-2EE3E900888F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE616D5-C46E-45CE-954D-2EE3E900888F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7990F540-89F8-46C7-837D-1FD0FBF4FB7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7990F540-89F8-46C7-837D-1FD0FBF4FB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7990F540-89F8-46C7-837D-1FD0FBF4FB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7990F540-89F8-46C7-837D-1FD0FBF4FB7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C91C7BD-1886-47AA-9951-FC804402050D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C91C7BD-1886-47AA-9951-FC804402050D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C91C7BD-1886-47AA-9951-FC804402050D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C91C7BD-1886-47AA-9951-FC804402050D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BBC2A5D8-86FA-44EE-9A27-FCA36D490CC1} = {8C0A711B-20B8-4A2D-BB07-DA45BA230943}
+		{F43DE9B1-83D7-4040-958B-9A86F23923EF} = {8C0A711B-20B8-4A2D-BB07-DA45BA230943}
+		{FBE616D5-C46E-45CE-954D-2EE3E900888F} = {8C0A711B-20B8-4A2D-BB07-DA45BA230943}
+		{7990F540-89F8-46C7-837D-1FD0FBF4FB7B} = {8C0A711B-20B8-4A2D-BB07-DA45BA230943}
+		{8C91C7BD-1886-47AA-9951-FC804402050D} = {2F771B28-CC48-4A31-87DD-2C9FDA38F1AA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE026CCC-8087-4B17-A6CC-1030AB3B6578}
+	EndGlobalSection
+EndGlobal

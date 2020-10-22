@@ -1,0 +1,53 @@
+﻿@if (Show)
+{
+    <CommandWrapper Command="TargetCommand"
+                    CommandParameter="null"
+                    TCommand="IMvvmCommand<object>"
+                    TCommandType="object"
+                    Target="ElementRef"
+                    EnabledClasses="@EnabledClasses"
+                    DisabledClasses="@DisabledClasses" />
+}
+@ChildContent
+@code {
+    /// <summary>
+    /// The simple command.
+    /// </summary>
+    [Parameter]
+    public IMvvmCommand<object> TargetCommand { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the command wrapper should render.
+    /// </summary>
+    public bool Show { get; private set; } = false;
+
+    /// <summary>
+    /// The HTML element being managed by the command.
+    /// </summary>
+    [Parameter]
+    public Func<ElementReference> ElementRef { get; set; }
+
+    /// <summary>
+    /// Gets or sets the classes to use when enabled.
+    /// </summary>
+    [Parameter]
+    public string EnabledClasses { get; set; }
+
+    /// <summary>
+    /// Gets to sets the classes to use when disabled.
+    /// </summary>
+    [Parameter]
+    public string DisabledClasses { get; set; }
+
+    /// <summary>
+    /// Gets or sets the child content.
+    /// </summary>
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Show = true;
+        base.OnAfterRender(firstRender);
+    }
+}
