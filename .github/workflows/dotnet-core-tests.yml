@@ -13,7 +13,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '#skip_ci')"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.4
     - name: Fetch
       run: git fetch --unshallow
     - name: Setup .NET Core
